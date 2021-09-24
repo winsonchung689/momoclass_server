@@ -3,6 +3,7 @@ package com.xue.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.IconUIResource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,6 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-
 	//	获取图片
 	@RequestMapping("/getphoto")
 	@ResponseBody
@@ -36,7 +36,9 @@ public class LoginController {
 	@RequestMapping("/getcomment")
 	@ResponseBody
 	public String getComment(){
+		System.out.printf("start get comment");
 		String comment = loginService.getMessage();
+		System.out.printf("res:" + comment);
 		return comment;
 
 	}
@@ -44,8 +46,18 @@ public class LoginController {
 	//	推送
 	@RequestMapping("/push")
 	@ResponseBody
-	public String push(User user){
-		loginService.push(user);
+	public String push(String student_name,String photo,String comment,String create_time ){
+		System.out.printf("start push comment" + comment+student_name+photo+create_time);
+		try {
+			User user =new User();
+			user.setComment(comment);
+			user.setPhoto(photo);
+			user.setStudent_name(student_name);
+			user.setCreate_time(create_time);
+			loginService.push(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "push the photo from data database!";
 
 	}

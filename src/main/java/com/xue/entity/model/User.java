@@ -7,6 +7,16 @@ public class User {
 
     private String comment;
 
+    private String create_time;
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
     public String getStudent_name() {
         return student_name;
     }
@@ -33,7 +43,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [student_name=" + student_name + ", photo=" + photo + ", comment=" + comment + "]";
+		return "User [student_name=" + student_name + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
 	}
     
     
