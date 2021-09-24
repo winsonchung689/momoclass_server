@@ -27,9 +27,9 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-    //登陆
-    User selectUser(User user);
-    //注册
+    //获取
+    User selectUser();
+    //插入
     int insertUser(User user);
     
  

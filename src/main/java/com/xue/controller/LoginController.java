@@ -27,7 +27,8 @@ public class LoginController {
 	@RequestMapping("/getphoto")
 	@ResponseBody
 	public String getPhoto(){
-		return "get the photo from data database!";
+		String photo = loginService.getPhoto();
+		return photo;
 
 	}
 
@@ -35,14 +36,16 @@ public class LoginController {
 	@RequestMapping("/getcomment")
 	@ResponseBody
 	public String getComment(){
-		return "get the comment from data database!";
+		String comment = loginService.getMessage();
+		return comment;
 
 	}
 
-	//	推送评论
-	@RequestMapping("/pushphoto")
+	//	推送
+	@RequestMapping("/push")
 	@ResponseBody
-	public String pushPhoto(){
+	public String push(User user){
+		loginService.push(user);
 		return "push the photo from data database!";
 
 	}

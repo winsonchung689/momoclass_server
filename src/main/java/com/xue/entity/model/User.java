@@ -1,39 +1,39 @@
 package com.xue.entity.model;
 
 public class User {
-    private Integer id;
+    private String student_name;
 
-    private String name;
+    private String photo;
 
-    private String password;
+    private String comment;
 
-    public Integer getId() {
-        return id;
+    public String getStudent_name() {
+        return student_name;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setStudent_name(String student_name) {
+        this.student_name = student_name;
     }
 
-    public String getName() {
-        return name;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public String getPassword() {
-        return password;
+    public String getComment() {
+        return comment;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setComment(String comment) {
+        this.comment = comment ;
     }
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + "]";
+		return "User [student_name=" + student_name + ", photo=" + photo + ", comment=" + comment + "]";
 	}
     
     

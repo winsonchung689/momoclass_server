@@ -177,13 +177,13 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!-- 登陆 -->
+  <!-- 获取图片 -->
   <select id="selectUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-      select name,password from user where name=#{name} and password=#{password}
+      select student_name,photo,comment from class_comment order by create_time desc limit 10
   </select>
   <!-- 注册 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-      insert user(name,password) values(#{name},#{password})
+      insert class_comment(student_name,photo,comment) values(#{student_name},#{photo},#{comment})
   </insert>
   
 </mapper>

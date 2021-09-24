@@ -17,40 +17,43 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private UserMapper dao;
-	
-	//注册
+
 	@Override
-	public int register(User user) {
-		// TODO Auto-generated method stub
-		System.out.println("Impl");
+	public int push(User user) {
+		System.out.printf("push data");
 		int result = 0;
 		System.out.println(user);
 		try {
 			result = dao.insertUser(user);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	//登陆
 	@Override
-	public User login(User user) {
-		// TODO Auto-generated method stub
-		
-		
+	public String getPhoto() {
+		System.out.printf("get photo");
+		String photo = null;
 		try {
-			user = dao.selectUser(user);
+			photo = dao.selectUser().getPhoto();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return user;
+		return photo;
 	}
 
+	@Override
+	public String getMessage() {
+		System.out.printf("get photo");
+		String comment = null;
+		try {
+			comment = dao.selectUser().getComment();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comment;
+	}
 
-	
-	
 
 }
