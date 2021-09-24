@@ -21,56 +21,40 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
-	
-//	登陆页面
-	@RequestMapping("/loginHtml")
-	public String loginHtml(){
-		
-		return "loginHtml";
-		
+
+
+	//	获取图片
+	@RequestMapping("/getphoto")
+	@ResponseBody
+	public String getPhoto(){
+		return "get the photo from data database!";
+
 	}
-//	注册页面
-	@RequestMapping("/registerHtml")
-	public String registerHtml(){
 
-		return "registerHtml";
+	//	获取评论
+	@RequestMapping("/getcomment")
+	@ResponseBody
+	public String getComment(){
+		return "get the comment from data database!";
+
 	}
-	
-//	登陆验证
-	@RequestMapping("/login")
-	@ResponseBody //不返回页面，返回json对象需加@ResponseBody
-	public String login(User user,HttpServletRequest request){
-		
-		User result = null;
-		
-		result = loginService.login(user);
-		
-		if(null != result){
-			
-			return "登陆成功    "+"name:"+user.getName()+"   password:"+user.getPassword();
-		}else{
-			return "登陆失败";
-		}
 
-		}
-	//注册验证
-			@RequestMapping("/register")
-			@ResponseBody //不返回页面，返回json对象需加@ResponseBody
-			public String register(User user){
+	//	推送评论
+	@RequestMapping("/pushphoto")
+	@ResponseBody
+	public String pushPhoto(){
+		return "push the photo from data database!";
 
-				int result =0;
-				
-				
-				result = loginService.register(user);
-				
-				if(0 != result){
-					return "注册成功";
-				}else{
-					return "注册失败";
-				}
+	}
 
-			}	
-				
+	//	推送评论
+	@RequestMapping("/pushcomment")
+	@ResponseBody
+	public String pushComment(){
+		return "push the comment from data database!";
+
+	}
+
 		
 	}
 	
