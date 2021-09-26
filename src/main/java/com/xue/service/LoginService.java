@@ -9,7 +9,7 @@ import org.hibernate.engine.jdbc.BinaryStream;
 
 public interface LoginService {
 
-    public byte[] getPhoto();
+    public void getPhoto(String targePath);
 
 	public int push(User user);
 

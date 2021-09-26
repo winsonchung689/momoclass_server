@@ -1,7 +1,6 @@
 package com.xue.entity.model;
 
 import org.hibernate.engine.jdbc.BinaryStream;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;

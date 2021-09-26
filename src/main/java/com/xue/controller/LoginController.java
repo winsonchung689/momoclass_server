@@ -36,12 +36,9 @@ public class LoginController {
 	@ResponseBody
 	public byte[] getPhoto(String targePath){
 		byte[] photo = null;
-		InputStream inputStream_photo = null;
 		try {
 			System.out.printf("get photo");
-			photo = loginService.getPhoto();
-			inputStream_photo = new ByteArrayInputStream(photo);
-			Imageutil.readBin2Image(inputStream_photo, targePath);
+			loginService.getPhoto(targePath);
 			System.out.printf("save photo");
 		} catch (Exception e) {
 			e.printStackTrace();

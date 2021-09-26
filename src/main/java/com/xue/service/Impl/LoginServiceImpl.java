@@ -1,7 +1,11 @@
 package com.xue.service.Impl;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+import com.xue.util.DBUtil;
 import com.xue.util.Imageutil;
 import org.hibernate.engine.jdbc.BinaryStream;
 import org.slf4j.Logger;
@@ -35,16 +39,26 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public byte[] getPhoto() {
+	public void getPhoto(String targePath) {
 		System.out.printf("get photo");
 		byte[] photo = null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs  = null;
 		try {
+			conn = DBUtil.getConn();
+			String sql = "select student_name,photo,comment,create_time from class_comment order by create_time limit 1";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				InputStream in = rs.getBinaryStream("photo");
+				Imageutil.readBin2Image(in, targePath);
+			}
 			photo = dao.selectUser().getPhoto();
 			System.out.printf("pppppptype :" + photo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return photo;
 	}
 
 	@Override
