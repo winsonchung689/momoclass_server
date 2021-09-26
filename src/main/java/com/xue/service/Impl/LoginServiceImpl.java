@@ -1,7 +1,9 @@
 package com.xue.service.Impl;
 
-import java.util.List;
+import java.io.*;
 
+import com.xue.util.Imageutil;
+import org.hibernate.engine.jdbc.BinaryStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ public class LoginServiceImpl implements LoginService {
 	public int push(User user) {
 		System.out.printf("push data");
 		int result = 0;
+		FileInputStream in = null;
 		System.out.println(user);
 		try {
 			result = dao.insertUser(user);
@@ -32,11 +35,12 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		System.out.printf("get photo");
-		String photo = null;
+		byte[] photo = null;
 		try {
 			photo = dao.selectUser().getPhoto();
+			System.out.printf("pppppptype :" + photo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

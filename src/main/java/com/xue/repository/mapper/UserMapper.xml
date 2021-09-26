@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="photo" property="photo" javaType="[B" jdbcType="BLOB"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

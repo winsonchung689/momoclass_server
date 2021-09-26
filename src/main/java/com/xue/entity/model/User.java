@@ -1,9 +1,15 @@
 package com.xue.entity.model;
 
+import org.hibernate.engine.jdbc.BinaryStream;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
+
 public class User {
     private String student_name;
 
-    private String photo;
+    private byte[] photo;
 
     private String comment;
 
@@ -25,11 +31,11 @@ public class User {
         this.student_name = student_name;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -45,6 +51,6 @@ public class User {
 	public String toString() {
 		return "User [student_name=" + student_name + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
 	}
-    
+
     
 }

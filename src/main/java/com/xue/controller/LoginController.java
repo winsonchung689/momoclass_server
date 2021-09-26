@@ -1,14 +1,22 @@
 package com.xue.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.plaf.IconUIResource;
 
+import com.xue.util.Imageutil;
+import org.hibernate.engine.jdbc.BinaryStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,8 +34,18 @@ public class LoginController {
 	//	获取图片
 	@RequestMapping("/getphoto")
 	@ResponseBody
-	public String getPhoto(){
-		String photo = loginService.getPhoto();
+	public byte[] getPhoto(String targePath){
+		byte[] photo = null;
+		InputStream inputStream_photo = null;
+		try {
+			System.out.printf("get photo");
+			photo = loginService.getPhoto();
+			inputStream_photo = new ByteArrayInputStream(photo);
+			Imageutil.readBin2Image(inputStream_photo, targePath);
+			System.out.printf("save photo");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return photo;
 
 	}
@@ -36,9 +54,14 @@ public class LoginController {
 	@RequestMapping("/getcomment")
 	@ResponseBody
 	public String getComment(){
-		System.out.printf("start get comment");
-		String comment = loginService.getMessage();
-		System.out.printf("res:" + comment);
+		String comment = null;
+		try {
+			System.out.printf("start get comment");
+			comment = loginService.getMessage();
+			System.out.printf("res:" + comment);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return comment;
 
 	}
@@ -46,12 +69,18 @@ public class LoginController {
 	//	推送
 	@RequestMapping("/push")
 	@ResponseBody
-	public String push(String student_name,String photo,String comment,String create_time ){
-		System.out.printf("start push comment" + comment+student_name+photo+create_time);
+	public String push(String student_name,String photo_path,String comment){
+		System.out.printf("start push comment" + comment+student_name+photo_path);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		FileInputStream in = null;
 		try {
 			User user =new User();
+			in = Imageutil.readImage(photo_path);
+			System.out.printf("winson: "+ in);
+			user.setPhoto(FileCopyUtils.copyToByteArray(in));
 			user.setComment(comment);
-			user.setPhoto(photo);
 			user.setStudent_name(student_name);
 			user.setCreate_time(create_time);
 			loginService.push(user);
