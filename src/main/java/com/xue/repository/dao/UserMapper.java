@@ -28,7 +28,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     //获取
-    User selectUser();
+    List<User> selectUser();
     //插入
     int insertUser(User user);
     

@@ -24,7 +24,8 @@ public class Imageutil {
             while ((len = in.read(buf)) != -1) {
                 fos.write(buf, 0, len);
             }
-            fos.flush();
+            fos.close();
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
