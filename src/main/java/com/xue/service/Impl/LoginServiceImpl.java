@@ -43,37 +43,28 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List getPhoto() {
-		String path = "D:/";
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
 		String student_name = null;
 		String class_name = null;
-		JSONObject jsonObject = new JSONObject();
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-
 			List <User> list = dao.selectUser();
-			System.out.printf("list:" + list);
 			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
 				User line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
 				comment = line.getComment();
-
-				//图片获取
 				photo = line.getPhoto();
-				String photo_path = path+photo+".png";
-				inputStream_photo = new ByteArrayInputStream(photo);
-				Imageutil.readBin2Image(inputStream_photo, photo_path);
-
 				//json
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("class_name",class_name);
 				jsonObject.put("comment",comment);
-				jsonObject.put("photo_path",photo_path);
+				jsonObject.put("photo",photo);
 				resul_list.add(jsonObject);
 			}
 

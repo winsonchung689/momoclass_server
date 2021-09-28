@@ -37,14 +37,14 @@ public class LoginController {
 	//	获取图片
 	@RequestMapping("/getphoto")
 	@ResponseBody
-	public String getPhoto(String targePath){
-		byte[] photo = null;
+	public List getPhoto(){
+		List list = null;
 		try {
-			loginService.getPhoto();
+			 list = loginService.getPhoto();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "get photo successfully";
+		return list;
 	}
 
 
