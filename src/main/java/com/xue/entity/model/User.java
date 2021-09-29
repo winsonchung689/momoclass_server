@@ -14,6 +14,16 @@ public class User {
 
     private String class_target;
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getClass_target() {
         return class_target;
     }
@@ -64,7 +74,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [student_name=" + student_name+ ", class_name="+ student_name+ ", class_target=" + class_target + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
+		return "User [student_name=" + student_name+ ", id="+ id + ", class_name="+ student_name+ ", class_target=" + class_target + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
 	}
 
     

@@ -9,9 +9,11 @@ import org.hibernate.engine.jdbc.BinaryStream;
 
 public interface LoginService {
 
-    public List  getPhoto();
+    public List  getMassage();
 
 	public int push(User user);
+
+    public List  getDetails(Integer id);
 
 
 

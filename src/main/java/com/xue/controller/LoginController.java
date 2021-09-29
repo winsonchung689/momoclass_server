@@ -40,7 +40,20 @@ public class LoginController {
 	public List getPhoto(){
 		List list = null;
 		try {
-			 list = loginService.getPhoto();
+			 list = loginService.getMassage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取详情页
+	@RequestMapping("/getdetails")
+	@ResponseBody
+	public List getDetails(Integer id){
+		List list = null;
+		try {
+			list = loginService.getDetails(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

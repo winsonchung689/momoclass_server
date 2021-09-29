@@ -180,8 +180,13 @@
   </update>
   <!-- 获取图片 -->
   <select id="selectUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-      select student_name,photo,comment,create_time,class_name,class_target from class_comment order by create_time limit 10
+      select id,student_name,photo,comment,create_time,class_name,class_target from class_comment order by create_time limit 10
   </select>
+  <!-- 获取详情 -->
+  <select id="selectDetails" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where id =#{0}
+  </select>
+
   <!-- 注册 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
       insert class_comment(student_name,photo,comment,create_time,class_name,class_target) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target})
