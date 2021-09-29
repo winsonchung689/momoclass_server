@@ -12,6 +12,16 @@ public class User {
 
     private String create_time;
 
+    private String class_target;
+
+    public String getClass_target() {
+        return class_target;
+    }
+
+    public void setClass_target(String class_target) {
+        this.class_target = class_target;
+    }
+
     public String getCreate_time() {
         return create_time;
     }
@@ -54,7 +64,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [student_name=" + student_name+ ", class_name=" + class_name + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
+		return "User [student_name=" + student_name+ ", class_name="+ student_name+ ", class_target=" + class_target + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
 	}
 
     

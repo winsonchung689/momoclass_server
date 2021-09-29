@@ -48,6 +48,7 @@ public class LoginServiceImpl implements LoginService {
 		String comment = null;
 		String student_name = null;
 		String class_name = null;
+		String class_target = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
@@ -60,11 +61,13 @@ public class LoginServiceImpl implements LoginService {
 				class_name = line.getClass_name();
 				comment = line.getComment();
 				photo = line.getPhoto();
+				class_target = line.getClass_target();
 				//json
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("class_name",class_name);
 				jsonObject.put("comment",comment);
 				jsonObject.put("photo",photo);
+				jsonObject.put("class_target",class_target);
 				resul_list.add(jsonObject);
 			}
 

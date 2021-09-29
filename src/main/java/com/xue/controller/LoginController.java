@@ -35,7 +35,7 @@ public class LoginController {
 	private LoginService loginService;
 
 	//	获取图片
-	@RequestMapping("/getphoto")
+	@RequestMapping("/getmassage")
 	@ResponseBody
 	public List getPhoto(){
 		List list = null;
@@ -48,7 +48,7 @@ public class LoginController {
 	}
 
 
-	//	推送
+	//	推送图片
 	@RequestMapping("/push_photo")
 	@ResponseBody
 	public String push_photo(HttpServletRequest request, HttpServletResponse response){
@@ -61,7 +61,6 @@ public class LoginController {
 		File path = new File(this.getClass().getResource("/").getPath());
 		UUID uuid = UUID.randomUUID();
 		String p_path = path +"/"+ uuid + ".png";
-		System.out.printf("p:" + p_path);
 
 		//保存图片
 		try {
@@ -81,16 +80,14 @@ public class LoginController {
 
 		//获取图片路径
 		String photo = request.getParameter("photo");
-		System.out.printf("photo:" + photo + "\n");
 		//获取文字
 		String comment = request.getParameter("comment");
-		System.out.printf("comment:" + comment + "\n");
 		//获取学生名字
 		String student_name = request.getParameter("student_name");
-		System.out.printf("student_name:" + student_name + "\n");
 		//获取课堂名称
 		String class_name = request.getParameter("class_name");
-		System.out.printf("class_name:" + class_name + "\n");
+		//获取课堂目标
+		String class_target = request.getParameter("class_target");
 
 		FileInputStream in = null;
 		try {
@@ -101,11 +98,12 @@ public class LoginController {
 			user.setStudent_name(student_name);
 			user.setCreate_time(create_time);
 			user.setClass_name(class_name);
+			user.setClass_target(class_target);
 			loginService.push(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "push photo successfully";
+		return "push massage successfully";
 	}
 
 }
