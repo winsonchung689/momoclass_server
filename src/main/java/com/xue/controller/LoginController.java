@@ -1,5 +1,6 @@
 package com.xue.controller;
 import java.io.*;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -63,9 +64,9 @@ public class LoginController {
 		MultipartFile multipartFile = req.getFile("photo");
 
 		//获取类路径
-		File path = new File(this.getClass().getResource("/").getPath());
+		String path = System.getProperty("user.dir");
 		UUID uuid = UUID.randomUUID();
-		String p_path = path +"/"+ uuid + ".png";
+		String p_path = path +"/uploadimages/"+ uuid + ".png";
 
 		//保存图片
 		try {
