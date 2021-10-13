@@ -30,6 +30,9 @@ public interface UserMapper {
     //获取
     List<User> selectUser();
 
+    //获取
+    List<User> selectSearch(String student_name);
+
     //获取详情
     List<User> selectDetails(Integer id);
 

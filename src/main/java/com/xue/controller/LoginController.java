@@ -27,13 +27,26 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	//	获取图片
+	//	获取全部
 	@RequestMapping("/getmassage")
 	@ResponseBody
 	public List getPhoto(){
 		List list = null;
 		try {
 			 list = loginService.getMassage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取全部
+	@RequestMapping("/getSearch")
+	@ResponseBody
+	public List getSearch(String student_name){
+		List list = null;
+		try {
+			list = loginService.getSearch(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -15,6 +15,8 @@ public interface LoginService {
 
     public List  getDetails(Integer id);
 
+    public List  getSearch(String student_name);
+
 
 
 }
