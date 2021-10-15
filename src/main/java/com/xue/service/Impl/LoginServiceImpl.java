@@ -122,7 +122,7 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public List getMassage() {
+	public List getMessage() {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;

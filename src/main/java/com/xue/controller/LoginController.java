@@ -28,12 +28,12 @@ public class LoginController {
 	private LoginService loginService;
 
 	//	获取全部
-	@RequestMapping("/getmassage")
+	@RequestMapping("/getmessage")
 	@ResponseBody
 	public List getPhoto(){
 		List list = null;
 		try {
-			 list = loginService.getMassage();
+			 list = loginService.getMessage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

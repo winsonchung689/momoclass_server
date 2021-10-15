@@ -9,7 +9,7 @@ import org.hibernate.engine.jdbc.BinaryStream;
 
 public interface LoginService {
 
-    public List  getMassage();
+    public List  getMessage();
 
 	public int push(User user);
 
