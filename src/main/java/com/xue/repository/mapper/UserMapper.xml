@@ -180,22 +180,22 @@
   </update>
   <!-- 获取全部 -->
   <select id="selectUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target from class_comment order by create_time desc
+      select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_name != '范画' order by create_time desc
   </select>
 
   <!-- 获取范画 -->
   <select id="selectModel" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where comment='范画'  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_name='范画'  order by create_time desc
   </select>
 
   <!-- 获取全部 -->
   <select id="selectSearch" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name=#{0}  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name=#{0} and class_name != '范画'  order by create_time desc
   </select>
 
   <!-- 获取详情 -->
   <select id="selectDetails" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where id =#{0}
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where id =#{0} and class_name != '范画'
   </select>
 
   <!-- 插入信息 -->
