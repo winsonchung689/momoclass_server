@@ -30,10 +30,23 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getmessage")
 	@ResponseBody
-	public List getPhoto(){
+	public List getMessage(){
 		List list = null;
 		try {
 			 list = loginService.getMessage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取范画
+	@RequestMapping("/getModel")
+	@ResponseBody
+	public List getModel(){
+		List list = null;
+		try {
+			list = loginService.getModel();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

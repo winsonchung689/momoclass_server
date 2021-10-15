@@ -11,6 +11,8 @@ public interface LoginService {
 
     public List  getMessage();
 
+    public List  getModel();
+
 	public int push(User user);
 
     public List  getDetails(Integer id);

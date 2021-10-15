@@ -30,6 +30,8 @@ public interface UserMapper {
     //获取
     List<User> selectUser();
 
+    List<User> selectModel();
+
     //获取
     List<User> selectSearch(String student_name);
 
