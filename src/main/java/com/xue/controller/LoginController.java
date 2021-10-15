@@ -28,7 +28,7 @@ public class LoginController {
 	private LoginService loginService;
 
 	//	获取全部
-	@RequestMapping("/getmessage")
+	@RequestMapping("/getMessage")
 	@ResponseBody
 	public List getMessage(){
 		List list = null;
@@ -67,7 +67,7 @@ public class LoginController {
 	}
 
 	//	获取详情页
-	@RequestMapping("/getdetails")
+	@RequestMapping("/getDetails")
 	@ResponseBody
 	public List getDetails(Integer id){
 		List list = null;
