@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xue.entity.model.Schedule;
 import com.xue.util.Imageutil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +111,51 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("photo",photo);
 				jsonObject.put("class_target",class_target);
 				jsonObject.put("id",id);
+				jsonObject.put("create_time",create_time);
+				resul_list.add(jsonObject);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public int insertSchedule(Schedule schedule) {
+		int result = 0;
+		FileInputStream in = null;
+		System.out.println(schedule);
+		try {
+			result = dao.insertShedule(schedule);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List getSchedule() {
+		String add_date = null;
+		String student_name = null;
+		String duration = null;
+		String create_time = null;
+		List<JSONObject> resul_list = new ArrayList<>();
+
+		try {
+			List <Schedule> list = dao.selectSchedule();
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Schedule line = list.get(i);
+				//获取字段
+				add_date = line.getAdd_date();
+				student_name = line.getStudent_name();
+				duration = line.getDuration();
+				create_time= line.getCreate_time();
+				//json
+				jsonObject.put("add_date",add_date);
+				jsonObject.put("student_name",student_name);
+				jsonObject.put("duration",duration);
 				jsonObject.put("create_time",create_time);
 				resul_list.add(jsonObject);
 			}

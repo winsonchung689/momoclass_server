@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.xue.entity.model.Schedule;
 import com.xue.util.Imageutil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,19 @@ public class LoginController {
 		List list = null;
 		try {
 			 list = loginService.getMessage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取课程表
+	@RequestMapping("/getSchedule")
+	@ResponseBody
+	public List getSchedule(){
+		List list = null;
+		try {
+			list = loginService.getSchedule();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,6 +147,33 @@ public class LoginController {
 			user.setClass_name(class_name);
 			user.setClass_target(class_target);
 			loginService.push(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+
+	//	推送
+	@RequestMapping("/insertShedule")
+	@ResponseBody
+	public String insertShedule(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取日期
+		String add_date = request.getParameter("add_date");
+		//获取名字
+		String student_name = request.getParameter("student_name");
+		//获取时间段
+		String duration = request.getParameter("duration");
+
+		try {
+			Schedule schedule =new Schedule();
+			schedule.setAdd_date(add_date);
+			schedule.setStudent_name(student_name);
+			schedule.setDuration(duration);
+			loginService.insertSchedule(schedule);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

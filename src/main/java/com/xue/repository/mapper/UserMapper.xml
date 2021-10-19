@@ -198,9 +198,19 @@
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where id =#{0} and class_name != '范画'
   </select>
 
+  <!-- 获取课程表 -->
+  <select id="selectSchedule" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    select id,add_date,student_name,duration,create_tim from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -3 DAY)  order by create_time desc
+  </select>
+
   <!-- 插入信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
       insert class_comment(student_name,photo,comment,create_time,class_name,class_target) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target})
+  </insert>
+
+  <!-- 插入课程表 -->
+  <insert id="insertSchedule" parameterType="com.xue.entity.model.User">
+    insert class_schedule(add_date,student_name,duration,create_time) values(#{add_date},#{student_name},#{duration},#{create_time})
   </insert>
   
 </mapper>

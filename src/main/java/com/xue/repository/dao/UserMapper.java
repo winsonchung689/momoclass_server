@@ -1,5 +1,6 @@
 package com.xue.repository.dao;
 
+import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
 import com.xue.entity.model.UserExample;
 import java.util.List;
@@ -30,6 +31,9 @@ public interface UserMapper {
     //获取
     List<User> selectUser();
 
+    //获取
+    List<Schedule> selectSchedule();
+
     List<User> selectModel();
 
     //获取
@@ -40,6 +44,9 @@ public interface UserMapper {
 
     //插入
     int insertUser(User user);
+
+    //插入
+    int insertShedule(Schedule schedule);
     
  
 }
