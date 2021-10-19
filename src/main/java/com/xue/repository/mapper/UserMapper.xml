@@ -204,7 +204,7 @@
 
   <!-- 获取课程表 -->
   <select id="selectSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,student_name,duration,create_time from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -7 DAY)  order by create_time desc
+    select id,add_date,student_name,duration,create_time from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -7 DAY)  order by add_date
   </select>
 
   <!-- 插入信息 -->
