@@ -7,6 +7,10 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="photo" property="photo" javaType="[B" jdbcType="BLOB"/>
   </resultMap>
+  <resultMap id="BaseSchedule" type="com.xue.entity.model.Schedule">
+    <result column="add_date" jdbcType="VARCHAR" property="add_date" />
+    <result column="student_name" jdbcType="VARCHAR" property="student_name" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -199,8 +203,8 @@
   </select>
 
   <!-- 获取课程表 -->
-  <select id="selectSchedule" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    select id,add_date,student_name,duration,create_tim from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -3 DAY)  order by create_time desc
+  <select id="selectSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select id,add_date,student_name,duration,create_time from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -7 DAY)  order by create_time desc
   </select>
 
   <!-- 插入信息 -->
@@ -209,7 +213,7 @@
   </insert>
 
   <!-- 插入课程表 -->
-  <insert id="insertSchedule" parameterType="com.xue.entity.model.User">
+  <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
     insert class_schedule(add_date,student_name,duration,create_time) values(#{add_date},#{student_name},#{duration},#{create_time})
   </insert>
   

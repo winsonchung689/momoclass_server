@@ -18,6 +18,7 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 
 import javax.annotation.Resource;
+import javax.swing.plaf.IconUIResource;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -127,7 +128,7 @@ public class LoginServiceImpl implements LoginService {
 		FileInputStream in = null;
 		System.out.println(schedule);
 		try {
-			result = dao.insertShedule(schedule);
+			result = dao.insertSchedule(schedule);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,6 +145,7 @@ public class LoginServiceImpl implements LoginService {
 
 		try {
 			List <Schedule> list = dao.selectSchedule();
+			System.out.printf("list:" + list);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Schedule line = list.get(i);

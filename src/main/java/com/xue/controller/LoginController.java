@@ -173,6 +173,7 @@ public class LoginController {
 			schedule.setAdd_date(add_date);
 			schedule.setStudent_name(student_name);
 			schedule.setDuration(duration);
+			schedule.setCreate_time(create_time);
 			loginService.insertSchedule(schedule);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -46,7 +46,7 @@ public interface UserMapper {
     int insertUser(User user);
 
     //插入
-    int insertShedule(Schedule schedule);
+    int insertSchedule(Schedule schedule);
     
  
 }
