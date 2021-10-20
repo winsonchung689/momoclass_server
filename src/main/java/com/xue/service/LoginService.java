@@ -24,6 +24,8 @@ public interface LoginService {
 
     public List  getSchedule();
 
+    public int  deleteUser(Integer id);
+
 
 
 }

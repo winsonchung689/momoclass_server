@@ -138,6 +138,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public List getSchedule() {
 		String add_date = null;
+		String age = null;
 		String student_name = null;
 		String duration = null;
 		String create_time = null;
@@ -150,11 +151,13 @@ public class LoginServiceImpl implements LoginService {
 				Schedule line = list.get(i);
 				//获取字段
 				add_date = line.getAdd_date();
+				age = line.getAge();
 				student_name = line.getStudent_name();
 				duration = line.getDuration();
 				create_time= line.getCreate_time();
 				//json
 				jsonObject.put("add_date",add_date);
+				jsonObject.put("age",age);
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("duration",duration);
 				jsonObject.put("create_time",create_time);
@@ -165,6 +168,17 @@ public class LoginServiceImpl implements LoginService {
 			e.printStackTrace();
 		}
 		return resul_list;
+	}
+
+	@Override
+	public int deleteUser(Integer id) {
+		try {
+			dao.deleteUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
 	}
 
 

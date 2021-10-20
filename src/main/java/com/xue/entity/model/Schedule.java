@@ -4,6 +4,8 @@ package com.xue.entity.model;
 public class Schedule {
     private String add_date;
 
+    private String age;
+
     private String student_name;
 
     private String duration;
@@ -19,6 +21,13 @@ public class Schedule {
         this.add_date = add_date;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getStudent_name() {
         return student_name;

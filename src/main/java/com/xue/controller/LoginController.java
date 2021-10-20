@@ -94,6 +94,18 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取详情页
+	@RequestMapping("/deleteUser")
+	@ResponseBody
+	public int deletePost(Integer id){
+		try {
+			loginService.deleteUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 
 	//	推送图片
 	@RequestMapping("/push_photo")
@@ -163,6 +175,8 @@ public class LoginController {
 
 		//获取日期
 		String add_date = request.getParameter("add_date");
+		//获年龄段
+		String age = request.getParameter("age");
 		//获取名字
 		String student_name = request.getParameter("student_name");
 		//获取时间段
@@ -171,6 +185,7 @@ public class LoginController {
 		try {
 			Schedule schedule =new Schedule();
 			schedule.setAdd_date(add_date);
+			schedule.setAge(age);
 			schedule.setStudent_name(student_name);
 			schedule.setDuration(duration);
 			schedule.setCreate_time(create_time);
