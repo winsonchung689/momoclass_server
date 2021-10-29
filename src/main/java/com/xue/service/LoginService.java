@@ -8,7 +8,9 @@ import com.xue.entity.model.User;
 
 public interface LoginService {
 
-    public List  getMessage(String nickName);
+    public List  getMessage();
+
+    public List  getMessageClient(String nickName);
 
     public List  getModel();
 
@@ -25,6 +27,8 @@ public interface LoginService {
     public int  deleteComment(Integer id);
 
     public int insertUser(User user);
+
+    public List getUser(String openid);
 
 
 

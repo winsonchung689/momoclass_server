@@ -11,6 +11,10 @@
     <result column="add_date" jdbcType="VARCHAR" property="add_date" />
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
+  <resultMap id="BaseUser" type="com.xue.entity.model.User">
+    <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -187,6 +191,11 @@
       select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target != '范画' order by create_time desc
   </select>
 
+  <!-- 获取全部 -->
+  <select id="getMessageClient" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target != '范画' and student_name like "%"#{0}"%"  order by create_time desc
+  </select>
+
   <!-- 获取范画 -->
   <select id="getModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='范画'  order by create_time desc
@@ -194,7 +203,7 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name like '%#{0}%' and class_target != '范画'  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name like "%"#{0}"%" and class_target != '范画'  order by create_time desc
   </select>
 
   <!-- 获取详情 -->
@@ -223,9 +232,13 @@
   </insert>
 
   <!-- 插入客户信息 -->
-  <insert id="insertUser" parameterType="com.xue.entity.model.Message">
-    insert class_comment(nick_name,role,create_time) values(#{nick_name},#{role},#{create_time})
+  <insert id="insertUser" parameterType="com.xue.entity.model.User">
+    insert user(nick_name,student_name,role,openid,create_time) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time})
   </insert>
+
+  <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select id,nick_name,student_name,role,openid,create_time from user where openid =#{0} limit 1
+  </select>
 
 
 </mapper>

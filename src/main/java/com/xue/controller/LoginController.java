@@ -31,10 +31,23 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(String nickName){
+	public List getMessage(){
 		List list = null;
 		try {
-			 list = loginService.getMessage(nickName);
+			 list = loginService.getMessage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取全部
+	@RequestMapping("/getMessageClient")
+	@ResponseBody
+	public List getMessageClient(String student_name){
+		List list = null;
+		try {
+			list = loginService.getMessageClient(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,6 +100,19 @@ public class LoginController {
 		List list = null;
 		try {
 			list = loginService.getDetails(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取用户
+	@RequestMapping("/getUser")
+	@ResponseBody
+	public List getUser(String openid){
+		List list = null;
+		try {
+			list = loginService.getUser(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,14 +230,20 @@ public class LoginController {
 
 		//获取用户名
 		String nick_name = request.getParameter("nick_name");
+		//获取学生名
+		String student_name = request.getParameter("student_name");
 		//获年角色
 		String role = request.getParameter("role");
+        //获取openid
+		String openid = request.getParameter("openid");
 
 
 		try {
 			User user =new User();
 			user.setNick_name(nick_name);
+			user.setStudent_name(student_name);
 			user.setRole(role);
+			user.setOpenid(openid);
 			user.setCreate_time(create_time);
 			loginService.insertUser(user);
 		} catch (Exception e) {

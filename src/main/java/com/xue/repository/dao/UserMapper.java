@@ -11,6 +11,9 @@ public interface UserMapper {
     List<Message> getMessage();
 
     //获取
+    List<Message> getMessageClient(String student_name);
+
+    //获取
     List<Schedule> getSchedule();
 
     List<Message> getModel();
@@ -31,6 +34,8 @@ public interface UserMapper {
 
     //插入
     int insertUser(User user);
+
+    List<User> getUser(String nick_name);
 
  
 }
