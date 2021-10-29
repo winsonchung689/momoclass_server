@@ -1,24 +1,19 @@
 package com.xue.service.Impl;
 
-import java.beans.PropertyEditorSupport;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Schedule;
-import com.xue.util.Imageutil;
+import com.xue.entity.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.xue.entity.model.User;
+import com.xue.entity.model.Message;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
-
-import javax.annotation.Resource;
-import javax.swing.plaf.IconUIResource;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -29,12 +24,12 @@ public class LoginServiceImpl implements LoginService {
 	private UserMapper dao;
 
 	@Override
-	public int push(User user) {
+	public int push(Message message) {
 		int result = 0;
 		FileInputStream in = null;
-		System.out.println(user);
+		System.out.println(message);
 		try {
-			result = dao.insertUser(user);
+			result = dao.push(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,10 +48,10 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <User> list = dao.selectDetails(id);
+			List <Message> list = dao.getDetails(id);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
-				User line = list.get(i);
+				Message line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
@@ -92,10 +87,10 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <User> list = dao.selectSearch(student_name);
+			List <Message> list = dao.getSearch(student_name);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
-				User line = list.get(i);
+				Message line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
@@ -145,7 +140,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Schedule> list = dao.selectSchedule();
+			List <Schedule> list = dao.getSchedule();
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Schedule line = list.get(i);
@@ -171,9 +166,9 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int deleteUser(Integer id) {
+	public int deleteComment(Integer id) {
 		try {
-			dao.deleteUser(id);
+			dao.deleteComment(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -181,9 +176,22 @@ public class LoginServiceImpl implements LoginService {
 		return 1;
 	}
 
+	@Override
+	public int insertUser(User user) {
+		int result = 0;
+		FileInputStream in = null;
+		System.out.println(user);
+		try {
+			result = dao.insertUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	@Override
-	public List getMessage() {
+	public List getMessage(String nickName) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -195,10 +203,10 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <User> list = dao.selectUser();
+			List <Message> list = dao.getMessage();
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
-				User line = list.get(i);
+				Message line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
@@ -237,10 +245,10 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <User> list = dao.selectModel();
+			List <Message> list = dao.getModel();
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
-				User line = list.get(i);
+				Message line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();

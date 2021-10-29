@@ -1,20 +1,18 @@
 package com.xue.service;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.List;
 
+import com.xue.entity.model.Message;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
-import org.hibernate.engine.jdbc.BinaryStream;
 
 public interface LoginService {
 
-    public List  getMessage();
+    public List  getMessage(String nickName);
 
     public List  getModel();
 
-	public int push(User user);
+	public int push(Message message);
 
     public List  getDetails(Integer id);
 
@@ -24,7 +22,9 @@ public interface LoginService {
 
     public List  getSchedule();
 
-    public int  deleteUser(Integer id);
+    public int  deleteComment(Integer id);
+
+    public int insertUser(User user);
 
 
 

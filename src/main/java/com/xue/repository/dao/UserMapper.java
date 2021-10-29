@@ -1,33 +1,36 @@
 package com.xue.repository.dao;
 
+import com.xue.entity.model.Message;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
-import com.xue.entity.model.UserExample;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     //获取
-    List<User> selectUser();
+    List<Message> getMessage();
 
     //获取
-    List<Schedule> selectSchedule();
+    List<Schedule> getSchedule();
 
-    List<User> selectModel();
+    List<Message> getModel();
 
     //获取
-    List<User> selectSearch(String student_name);
+    List<Message> getSearch(String student_name);
 
     //获取详情
-    List<User> selectDetails(Integer id);
+    List<Message> getDetails(Integer id);
 
     //插入
-    int insertUser(User user);
+    int push(Message message);
 
     //插入
     int insertSchedule(Schedule schedule);
 
-    void deleteUser(Integer id);
+    void deleteComment(Integer id);
+
+    //插入
+    int insertUser(User user);
 
  
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xue.repository.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.xue.entity.model.User">
+  <resultMap id="BaseResultMap" type="com.xue.entity.model.Message">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -79,7 +79,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from user
+    from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,31 +90,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from message
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from message
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xue.entity.model.UserExample">
-    delete from user
+    delete from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xue.entity.model.User">
+  <insert id="insert" parameterType="com.xue.entity.model.Message">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user (name, password)
+    insert into message (name, password)
     values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xue.entity.model.User">
+  <insert id="insertSelective" parameterType="com.xue.entity.model.Message">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user
+    insert into message
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
         name,
@@ -133,13 +133,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xue.entity.model.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+    select count(*) from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update message
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -156,7 +156,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update message
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR}
@@ -164,8 +164,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xue.entity.model.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.xue.entity.model.Message">
+    update message
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -176,44 +176,44 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xue.entity.model.User">
-    update user
+  <update id="updateByPrimaryKey" parameterType="com.xue.entity.model.Message">
+    update message
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!-- 获取全部 -->
-  <select id="selectUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+  <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
       select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target != '范画' order by create_time desc
   </select>
 
   <!-- 获取范画 -->
-  <select id="selectModel" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+  <select id="getModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='范画'  order by create_time desc
   </select>
 
   <!-- 获取全部 -->
-  <select id="selectSearch" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name=#{0} and class_target != '范画'  order by create_time desc
+  <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name like '%#{0}%' and class_target != '范画'  order by create_time desc
   </select>
 
   <!-- 获取详情 -->
-  <select id="selectDetails" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+  <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where id =#{0} and class_target != '范画'
   </select>
 
   <!-- 获取详情 -->
-  <select id="deleteUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+  <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     delete from class_comment where id =#{0}
   </select>
 
   <!-- 获取课程表 -->
-  <select id="selectSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+  <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select id,add_date,age,student_name,duration,create_time from class_schedule where add_date between DATE_SUB(curdate(),INTERVAL 0 DAY) and DATE_SUB(curdate(),INTERVAL -7 DAY)  order by add_date
   </select>
 
   <!-- 插入信息 -->
-  <insert id="insertUser" parameterType="com.xue.entity.model.User">
+  <insert id="push" parameterType="com.xue.entity.model.Message">
       insert class_comment(student_name,photo,comment,create_time,class_name,class_target) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target})
   </insert>
 
@@ -221,5 +221,11 @@
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
     insert class_schedule(add_date,age,student_name,duration,create_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time})
   </insert>
-  
+
+  <!-- 插入客户信息 -->
+  <insert id="insertUser" parameterType="com.xue.entity.model.Message">
+    insert class_comment(nick_name,role,create_time) values(#{nick_name},#{role},#{create_time})
+  </insert>
+
+
 </mapper>

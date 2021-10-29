@@ -1,12 +1,12 @@
 package com.xue.controller;
 import java.io.*;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xue.entity.model.Schedule;
+import com.xue.entity.model.User;
 import com.xue.util.Imageutil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xue.entity.model.User;
+import com.xue.entity.model.Message;
 import com.xue.service.LoginService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class LoginController {
@@ -32,10 +31,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(){
+	public List getMessage(String nickName){
 		List list = null;
 		try {
-			 list = loginService.getMessage();
+			 list = loginService.getMessage(nickName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,11 +94,11 @@ public class LoginController {
 	}
 
 	//	获取详情页
-	@RequestMapping("/deleteUser")
+	@RequestMapping("/deleteComment")
 	@ResponseBody
-	public int deletePost(Integer id){
+	public int deleteComment(Integer id){
 		try {
-			loginService.deleteUser(id);
+			loginService.deleteComment(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -150,15 +149,15 @@ public class LoginController {
 
 		FileInputStream in = null;
 		try {
-			User user =new User();
+			Message message =new Message();
 			in = Imageutil.readImage(photo);
-			user.setPhoto(FileCopyUtils.copyToByteArray(in));
-			user.setComment(comment);
-			user.setStudent_name(student_name);
-			user.setCreate_time(create_time);
-			user.setClass_name(class_name);
-			user.setClass_target(class_target);
-			loginService.push(user);
+			message.setPhoto(FileCopyUtils.copyToByteArray(in));
+			message.setComment(comment);
+			message.setStudent_name(student_name);
+			message.setCreate_time(create_time);
+			message.setClass_name(class_name);
+			message.setClass_target(class_target);
+			loginService.push(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,6 +189,31 @@ public class LoginController {
 			schedule.setDuration(duration);
 			schedule.setCreate_time(create_time);
 			loginService.insertSchedule(schedule);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+
+	@RequestMapping("/insertUser")
+	@ResponseBody
+	public String insertUser(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取用户名
+		String nick_name = request.getParameter("nick_name");
+		//获年角色
+		String role = request.getParameter("role");
+
+
+		try {
+			User user =new User();
+			user.setNick_name(nick_name);
+			user.setRole(role);
+			user.setCreate_time(create_time);
+			loginService.insertUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -2,34 +2,27 @@ package com.xue.entity.model;
 
 
 public class User {
-    private String student_name;
+    private String nick_name;
 
-    private String class_name;
-
-    private byte[] photo;
-
-    private String comment;
+    private String role;
 
     private String create_time;
 
-    private String class_target;
 
-    private String id;
-
-    public String getId() {
-        return id;
+    public String getNick_name() {
+        return nick_name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
     }
 
-    public String getClass_target() {
-        return class_target;
+    public String getRole() {
+        return role;
     }
 
-    public void setClass_target(String class_target) {
-        this.class_target = class_target;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getCreate_time() {
@@ -40,41 +33,11 @@ public class User {
         this.create_time = create_time;
     }
 
-    public String getStudent_name() {
-        return student_name;
-    }
 
-    public void setStudent_name(String student_name) {
-        this.student_name = student_name;
-    }
-
-    public String getClass_name() {
-        return class_name;
-    }
-
-    public void setClass_name(String class_name) {
-        this.class_name = class_name;
-    }
-
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment ;
-    }
 
 	@Override
 	public String toString() {
-		return "User [student_name=" + student_name+ ", id="+ id + ", class_name="+ student_name+ ", class_target=" + class_target + ", photo=" + photo + ", comment=" + comment + ", create_time=" + create_time + "]";
+		return "User [nick_name=" + nick_name+ ", role="+ role + ", create_time=" + create_time + "]";
 	}
 
     
