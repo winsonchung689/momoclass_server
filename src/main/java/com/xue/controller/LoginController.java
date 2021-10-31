@@ -40,11 +40,9 @@ public class LoginController {
 		String url = "https://api.weixin.qq.com/sns/jscode2session";
 		String param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&js_code="+ code +"&grant_type=authorization_code";
 		try {
-			System.out.printf("aa");
 			result = HttpUtil.sendPost(url	,param);
 			JSONObject jsonObject = JSON.parseObject(result);
 			openid = jsonObject.getString("openid");
-			System.out.println("cc" + openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
