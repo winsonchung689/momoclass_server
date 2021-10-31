@@ -5,8 +5,11 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
+import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +31,33 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+	//	获取Openid
+	@RequestMapping("/getOpenid")
+	@ResponseBody
+	public String getOpenid(String code){
+		String result = null;
+		String openid = null;
+		String url = "https://api.weixin.qq.com/sns/jscode2session";
+		String param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&js_code="+ code +"&grant_type=authorization_code";
+		try {
+			System.out.printf("aa");
+			result = HttpUtil.sendPost(url	,param);
+			JSONObject jsonObject = JSON.parseObject(result);
+			openid = jsonObject.getString("openid");
+			System.out.println("cc" + openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return openid;
+	}
+
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
 	public List getMessage(){
 		List list = null;
 		try {
-			 list = loginService.getMessage();
+			list = loginService.getMessage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
