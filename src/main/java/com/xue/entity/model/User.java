@@ -12,6 +12,17 @@ public class User {
 
     private String create_time;
 
+    private String avatarurl;
+
+
+    public String getAvatarurl() {
+        return avatarurl;
+    }
+
+    public void setAvatarurl(String avatarurl) {
+        this.avatarurl = avatarurl;
+    }
+
 
     public String getNick_name() {
         return nick_name;
@@ -58,7 +69,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [nick_name=" + nick_name+ ", role="+ role + ", create_time=" + create_time + "]";
+		return "User [nick_name=" + nick_name+ ", role="+ role + ", create_time=" + create_time + ", avatarurl=" + avatarurl + ", openid=" + openid + ", student_name=" + student_name +  "]";
 	}
 
     

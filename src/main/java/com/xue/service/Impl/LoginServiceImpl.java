@@ -193,6 +193,7 @@ public class LoginServiceImpl implements LoginService {
 	public List getUser(String openid) {
 		String role = null;
 		String student_name = null;
+		String avatarurl = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -203,9 +204,11 @@ public class LoginServiceImpl implements LoginService {
 				//获取字段
 				role = line.getRole();
 				student_name = line.getStudent_name();
+				avatarurl = line.getAvatarurl();
 				//json
 				jsonObject.put("role",role);
 				jsonObject.put("student_name",student_name);
+				jsonObject.put("avatarurl",avatarurl);
 				resul_list.add(jsonObject);
 			}
 		} catch (Exception e) {

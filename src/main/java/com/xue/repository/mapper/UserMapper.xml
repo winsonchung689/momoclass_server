@@ -233,11 +233,11 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time from user where openid =#{0} limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl from user where openid =#{0} limit 1
   </select>
 
 

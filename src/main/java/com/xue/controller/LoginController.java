@@ -257,6 +257,8 @@ public class LoginController {
 		String role = request.getParameter("role");
         //获取openid
 		String openid = request.getParameter("openid");
+		//获取openid
+		String avatarurl = request.getParameter("avatarurl");
 
 
 		try {
@@ -266,6 +268,7 @@ public class LoginController {
 			user.setRole(role);
 			user.setOpenid(openid);
 			user.setCreate_time(create_time);
+			user.setAvatarurl(avatarurl);
 			loginService.insertUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
