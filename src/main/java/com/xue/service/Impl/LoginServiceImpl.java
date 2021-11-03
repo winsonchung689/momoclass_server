@@ -239,7 +239,7 @@ public class LoginServiceImpl implements LoginService {
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
 				comment = line.getComment();
-				photo = line.getPhoto();
+//				photo = line.getPhoto();
 				class_target = line.getClass_target();
 				id = line.getId();
 				create_time= line.getCreate_time();
@@ -247,7 +247,7 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("class_name",class_name);
 				jsonObject.put("comment",comment);
-				jsonObject.put("photo",photo);
+//				jsonObject.put("photo",photo);
 				jsonObject.put("class_target",class_target);
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
