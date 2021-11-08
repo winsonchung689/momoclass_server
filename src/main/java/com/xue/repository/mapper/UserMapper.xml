@@ -201,6 +201,11 @@
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='范画'  order by create_time desc
   </select>
 
+  <!-- 获取广告 -->
+  <select id="getAdvertise" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='广告'  order by create_time desc limit 1
+  </select>
+
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where student_name like "%"#{0}"%" and class_target != '范画'  order by create_time desc

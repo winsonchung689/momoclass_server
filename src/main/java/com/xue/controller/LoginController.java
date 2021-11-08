@@ -62,6 +62,20 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取广告
+	@RequestMapping("/getAdvertise")
+	@ResponseBody
+	public List getAdvertise(){
+		List list = null;
+		try {
+			list = loginService.getAdvertise();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
 	//	获取全部
 	@RequestMapping("/getMessageClient")
 	@ResponseBody

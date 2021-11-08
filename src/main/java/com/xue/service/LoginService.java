@@ -30,6 +30,8 @@ public interface LoginService {
 
     public List getUser(String openid);
 
+    public List getAdvertise();
+
 
 
 }

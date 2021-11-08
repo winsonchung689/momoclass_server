@@ -11,6 +11,9 @@ public interface UserMapper {
     List<Message> getMessage();
 
     //获取
+    List<Message> getAdvertise();
+
+    //获取
     List<Message> getMessageClient(String student_name);
 
     //获取
