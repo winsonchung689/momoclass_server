@@ -223,7 +223,7 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time from class_schedule where date_format(create_time, '%Y-%m-%d')=#{0}  order by id
+    select id,add_date,age,student_name,duration,create_time from class_schedule where add_date=#{0} order by id
   </select>
 
   <!-- 插入信息 -->
@@ -233,7 +233,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time) values('9999-99-99',#{age},#{student_name},#{duration},#{create_time})
+    insert class_schedule(add_date,age,student_name,duration,create_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time})
   </insert>
 
   <!-- 插入客户信息 -->
