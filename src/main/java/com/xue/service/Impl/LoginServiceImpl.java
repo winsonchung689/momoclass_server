@@ -131,7 +131,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getSchedule() {
+	public List getSchedule(String date_time) {
 		String add_date = null;
 		String age = null;
 		String student_name = null;
@@ -140,7 +140,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Schedule> list = dao.getSchedule();
+			List <Schedule> list = dao.getSchedule(date_time);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Schedule line = list.get(i);

@@ -22,7 +22,7 @@ public interface LoginService {
 
     public int insertSchedule(Schedule schedule);
 
-    public List  getSchedule();
+    public List  getSchedule(String date_time);
 
     public int  deleteComment(Integer id);
 

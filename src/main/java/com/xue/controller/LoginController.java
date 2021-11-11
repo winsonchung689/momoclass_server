@@ -92,10 +92,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getSchedule")
 	@ResponseBody
-	public List getSchedule(){
+	public List getSchedule(String date_time){
 		List list = null;
 		try {
-			list = loginService.getSchedule();
+			list = loginService.getSchedule(date_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
