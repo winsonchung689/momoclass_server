@@ -167,6 +167,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteSchedule")
+	@ResponseBody
+	public int deleteSchedule(Integer id){
+		try {
+			loginService.deleteSchedule(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	推送图片
 	@RequestMapping("/push_photo")
 	@ResponseBody
