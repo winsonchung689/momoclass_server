@@ -26,6 +26,8 @@ public interface LoginService {
 
     public int  deleteComment(Integer id);
 
+    public int  deleteSchedule(Integer id);
+
     public int insertUser(User user);
 
     public List getUser(String openid);

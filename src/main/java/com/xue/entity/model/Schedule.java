@@ -12,6 +12,17 @@ public class Schedule {
 
     private String create_time;
 
+    private String id;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getAdd_date() {
         return add_date;

@@ -137,6 +137,7 @@ public class LoginServiceImpl implements LoginService {
 		String student_name = null;
 		String duration = null;
 		String create_time = null;
+		String id = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
@@ -149,6 +150,7 @@ public class LoginServiceImpl implements LoginService {
 				age = line.getAge();
 				student_name = line.getStudent_name();
 				duration = line.getDuration();
+				id = line.getId();
 				create_time= line.getCreate_time();
 				//json
 				jsonObject.put("add_date",add_date);
@@ -156,6 +158,7 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("duration",duration);
 				jsonObject.put("create_time",create_time);
+				jsonObject.put("id",id);
 				resul_list.add(jsonObject);
 			}
 
@@ -169,6 +172,17 @@ public class LoginServiceImpl implements LoginService {
 	public int deleteComment(Integer id) {
 		try {
 			dao.deleteComment(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	@Override
+	public int deleteSchedule(Integer id) {
+		try {
+			dao.deleteSchedule(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

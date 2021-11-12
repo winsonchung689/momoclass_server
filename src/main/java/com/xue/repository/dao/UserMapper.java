@@ -35,6 +35,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id);
 
+    void deleteSchedule(Integer id);
+
     //插入
     int insertUser(User user);
 
