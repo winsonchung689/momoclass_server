@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.xue.entity.model.Message;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -30,6 +33,30 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println(message);
 		try {
 			result = dao.push(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int insertLesson(Lesson lesson) {
+		int result = 0;
+		System.out.println(lesson);
+		try {
+			result = dao.insertLesson(lesson);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int updateLesson(Lesson lesson) {
+		int result = 0;
+		System.out.println(lesson);
+		try {
+			result = dao.updateLesson(lesson);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -295,6 +322,32 @@ public class LoginServiceImpl implements LoginService {
 		return resul_list;
 	}
 
+	@Override
+	public int updateMinusLesson(String student_name) {
+		int result = 0;
+		Integer total_amount = 0;
+		Integer left_amount = 0;
+		Integer new_left = 0;
+		System.out.println(student_name);
+
+		List <Lesson> list = dao.getLessonByName(student_name);
+		try {
+			for(int i=0;i<list.size();i++){
+				Lesson line = list.get(i);
+				total_amount = line.getTotal_amount();
+				left_amount = line.getLeft_amount();
+				new_left = left_amount -1;
+				Lesson lesson =new Lesson();
+				lesson.setStudent_name(student_name);
+				lesson.setLeft_amount(new_left);
+				result = dao.updateLesson(lesson);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	@Override
 	public List getMessage() {
@@ -412,6 +465,45 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("class_target",class_target);
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
+				resul_list.add(jsonObject);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getLesson() {
+		String student_name = null;
+		Integer total_amount = null;
+		Integer left_amount = null;
+		String create_time = null;
+		String id = null;
+		double percent = 0;
+		List<JSONObject> resul_list = new ArrayList<>();
+
+		try {
+			List <Lesson> list = dao.getLesson();
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Lesson line = list.get(i);
+				//获取字段
+				student_name = line.getStudent_name();
+				total_amount = line.getTotal_amount();
+				left_amount = line.getLeft_amount();
+				percent = left_amount*100/total_amount;
+				System.out.printf("oo"+percent);
+				id = line.getId();
+				create_time= line.getCreate_time();
+				//json
+				jsonObject.put("student_name",student_name);
+				jsonObject.put("total_amount",total_amount);
+				jsonObject.put("left_amount",left_amount);
+				jsonObject.put("id",id);
+				jsonObject.put("create_time",create_time);
+				jsonObject.put("percent",percent);
 				resul_list.add(jsonObject);
 			}
 

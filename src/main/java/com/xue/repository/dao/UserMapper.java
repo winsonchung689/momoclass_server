@@ -1,5 +1,6 @@
 package com.xue.repository.dao;
 
+import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Message;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
@@ -43,6 +44,14 @@ public interface UserMapper {
     List<User> getUser(String openid);
 
     List<User> getOpenidByNick(String student_name);
+
+    List<Lesson> getLesson();
+
+    int insertLesson(Lesson lesson);
+
+    int updateLesson(Lesson lesson);
+
+    List<Lesson> getLessonByName(String student_name);
 
 
  

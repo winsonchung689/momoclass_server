@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
 import com.xue.util.HttpUtil;
@@ -74,6 +75,19 @@ public class LoginController {
 		List list = null;
 		try {
 			list = loginService.getMessage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取全部
+	@RequestMapping("/getLesson")
+	@ResponseBody
+	public List getLesson(){
+		List list = null;
+		try {
+			list = loginService.getLesson();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -263,6 +277,7 @@ public class LoginController {
 			message.setClass_name(class_name);
 			message.setClass_target(class_target);
 			loginService.push(message);
+			loginService.updateMinusLesson(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -328,6 +343,34 @@ public class LoginController {
 			user.setCreate_time(create_time);
 			user.setAvatarurl(avatarurl);
 			loginService.insertUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateLesson")
+	@ResponseBody
+	public String updateLesson(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取用户名
+		String student_name = request.getParameter("student_name");
+		//获取学生名
+		Integer total_amount = Integer.valueOf(request.getParameter("total_amount"));
+		//获年角色
+		Integer left_amount = Integer.valueOf(request.getParameter("left_amount"));
+		Lesson lesson =new Lesson();
+		try {
+			lesson.setStudent_name(student_name);
+			lesson.setTotal_amount(total_amount);
+			lesson.setLeft_amount(left_amount);
+			lesson.setCreate_time(create_time);
+			int res = loginService.updateLesson(lesson);
+			if (0==res){
+				loginService.insertLesson(lesson);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

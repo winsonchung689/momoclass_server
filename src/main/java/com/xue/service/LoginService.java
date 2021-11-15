@@ -2,6 +2,7 @@ package com.xue.service;
 
 import java.util.List;
 
+import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Message;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
@@ -14,7 +15,13 @@ public interface LoginService {
 
     public List  getModel();
 
-	public int push(Message message);
+    public List  getLesson();
+
+    public int push(Message message);
+
+    public int insertLesson(Lesson lesson);
+
+	public int updateLesson(Lesson lesson);
 
     public List  getDetails(Integer id);
 
@@ -35,6 +42,8 @@ public interface LoginService {
     public List getOpenidByNick(String student_name);
 
     public List getAdvertise();
+
+    public int updateMinusLesson(String student_name);
 
 
 
