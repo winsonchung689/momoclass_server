@@ -49,6 +49,24 @@ public class LoginController {
 		return openid;
 	}
 
+	//	获取Openid
+	@RequestMapping("/getToken")
+	@ResponseBody
+	public String getToken(){
+		String result = null;
+		String token = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/token";
+		String param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&grant_type=client_credential";
+		try {
+			result = HttpUtil.sendPost(url	,param);
+			JSONObject jsonObject = JSON.parseObject(result);
+			token = jsonObject.getString("access_token");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
