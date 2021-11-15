@@ -374,11 +374,17 @@ public class LoginServiceImpl implements LoginService {
 				class_target = line.getClass_target();
 				id = line.getId();
 				create_time= line.getCreate_time();
+
+				List<Lesson> lessons = dao.getLessonByName(student_name);
+				Lesson lesson = lessons.get(0);
+				Integer percent = lesson.getLeft_amount() * 100/lesson.getTotal_amount();
+
+
 				//json
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("class_name",class_name);
 				jsonObject.put("comment",comment);
-//				jsonObject.put("photo",photo);
+				jsonObject.put("percent",percent);
 				jsonObject.put("class_target",class_target);
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
