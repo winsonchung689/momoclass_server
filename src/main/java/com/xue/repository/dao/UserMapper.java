@@ -42,7 +42,7 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
-    List<User> getOpenidByNick(String nick_name);
+    List<User> getOpenidByNick(String student_name);
 
 
  

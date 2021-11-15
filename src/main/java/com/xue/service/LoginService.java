@@ -32,7 +32,7 @@ public interface LoginService {
 
     public List getUser(String openid);
 
-    public List getOpenidByNick(String nick_name);
+    public List getOpenidByNick(String student_name);
 
     public List getAdvertise();
 

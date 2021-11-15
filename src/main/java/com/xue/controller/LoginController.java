@@ -162,10 +162,10 @@ public class LoginController {
 	//	获取用户
 	@RequestMapping("/getOpenidByNick")
 	@ResponseBody
-	public List getOpenidByNick(String nick_name){
+	public List getOpenidByNick(String student_name){
 		List list = null;
 		try {
-			list = loginService.getOpenidByNick(nick_name);
+			list = loginService.getOpenidByNick(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

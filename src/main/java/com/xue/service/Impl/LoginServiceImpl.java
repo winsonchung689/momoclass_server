@@ -232,12 +232,12 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getOpenidByNick(String nick_name) {
+	public List getOpenidByNick(String student_name) {
 		String openid = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
-			List <User> list = dao.getOpenidByNick(nick_name);
+			List <User> list = dao.getOpenidByNick(student_name);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				User line = list.get(i);
