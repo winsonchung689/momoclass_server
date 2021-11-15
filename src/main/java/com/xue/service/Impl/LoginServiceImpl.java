@@ -364,6 +364,7 @@ public class LoginServiceImpl implements LoginService {
 		try {
 			List <Message> list = dao.getMessage();
 			for(int i=0;i<list.size();i++){
+				Integer percent = 0;
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
 				//获取字段
@@ -375,10 +376,17 @@ public class LoginServiceImpl implements LoginService {
 				id = line.getId();
 				create_time= line.getCreate_time();
 
-				List<Lesson> lessons = dao.getLessonByName(student_name);
-				Lesson lesson = lessons.get(0);
-				Integer percent = lesson.getLeft_amount() * 100/lesson.getTotal_amount();
-
+				try {
+					List<Lesson> lessons = dao.getLessonByName(student_name);
+					Lesson lesson = lessons.get(0);
+					Integer left = lesson.getLeft_amount();
+					Integer total = lesson.getTotal_amount();
+					if(left>0 || total>0){
+						percent = left*100/total;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				//json
 				jsonObject.put("student_name",student_name);
