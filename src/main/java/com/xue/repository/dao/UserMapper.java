@@ -40,7 +40,10 @@ public interface UserMapper {
     //插入
     int insertUser(User user);
 
-    List<User> getUser(String nick_name);
+    List<User> getUser(String openid);
+
+    List<User> getOpenidByNick(String nick_name);
+
 
  
 }

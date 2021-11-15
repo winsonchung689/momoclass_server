@@ -250,5 +250,10 @@
     select id,nick_name,student_name,role,openid,create_time,avatarurl from user where openid =#{0} limit 1
   </select>
 
+  <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select id,nick_name,student_name,role,openid,create_time,avatarurl from user where nick_name =#{0} limit 1
+  </select>
+
+
 
 </mapper>

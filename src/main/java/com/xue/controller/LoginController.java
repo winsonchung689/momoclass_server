@@ -160,6 +160,19 @@ public class LoginController {
 	}
 
 	//	获取用户
+	@RequestMapping("/getOpenidByNick")
+	@ResponseBody
+	public List getOpenidByNick(String nick_name){
+		List list = null;
+		try {
+			list = loginService.getOpenidByNick(nick_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取用户
 	@RequestMapping("/getUser")
 	@ResponseBody
 	public List getUser(String openid){
@@ -171,6 +184,7 @@ public class LoginController {
 		}
 		return list;
 	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteComment")

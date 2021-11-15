@@ -232,6 +232,28 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public List getOpenidByNick(String nick_name) {
+		String openid = null;
+		List<JSONObject> resul_list = new ArrayList<>();
+		try {
+
+			List <User> list = dao.getOpenidByNick(nick_name);
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				User line = list.get(i);
+				//获取字段
+				openid = line.getOpenid();
+				//json
+				jsonObject.put("openid",openid);
+				resul_list.add(jsonObject);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
 	public List getAdvertise() {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
