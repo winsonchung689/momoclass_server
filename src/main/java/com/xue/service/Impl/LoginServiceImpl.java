@@ -246,6 +246,7 @@ public class LoginServiceImpl implements LoginService {
 		String role = null;
 		String student_name = null;
 		String avatarurl = null;
+		String nick_name = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -257,10 +258,12 @@ public class LoginServiceImpl implements LoginService {
 				role = line.getRole();
 				student_name = line.getStudent_name();
 				avatarurl = line.getAvatarurl();
+				nick_name = line.getNick_name();
 				//json
 				jsonObject.put("role",role);
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("avatarurl",avatarurl);
+				jsonObject.put("nick_name",nick_name);
 				resul_list.add(jsonObject);
 			}
 		} catch (Exception e) {
