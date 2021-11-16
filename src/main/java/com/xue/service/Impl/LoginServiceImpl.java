@@ -104,8 +104,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List getSearch(String student_name) {
-		byte[] photo = null;
-		InputStream inputStream_photo = null;
 		String comment = null;
 		String class_name = null;
 		String class_target = null;
@@ -116,25 +114,38 @@ public class LoginServiceImpl implements LoginService {
 		try {
 			List <Message> list = dao.getSearch(student_name);
 			for(int i=0;i<list.size();i++){
+				Integer percent = 0;
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
 				//获取字段
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
 				comment = line.getComment();
-				photo = line.getPhoto();
 				class_target = line.getClass_target();
 				id = line.getId();
 				create_time=line.getCreate_time();
+
+				try {
+					List<Lesson> lessons = dao.getLessonByName(student_name);
+					Lesson lesson = lessons.get(0);
+					Integer left = lesson.getLeft_amount();
+					Integer total = lesson.getTotal_amount();
+					if(left>0 || total>0){
+						percent = left*100/total;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 
 				//json
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("class_name",class_name);
 				jsonObject.put("comment",comment);
-				jsonObject.put("photo",photo);
 				jsonObject.put("class_target",class_target);
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
+				jsonObject.put("percent",percent);
 				resul_list.add(jsonObject);
 			}
 
@@ -351,8 +362,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List getMessage() {
-		byte[] photo = null;
-		InputStream inputStream_photo = null;
 		String comment = null;
 		String student_name = null;
 		String class_name = null;
@@ -371,7 +380,6 @@ public class LoginServiceImpl implements LoginService {
 				student_name = line.getStudent_name();
 				class_name = line.getClass_name();
 				comment = line.getComment();
-//				photo = line.getPhoto();
 				class_target = line.getClass_target();
 				id = line.getId();
 				create_time= line.getCreate_time();
