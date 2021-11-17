@@ -254,7 +254,7 @@
   </select>
 
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl from user where student_name =#{0} limit 1
+    select distinct openid from user where student_name =#{0}
   </select>
 
   <!-- 插入课时 -->
