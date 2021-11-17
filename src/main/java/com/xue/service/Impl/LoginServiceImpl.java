@@ -354,6 +354,7 @@ public class LoginServiceImpl implements LoginService {
 				Lesson lesson =new Lesson();
 				lesson.setStudent_name(student_name);
 				lesson.setLeft_amount(new_left);
+				lesson.setTotal_amount(total_amount);
 				result = dao.updateLesson(lesson);
 			}
 		} catch (Exception e) {
