@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import antlr.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
+import org.codehaus.groovy.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +56,27 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int updateLesson(Lesson lesson) {
 		int result = 0;
-		System.out.println(lesson);
 		try {
+			String student_name = lesson.getStudent_name();
+			Integer total = lesson.getTotal_amount();
+			Integer left = lesson.getLeft_amount();
+			Integer total_amount = null;
+			Integer left_amount = null;
+			if(student_name!=null) {
+				List<Lesson> lessons = dao.getLessonByName(student_name);
+				Lesson lesson_get = lessons.get(0);
+				total_amount = lesson_get.getLeft_amount();
+				if(total!=null){
+					total_amount =total;
+				}
+				left_amount = lesson_get.getTotal_amount();
+				if(left!=null){
+					left_amount = left;
+				}
+			}
+			lesson.setStudent_name(student_name);
+			lesson.setTotal_amount(total_amount);
+			lesson.setLeft_amount(left_amount);
 			result = dao.updateLesson(lesson);
 		} catch (Exception e) {
 			e.printStackTrace();

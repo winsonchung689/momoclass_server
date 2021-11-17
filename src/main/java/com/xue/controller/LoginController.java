@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.jndi.ldap.sasl.LdapSasl;
 import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
@@ -28,9 +29,35 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class LoginController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
+	private static final String tample ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"9NPcrBuA7L0B0Dn6ezNf6qB7rBO1J7sLTwV5XLyT9Os\",\"data\":{\"thing1\":{\"value\": \"classname\"},\"name2\":{\"value\": \"studentname\"},\"thing3\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time5\":{\"value\": \"mytime\"}}}";
+
 	@Autowired
 	private LoginService loginService;
+
+	//	获取token
+	@RequestMapping("/sendSubscribe")
+	@ResponseBody
+	public String sendSubscribe(String token, String openid, String classname,String studentname, String mytime){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
+		JSONObject queryJson = JSONObject.parseObject(tample);
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",classname);
+		queryJson.getJSONObject("data").getJSONObject("name2").put("value",studentname);
+		queryJson.getJSONObject("data").getJSONObject("time5").put("value",mytime);
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPost(url	,param);
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	//	获取Openid
 	@RequestMapping("/getOpenid")
