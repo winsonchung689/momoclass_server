@@ -60,17 +60,17 @@ public class LoginServiceImpl implements LoginService {
 			String student_name = lesson.getStudent_name();
 			Integer total = lesson.getTotal_amount();
 			Integer left = lesson.getLeft_amount();
-			Integer total_amount = null;
-			Integer left_amount = null;
+			Integer total_amount = 0;
+			Integer left_amount = 0;
 			if(student_name!=null) {
 				List<Lesson> lessons = dao.getLessonByName(student_name);
 				Lesson lesson_get = lessons.get(0);
 				total_amount = lesson_get.getLeft_amount();
-				if(total!=null){
+				if(total > 0){
 					total_amount =total;
 				}
 				left_amount = lesson_get.getTotal_amount();
-				if(left!=null){
+				if(left > 0){
 					left_amount = left;
 				}
 			}
