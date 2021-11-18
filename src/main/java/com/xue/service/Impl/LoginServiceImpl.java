@@ -379,6 +379,31 @@ public class LoginServiceImpl implements LoginService {
 		return result;
 	}
 
+	@Override
+	public List getLessonByName(String student_name) {
+		Integer total_amount = 0;
+		Integer left_amount = 0;
+		List<JSONObject> resul_list = new ArrayList<>();
+		try {
+
+			List <Lesson> list = dao.getLessonByName(student_name);
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Lesson line = list.get(i);
+				//获取字段
+				total_amount = line.getTotal_amount();
+				left_amount = line.getLeft_amount();
+				//json
+				jsonObject.put("total_amount",total_amount);
+				jsonObject.put("left_amount",left_amount);
+				resul_list.add(jsonObject);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
 
 	@Override
 	public List getMessage() {

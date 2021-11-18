@@ -30,7 +30,8 @@ public class LoginController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private static final String tample ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"9NPcrBuA7L0B0Dn6ezNf6qB7rBO1J7sLTwV5XLyT9Os\",\"data\":{\"thing1\":{\"value\": \"classname\"},\"name2\":{\"value\": \"studentname\"},\"thing3\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time5\":{\"value\": \"mytime\"}}}";
+	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"9NPcrBuA7L0B0Dn6ezNf6qB7rBO1J7sLTwV5XLyT9Os\",\"data\":{\"thing1\":{\"value\": \"classname\"},\"name2\":{\"value\": \"studentname\"},\"thing3\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time5\":{\"value\": \"mytime\"}}}";
+	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"uhNcyL52EueoUePmVJbIRtEWFQwffWHM8fkD66nzTrM\",\"data\":{\"thing1\":{\"value\": \"最后一节课啦一起来总结一下最近的成果吧\"},\"thing2\":{\"value\": \"process\"},\"thing4\":{\"value\": \"进步最该感谢的是-自己的坚持\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -41,11 +42,35 @@ public class LoginController {
 	public String sendSubscribe(String token, String openid, String classname,String studentname, String mytime){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample);
+		JSONObject queryJson = JSONObject.parseObject(tample1);
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",classname);
 		queryJson.getJSONObject("data").getJSONObject("name2").put("value",studentname);
 		queryJson.getJSONObject("data").getJSONObject("time5").put("value",mytime);
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+	//	获取token
+	@RequestMapping("/sendRemind")
+	@ResponseBody
+	public String sendRemind(String token, String openid, String total, String left){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample2);
+		queryJson.put("touser",openid);
+		String process = "总课时：" + total + ";  余课时：" + left;
+		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",process);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
@@ -102,6 +127,19 @@ public class LoginController {
 		List list = null;
 		try {
 			list = loginService.getMessage();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取学生的课程数
+	@RequestMapping("/getLessonByName")
+	@ResponseBody
+	public List getLessonByName(String student_name){
+		List list = null;
+		try {
+			list = loginService.getLessonByName(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -45,6 +45,8 @@ public interface LoginService {
 
     public int updateMinusLesson(String student_name);
 
+    public List  getLessonByName(String student_name);
+
 
 
 }
