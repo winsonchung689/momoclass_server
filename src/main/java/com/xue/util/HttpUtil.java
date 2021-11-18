@@ -1,5 +1,15 @@
 package com.xue.util;
 
+import com.alibaba.fastjson.JSONObject;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -58,4 +68,39 @@ public class HttpUtil {
         }
         return result;
     }
+
+    public static String sendPostJson(String url, String data) {
+
+        String response = null;
+
+        try {
+            CloseableHttpClient httpclient = null;
+            CloseableHttpResponse httpresponse = null;
+            try {
+                httpclient = HttpClients.createDefault();
+                HttpPost httppost = new HttpPost(url);
+                StringEntity stringentity = new StringEntity(data, ContentType.create("text/json", "UTF-8"));
+                httppost.setEntity(stringentity);
+                httpresponse = httpclient.execute(httppost);
+                response = EntityUtils.toString(httpresponse.getEntity());
+                System.out.printf("response: " + response);
+            } finally {
+                if (httpclient != null) {
+                    httpclient.close();
+                }
+                if (httpresponse != null) {
+                    httpresponse.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
+
 }
+
+
+

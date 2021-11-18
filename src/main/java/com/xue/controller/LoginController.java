@@ -40,7 +40,7 @@ public class LoginController {
 	@ResponseBody
 	public String sendSubscribe(String token, String openid, String classname,String studentname, String mytime){
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample);
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",classname);
@@ -50,7 +50,7 @@ public class LoginController {
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
 		try {
-			result = HttpUtil.sendPost(url	,param);
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
 			System.out.printf("res:" + result);
 
 		} catch (Exception e) {

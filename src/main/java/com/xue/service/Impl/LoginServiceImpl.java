@@ -3,13 +3,10 @@ package com.xue.service.Impl;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import antlr.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
-import org.codehaus.groovy.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +14,6 @@ import org.springframework.stereotype.Service;
 import com.xue.entity.model.Message;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Service
 public class LoginServiceImpl implements LoginService {
