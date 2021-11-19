@@ -561,7 +561,6 @@ public class LoginServiceImpl implements LoginService {
 				total_amount = line.getTotal_amount();
 				left_amount = line.getLeft_amount();
 				percent = left_amount*100/total_amount;
-				System.out.printf("oo"+percent);
 				id = line.getId();
 				create_time= line.getCreate_time();
 				//json
