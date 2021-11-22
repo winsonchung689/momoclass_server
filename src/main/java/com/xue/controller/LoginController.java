@@ -31,7 +31,7 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"9NPcrBuA7L0B0Dn6ezNf6qB7rBO1J7sLTwV5XLyT9Os\",\"data\":{\"thing1\":{\"value\": \"classname\"},\"name2\":{\"value\": \"studentname\"},\"thing3\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time5\":{\"value\": \"mytime\"}}}";
-	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"uhNcyL52EueoUePmVJbIRtEWFQwffWHM8fkD66nzTrM\",\"data\":{\"thing1\":{\"value\": \"一起总结一下最近的成果吧\"},\"thing2\":{\"value\": \"process\"},\"thing4\":{\"value\": \"进步最该感谢的是-自己的坚持\"}}}";
+	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"JGBkKY5UnL0bc3RMrhIkwNF7BNCAwvMIpxJ5T5cluX0\",\"data\":{\"thing8\":{\"value\": \"一起总结一下最近的成果吧\"},\"thing4\":{\"value\": \"process\"},\"thing7\":{\"value\": \"进步最该感谢的是-自己的坚持\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -70,7 +70,7 @@ public class LoginController {
 		JSONObject queryJson = JSONObject.parseObject(tample2);
 		queryJson.put("touser",openid);
 		String process = "总课时：" + total + ";  余课时：" + left;
-		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",process);
+		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",process);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
