@@ -47,6 +47,10 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name);
 
+    public int updateAddPoints(String student_name);
+
+    public int deletePoints(String student_name);
+
 
 
 }

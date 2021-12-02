@@ -3,6 +3,8 @@ package com.xue.service.Impl;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import antlr.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Lesson;
 import com.xue.entity.model.Schedule;
@@ -380,6 +382,52 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public int updateAddPoints(String student_name) {
+		int result = 0;
+		Integer points = 0;
+		Integer new_points = 0;
+		System.out.println(student_name);
+
+		List <Lesson> list = dao.getLessonByName(student_name);
+		try {
+			for(int i=0;i<list.size();i++){
+				Lesson line = list.get(i);
+				points = line.getPoints();
+				if(points==null){
+					points =0;
+				}
+				new_points = points + 1;
+				Lesson lesson =new Lesson();
+				lesson.setStudent_name(student_name);
+				lesson.setPoints(new_points);
+				result = dao.updateLessonPoint(lesson);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+	@Override
+	public int deletePoints(String student_name) {
+		int result = 0;
+		Integer points = 0;
+		System.out.println(student_name);
+		try {
+				Lesson lesson =new Lesson();
+				lesson.setStudent_name(student_name);
+				lesson.setPoints(points);
+				result = dao.updateLessonPoint(lesson);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+	@Override
 	public List getLessonByName(String student_name) {
 		Integer total_amount = 0;
 		Integer left_amount = 0;
@@ -548,6 +596,7 @@ public class LoginServiceImpl implements LoginService {
 		Integer left_amount = null;
 		String create_time = null;
 		String id = null;
+		Integer points = null;
 		double percent = 0;
 		List<JSONObject> resul_list = new ArrayList<>();
 
@@ -563,6 +612,7 @@ public class LoginServiceImpl implements LoginService {
 				percent = left_amount*100/total_amount;
 				id = line.getId();
 				create_time= line.getCreate_time();
+				points = line.getPoints();
 				//json
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("total_amount",total_amount);
@@ -570,6 +620,8 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
 				jsonObject.put("percent",percent);
+				jsonObject.put("points",points);
+				jsonObject.put("rank",i+1);
 				resul_list.add(jsonObject);
 			}
 

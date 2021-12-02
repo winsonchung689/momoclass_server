@@ -53,6 +53,8 @@ public interface UserMapper {
 
     List<Lesson> getLessonByName(String student_name);
 
+    int updateLessonPoint(Lesson lesson);
+
 
  
 }

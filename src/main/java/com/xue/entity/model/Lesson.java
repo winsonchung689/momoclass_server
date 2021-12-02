@@ -8,6 +8,8 @@ public class Lesson {
 
     private Integer left_amount;
 
+    private Integer points;
+
     private String student_name;
 
     private String create_time;
@@ -23,7 +25,6 @@ public class Lesson {
         this.id = id;
     }
 
-
     public Integer getTotal_amount() {
         return total_amount;
     }
@@ -38,6 +39,14 @@ public class Lesson {
 
     public void setLeft_amount(Integer left_amount) {
         this.left_amount = left_amount;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
     public String getStudent_name() {
@@ -58,7 +67,7 @@ public class Lesson {
 
 	@Override
 	public String toString() {
-		return "Schedule [total_amount=" + total_amount+ ", student_name="+ student_name + ", left_amount="+ left_amount + ", create_time="+ create_time + "]";
+		return "Schedule [total_amount=" + total_amount+ ", student_name="+ student_name + ", left_amount="+ left_amount + ", point="+ points + ", create_time="+ create_time + "]";
 	}
 
     

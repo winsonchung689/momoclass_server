@@ -343,6 +343,7 @@ public class LoginController {
 			message.setClass_target(class_target);
 			loginService.push(message);
 			loginService.updateMinusLesson(student_name);
+			loginService.updateAddPoints(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -436,6 +437,33 @@ public class LoginController {
 			if (0==res){
 				loginService.insertLesson(lesson);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+
+	@RequestMapping("/updateLessonPoints")
+	@ResponseBody
+	public String updateLessonPoints(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String student_name = request.getParameter("student_name");
+		try {
+			loginService.updateAddPoints(student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/deletePoints")
+	@ResponseBody
+	public String deletePoints(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String student_name = request.getParameter("student_name");
+		try {
+			loginService.deletePoints(student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
