@@ -172,6 +172,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取主页
+	@RequestMapping("/getHome")
+	@ResponseBody
+	public List getHome(){
+		List list = null;
+		try {
+			list = loginService.getHome();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	//	获取全部
 	@RequestMapping("/getMessageClient")
