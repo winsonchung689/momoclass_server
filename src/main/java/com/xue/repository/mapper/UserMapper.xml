@@ -38,12 +38,12 @@
 
   <!-- 获取广告 -->
   <select id="getAdvertise" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='广告'  order by create_time desc limit 10
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='广告'  order by create_time desc limit 1
   </select>
 
   <!-- 获取课程体系 -->
   <select id="getClassSys" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='课程体系'  order by create_time desc limit 10
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='课程体系'  order by create_time desc limit 7
   </select>
 
   <!-- 获取主页 -->
