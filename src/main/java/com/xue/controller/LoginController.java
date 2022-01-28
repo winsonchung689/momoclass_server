@@ -172,6 +172,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取课程体系
+	@RequestMapping("/getClassSys")
+	@ResponseBody
+	public List getClassSys(){
+		List list = null;
+		try {
+			list = loginService.getClassSys();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody

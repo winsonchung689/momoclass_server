@@ -15,6 +15,9 @@ public interface UserMapper {
     List<Message> getAdvertise();
 
     //获取
+    List<Message> getClassSys();
+
+    //获取
     List<Message> getHome();
 
     //获取

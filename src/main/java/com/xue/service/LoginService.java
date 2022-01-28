@@ -43,6 +43,8 @@ public interface LoginService {
 
     public List getAdvertise();
 
+    public List getClassSys();
+
     public List getHome();
 
     public int updateMinusLesson(String student_name);
