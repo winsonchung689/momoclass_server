@@ -48,7 +48,7 @@
 
   <!-- 获取主页 -->
   <select id="getHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='主页'  order by create_time desc limit 2
+    select id,student_name,photo,comment,create_time,class_name,class_target from class_comment where class_target='主页'  order by create_time desc limit 3
   </select>
 
   <!-- 获取全部 -->
