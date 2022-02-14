@@ -73,7 +73,7 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time from class_schedule where add_date=#{0} order by id
+    select id,add_date,age,student_name,duration,create_time from class_schedule where dayofweek(add_date)=#{0} order by create_time limit 1
   </select>
 
   <!-- 插入信息 -->

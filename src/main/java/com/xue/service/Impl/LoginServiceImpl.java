@@ -1,7 +1,10 @@
 package com.xue.service.Impl;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import antlr.StringUtils;
@@ -195,9 +198,16 @@ public class LoginServiceImpl implements LoginService {
 		String create_time = null;
 		String id = null;
 		List<JSONObject> resul_list = new ArrayList<>();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = null;
 
 		try {
-			List <Schedule> list = dao.getSchedule(date_time);
+			d = fmt.parse(date_time);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
+
+			List <Schedule> list = dao.getSchedule(weekDay);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Schedule line = list.get(i);
