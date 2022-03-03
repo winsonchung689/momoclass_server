@@ -254,7 +254,7 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
-	public List getDetails(Integer id){
+	public List getDetails(Integer id,String studio){
 		List list = null;
 		try {
 			list = loginService.getDetails(id);

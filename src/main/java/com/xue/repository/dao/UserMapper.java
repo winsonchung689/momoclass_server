@@ -18,7 +18,7 @@ public interface UserMapper {
     List<Message> getClassSys(String studio);
 
     //获取
-    List<Message> getHome();
+    List<Message> getHome(String studio);
 
     //获取
     List<Message> getMessageClient(String student_name);

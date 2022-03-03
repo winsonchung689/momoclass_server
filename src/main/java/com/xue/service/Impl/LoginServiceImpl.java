@@ -424,7 +424,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getHome();
+			List <Message> list = dao.getHome(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
@@ -575,6 +575,7 @@ public class LoginServiceImpl implements LoginService {
 				class_target = line.getClass_target();
 				id = line.getId();
 				create_time= line.getCreate_time();
+				studio = line.getStudio();
 
 				try {
 					List<Lesson> lessons = dao.getLessonByName(student_name,studio);
