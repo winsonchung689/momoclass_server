@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface UserMapper {
     //获取
-    List<Message> getMessage();
+    List<Message> getMessage(String studio);
 
     //获取
-    List<Message> getAdvertise();
+    List<Message> getAdvertise(String studio);
 
     //获取
-    List<Message> getClassSys();
+    List<Message> getClassSys(String studio);
 
     //获取
     List<Message> getHome();
@@ -24,12 +24,12 @@ public interface UserMapper {
     List<Message> getMessageClient(String student_name);
 
     //获取
-    List<Schedule> getSchedule(Integer date_time);
+    List<Schedule> getSchedule(Integer date_time,String studio);
 
-    List<Message> getModel();
+    List<Message> getModel(String studio);
 
     //获取
-    List<Message> getSearch(String student_name);
+    List<Message> getSearch(String student_name,String studio);
 
     //获取详情
     List<Message> getDetails(Integer id);
@@ -49,15 +49,15 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
-    List<User> getOpenidByNick(String student_name);
+    List<User> getOpenidByNick(String student_name,String studio);
 
-    List<Lesson> getLesson();
+    List<Lesson> getLesson(String studio);
 
     int insertLesson(Lesson lesson);
 
     int updateLesson(Lesson lesson);
 
-    List<Lesson> getLessonByName(String student_name);
+    List<Lesson> getLessonByName(String student_name,String studio);
 
     int updateLessonPoint(Lesson lesson);
 

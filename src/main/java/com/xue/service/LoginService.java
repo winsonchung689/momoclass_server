@@ -9,13 +9,13 @@ import com.xue.entity.model.User;
 
 public interface LoginService {
 
-    public List  getMessage();
+    public List  getMessage(String studio);
 
     public List  getMessageClient(String nickName);
 
-    public List  getModel();
+    public List  getModel(String studio);
 
-    public List  getLesson();
+    public List  getLesson(String studio);
 
     public int push(Message message);
 
@@ -25,11 +25,11 @@ public interface LoginService {
 
     public List  getDetails(Integer id);
 
-    public List  getSearch(String student_name);
+    public List  getSearch(String student_name,String studio);
 
     public int insertSchedule(Schedule schedule);
 
-    public List  getSchedule(String date_time);
+    public List  getSchedule(String date_time,String studio);
 
     public int  deleteComment(Integer id);
 
@@ -39,21 +39,21 @@ public interface LoginService {
 
     public List getUser(String openid);
 
-    public List getOpenidByNick(String student_name);
+    public List getOpenidByNick(String student_name,String studio);
 
-    public List getAdvertise();
+    public List getAdvertise(String studio);
 
-    public List getClassSys();
+    public List getClassSys(String studio);
 
-    public List getHome();
+    public List getHome(String studio);
 
-    public int updateMinusLesson(String student_name);
+    public int updateMinusLesson(String student_name,String studio);
 
-    public List  getLessonByName(String student_name);
+    public List  getLessonByName(String student_name,String studio);
 
-    public int updateAddPoints(String student_name);
+    public int updateAddPoints(String student_name,String studio);
 
-    public int deletePoints(String student_name);
+    public int deletePoints(String student_name,String studio);
 
 
 

@@ -14,6 +14,16 @@ public class User {
 
     private String avatarurl;
 
+    private String studio;
+
+
+    public String getStudio() {
+        return studio;
+    }
+
+    public void setStudio(String studio) {
+        this.studio = studio;
+    }
 
     public String getAvatarurl() {
         return avatarurl;

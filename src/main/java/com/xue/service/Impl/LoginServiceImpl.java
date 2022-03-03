@@ -60,10 +60,11 @@ public class LoginServiceImpl implements LoginService {
 			String student_name = lesson.getStudent_name();
 			Integer total = lesson.getTotal_amount();
 			Integer left = lesson.getLeft_amount();
+			String studio = lesson.getStudio();
 			Integer total_amount = 0;
 			Integer left_amount = 0;
 			if(student_name!=null) {
-				List<Lesson> lessons = dao.getLessonByName(student_name);
+				List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 				Lesson lesson_get = lessons.get(0);
 				total_amount = lesson_get.getTotal_amount();
 				if(total > 0){
@@ -124,7 +125,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getSearch(String student_name) {
+	public List getSearch(String student_name,String studio) {
 		String comment = null;
 		String class_name = null;
 		String class_target = null;
@@ -133,7 +134,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getSearch(student_name);
+			List <Message> list = dao.getSearch(student_name,studio);
 			for(int i=0;i<list.size();i++){
 				Integer percent = 0;
 				JSONObject jsonObject = new JSONObject();
@@ -147,7 +148,7 @@ public class LoginServiceImpl implements LoginService {
 				create_time=line.getCreate_time();
 
 				try {
-					List<Lesson> lessons = dao.getLessonByName(student_name);
+					List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 					Lesson lesson = lessons.get(0);
 					Integer left = lesson.getLeft_amount();
 					Integer total = lesson.getTotal_amount();
@@ -190,7 +191,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getSchedule(String date_time) {
+	public List getSchedule(String date_time,String studio) {
 		String add_date = null;
 		String age = null;
 		String student_name = null;
@@ -207,7 +208,7 @@ public class LoginServiceImpl implements LoginService {
 			cal.setTime(d);
 			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
-			List <Schedule> list = dao.getSchedule(weekDay);
+			List <Schedule> list = dao.getSchedule(weekDay,studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Schedule line = list.get(i);
@@ -275,6 +276,7 @@ public class LoginServiceImpl implements LoginService {
 		String student_name = null;
 		String avatarurl = null;
 		String nick_name = null;
+		String studio = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -287,11 +289,14 @@ public class LoginServiceImpl implements LoginService {
 				student_name = line.getStudent_name();
 				avatarurl = line.getAvatarurl();
 				nick_name = line.getNick_name();
+				studio = line.getStudio();
+
 				//json
 				jsonObject.put("role",role);
 				jsonObject.put("student_name",student_name);
 				jsonObject.put("avatarurl",avatarurl);
 				jsonObject.put("nick_name",nick_name);
+				jsonObject.put("studio",studio);
 				resul_list.add(jsonObject);
 			}
 		} catch (Exception e) {
@@ -301,12 +306,12 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getOpenidByNick(String student_name) {
+	public List getOpenidByNick(String student_name,String studio) {
 		String openid = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
-			List <User> list = dao.getOpenidByNick(student_name);
+			List <User> list = dao.getOpenidByNick(student_name,studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				User line = list.get(i);
@@ -323,7 +328,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getAdvertise() {
+	public List getAdvertise(String studio) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -335,7 +340,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getAdvertise();
+			List <Message> list = dao.getAdvertise(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
@@ -365,7 +370,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getClassSys() {
+	public List getClassSys(String studio) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -377,7 +382,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getClassSys();
+			List <Message> list = dao.getClassSys(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
@@ -407,7 +412,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getHome() {
+	public List getHome(String studio) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -449,14 +454,14 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int updateMinusLesson(String student_name) {
+	public int updateMinusLesson(String student_name,String studio) {
 		int result = 0;
 		Integer total_amount = 0;
 		Integer left_amount = 0;
 		Integer new_left = 0;
 		System.out.println(student_name);
 
-		List <Lesson> list = dao.getLessonByName(student_name);
+		List <Lesson> list = dao.getLessonByName(student_name,studio);
 		try {
 			for(int i=0;i<list.size();i++){
 				Lesson line = list.get(i);
@@ -476,13 +481,13 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int updateAddPoints(String student_name) {
+	public int updateAddPoints(String student_name,String studio) {
 		int result = 0;
 		Integer points = 0;
 		Integer new_points = 0;
 		System.out.println(student_name);
 
-		List <Lesson> list = dao.getLessonByName(student_name);
+		List <Lesson> list = dao.getLessonByName(student_name,studio);
 		try {
 			for(int i=0;i<list.size();i++){
 				Lesson line = list.get(i);
@@ -504,7 +509,7 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public int deletePoints(String student_name) {
+	public int deletePoints(String student_name,String studio) {
 		int result = 0;
 		Integer points = 0;
 		System.out.println(student_name);
@@ -522,13 +527,13 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public List getLessonByName(String student_name) {
+	public List getLessonByName(String student_name,String studio) {
 		Integer total_amount = 0;
 		Integer left_amount = 0;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
-			List <Lesson> list = dao.getLessonByName(student_name);
+			List <Lesson> list = dao.getLessonByName(student_name,studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Lesson line = list.get(i);
@@ -548,7 +553,7 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public List getMessage() {
+	public List getMessage(String studio) {
 		String comment = null;
 		String student_name = null;
 		String class_name = null;
@@ -558,7 +563,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getMessage();
+			List <Message> list = dao.getMessage(studio);
 			for(int i=0;i<list.size();i++){
 				Integer percent = 0;
 				JSONObject jsonObject = new JSONObject();
@@ -572,7 +577,7 @@ public class LoginServiceImpl implements LoginService {
 				create_time= line.getCreate_time();
 
 				try {
-					List<Lesson> lessons = dao.getLessonByName(student_name);
+					List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 					Lesson lesson = lessons.get(0);
 					Integer left = lesson.getLeft_amount();
 					Integer total = lesson.getTotal_amount();
@@ -642,7 +647,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getModel() {
+	public List getModel(String studio) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -654,7 +659,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getModel();
+			List <Message> list = dao.getModel(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
@@ -684,7 +689,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getLesson() {
+	public List getLesson(String studio) {
 		String student_name = null;
 		Integer total_amount = null;
 		Integer left_amount = null;
@@ -695,7 +700,7 @@ public class LoginServiceImpl implements LoginService {
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Lesson> list = dao.getLesson();
+			List <Lesson> list = dao.getLesson(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Lesson line = list.get(i);

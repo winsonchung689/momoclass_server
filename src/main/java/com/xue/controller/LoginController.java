@@ -123,10 +123,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(){
+	public List getMessage(String studio){
 		List list = null;
 		try {
-			list = loginService.getMessage();
+			list = loginService.getMessage(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,10 +136,10 @@ public class LoginController {
 	//	获取学生的课程数
 	@RequestMapping("/getLessonByName")
 	@ResponseBody
-	public List getLessonByName(String student_name){
+	public List getLessonByName(String student_name,String studio){
 		List list = null;
 		try {
-			list = loginService.getLessonByName(student_name);
+			list = loginService.getLessonByName(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -149,10 +149,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLesson")
 	@ResponseBody
-	public List getLesson(){
+	public List getLesson(String studio){
 		List list = null;
 		try {
-			list = loginService.getLesson();
+			list = loginService.getLesson(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,10 +162,10 @@ public class LoginController {
 	//	获取广告
 	@RequestMapping("/getAdvertise")
 	@ResponseBody
-	public List getAdvertise(){
+	public List getAdvertise(String studio){
 		List list = null;
 		try {
-			list = loginService.getAdvertise();
+			list = loginService.getAdvertise(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -175,10 +175,10 @@ public class LoginController {
 	//	获取课程体系
 	@RequestMapping("/getClassSys")
 	@ResponseBody
-	public List getClassSys(){
+	public List getClassSys(String studio){
 		List list = null;
 		try {
-			list = loginService.getClassSys();
+			list = loginService.getClassSys(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -188,10 +188,10 @@ public class LoginController {
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody
-	public List getHome(){
+	public List getHome(String studio){
 		List list = null;
 		try {
-			list = loginService.getHome();
+			list = loginService.getHome(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -215,10 +215,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getSchedule")
 	@ResponseBody
-	public List getSchedule(String date_time){
+	public List getSchedule(String date_time,String studio){
 		List list = null;
 		try {
-			list = loginService.getSchedule(date_time);
+			list = loginService.getSchedule(date_time,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -228,10 +228,10 @@ public class LoginController {
 	//	获取范画
 	@RequestMapping("/getModel")
 	@ResponseBody
-	public List getModel(){
+	public List getModel(String studio){
 		List list = null;
 		try {
-			list = loginService.getModel();
+			list = loginService.getModel(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,10 +241,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody
-	public List getSearch(String student_name){
+	public List getSearch(String student_name,String studio){
 		List list = null;
 		try {
-			list = loginService.getSearch(student_name);
+			list = loginService.getSearch(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -267,10 +267,10 @@ public class LoginController {
 	//	获取用户
 	@RequestMapping("/getOpenidByNick")
 	@ResponseBody
-	public List getOpenidByNick(String student_name){
+	public List getOpenidByNick(String student_name,String studio){
 		List list = null;
 		try {
-			list = loginService.getOpenidByNick(student_name);
+			list = loginService.getOpenidByNick(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -357,6 +357,8 @@ public class LoginController {
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
+		String studio = request.getParameter("studio");
+
 		FileInputStream in = null;
 		try {
 			Message message =new Message();
@@ -367,9 +369,10 @@ public class LoginController {
 			message.setCreate_time(create_time);
 			message.setClass_name(class_name);
 			message.setClass_target(class_target);
+			message.setStudio(studio);
 			loginService.push(message);
-			loginService.updateMinusLesson(student_name);
-			loginService.updateAddPoints(student_name);
+			loginService.updateMinusLesson(student_name,studio);
+			loginService.updateAddPoints(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -393,6 +396,8 @@ public class LoginController {
 		//获取时间段
 		String duration = request.getParameter("duration");
 
+		String studio = request.getParameter("studio");
+
 		try {
 			Schedule schedule =new Schedule();
 			schedule.setAdd_date(add_date);
@@ -400,6 +405,7 @@ public class LoginController {
 			schedule.setStudent_name(student_name);
 			schedule.setDuration(duration);
 			schedule.setCreate_time(create_time);
+			schedule.setStudio(studio);
 			loginService.insertSchedule(schedule);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -425,6 +431,8 @@ public class LoginController {
 		//获取openid
 		String avatarurl = request.getParameter("avatarurl");
 
+		String studio = request.getParameter("studio");
+
 
 		try {
 			User user =new User();
@@ -434,6 +442,7 @@ public class LoginController {
 			user.setOpenid(openid);
 			user.setCreate_time(create_time);
 			user.setAvatarurl(avatarurl);
+			user.setStudio(studio);
 			loginService.insertUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -453,12 +462,16 @@ public class LoginController {
 		Integer total_amount = Integer.valueOf(request.getParameter("total_amount"));
 		//获年角色
 		Integer left_amount = Integer.valueOf(request.getParameter("left_amount"));
+
+		String studio = request.getParameter("studio");
+
 		Lesson lesson =new Lesson();
 		try {
 			lesson.setStudent_name(student_name);
 			lesson.setTotal_amount(total_amount);
 			lesson.setLeft_amount(left_amount);
 			lesson.setCreate_time(create_time);
+			lesson.setStudio(studio);
 			int res = loginService.updateLesson(lesson);
 			if (0==res){
 				loginService.insertLesson(lesson);
@@ -475,8 +488,10 @@ public class LoginController {
 	public String updateLessonPoints(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String student_name = request.getParameter("student_name");
+		String studio = request.getParameter("studio");
+
 		try {
-			loginService.updateAddPoints(student_name);
+			loginService.updateAddPoints(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -488,8 +503,10 @@ public class LoginController {
 	public String deletePoints(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String student_name = request.getParameter("student_name");
+		String studio = request.getParameter("studio");
+
 		try {
-			loginService.deletePoints(student_name);
+			loginService.deletePoints(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

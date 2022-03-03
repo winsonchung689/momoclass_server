@@ -14,6 +14,15 @@ public class Schedule {
 
     private String id;
 
+    private String studio;
+
+    public String getStudio() {
+        return studio;
+    }
+
+    public void setStudio(String studio) {
+        this.studio = studio;
+    }
 
     public String getId() {
         return id;
