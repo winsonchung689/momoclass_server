@@ -38,17 +38,17 @@
 
   <!-- 获取广告 -->
   <select id="getAdvertise" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='广告' and studio = #{0} order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='广告' and studio = #{param1} order by create_time desc limit 1
   </select>
 
   <!-- 获取课程体系 -->
   <select id="getClassSys" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='课程体系' and studio = #{0} order by create_time desc limit 6
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='课程体系' and studio = #{param1} order by create_time desc limit 6
   </select>
 
   <!-- 获取主页 -->
   <select id="getHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='主页' and studio = #{0} order by create_time desc limit 3
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='主页' and studio = #{param1} order by create_time desc limit 3
   </select>
 
   <!-- 获取全部 -->
@@ -58,7 +58,7 @@
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{0} and class_target not in ('范画','广告','主页','课程体系')
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系')
   </select>
 
   <!-- 获取详情 -->
@@ -92,7 +92,7 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio from user where openid =#{0} limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio from user where openid =#{param1} limit 1
   </select>
 
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
