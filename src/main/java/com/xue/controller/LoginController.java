@@ -436,7 +436,7 @@ public class LoginController {
 		String nick_name = request.getParameter("nick_name");
 		//获取学生名
 		String student_name = request.getParameter("student_name");
-		if(student_name == null || student_name.isEmpty()){
+		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
 			student_name = "no_name";
 		}
 		//获年角色
