@@ -39,6 +39,8 @@ public interface LoginService {
 
     public List getUser(String openid);
 
+    public List getStudio();
+
     public List getOpenidByNick(String student_name,String studio);
 
     public List getAdvertise(String studio);

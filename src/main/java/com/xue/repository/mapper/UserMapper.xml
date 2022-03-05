@@ -95,6 +95,11 @@
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio from user where openid =#{param1} limit 1
   </select>
 
+
+  <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select distinct studio from user
+  </select>
+
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select distinct openid from user where student_name =#{0} and studio = #{1}
   </select>

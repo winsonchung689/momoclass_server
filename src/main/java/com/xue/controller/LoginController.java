@@ -290,6 +290,18 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取工作室列表
+	@RequestMapping("/getStudio")
+	@ResponseBody
+	public List getStudio(){
+		List list = null;
+		try {
+			list = loginService.getStudio();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	//	获取详情页
 	@RequestMapping("/deleteComment")

@@ -49,6 +49,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<User> getStudio();
+
     List<User> getOpenidByNick(String student_name,String studio);
 
     List<Lesson> getLesson(String studio);

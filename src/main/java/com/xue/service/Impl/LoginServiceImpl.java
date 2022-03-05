@@ -306,6 +306,27 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public List getStudio() {
+		String studio = null;
+		List<String> resul_list = new ArrayList<>();
+		try {
+
+			List <User> list = dao.getStudio();
+			for(int i=0;i<list.size();i++){
+				User line = list.get(i);
+				//获取字段
+				studio = line.getStudio();
+
+				//json
+				resul_list.add(studio);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
 	public List getOpenidByNick(String student_name,String studio) {
 		String openid = null;
 		List<JSONObject> resul_list = new ArrayList<>();
