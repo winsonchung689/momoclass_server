@@ -47,6 +47,8 @@ public interface UserMapper {
     //插入
     int insertUser(User user);
 
+    int updateUser(User user);
+
     List<User> getUser(String openid);
 
     List<User> getStudio();

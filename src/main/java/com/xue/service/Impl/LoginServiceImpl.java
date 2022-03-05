@@ -271,6 +271,18 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public int updateUser(User user) {
+		int result = 0;
+
+		try {
+			result = dao.updateUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
 	public List getUser(String openid) {
 		String role = null;
 		String student_name = null;

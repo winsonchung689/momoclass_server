@@ -436,6 +436,9 @@ public class LoginController {
 		String nick_name = request.getParameter("nick_name");
 		//获取学生名
 		String student_name = request.getParameter("student_name");
+		if(student_name == null || student_name.isEmpty()){
+			student_name = "no_name";
+		}
 		//获年角色
 		String role = request.getParameter("role");
         //获取openid
@@ -455,7 +458,10 @@ public class LoginController {
 			user.setCreate_time(create_time);
 			user.setAvatarurl(avatarurl);
 			user.setStudio(studio);
-			loginService.insertUser(user);
+			int res = loginService.updateUser(user);
+			if (0==res){
+				loginService.insertUser(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

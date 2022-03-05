@@ -37,6 +37,8 @@ public interface LoginService {
 
     public int insertUser(User user);
 
+    public int updateUser(User user);
+
     public List getUser(String openid);
 
     public List getStudio();
