@@ -97,7 +97,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio} where student_name=#{student_name} and openid = #{openid}
+    update user set studio=#{studio}, create_time=#{create_time} where student_name=#{student_name} and openid = #{openid}
   </update>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
