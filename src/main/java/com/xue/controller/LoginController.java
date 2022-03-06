@@ -441,6 +441,9 @@ public class LoginController {
 		}
 		//获年角色
 		String role = request.getParameter("role");
+		if(role == null || role.isEmpty() || "undefined".equals(role)){
+			student_name = "client";
+		}
         //获取openid
 		String openid = request.getParameter("openid");
 		//获取openid
