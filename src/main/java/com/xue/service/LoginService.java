@@ -35,6 +35,8 @@ public interface LoginService {
 
     public int  deleteSchedule(Integer id);
 
+    public int  deleteLesson(Integer id);
+
     public int insertUser(User user);
 
     public int updateUser(User user);

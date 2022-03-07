@@ -328,6 +328,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteLesson")
+	@ResponseBody
+	public int deleteLesson(Integer id){
+		try {
+			loginService.deleteLesson(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	推送图片
 	@RequestMapping("/push_photo")
 	@ResponseBody

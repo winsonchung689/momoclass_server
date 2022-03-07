@@ -258,6 +258,17 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public int deleteLesson(Integer id) {
+		try {
+			dao.deleteLesson(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	@Override
 	public int insertUser(User user) {
 		int result = 0;
 		FileInputStream in = null;

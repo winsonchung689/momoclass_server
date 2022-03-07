@@ -44,6 +44,8 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id);
 
+    void deleteLesson(Integer id);
+
     //插入
     int insertUser(User user);
 
