@@ -633,7 +633,7 @@ public class LoginServiceImpl implements LoginService {
 					left = lesson.getLeft_amount();
 					Float total = lesson.getTotal_amount();
 					if(left>0 || total>0){
-						percent = left*100/total;
+						percent = (float)Math.round(left*100/total);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -748,7 +748,7 @@ public class LoginServiceImpl implements LoginService {
 		String create_time = null;
 		String id = null;
 		Integer points =  0;
-		double percent = 0;
+		Float percent = 0.0f;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
@@ -760,7 +760,7 @@ public class LoginServiceImpl implements LoginService {
 				student_name = line.getStudent_name();
 				total_amount = line.getTotal_amount();
 				left_amount = line.getLeft_amount();
-				percent = left_amount*100/total_amount;
+				percent = (float)Math.round(left_amount*100/total_amount);
 				id = line.getId();
 				create_time= line.getCreate_time();
 				points = line.getPoints();
