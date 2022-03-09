@@ -492,9 +492,9 @@ public class LoginController {
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		//获取学生名
-		Integer total_amount = Integer.valueOf(request.getParameter("total_amount"));
+		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
 		//获年角色
-		Integer left_amount = Integer.valueOf(request.getParameter("left_amount"));
+		Float left_amount = Float.valueOf(request.getParameter("left_amount"));
 
 		String studio = request.getParameter("studio");
 

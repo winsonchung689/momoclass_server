@@ -4,9 +4,9 @@ package com.xue.entity.model;
 import org.omg.PortableInterceptor.INACTIVE;
 
 public class Lesson {
-    private Integer total_amount;
+    private Float total_amount;
 
-    private Integer left_amount;
+    private Float left_amount;
 
     private Integer points;
 
@@ -34,19 +34,19 @@ public class Lesson {
         this.id = id;
     }
 
-    public Integer getTotal_amount() {
+    public Float getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(Integer total_amount) {
+    public void setTotal_amount(Float total_amount) {
         this.total_amount = total_amount;
     }
 
-    public Integer getLeft_amount() {
+    public Float getLeft_amount() {
         return left_amount;
     }
 
-    public void setLeft_amount(Integer left_amount) {
+    public void setLeft_amount(Float left_amount) {
         this.left_amount = left_amount;
     }
 

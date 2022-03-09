@@ -58,11 +58,11 @@ public class LoginServiceImpl implements LoginService {
 		int result = 0;
 		try {
 			String student_name = lesson.getStudent_name();
-			Integer total = lesson.getTotal_amount();
-			Integer left = lesson.getLeft_amount();
+			Float total = lesson.getTotal_amount();
+			Float left = lesson.getLeft_amount();
 			String studio = lesson.getStudio();
-			Integer total_amount = 0;
-			Integer left_amount = 0;
+			Float total_amount = 0.0f;
+			Float left_amount = 0.0f;
 			if(student_name!=null) {
 				List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 				Lesson lesson_get = lessons.get(0);
@@ -136,8 +136,8 @@ public class LoginServiceImpl implements LoginService {
 		try {
 			List <Message> list = dao.getSearch(student_name,studio);
 			for(int i=0;i<list.size();i++){
-				Integer percent = 0;
-				Integer left = 0;
+				Float percent = 0.0f;
+				Float left = 0.0f;
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
 				//获取字段
@@ -152,7 +152,7 @@ public class LoginServiceImpl implements LoginService {
 					List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 					Lesson lesson = lessons.get(0);
 					left = lesson.getLeft_amount();
-					Integer total = lesson.getTotal_amount();
+					Float total = lesson.getTotal_amount();
 					if(left>0 || total>0){
 						percent = left*100/total;
 					}
@@ -502,9 +502,9 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int updateMinusLesson(String student_name,String studio) {
 		int result = 0;
-		Integer total_amount = 0;
-		Integer left_amount = 0;
-		Integer new_left = 0;
+		Float total_amount = 0.0f;
+		Float left_amount =  0.0f;
+		Float new_left =  0.0f;
 		System.out.println(student_name);
 
 		List <Lesson> list = dao.getLessonByName(student_name,studio);
@@ -577,8 +577,8 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List getLessonByName(String student_name,String studio) {
-		Integer total_amount = 0;
-		Integer left_amount = 0;
+		Float total_amount =  0.0f;
+		Float left_amount =  0.0f;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -614,8 +614,8 @@ public class LoginServiceImpl implements LoginService {
 		try {
 			List <Message> list = dao.getMessage(studio);
 			for(int i=0;i<list.size();i++){
-				Integer percent = 0;
-				Integer left = 0;
+				Float percent =  0.0f;
+				Float left =  0.0f;
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
 				//获取字段
@@ -631,7 +631,7 @@ public class LoginServiceImpl implements LoginService {
 					List<Lesson> lessons = dao.getLessonByName(student_name,studio);
 					Lesson lesson = lessons.get(0);
 					left = lesson.getLeft_amount();
-					Integer total = lesson.getTotal_amount();
+					Float total = lesson.getTotal_amount();
 					if(left>0 || total>0){
 						percent = left*100/total;
 					}
@@ -743,11 +743,11 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public List getLesson(String studio) {
 		String student_name = null;
-		Integer total_amount = null;
-		Integer left_amount = null;
+		Float total_amount =  0.0f;
+		Float left_amount =  0.0f;
 		String create_time = null;
 		String id = null;
-		Integer points = null;
+		Integer points =  0;
 		double percent = 0;
 		List<JSONObject> resul_list = new ArrayList<>();
 
