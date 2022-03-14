@@ -49,6 +49,8 @@ public interface LoginService {
 
     public List getAdvertise(String studio);
 
+    public List getCertificate(String studio);
+
     public List getClassSys(String studio);
 
     public List getHome(String studio);

@@ -22,9 +22,9 @@ import com.xue.service.LoginService;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-	
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private UserMapper dao;
 
@@ -387,6 +387,48 @@ public class LoginServiceImpl implements LoginService {
 
 		try {
 			List <Message> list = dao.getAdvertise(studio);
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Message line = list.get(i);
+				//获取字段
+				student_name = line.getStudent_name();
+				class_name = line.getClass_name();
+				comment = line.getComment();
+				photo = line.getPhoto();
+				class_target = line.getClass_target();
+				id = line.getId();
+				create_time= line.getCreate_time();
+				//json
+				jsonObject.put("student_name",student_name);
+				jsonObject.put("class_name",class_name);
+				jsonObject.put("comment",comment);
+				jsonObject.put("photo",photo);
+				jsonObject.put("class_target",class_target);
+				jsonObject.put("id",id);
+				jsonObject.put("create_time",create_time);
+				resul_list.add(jsonObject);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getCertificate(String studio) {
+		byte[] photo = null;
+		InputStream inputStream_photo = null;
+		String comment = null;
+		String student_name = null;
+		String class_name = null;
+		String class_target = null;
+		String id = null;
+		String create_time = null;
+		List<JSONObject> resul_list = new ArrayList<>();
+
+		try {
+			List <Message> list = dao.getCertificate(studio);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);

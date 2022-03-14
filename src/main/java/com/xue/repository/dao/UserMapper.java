@@ -12,6 +12,9 @@ public interface UserMapper {
     List<Message> getMessage(String studio);
 
     //获取
+    List<Message> getCertificate(String studio);
+
+    //获取
     List<Message> getAdvertise(String studio);
 
     //获取
