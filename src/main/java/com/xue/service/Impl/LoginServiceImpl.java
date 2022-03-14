@@ -416,19 +416,22 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getCertificate(String studio) {
+	public List getCertificate(String studio,String student_name) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
-		String student_name = null;
 		String class_name = null;
 		String class_target = null;
 		String id = null;
 		String create_time = null;
 		List<JSONObject> resul_list = new ArrayList<>();
+		List <Message> list = null;
 
 		try {
-			List <Message> list = dao.getCertificate(studio);
+			list = dao.getCertificate(studio);
+			if("all"!=student_name){
+				list = dao.getCertificateByName(studio,student_name);
+			}
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);

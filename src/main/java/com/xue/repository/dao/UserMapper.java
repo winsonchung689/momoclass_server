@@ -15,6 +15,9 @@ public interface UserMapper {
     List<Message> getCertificate(String studio);
 
     //获取
+    List<Message> getCertificateByName(String studio,String student_name);
+
+    //获取
     List<Message> getAdvertise(String studio);
 
     //获取

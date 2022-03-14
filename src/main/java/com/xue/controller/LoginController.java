@@ -175,10 +175,10 @@ public class LoginController {
 	//	获取奖状
 	@RequestMapping("/getCertificate")
 	@ResponseBody
-	public List getCertificate(String studio){
+	public List getCertificate(String studio,String student_name){
 		List list = null;
 		try {
-			list = loginService.getCertificate(studio);
+			list = loginService.getCertificate(studio,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

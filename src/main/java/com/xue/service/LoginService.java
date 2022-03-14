@@ -49,7 +49,7 @@ public interface LoginService {
 
     public List getAdvertise(String studio);
 
-    public List getCertificate(String studio);
+    public List getCertificate(String studio,String student_name);
 
     public List getClassSys(String studio);
 
