@@ -428,9 +428,7 @@ public class LoginServiceImpl implements LoginService {
 		List <Message> list = null;
 		try {
 			if("all".equals(student_name)){
-				System.out.printf("sssss:" + student_name);
 				list = dao.getCertificate(studio);
-				System.out.printf("list:" + list);
 			}else {
 				list = dao.getCertificateByName(studio,student_name);
 			}
