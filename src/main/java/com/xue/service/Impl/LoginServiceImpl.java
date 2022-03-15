@@ -426,10 +426,12 @@ public class LoginServiceImpl implements LoginService {
 		String create_time = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		List <Message> list = null;
-
 		try {
-			list = dao.getCertificate(studio);
-			if("all"!=student_name){
+			if("all".equals(student_name)){
+				System.out.printf("sssss:" + student_name);
+				list = dao.getCertificate(studio);
+				System.out.printf("list:" + list);
+			}else {
 				list = dao.getCertificateByName(studio,student_name);
 			}
 			for(int i=0;i<list.size();i++){

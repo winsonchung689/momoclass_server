@@ -53,7 +53,7 @@
 
   <!-- 获取奖状 -->
   <select id="getCertificate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} order by create_time desc
   </select>
 
   <!-- 获取个人奖状 -->
