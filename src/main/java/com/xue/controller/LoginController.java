@@ -185,6 +185,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取奖状
+	@RequestMapping("/getPaycode")
+	@ResponseBody
+	public List getPaycode(String student_name){
+		List list = null;
+		try {
+			list = loginService.getPaycode(student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取课程体系
 	@RequestMapping("/getClassSys")
 	@ResponseBody
@@ -490,6 +503,32 @@ public class LoginController {
 			if (0==res){
 				loginService.insertUser(user);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateUsertype")
+	@ResponseBody
+	public String updateUsertype(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取用户名
+		String nick_name = request.getParameter("nick_name");
+		//获年角色
+		String role = "boss";
+        //获取用户类型
+		String user_type = "老用户";
+
+
+		try {
+			User user =new User();
+			user.setNick_name(nick_name);
+			user.setRole(role);
+			user.setUser_type(user_type);
+			loginService.updateUsertype(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

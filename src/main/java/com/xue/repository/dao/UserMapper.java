@@ -15,6 +15,9 @@ public interface UserMapper {
     List<Message> getCertificate(String studio);
 
     //获取
+    List<Message> getPaycode(String student_name);
+
+    //获取
     List<Message> getCertificateByName(String studio,String student_name);
 
     //获取
@@ -57,6 +60,8 @@ public interface UserMapper {
 
     int updateUser(User user);
 
+    int updateUsertype(User user);
+
     List<User> getUser(String openid);
 
     List<User> getStudio();
@@ -72,6 +77,7 @@ public interface UserMapper {
     List<Lesson> getLessonByName(String student_name,String studio);
 
     int updateLessonPoint(Lesson lesson);
+
 
 
  

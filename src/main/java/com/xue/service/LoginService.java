@@ -41,6 +41,8 @@ public interface LoginService {
 
     public int updateUser(User user);
 
+    public int updateUsertype(User user);
+
     public List getUser(String openid);
 
     public List getStudio();
@@ -50,6 +52,8 @@ public interface LoginService {
     public List getAdvertise(String studio);
 
     public List getCertificate(String studio,String student_name);
+
+    public List getPaycode(String student_name);
 
     public List getClassSys(String studio);
 

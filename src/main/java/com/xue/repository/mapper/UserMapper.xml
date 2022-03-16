@@ -23,12 +23,12 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状') and studio = #{param1}   order by create_time desc
+      select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码') and studio = #{param1}   order by create_time desc
   </select>
 
   <!-- 获取全部 -->
   <select id="getMessageClient" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状') and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码') and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
   </select>
 
   <!-- 获取范画 -->
@@ -56,6 +56,11 @@
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} order by create_time desc
   </select>
 
+  <!-- 获取付款码 -->
+  <select id="getPaycode" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='付款码' and student_name = #{param1} order by create_time desc limit 1
+  </select>
+
   <!-- 获取个人奖状 -->
   <select id="getCertificateByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} and student_name = #{param2} order by create_time desc
@@ -63,12 +68,12 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%" and class_target not in ('范画','广告','主页','课程体系') and studio = #{param2}  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%" and class_target not in ('范画','广告','主页','课程体系','付款码') and studio = #{param2}  order by create_time desc
   </select>
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系','奖状')
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系','奖状','付款码')
   </select>
 
   <!-- 获取详情 -->
@@ -103,11 +108,11 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio from user where openid =#{param1} order by create_time desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type from user where openid =#{param1} order by create_time desc limit 1
   </select>
 
   <!-- 更新工作室 -->
@@ -136,6 +141,11 @@
   <!-- 更新课时 -->
   <update id="updateLesson" parameterType="com.xue.entity.model.Lesson">
     update lesson set left_amount=#{left_amount}, total_amount=#{total_amount} where student_name=#{student_name} and studio = #{studio}
+  </update>
+
+  <!-- 更新用户类型 -->
+  <update id="updateUsertype" parameterType="com.xue.entity.model.User">
+    update user set role=#{role}, user_type=#{user_type} where nick_name=#{nick_name}
   </update>
 
   <!-- 获取学生名课时 -->
