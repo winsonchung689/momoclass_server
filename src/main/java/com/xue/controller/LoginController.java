@@ -458,9 +458,11 @@ public class LoginController {
 			}
 
 			if("奖状".equals(class_target)){
-				java.net.URL fileURL = this.getClass().getResource("/");
+				String path = System.getProperty("user.dir");
+				String p_path = path +"/uploadimages/"+ photo + ".png";
 
-				FileInputStream file = Imageutil.readImage(fileURL + photo + ".png");
+				FileInputStream file = Imageutil.readImage(p_path );
+
 				message.setPhoto(FileCopyUtils.copyToByteArray(file));
 				loginService.push(message);
 			}

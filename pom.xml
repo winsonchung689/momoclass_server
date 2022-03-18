@@ -112,7 +112,6 @@
 					<include>**/*.p12</include>
 					<include>**/*.properties</include>
 					<include>**/*.jks</include>
-					<include>**/*.png</include>
 				</includes>
 			</resource>
 			<resource>
