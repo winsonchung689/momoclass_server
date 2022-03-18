@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xue.entity.model.Message;
@@ -457,7 +458,9 @@ public class LoginController {
 			}
 
 			if("奖状".equals(class_target)){
-				FileInputStream file = Imageutil.readImage("src/main/resources/" + photo + ".png");
+				java.net.URL fileURL = this.getClass().getResource("/");
+
+				FileInputStream file = Imageutil.readImage(fileURL + photo + ".png");
 				message.setPhoto(FileCopyUtils.copyToByteArray(file));
 				loginService.push(message);
 			}
