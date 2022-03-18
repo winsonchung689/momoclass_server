@@ -12,12 +12,22 @@ public class User {
 
     private String create_time;
 
+    private String expired_time;
+
     private String avatarurl;
 
     private String studio;
 
     private String user_type;
 
+
+    public String getExpired_time() {
+        return expired_time;
+    }
+
+    public void setExpired_time(String expired_time) {
+        this.expired_time = expired_time;
+    }
 
     public String getUser_type() {
         return user_type;

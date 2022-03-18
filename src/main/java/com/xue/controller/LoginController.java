@@ -1,5 +1,6 @@
 package com.xue.controller;
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -329,6 +330,33 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取奖状名
+	@RequestMapping("/getCertificateModelName")
+	@ResponseBody
+	public List getCertificateModel(){
+		List list = null;
+		try {
+			list = loginService.getCertificateModelName();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取奖状模板
+	@RequestMapping("/getCertificateModel")
+	@ResponseBody
+	public List getCertificateModel(String class_name){
+		System.out.printf("class:" + class_name);
+		List list = null;
+		try {
+			list = loginService.getCertificateModel(class_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody
@@ -393,7 +421,7 @@ public class LoginController {
 	@RequestMapping("/push")
 	@ResponseBody
 	public String push(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取图片路径
@@ -406,23 +434,40 @@ public class LoginController {
 		String class_name = request.getParameter("class_name");
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
+		System.out.printf("ddd" + class_target);
 
 		String studio = request.getParameter("studio");
 
 		FileInputStream in = null;
 		try {
 			Message message =new Message();
-			in = Imageutil.readImage(photo);
-			message.setPhoto(FileCopyUtils.copyToByteArray(in));
-			message.setComment(comment);
-			message.setStudent_name(student_name);
-			message.setCreate_time(create_time);
-			message.setClass_name(class_name);
-			message.setClass_target(class_target);
-			message.setStudio(studio);
-			loginService.push(message);
-			loginService.updateMinusLesson(student_name,studio);
-			loginService.updateAddPoints(student_name,studio);
+
+			if(!"奖状".equals(class_target)){
+				message.setComment(comment);
+				message.setStudent_name(student_name);
+				message.setCreate_time(create_time);
+				message.setClass_name(class_name);
+				message.setClass_target(class_target);
+				message.setStudio(studio);
+				in = Imageutil.readImage(photo);
+				message.setPhoto(FileCopyUtils.copyToByteArray(in));
+				loginService.push(message);
+				loginService.updateMinusLesson(student_name,studio);
+				loginService.updateAddPoints(student_name,studio);
+			}
+
+			if("奖状".equals(class_target)){
+				message.setComment(comment);
+				message.setStudent_name(student_name);
+				message.setCreate_time(create_time);
+				message.setClass_name(class_name);
+				message.setClass_target(class_target);
+				message.setStudio(studio);
+				FileInputStream file = Imageutil.readImage("src/main/resources/" + photo + ".png");
+				message.setPhoto(FileCopyUtils.copyToByteArray(file));
+
+				loginService.push(message);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -434,7 +479,7 @@ public class LoginController {
 	@RequestMapping("/insertShedule")
 	@ResponseBody
 	public String insertShedule(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取日期
@@ -467,8 +512,17 @@ public class LoginController {
 	@RequestMapping("/insertUser")
 	@ResponseBody
 	public String insertUser(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,30);
+		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
 		String nick_name = request.getParameter("nick_name");
@@ -499,6 +553,7 @@ public class LoginController {
 			user.setCreate_time(create_time);
 			user.setAvatarurl(avatarurl);
 			user.setStudio(studio);
+			user.setExpired_time(expired_time);
 			int res = loginService.updateUser(user);
 			if (0==res){
 				loginService.insertUser(user);
@@ -512,8 +567,17 @@ public class LoginController {
 	@RequestMapping("/updateUsertype")
 	@ResponseBody
 	public String updateUsertype(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,30);
+		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
 		String nick_name = request.getParameter("nick_name");
@@ -528,6 +592,8 @@ public class LoginController {
 			user.setNick_name(nick_name);
 			user.setRole(role);
 			user.setUser_type(user_type);
+			user.setCreate_time(create_time);
+			user.setExpired_time(expired_time);
 			loginService.updateUsertype(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -538,7 +604,7 @@ public class LoginController {
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取用户名

@@ -41,6 +41,16 @@
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='广告' and studio = #{param1} order by create_time desc limit 1
   </select>
 
+  <!-- 获取奖状模板 -->
+  <select id="getCertificateModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select photo from class_comment where class_target='奖状模板' and class_name=#{param1} order by create_time desc limit 1
+  </select>
+
+  <!-- 获取奖状模板 -->
+  <select id="getCertificateModelName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select class_name from class_comment where class_target='奖状模板'
+  </select>
+
   <!-- 获取课程体系 -->
   <select id="getClassSys" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='课程体系' and studio = #{param1} order by create_time desc limit 6
@@ -108,11 +118,11 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type from user where openid =#{param1} order by create_time desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time from user where openid =#{param1} order by create_time desc limit 1
   </select>
 
   <!-- 更新工作室 -->
@@ -145,7 +155,7 @@
 
   <!-- 更新用户类型 -->
   <update id="updateUsertype" parameterType="com.xue.entity.model.User">
-    update user set role=#{role}, user_type=#{user_type} where nick_name=#{nick_name}
+    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where nick_name=#{nick_name}
   </update>
 
   <!-- 获取学生名课时 -->

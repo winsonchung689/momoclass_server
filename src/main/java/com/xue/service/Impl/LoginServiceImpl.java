@@ -315,6 +315,8 @@ public class LoginServiceImpl implements LoginService {
 		String nick_name = null;
 		String studio = null;
 		String user_type = null;
+		String create_time = null;
+		String expired_time = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -329,6 +331,8 @@ public class LoginServiceImpl implements LoginService {
 				nick_name = line.getNick_name();
 				studio = line.getStudio();
 				user_type = line.getUser_type();
+				create_time = line.getCreate_time();
+				expired_time  = line.getExpired_time();
 
 				//json
 				jsonObject.put("role",role);
@@ -337,6 +341,8 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("nick_name",nick_name);
 				jsonObject.put("studio",studio);
 				jsonObject.put("user_type",user_type);
+				jsonObject.put("create_time",create_time);
+				jsonObject.put("expired_time",expired_time);
 				resul_list.add(jsonObject);
 			}
 		} catch (Exception e) {
@@ -359,6 +365,48 @@ public class LoginServiceImpl implements LoginService {
 
 				//json
 				resul_list.add(studio);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getCertificateModel(String class_name) {
+		byte[] photo = null;
+		List<byte[]> resul_list = new ArrayList<>();
+		try {
+
+			List <Message> list = dao.getCertificateModel(class_name);
+			for(int i=0;i<list.size();i++){
+				Message line = list.get(i);
+				//获取字段
+				photo = line.getPhoto();
+
+				//json
+				resul_list.add(photo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getCertificateModelName() {
+		String class_name = null;
+		List<String> resul_list = new ArrayList<>();
+		try {
+
+			List <Message> list = dao.getCertificateModelName();
+			for(int i=0;i<list.size();i++){
+				Message line = list.get(i);
+				//获取字段
+				class_name = line.getClass_name();
+
+				//json
+				resul_list.add(class_name);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

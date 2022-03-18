@@ -47,6 +47,10 @@ public interface LoginService {
 
     public List getStudio();
 
+    public List getCertificateModel(String class_name);
+
+    public List getCertificateModelName();
+
     public List getOpenidByNick(String student_name,String studio);
 
     public List getAdvertise(String studio);

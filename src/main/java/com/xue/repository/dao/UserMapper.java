@@ -66,6 +66,10 @@ public interface UserMapper {
 
     List<User> getStudio();
 
+    List<Message> getCertificateModel(String class_name);
+
+    List<Message> getCertificateModelName();
+
     List<User> getOpenidByNick(String student_name,String studio);
 
     List<Lesson> getLesson(String studio);
