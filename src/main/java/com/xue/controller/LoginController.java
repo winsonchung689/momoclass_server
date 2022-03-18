@@ -434,7 +434,6 @@ public class LoginController {
 		String class_name = request.getParameter("class_name");
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
-		System.out.printf("ddd" + class_target);
 
 		String studio = request.getParameter("studio");
 
@@ -442,13 +441,14 @@ public class LoginController {
 		try {
 			Message message =new Message();
 
+			message.setComment(comment);
+			message.setStudent_name(student_name);
+			message.setCreate_time(create_time);
+			message.setClass_name(class_name);
+			message.setClass_target(class_target);
+			message.setStudio(studio);
+
 			if(!"奖状".equals(class_target)){
-				message.setComment(comment);
-				message.setStudent_name(student_name);
-				message.setCreate_time(create_time);
-				message.setClass_name(class_name);
-				message.setClass_target(class_target);
-				message.setStudio(studio);
 				in = Imageutil.readImage(photo);
 				message.setPhoto(FileCopyUtils.copyToByteArray(in));
 				loginService.push(message);
@@ -457,15 +457,8 @@ public class LoginController {
 			}
 
 			if("奖状".equals(class_target)){
-				message.setComment(comment);
-				message.setStudent_name(student_name);
-				message.setCreate_time(create_time);
-				message.setClass_name(class_name);
-				message.setClass_target(class_target);
-				message.setStudio(studio);
 				FileInputStream file = Imageutil.readImage("src/main/resources/" + photo + ".png");
 				message.setPhoto(FileCopyUtils.copyToByteArray(file));
-
 				loginService.push(message);
 			}
 		} catch (Exception e) {
