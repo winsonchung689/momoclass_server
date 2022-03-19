@@ -422,7 +422,7 @@ public class LoginController {
 	@RequestMapping("/push")
 	@ResponseBody
 	public String push(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取图片路径
@@ -477,7 +477,7 @@ public class LoginController {
 	@RequestMapping("/insertShedule")
 	@ResponseBody
 	public String insertShedule(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取日期
@@ -602,7 +602,7 @@ public class LoginController {
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取用户名
