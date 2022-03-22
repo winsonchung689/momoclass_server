@@ -361,9 +361,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody
-	public int deleteComment(Integer id){
+	public int deleteComment(Integer id,String role){
 		try {
-			loginService.deleteComment(id);
+			loginService.deleteComment(id,role);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

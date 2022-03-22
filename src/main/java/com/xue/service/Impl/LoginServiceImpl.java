@@ -238,9 +238,11 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int deleteComment(Integer id) {
+	public int deleteComment(Integer id,String role) {
 		try {
-			dao.deleteComment(id);
+			if("boss".equals(role)){
+				dao.deleteComment(id);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

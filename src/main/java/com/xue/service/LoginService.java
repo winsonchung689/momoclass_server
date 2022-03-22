@@ -31,7 +31,7 @@ public interface LoginService {
 
     public List  getSchedule(String date_time,String studio);
 
-    public int  deleteComment(Integer id);
+    public int  deleteComment(Integer id,String role);
 
     public int  deleteSchedule(Integer id);
 
