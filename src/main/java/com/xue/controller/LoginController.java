@@ -373,9 +373,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteSchedule")
 	@ResponseBody
-	public int deleteSchedule(Integer id){
+	public int deleteSchedule(Integer id,String role){
 		try {
-			loginService.deleteSchedule(id);
+			loginService.deleteSchedule(id,role);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -385,9 +385,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteLesson")
 	@ResponseBody
-	public int deleteLesson(Integer id){
+	public int deleteLesson(Integer id,String role){
 		try {
-			loginService.deleteLesson(id);
+			loginService.deleteLesson(id,role);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

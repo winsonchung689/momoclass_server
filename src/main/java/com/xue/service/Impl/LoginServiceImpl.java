@@ -251,9 +251,11 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int deleteSchedule(Integer id) {
+	public int deleteSchedule(Integer id,String role) {
 		try {
-			dao.deleteSchedule(id);
+			if("boss".equals(role)){
+				dao.deleteSchedule(id);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -262,9 +264,11 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public int deleteLesson(Integer id) {
+	public int deleteLesson(Integer id,String role) {
 		try {
-			dao.deleteLesson(id);
+			if("boss".equals(role)) {
+				dao.deleteLesson(id);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
