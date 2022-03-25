@@ -16,9 +16,14 @@ import com.xue.entity.model.Schedule;
 import com.xue.entity.model.User;
 import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
@@ -268,6 +273,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取PPT名字
+	@RequestMapping("/getPpt")
+	@ResponseBody
+	public List getPpt(){
+		List list = null;
+		try {
+			list = loginService.getPpt();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody
@@ -428,8 +446,7 @@ public class LoginController {
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("file");
-		String file_name =  request.getParameter("filename");
-		System.out.printf("file_name:" + file_name);
+		String file_name =  request.getParameter("file_name");
 
 		//获取类路径
 		String path = System.getProperty("user.dir");
@@ -442,6 +459,24 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		return p_path;
+	}
+
+	@RequestMapping("/get_file")
+	@ResponseBody
+	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String file_name =  request.getParameter("filename");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadfiles/"+ file_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
 	}
 
 	//	推送
