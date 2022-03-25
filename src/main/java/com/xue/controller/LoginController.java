@@ -1,10 +1,12 @@
 package com.xue.controller;
 import java.io.*;
+import java.sql.PseudoColumnUsage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.IconUIResource;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -408,6 +410,30 @@ public class LoginController {
 		String path = System.getProperty("user.dir");
 		UUID uuid = UUID.randomUUID();
 		String p_path = path +"/uploadimages/"+ uuid + ".png";
+
+		//保存图片
+		try {
+			multipartFile.transferTo(new File(p_path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return p_path;
+	}
+
+	//	推送文件
+	@RequestMapping("/push_file")
+	@ResponseBody
+	public String push_file(HttpServletRequest request, HttpServletResponse response){
+
+		//获取图片
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile multipartFile = req.getFile("file");
+		String file_name =  request.getParameter("filename");
+		System.out.printf("file_name:" + file_name);
+
+		//获取类路径
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadfiles/"+ file_name;
 
 		//保存图片
 		try {
