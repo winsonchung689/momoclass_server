@@ -731,6 +731,36 @@ public class LoginServiceImpl implements LoginService {
 		return result;
 	}
 
+	@Override
+	public int updateCoins(String openid, String type) {
+		int result = 0;
+		Integer coins = 0;
+		Integer new_coins = 0;
+
+		List <User> list = dao.getUser(openid);
+		try {
+			for(int i=0;i<list.size();i++){
+				User line = list.get(i);
+				coins = line.getCoins();
+				if(coins==null){
+					coins =0;
+				}
+				if("add".equals(type)){
+					new_coins = coins + 1;
+				}else if("minus".equals(type)){
+					new_coins = coins -1;
+				}
+
+				User user =new User();
+				user.setCoins(new_coins);
+				result = dao.updateUser(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	@Override
 	public List getLessonByName(String student_name,String studio) {

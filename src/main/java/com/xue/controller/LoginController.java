@@ -464,7 +464,7 @@ public class LoginController {
 	@RequestMapping("/get_file")
 	@ResponseBody
 	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("filename");
+		String file_name =  request.getParameter("file_name");
 		String path = System.getProperty("user.dir");
 		String p_path = path +"/uploadfiles/"+ file_name;
 		File file = new File(p_path);
@@ -707,6 +707,23 @@ public class LoginController {
 		}
 		return "push massage successfully";
 	}
+
+
+	@RequestMapping("/updateCoins")
+	@ResponseBody
+	public String updateCoins(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String type = request.getParameter("type");
+		String openid = request.getParameter("openid");
+
+		try {
+			loginService.updateCoins(openid,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 
 	@RequestMapping("/deletePoints")
 	@ResponseBody

@@ -81,6 +81,8 @@ public interface UserMapper {
 
     int updateLesson(Lesson lesson);
 
+    int updateUserCoins(User user);
+
     List<Lesson> getLessonByName(String student_name,String studio);
 
     int updateLessonPoint(Lesson lesson);

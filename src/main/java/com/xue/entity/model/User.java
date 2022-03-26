@@ -20,6 +20,15 @@ public class User {
 
     private String user_type;
 
+    private Integer coins;
+
+    public Integer getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Integer coins) {
+        this.coins = coins;
+    }
 
     public String getExpired_time() {
         return expired_time;
