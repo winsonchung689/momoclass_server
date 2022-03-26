@@ -323,6 +323,7 @@ public class LoginServiceImpl implements LoginService {
 		String user_type = null;
 		String create_time = null;
 		String expired_time = null;
+		Integer coins = 0;
 		List<JSONObject> resul_list = new ArrayList<>();
 		try {
 
@@ -339,6 +340,7 @@ public class LoginServiceImpl implements LoginService {
 				user_type = line.getUser_type();
 				create_time = line.getCreate_time();
 				expired_time  = line.getExpired_time();
+				coins = line.getCoins();
 
 				//json
 				jsonObject.put("role",role);
@@ -349,6 +351,7 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("user_type",user_type);
 				jsonObject.put("create_time",create_time);
 				jsonObject.put("expired_time",expired_time);
+				jsonObject.put("coins",coins);
 				resul_list.add(jsonObject);
 			}
 		} catch (Exception e) {
@@ -753,7 +756,8 @@ public class LoginServiceImpl implements LoginService {
 
 				User user =new User();
 				user.setCoins(new_coins);
-				result = dao.updateUser(user);
+				user.setOpenid(openid);
+				result = dao.updateCoins(user);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

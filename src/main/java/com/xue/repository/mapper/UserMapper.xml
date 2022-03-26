@@ -174,7 +174,7 @@
   </update>
 
   <!-- 更新用户金币 -->
-  <update id="updateUserCoins" parameterType="com.xue.entity.model.User">
+  <update id="updateCoins" parameterType="com.xue.entity.model.User">
     update user set coins=#{coins} where openid=#{openid}
   </update>
 
