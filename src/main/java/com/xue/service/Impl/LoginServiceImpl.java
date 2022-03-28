@@ -943,8 +943,8 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
-		Integer page_start = (page-1) * 3 + 1 ;
-		Integer page_end = page_start + 3;
+		Integer page_start = (page-1) * 3 ;
+		Integer page_end = page_start + 2;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
