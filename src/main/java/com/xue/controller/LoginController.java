@@ -4,6 +4,7 @@ import java.sql.PseudoColumnUsage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.IconUIResource;
@@ -276,10 +277,10 @@ public class LoginController {
 	//	获取PPT名字
 	@RequestMapping("/getPpt")
 	@ResponseBody
-	public List getPpt(){
+	public List getPpt(Integer page){
 		List list = null;
 		try {
-			list = loginService.getPpt();
+			list = loginService.getPpt(page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

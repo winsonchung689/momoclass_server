@@ -24,7 +24,7 @@ public interface UserMapper {
     List<Message> getAdvertise(String studio);
 
     //获取
-    List<Message> getPpt();
+    List<Message> getPpt(Integer page_start, Integer page_end);
 
     //获取
     List<Message> getClassSys(String studio);

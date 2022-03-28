@@ -88,7 +88,7 @@
 
   <!-- 获取详情 -->
   <select id="getPpt" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '课件' order by create_time limit 10;
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '课件' order by create_time limit #{param1},#{param2};
   </select>
 
   <!-- 获取详情 -->

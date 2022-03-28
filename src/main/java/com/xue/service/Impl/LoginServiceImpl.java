@@ -20,6 +20,8 @@ import com.xue.entity.model.Message;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -932,7 +934,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getPpt() {
+	public List getPpt(Integer page) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -941,10 +943,12 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
+		Integer page_start = (page-1) * 3 + 1 ;
+		Integer page_end = page_start + 3;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getPpt();
+			List <Message> list = dao.getPpt(page_start,page_end);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
