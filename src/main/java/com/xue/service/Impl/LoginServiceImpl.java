@@ -892,7 +892,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List getModel(String studio) {
+	public List getModel(String studio,Integer page) {
 		byte[] photo = null;
 		InputStream inputStream_photo = null;
 		String comment = null;
@@ -901,10 +901,12 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
+		Integer page_start = (page-1) * 3 ;
+		Integer page_end = page_start + 2;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getModel(studio);
+			List <Message> list = dao.getModel(studio,page_start,page_end);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);

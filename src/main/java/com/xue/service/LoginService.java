@@ -13,7 +13,7 @@ public interface LoginService {
 
     public List  getMessageClient(String nickName);
 
-    public List  getModel(String studio);
+    public List  getModel(String studio,Integer page);
 
     public List  getPpt(Integer page);
 

@@ -264,10 +264,10 @@ public class LoginController {
 	//	获取范画
 	@RequestMapping("/getModel")
 	@ResponseBody
-	public List getModel(String studio){
+	public List getModel(String studio,Integer page){
 		List list = null;
 		try {
-			list = loginService.getModel(studio);
+			list = loginService.getModel(studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

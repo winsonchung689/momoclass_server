@@ -33,7 +33,7 @@
 
   <!-- 获取范画 -->
   <select id="getModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='范画' and studio = #{param1} order by create_time desc limit 6
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='范画' and studio = #{param1} order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取广告 -->
