@@ -901,12 +901,12 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
-		Integer page_start = (page-1) * 3 ;
-		Integer page_end = page_start + 2;
+		Integer page_start = (page-1) * 3 + 1 ;
+		Integer page_length = 3;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getModel(studio,page_start,page_end);
+			List <Message> list = dao.getModel(studio,page_start,page_length);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
@@ -945,12 +945,12 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
-		Integer page_start = (page-1) * 3 ;
-		Integer page_end = page_start + 2;
+		Integer page_start = (page-1) * 3 + 1 ;
+		Integer page_length = 3;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
-			List <Message> list = dao.getPpt(page_start,page_end);
+			List <Message> list = dao.getPpt(page_start,page_length);
 			for(int i=0;i<list.size();i++){
 				JSONObject jsonObject = new JSONObject();
 				Message line = list.get(i);
