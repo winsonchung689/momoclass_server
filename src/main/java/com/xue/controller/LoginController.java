@@ -511,7 +511,7 @@ public class LoginController {
 			message.setClass_target(class_target);
 			message.setStudio(studio);
 
-			if(!"奖状".equals(class_target)){
+			if(!"奖状".equals(class_target)&&!"范画".equals(class_target)){
 				in = Imageutil.readImage(photo);
 				message.setPhoto(FileCopyUtils.copyToByteArray(in));
 				loginService.push(message);
