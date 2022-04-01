@@ -61,7 +61,7 @@ public interface LoginService {
 
     public List getPaycode(String student_name);
 
-    public List getClassSys(String studio);
+    public List getClassSys(String class_target,String studio,Integer limit);
 
     public List getHome(String studio);
 

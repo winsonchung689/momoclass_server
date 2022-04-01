@@ -27,7 +27,7 @@ public interface UserMapper {
     List<Message> getPpt(Integer page_start, Integer page_length);
 
     //获取
-    List<Message> getClassSys(String studio);
+    List<Message> getClassSys(String class_target,String studio,Integer limit);
 
     //获取
     List<Message> getHome(String studio);

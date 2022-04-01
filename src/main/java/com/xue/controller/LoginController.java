@@ -211,10 +211,10 @@ public class LoginController {
 	//	获取课程体系
 	@RequestMapping("/getClassSys")
 	@ResponseBody
-	public List getClassSys(String studio){
+	public List getClassSys(String class_target,String studio,Integer limit){
 		List list = null;
 		try {
-			list = loginService.getClassSys(studio);
+			list = loginService.getClassSys(class_target,studio,limit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
