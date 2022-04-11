@@ -9,7 +9,7 @@ import com.xue.entity.model.User;
 
 public interface LoginService {
 
-    public List  getMessage(String studio);
+    public List  getMessage(String studio,Integer page);
 
     public List  getMessageClient(String nickName);
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserMapper {
     //获取
-    List<Message> getMessage(String studio);
+    List<Message> getMessage(String studio,Integer page_start,Integer page_length);
 
     //获取
     List<Message> getCertificate(String studio);

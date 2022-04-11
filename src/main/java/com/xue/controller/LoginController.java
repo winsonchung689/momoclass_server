@@ -133,10 +133,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(String studio){
+	public List getMessage(String studio,Integer page){
 		List list = null;
 		try {
-			list = loginService.getMessage(studio);
+			list = loginService.getMessage(studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
