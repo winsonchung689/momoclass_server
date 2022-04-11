@@ -287,6 +287,33 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取教程列表
+	@RequestMapping("/getCourseList")
+	@ResponseBody
+	public List getCourseList(String studio,Integer page){
+		List list = null;
+		try {
+			list = loginService.getCourseList(studio,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取教程列表
+	@RequestMapping("/getCourseDetail")
+	@ResponseBody
+	public List getCourseDetail(String studio,String class_name){
+		List list = null;
+		try {
+			list = loginService.getCourseDetail(studio,class_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody

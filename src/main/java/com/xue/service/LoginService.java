@@ -63,6 +63,10 @@ public interface LoginService {
 
     public List getClassSys(String class_target,String studio,Integer limit);
 
+    public List getCourseList(String studio,Integer page);
+
+    public List getCourseDetail(String studio,String class_name);
+
     public List getHome(String studio);
 
     public int updateMinusLesson(String student_name,String studio);

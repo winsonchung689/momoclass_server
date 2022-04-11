@@ -23,12 +23,12 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境') and studio = #{param1}   order by create_time desc
+      select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情') and studio = #{param1}   order by create_time desc
   </select>
 
   <!-- 获取全部 -->
   <select id="getMessageClient" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境') and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情') and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
   </select>
 
   <!-- 获取范画 -->
@@ -56,6 +56,16 @@
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = #{param1} and studio = #{param2} order by create_time desc limit #{param3}
   </select>
 
+  <!-- 获取教程列表 -->
+  <select id="getCourseList" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '教程列表' and studio = #{param1} order by create_time desc limit #{param2},#{param3};
+  </select>
+
+  <!-- 获取教程详情 -->
+  <select id="getCourseDetail" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '教程详情' and studio = #{param1} and class_name = #{param2} order by create_time;
+  </select>
+
   <!-- 获取主页 -->
   <select id="getHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='主页' and studio = #{param1} order by create_time desc limit 3
@@ -78,12 +88,12 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境') and studio = #{param2}  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情') and studio = #{param2}  order by create_time desc
   </select>
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境')
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情')
   </select>
 
   <!-- 获取详情 -->

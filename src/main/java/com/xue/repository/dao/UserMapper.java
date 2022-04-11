@@ -30,6 +30,12 @@ public interface UserMapper {
     List<Message> getClassSys(String class_target,String studio,Integer limit);
 
     //获取
+    List<Message> getCourseList(String studio,Integer page_start, Integer page_length);
+
+    //获取
+    List<Message> getCourseDetail(String studio,String class_name);
+
+    //获取
     List<Message> getHome(String studio);
 
     //获取

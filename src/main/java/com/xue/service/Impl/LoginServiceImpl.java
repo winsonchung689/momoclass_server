@@ -1,26 +1,24 @@
 package com.xue.service.Impl;
 
-import java.io.*;
+import com.alibaba.fastjson.JSONObject;
+import com.xue.entity.model.Lesson;
+import com.xue.entity.model.Message;
+import com.xue.entity.model.Schedule;
+import com.xue.entity.model.User;
+import com.xue.repository.dao.UserMapper;
+import com.xue.service.LoginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import antlr.StringUtils;
-import com.alibaba.fastjson.JSONObject;
-import com.xue.entity.model.Lesson;
-import com.xue.entity.model.Schedule;
-import com.xue.entity.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.xue.entity.model.Message;
-import com.xue.repository.dao.UserMapper;
-import com.xue.service.LoginService;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -606,6 +604,85 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("comment",comment);
 				jsonObject.put("photo",photo);
 				jsonObject.put("class_target",class_target);
+				jsonObject.put("id",id);
+				jsonObject.put("create_time",create_time);
+				resul_list.add(jsonObject);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getCourseList(String studio,Integer page) {
+		byte[] photo = null;
+		InputStream inputStream_photo = null;
+		String comment = null;
+		String student_name = null;
+		String class_name = null;
+		String id = null;
+		String create_time = null;
+		Integer page_start = (page-1) * 3 ;
+		Integer page_length = 3;
+		List<JSONObject> resul_list = new ArrayList<>();
+
+		try {
+			List <Message> list = dao.getCourseList(studio,page_start,page_length);
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Message line = list.get(i);
+				//获取字段
+				student_name = line.getStudent_name();
+				class_name = line.getClass_name();
+				comment = line.getComment();
+				photo = line.getPhoto();
+				id = line.getId();
+				create_time= line.getCreate_time();
+				//json
+				jsonObject.put("student_name",student_name);
+				jsonObject.put("class_name",class_name);
+				jsonObject.put("comment",comment);
+				jsonObject.put("photo",photo);
+				jsonObject.put("id",id);
+				jsonObject.put("create_time",create_time);
+				resul_list.add(jsonObject);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul_list;
+	}
+
+	@Override
+	public List getCourseDetail(String studio,String class_name) {
+		byte[] photo = null;
+		InputStream inputStream_photo = null;
+		String comment = null;
+		String student_name = null;
+		String id = null;
+		String create_time = null;
+		List<JSONObject> resul_list = new ArrayList<>();
+
+		try {
+			List <Message> list = dao.getCourseDetail(studio,class_name);
+			for(int i=0;i<list.size();i++){
+				JSONObject jsonObject = new JSONObject();
+				Message line = list.get(i);
+				//获取字段
+				student_name = line.getStudent_name();
+				class_name = line.getClass_name();
+				comment = line.getComment();
+				photo = line.getPhoto();
+				id = line.getId();
+				create_time= line.getCreate_time();
+				//json
+				jsonObject.put("student_name",student_name);
+				jsonObject.put("class_name",class_name);
+				jsonObject.put("comment",comment);
+				jsonObject.put("photo",photo);
 				jsonObject.put("id",id);
 				jsonObject.put("create_time",create_time);
 				resul_list.add(jsonObject);
