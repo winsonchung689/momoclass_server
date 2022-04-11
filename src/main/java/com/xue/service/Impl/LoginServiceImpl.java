@@ -878,8 +878,8 @@ public class LoginServiceImpl implements LoginService {
 		String class_target = null;
 		String id = null;
 		String create_time = null;
-		Integer page_start = (page-1) * 10 ;
-		Integer page_length = 10;
+		Integer page_start = (page-1) * 7 ;
+		Integer page_length = 7;
 		List<JSONObject> resul_list = new ArrayList<>();
 
 		try {
