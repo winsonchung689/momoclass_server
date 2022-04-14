@@ -582,7 +582,7 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 		Schedule schedule =new Schedule();
-		List<String> list = Arrays.asList(student_name.split(","));
+		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
 			for (int i=0; i < list.size();i++){
 				String list_student = list.get(i);
