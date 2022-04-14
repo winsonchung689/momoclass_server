@@ -12,9 +12,19 @@ public class Schedule {
 
     private String create_time;
 
+    private String update_time;
+
     private String id;
 
     private String studio;
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
 
     public String getStudio() {
         return studio;

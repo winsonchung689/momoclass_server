@@ -118,7 +118,7 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} order by create_time
+    select id,add_date,age,student_name,duration,create_time,studio,update_time from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} order by create_time
   </select>
 
   <!-- 插入信息 -->
@@ -128,7 +128,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time})
   </insert>
 
   <!-- 插入客户信息 -->

@@ -200,6 +200,7 @@ public class LoginServiceImpl implements LoginService {
 		String duration = null;
 		String create_time = null;
 		String id = null;
+		String update_time = null;
 		List<JSONObject> resul_list = new ArrayList<>();
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		Date d = null;
@@ -221,6 +222,7 @@ public class LoginServiceImpl implements LoginService {
 				duration = line.getDuration();
 				id = line.getId();
 				create_time= line.getCreate_time();
+				update_time= line.getUpdate_time();
 				//json
 				jsonObject.put("add_date",add_date);
 				jsonObject.put("age",age);
@@ -228,6 +230,7 @@ public class LoginServiceImpl implements LoginService {
 				jsonObject.put("duration",duration);
 				jsonObject.put("create_time",create_time);
 				jsonObject.put("id",id);
+				jsonObject.put("update_time",update_time);
 				resul_list.add(jsonObject);
 			}
 
