@@ -581,16 +581,19 @@ public class LoginController {
 		String duration = request.getParameter("duration");
 
 		String studio = request.getParameter("studio");
-
+		Schedule schedule =new Schedule();
+		List<String> list = Arrays.asList(student_name.split(","));
 		try {
-			Schedule schedule =new Schedule();
-			schedule.setAdd_date(add_date);
-			schedule.setAge(age);
-			schedule.setStudent_name(student_name);
-			schedule.setDuration(duration);
-			schedule.setCreate_time(create_time);
-			schedule.setStudio(studio);
-			loginService.insertSchedule(schedule);
+			for (int i=0; i < list.size();i++){
+				String list_student = list.get(i);
+				schedule.setAdd_date(add_date);
+				schedule.setAge(age);
+				schedule.setStudent_name(list_student);
+				schedule.setDuration(duration);
+				schedule.setCreate_time(create_time);
+				schedule.setStudio(studio);
+				loginService.insertSchedule(schedule);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
