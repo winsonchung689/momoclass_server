@@ -563,7 +563,7 @@ public class LoginController {
 				message.setPhoto(FileCopyUtils.copyToByteArray(in));
 				loginService.push(message);
 				if(!"范画".equals(class_target)){
-					loginService.updateMinusLesson(student_name,studio);
+//					loginService.updateMinusLesson(student_name,studio);
 					loginService.updateAddPoints(student_name,studio);
 				}
 			}
