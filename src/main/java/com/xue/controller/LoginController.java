@@ -431,6 +431,26 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/signUpSchedule")
+	@ResponseBody
+	public int signUpSchedule(String student_name,String studio){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		try {
+			Schedule schedule =new Schedule();
+			schedule.setStudent_name(student_name);
+			schedule.setStudio(studio);
+			schedule.setUpdate_time(update_time);
+			loginService.updateSchedule(schedule);
+			loginService.updateMinusLesson(student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/deleteLesson")
 	@ResponseBody
 	public int deleteLesson(Integer id,String role){

@@ -131,6 +131,11 @@
     insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time})
   </insert>
 
+  <!-- 更新课时 -->
+  <update id="updateSchedule" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}
+  </update>
+
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
     insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time})

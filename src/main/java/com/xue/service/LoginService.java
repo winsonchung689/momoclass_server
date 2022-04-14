@@ -43,6 +43,8 @@ public interface LoginService {
 
     public int updateUser(User user);
 
+    public int updateSchedule(Schedule schedule);
+
     public int updateUsertype(User user);
 
     public List getUser(String openid);

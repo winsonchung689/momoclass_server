@@ -69,6 +69,8 @@ public interface UserMapper {
 
     int updateUser(User user);
 
+    int updateSchedule(Schedule schedule);
+
     int updateUsertype(User user);
 
     List<User> getUser(String openid);
