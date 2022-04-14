@@ -591,6 +591,7 @@ public class LoginController {
 				schedule.setStudent_name(list_student);
 				schedule.setDuration(duration);
 				schedule.setCreate_time(create_time);
+				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
 				loginService.insertSchedule(schedule);
 			}
