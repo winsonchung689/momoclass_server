@@ -195,10 +195,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getSchedule(String date_time, String studio) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
-        String today_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-
         String add_date = null;
         String age = null;
         String student_name = null;
@@ -237,8 +233,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("update_time", update_time);
 
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                 Date update = df1.parse(update_time);
-                Date today = df.parse(today_time);
+                Date today = df1.parse(date_time + " 00:00:00");
                 int compare = update.compareTo(today);
                 if (compare > 0) {
                     jsonObject.put("sign_up", "已签到");
