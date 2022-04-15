@@ -165,6 +165,11 @@
 
   <!-- 获取课时 -->
   <select id="getLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
+    select id,student_name,total_amount,left_amount,create_time,points,studio from lesson where studio =#{param1} order by student_name
+  </select>
+
+  <!-- 获取课时 -->
+  <select id="getRating" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select id,student_name,total_amount,left_amount,create_time,points,studio from lesson where studio =#{param1} order by points desc
   </select>
 

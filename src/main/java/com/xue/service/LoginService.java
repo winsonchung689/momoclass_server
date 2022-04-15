@@ -19,6 +19,8 @@ public interface LoginService {
 
     public List  getLesson(String studio);
 
+    public List  getRating(String studio);
+
     public int push(Message message);
 
     public int insertLesson(Lesson lesson);

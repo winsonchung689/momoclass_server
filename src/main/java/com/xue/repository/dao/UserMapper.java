@@ -85,6 +85,8 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio);
 
+    List<Lesson> getRating(String studio);
+
     int insertLesson(Lesson lesson);
 
     int updateLesson(Lesson lesson);

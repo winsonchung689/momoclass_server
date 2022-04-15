@@ -169,6 +169,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getRating")
+	@ResponseBody
+	public List getRating(String studio){
+		List list = null;
+		try {
+			list = loginService.getRating(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取广告
 	@RequestMapping("/getAdvertise")
 	@ResponseBody
