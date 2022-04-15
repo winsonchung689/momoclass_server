@@ -2,12 +2,23 @@ package com.xue.entity.model;
 
 
 public class SignUp {
+    private String id;
 
     private String student_name;
 
     private String create_time;
 
     private String studio;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getStudio() {
         return studio;
@@ -17,7 +28,6 @@ public class SignUp {
         this.studio = studio;
     }
 
-
     public String getStudent_name() {
         return student_name;
     }
@@ -25,7 +35,6 @@ public class SignUp {
     public void setStudent_name(String student_name) {
         this.student_name = student_name;
     }
-
 
     public String getCreate_time() {
         return create_time;
