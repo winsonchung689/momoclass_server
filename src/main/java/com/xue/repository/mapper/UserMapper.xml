@@ -19,6 +19,9 @@
   <resultMap id="BaseLesson" type="com.xue.entity.model.Lesson">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
+  <resultMap id="BaseSignUp" type="com.xue.entity.model.SignUp">
+    <result column="student_name" jdbcType="VARCHAR" property="student_name" />
+  </resultMap>
 
 
   <!-- 获取全部 -->
@@ -137,7 +140,7 @@
   </insert>
 
   <!-- 插入课程表 -->
-  <select id="getSignUp" parameterType="com.xue.entity.model.SignUp">
+  <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSchedule">
     select id,student_name,create_time,studio from sign_up_record where student_name =#{param1} and studio = #{param2} order by create_time desc
   </select>
 
