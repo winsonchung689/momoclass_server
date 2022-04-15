@@ -131,6 +131,17 @@
     insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time})
   </insert>
 
+  <!-- 插入签到记录 -->
+  <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">
+    insert sign_up_record(student_name,create_time,studio) values(#{student_name},#{create_time},#{studio})
+  </insert>
+
+  <!-- 插入课程表 -->
+  <insert id="getSignUp" parameterType="com.xue.entity.model.SignUp">
+    select id,student_name,create_time,studio from sign_up_record where student_name =#{param1} and studio = #{param2} order by create_time desc
+  </insert>
+
+
   <!-- 更新课时 -->
   <update id="updateSchedule" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}

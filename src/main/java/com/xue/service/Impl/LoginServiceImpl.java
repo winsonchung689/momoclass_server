@@ -1,10 +1,7 @@
 package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xue.entity.model.Lesson;
-import com.xue.entity.model.Message;
-import com.xue.entity.model.Schedule;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import org.slf4j.Logger;
@@ -181,12 +178,50 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getSignUp(String student_name, String studio) {
+        String create_time = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<SignUp> list = dao.getSignUp(student_name, studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SignUp line = list.get(i);
+                //获取字段
+                create_time = line.getCreate_time();
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
         System.out.println(schedule);
         try {
             result = dao.insertSchedule(schedule);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int insertSignUp(SignUp signUp) {
+        int result = 0;
+        FileInputStream in = null;
+        System.out.println(signUp);
+        try {
+            result = dao.insertSignUp(signUp);
         } catch (Exception e) {
             e.printStackTrace();
         }

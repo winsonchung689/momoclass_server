@@ -12,9 +12,7 @@ import javax.swing.plaf.IconUIResource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.ldap.sasl.LdapSasl;
-import com.xue.entity.model.Lesson;
-import com.xue.entity.model.Schedule;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
 import org.apache.commons.io.FileUtils;
@@ -30,7 +28,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xue.entity.model.Message;
 import com.xue.service.LoginService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -340,6 +337,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getSignUp")
+	@ResponseBody
+	public List getSignUp(String student_name,String studio){
+		List list = null;
+		try {
+			list = loginService.getSignUp(student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
@@ -451,10 +461,17 @@ public class LoginController {
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
 			Schedule schedule =new Schedule();
+			SignUp signUp = new SignUp();
 			schedule.setStudent_name(student_name);
 			schedule.setStudio(studio);
 			schedule.setUpdate_time(update_time);
 			loginService.updateSchedule(schedule);
+
+			signUp.setStudent_name(student_name);
+			signUp.setStudio(studio);
+			signUp.setCreate_time(update_time);
+			loginService.insertSignUp(signUp);
+
 			loginService.updateMinusLesson(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();

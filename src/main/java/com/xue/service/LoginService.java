@@ -2,10 +2,7 @@ package com.xue.service;
 
 import java.util.List;
 
-import com.xue.entity.model.Lesson;
-import com.xue.entity.model.Message;
-import com.xue.entity.model.Schedule;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 
 public interface LoginService {
 
@@ -31,7 +28,11 @@ public interface LoginService {
 
     public List  getSearch(String student_name,String studio);
 
+    public List  getSignUp(String student_name,String studio);
+
     public int insertSchedule(Schedule schedule);
+
+    public int insertSignUp(SignUp signUp);
 
     public List  getSchedule(String date_time,String studio);
 

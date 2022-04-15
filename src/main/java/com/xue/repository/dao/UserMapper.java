@@ -1,9 +1,6 @@
 package com.xue.repository.dao;
 
-import com.xue.entity.model.Lesson;
-import com.xue.entity.model.Message;
-import com.xue.entity.model.Schedule;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 
 import java.util.List;
 
@@ -88,6 +85,10 @@ public interface UserMapper {
     List<Lesson> getRating(String studio);
 
     int insertLesson(Lesson lesson);
+
+    int insertSignUp(SignUp signUp);
+
+    List<SignUp> getSignUp(String student_name,String studio);
 
     int updateLesson(Lesson lesson);
 
