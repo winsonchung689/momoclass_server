@@ -8,6 +8,8 @@ public class SignUp {
 
     private String create_time;
 
+    private String sign_time;
+
     private String studio;
 
 
@@ -42,6 +44,14 @@ public class SignUp {
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
+    }
+
+    public String getSign_time() {
+        return sign_time;
+    }
+
+    public void setSign_time(String sign_time) {
+        this.sign_time = sign_time;
     }
 
 	@Override

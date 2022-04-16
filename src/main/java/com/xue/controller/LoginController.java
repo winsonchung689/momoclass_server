@@ -456,7 +456,7 @@ public class LoginController {
 
 	@RequestMapping("/signUpSchedule")
 	@ResponseBody
-	public int signUpSchedule(String student_name,String studio){
+	public int signUpSchedule(String student_name,String studio,String date_time){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
@@ -469,7 +469,8 @@ public class LoginController {
 
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
-			signUp.setCreate_time(update_time);
+			signUp.setSign_time(update_time);
+			signUp.setCreate_time(date_time + " 00:00:00");
 			loginService.insertSignUp(signUp);
 
 			loginService.updateMinusLesson(student_name,studio);

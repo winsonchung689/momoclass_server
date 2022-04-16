@@ -180,6 +180,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getSignUp(String student_name, String studio) {
         String create_time = null;
+        String sign_time = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -189,10 +190,24 @@ public class LoginServiceImpl implements LoginService {
                 SignUp line = list.get(i);
                 //获取字段
                 create_time = line.getCreate_time();
+                sign_time = line.getSign_time();
+
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+                Date create_time_dt = df1.parse(create_time);
+                Date sign_time_dt = df1.parse(sign_time);
+                int compare = sign_time_dt.compareTo(create_time_dt);
+                if (compare == 0) {
+                    jsonObject.put("status", "正常签到");
+                } else if(compare > 0){
+                    jsonObject.put("status", "补签到");
+                } else if(compare < 0){
+                    jsonObject.put("status", "提前签到");
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("sign_time", sign_time);
                 jsonObject.put("rank", i + 1);
                 resul_list.add(jsonObject);
             }
