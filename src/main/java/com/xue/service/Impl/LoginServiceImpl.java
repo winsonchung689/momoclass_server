@@ -340,9 +340,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("duration", duration);
-                jsonObject.put("create_time", create_time);
+                jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("id", id);
-                jsonObject.put("update_time", update_time);
+                jsonObject.put("update_time", update_time.substring(0,10));
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                 Date update = df1.parse(update_time);
