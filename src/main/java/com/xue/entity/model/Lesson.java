@@ -1,8 +1,6 @@
 package com.xue.entity.model;
 
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 public class Lesson {
     private Float total_amount;
 
