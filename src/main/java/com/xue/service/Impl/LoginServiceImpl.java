@@ -1,5 +1,6 @@
 package com.xue.service.Impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
@@ -206,8 +207,8 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("student_name", student_name);
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("sign_time", sign_time);
+                jsonObject.put("create_time", create_time.substring(0,10));
+                jsonObject.put("sign_time", sign_time.substring(0,10));
                 jsonObject.put("rank", i + 1);
                 resul_list.add(jsonObject);
             }
@@ -242,7 +243,7 @@ public class LoginServiceImpl implements LoginService {
 
                 Date now_time_dt = df1.parse(now_time);
                 Date expired_time_dt = df1.parse(expired_time);
-                int compare = expired_time_dt.compareTo(now_time_dt);
+                int compare = now_time_dt.compareTo(expired_time_dt);
                 if (compare > 0) {
                     jsonObject.put("status", "已过期");
                 } else {
@@ -251,8 +252,8 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("student_name", student_name);
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("create_time", create_time.substring(0,10));
+                jsonObject.put("expired_time", expired_time.substring(0,10));
                 jsonObject.put("gift_name", gift_name);
                 jsonObject.put("gift_amount", gift_amount);
                 jsonObject.put("rank", i + 1);
