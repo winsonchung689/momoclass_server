@@ -225,6 +225,8 @@ public class LoginServiceImpl implements LoginService {
         String expired_time = null;
         String gift_name = null;
         Integer gift_amount = null;
+        Integer status=null;
+        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -237,6 +239,8 @@ public class LoginServiceImpl implements LoginService {
                 expired_time = line.getExpired_time();
                 gift_name = line.getGift_name();
                 gift_amount = line.getGift_amount();
+                status = line.getStatus();
+                id = line.getId();
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
                 String now_time = df1.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -244,11 +248,16 @@ public class LoginServiceImpl implements LoginService {
                 Date now_time_dt = df1.parse(now_time);
                 Date expired_time_dt = df1.parse(expired_time);
                 int compare = now_time_dt.compareTo(expired_time_dt);
-                if (compare > 0) {
-                    jsonObject.put("status", "已过期");
-                } else {
-                    jsonObject.put("status", "未过期");
+                if (status==0){
+                    if (compare > 0) {
+                        jsonObject.put("status", "已过期");
+                    } else {
+                        jsonObject.put("status", "未过期");
+                    }
+                } else if (status==1) {
+                    jsonObject.put("status", "已领取");
                 }
+
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -257,6 +266,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("gift_name", gift_name);
                 jsonObject.put("gift_amount", gift_amount);
                 jsonObject.put("rank", i + 1);
+                jsonObject.put("id",id);
                 resul_list.add(jsonObject);
             }
 
@@ -975,6 +985,17 @@ public class LoginServiceImpl implements LoginService {
                 user.setOpenid(openid);
                 result = dao.updateCoins(user);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int updateGift(String id) {
+        int result = 0;
+        try {
+            result = dao.updateGift(id);
         } catch (Exception e) {
             e.printStackTrace();
         }

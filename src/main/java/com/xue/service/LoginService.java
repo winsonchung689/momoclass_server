@@ -88,6 +88,8 @@ public interface LoginService {
 
     public int updateCoins(String openid,String type);
 
+    public int updateGift(String id);
+
 
 
 }

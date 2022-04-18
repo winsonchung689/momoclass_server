@@ -812,6 +812,7 @@ public class LoginController {
 				gift.setCreate_time(create_time);
 				gift.setExpired_time(expired_time);
 				gift.setStudio(studio);
+				gift.setStatus(0);
 				loginService.insertGift(gift);
 			}
 		} catch (NumberFormatException e) {
@@ -848,6 +849,20 @@ public class LoginController {
 
 		try {
 			loginService.updateCoins(openid,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateGift")
+	@ResponseBody
+	public String updateGift(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String id = request.getParameter("id");
+
+		try {
+			loginService.updateGift(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
