@@ -351,7 +351,7 @@ public class LoginController {
 	}
 
 	//	获取全部
-	@RequestMapping("/getSignUp")
+	@RequestMapping("/getGift")
 	@ResponseBody
 	public List getGift(String student_name,String studio){
 		List list = null;
