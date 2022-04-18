@@ -155,7 +155,7 @@
 
   <!-- 查找礼物记录 -->
   <select id="getGift" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
-    select id,student_name,gift_name,create_time,expired_time,studio,gift_amount from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
+    select id,student_name,gift_name,create_time,expired_time,studio,gift_amount,status from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
   </select>
 
   <!-- 更新课时 -->
