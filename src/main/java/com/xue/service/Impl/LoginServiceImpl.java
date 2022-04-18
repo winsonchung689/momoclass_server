@@ -237,7 +237,7 @@ public class LoginServiceImpl implements LoginService {
                 gift_name = line.getGift_name();
                 gift_amount = line.getGift_amount();
 
-                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
                 String now_time = df1.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
                 Date now_time_dt = df1.parse(now_time);
