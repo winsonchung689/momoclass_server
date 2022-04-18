@@ -88,7 +88,11 @@ public interface UserMapper {
 
     int insertSignUp(SignUp signUp);
 
+    int insertGift(Gift gift);
+
     List<SignUp> getSignUp(String student_name,String studio);
+
+    List<Gift> getGift(String student_name,String studio);
 
     int updateLesson(Lesson lesson);
 

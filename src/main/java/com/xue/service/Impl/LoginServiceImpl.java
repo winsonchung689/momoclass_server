@@ -219,6 +219,53 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGift(String student_name, String studio) {
+        String create_time = null;
+        String expired_time = null;
+        String gift_name = null;
+        Integer gift_amount = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Gift> list = dao.getGift(student_name, studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Gift line = list.get(i);
+                //获取字段
+                create_time = line.getCreate_time();
+                expired_time = line.getExpired_time();
+                gift_name = line.getGift_name();
+                gift_amount = line.getGift_amount();
+
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//
+                String now_time = df1.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+                Date now_time_dt = df1.parse(now_time);
+                Date expired_time_dt = df1.parse(expired_time);
+                int compare = expired_time_dt.compareTo(now_time_dt);
+                if (compare > 0) {
+                    jsonObject.put("status", "已过期");
+                } else {
+                    jsonObject.put("status", "未过期");
+                }
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("gift_name", gift_name);
+                jsonObject.put("gift_amount", gift_amount);
+                jsonObject.put("rank", i + 1);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
@@ -238,6 +285,18 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(signUp);
         try {
             result = dao.insertSignUp(signUp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int insertGift(Gift gift) {
+        int result = 0;
+        FileInputStream in = null;
+        try {
+            result = dao.insertGift(gift);
         } catch (Exception e) {
             e.printStackTrace();
         }

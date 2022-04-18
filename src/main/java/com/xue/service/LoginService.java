@@ -30,9 +30,13 @@ public interface LoginService {
 
     public List  getSignUp(String student_name,String studio);
 
+    public List  getGift(String student_name,String studio);
+
     public int insertSchedule(Schedule schedule);
 
     public int insertSignUp(SignUp signUp);
+
+    public int insertGift(Gift gift);
 
     public List  getSchedule(String date_time,String studio);
 

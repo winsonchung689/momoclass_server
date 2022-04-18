@@ -350,6 +350,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getSignUp")
+	@ResponseBody
+	public List getGift(String student_name,String studio){
+		List list = null;
+		try {
+			list = loginService.getGift(student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
@@ -749,8 +762,14 @@ public class LoginController {
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		//获取用户名
 		String student_name = request.getParameter("student_name");
@@ -758,9 +777,10 @@ public class LoginController {
 		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
 		//获年角色
 		Float left_amount = Float.valueOf(request.getParameter("left_amount"));
-
+		// 获取工作室
 		String studio = request.getParameter("studio");
 
+		// 新增课程
 		Lesson lesson =new Lesson();
 		try {
 			lesson.setStudent_name(student_name);
@@ -775,6 +795,30 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		// 发放开课礼物
+		Gift gift = new Gift();
+		try {
+			String gift_name = request.getParameter("gift_name");
+			if (!gift_name.isEmpty()){
+				String gift_amount = request.getParameter("gift_amount");
+				String expired_days = request.getParameter("expired_days");
+				cal.add(cal.DATE,Integer.parseInt(expired_days));
+				String expired_time = df.format(cal.getTime());
+
+				gift.setStudent_name(student_name);
+				gift.setGift_name(gift_name);
+				gift.setGift_amount(Integer.parseInt(gift_amount));
+				gift.setCreate_time(create_time);
+				gift.setExpired_time(expired_time);
+				gift.setStudio(studio);
+				loginService.insertGift(gift);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+
 		return "push massage successfully";
 	}
 
