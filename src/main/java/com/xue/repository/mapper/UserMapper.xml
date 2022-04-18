@@ -145,7 +145,7 @@
 
   <!-- 发放礼物记录 -->
   <insert id="insertGift" parameterType="com.xue.entity.model.Gift">
-    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount})
+    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status})
   </insert>
 
   <!-- 查找签到记录 -->
