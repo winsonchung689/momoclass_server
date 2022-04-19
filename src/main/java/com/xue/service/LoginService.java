@@ -14,7 +14,7 @@ public interface LoginService {
 
     public List  getPpt(Integer page);
 
-    public List  getLesson(String studio);
+    public List  getLesson(String studio,String student_name);
 
     public List  getRating(String studio,String student_name);
 

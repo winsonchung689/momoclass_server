@@ -156,10 +156,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLesson")
 	@ResponseBody
-	public List getLesson(String studio){
+	public List getLesson(String studio,String student_name){
 		List list = null;
 		try {
-			list = loginService.getLesson(studio);
+			list = loginService.getLesson(studio,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
