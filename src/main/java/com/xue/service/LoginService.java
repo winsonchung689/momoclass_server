@@ -84,7 +84,7 @@ public interface LoginService {
 
     public int updateAddPoints(String student_name,String studio);
 
-    public int deletePoints(String student_name,String studio);
+    public int deletePoints(String student_name,String studio,Integer points);
 
     public int updateCoins(String openid,String type);
 

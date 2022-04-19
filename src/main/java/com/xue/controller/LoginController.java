@@ -876,9 +876,11 @@ public class LoginController {
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
+		String points_get = request.getParameter("points");
+		Integer points = Integer.parseInt(points_get);
 
 		try {
-			loginService.deletePoints(student_name,studio);
+			loginService.deletePoints(student_name,studio,points);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

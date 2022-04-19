@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -943,14 +944,19 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public int deletePoints(String student_name, String studio) {
+    public int deletePoints(String student_name, String studio,Integer points) {
         int result = 0;
-        Integer points = 0;
         System.out.println(student_name);
         try {
+            List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+            Lesson lesson_get = lessons.get(0);
+            Integer total_points = lesson_get.getPoints();
+            Integer new_points = total_points-points;
+
+
             Lesson lesson = new Lesson();
             lesson.setStudent_name(student_name);
-            lesson.setPoints(points);
+            lesson.setPoints(new_points);
             lesson.setStudio(studio);
             result = dao.updateLessonPoint(lesson);
 
