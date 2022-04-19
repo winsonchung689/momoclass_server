@@ -169,10 +169,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getRating")
 	@ResponseBody
-	public List getRating(String studio){
+	public List getRating(String studio,String student_name){
 		List list = null;
 		try {
-			list = loginService.getRating(studio);
+			list = loginService.getRating(studio,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

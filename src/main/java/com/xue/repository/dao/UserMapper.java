@@ -84,6 +84,8 @@ public interface UserMapper {
 
     List<Lesson> getRating(String studio);
 
+    List<Lesson> getRatingByName(String studio,String student_name);
+
     int insertLesson(Lesson lesson);
 
     int insertSignUp(SignUp signUp);

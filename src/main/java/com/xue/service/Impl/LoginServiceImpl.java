@@ -1270,8 +1270,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRating(String studio) {
-        String student_name = null;
+    public List getRating(String studio,String student_name) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -1279,35 +1278,67 @@ public class LoginServiceImpl implements LoginService {
         Integer points = 0;
         Float percent = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
+        if(student_name.equals("all")){
+            try {
+                List<Lesson> list = dao.getRating(studio);
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    Lesson line = list.get(i);
+                    //获取字段
+                    student_name = line.getStudent_name();
+                    total_amount = line.getTotal_amount();
+                    left_amount = line.getLeft_amount();
+                    percent = (float) Math.round(left_amount * 100 / total_amount);
+                    id = line.getId();
+                    create_time = line.getCreate_time();
+                    points = line.getPoints();
+                    //json
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    jsonObject.put("id", id);
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("percent", percent);
+                    jsonObject.put("points", points);
+                    jsonObject.put("rank", i + 1);
+                    resul_list.add(jsonObject);
+                }
 
-        try {
-            List<Lesson> list = dao.getRating(studio);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Lesson line = list.get(i);
-                //获取字段
-                student_name = line.getStudent_name();
-                total_amount = line.getTotal_amount();
-                left_amount = line.getLeft_amount();
-                percent = (float) Math.round(left_amount * 100 / total_amount);
-                id = line.getId();
-                create_time = line.getCreate_time();
-                points = line.getPoints();
-                //json
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("total_amount", total_amount);
-                jsonObject.put("left_amount", left_amount);
-                jsonObject.put("id", id);
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("percent", percent);
-                jsonObject.put("points", points);
-                jsonObject.put("rank", i + 1);
-                resul_list.add(jsonObject);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } else {
+            try {
+                List<Lesson> list = dao.getRatingByName(studio,student_name);
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    Lesson line = list.get(i);
+                    //获取字段
+                    student_name = line.getStudent_name();
+                    total_amount = line.getTotal_amount();
+                    left_amount = line.getLeft_amount();
+                    percent = (float) Math.round(left_amount * 100 / total_amount);
+                    id = line.getId();
+                    create_time = line.getCreate_time();
+                    points = line.getPoints();
+                    //json
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    jsonObject.put("id", id);
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("percent", percent);
+                    jsonObject.put("points", points);
+                    jsonObject.put("rank", i + 1);
+                    resul_list.add(jsonObject);
+                }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+
         return resul_list;
     }
 
