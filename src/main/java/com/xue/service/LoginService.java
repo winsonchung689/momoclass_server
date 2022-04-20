@@ -42,6 +42,8 @@ public interface LoginService {
 
     public int  deleteComment(Integer id,String role);
 
+    public int  deleteSignUpRecord(Integer id,String role);
+
     public int  deleteSchedule(Integer id,String role);
 
     public int  deleteLesson(Integer id,String role);

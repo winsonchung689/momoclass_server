@@ -324,6 +324,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         String update_time = null;
+        Float left = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
@@ -350,6 +351,12 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("add_date", add_date);
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
+
+                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                Lesson lesson = lessons.get(0);
+                left = lesson.getLeft_amount();
+                jsonObject.put("left", left);
+
                 jsonObject.put("duration", duration);
                 jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("id", id);
@@ -379,6 +386,19 @@ public class LoginServiceImpl implements LoginService {
         try {
             if ("boss".equals(role)) {
                 dao.deleteComment(id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public int deleteSignUpRecord(Integer id, String role) {
+        try {
+            if ("boss".equals(role)) {
+                dao.deleteSignUpRecord(id);
             }
         } catch (Exception e) {
             e.printStackTrace();
