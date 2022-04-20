@@ -803,8 +803,11 @@ public class LoginController {
 			lesson.setLeft_amount(left_amount);
 			lesson.setCreate_time(create_time);
 			lesson.setStudio(studio);
+
 			int res = loginService.updateLesson(lesson);
 			if (0==res){
+				Integer point = 0;
+				lesson.setPoints(point);
 				loginService.insertLesson(lesson);
 			}
 		} catch (Exception e) {
