@@ -80,7 +80,7 @@ public interface LoginService {
 
     public List getHome(String studio);
 
-    public int updateMinusLesson(String student_name,String studio);
+    public int updateMinusLesson(String student_name,String studio,Float class_count);
 
     public List  getLessonByName(String student_name,String studio);
 

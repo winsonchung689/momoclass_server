@@ -12,6 +12,15 @@ public class SignUp {
 
     private String studio;
 
+    private String mark;
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
 
     public String getId() {
         return id;

@@ -909,7 +909,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateMinusLesson(String student_name, String studio) {
+    public int updateMinusLesson(String student_name, String studio,Float class_count) {
         int result = 0;
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
@@ -922,7 +922,7 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
-                new_left = left_amount - 1;
+                new_left = left_amount - class_count;
                 Lesson lesson = new Lesson();
                 lesson.setStudent_name(student_name);
                 lesson.setLeft_amount(new_left);
