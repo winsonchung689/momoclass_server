@@ -356,17 +356,9 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
 
-                Lesson lesson = null;
-                String lesson_id = null;
-                try {
-                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                    lesson = lessons.get(0);
-                    lesson_id = lesson.getId();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if(!lesson_id.isEmpty()){
+                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                if(lessons.size()>0){
+                    Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
                     jsonObject.put("left", left);
                     jsonObject.put("add_date", add_date);
@@ -389,7 +381,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                     resul_list.add(jsonObject);
                 }
-
             }
 
         } catch (Exception e) {
