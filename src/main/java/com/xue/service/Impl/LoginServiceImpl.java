@@ -353,32 +353,36 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
+
                 //json
-                jsonObject.put("add_date", add_date);
-                jsonObject.put("age", age);
-                jsonObject.put("student_name", student_name);
 
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                 Lesson lesson = lessons.get(0);
-                left = lesson.getLeft_amount();
-                jsonObject.put("left", left);
+                String lesson_id = lesson.getId();
+                if(!lesson_id.isEmpty()){
+                    left = lesson.getLeft_amount();
+                    jsonObject.put("left", left);
+                    jsonObject.put("add_date", add_date);
+                    jsonObject.put("age", age);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("id", id);
+                    jsonObject.put("update_time", update_time.substring(0,10));
 
-                jsonObject.put("duration", duration);
-                jsonObject.put("create_time", create_time.substring(0,10));
-                jsonObject.put("id", id);
-                jsonObject.put("update_time", update_time.substring(0,10));
+                    SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+                    Date update = df1.parse(update_time);
+                    Date today = df1.parse(date_time + " 00:00:00");
+                    int compare = update.compareTo(today);
+                    if (compare > 0) {
+                        jsonObject.put("sign_up", "已签到");
 
-                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                Date update = df1.parse(update_time);
-                Date today = df1.parse(date_time + " 00:00:00");
-                int compare = update.compareTo(today);
-                if (compare > 0) {
-                    jsonObject.put("sign_up", "已签到");
-
-                } else {
-                    jsonObject.put("sign_up", "未签到");
+                    } else {
+                        jsonObject.put("sign_up", "未签到");
+                    }
+                    resul_list.add(jsonObject);
                 }
-                resul_list.add(jsonObject);
+
             }
 
         } catch (Exception e) {
