@@ -356,9 +356,16 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
 
-                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                Lesson lesson = lessons.get(0);
-                String lesson_id = lesson.getId();
+                Lesson lesson = null;
+                String lesson_id = null;
+                try {
+                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                    lesson = lessons.get(0);
+                    lesson_id = lesson.getId();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 if(!lesson_id.isEmpty()){
                     left = lesson.getLeft_amount();
                     jsonObject.put("left", left);
