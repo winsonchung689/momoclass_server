@@ -419,7 +419,7 @@ public class LoginServiceImpl implements LoginService {
     public int deleteGiftRecord(Integer id, String role) {
         try {
             if ("boss".equals(role)) {
-                dao.deleteSignUpRecord(id);
+                dao.deleteGiftRecord(id);
             }
         } catch (Exception e) {
             e.printStackTrace();
