@@ -808,6 +808,8 @@ public class LoginController {
 		Float left_amount =null;
 		if(left_amount_get.isEmpty()){
 			left_amount = -1.0f;
+		}else {
+			left_amount = Float.parseFloat(left_amount_get);
 		}
 
 		// 获取工作室

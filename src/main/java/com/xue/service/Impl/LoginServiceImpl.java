@@ -71,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
                     total_amount = total;
                 }
                 left_amount = lesson_get.getLeft_amount();
-                if (left > 0) {
+                if (left >= 0) {
                     left_amount = left;
                 }
             }
