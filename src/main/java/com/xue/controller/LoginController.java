@@ -468,6 +468,19 @@ public class LoginController {
 		return 1;
 	}
 
+	//	获取详情页
+	@RequestMapping("/deleteGiftRecord")
+	@ResponseBody
+	public int deleteGiftRecord(Integer id,String role){
+		try {
+			loginService.deleteGiftRecord(id,role);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteSchedule")
 	@ResponseBody
 	public int deleteSchedule(Integer id,String role){

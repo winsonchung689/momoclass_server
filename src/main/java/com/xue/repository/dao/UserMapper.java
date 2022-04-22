@@ -59,6 +59,8 @@ public interface UserMapper {
 
     void deleteSignUpRecord(Integer id);
 
+    void deleteGiftRecord(Integer id);
+
     void deleteSchedule(Integer id);
 
     void deleteLesson(Integer id);

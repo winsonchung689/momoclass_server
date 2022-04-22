@@ -118,6 +118,11 @@
     delete from sign_up_record where id =#{param1}
   </select>
 
+  <!-- 获取详情 -->
+  <select id="deleteGiftRecord" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
+    delete from gift_record where id =#{param1}
+  </select>
+
   <!-- 刪除课程表 -->
   <select id="deleteSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
     delete from class_schedule where id =#{param1}
