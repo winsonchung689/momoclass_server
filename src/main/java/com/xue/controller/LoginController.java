@@ -804,7 +804,12 @@ public class LoginController {
 		//获取学生名
 		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
 		//获年角色
-		Float left_amount = Float.valueOf(request.getParameter("left_amount"));
+		String left_amount_get = request.getParameter("left_amount");
+		Float left_amount =null;
+		if(left_amount_get.isEmpty()){
+			left_amount = -1.0f;
+		}
+
 		// 获取工作室
 		String studio = request.getParameter("studio");
 
