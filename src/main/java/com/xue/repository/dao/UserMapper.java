@@ -76,6 +76,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<User> getUserByNickName(String nickName);
+
     List<User> getAllUser();
 
     List<User> getStudio();

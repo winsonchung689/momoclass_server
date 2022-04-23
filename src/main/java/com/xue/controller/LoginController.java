@@ -406,6 +406,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取用户
+	@RequestMapping("/getUserByNickName")
+	@ResponseBody
+	public List getUserByNickName(String nickName){
+		List list = null;
+		try {
+			list = loginService.getUserByNickName(nickName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取工作室列表
 	@RequestMapping("/getStudio")
 	@ResponseBody

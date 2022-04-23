@@ -60,6 +60,8 @@ public interface LoginService {
 
     public List getUser(String openid);
 
+    public List getUserByNickName(String openid);
+
     public List getStudio();
 
     public List getCertificateModel(String class_name);
