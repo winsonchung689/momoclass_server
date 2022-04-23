@@ -76,6 +76,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<User> getAllUser();
+
     List<User> getStudio();
 
     List<Message> getCertificateModel(String class_name);

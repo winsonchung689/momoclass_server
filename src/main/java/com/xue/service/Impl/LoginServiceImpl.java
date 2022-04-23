@@ -514,10 +514,13 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String expired_time = null;
         Integer coins = 0;
+        List<User> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-
-            List<User> list = dao.getUser(openid);
+            list = dao.getUser(openid);
+            if(openid.equals("all")){
+                list = dao.getAllUser();
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
