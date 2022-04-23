@@ -514,6 +514,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String expired_time = null;
         Integer coins = 0;
+        String comment_style = null;
         List<User> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -535,6 +536,7 @@ public class LoginServiceImpl implements LoginService {
                 expired_time = line.getExpired_time();
                 coins = line.getCoins();
                 openid = line.getOpenid();
+                comment_style = line.getComment_style();
 
                 //json
                 jsonObject.put("role", role);
@@ -547,6 +549,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("coins", coins);
                 jsonObject.put("openid",openid);
+                jsonObject.put("comment_style",comment_style);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -566,6 +569,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String expired_time = null;
         Integer coins = 0;
+        String comment_style = null;
         List<User> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -584,6 +588,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 expired_time = line.getExpired_time();
                 coins = line.getCoins();
+                comment_style =line.getComment_style();
 
                 //json
                 jsonObject.put("role", role);
@@ -595,6 +600,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("coins", coins);
+                jsonObject.put("comment_style",comment_style);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

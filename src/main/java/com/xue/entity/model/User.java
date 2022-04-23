@@ -20,7 +20,18 @@ public class User {
 
     private String user_type;
 
+    private String comment_style;
+
     private Integer coins;
+
+
+    public String getComment_style() {
+        return comment_style;
+    }
+
+    public void setComment_style(String comment_style) {
+        this.comment_style = comment_style;
+    }
 
     public Integer getCoins() {
         return coins;
