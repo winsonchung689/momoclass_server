@@ -188,7 +188,7 @@
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins from user order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins from user order by role
   </select>
 
   <!-- 更新工作室 -->
