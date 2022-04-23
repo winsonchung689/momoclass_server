@@ -237,7 +237,7 @@
 
   <!-- 更新用户类型 -->
   <update id="updateUsertype" parameterType="com.xue.entity.model.User">
-    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where nick_name=#{nick_name}
+    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where nick_name=#{openid}
   </update>
 
   <!-- 获取学生名课时 -->

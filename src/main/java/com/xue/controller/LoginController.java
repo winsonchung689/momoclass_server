@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.ldap.sasl.LdapSasl;
 import com.xue.entity.model.*;
+import com.xue.repository.dao.UserMapper;
 import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
 import org.apache.commons.io.FileUtils;
@@ -42,6 +43,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private UserMapper dao;
 
 	//	获取token
 	@RequestMapping("/sendSubscribe")
@@ -750,9 +754,9 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/updateUsertype")
+	@RequestMapping("/updateRole")
 	@ResponseBody
-	public String updateUsertype(HttpServletRequest request, HttpServletResponse response){
+	public String updateRole(HttpServletRequest request, HttpServletResponse response){
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -765,17 +769,25 @@ public class LoginController {
 		cal.add(cal.DATE,30);
 		String expired_time = df.format(cal.getTime());
 
-		//获取用户名
-		String nick_name = request.getParameter("nick_name");
-		//获年角色
-		String role = "boss";
+		//获取openid
+		String openid = request.getParameter("openid");
+
+		User user_get= dao.getUser(openid).get(0);
+		String role_get = user_get.getRole();
+		//定义role
+		String role =null;
+		if (role_get.equals("boss")){
+			role = "client";
+		} else {
+			role = "boss";
+		}
+
         //获取用户类型
 		String user_type = "老用户";
 
-
 		try {
 			User user =new User();
-			user.setNick_name(nick_name);
+			user.setOpenid(openid);
 			user.setRole(role);
 			user.setUser_type(user_type);
 			user.setCreate_time(create_time);
