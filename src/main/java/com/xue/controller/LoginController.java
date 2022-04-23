@@ -834,7 +834,7 @@ public class LoginController {
 
 		User user_get= dao.getUser(openid).get(0);
 		String comment_style_get = user_get.getComment_style();
-		//定义role
+		//定义comment_style
 		String comment_style =null;
 		if (comment_style_get.equals("public")){
 			comment_style = "self";
