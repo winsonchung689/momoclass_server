@@ -200,6 +200,11 @@
     update user set studio=#{studio}, create_time=#{create_time},role=#{role} where student_name=#{student_name} and openid = #{openid}
   </update>
 
+  <!-- 更新课评风格 -->
+  <update id="updateComentStyle" parameterType="com.xue.entity.model.User">
+    update user set comment_style=#{comment_style} where studio = #{studio}
+  </update>
+
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select distinct studio from user
   </select>

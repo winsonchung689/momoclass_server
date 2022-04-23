@@ -74,6 +74,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateComentStyle(User user);
+
     List<User> getUser(String openid);
 
     List<User> getUserByNickName(String nickName);

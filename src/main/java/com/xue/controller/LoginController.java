@@ -812,6 +812,49 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateComentStyle")
+	@ResponseBody
+	public String updateComentStyle(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,30);
+		String expired_time = df.format(cal.getTime());
+
+		//获取openid
+		String openid = request.getParameter("openid");
+
+		String studio = request.getParameter("studio");
+
+		User user_get= dao.getUser(openid).get(0);
+		String comment_style_get = user_get.getComment_style();
+		//定义role
+		String comment_style =null;
+		if (comment_style_get.equals("public")){
+			comment_style = "self";
+		} else {
+			comment_style = "public";
+		}
+
+		//获取用户类型
+
+		try {
+			User user =new User();
+			user.setComment_style(comment_style);
+			user.setStudio(studio);
+			loginService.updateComentStyle(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){

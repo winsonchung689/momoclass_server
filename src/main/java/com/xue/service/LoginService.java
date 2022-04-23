@@ -54,6 +54,8 @@ public interface LoginService {
 
     public int updateUser(User user);
 
+    public int updateComentStyle(User user);
+
     public int updateSchedule(Schedule schedule);
 
     public int updateUsertype(User user);
