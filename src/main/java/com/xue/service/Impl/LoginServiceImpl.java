@@ -534,6 +534,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 expired_time = line.getExpired_time();
                 coins = line.getCoins();
+                openid = line.getOpenid();
 
                 //json
                 jsonObject.put("role", role);
@@ -545,6 +546,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("coins", coins);
+                jsonObject.put("openid",openid);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
