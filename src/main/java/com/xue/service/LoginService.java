@@ -6,7 +6,7 @@ import com.xue.entity.model.*;
 
 public interface LoginService {
 
-    public List  getMessage(String studio,Integer page);
+    public List  getMessage(String studio,Integer page,String comment_style,String student_name);
 
     public List  getMessageClient(String nickName);
 

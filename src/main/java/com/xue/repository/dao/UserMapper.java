@@ -8,6 +8,8 @@ public interface UserMapper {
     //获取
     List<Message> getMessage(String studio,Integer page_start,Integer page_length);
 
+    List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
+
     //获取
     List<Message> getCertificate(String studio);
 
