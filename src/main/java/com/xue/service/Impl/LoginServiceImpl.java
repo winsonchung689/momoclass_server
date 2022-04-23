@@ -484,7 +484,7 @@ public class LoginServiceImpl implements LoginService {
         int result = 0;
 
         try {
-            result = dao.updateUser(user);
+            result = dao.updateComentStyle(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
