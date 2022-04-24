@@ -1158,6 +1158,7 @@ public class LoginServiceImpl implements LoginService {
         String class_target = null;
         String id = null;
         String create_time = null;
+        String student_name_get = null;
         String student_name = null;
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
@@ -1171,8 +1172,8 @@ public class LoginServiceImpl implements LoginService {
             users  =dao.getUserByOpenid(openid);
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
-                student_name = line.getStudent_name();
-                student_names = student_names.append(student_name).append(",");
+                student_name_get = line.getStudent_name();
+                student_names = student_names.append(student_name_get).append(",");
 
             }
             student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
