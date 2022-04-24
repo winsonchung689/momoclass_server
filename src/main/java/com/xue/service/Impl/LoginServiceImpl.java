@@ -836,7 +836,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getClassSys(String class_target, String studio, Integer limit) {
+    public List getClassSys(String class_target, String studio) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -847,7 +847,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getClassSys(class_target, studio, limit);
+            List<Message> list = dao.getClassSys(class_target, studio);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -1148,7 +1148,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getMessage(String studio, Integer page,String comment_style,String student_name) {
+    public List getMessage(String studio, Integer page,String comment_style,String student_name,String role) {
         String comment = null;
         String class_name = null;
         String class_target = null;
@@ -1159,7 +1159,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         try {
-            if(comment_style.equals("self")){
+            if(comment_style.equals("self")&&role.equals("client")){
                 list = dao.getMessageByName(student_name,studio, page_start, page_length);
             }else {
                 list = dao.getMessage(studio, page_start, page_length);

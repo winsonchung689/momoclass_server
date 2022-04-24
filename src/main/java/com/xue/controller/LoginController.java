@@ -134,10 +134,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(String studio,Integer page,String comment_style,String student_name){
+	public List getMessage(String studio,Integer page,String comment_style,String student_name,String role){
 		List list = null;
 		try {
-			list = loginService.getMessage(studio,page,comment_style,student_name);
+			list = loginService.getMessage(studio,page,comment_style,student_name,role);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -225,10 +225,10 @@ public class LoginController {
 	//	获取课程体系
 	@RequestMapping("/getClassSys")
 	@ResponseBody
-	public List getClassSys(String class_target,String studio,Integer limit){
+	public List getClassSys(String class_target,String studio){
 		List list = null;
 		try {
-			list = loginService.getClassSys(class_target,studio,limit);
+			list = loginService.getClassSys(class_target,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

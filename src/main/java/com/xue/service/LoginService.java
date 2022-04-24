@@ -6,7 +6,7 @@ import com.xue.entity.model.*;
 
 public interface LoginService {
 
-    public List  getMessage(String studio,Integer page,String comment_style,String student_name);
+    public List  getMessage(String studio,Integer page,String comment_style,String student_name,String role);
 
     public List  getMessageClient(String nickName);
 
@@ -78,7 +78,7 @@ public interface LoginService {
 
     public List getPaycode(String student_name);
 
-    public List getClassSys(String class_target,String studio,Integer limit);
+    public List getClassSys(String class_target,String studio);
 
     public List getCourseList(String studio,Integer page);
 
