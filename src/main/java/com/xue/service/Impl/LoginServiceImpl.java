@@ -1159,7 +1159,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String create_time = null;
         String student_name = null;
-        String student_names = null;
+        String student_names= "";
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -1168,7 +1168,7 @@ public class LoginServiceImpl implements LoginService {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            users  =dao.getUser(openid);
+            users  =dao.getUserByOpenid(openid);
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
                 student_name = line.getStudent_name();
