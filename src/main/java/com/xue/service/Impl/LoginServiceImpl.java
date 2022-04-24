@@ -1168,7 +1168,6 @@ public class LoginServiceImpl implements LoginService {
         JSONObject jsonObject = new JSONObject();
 
         try {
-
             users  =dao.getUser(openid);
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
