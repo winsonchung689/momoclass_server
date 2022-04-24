@@ -761,7 +761,7 @@ public class LoginController {
 				user.setUser_type("新用户");
 				loginService.insertUser(user);
 			}
-			if(1==res&&!student_name.equals("no_name")){
+			if(res>0&&!student_name.equals("no_name")){
 				List<User> list= dao.getUser(openid);
 				String user_type_get = list.get(0).getUser_type();
 				String role_get = list.get(0).getRole();
