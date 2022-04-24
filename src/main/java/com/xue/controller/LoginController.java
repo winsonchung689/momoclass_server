@@ -738,12 +738,20 @@ public class LoginController {
 		if(role == null || role.isEmpty() || "undefined".equals(role)){
 			role = "client";
 		}
-        //获取openid
+        //获取 openid
 		String openid = request.getParameter("openid");
-		//获取openid
+		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 
 		String studio = request.getParameter("studio");
+        //获取 comment_style
+		String comment_style = "public";
+		try {
+			List<User> list_u = dao.getComentStyle(studio);
+			comment_style = list_u.get(0).getComment_style();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 
 		try {
@@ -759,6 +767,7 @@ public class LoginController {
 			int res = loginService.updateUser(user);
 			if (0==res){
 				user.setUser_type("新用户");
+				user.setComment_style(comment_style);
 				loginService.insertUser(user);
 			}
 			if(res>0&&!student_name.equals("no_name")){
@@ -767,6 +776,7 @@ public class LoginController {
 				String role_get = list.get(0).getRole();
 				user.setUser_type(user_type_get);
 				user.setRole(role_get);
+				user.setComment_style(comment_style);
 				loginService.insertUser(user);
 			}
 		} catch (Exception e) {
