@@ -1159,6 +1159,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String create_time = null;
         String student_name = null;
+        String student_names = null;
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -1167,54 +1168,58 @@ public class LoginServiceImpl implements LoginService {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            users  =dao.getUser(openid);
+
+            users  =dao.getAllUser();
             for (int i = 0; i < users.size(); i++) {
-                User user_line = users.get(i);
-                student_name = user_line.getStudent_name();
+                User line = users.get(i);
+                student_name = line.getStudent_name();
+                student_names = student_names + "," + student_name;
 
-                if(comment_style.equals("self")&&role.equals("client")){
-                    list = dao.getMessageByName(student_name,studio, page_start, page_length);
-                }else {
-                    list = dao.getMessage(studio, page_start, page_length);
-                }
-
-                for (int j = 0; j < list.size(); j++) {
-                    Float percent = 0.0f;
-                    Float left = 0.0f;
-                    Message message_line = list.get(j);
-                    //获取字段
-                    student_name = message_line.getStudent_name();
-                    class_name = message_line.getClass_name();
-                    comment = message_line.getComment();
-                    class_target = message_line.getClass_target();
-                    id = message_line.getId();
-                    create_time = message_line.getCreate_time();
-                    studio = message_line.getStudio();
-
-                    try {
-                        List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                        Lesson lesson = lessons.get(0);
-                        left = lesson.getLeft_amount();
-                        Float total = lesson.getTotal_amount();
-                        if (left > 0 || total > 0) {
-                            percent = (float) Math.round(left * 100 / total);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    //json
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("class_name", class_name);
-                    jsonObject.put("comment", comment);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("left", left);
-                    jsonObject.put("class_target", class_target);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    resul_list.add(jsonObject);
-                }
             }
+
+            if(comment_style.equals("self")&&role.equals("client")){
+                list = dao.getMessageInName(student_names,studio,page_start,page_length);
+            }else {
+                list = dao.getMessage(studio, page_start, page_length);
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                Float percent = 0.0f;
+                Float left = 0.0f;
+                Message line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                class_name = line.getClass_name();
+                comment = line.getComment();
+                class_target = line.getClass_target();
+                id = line.getId();
+                create_time = line.getCreate_time();
+                studio = line.getStudio();
+
+                try {
+                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                    Lesson lesson = lessons.get(0);
+                    left = lesson.getLeft_amount();
+                    Float total = lesson.getTotal_amount();
+                    if (left > 0 || total > 0) {
+                        percent = (float) Math.round(left * 100 / total);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("class_name", class_name);
+                jsonObject.put("comment", comment);
+                jsonObject.put("percent", percent);
+                jsonObject.put("left", left);
+                jsonObject.put("class_target", class_target);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

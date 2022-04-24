@@ -41,6 +41,9 @@ public interface UserMapper {
     List<Message> getMessageClient(String student_name);
 
     //获取
+    List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length);
+
+    //获取
     List<Schedule> getSchedule(Integer date_time,String studio);
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end);
