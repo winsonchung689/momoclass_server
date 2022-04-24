@@ -1159,25 +1159,26 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String create_time = null;
         String student_name = null;
-        String student_names= "first";
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         List<User> users=null;
         JSONObject jsonObject = new JSONObject();
+        StringBuilder student_names = new StringBuilder();
 
         try {
             users  =dao.getUserByOpenid(openid);
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
                 student_name = line.getStudent_name();
-                student_names = student_names + "','" + student_name;
+                student_names = student_names.append(student_name).append(",");
 
             }
+            student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
 
             if(comment_style.equals("self")&&role.equals("client")){
-                list = dao.getMessageInName(student_names,studio,page_start,page_length);
+                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length);
             }else {
                 list = dao.getMessage(studio, page_start, page_length);
             }
