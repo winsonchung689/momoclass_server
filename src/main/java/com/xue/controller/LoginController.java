@@ -736,7 +736,7 @@ public class LoginController {
 		//获年角色
 		String role = request.getParameter("role");
 		if(role == null || role.isEmpty() || "undefined".equals(role)){
-			student_name = "client";
+			role = "client";
 		}
         //获取openid
 		String openid = request.getParameter("openid");
@@ -759,6 +759,13 @@ public class LoginController {
 			int res = loginService.updateUser(user);
 			if (0==res){
 				user.setUser_type("新用户");
+				loginService.insertUser(user);
+			}else if(1==res&&!student_name.equals("no_name")){
+				List<User> list= dao.getUser(openid);
+				String user_type_get = list.get(0).getUser_type();
+				String role_get = list.get(0).getRole();
+				user.setUser_type(user_type_get);
+				user.setRole(role_get);
 				loginService.insertUser(user);
 			}
 		} catch (Exception e) {
