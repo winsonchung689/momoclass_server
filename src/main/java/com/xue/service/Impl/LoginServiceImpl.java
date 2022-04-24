@@ -1165,7 +1165,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         List<User> users=null;
-        JSONObject jsonObject = new JSONObject();
         StringBuilder student_names = new StringBuilder();
 
         try {
@@ -1185,6 +1184,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
                 Float percent = 0.0f;
                 Float left = 0.0f;
                 Message line = list.get(i);
