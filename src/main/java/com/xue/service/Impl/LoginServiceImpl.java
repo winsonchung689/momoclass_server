@@ -1169,7 +1169,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
 
-            users  =dao.getAllUser();
+            users  =dao.getUser(openid);
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
                 student_name = line.getStudent_name();
