@@ -1169,13 +1169,15 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             users  =dao.getUserByOpenid(openid);
-            for (int i = 0; i < users.size(); i++) {
-                User line = users.get(i);
-                student_name_get = line.getStudent_name();
-                student_names = student_names.append(student_name_get).append(",");
+            if(users.size()>0){
+                for (int i = 0; i < users.size(); i++) {
+                    User line = users.get(i);
+                    student_name_get = line.getStudent_name();
+                    student_names = student_names.append(student_name_get).append(",");
 
+                }
+                student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
-            student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
 
             if(comment_style.equals("self")&&role.equals("client")){
                 list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length);
@@ -1220,6 +1222,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
