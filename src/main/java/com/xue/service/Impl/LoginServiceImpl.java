@@ -1172,7 +1172,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < users.size(); i++) {
                 User line = users.get(i);
                 student_name = line.getStudent_name();
-                student_names = student_names + "," + student_name;
+                student_names = student_names + "','" + student_name;
 
             }
 
