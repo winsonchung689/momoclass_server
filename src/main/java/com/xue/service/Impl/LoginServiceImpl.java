@@ -1159,7 +1159,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String create_time = null;
         String student_name = null;
-        String student_names= "";
+        String student_names= "first";
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
