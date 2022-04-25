@@ -171,6 +171,19 @@ public class LoginController {
 	}
 
 	//	获取全部
+	@RequestMapping("/getLessonInName")
+	@ResponseBody
+	public List getLessonInName(String studio,String student_name){
+		List list = null;
+		try {
+			list = loginService.getLessonInName(studio,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取全部
 	@RequestMapping("/getRating")
 	@ResponseBody
 	public List getRating(String studio,String student_name){

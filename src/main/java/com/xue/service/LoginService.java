@@ -18,6 +18,8 @@ public interface LoginService {
 
     public List  getLesson(String studio,String student_name);
 
+    public List  getLessonInName(String studio,String student_name);
+
     public List  getRating(String studio,String student_name);
 
     public int push(Message message);
