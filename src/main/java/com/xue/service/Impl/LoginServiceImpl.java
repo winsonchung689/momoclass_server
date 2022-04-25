@@ -1428,16 +1428,14 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
-        StringBuilder student_names = new StringBuilder();
-        student_names = student_names.append(student_name);
+        Integer length = student_name.split(",").length;
 
 
         try {
             if(student_name.equals("all")) {
                     list = dao.getLesson(studio);
-            }else if (student_names.lastIndexOf(",")>-1) {
-                    student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
-                    list = dao.getLessonInName(studio,student_names.toString());
+            }else if (length>1) {
+                    list = dao.getLessonInName(studio,student_name);
             }else {
                     list = dao.getLessonLikeName(studio,student_name);
             }
