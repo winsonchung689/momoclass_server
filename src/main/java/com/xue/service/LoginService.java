@@ -8,6 +8,8 @@ public interface LoginService {
 
     public List  getMessage(String studio,Integer page,String comment_style,String openid,String role);
 
+    public List  getUserByOpenid(String openid);
+
     public List  getMessageClient(String nickName);
 
     public List  getModel(String studio,Integer page);

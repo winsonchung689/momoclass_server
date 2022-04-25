@@ -407,6 +407,19 @@ public class LoginController {
 	}
 
 	//	获取用户
+	@RequestMapping("/getUserByOpenid")
+	@ResponseBody
+	public List getUserByOpenid(String openid){
+		List list = null;
+		try {
+			list = loginService.getUserByOpenid(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取用户
 	@RequestMapping("/getUserByNickName")
 	@ResponseBody
 	public List getUserByNickName(String nickName){
