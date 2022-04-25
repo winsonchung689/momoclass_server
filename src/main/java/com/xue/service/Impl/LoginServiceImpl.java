@@ -1426,74 +1426,51 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
+        List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
-        if(student_name.equals("all")) {
-            try {
-                List<Lesson> list = dao.getLesson(studio);
-                for (int i = 0; i < list.size(); i++) {
-                    JSONObject jsonObject = new JSONObject();
-                    Lesson line = list.get(i);
-                    //获取字段
-                    student_name = line.getStudent_name();
-                    total_amount = line.getTotal_amount();
-                    left_amount = line.getLeft_amount();
-                    percent = (float) Math.round(left_amount * 100 / total_amount);
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    points = line.getPoints();
-                    //json
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + 1);
+        StringBuilder student_names = new StringBuilder();
+        student_names = student_names.append(student_name);
 
-                    jsonObject.put("show", false);
-                    jsonObject.put("name", student_name);
-                    jsonObject.put("search", student_name);
-                    resul_list.add(jsonObject);
-                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            if(student_name.equals("all")) {
+                    list = dao.getLesson(studio);
+            }else if (student_names.lastIndexOf(",")>-1) {
+                    student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
+                    list = dao.getLessonInName(studio,student_names.toString());
+            }else {
+                    list = dao.getLessonLikeName(studio,student_name);
             }
-        }else {
-            try {
-                List<Lesson> list = dao.getLessonLikeName(studio,student_name);
-                for (int i = 0; i < list.size(); i++) {
-                    JSONObject jsonObject = new JSONObject();
-                    Lesson line = list.get(i);
-                    //获取字段
-                    student_name = line.getStudent_name();
-                    total_amount = line.getTotal_amount();
-                    left_amount = line.getLeft_amount();
-                    percent = (float) Math.round(left_amount * 100 / total_amount);
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    points = line.getPoints();
-                    //json
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + 1);
 
-                    jsonObject.put("show", false);
-                    jsonObject.put("name", student_name);
-                    jsonObject.put("search", student_name);
-                    resul_list.add(jsonObject);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Lesson line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                percent = (float) Math.round(left_amount * 100 / total_amount);
+                id = line.getId();
+                create_time = line.getCreate_time();
+                points = line.getPoints();
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("percent", percent);
+                jsonObject.put("points", points);
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("show", false);
+                jsonObject.put("name", student_name);
+                jsonObject.put("search", student_name);
+                resul_list.add(jsonObject);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return resul_list;
     }
 
