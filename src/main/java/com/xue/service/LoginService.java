@@ -30,7 +30,7 @@ public interface LoginService {
 
     public List  getDetails(Integer id);
 
-    public List  getSearch(String student_name,String studio);
+    public List  getSearch(String student_name,String studio,Integer page);
 
     public List  getSignUp(String student_name,String studio);
 

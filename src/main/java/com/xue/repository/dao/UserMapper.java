@@ -51,7 +51,7 @@ public interface UserMapper {
     List<Message> getModel(String studio,Integer page_start,Integer page_end);
 
     //获取
-    List<Message> getSearch(String student_name,String studio);
+    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end);
 
     //获取详情
     List<Message> getDetails(Integer id);

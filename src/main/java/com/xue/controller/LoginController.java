@@ -344,10 +344,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody
-	public List getSearch(String student_name,String studio){
+	public List getSearch(String student_name,String studio,Integer page){
 		List list = null;
 		try {
-			list = loginService.getSearch(student_name,studio);
+			list = loginService.getSearch(student_name,studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

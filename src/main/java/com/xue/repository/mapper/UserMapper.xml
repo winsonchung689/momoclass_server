@@ -105,7 +105,7 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情') and studio = #{param2}  order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情') and studio = #{param2}  order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取详情 -->

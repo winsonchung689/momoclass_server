@@ -125,16 +125,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSearch(String student_name, String studio) {
+    public List getSearch(String student_name, String studio,Integer page) {
         String comment = null;
         String class_name = null;
         String class_target = null;
         String id = null;
         String create_time = null;
+        Integer page_start = (page - 1) * 7;
+        Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getSearch(student_name, studio);
+            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length);
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
