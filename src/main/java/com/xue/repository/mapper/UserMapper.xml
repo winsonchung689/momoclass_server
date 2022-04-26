@@ -202,7 +202,7 @@
   </select>
 
   <select id="getUserByNickName" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style from user where nick_name like "%"#{nick_name}"%" order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style from user where (nick_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") order by create_time desc
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
