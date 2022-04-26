@@ -140,6 +140,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
+                Float total = 0.0f;
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
@@ -154,7 +155,7 @@ public class LoginServiceImpl implements LoginService {
                     List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
-                    Float total = lesson.getTotal_amount();
+                    total = lesson.getTotal_amount();
                     if (left > 0 || total > 0) {
                         percent = left * 100 / total;
                     }
@@ -172,6 +173,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("percent", percent);
                 jsonObject.put("left", left);
+                jsonObject.put("total",total);
                 resul_list.add(jsonObject);
             }
 
@@ -1194,6 +1196,7 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Float percent = 0.0f;
                 Float left = 0.0f;
+                Float total = 0.0f;
                 Message line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
@@ -1208,7 +1211,7 @@ public class LoginServiceImpl implements LoginService {
                     List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
-                    Float total = lesson.getTotal_amount();
+                    total = lesson.getTotal_amount();
                     if (left > 0 || total > 0) {
                         percent = (float) Math.round(left * 100 / total);
                     }
@@ -1222,6 +1225,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment", comment);
                 jsonObject.put("percent", percent);
                 jsonObject.put("left", left);
+                jsonObject.put("total",total);
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
