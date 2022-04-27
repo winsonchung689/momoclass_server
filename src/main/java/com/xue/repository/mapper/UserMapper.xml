@@ -80,7 +80,7 @@
 
   <!-- 获取教程详情 -->
   <select id="getCourseDetail" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '教程详情' and studio = #{param1} and class_name = #{param2} order by create_time;
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '教程详情' and studio = #{param1} and class_name = #{param2} order by create_time limit #{param3},#{param4};
   </select>
 
   <!-- 获取主页 -->

@@ -32,7 +32,7 @@ public interface UserMapper {
     List<Message> getCourseList(String studio,Integer page_start, Integer page_length);
 
     //获取
-    List<Message> getCourseDetail(String studio,String class_name);
+    List<Message> getCourseDetail(String studio,String class_name,Integer page_start, Integer page_length);
 
     //获取
     List<Message> getHome(String studio);

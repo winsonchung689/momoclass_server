@@ -330,10 +330,10 @@ public class LoginController {
 	//	获取教程列表
 	@RequestMapping("/getCourseDetail")
 	@ResponseBody
-	public List getCourseDetail(String studio,String class_name){
+	public List getCourseDetail(String studio,String class_name,Integer page){
 		List list = null;
 		try {
-			list = loginService.getCourseDetail(studio,class_name);
+			list = loginService.getCourseDetail(studio,class_name,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

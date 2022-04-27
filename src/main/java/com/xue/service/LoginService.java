@@ -86,7 +86,7 @@ public interface LoginService {
 
     public List getCourseList(String studio,Integer page);
 
-    public List getCourseDetail(String studio,String class_name);
+    public List getCourseDetail(String studio,String class_name,Integer page);
 
     public List getHome(String studio);
 
