@@ -70,7 +70,7 @@
 
   <!-- 获取课程体系 -->
   <select id="getClassSys" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = #{param1} and studio = #{param2} order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = #{param1} and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取教程列表 -->

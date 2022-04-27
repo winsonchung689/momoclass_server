@@ -82,7 +82,7 @@ public interface LoginService {
 
     public List getPaycode(String student_name);
 
-    public List getClassSys(String class_target,String studio);
+    public List getClassSys(String class_target,String studio,Integer page);
 
     public List getCourseList(String studio,Integer page);
 
