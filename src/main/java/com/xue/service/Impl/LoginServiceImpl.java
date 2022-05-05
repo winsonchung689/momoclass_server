@@ -1166,6 +1166,7 @@ public class LoginServiceImpl implements LoginService {
         String class_target = null;
         String id = null;
         String create_time = null;
+        byte[] photo = null;
         String student_name_get = null;
         String student_name = null;
         Integer page_start = (page - 1) * 7;
@@ -1207,6 +1208,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 studio = line.getStudio();
+                photo = line.getPhoto();
 
                 try {
                     List<Lesson> lessons = dao.getLessonByName(student_name, studio);
@@ -1230,6 +1232,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("photo", photo);
                 resul_list.add(jsonObject);
             }
 
