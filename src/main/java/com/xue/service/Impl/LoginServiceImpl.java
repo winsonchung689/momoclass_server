@@ -1558,6 +1558,8 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
+        List<Message> list_student = null;
+        byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         if(student_name.equals("all")){
             try {
@@ -1567,6 +1569,16 @@ public class LoginServiceImpl implements LoginService {
                     Lesson line = list.get(i);
                     //获取字段
                     student_name = line.getStudent_name();
+
+                    try {
+                        dao.deleteStudentPhoto(student_name);
+                        list_student =dao.getStudentPhoto(student_name);
+                        //获取图片
+                        photo = list_student.get(0).getPhoto();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     total_amount = line.getTotal_amount();
                     left_amount = line.getLeft_amount();
                     percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -1582,6 +1594,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("percent", percent);
                     jsonObject.put("points", points);
                     jsonObject.put("rank", i + 1);
+                    jsonObject.put("photo", photo);
                     resul_list.add(jsonObject);
                 }
 
