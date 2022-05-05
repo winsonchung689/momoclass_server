@@ -26,6 +26,9 @@ public interface UserMapper {
     List<Message> getPpt(Integer page_start, Integer page_length);
 
     //获取
+    List<Message> getStudentPhoto(String student_name);
+
+    //获取
     List<Message> getClassSys(String class_target,String studio,Integer page_start, Integer page_length);
 
     //获取
@@ -63,6 +66,8 @@ public interface UserMapper {
     int insertSchedule(Schedule schedule);
 
     void deleteComment(Integer id);
+
+    void deleteStudentPhoto(String student_name);
 
     void deleteSignUpRecord(Integer id);
 

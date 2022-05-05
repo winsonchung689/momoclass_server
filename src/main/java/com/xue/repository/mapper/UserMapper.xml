@@ -118,6 +118,16 @@
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '课件' order by id desc limit #{param1},#{param2};
   </select>
 
+  <!-- 获取学生照片 -->
+  <select id="getStudentPhoto" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '礼品乐园' and student_name =#{param1} order by create_time desc limit 1;
+  </select>
+
+  <!-- 删除详情 -->
+  <select id="deleteStudentPhoto" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    delete from class_comment where class_target = '礼品乐园' and student_name =#{param1}
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     delete from class_comment where id =#{param1}
