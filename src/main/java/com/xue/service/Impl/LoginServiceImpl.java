@@ -1459,7 +1459,9 @@ public class LoginServiceImpl implements LoginService {
                     dao.deleteStudentPhoto(student_name);
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
-                    photo = list_student.get(0).getPhoto();
+                    if(list_student.size()>0){
+                        photo = list_student.get(0).getPhoto();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1517,7 +1519,9 @@ public class LoginServiceImpl implements LoginService {
                     dao.deleteStudentPhoto(student_name);
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
-                    photo = list_student.get(0).getPhoto();
+                    if(list_student.size()>0){
+                        photo = list_student.get(0).getPhoto();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1574,7 +1578,9 @@ public class LoginServiceImpl implements LoginService {
                         dao.deleteStudentPhoto(student_name);
                         list_student =dao.getStudentPhoto(student_name);
                         //获取图片
-                        photo = list_student.get(0).getPhoto();
+                        if(list_student.size()>0){
+                            photo = list_student.get(0).getPhoto();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -1609,6 +1615,18 @@ public class LoginServiceImpl implements LoginService {
                     Lesson line = list.get(i);
                     //获取字段
                     student_name = line.getStudent_name();
+
+                    try {
+                        dao.deleteStudentPhoto(student_name);
+                        list_student =dao.getStudentPhoto(student_name);
+                        //获取图片
+                        if(list_student.size()>0){
+                            photo = list_student.get(0).getPhoto();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     total_amount = line.getTotal_amount();
                     left_amount = line.getLeft_amount();
                     percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -1624,6 +1642,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("percent", percent);
                     jsonObject.put("points", points);
                     jsonObject.put("rank", i + 1);
+                    jsonObject.put("photo", photo);
                     resul_list.add(jsonObject);
                 }
 
