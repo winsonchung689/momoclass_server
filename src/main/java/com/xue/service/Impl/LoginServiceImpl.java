@@ -1435,7 +1435,6 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         List<Lesson> list = null;
         List<Message> list_student = null;
-        byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
 
@@ -1455,6 +1454,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 student_name = line.getStudent_name();
                 //删除已有照片
+                byte[] photo = null;
                 try {
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
@@ -1503,7 +1503,6 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         List<Lesson> list = null;
         List<Message> list_student = null;
-        byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -1514,6 +1513,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 student_name = line.getStudent_name();
 
+                byte[] photo = null;
                 try {
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
@@ -1561,7 +1561,6 @@ public class LoginServiceImpl implements LoginService {
         Integer points = 0;
         Float percent = 0.0f;
         List<Message> list_student = null;
-        byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         if(student_name.equals("all")){
             try {
@@ -1572,6 +1571,7 @@ public class LoginServiceImpl implements LoginService {
                     //获取字段
                     student_name = line.getStudent_name();
 
+                    byte[] photo = null;
                     try {
                         list_student =dao.getStudentPhoto(student_name);
                         //获取图片
@@ -1613,6 +1613,7 @@ public class LoginServiceImpl implements LoginService {
                     //获取字段
                     student_name = line.getStudent_name();
 
+                    byte[] photo = null;
                     try {
                         list_student =dao.getStudentPhoto(student_name);
                         //获取图片
