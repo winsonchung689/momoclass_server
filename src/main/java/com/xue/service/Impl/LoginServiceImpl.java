@@ -1169,8 +1169,8 @@ public class LoginServiceImpl implements LoginService {
         byte[] photo = null;
         String student_name_get = null;
         String student_name = null;
-        Integer page_start = (page - 1) * 7;
-        Integer page_length = 7;
+        Integer page_start = (page - 1) * 3;
+        Integer page_length = 3;
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         List<User> users=null;
