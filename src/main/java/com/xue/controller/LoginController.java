@@ -558,6 +558,7 @@ public class LoginController {
 
 			Float count = Float.parseFloat(class_count);
 			loginService.updateMinusLesson(student_name,studio,count);
+			loginService.updateAddPoints(student_name,studio,1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -676,11 +677,10 @@ public class LoginController {
 			if(!"奖状".equals(class_target)){
 				in = Imageutil.readImage(photo);
 				message.setPhoto(FileCopyUtils.copyToByteArray(in));
-				loginService.push(message);
-				if(!"范画".equals(class_target)){
-//					loginService.updateMinusLesson(student_name,studio);
-					loginService.updateAddPoints(student_name,studio,1);
+				if("礼品乐园".equals(class_target)){
+					dao.deleteStudentPhoto(student_name);
 				}
+				loginService.push(message);
 			}
 
 			if("奖状".equals(class_target)){

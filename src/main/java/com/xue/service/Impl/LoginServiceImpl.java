@@ -1456,7 +1456,6 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 //删除已有照片
                 try {
-                    dao.deleteStudentPhoto(student_name);
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
                     if(list_student.size()>0){
@@ -1516,7 +1515,6 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
 
                 try {
-                    dao.deleteStudentPhoto(student_name);
                     list_student =dao.getStudentPhoto(student_name);
                     //获取图片
                     if(list_student.size()>0){
@@ -1575,7 +1573,6 @@ public class LoginServiceImpl implements LoginService {
                     student_name = line.getStudent_name();
 
                     try {
-                        dao.deleteStudentPhoto(student_name);
                         list_student =dao.getStudentPhoto(student_name);
                         //获取图片
                         if(list_student.size()>0){
@@ -1617,7 +1614,6 @@ public class LoginServiceImpl implements LoginService {
                     student_name = line.getStudent_name();
 
                     try {
-                        dao.deleteStudentPhoto(student_name);
                         list_student =dao.getStudentPhoto(student_name);
                         //获取图片
                         if(list_student.size()>0){
