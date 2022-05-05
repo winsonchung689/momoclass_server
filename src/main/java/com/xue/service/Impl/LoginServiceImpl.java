@@ -1503,7 +1503,6 @@ public class LoginServiceImpl implements LoginService {
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
-
         try {
             list = dao.getLessonInName(studio,student_name);
             for (int i = 0; i < list.size(); i++) {
