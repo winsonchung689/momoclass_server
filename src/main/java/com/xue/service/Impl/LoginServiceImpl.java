@@ -1041,12 +1041,10 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateAddPoints(String student_name, String studio) {
+    public int updateAddPoints(String student_name, String studio,Integer points_int) {
         int result = 0;
         Integer points = 0;
         Integer new_points = 0;
-        System.out.println(student_name);
-        System.out.println(studio);
 
         List<Lesson> list = dao.getLessonByName(student_name, studio);
         try {
@@ -1056,7 +1054,7 @@ public class LoginServiceImpl implements LoginService {
                 if (points == null) {
                     points = 0;
                 }
-                new_points = points + 1;
+                new_points = points + points_int;
                 Lesson lesson = new Lesson();
                 lesson.setStudent_name(student_name);
                 lesson.setPoints(new_points);
@@ -1079,7 +1077,6 @@ public class LoginServiceImpl implements LoginService {
             Lesson lesson_get = lessons.get(0);
             Integer total_points = lesson_get.getPoints();
             Integer new_points = total_points-points;
-
 
             Lesson lesson = new Lesson();
             lesson.setStudent_name(student_name);

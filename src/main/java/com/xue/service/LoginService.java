@@ -94,7 +94,7 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name,String studio);
 
-    public int updateAddPoints(String student_name,String studio);
+    public int updateAddPoints(String student_name,String studio,Integer points);
 
     public int deletePoints(String student_name,String studio,Integer points);
 

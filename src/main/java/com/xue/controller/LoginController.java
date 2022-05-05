@@ -679,7 +679,7 @@ public class LoginController {
 				loginService.push(message);
 				if(!"范画".equals(class_target)){
 //					loginService.updateMinusLesson(student_name,studio);
-					loginService.updateAddPoints(student_name,studio);
+					loginService.updateAddPoints(student_name,studio,1);
 				}
 			}
 
@@ -980,9 +980,11 @@ public class LoginController {
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
+		String points = request.getParameter("points");
+		Integer points_int = Integer.parseInt(points);
 
 		try {
-			loginService.updateAddPoints(student_name,studio);
+			loginService.updateAddPoints(student_name,studio,points_int);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
