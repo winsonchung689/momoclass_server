@@ -18,6 +18,8 @@ public class Schedule {
 
     private String studio;
 
+    private String student_type;
+
     public String getUpdate_time() {
         return update_time;
     }
@@ -32,6 +34,14 @@ public class Schedule {
 
     public void setStudio(String studio) {
         this.studio = studio;
+    }
+
+    public String getStudent_type() {
+        return student_type;
+    }
+
+    public void setStudent_type(String student_type) {
+        this.student_type = student_type;
     }
 
     public String getId() {

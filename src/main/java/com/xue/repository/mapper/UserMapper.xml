@@ -155,7 +155,12 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' order by duration
+  </select>
+
+  <!-- 获取课插班生 -->
+  <select id="getTransfer" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' order by duration
   </select>
 
   <!-- 插入信息 -->
@@ -165,7 +170,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type})
   </insert>
 
   <!-- 插入签到记录 -->

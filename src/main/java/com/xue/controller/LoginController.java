@@ -715,6 +715,9 @@ public class LoginController {
 		//获取时间段
 		String duration = request.getParameter("duration");
 
+		//获取学生类型
+		String student_type = request.getParameter("student_type");
+
 		String studio = request.getParameter("studio");
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
@@ -728,6 +731,7 @@ public class LoginController {
 				schedule.setCreate_time(create_time);
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
+				schedule.setStudent_type(student_type);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {

@@ -51,6 +51,9 @@ public interface UserMapper {
     //获取
     List<Schedule> getSchedule(Integer date_time,String studio);
 
+    //获取
+    List<Schedule> getTransfer(String date_time,String studio);
+
     List<Message> getModel(String studio,Integer page_start,Integer page_end);
 
     //获取
