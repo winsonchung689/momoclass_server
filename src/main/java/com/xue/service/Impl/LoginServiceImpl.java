@@ -1489,7 +1489,7 @@ public class LoginServiceImpl implements LoginService {
         Integer points = 0;
         Float percent = 0.0f;
         List<Lesson> list = null;
-        List<Message> list_student = null;
+//        List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
 
@@ -1508,17 +1508,17 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
-                //删除已有照片
-                byte[] photo = null;
-                try {
-                    list_student =dao.getStudentPhoto(student_name);
-                    //获取图片
-                    if(list_student.size()>0){
-                        photo = list_student.get(0).getPhoto();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
+//                byte[] photo = null;
+//                try {
+//                    list_student =dao.getStudentPhoto(student_name);
+//                    //获取图片
+//                    if(list_student.size()>0){
+//                        photo = list_student.get(0).getPhoto();
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
@@ -1538,7 +1538,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("show", false);
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
-                jsonObject.put("photo", photo);
+//                jsonObject.put("photo", photo);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
