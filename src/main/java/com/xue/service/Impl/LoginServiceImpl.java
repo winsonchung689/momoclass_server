@@ -1608,18 +1608,20 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRating(String studio,String student_name) {
+    public List getRating(String studio,String student_name,Integer page) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
+        Integer page_start = (page - 1) * 3;
+        Integer page_length = 3;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         if(student_name.equals("all")){
             try {
-                List<Lesson> list = dao.getRating(studio);
+                List<Lesson> list = dao.getRating(studio,page_start,page_length);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     Lesson line = list.get(i);
@@ -1661,7 +1663,7 @@ public class LoginServiceImpl implements LoginService {
             }
         } else {
             try {
-                List<Lesson> list = dao.getRatingByName(studio,student_name);
+                List<Lesson> list = dao.getRatingByName(studio,student_name,page_start,page_length);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     Lesson line = list.get(i);

@@ -20,7 +20,7 @@ public interface LoginService {
 
     public List  getLessonInName(String studio,String student_name);
 
-    public List  getRating(String studio,String student_name);
+    public List  getRating(String studio,String student_name,Integer page);
 
     public int push(Message message);
 
