@@ -943,7 +943,12 @@ public class LoginController {
 			lesson.setCreate_time(create_time);
 			lesson.setStudio(studio);
 
-			int res = loginService.updateLesson(lesson);
+			int res = 0;
+			try {
+				res = loginService.updateLesson(lesson);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if (0==res){
 				Integer point = 0;
 				lesson.setPoints(point);
