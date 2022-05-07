@@ -678,7 +678,10 @@ public class LoginController {
 				in = Imageutil.readImage(photo);
 				message.setPhoto(FileCopyUtils.copyToByteArray(in));
 				if("礼品乐园".equals(class_target)){
-					dao.deleteStudentPhoto(student_name);
+					dao.deleteStudentPhoto(student_name,studio);
+				}
+				if("主页".equals(class_target)){
+					dao.deleteHome(studio);
 				}
 				loginService.push(message);
 			}
