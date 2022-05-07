@@ -962,7 +962,7 @@ public class LoginController {
 		Gift gift = new Gift();
 		try {
 			String gift_name = request.getParameter("gift_name");
-			if (!gift_name.isEmpty()){
+			if (!gift_name.equals("nobody")){
 				String gift_amount = request.getParameter("gift_amount");
 				String expired_days = request.getParameter("expired_days");
 				cal.add(cal.DATE,Integer.parseInt(expired_days));

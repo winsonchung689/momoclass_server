@@ -65,15 +65,17 @@ public class LoginServiceImpl implements LoginService {
             Float left_amount = 0.0f;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                Lesson lesson_get = lessons.get(0);
-                total_amount = lesson_get.getTotal_amount();
-                if (total > 0) {
-                    total_amount = total;
-                }
-                left_amount = lesson_get.getLeft_amount();
-                if (left >= 0) {
-                    left_amount = left;
-                }
+                    if(lessons.size()>0){
+                        Lesson lesson_get = lessons.get(0);
+                        total_amount = lesson_get.getTotal_amount();
+                        if (total > 0) {
+                            total_amount = total;
+                        }
+                        left_amount = lesson_get.getLeft_amount();
+                        if (left >= 0) {
+                            left_amount = left;
+                        }
+                    }
             }
             lesson.setStudent_name(student_name);
             lesson.setTotal_amount(total_amount);
