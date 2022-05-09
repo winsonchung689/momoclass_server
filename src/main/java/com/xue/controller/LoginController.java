@@ -933,9 +933,9 @@ public class LoginController {
 
 		//获取用户名
 		String student_name = request.getParameter("student_name");
-		//获取学生名
+		//获取总课时
 		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
-		//获年角色
+		//获年剩余课时
 		String left_amount_get = request.getParameter("left_amount");
 		Float left_amount =null;
 		if(left_amount_get.isEmpty()){
@@ -947,28 +947,20 @@ public class LoginController {
 		// 获取工作室
 		String studio = request.getParameter("studio");
 
-		// 新增课程
 		Lesson lesson =new Lesson();
-		try {
-			lesson.setStudent_name(student_name);
-			lesson.setTotal_amount(total_amount);
-			lesson.setLeft_amount(left_amount);
-			lesson.setCreate_time(create_time);
-			lesson.setStudio(studio);
+		lesson.setStudent_name(student_name);
+		lesson.setTotal_amount(total_amount);
+		lesson.setLeft_amount(left_amount);
+		lesson.setCreate_time(create_time);
+		lesson.setStudio(studio);
 
-			int res = 0;
-			try {
-				res = loginService.updateLesson(lesson);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (0==res){
-				Integer point = 0;
-				lesson.setPoints(point);
-				loginService.insertLesson(lesson);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+		if(lessons.size()>0){
+			loginService.updateLesson(lesson);
+		}else {
+			Integer point = 0;
+			lesson.setPoints(point);
+			loginService.insertLesson(lesson);
 		}
 
 		// 发放开课礼物
