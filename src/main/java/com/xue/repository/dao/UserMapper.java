@@ -76,6 +76,8 @@ public interface UserMapper {
 
     void deleteSignUpRecord(Integer id);
 
+    void deleteSignUpAllRecord(String student_name,String studio);
+
     void deleteGiftRecord(Integer id);
 
     void deleteSchedule(Integer id);

@@ -477,6 +477,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int deleteSignUpAllRecord(String name, String role, String studio) {
+        try {
+            if ("boss".equals(role)) {
+                dao.deleteSignUpAllRecord(name,studio);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public int deleteGiftRecord(Integer id, String role) {
         try {
             if ("boss".equals(role)) {

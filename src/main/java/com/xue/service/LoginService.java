@@ -48,6 +48,8 @@ public interface LoginService {
 
     public int  deleteSignUpRecord(Integer id,String role);
 
+    public int  deleteSignUpAllRecord(String name,String role,String studio);
+
     public int  deleteGiftRecord(Integer id,String role);
 
     public int  deleteSchedule(Integer id,String role);

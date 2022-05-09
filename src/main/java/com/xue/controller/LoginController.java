@@ -511,6 +511,19 @@ public class LoginController {
 		return 1;
 	}
 
+	//	清空签到记录
+	@RequestMapping("/deleteSignUpAllRecord")
+	@ResponseBody
+	public int deleteSignUpAllRecord(String name,String role,String studio){
+		try {
+			loginService.deleteSignUpAllRecord(name,role,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteGiftRecord")
 	@ResponseBody
