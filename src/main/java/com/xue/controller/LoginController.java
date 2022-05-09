@@ -173,10 +173,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody
-	public List getLessonInName(String studio,String student_name){
+	public List getLessonInName(String studio,String student_name,Integer page){
 		List list = null;
 		try {
-			list = loginService.getLessonInName(studio,student_name);
+			list = loginService.getLessonInName(studio,student_name,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

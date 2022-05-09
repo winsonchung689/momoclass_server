@@ -18,7 +18,7 @@ public interface LoginService {
 
     public List  getLesson(String studio,String student_name);
 
-    public List  getLessonInName(String studio,String student_name);
+    public List  getLessonInName(String studio,String student_name,Integer page);
 
     public List  getRating(String studio,String student_name,Integer page);
 

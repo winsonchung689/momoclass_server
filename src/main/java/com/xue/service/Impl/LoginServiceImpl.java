@@ -1513,7 +1513,7 @@ public class LoginServiceImpl implements LoginService {
             if(student_name.equals("all")) {
                     list = dao.getLesson(studio);
             }else if (length>1) {
-                    list = dao.getLessonInName(studio,student_name);
+                    list = dao.getLessonInName(studio,student_name,0,10000);
             }else {
                     list = dao.getLessonLikeName(studio,student_name);
             }
@@ -1553,19 +1553,21 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonInName(String studio, String student_name) {
+    public List getLessonInName(String studio, String student_name,Integer page) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
+        Integer page_start = (page - 1) * 4;
+        Integer page_length = 4;
         List<Lesson> list = null;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            list = dao.getLessonInName(studio,student_name);
+            list = dao.getLessonInName(studio,student_name,page_start,page_length);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);

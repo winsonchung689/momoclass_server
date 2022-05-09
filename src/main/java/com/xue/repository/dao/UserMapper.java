@@ -46,7 +46,7 @@ public interface UserMapper {
     //获取
     List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length);
 
-    List<Lesson> getLessonInName(String studio,String student_names);
+    List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length);
 
     //获取
     List<Schedule> getSchedule(Integer date_time,String studio);
