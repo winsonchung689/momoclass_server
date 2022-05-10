@@ -199,7 +199,7 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio from sign_up_record where studio = #{param1} order by dayofweek
+    select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} order by dayofweek
   </select>
 
   <!-- 发放礼物记录 -->
