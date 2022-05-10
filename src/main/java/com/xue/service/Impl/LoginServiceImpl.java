@@ -298,6 +298,10 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
+        dayofweek = dayofweek + 1;
+        if(dayofweek==7){
+            dayofweek=1;
+        }
 
         try {
             List<Arrangement> list = dao.getArrangement(studio,dayofweek.toString());
