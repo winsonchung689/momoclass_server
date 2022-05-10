@@ -115,6 +115,8 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio);
 
+    Integer getLessonAllCount(String studio);
+
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 
     List<Lesson> getRatingByName(String studio,String student_name,Integer page_start,Integer page_end);

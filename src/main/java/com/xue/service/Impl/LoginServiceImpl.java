@@ -1507,6 +1507,12 @@ public class LoginServiceImpl implements LoginService {
 //        List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
+        Integer total_student =0;
+        try {
+            total_student =dao.getLessonAllCount(studio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         try {
@@ -1542,7 +1548,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("show", false);
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
-//                jsonObject.put("photo", photo);
+                jsonObject.put("total_student", total_student);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
