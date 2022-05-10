@@ -322,6 +322,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("limits", limits);
                 jsonObject.put("photo", photo);
                 jsonObject.put("classes_count", classes_count);
+                jsonObject.put("dayofweek",dayofweek);
                 resul_list.add(jsonObject);
             }
 
