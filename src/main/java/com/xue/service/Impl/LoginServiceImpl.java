@@ -296,12 +296,13 @@ public class LoginServiceImpl implements LoginService {
         String limits = null;
         byte[] photo = null;
         String id = null;
+        Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
         if(dayofweek==7){
-            dayofweek=1;
+            dayofweek_by=1;
         }else {
-            dayofweek = dayofweek + 1;
+            dayofweek_by = dayofweek + 1;
         }
 
         try {
@@ -315,7 +316,7 @@ public class LoginServiceImpl implements LoginService {
                 limits = line.getLimits();
                 photo = line.getPhoto();
                 id = line.getId();
-                classes_count = dao.getLessonAllCountByDay(studio,dayofweek,duration);
+                classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration);
 
                 //json
                 jsonObject.put("class_number", class_number);
