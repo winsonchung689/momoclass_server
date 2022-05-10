@@ -290,18 +290,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangement(String studio) {
+    public List getArrangement(String studio,Integer dayofweek) {
         String class_number = null;
         String duration = null;
         String limits = null;
         byte[] photo = null;
         String id = null;
-        String dayofweek =null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
 
         try {
-            List<Arrangement> list = dao.getArrangement(studio);
+            List<Arrangement> list = dao.getArrangement(studio,dayofweek.toString());
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
@@ -310,11 +309,8 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 limits = line.getLimits();
                 photo = line.getPhoto();
-                dayofweek = line.getDayofweek();
                 id = line.getId();
-                if(!dayofweek.isEmpty()){
-                    classes_count = dao.getLessonAllCountByDay(studio,Integer.parseInt(dayofweek),duration);
-                }
+                classes_count = dao.getLessonAllCountByDay(studio,dayofweek,duration);
 
                 //json
                 jsonObject.put("class_number", class_number);

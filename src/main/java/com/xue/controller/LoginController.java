@@ -383,10 +383,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
-	public List getArrangement(String studio){
+	public List getArrangement(String studio,Integer dayofweek){
 		List list = null;
 		try {
-			list = loginService.getArrangement(studio);
+			list = loginService.getArrangement(studio,dayofweek);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

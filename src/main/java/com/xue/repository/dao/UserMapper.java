@@ -135,7 +135,7 @@ public interface UserMapper {
 
     int insertGift(Gift gift);
 
-    List<Arrangement> getArrangement(String studio);
+    List<Arrangement> getArrangement(String studio,String dayofweek);
 
     List<SignUp> getSignUp(String student_name,String studio);
 
