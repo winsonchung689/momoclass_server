@@ -290,6 +290,48 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getArrangement(String studio) {
+        String class_number = null;
+        String duration = null;
+        String limits = null;
+        byte[] photo = null;
+        String id = null;
+        String dayofweek =null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        Integer classes_count =0;
+
+        try {
+            List<Arrangement> list = dao.getArrangement(studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Arrangement line = list.get(i);
+                //获取字段
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+                limits = line.getLimits();
+                photo = line.getPhoto();
+                dayofweek = line.getDayofweek();
+                if(!dayofweek.isEmpty()){
+                    classes_count = dao.getLessonAllCountByDay(studio,Integer.parseInt(dayofweek));
+                }
+
+
+                //json
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("duration", duration);
+                jsonObject.put("limits", limits);
+                jsonObject.put("photo", photo);
+                jsonObject.put("classes_count", classes_count);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
@@ -309,6 +351,19 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(signUp);
         try {
             result = dao.insertSignUp(signUp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int insertArrangement(Arrangement arrangement) {
+        int result = 0;
+        FileInputStream in = null;
+        System.out.println(arrangement);
+        try {
+            result = dao.insertArrangement(arrangement);
         } catch (Exception e) {
             e.printStackTrace();
         }

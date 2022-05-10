@@ -380,6 +380,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getArrangement")
+	@ResponseBody
+	public List getArrangement(String studio){
+		List list = null;
+		try {
+			list = loginService.getArrangement(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
@@ -572,6 +585,27 @@ public class LoginController {
 			Float count = Float.parseFloat(class_count);
 			loginService.updateMinusLesson(student_name,studio,count);
 			loginService.updateAddPoints(student_name,studio,1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
+	@RequestMapping("/insertArrangement")
+	@ResponseBody
+	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio){
+		try {
+			Arrangement arrangement =new Arrangement();
+			arrangement.setDayofweek(dayofweek);
+			arrangement.setClass_number(class_number);
+			arrangement.setDuration(duration);
+			arrangement.setLimits(limits);
+			arrangement.setStudio(studio);
+			loginService.insertArrangement(arrangement);
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

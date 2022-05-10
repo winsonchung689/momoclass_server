@@ -117,6 +117,8 @@ public interface UserMapper {
 
     Integer getLessonAllCount(String studio);
 
+    Integer getLessonAllCountByDay(String studio,Integer day);
+
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 
     List<Lesson> getRatingByName(String studio,String student_name,Integer page_start,Integer page_end);
@@ -127,7 +129,11 @@ public interface UserMapper {
 
     int insertSignUp(SignUp signUp);
 
+    int insertArrangement(Arrangement arrangement);
+
     int insertGift(Gift gift);
+
+    List<Arrangement> getArrangement(String studio);
 
     List<SignUp> getSignUp(String student_name,String studio);
 

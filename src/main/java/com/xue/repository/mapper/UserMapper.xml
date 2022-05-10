@@ -25,6 +25,10 @@
   <resultMap id="BaseGift" type="com.xue.entity.model.Gift">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
+  <resultMap id="BaseArrangement" type="com.xue.entity.model.Arrangement">
+    <result column="dayofweek" jdbcType="VARCHAR" property="dayofweek" />
+  </resultMap>
+
 
 
 
@@ -188,6 +192,16 @@
     insert sign_up_record(student_name,create_time,studio,sign_time,mark) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark})
   </insert>
 
+  <!-- 插入课程安排 -->
+  <insert id="insertArrangement" parameterType="com.xue.entity.model.Arrangement">
+    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio})
+  </insert>
+
+  <!-- 查找课程表 -->
+  <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select id,dayofweek,class_number,duration,limits,photo,studio from sign_up_record where studio = #{param1} order by dayofweek
+  </select>
+
   <!-- 发放礼物记录 -->
   <insert id="insertGift" parameterType="com.xue.entity.model.Gift">
     insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status})
@@ -269,6 +283,11 @@
   <!-- 获取总人数 -->
   <select id="getLessonAllCount" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
     select count(distinct student_name) from lesson where studio =#{param1}
+  </select>
+
+  <!-- 获取总人数 -->
+  <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
+    select count(distinct student_name) from lesson where studio =#{param1} and dayofweek(date_format(create_time,'%Y-%m-%d')) =#{param2}
   </select>
 
   <!-- 获取课时 -->
