@@ -292,7 +292,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and duration =#{param3}
+    select count(distinct student_name) from class_schedule where studio =#{param1} and replace(replace(dayofweek(add_date),':',''),'-','') =replace(replace(#{param2},':',''),'-','') and duration =#{param3}
   </select>
 
   <!-- 获取课时 -->
