@@ -312,9 +312,8 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 dayofweek = line.getDayofweek();
                 if(!dayofweek.isEmpty()){
-                    classes_count = dao.getLessonAllCountByDay(studio,Integer.parseInt(dayofweek));
+                    classes_count = dao.getLessonAllCountByDay(studio,Integer.parseInt(dayofweek),duration);
                 }
-
 
                 //json
                 jsonObject.put("class_number", class_number);
@@ -323,6 +322,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("photo", photo);
                 jsonObject.put("classes_count", classes_count);
                 jsonObject.put("dayofweek",dayofweek);
+                jsonObject.put("id",id);
                 resul_list.add(jsonObject);
             }
 
@@ -512,6 +512,17 @@ public class LoginServiceImpl implements LoginService {
             if ("boss".equals(role)) {
                 dao.deleteComment(id);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public int deleteArrangement(Integer id) {
+        try {
+            dao.deleteArrangement(id);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

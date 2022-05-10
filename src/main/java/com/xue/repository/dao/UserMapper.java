@@ -70,6 +70,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id);
 
+    void deleteArrangement(Integer id);
+
     void deleteStudentPhoto(String student_name,String studio);
 
     void deleteHome(String studio);
@@ -117,7 +119,7 @@ public interface UserMapper {
 
     Integer getLessonAllCount(String studio);
 
-    Integer getLessonAllCountByDay(String studio,Integer day);
+    Integer getLessonAllCountByDay(String studio,Integer day,String duration);
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 

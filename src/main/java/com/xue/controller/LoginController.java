@@ -512,6 +512,20 @@ public class LoginController {
 	}
 
 	//	获取详情页
+	@RequestMapping("/deleteArrangement")
+	@ResponseBody
+	public int deleteArrangement(Integer id,String role){
+		try {
+			loginService.deleteArrangement(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+
+	//	获取详情页
 	@RequestMapping("/deleteSignUpRecord")
 	@ResponseBody
 	public int deleteSignUpRecord(Integer id,String role){

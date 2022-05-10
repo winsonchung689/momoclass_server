@@ -142,6 +142,11 @@
     delete from class_comment where id =#{param1}
   </select>
 
+  <!-- 删除安排 -->
+  <select id="deleteArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    delete from schedule_arrangement where id =#{param1}
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     delete from sign_up_record where id =#{param1}
@@ -199,7 +204,7 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} order by dayofweek
+    select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} order by dayofweek,class_number
   </select>
 
   <!-- 发放礼物记录 -->
@@ -287,7 +292,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
-    select count(distinct student_name) from lesson where studio =#{param1} and dayofweek(date_format(create_time,'%Y-%m-%d')) =#{param2}
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and duration =#{param3}
   </select>
 
   <!-- 获取课时 -->
