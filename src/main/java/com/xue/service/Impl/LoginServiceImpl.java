@@ -311,6 +311,7 @@ public class LoginServiceImpl implements LoginService {
                 limits = line.getLimits();
                 photo = line.getPhoto();
                 dayofweek = line.getDayofweek();
+                id = line.getId();
                 if(!dayofweek.isEmpty()){
                     classes_count = dao.getLessonAllCountByDay(studio,Integer.parseInt(dayofweek),duration);
                 }
