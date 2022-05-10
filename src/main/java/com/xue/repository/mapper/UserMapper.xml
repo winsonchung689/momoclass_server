@@ -267,7 +267,7 @@
   </select>
 
   <!-- 获取总人数 -->
-  <select id="getLessonAllCount" parameterType="com.xue.entity.model.Lesson" resultMap="java.lang.Integer">
+  <select id="getLessonAllCount" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
     select count(distinct student_name) from lesson where studio =#{param1}
   </select>
 
