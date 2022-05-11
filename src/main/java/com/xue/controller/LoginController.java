@@ -607,6 +607,46 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateComment")
+	@ResponseBody
+	public int updateComment(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String comment = request.getParameter("comment");
+		//获取课堂目标
+		String class_target = request.getParameter("class_target");
+
+		String studio = request.getParameter("studio");
+
+		String id = request.getParameter("id");
+
+		try {
+			List<Message> messages_get = dao.getDetails(Integer.parseInt(id));
+			Message message_get = messages_get.get(0);
+			String commemt_get = message_get.getComment();
+			String target_get = message_get.getClass_target();
+
+			Message message =new Message();
+			if(comment.isEmpty()){
+				comment =commemt_get;
+			}
+			if(class_target.isEmpty()){
+				class_target =target_get;
+			}
+			message.setComment(comment);
+			message.setClass_target(class_target);
+			message.setId(id);
+			message.setStudio(studio);
+			loginService.updateComment(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
 	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio){

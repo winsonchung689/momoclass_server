@@ -70,6 +70,8 @@ public interface LoginService {
 
     public int updateSchedule(Schedule schedule);
 
+    public int updateComment(Message message);
+
     public int updateUsertype(User user);
 
     public List getUser(String openid);

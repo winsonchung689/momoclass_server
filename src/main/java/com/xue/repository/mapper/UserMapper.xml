@@ -227,6 +227,11 @@
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}
   </update>
 
+  <!-- 更新课评 -->
+  <update id="updateComment" parameterType="com.xue.entity.model.Message">
+    update class_comment set class_target=#{class_target},comment=#{comment} where id=#{id} and studio = #{studio}
+  </update>
+
   <!-- 更新课时 -->
   <update id="updateGift" parameterType="com.xue.entity.model.Gift">
     update gift_record set status=1 where id=#{param1}

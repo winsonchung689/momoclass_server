@@ -93,6 +93,8 @@ public interface UserMapper {
 
     int updateSchedule(Schedule schedule);
 
+    int updateComment(Message message);
+
     int updateUsertype(User user);
 
     int updateComentStyle(User user);
