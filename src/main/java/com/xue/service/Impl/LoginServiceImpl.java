@@ -1655,9 +1655,14 @@ public class LoginServiceImpl implements LoginService {
         List<Lesson> list = null;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer length = student_name.split(",").length;
 
         try {
-            list = dao.getLessonInName(studio,student_name,page_start,page_length);
+            if (length>1) {
+                list = dao.getLessonInName(studio,student_name,page_start,page_length);
+            }else {
+                list = dao.getLessonLikeName(studio,student_name);
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
