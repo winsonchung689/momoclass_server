@@ -1361,12 +1361,15 @@ public class LoginServiceImpl implements LoginService {
 
                     try {
                         List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                        Lesson lesson = lessons.get(0);
-                        left = lesson.getLeft_amount();
-                        total = lesson.getTotal_amount();
-                        if (left > 0 || total > 0) {
-                            percent = (float) Math.round(left * 100 / total);
+                        if(lessons.size()>0){
+                            Lesson lesson = lessons.get(0);
+                            left = lesson.getLeft_amount();
+                            total = lesson.getTotal_amount();
+                            if (left > 0 || total > 0) {
+                                percent = (float) Math.round(left * 100 / total);
+                            }
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
