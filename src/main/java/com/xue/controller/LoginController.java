@@ -647,6 +647,35 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateDetailPhoto")
+	@ResponseBody
+	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String photo = request.getParameter("photo");
+
+		String studio = request.getParameter("studio");
+
+		String id = request.getParameter("id");
+
+		FileInputStream in = null;
+
+		try {
+			Message message =new Message();
+			in = Imageutil.readImage(photo);
+			message.setPhoto(FileCopyUtils.copyToByteArray(in));
+			message.setId(id);
+			message.setStudio(studio);
+			loginService.updateDetailPhoto(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
 	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio){

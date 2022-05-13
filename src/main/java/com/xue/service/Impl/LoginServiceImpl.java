@@ -660,6 +660,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int updateDetailPhoto(Message message) {
+        int result = 0;
+
+        try {
+            result = dao.updateDetailPhoto(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public int updateUsertype(User user) {
         int result = 0;
 

@@ -95,6 +95,8 @@ public interface UserMapper {
 
     int updateComment(Message message);
 
+    int updateDetailPhoto(Message message);
+
     int updateUsertype(User user);
 
     int updateComentStyle(User user);

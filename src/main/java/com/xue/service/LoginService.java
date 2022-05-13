@@ -72,6 +72,8 @@ public interface LoginService {
 
     public int updateComment(Message message);
 
+    public int updateDetailPhoto(Message message);
+
     public int updateUsertype(User user);
 
     public List getUser(String openid);
