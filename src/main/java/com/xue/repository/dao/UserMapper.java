@@ -143,6 +143,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUp(String student_name,String studio);
 
+    List<SignUp> getSignUpByDate(String student_name,String studio,String date_time);
+
     List<Gift> getGift(String student_name,String studio);
 
     int updateLesson(Lesson lesson);

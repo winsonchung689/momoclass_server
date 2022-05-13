@@ -401,6 +401,7 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
 
+
         // 获取常规学生
         try {
             d = fmt.parse(date_time);
@@ -438,16 +439,13 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                    Date update = df1.parse(update_time);
-                    Date today = df1.parse(date_time + " 00:00:00");
-                    int compare = update.compareTo(today);
-                    if (compare > 0) {
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    if(signUps.size()>0){
                         jsonObject.put("sign_up", "已签到");
-
-                    } else {
+                    }else {
                         jsonObject.put("sign_up", "未签到");
                     }
+
                     resul_list.add(jsonObject);
                 }
             }
@@ -488,14 +486,10 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                    Date update = df1.parse(update_time);
-                    Date today = df1.parse(date_time + " 00:00:00");
-                    int compare = update.compareTo(today);
-                    if (compare > 0) {
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    if(signUps.size()>0){
                         jsonObject.put("sign_up", "已签到");
-
-                    } else {
+                    }else {
                         jsonObject.put("sign_up", "未签到");
                     }
                     resul_list.add(jsonObject);
