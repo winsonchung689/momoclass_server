@@ -402,8 +402,7 @@ public class LoginServiceImpl implements LoginService {
         Date d = null;
         String class_number = null;
         Integer weekDay=0;
-
-
+        Integer weekofday=0;
 
 
         // 获取常规学生
@@ -412,10 +411,10 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
-            if(weekDay==7){
-                weekDay=1;
+            if(weekDay==1){
+                weekofday=7;
             }else {
-                weekDay = weekDay + 1;
+                weekofday = weekDay - 1;
             }
 
             List<Schedule> list = dao.getSchedule(weekDay, studio);
@@ -431,7 +430,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
 
-                List<Arrangement> arrangements = dao.getClassNumber(studio,weekDay,duration);
+                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
                 if(arrangements.size()>0){
                     Arrangement arrangement = arrangements.get(0);
                     class_number = arrangement.getClass_number();
@@ -484,7 +483,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
 
-                List<Arrangement> arrangements = dao.getClassNumber(studio,weekDay,duration);
+                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
                 if(arrangements.size()>0){
                     Arrangement arrangement = arrangements.get(0);
                     class_number = arrangement.getClass_number();
