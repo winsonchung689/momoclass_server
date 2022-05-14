@@ -404,12 +404,19 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
 
 
+
+
         // 获取常规学生
         try {
             d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            if(weekDay==7){
+                weekDay=1;
+            }else {
+                weekDay = weekDay + 1;
+            }
 
             List<Schedule> list = dao.getSchedule(weekDay, studio);
             for (int i = 0; i < list.size(); i++) {
