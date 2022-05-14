@@ -825,7 +825,7 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
 
 
-                String item = "星期"+dayofweek+ "-" + class_number + "-" + duration;
+                String item = "星期"+dayofweek+ "," + class_number + "," + duration;
 
                 //json
                 resul_list.add(item);
