@@ -286,6 +286,10 @@
     select distinct studio from user
   </select>
 
+  <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select distinct dayofweek,class_number,duration,studio from schedule_arrangement where studio =#{param1}
+  </select>
+
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select distinct openid from user where student_name =#{param1} and studio = #{param2}
   </select>

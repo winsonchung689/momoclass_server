@@ -471,6 +471,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取课程列表
+	@RequestMapping("/getArrangement")
+	@ResponseBody
+	public List getArrangement(String studio){
+		List list = null;
+		try {
+			list = loginService.getArrangement(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取奖状名
 	@RequestMapping("/getCertificateModelName")
 	@ResponseBody

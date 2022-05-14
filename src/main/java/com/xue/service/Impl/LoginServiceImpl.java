@@ -809,6 +809,34 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getArrangement(String studio) {
+        String dayofweek = null;
+        String class_number = null;
+        String duration = null;
+        List<String> resul_list = new ArrayList<>();
+        try {
+
+            List<Arrangement> list = dao.getArrangement(studio);
+            for (int i = 0; i < list.size(); i++) {
+                Arrangement line = list.get(i);
+                //获取字段
+                dayofweek = line.getDayofweek();
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+
+
+                String item = "星期"+dayofweek+ "-" + class_number + "-" + duration;
+
+                //json
+                resul_list.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCertificateModel(String class_name) {
         byte[] photo = null;
         List<byte[]> resul_list = new ArrayList<>();

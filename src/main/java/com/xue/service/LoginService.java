@@ -82,6 +82,8 @@ public interface LoginService {
 
     public List getStudio();
 
+    public List getArrangement(String studio);
+
     public List getCertificateModel(String class_name);
 
     public List getCertificateModelName();
