@@ -292,7 +292,7 @@
   </select>
 
   <select id="getArrangements" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select distinct dayofweek,class_number,duration,studio from schedule_arrangement where studio =#{param1}
+    select distinct dayofweek,class_number,duration,studio from schedule_arrangement where studio =#{param1} order by dayofweek,duration
   </select>
 
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
