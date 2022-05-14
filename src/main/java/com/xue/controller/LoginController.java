@@ -922,9 +922,6 @@ public class LoginController {
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
-		//获取学生类型
-		String student_type = request.getParameter("student_type");
-
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
