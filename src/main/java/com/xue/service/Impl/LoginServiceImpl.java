@@ -400,6 +400,8 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
+        String class_number = null;
+        Integer weekDay=0;
 
 
         // 获取常规学生
@@ -407,7 +409,7 @@ public class LoginServiceImpl implements LoginService {
             d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
-            Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
             List<Schedule> list = dao.getSchedule(weekDay, studio);
             for (int i = 0; i < list.size(); i++) {
@@ -422,8 +424,14 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
 
-                //json
+                List<Arrangement> arrangements = dao.getClassNumber(studio,weekDay,duration);
+                if(arrangements.size()>0){
+                    Arrangement arrangement = arrangements.get(0);
+                    class_number = arrangement.getClass_number();
+                    jsonObject.put("class_number", class_number);
+                }
 
+                //json
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                 if(lessons.size()>0){
                     Lesson lesson = lessons.get(0);
@@ -469,8 +477,14 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
 
-                //json
+                List<Arrangement> arrangements = dao.getClassNumber(studio,weekDay,duration);
+                if(arrangements.size()>0){
+                    Arrangement arrangement = arrangements.get(0);
+                    class_number = arrangement.getClass_number();
+                    jsonObject.put("class_number", class_number);
+                }
 
+                //json
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                 if(lessons.size()>0){
                     Lesson lesson = lessons.get(0);

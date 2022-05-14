@@ -115,6 +115,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangements(String studio);
 
+    List<Arrangement> getClassNumber(String studio,Integer dayofweek,String duration);
+
     List<Message> getCertificateModel(String class_name);
 
     List<Message> getCertificateModelName();

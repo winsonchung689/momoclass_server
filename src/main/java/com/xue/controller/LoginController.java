@@ -886,6 +886,47 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	//	推送
+	@RequestMapping("/arrangeClass")
+	@ResponseBody
+	public String arrangeClass(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取日期
+		String add_date = request.getParameter("add_date");
+		//获年龄段
+		String age = request.getParameter("age");
+		//获取名字
+		String student_name = request.getParameter("student_name");
+		//获取时间段
+		String duration = request.getParameter("duration");
+
+		//获取学生类型
+		String student_type = request.getParameter("student_type");
+
+		String studio = request.getParameter("studio");
+		Schedule schedule =new Schedule();
+		List<String> list = Arrays.asList(student_name.split(" "));
+		try {
+			for (int i=0; i < list.size();i++){
+				String list_student = list.get(i);
+				schedule.setAdd_date(add_date);
+				schedule.setAge(age);
+				schedule.setStudent_name(list_student);
+				schedule.setDuration(duration);
+				schedule.setCreate_time(create_time);
+				schedule.setUpdate_time(create_time);
+				schedule.setStudio(studio);
+				schedule.setStudent_type(student_type);
+				loginService.insertSchedule(schedule);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 
 	@RequestMapping("/insertUser")
 	@ResponseBody
