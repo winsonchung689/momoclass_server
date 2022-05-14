@@ -809,14 +809,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangement(String studio) {
+    public List getArrangements(String studio) {
         String dayofweek = null;
         String class_number = null;
         String duration = null;
         List<String> resul_list = new ArrayList<>();
         try {
 
-            List<Arrangement> list = dao.getArrangement(studio);
+            List<Arrangement> list = dao.getArrangements(studio);
             for (int i = 0; i < list.size(); i++) {
                 Arrangement line = list.get(i);
                 //获取字段

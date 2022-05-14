@@ -472,12 +472,12 @@ public class LoginController {
 	}
 
 	//	获取课程列表
-	@RequestMapping("/getArrangement")
+	@RequestMapping("/getArrangements")
 	@ResponseBody
-	public List getArrangement(String studio){
+	public List getArrangements(String studio){
 		List list = null;
 		try {
-			list = loginService.getArrangement(studio);
+			list = loginService.getArrangements(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

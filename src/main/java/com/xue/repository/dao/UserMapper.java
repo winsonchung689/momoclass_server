@@ -113,7 +113,7 @@ public interface UserMapper {
 
     List<User> getStudio();
 
-    List<Arrangement> getArrangement(String studio);
+    List<Arrangement> getArrangements(String studio);
 
     List<Message> getCertificateModel(String class_name);
 
