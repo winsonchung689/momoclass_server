@@ -893,32 +893,51 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		//获取日期
-		String add_date = request.getParameter("add_date");
-		//获年龄段
-		String age = request.getParameter("age");
+		String add_date = null;
+		String class_select = request.getParameter("class_select");
+		String[] list_get = class_select.split(",");
+		String weekofday = list_get[0];
+
+		if(weekofday.equals("星期1")){
+			add_date = "2022-05-02";
+		}else if(weekofday.equals("星期2")){
+			add_date = "2022-05-03";
+		}else if(weekofday.equals("星期3")){
+			add_date = "2022-05-04";
+		}else if(weekofday.equals("星期4")){
+			add_date = "2022-05-05";
+		}else if(weekofday.equals("星期5")){
+			add_date = "2022-05-06";
+		}else if(weekofday.equals("星期6")){
+			add_date = "2022-05-07";
+		}else if(weekofday.equals("星期7")){
+			add_date = "2022-05-08";
+		}
+
+		String class_number = list_get[1];
+		String duration = list_get[2];
+
+		String studio = request.getParameter("studio");
+
 		//获取名字
 		String student_name = request.getParameter("student_name");
-		//获取时间段
-		String duration = request.getParameter("duration");
 
 		//获取学生类型
 		String student_type = request.getParameter("student_type");
 
-		String studio = request.getParameter("studio");
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
 			for (int i=0; i < list.size();i++){
 				String list_student = list.get(i);
 				schedule.setAdd_date(add_date);
-				schedule.setAge(age);
+				schedule.setAge("3-6");
 				schedule.setStudent_name(list_student);
 				schedule.setDuration(duration);
 				schedule.setCreate_time(create_time);
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
-				schedule.setStudent_type(student_type);
+				schedule.setStudent_type("ordinary");
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
