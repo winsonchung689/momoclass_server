@@ -436,7 +436,7 @@ public class LoginServiceImpl implements LoginService {
                     class_number = arrangement.getClass_number();
                     jsonObject.put("class_number", class_number);
                 }else{
-                    jsonObject.put("class_number","插班生");
+                    jsonObject.put("class_number","临时加课");
                 }
 
                 //json
@@ -490,6 +490,8 @@ public class LoginServiceImpl implements LoginService {
                     Arrangement arrangement = arrangements.get(0);
                     class_number = arrangement.getClass_number();
                     jsonObject.put("class_number", class_number);
+                }else{
+                    jsonObject.put("class_number","临时加课");
                 }
 
                 //json
