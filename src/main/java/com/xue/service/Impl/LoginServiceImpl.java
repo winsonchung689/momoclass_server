@@ -400,7 +400,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
-        String class_number = null;
+        String class_number = "插班生";
         Integer weekDay=0;
         Integer weekofday=0;
 
@@ -434,9 +434,8 @@ public class LoginServiceImpl implements LoginService {
                 if(arrangements.size()>0){
                     Arrangement arrangement = arrangements.get(0);
                     class_number = arrangement.getClass_number();
-                    jsonObject.put("class_number", class_number);
                 }
-
+                jsonObject.put("class_number", class_number);
                 //json
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                 if(lessons.size()>0){
