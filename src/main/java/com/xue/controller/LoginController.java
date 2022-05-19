@@ -978,13 +978,13 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
         //获取 comment_style
-		String comment_style = "public";
-		try {
-			List<User> list_u = dao.getComentStyle(studio);
+		String comment_style = "self";
+		List<User> list_u = dao.getComentStyle(studio);
+		if(list_u.size()>0){
 			comment_style = list_u.get(0).getComment_style();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
+
 
 
 		try {
