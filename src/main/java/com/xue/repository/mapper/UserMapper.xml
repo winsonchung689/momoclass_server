@@ -284,7 +284,7 @@
   </update>
 
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct comment_style from user where studio = #{studio} limit 1
+    select distinct comment_style from user where studio = #{studio} order by create_time limit 1
   </select>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
