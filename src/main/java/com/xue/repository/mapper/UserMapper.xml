@@ -254,7 +254,7 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
