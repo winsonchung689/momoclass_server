@@ -237,6 +237,27 @@
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}
   </update>
 
+  <!-- 更新名字 -->
+  <update id="updateScheduleName" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+  </update>
+
+  <update id="updateCommentName" parameterType="com.xue.entity.model.Message">
+    update class_comment set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+  </update>
+
+  <update id="updateGiftRecordName" parameterType="com.xue.entity.model.Gift">
+    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+  </update>
+
+  <update id="updateLessonName" parameterType="com.xue.entity.model.Lesson">
+    update lesson set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+  </update>
+
+  <update id="updateSignUpRecordName" parameterType="com.xue.entity.model.SignUp">
+    update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+  </update>
+
   <!-- 更新课评 -->
   <update id="updateComment" parameterType="com.xue.entity.model.Message">
     update class_comment set class_target=#{class_target},comment=#{comment} where id=#{id} and studio = #{studio}

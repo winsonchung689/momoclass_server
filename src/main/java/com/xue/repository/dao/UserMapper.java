@@ -157,6 +157,16 @@ public interface UserMapper {
 
     int updateCoins(User user);
 
+    int updateScheduleName(String student_name_new,String student_name,String studio);
+
+    int updateCommentName(String student_name_new,String student_name,String studio);
+
+    int updateGiftRecordName(String student_name_new,String student_name,String studio);
+
+    int updateLessonName(String student_name_new,String student_name,String studio);
+
+    int updateSignUpRecordName(String student_name_new,String student_name,String studio);
+
     List<Lesson> getLessonByName(String student_name,String studio);
 
     int updateLessonPoint(Lesson lesson);

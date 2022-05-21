@@ -1211,6 +1211,26 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateStudentName")
+	@ResponseBody
+	public String updateStudentName(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String student_name_new = request.getParameter("student_name_new");
+		String student_name = request.getParameter("student_name");
+		String studio = request.getParameter("studio");
+
+		try {
+			dao.updateScheduleName(student_name_new,student_name,studio);
+			dao.updateCommentName(student_name_new,student_name,studio);
+			dao.updateGiftRecordName(student_name_new,student_name,studio);
+			dao.updateLessonName(student_name_new,student_name,studio);
+			dao.updateSignUpRecordName(student_name_new,student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateGift")
 	@ResponseBody
 	public String updateGift(HttpServletRequest request, HttpServletResponse response){
