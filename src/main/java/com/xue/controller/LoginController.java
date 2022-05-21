@@ -1118,6 +1118,8 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
+		String student_name_new = request.getParameter("student_name_new");
+
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		//获取总课时
@@ -1142,7 +1144,13 @@ public class LoginController {
 		lesson.setStudio(studio);
 
 		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-		if(lessons.size()>0){
+		if(!student_name_new.isEmpty()){
+			dao.updateScheduleName(student_name_new,student_name,studio);
+			dao.updateCommentName(student_name_new,student_name,studio);
+			dao.updateGiftRecordName(student_name_new,student_name,studio);
+			dao.updateLessonName(student_name_new,student_name,studio);
+			dao.updateSignUpRecordName(student_name_new,student_name,studio);
+		}else if(lessons.size()>0){
 			loginService.updateLesson(lesson);
 		}else {
 			Integer point = 0;
