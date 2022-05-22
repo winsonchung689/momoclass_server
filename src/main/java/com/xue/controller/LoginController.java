@@ -104,7 +104,7 @@ public class LoginController {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample3);
 		queryJson.put("touser",openid);
-		String process =  studentname + "小朋友今天" + duration + "记得来上课哦";
+		String process =  studentname + "小朋友今天" + duration.replace("-","到") + "记得来上课哦";
 		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",remindDay);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",process);
 
