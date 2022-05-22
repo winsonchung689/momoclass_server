@@ -105,7 +105,7 @@ public class LoginController {
 		JSONObject queryJson = JSONObject.parseObject(tample3);
 		queryJson.put("touser",openid);
 		String process =  studentname + "小朋友今天" + duration.replace("-","到").replace(":","点") + "记得来上课哦";
-		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",remindDay);
+		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",remindDay.replace("-",""));
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",process);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
