@@ -102,7 +102,7 @@ public class LoginController {
 	public String sendClassRemind(String token, String openid, String duration, String studentname,String remindDay){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample2);
+		JSONObject queryJson = JSONObject.parseObject(tample3);
 		queryJson.put("touser",openid);
 		String process =  studentname + "小朋友，今天 " + duration + " 记得来上课哦~";
 		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",remindDay);
