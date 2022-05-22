@@ -40,6 +40,7 @@ public class LoginController {
 
 	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"xwY-9Dx1udclJoPVNna583hd25fZmBl8AtgcOj7jSN0\",\"data\":{\"thing2\":{\"value\": \"classname\"},\"thing4\":{\"value\": \"studentname\"},\"thing1\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time3\":{\"value\": \"mytime\"}}}";
 	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"X4-OA7Aj-Ayn5exDPAk28GiSRJQ5-C827ekUyQH5hA8\",\"data\":{\"thing1\":{\"value\": \"一起总结一下最近的成果吧\"},\"thing2\":{\"value\": \"process\"}}}";
+	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"UftZzV39axQBBoq2xqXsYrz_rz4JfzsMMpKzFRsz7oo\",\"data\":{\"thing2\":{\"value\": \"一起总结一下最近的成果吧\"},\"thing1\":{\"value\": \"process\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -82,6 +83,30 @@ public class LoginController {
 		queryJson.put("touser",openid);
 		String process = "总课时：" + total + ";  余课时：" + left;
 		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",process);
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	//	获取token
+	@RequestMapping("/sendClassRemind")
+	@ResponseBody
+	public String sendClassRemind(String token, String openid, String duration, String studentname,String remindDay){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample2);
+		queryJson.put("touser",openid);
+		String process =  studentname + "小朋友，今天 " + duration + " 记得来上课哦~";
+		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",remindDay);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",process);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
