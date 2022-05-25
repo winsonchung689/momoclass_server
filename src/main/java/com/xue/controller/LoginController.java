@@ -1191,7 +1191,9 @@ public class LoginController {
 			loginService.updateLesson(lesson);
 		}else {
 			Integer point = 0;
+			Float minus_amount_t = 1.0f;
 			lesson.setPoints(point);
+			lesson.setMinus(minus_amount_t);
 			loginService.insertLesson(lesson);
 		}
 
