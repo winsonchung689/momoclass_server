@@ -322,7 +322,7 @@
 
   <!-- 插入课时 -->
   <insert id="insertLesson" parameterType="com.xue.entity.model.Lesson">
-    insert lesson(student_name,total_amount,left_amount,points,create_time,studio) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio})
+    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus})
   </insert>
 
   <!-- 获取课时 -->
