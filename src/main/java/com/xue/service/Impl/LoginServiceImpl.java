@@ -60,8 +60,10 @@ public class LoginServiceImpl implements LoginService {
             String student_name = lesson.getStudent_name();
             Float total = lesson.getTotal_amount();
             Float left = lesson.getLeft_amount();
+            Float minus = lesson.getMinus();
             String studio = lesson.getStudio();
             Float total_amount = 0.0f;
+            Float minus_amount = 0.0f;
             Float left_amount = 0.0f;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
@@ -75,11 +77,15 @@ public class LoginServiceImpl implements LoginService {
                         if (left >= 0) {
                             left_amount = left;
                         }
+                        if (minus != 1) {
+                            minus_amount = minus;
+                        }
                     }
             }
             lesson.setStudent_name(student_name);
             lesson.setTotal_amount(total_amount);
             lesson.setLeft_amount(left_amount);
+            lesson.setMinus(minus_amount);
             result = dao.updateLesson(lesson);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1225,6 +1231,7 @@ public class LoginServiceImpl implements LoginService {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         Float new_left = 0.0f;
+        Float minus = 0.0f;
         System.out.println(student_name);
 
         List<Lesson> list = dao.getLessonByName(student_name, studio);
@@ -1234,11 +1241,13 @@ public class LoginServiceImpl implements LoginService {
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 new_left = left_amount - class_count;
+                minus = line.getMinus();
                 Lesson lesson = new Lesson();
                 lesson.setStudent_name(student_name);
                 lesson.setLeft_amount(new_left);
                 lesson.setTotal_amount(total_amount);
                 lesson.setStudio(studio);
+                lesson.setMinus(minus);
                 result = dao.updateLesson(lesson);
             }
         } catch (Exception e) {
