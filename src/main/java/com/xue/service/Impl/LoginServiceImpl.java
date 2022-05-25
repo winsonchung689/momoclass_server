@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
                         if (left >= 0) {
                             left_amount = left;
                         }
-                        if (minus != 1) {
+                        if (minus != 100) {
                             minus_amount = minus;
                         }
                     }
