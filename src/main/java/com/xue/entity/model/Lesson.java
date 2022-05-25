@@ -16,6 +16,16 @@ public class Lesson {
 
     private String studio;
 
+    private Float minus;
+
+    public Float getMinus() {
+        return minus;
+    }
+
+    public void setMinus(Float minus) {
+        this.minus = minus;
+    }
+
     public String getStudio() {
         return studio;
     }

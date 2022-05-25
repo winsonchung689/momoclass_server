@@ -634,7 +634,16 @@ public class LoginController {
 			signUp.setMark(mark);
 			loginService.insertSignUp(signUp);
 
-			Float count = Float.parseFloat(class_count);
+			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+			Float count = 0.0f;
+			if(lessons.size()>0){
+				count = lessons.get(0).getMinus();
+			}
+
+			if(!class_count.isEmpty()){
+				count = Float.parseFloat(class_count);
+			}
+
 			loginService.updateMinusLesson(student_name,studio,count);
 			loginService.updateAddPoints(student_name,studio,1);
 		} catch (Exception e) {
@@ -1143,6 +1152,8 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
+		Float minus_amount = Float.valueOf(request.getParameter("minus_amount"));
+
 		String student_name_new = request.getParameter("student_name_new");
 
 		//获取用户名
@@ -1167,6 +1178,7 @@ public class LoginController {
 		lesson.setLeft_amount(left_amount);
 		lesson.setCreate_time(create_time);
 		lesson.setStudio(studio);
+		lesson.setMinus(minus_amount);
 
 		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
 		if(!student_name_new.isEmpty()){
