@@ -640,7 +640,7 @@ public class LoginController {
 				count = lessons.get(0).getMinus();
 			}
 
-			if(!class_count.equals("1")){
+			if(!class_count.equals("none")){
 				count = Float.parseFloat(class_count);
 			}
 
