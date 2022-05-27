@@ -802,6 +802,29 @@ public class LoginController {
 		return p_path;
 	}
 
+	//	推送文件
+	@RequestMapping("/push_csv")
+	@ResponseBody
+	public String push_csv(HttpServletRequest request, HttpServletResponse response){
+
+		//获取图片
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile multipartFile = req.getFile("file");
+		String file_name =  request.getParameter("file_name");
+
+		//获取类路径
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadcsv/"+ file_name;
+
+		//保存图片
+		try {
+			multipartFile.transferTo(new File(p_path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return p_path;
+	}
+
 	@RequestMapping("/get_file")
 	@ResponseBody
 	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
