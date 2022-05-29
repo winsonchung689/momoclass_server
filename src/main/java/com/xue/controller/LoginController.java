@@ -820,12 +820,12 @@ public class LoginController {
 
 		try {
 			File myFilePath = new File(path_1);
-			myFilePath.delete();
+			if(myFilePath.exists()){
+				myFilePath.delete();
+			}else {
+				myFilePath.mkdir();
+			}
 		} catch (Exception e) {
-//			e.printStackTrace();
-			System.out.println("目录不存在,正在创建");
-			File dir = new File(path_1);
-			dir.mkdir();
 		}
 
 		//保存图片
