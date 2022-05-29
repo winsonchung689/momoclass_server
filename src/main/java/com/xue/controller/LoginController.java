@@ -911,7 +911,7 @@ public class LoginController {
 		}
 
 
-		return null;
+		return "push massage successfully";
 	}
 
 	//	推送
