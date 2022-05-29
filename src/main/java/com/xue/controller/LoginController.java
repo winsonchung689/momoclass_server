@@ -865,47 +865,57 @@ public class LoginController {
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
 			for(int i=1;i<sheet.getRows();i++){
+				Gift gift = new Gift();
+				gift.setCreate_time(create_time);
+				gift.setStudio(studio);
+				gift.setStatus(0);
+
+				Lesson lesson =new Lesson();
+				lesson.setCreate_time(create_time);
+				lesson.setStudio(studio);
+				lesson.setMinus(1.0f);
+				lesson.setPoints(0);
 				for(int j=0;j<sheet.getColumns();j++){
 					Cell cell=sheet.getCell(j, i);
 					System.out.println("cell:" + cell.getContents());
 					if(0==j){
 						student_name = cell.getContents();
+						lesson.setStudent_name(student_name);
+						gift.setStudent_name(student_name);
 					}else if(1==j){
 						total_amount =cell.getContents();
+						if(!total_amount.isEmpty()){
+							lesson.setTotal_amount(Float.parseFloat(total_amount));
+						}
 					}else if(2==j){
 						left_amount = cell.getContents();
+						if(!left_amount.isEmpty()){
+							lesson.setLeft_amount(Float.parseFloat(left_amount));
+						}
 					}else if (3==j){
 						gift_name = cell.getContents();
+						gift.setGift_name(gift_name);
 					}else if(4==j){
 						gift_amount =cell.getContents();
+						if(!gift_amount.isEmpty()){
+							gift.setGift_amount(Integer.parseInt(gift_amount));
+						}
 					}else if(5==j){
 						expired_days = cell.getContents();
-					}
-
-					Lesson lesson =new Lesson();
-					lesson.setStudent_name(student_name);
-					lesson.setTotal_amount(Float.parseFloat(total_amount));
-					lesson.setLeft_amount(Float.parseFloat(left_amount));
-					lesson.setCreate_time(create_time);
-					lesson.setStudio(studio);
-					lesson.setMinus(1.0f);
-					lesson.setPoints(0);
-					loginService.insertLesson(lesson);
-
-					if (!gift_name.isEmpty()){
-						Gift gift = new Gift();
 						cal.add(cal.DATE,Integer.parseInt(expired_days));
 						String expired_time = df.format(cal.getTime());
-						gift.setStudent_name(student_name);
-						gift.setGift_name(gift_name);
-						gift.setGift_amount(Integer.parseInt(gift_amount));
-						gift.setCreate_time(create_time);
 						gift.setExpired_time(expired_time);
-						gift.setStudio(studio);
-						gift.setStatus(0);
-						loginService.insertGift(gift);
 					}
 
+				}
+				try {
+					loginService.insertLesson(lesson);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				if (!gift.getGift_name().isEmpty()){
+					loginService.insertGift(gift);
 				}
 			}
 
