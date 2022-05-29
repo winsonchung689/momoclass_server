@@ -1,37 +1,34 @@
 package com.xue.controller;
-import java.io.*;
-import java.sql.PseudoColumnUsage;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.IconUIResource;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.sun.jndi.ldap.sasl.LdapSasl;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
+import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
-import org.apache.commons.io.FileUtils;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xue.service.LoginService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -841,22 +838,80 @@ public class LoginController {
 		return p_path;
 	}
 
-	@RequestMapping("/get_file")
+	@RequestMapping("/submit_batch")
 	@ResponseBody
-	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("file_name");
-		String path = System.getProperty("user.dir");
-		String p_path = path +"/uploadfiles/"+ file_name;
-		File file = new File(p_path);
-		if(file.exists()){
-			org.springframework.http.HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-			headers.setContentDispositionFormData("attachment", file.getName());
-			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
-		}else{
-			System.out.println("文件不存在,请重试...");
-			return null;
+	public String submit_batch(String studio) throws IOException{
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
+
+		String student_name =null;
+		String total_amount= null;
+		String left_amount= null;
+		String gift_name =null;
+		String gift_amount = null;
+		String expired_days = null;
+		String path = System.getProperty("user.dir");
+		String path_1 = path +"/uploadexcel/" + studio ;
+		java.io.File myFilePath = new java.io.File(path_1);
+		String[] tempList = myFilePath.list();
+		File temp = new File(path_1 + "/" + tempList[0]);
+		try {
+			Workbook book=Workbook.getWorkbook(temp);
+			Sheet sheet=book.getSheet(0);
+			for(int i=0;i<sheet.getRows();i++){
+				for(int j=0;j<sheet.getColumns();j++){
+					Cell cell=sheet.getCell(j, i);
+					if(0==j){
+						student_name = cell.getContents();
+					}else if(1==j){
+						total_amount =cell.getContents();
+					}else if(2==j){
+						left_amount = cell.getContents();
+					}else if (3==j){
+						gift_name = cell.getContents();
+					}else if(4==j){
+						gift_amount =cell.getContents();
+					}else if(5==j){
+						expired_days = cell.getContents();
+					}
+
+					Lesson lesson =new Lesson();
+					lesson.setStudent_name(student_name);
+					lesson.setTotal_amount(Float.parseFloat(total_amount));
+					lesson.setLeft_amount(Float.parseFloat(left_amount));
+					lesson.setCreate_time(create_time);
+					lesson.setStudio(studio);
+					lesson.setMinus(1.0f);
+
+					if (!gift_name.isEmpty()){
+						Gift gift = new Gift();
+						cal.add(cal.DATE,Integer.parseInt(expired_days));
+						String expired_time = df.format(cal.getTime());
+						gift.setStudent_name(student_name);
+						gift.setGift_name(gift_name);
+						gift.setGift_amount(Integer.parseInt(gift_amount));
+						gift.setCreate_time(create_time);
+						gift.setExpired_time(expired_time);
+						gift.setStudio(studio);
+						gift.setStatus(0);
+						loginService.insertGift(gift);
+					}
+
+				}
+			}
+
+		} catch (BiffException e) {
+			e.printStackTrace();
+		}
+
+
+		return null;
 	}
 
 	//	推送
