@@ -817,8 +817,16 @@ public class LoginController {
 		String path = System.getProperty("user.dir");
 		String path_1 = path + "/uploadexcel/" + studio;
 		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
-		java.io.File myFilePath = new java.io.File(path_1);
-		myFilePath.delete();
+
+		try {
+			File myFilePath = new File(path_1);
+			myFilePath.delete();
+		} catch (Exception e) {
+//			e.printStackTrace();
+			System.out.println("目录不存在,正在创建");
+			File dir = new File(path_1);
+			dir.mkdir();
+		}
 
 		//保存图片
 		try {
