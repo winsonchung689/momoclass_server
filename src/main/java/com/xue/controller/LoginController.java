@@ -823,25 +823,21 @@ public class LoginController {
 			java.io.File myFilePath = new java.io.File(path_1);
 			String[] tempList = myFilePath.list();
 			File temp = null;
-			for (int i = 0; i < tempList.length; i++) {
-				temp = new File(path_1 + "/" + tempList[i]);
-				temp.delete();
-			}
-			if(myFilePath.exists()){
-				myFilePath.delete();
-			}else {
+			if(!myFilePath.exists()){
 				myFilePath.mkdir();
+			}else {
+				for (int i = 0; i < tempList.length; i++) {
+					temp = new File(path_1 + "/" + tempList[i]);
+					temp.delete();
+				}
 			}
+
+			multipartFile.transferTo(new File(p_path));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		//保存图片
-		try {
-			multipartFile.transferTo(new File(p_path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return p_path;
 	}
 
