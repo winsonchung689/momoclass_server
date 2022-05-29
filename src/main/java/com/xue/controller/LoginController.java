@@ -803,18 +803,22 @@ public class LoginController {
 	}
 
 	//	推送文件
-	@RequestMapping("/push_csv")
+	@RequestMapping("/push_excel")
 	@ResponseBody
-	public String push_csv(HttpServletRequest request, HttpServletResponse response){
+	public String push_excel(HttpServletRequest request, HttpServletResponse response){
 
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("file");
 		String file_name =  request.getParameter("file_name");
+		String studio =  request.getParameter("studio");
 
 		//获取类路径
 		String path = System.getProperty("user.dir");
-		String p_path = path +"/uploadcsv/"+ file_name;
+		String path_1 = path + "/uploadexcel/" + studio;
+		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
+		java.io.File myFilePath = new java.io.File(path_1);
+		myFilePath.delete();
 
 		//保存图片
 		try {
