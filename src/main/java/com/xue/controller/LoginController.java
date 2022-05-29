@@ -11,9 +11,14 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -836,6 +841,24 @@ public class LoginController {
 		}
 
 		return p_path;
+	}
+
+	@RequestMapping("/get_file")
+	@ResponseBody
+	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String file_name =  request.getParameter("file_name");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadfiles/"+ file_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
 	}
 
 	@RequestMapping("/submit_batch")
