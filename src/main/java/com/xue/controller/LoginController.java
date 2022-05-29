@@ -864,9 +864,10 @@ public class LoginController {
 		try {
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
-			for(int i=0;i<sheet.getRows();i++){
+			for(int i=1;i<sheet.getRows();i++){
 				for(int j=0;j<sheet.getColumns();j++){
 					Cell cell=sheet.getCell(j, i);
+					System.out.println("cell:" + cell.getContents());
 					if(0==j){
 						student_name = cell.getContents();
 					}else if(1==j){
@@ -888,6 +889,8 @@ public class LoginController {
 					lesson.setCreate_time(create_time);
 					lesson.setStudio(studio);
 					lesson.setMinus(1.0f);
+					lesson.setPoints(0);
+					loginService.insertLesson(lesson);
 
 					if (!gift_name.isEmpty()){
 						Gift gift = new Gift();
@@ -909,7 +912,6 @@ public class LoginController {
 		} catch (BiffException e) {
 			e.printStackTrace();
 		}
-
 
 		return "push massage successfully";
 	}
