@@ -897,7 +897,7 @@ public class LoginController {
 						gift.setGift_name(gift_name);
 					}else if(4==j){
 						gift_amount =cell.getContents();
-						if(!gift_amount.isEmpty()){
+						if(!gift_amount.trim().isEmpty()){
 							gift.setGift_amount(Integer.parseInt(gift_amount));
 						}
 					}else if(5==j){
