@@ -884,22 +884,31 @@ public class LoginController {
 						gift.setStudent_name(student_name);
 					}else if(1==j){
 						total_amount =cell.getContents();
-						if(!total_amount.isEmpty()){
+						try {
 							lesson.setTotal_amount(Float.parseFloat(total_amount));
+						} catch (NumberFormatException e) {
+							e.printStackTrace();
 						}
+
 					}else if(2==j){
 						left_amount = cell.getContents();
-						if(!left_amount.isEmpty()){
+						try {
 							lesson.setLeft_amount(Float.parseFloat(left_amount));
+						} catch (NumberFormatException e) {
+							e.printStackTrace();
 						}
+
 					}else if (3==j){
 						gift_name = cell.getContents();
 						gift.setGift_name(gift_name);
 					}else if(4==j){
 						gift_amount =cell.getContents();
-						if(!gift_amount.trim().isEmpty()){
+						try {
 							gift.setGift_amount(Integer.parseInt(gift_amount));
+						} catch (NumberFormatException e) {
+							e.printStackTrace();
 						}
+
 					}else if(5==j){
 						expired_days = cell.getContents();
 						cal.add(cal.DATE,Integer.parseInt(expired_days));
