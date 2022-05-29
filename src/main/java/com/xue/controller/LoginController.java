@@ -884,18 +884,14 @@ public class LoginController {
 						gift.setStudent_name(student_name);
 					}else if(1==j){
 						total_amount =cell.getContents();
-						try {
+						if(!total_amount.isEmpty()){
 							lesson.setTotal_amount(Float.parseFloat(total_amount));
-						} catch (NumberFormatException e) {
-							e.printStackTrace();
 						}
 
 					}else if(2==j){
 						left_amount = cell.getContents();
-						try {
+						if(!left_amount.isEmpty()){
 							lesson.setLeft_amount(Float.parseFloat(left_amount));
-						} catch (NumberFormatException e) {
-							e.printStackTrace();
 						}
 
 					}else if (3==j){
@@ -903,17 +899,17 @@ public class LoginController {
 						gift.setGift_name(gift_name);
 					}else if(4==j){
 						gift_amount =cell.getContents();
-						try {
+						if(!gift_amount.isEmpty()){
 							gift.setGift_amount(Integer.parseInt(gift_amount));
-						} catch (NumberFormatException e) {
-							e.printStackTrace();
 						}
 
 					}else if(5==j){
 						expired_days = cell.getContents();
-						cal.add(cal.DATE,Integer.parseInt(expired_days));
-						String expired_time = df.format(cal.getTime());
-						gift.setExpired_time(expired_time);
+						if(!expired_days.isEmpty()){
+							cal.add(cal.DATE,Integer.parseInt(expired_days));
+							String expired_time = df.format(cal.getTime());
+							gift.setExpired_time(expired_time);
+						}
 					}
 
 				}
