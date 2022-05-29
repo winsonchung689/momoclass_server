@@ -818,14 +818,22 @@ public class LoginController {
 		String path_1 = path + "/uploadexcel/" + studio;
 		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
 
+
 		try {
-			File myFilePath = new File(path_1);
+			java.io.File myFilePath = new java.io.File(path_1);
+			String[] tempList = myFilePath.list();
+			File temp = null;
+			for (int i = 0; i < tempList.length; i++) {
+				temp = new File(path_1 + "/" + tempList[i]);
+				temp.delete();
+			}
 			if(myFilePath.exists()){
 				myFilePath.delete();
 			}else {
 				myFilePath.mkdir();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		//保存图片
