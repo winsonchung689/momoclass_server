@@ -668,7 +668,6 @@ public class LoginController {
 			schedule.setStudio(studio);
 			schedule.setUpdate_time(update_time);
 			loginService.updateSchedule(schedule);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
