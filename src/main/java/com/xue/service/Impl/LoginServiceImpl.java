@@ -297,6 +297,41 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getLeaveRecord(String student_name, String studio) {
+        String create_time = null;
+        String date_time = null;
+        String duration=null;
+        String id = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Leave> list = dao.getLeaveRecord(student_name, studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Leave line = list.get(i);
+                //获取字段
+                create_time = line.getCreate_time();
+                date_time = line.getDate_time();
+                duration = line.getDuration();
+                id = line.getId();
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("date_time", date_time);
+                jsonObject.put("duration", duration);
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("id",id);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getArrangement(String studio,Integer dayofweek) {
         String class_number = null;
         String duration = null;

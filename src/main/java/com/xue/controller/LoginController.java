@@ -413,7 +413,7 @@ public class LoginController {
 	public List getLeaveRecord(String student_name,String studio){
 		List list = null;
 		try {
-			list = dao.getLeaveRecord(student_name,studio);
+			list = loginService.getLeaveRecord(student_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
