@@ -80,7 +80,11 @@ public interface UserMapper {
 
     void deleteSignUpAllRecord(String student_name,String studio);
 
+    void deleteLeaveAllRecord(String student_name,String studio);
+
     void deleteGiftRecord(Integer id);
+
+    void deleteLeaveRecord(Integer id);
 
     void deleteSchedule(Integer id);
 
@@ -139,6 +143,8 @@ public interface UserMapper {
 
     int insertSignUp(SignUp signUp);
 
+    int insertLeave(Leave leave);
+
     int insertArrangement(Arrangement arrangement);
 
     int insertGift(Gift gift);
@@ -150,6 +156,8 @@ public interface UserMapper {
     List<SignUp> getSignUpByDate(String student_name,String studio,String date_time);
 
     List<Gift> getGift(String student_name,String studio);
+
+    List<Leave> getLeaveRecord(String student_name,String studio);
 
     int updateLesson(Lesson lesson);
 

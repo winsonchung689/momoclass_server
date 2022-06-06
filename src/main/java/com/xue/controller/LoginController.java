@@ -407,6 +407,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取请假记录
+	@RequestMapping("/getLeaveRecord")
+	@ResponseBody
+	public List getLeaveRecord(String student_name,String studio){
+		List list = null;
+		try {
+			list = dao.getLeaveRecord(student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
@@ -591,12 +604,38 @@ public class LoginController {
 		return 1;
 	}
 
+	//	清空请假记录
+	@RequestMapping("/deleteLeaveAllRecord")
+	@ResponseBody
+	public int deleteLeaveAllRecord(String name,String studio){
+		try {
+			dao.deleteLeaveAllRecord(name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteGiftRecord")
 	@ResponseBody
 	public int deleteGiftRecord(Integer id,String role){
 		try {
 			loginService.deleteGiftRecord(id,role);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	//	获取详情页
+	@RequestMapping("/deleteLeaveRecord")
+	@ResponseBody
+	public int deleteLeaveRecord(Integer id){
+		try {
+			dao.deleteLeaveRecord(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -658,16 +697,17 @@ public class LoginController {
 
 	@RequestMapping("/leaveRecord")
 	@ResponseBody
-	public int signUpSchedule(String student_name,String studio,String date_time,String duration){
+	public int leaveRecord(String student_name,String studio,String date_time,String duration){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
-			Schedule schedule =new Schedule();
-			SignUp signUp = new SignUp();
-			schedule.setStudent_name(student_name);
-			schedule.setStudio(studio);
-			schedule.setUpdate_time(update_time);
-			loginService.updateSchedule(schedule);
+			Leave leave =new Leave();
+			leave.setStudent_name(student_name);
+			leave.setStudio(studio);
+			leave.setDate_time(date_time);
+			leave.setDuration(duration);
+			leave.setCreate_time(create_time);
+			dao.insertLeave(leave);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
