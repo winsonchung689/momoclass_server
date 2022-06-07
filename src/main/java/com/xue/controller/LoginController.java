@@ -677,8 +677,10 @@ public class LoginController {
 
 			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
 			Float count = 0.0f;
+			Float coins = 0.0f;
 			if(lessons.size()>0){
 				count = lessons.get(0).getMinus();
+				coins = lessons.get(0).getCoins();
 			}
 
 			if(Float.parseFloat(class_count) != 100){
@@ -686,7 +688,7 @@ public class LoginController {
 			}
 
 			loginService.updateMinusLesson(student_name,studio,count);
-			loginService.updateAddPoints(student_name,studio,1);
+			loginService.updateAddPoints(student_name,studio,Integer.parseInt(coins.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -957,6 +959,7 @@ public class LoginController {
 				lesson.setCreate_time(create_time);
 				lesson.setStudio(studio);
 				lesson.setMinus(1.0f);
+				lesson.setCoins(0.0f);
 				lesson.setPoints(0);
 				for(int j=0;j<sheet.getColumns();j++){
 					Cell cell=sheet.getCell(j, i);
@@ -1348,6 +1351,8 @@ public class LoginController {
 
 		Float minus_amount = Float.valueOf(request.getParameter("minus_amount"));
 
+		Float coins_amount = Float.valueOf(request.getParameter("coins_amount"));
+
 		String student_name_new = request.getParameter("student_name_new");
 
 		//获取用户名
@@ -1373,6 +1378,7 @@ public class LoginController {
 		lesson.setCreate_time(create_time);
 		lesson.setStudio(studio);
 		lesson.setMinus(minus_amount);
+		lesson.setCoins(coins_amount);
 
 		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
 		if(!student_name_new.isEmpty()){
@@ -1386,8 +1392,10 @@ public class LoginController {
 		}else {
 			Integer point = 0;
 			Float minus_amount_t = 1.0f;
+			Float coins_amount_t = 0.0f;
 			lesson.setPoints(point);
 			lesson.setMinus(minus_amount_t);
+			lesson.setCoins(coins_amount_t);
 			loginService.insertLesson(lesson);
 		}
 

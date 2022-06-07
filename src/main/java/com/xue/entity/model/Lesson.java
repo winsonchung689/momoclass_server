@@ -18,6 +18,16 @@ public class Lesson {
 
     private Float minus;
 
+    private Float coins;
+
+    public Float getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Float coins) {
+        this.coins = coins;
+    }
+
     public Float getMinus() {
         return minus;
     }

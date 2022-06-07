@@ -345,12 +345,12 @@
 
   <!-- 插入课时 -->
   <insert id="insertLesson" parameterType="com.xue.entity.model.Lesson">
-    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus})
+    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins})
   </insert>
 
   <!-- 获取课时 -->
   <select id="getLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus from lesson where studio =#{param1} order by student_name
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins from lesson where studio =#{param1} order by student_name
   </select>
 
   <!-- 获取总人数 -->
@@ -365,17 +365,17 @@
 
   <!-- 获取课时 -->
   <select id="getLessonLikeName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus from lesson where studio =#{param1} and student_name like "%"#{param2}"%" order by student_name
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins from lesson where studio =#{param1} and student_name like "%"#{param2}"%" order by student_name
   </select>
 
   <!-- 获取课时 -->
   <select id="getLessonInName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) order by student_name limit #{param3},#{param4};
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) order by student_name limit #{param3},#{param4};
   </select>
 
   <!-- 获取课时 -->
   <select id="getRating" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio from lesson where studio =#{param1} order by points desc limit #{param2},#{param3};
+    select id,student_name,total_amount,left_amount,create_time,points,studio,coins from lesson where studio =#{param1} order by points desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取课时 -->

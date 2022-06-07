@@ -61,10 +61,12 @@ public class LoginServiceImpl implements LoginService {
             Float total = lesson.getTotal_amount();
             Float left = lesson.getLeft_amount();
             Float minus = lesson.getMinus();
+            Float coins = lesson.getCoins();
             String studio = lesson.getStudio();
             Float total_amount = 0.0f;
             Float minus_amount = 0.0f;
             Float left_amount = 0.0f;
+            Float coins_amount = 0.0f;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                     if(lessons.size()>0){
@@ -81,12 +83,17 @@ public class LoginServiceImpl implements LoginService {
                         if (minus != 100) {
                             minus_amount = minus;
                         }
+                        coins_amount = lesson_get.getMinus();
+                        if (coins >= 0) {
+                            minus_amount = minus;
+                        }
                     }
             }
             lesson.setStudent_name(student_name);
             lesson.setTotal_amount(total_amount);
             lesson.setLeft_amount(left_amount);
             lesson.setMinus(minus_amount);
+            lesson.setCoins(coins_amount);
             result = dao.updateLesson(lesson);
         } catch (Exception e) {
             e.printStackTrace();
