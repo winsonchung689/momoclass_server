@@ -1349,9 +1349,12 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		Float minus_amount = Float.valueOf(request.getParameter("minus_amount"));
+		// 获取工作室
+		String studio = request.getParameter("studio");
 
-		Float coins_amount = Float.valueOf(request.getParameter("coins_amount"));
+		Float coins_amount_get = Float.valueOf(request.getParameter("coins_amount"));
+
+		Float minus_amount_get = Float.valueOf(request.getParameter("minus_amount"));
 
 		String student_name_new = request.getParameter("student_name_new");
 
@@ -1359,6 +1362,24 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		//获取总课时
 		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
+
+		Float minus_amount=0.0f;
+		Float coins_amount=0.0f;
+		List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
+		if(!lessons_get.isEmpty()){
+			// 获取单扣课
+			minus_amount = lessons_get.get(0).getMinus();
+			coins_amount = lessons_get.get(0).getCoins();
+		}
+		if(minus_amount_get != 100){
+			minus_amount = minus_amount_get;
+		}
+		if(coins_amount_get >= 0){
+			coins_amount = coins_amount_get;
+		}
+
+
+
 		//获年剩余课时
 		String left_amount_get = request.getParameter("left_amount");
 		Float left_amount =null;
@@ -1368,8 +1389,7 @@ public class LoginController {
 			left_amount = Float.parseFloat(left_amount_get);
 		}
 
-		// 获取工作室
-		String studio = request.getParameter("studio");
+
 
 		Lesson lesson =new Lesson();
 		lesson.setStudent_name(student_name);
