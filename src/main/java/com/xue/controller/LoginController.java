@@ -1374,7 +1374,7 @@ public class LoginController {
 		if(minus_amount_get != 100){
 			minus_amount = minus_amount_get;
 		}
-		if(coins_amount_get >= 0){
+		if(coins_amount_get > 0){
 			coins_amount = coins_amount_get;
 		}
 
