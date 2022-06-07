@@ -1351,17 +1351,18 @@ public class LoginController {
 
 		// 获取工作室
 		String studio = request.getParameter("studio");
-
+        // 获取单次积分
 		Float coins_amount_get = Float.valueOf(request.getParameter("coins_amount"));
-
+        // 获取单次扣课
 		Float minus_amount_get = Float.valueOf(request.getParameter("minus_amount"));
-
+        // 获取新名字
 		String student_name_new = request.getParameter("student_name_new");
-
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		//获取总课时
 		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
+		// 获取type
+		String modify_type = request.getParameter("modify_type");
 
 		Float minus_amount=0.0f;
 		Float coins_amount=0.0f;
@@ -1377,8 +1378,6 @@ public class LoginController {
 		if(coins_amount_get > 0){
 			coins_amount = coins_amount_get;
 		}
-
-
 
 		//获年剩余课时
 		String left_amount_get = request.getParameter("left_amount");
@@ -1408,7 +1407,12 @@ public class LoginController {
 			dao.updateLessonName(student_name_new,student_name,studio);
 			dao.updateSignUpRecordName(student_name_new,student_name,studio);
 		}else if(lessons.size()>0){
-			loginService.updateLesson(lesson);
+			if("coins_modify_single".equals(modify_type)){
+				loginService.updateLesson(lesson);
+			}else if("coins_modify_all".equals(modify_type)){
+				dao.updateLessonAll(coins_amount,studio);
+			}
+
 		}else {
 			Integer point = 0;
 			Float minus_amount_t = 1.0f;

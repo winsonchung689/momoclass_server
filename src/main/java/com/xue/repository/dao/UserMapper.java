@@ -161,6 +161,8 @@ public interface UserMapper {
 
     int updateLesson(Lesson lesson);
 
+    int updateLessonAll(Float coins,String studio);
+
     int updateGift(String id);
 
     int updateCoins(User user);
