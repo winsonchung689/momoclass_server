@@ -1690,6 +1690,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
+        Float minus = 0.0f;
         List<Lesson> list = null;
 //        List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -1723,6 +1724,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 points = line.getPoints();
+                minus = line.getMinus();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -1736,6 +1738,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
                 jsonObject.put("total_student", total_student);
+                jsonObject.put("minus", minus);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
