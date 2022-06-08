@@ -1275,6 +1275,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount = 0.0f;
         Float new_left = 0.0f;
         Float minus = 0.0f;
+        Float coins = 0.0f;
         System.out.println(student_name);
 
         List<Lesson> list = dao.getLessonByName(student_name, studio);
@@ -1285,12 +1286,14 @@ public class LoginServiceImpl implements LoginService {
                 left_amount = line.getLeft_amount();
                 new_left = left_amount - class_count;
                 minus = line.getMinus();
+                coins = line.getCoins();
                 Lesson lesson = new Lesson();
                 lesson.setStudent_name(student_name);
                 lesson.setLeft_amount(new_left);
                 lesson.setTotal_amount(total_amount);
                 lesson.setStudio(studio);
                 lesson.setMinus(minus);
+                lesson.setMinus(coins);
                 result = dao.updateLesson(lesson);
             }
         } catch (Exception e) {
