@@ -1407,10 +1407,10 @@ public class LoginController {
 			dao.updateLessonName(student_name_new,student_name,studio);
 			dao.updateSignUpRecordName(student_name_new,student_name,studio);
 		}else if(lessons.size()>0){
-			if("coins_modify_single".equals(modify_type)){
-				loginService.updateLesson(lesson);
-			}else if("coins_modify_all".equals(modify_type)){
+			if("coins_modify_all".equals(modify_type)){
 				dao.updateLessonAll(coins_amount,studio);
+			}else {
+				loginService.updateLesson(lesson);
 			}
 
 		}else {
