@@ -1293,7 +1293,7 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setTotal_amount(total_amount);
                 lesson.setStudio(studio);
                 lesson.setMinus(minus);
-                lesson.setMinus(coins);
+                lesson.setCoins(coins);
                 result = dao.updateLesson(lesson);
             }
         } catch (Exception e) {
