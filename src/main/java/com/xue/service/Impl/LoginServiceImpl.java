@@ -1835,8 +1835,8 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
-        Integer page_start = (page - 1) * 3;
-        Integer page_length = 3;
+        Integer page_start = (page - 1) * 2;
+        Integer page_length = 2;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         if(student_name.equals("all")){
