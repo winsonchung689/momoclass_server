@@ -1001,7 +1001,12 @@ public class LoginController {
 
 				}
 				try {
-					loginService.insertLesson(lesson);
+					List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
+					if(lessons_get.isEmpty()){
+						loginService.insertLesson(lesson);
+					}else {
+						loginService.updateLesson(lesson);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
