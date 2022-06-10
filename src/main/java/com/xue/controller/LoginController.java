@@ -941,7 +941,6 @@ public class LoginController {
 		String left_amount= null;
 		String gift_name =null;
 		String gift_amount = null;
-		String expired_days = null;
 		String path = System.getProperty("user.dir");
 		String path_1 = path +"/uploadexcel/" + studio ;
 		java.io.File myFilePath = new java.io.File(path_1);
@@ -991,6 +990,7 @@ public class LoginController {
 						}
 
 					}else if(5==j){
+						String expired_days = null;
 						expired_days = cell.getContents();
 						if(!expired_days.isEmpty()){
 							cal.add(cal.DATE,Integer.parseInt(expired_days));
