@@ -993,10 +993,10 @@ public class LoginController {
 						String expired_days = null;
 						expired_days = cell.getContents();
 						if(!expired_days.isEmpty()){
-							Calendar call = Calendar.getInstance();
-							SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-							cal.add(call.DATE,Integer.parseInt(expired_days));
-							String expired_time = dff.format(cal.getTime());
+							Calendar cal_get = Calendar.getInstance();
+							SimpleDateFormat df_get = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+							cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
+							String expired_time = df_get.format(cal_get.getTime());
 							gift.setExpired_time(expired_time);
 						}
 					}
