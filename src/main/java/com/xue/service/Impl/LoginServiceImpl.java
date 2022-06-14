@@ -863,17 +863,22 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getStudio() {
         String studio = null;
-        List<String> resul_list = new ArrayList<>();
+        List<JSONObject> resul_list = new ArrayList<>();
         try {
 
             List<User> list = dao.getStudio();
             for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
                 studio = line.getStudio();
 
                 //json
-                resul_list.add(studio);
+                jsonObject.put("studio", studio);
+                jsonObject.put("show", false);
+                jsonObject.put("name", studio);
+                jsonObject.put("search", studio);
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
