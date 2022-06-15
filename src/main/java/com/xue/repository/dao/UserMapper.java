@@ -103,6 +103,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateUserPay(User user);
+
     int updateComentStyle(User user);
 
     List<User> getUser(String openid);

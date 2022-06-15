@@ -1476,6 +1476,32 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateUserPay")
+	@ResponseBody
+	public String updateUserPay(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取用户名
+		String expired_time = request.getParameter("expired_time");
+		String studio = request.getParameter("studio");
+
+		User user=new User();
+		user.setExpired_time(expired_time);
+		user.setStudio(studio);
+		user.setCreate_time(create_time);
+		user.setUser_type("老用户");
+		user.setRole("boss");
+
+		try {
+			dao.updateUserPay(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 
 	@RequestMapping("/updateCoins")
 	@ResponseBody
