@@ -1043,6 +1043,11 @@ public class LoginController {
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
+		String class_target_bak = request.getParameter("class_target_bak");
+		if(class_target_bak.isEmpty()){
+			class_target_bak = class_target;
+		}
+
 		String studio = request.getParameter("studio");
 
 		FileInputStream in = null;
@@ -1054,6 +1059,7 @@ public class LoginController {
 			message.setCreate_time(create_time);
 			message.setClass_name(class_name);
 			message.setClass_target(class_target);
+			message.setClass_target(class_target_bak);
 			message.setStudio(studio);
 
 			if(!"奖状".equals(class_target)){

@@ -37,22 +37,22 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园') and studio = #{param1}   order by create_time desc limit #{param2},#{param3};
+      select id,student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak from class_comment where class_target_bak ='课评' and studio = #{param1}   order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取全部 -->
   <select id="getMessageByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园') and student_name = #{param1} and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target class_target_bak ='课评' and student_name = #{param1} and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取全部 -->
   <select id="getMessageClient" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园') and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
   </select>
 
   <!-- 获取全部 -->
   <select id="getMessageInName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园') and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target class_target_bak ='课评' and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取范画 -->
@@ -112,12 +112,12 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园') and studio = #{param2}  order by create_time desc limit #{param3},#{param4};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target_bak ='课评' and studio = #{param2}  order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target not in ('范画','广告','主页','课程体系','奖状','付款码','奖状模板','课件','环境','教程列表','教程详情','礼品乐园')
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where id = #{param1} and class_target_bak ='课评'
   </select>
 
   <!-- 获取详情 -->
@@ -202,7 +202,7 @@
 
   <!-- 插入信息 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
-      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio})
+      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak})
   </insert>
 
   <!-- 插入课程表 -->

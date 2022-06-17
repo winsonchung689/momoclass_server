@@ -14,6 +14,8 @@ public class Message {
 
     private String class_target;
 
+    private String class_target_bak;
+
     private String id;
 
     private String studio;
@@ -40,6 +42,14 @@ public class Message {
 
     public void setClass_target(String class_target) {
         this.class_target = class_target;
+    }
+
+    public String getClass_target_bak() {
+        return class_target_bak;
+    }
+
+    public void setClass_target_bak(String class_target_bak) {
+        this.class_target_bak = class_target_bak;
     }
 
     public String getCreate_time() {
