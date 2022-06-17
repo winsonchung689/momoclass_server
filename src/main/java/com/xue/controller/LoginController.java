@@ -1043,9 +1043,14 @@ public class LoginController {
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
-		String class_target_bak = request.getParameter("class_target_bak");
-		if(class_target_bak.isEmpty()){
-			class_target_bak = class_target;
+		String class_target_bak = class_target;
+		try {
+			String class_target_bak_get = request.getParameter("class_target_bak");
+			if(!class_target_bak_get.isEmpty()){
+				class_target_bak = class_target_bak_get;
+			}
+		} catch (Exception e) {
+//			e.printStackTrace();
 		}
 
 		String studio = request.getParameter("studio");
