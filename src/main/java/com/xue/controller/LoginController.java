@@ -1059,7 +1059,7 @@ public class LoginController {
 			message.setCreate_time(create_time);
 			message.setClass_name(class_name);
 			message.setClass_target(class_target);
-			message.setClass_target(class_target_bak);
+			message.setClass_target_bak(class_target_bak);
 			message.setStudio(studio);
 
 			if(!"奖状".equals(class_target)){
