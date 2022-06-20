@@ -511,8 +511,13 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("sign_up", "未签到");
                     }
 
-                    String messages = dao.getCommentByDate(student_name,studio,date_time + " 00:00:00");
-                    if(!messages.isEmpty()){
+                    String messages = null;
+                    try {
+                        messages = dao.getCommentByDate(student_name,studio,date_time + " 00:00:00");
+                    } catch (Exception e) {
+//                        e.printStackTrace();
+                    }
+                    if(messages != null){
                         jsonObject.put("comment_status", "已课评");
                     }else {
                         jsonObject.put("comment_status", "未课评");
