@@ -1043,6 +1043,19 @@ public class LoginController {
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
+		//获取时间
+		String date_time = null;
+		try {
+			 date_time = request.getParameter("date_time");
+		} catch (Exception e) {
+			// nothing to do
+		}
+		if(!date_time.isEmpty()){
+			date_time = date_time + " HH:mm:ss";
+		}else {
+			date_time = create_time;
+		}
+
 		String class_target_bak = class_target;
 		try {
 			String class_target_bak_get = request.getParameter("class_target_bak");
@@ -1061,7 +1074,7 @@ public class LoginController {
 
 			message.setComment(comment);
 			message.setStudent_name(student_name);
-			message.setCreate_time(create_time);
+			message.setCreate_time(date_time);
 			message.setClass_name(class_name);
 			message.setClass_target(class_target);
 			message.setClass_target_bak(class_target_bak);
