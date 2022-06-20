@@ -513,9 +513,9 @@ public class LoginServiceImpl implements LoginService {
 
                     List<Message> messages = dao.getCommentByDate(student_name,studio,date_time + " 00:00:00");
                     if(messages.size()>0){
-                        jsonObject.put("sign_up", "已课评");
+                        jsonObject.put("comment_status", "已课评");
                     }else {
-                        jsonObject.put("sign_up", "未课评");
+                        jsonObject.put("comment_status", "未课评");
                     }
 
                     resul_list.add(jsonObject);
