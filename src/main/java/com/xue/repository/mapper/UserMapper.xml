@@ -250,6 +250,11 @@
     select id,student_name,create_time,studio,sign_time,mark from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3}  order by create_time
   </select>
 
+  <!-- 查找课评记录 -->
+  <select id="getCommentByDate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' where student_name =#{param1} and studio = #{param2} and create_time=#{param3}  order by create_time
+  </select>
+
   <!-- 查找礼物记录 -->
   <select id="getGift" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
     select id,student_name,gift_name,create_time,expired_time,studio,gift_amount,status from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
