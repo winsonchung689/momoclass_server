@@ -1044,16 +1044,11 @@ public class LoginController {
 		String class_target = request.getParameter("class_target");
 
 		//获取时间
-		String date_time = null;
-		try {
-			 date_time = request.getParameter("date_time");
-		} catch (Exception e) {
-			// nothing to do
-		}
-		if(!date_time.isEmpty()||date_time.equals("undefined")){
-			date_time = date_time + " 00:00:00";
-		}else {
+		String date_time = request.getParameter("date_time");
+		if(date_time == null || date_time.isEmpty() || "undefined".equals(date_time)){
 			date_time = create_time;
+		}else {
+			date_time = date_time + " 00:00:00";
 		}
 
 		String class_target_bak = class_target;
