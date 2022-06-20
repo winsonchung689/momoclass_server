@@ -513,7 +513,7 @@ public class LoginServiceImpl implements LoginService {
 
                     String messages = null;
                     try {
-                        messages = dao.getCommentByDate(student_name,studio,date_time + " 00:00:00");
+                        messages = dao.getCommentByDate(student_name,studio,date_time);
                     } catch (Exception e) {
 //                        e.printStackTrace();
                     }
