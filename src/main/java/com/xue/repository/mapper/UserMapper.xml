@@ -52,7 +52,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessageInName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target class_target_bak ='课评' and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取范画 -->
