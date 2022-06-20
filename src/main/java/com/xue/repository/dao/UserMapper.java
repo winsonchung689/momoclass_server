@@ -155,7 +155,7 @@ public interface UserMapper {
 
     List<SignUp> getSignUp(String student_name,String studio);
 
-    List<Message> getCommentByDate(String student_name,String studio,String date_time);
+    String getCommentByDate(String student_name,String studio,String date_time);
 
     List<SignUp> getSignUpByDate(String student_name,String studio,String date_time);
 
