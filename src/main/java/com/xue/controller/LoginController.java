@@ -1051,7 +1051,7 @@ public class LoginController {
 			// nothing to do
 		}
 		if(!date_time.isEmpty()){
-			date_time = date_time + " HH:mm:ss";
+			date_time = date_time + " 00:00:00";
 		}else {
 			date_time = create_time;
 		}
