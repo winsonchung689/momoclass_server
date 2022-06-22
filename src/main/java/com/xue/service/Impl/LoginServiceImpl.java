@@ -54,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateLesson(Lesson lesson) {
+    public int updateLesson(Lesson lesson,Float lessons_amount) {
         int result = 0;
         try {
             String student_name = lesson.getStudent_name();
@@ -90,8 +90,8 @@ public class LoginServiceImpl implements LoginService {
                     }
             }
             lesson.setStudent_name(student_name);
-            lesson.setTotal_amount(total_amount);
-            lesson.setLeft_amount(left_amount);
+            lesson.setTotal_amount(total_amount + lessons_amount);
+            lesson.setLeft_amount(left_amount + lessons_amount);
             lesson.setMinus(minus_amount);
             lesson.setCoins(coins_amount);
             result = dao.updateLesson(lesson);

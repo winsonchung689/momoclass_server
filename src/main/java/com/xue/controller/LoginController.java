@@ -1007,7 +1007,7 @@ public class LoginController {
 					if(lessons_get.isEmpty()){
 						loginService.insertLesson(lesson);
 					}else {
-						loginService.updateLesson(lesson);
+						loginService.updateLesson(lesson,0.0f);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -1392,6 +1392,9 @@ public class LoginController {
 		// 获取type
 		String modify_type = request.getParameter("modify_type");
 
+		// 获取type
+		Float lessons_amount = Float.valueOf(request.getParameter("lessons_amount"));
+
 		Float minus_amount=0.0f;
 		Float coins_amount=0.0f;
 		List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
@@ -1417,7 +1420,6 @@ public class LoginController {
 		}
 
 
-
 		Lesson lesson =new Lesson();
 		lesson.setStudent_name(student_name);
 		lesson.setTotal_amount(total_amount);
@@ -1438,7 +1440,7 @@ public class LoginController {
 			if("coins_modify_all".equals(modify_type)){
 				dao.updateLessonAll(coins_amount,studio);
 			}else {
-				loginService.updateLesson(lesson);
+				loginService.updateLesson(lesson,lessons_amount);
 			}
 
 		}else {
