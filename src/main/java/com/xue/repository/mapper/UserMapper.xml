@@ -37,7 +37,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak from class_comment where class_target_bak ='课评' and studio = #{param1}   order by create_time desc limit #{param2},#{param3};
+      select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,class_target_bak from class_comment where class_target_bak ='课评' and studio = #{param1}   order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取全部 -->
