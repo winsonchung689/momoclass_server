@@ -109,7 +109,7 @@ public class LoginServiceImpl implements LoginService {
         String student_name = null;
         String class_name = null;
         String class_target = null;
-//		String id = null;
+		String studio = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -123,7 +123,14 @@ public class LoginServiceImpl implements LoginService {
                 comment = line.getComment();
                 photo = line.getPhoto();
                 class_target = line.getClass_target();
-//				id = line.getId();
+				studio = line.getStudio();
+
+                jsonObject.put("isHide","true");
+                List<User> user = dao.getUserByStudent(student_name,studio);
+                if (user.size()>0){
+                    jsonObject.put("isHide","false");
+                }
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
