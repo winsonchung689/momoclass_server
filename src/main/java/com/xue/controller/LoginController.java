@@ -1231,6 +1231,9 @@ public class LoginController {
 		}
         //获取 openid
 		String openid = request.getParameter("openid");
+		if(openid.length()!=28){
+			return "invalid openid！！";
+		}
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 
@@ -1241,8 +1244,6 @@ public class LoginController {
 		if(list_u.size()>0){
 			comment_style = list_u.get(0).getComment_style();
 		}
-
-
 
 
 		try {
