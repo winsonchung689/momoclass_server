@@ -125,10 +125,10 @@ public class LoginServiceImpl implements LoginService {
                 class_target = line.getClass_target();
 				studio = line.getStudio();
 
-                jsonObject.put("isHide","true");
+                jsonObject.put("isHide",true);
                 List<User> user = dao.getUserByStudent(student_name,studio);
                 if (user.size()>0){
-                    jsonObject.put("isHide","false");
+                    jsonObject.put("isHide",false);
                 }
 
                 //json
