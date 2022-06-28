@@ -408,6 +408,11 @@
     update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where openid=#{openid}
   </update>
 
+  <!-- 更新颜色 -->
+  <update id="updateTheme" parameterType="com.xue.entity.model.User">
+    update user set theme=#{param1} where openid=#{param2}
+  </update>
+
   <!-- 续费更新 -->
   <update id="updateUserPay" parameterType="com.xue.entity.model.User">
     update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where studio=#{studio} and role='boss'

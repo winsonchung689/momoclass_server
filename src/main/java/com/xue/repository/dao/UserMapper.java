@@ -103,6 +103,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateTheme(String theme,String param2);
+
     int updateUserPay(User user);
 
     int updateComentStyle(User user);

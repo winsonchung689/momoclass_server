@@ -1322,6 +1322,19 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateTheme")
+	@ResponseBody
+	public String updateTheme(String theme, String openid){
+
+		try {
+			dao.updateTheme(theme,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateComentStyle")
 	@ResponseBody
 	public String updateComentStyle(HttpServletRequest request, HttpServletResponse response){
