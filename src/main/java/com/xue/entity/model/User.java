@@ -24,6 +24,15 @@ public class User {
 
     private Integer coins;
 
+    private String theme;
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
 
     public String getComment_style() {
         return comment_style;

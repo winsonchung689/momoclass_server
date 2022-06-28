@@ -790,6 +790,7 @@ public class LoginServiceImpl implements LoginService {
         String expired_time = null;
         Integer coins = 0;
         String comment_style = null;
+        String theme = null;
         List<User> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -812,6 +813,7 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 openid = line.getOpenid();
                 comment_style = line.getComment_style();
+                theme = line.getTheme();
 
                 //json
                 jsonObject.put("role", role);
@@ -825,6 +827,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("coins", coins);
                 jsonObject.put("openid",openid);
                 jsonObject.put("comment_style",comment_style);
+                jsonObject.put("theme",theme);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
