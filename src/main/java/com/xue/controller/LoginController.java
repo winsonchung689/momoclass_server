@@ -328,6 +328,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取妈妈分享
+	@RequestMapping("/getMamaShare")
+	@ResponseBody
+	public List getMamaShare(Integer page){
+		List list = null;
+		try {
+			list = loginService.getMamaShare(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取PPT名字
 	@RequestMapping("/getPpt")
 	@ResponseBody

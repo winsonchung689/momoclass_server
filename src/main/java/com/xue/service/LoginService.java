@@ -14,6 +14,8 @@ public interface LoginService {
 
     public List  getModel(String studio,Integer page);
 
+    public List  getMamaShare(Integer page);
+
     public List  getPpt(Integer page);
 
     public List  getLesson(String studio,String student_name);
