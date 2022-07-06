@@ -1695,6 +1695,7 @@ public class LoginServiceImpl implements LoginService {
         String class_target = null;
         String id = null;
         String create_time = null;
+        String studio = null;
         Integer page_start = (page - 1) * 2;
         Integer page_length = 2;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -1712,6 +1713,7 @@ public class LoginServiceImpl implements LoginService {
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
+                studio = line.getStudio();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
@@ -1720,6 +1722,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("studio", studio);
                 resul_list.add(jsonObject);
             }
 
