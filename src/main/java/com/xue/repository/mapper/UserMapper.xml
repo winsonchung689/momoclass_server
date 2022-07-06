@@ -62,7 +62,7 @@
 
   <!-- 获取范画 -->
   <select id="getMamaShare" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='打卡' and studio = '全部' order by create_time desc limit #{param1},#{param2};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='打卡' order by create_time desc limit #{param1},#{param2};
   </select>
 
   <!-- 获取广告 -->
