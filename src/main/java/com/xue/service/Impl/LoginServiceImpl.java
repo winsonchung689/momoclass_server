@@ -607,9 +607,8 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int deleteComment(Integer id, String role) {
         try {
-            if ("boss".equals(role)) {
-                dao.deleteComment(id);
-            }
+            dao.deleteComment(id);
+
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
