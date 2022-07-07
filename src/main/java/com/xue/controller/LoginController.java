@@ -1302,7 +1302,7 @@ public class LoginController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cal.add(cal.DATE,30);
+		cal.add(cal.DATE,31);
 		String expired_time = df.format(cal.getTime());
 
 		//获取openid
