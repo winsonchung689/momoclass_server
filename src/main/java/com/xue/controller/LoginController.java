@@ -1056,6 +1056,8 @@ public class LoginController {
 		String class_name = request.getParameter("class_name");
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
+		//获取课堂时间
+		String duration = request.getParameter("duration");
 
 		//获取时间
 		String date_time = request.getParameter("date_time");
@@ -1088,6 +1090,7 @@ public class LoginController {
 			message.setClass_target(class_target);
 			message.setClass_target_bak(class_target_bak);
 			message.setStudio(studio);
+			message.setDuration(duration);
 
 			if(!"奖状".equals(class_target)){
 				in = Imageutil.readImage(photo);

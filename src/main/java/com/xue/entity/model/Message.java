@@ -20,6 +20,16 @@ public class Message {
 
     private String studio;
 
+    private String duration;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     public String getStudio() {
         return studio;
     }

@@ -499,13 +499,19 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
-                try {
-                    String messages = dao.getCommentByDate(student_name,studio,date_time);
-                    if (messages.length()>0){
-                        jsonObject.put("comment_status", "已课评");
-                    }
-                } catch (Exception e) {
+                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
+                String duration_get_1 = null;
+                if (messages.size()>0){
+                    duration_get_1 = messages.get(0).getDuration();
+                    jsonObject.put("comment_status", "已课评");
+                }else {
                     jsonObject.put("comment_status", "未课评");
+                }
+                if (!duration_get_1.equals("00:00-00:00")){
+                    if(!duration_get_1.equals(duration)){
+                        jsonObject.put("comment_status", "未课评");
+                    }
+
                 }
 
                 //json
@@ -525,15 +531,15 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("update_time", update_time.substring(0,10));
 
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
-                    String duration_get = null;
+                    String duration_get_2 = null;
                     if(signUps.size()>0){
-                        duration_get = signUps.get(0).getDuration();
+                        duration_get_2 = signUps.get(0).getDuration();
                         jsonObject.put("sign_up", "已签到");
                     }else {
                         jsonObject.put("sign_up", "未签到");
                     }
-                    if (!duration_get.isEmpty()){
-                        if(!duration_get.equals(duration)){
+                    if (!duration_get_2.equals("00:00-00:00")){
+                        if(!duration_get_2.equals(duration)){
                             jsonObject.put("sign_up", "未签到");
                         }
 
@@ -573,13 +579,19 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
-                try {
-                    String messages = dao.getCommentByDate(student_name,studio,date_time);
-                    if (messages.length()>0){
-                        jsonObject.put("comment_status", "已课评");
-                    }
-                } catch (Exception e) {
+                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
+                String duration_get_3 = null;
+                if (messages.size()>0){
+                    duration_get_3 = messages.get(0).getDuration();
+                    jsonObject.put("comment_status", "已课评");
+                }else {
                     jsonObject.put("comment_status", "未课评");
+                }
+                if (!duration_get_3.equals("00:00-00:00")){
+                    if(!duration_get_3.equals(duration)){
+                        jsonObject.put("comment_status", "未课评");
+                    }
+
                 }
 
                 //json
@@ -599,10 +611,18 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("update_time", update_time.substring(0,10));
 
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    String duration_get_4 = null;
                     if(signUps.size()>0){
+                        duration_get_4 = signUps.get(0).getDuration();
                         jsonObject.put("sign_up", "已签到");
                     }else {
                         jsonObject.put("sign_up", "未签到");
+                    }
+                    if (!duration_get_4.equals("00:00-00:00")){
+                        if(!duration_get_4.equals(duration)){
+                            jsonObject.put("sign_up", "未签到");
+                        }
+
                     }
                     resul_list.add(jsonObject);
                 }
