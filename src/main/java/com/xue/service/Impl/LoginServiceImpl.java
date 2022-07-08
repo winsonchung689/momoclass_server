@@ -1510,6 +1510,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         List<User> users=null;
+        String duration = null;
         StringBuilder student_names = new StringBuilder();
 
         try {
@@ -1545,6 +1546,7 @@ public class LoginServiceImpl implements LoginService {
                     id = line.getId();
                     create_time = line.getCreate_time();
                     studio = line.getStudio();
+                    duration = line.getDuration();
 
                     try {
                         List<Lesson> lessons = dao.getLessonByName(student_name, studio);
@@ -1571,6 +1573,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_target", class_target);
                     jsonObject.put("id", id);
                     jsonObject.put("create_time", create_time);
+                    jsonObject.put("duration", duration);
                     resul_list.add(jsonObject);
                 }
             }
