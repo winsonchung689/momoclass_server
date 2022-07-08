@@ -525,10 +525,18 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("update_time", update_time.substring(0,10));
 
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    String duration_get = null;
                     if(signUps.size()>0){
+                        duration_get = signUps.get(0).getDuration();
                         jsonObject.put("sign_up", "已签到");
                     }else {
                         jsonObject.put("sign_up", "未签到");
+                    }
+                    if (!duration_get.isEmpty()){
+                        if(!duration_get.equals(duration)){
+                            jsonObject.put("sign_up", "未签到");
+                        }
+
                     }
                     resul_list.add(jsonObject);
                 }
