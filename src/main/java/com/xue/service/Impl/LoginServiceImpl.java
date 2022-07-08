@@ -507,11 +507,12 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     jsonObject.put("comment_status", "未课评");
                 }
-                if (!duration_get_1.equals("00:00-00:00")){
-                    if(!duration_get_1.equals(duration)){
-                        jsonObject.put("comment_status", "未课评");
+                if (messages.size()>0) {
+                    if (!duration_get_1.equals("00:00-00:00")) {
+                        if (!duration_get_1.equals(duration)) {
+                            jsonObject.put("comment_status", "未课评");
+                        }
                     }
-
                 }
 
                 //json
@@ -538,11 +539,13 @@ public class LoginServiceImpl implements LoginService {
                     }else {
                         jsonObject.put("sign_up", "未签到");
                     }
-                    if (!duration_get_2.equals("00:00-00:00")){
-                        if(!duration_get_2.equals(duration)){
-                            jsonObject.put("sign_up", "未签到");
-                        }
+                    if (signUps.size()>0) {
+                        if (!duration_get_2.equals("00:00-00:00")) {
+                            if (!duration_get_2.equals(duration)) {
+                                jsonObject.put("sign_up", "未签到");
+                            }
 
+                        }
                     }
                     resul_list.add(jsonObject);
                 }
@@ -587,11 +590,12 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     jsonObject.put("comment_status", "未课评");
                 }
-                if (!duration_get_3.equals("00:00-00:00")){
-                    if(!duration_get_3.equals(duration)){
-                        jsonObject.put("comment_status", "未课评");
+                if (messages.size()>0) {
+                    if (!duration_get_3.equals("00:00-00:00")) {
+                        if (!duration_get_3.equals(duration)) {
+                            jsonObject.put("comment_status", "未课评");
+                        }
                     }
-
                 }
 
                 //json
@@ -618,11 +622,12 @@ public class LoginServiceImpl implements LoginService {
                     }else {
                         jsonObject.put("sign_up", "未签到");
                     }
-                    if (!duration_get_4.equals("00:00-00:00")){
-                        if(!duration_get_4.equals(duration)){
-                            jsonObject.put("sign_up", "未签到");
+                    if (signUps.size()>0) {
+                        if (!duration_get_4.equals("00:00-00:00")) {
+                            if (!duration_get_4.equals(duration)) {
+                                jsonObject.put("sign_up", "未签到");
+                            }
                         }
-
                     }
                     resul_list.add(jsonObject);
                 }
