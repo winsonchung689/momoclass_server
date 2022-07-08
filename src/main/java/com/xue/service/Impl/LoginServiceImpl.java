@@ -212,6 +212,7 @@ public class LoginServiceImpl implements LoginService {
         String sign_time = null;
         String id = null;
         String mark = null;
+        String duration = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -224,6 +225,7 @@ public class LoginServiceImpl implements LoginService {
                 sign_time = line.getSign_time();
                 id = line.getId();
                 mark = line.getMark();
+                duration = line.getDuration();
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 Date create_time_dt = df1.parse(create_time.substring(0,10));
@@ -244,6 +246,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("sign_time", sign_time.substring(0,10));
                 jsonObject.put("rank", i + 1);
                 jsonObject.put("mark", mark);
+                jsonObject.put("duration", duration);
                 resul_list.add(jsonObject);
             }
 
