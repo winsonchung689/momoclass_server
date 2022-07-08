@@ -14,6 +14,16 @@ public class SignUp {
 
     private String mark;
 
+    private String duration;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     public String getMark() {
         return mark;
     }
