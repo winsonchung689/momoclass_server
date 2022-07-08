@@ -502,7 +502,12 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
-                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
+                List<Message> messages = null;
+                try {
+                    messages = dao.getCommentByDate(student_name,studio,date_time);
+                } catch (Exception e) {
+                    jsonObject.put("comment_status", "未课评");
+                }
                 String duration_get_1 = null;
                 if (messages.size()>0){
                     duration_get_1 = messages.get(0).getDuration();
@@ -534,7 +539,12 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    List<SignUp> signUps = null;
+                    try {
+                        signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    } catch (Exception e) {
+                        jsonObject.put("sign_up", "未签到");
+                    }
                     String duration_get_2 = null;
                     if(signUps.size()>0){
                         duration_get_2 = signUps.get(0).getDuration();
@@ -585,7 +595,12 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
-                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
+                List<Message> messages = null;
+                try {
+                    messages = dao.getCommentByDate(student_name,studio,date_time);
+                } catch (Exception e) {
+                    jsonObject.put("comment_status", "未课评");
+                }
                 String duration_get_3 = null;
                 if (messages.size()>0){
                     duration_get_3 = messages.get(0).getDuration();
@@ -617,7 +632,12 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    List<SignUp> signUps = null;
+                    try {
+                        signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    } catch (Exception e) {
+                        jsonObject.put("sign_up", "未签到");
+                    }
                     String duration_get_4 = null;
                     if(signUps.size()>0){
                         duration_get_4 = signUps.get(0).getDuration();
