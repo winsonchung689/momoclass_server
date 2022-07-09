@@ -163,7 +163,11 @@ public interface UserMapper {
 
     List<Message> getCommentByDate(String student_name,String studio,String date_time);
 
+    List<Message> getCommentByDateDuration(String student_name,String studio,String date_time,String duration);
+
     List<SignUp> getSignUpByDate(String student_name,String studio,String date_time);
+
+    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration);
 
     List<Gift> getGift(String student_name,String studio);
 
