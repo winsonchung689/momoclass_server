@@ -501,15 +501,18 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number","临时加课");
                 }
 
-                jsonObject.put("comment_status", "未课评");
                 List<Message> messages = null;
                 List<Message> messagesDuration = null;
+                jsonObject.put("comment_status", "未课评");
                 try {
                     messages = dao.getCommentByDate(student_name,studio,date_time);
                     if (messages.size()==1){
                         jsonObject.put("comment_status", "已课评");
                     }else {
-                        jsonObject.put("comment_status", "未课评");
+                        messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
+                        if(messagesDuration.size()==1){
+                            jsonObject.put("comment_status", "已课评");
+                        }
                     }
                     if (messages.size()>1) {
                         messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
@@ -540,10 +543,18 @@ public class LoginServiceImpl implements LoginService {
 
                     List<SignUp> signUps = null;
                     List<SignUp> signUpsDuration = null;
+                    jsonObject.put("sign_up", "未签到");
                     try {
                         signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                         if(signUps.size()==1){
-                            jsonObject.put("sign_up", "已签到");
+                            if(signUps.get(0).getDuration().equals("00:00-00:00")){
+                                jsonObject.put("sign_up", "已签到");
+                            }else {
+                                signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
+                                if(signUpsDuration.size()==1){
+                                    jsonObject.put("sign_up", "已签到");
+                                }
+                            }
                         }else {
                             jsonObject.put("sign_up", "未签到");
                         }
@@ -591,15 +602,18 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number","临时加课");
                 }
 
-                jsonObject.put("comment_status", "未课评");
                 List<Message> messages = null;
                 List<Message> messagesDuration = null;
+                jsonObject.put("comment_status", "未课评");
                 try {
                     messages = dao.getCommentByDate(student_name,studio,date_time);
                     if (messages.size()>0){
                         jsonObject.put("comment_status", "已课评");
                     }else {
-                        jsonObject.put("comment_status", "未课评");
+                        messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
+                        if(messagesDuration.size()==1){
+                            jsonObject.put("comment_status", "已课评");
+                        }
                     }
                     if (messages.size()>1) {
                         messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
@@ -630,12 +644,16 @@ public class LoginServiceImpl implements LoginService {
 
                     List<SignUp> signUps = null;
                     List<SignUp> signUpsDuration = null;
+                    jsonObject.put("sign_up", "未签到");
                     try {
                         signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                         if(signUps.size()==1){
                             jsonObject.put("sign_up", "已签到");
                         }else {
-                            jsonObject.put("sign_up", "未签到");
+                            signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
+                            if(signUpsDuration.size()==1){
+                                jsonObject.put("sign_up", "已签到");
+                            }
                         }
                         if (signUps.size()>1) {
                             signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
