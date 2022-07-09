@@ -514,7 +514,7 @@ public class LoginServiceImpl implements LoginService {
                     if (messages.size()>1) {
                         messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
                         if(messagesDuration.size()==1){
-                            jsonObject.put("comment_status", "已签到");
+                            jsonObject.put("comment_status", "已课评");
                         }
 
                     }
@@ -604,7 +604,7 @@ public class LoginServiceImpl implements LoginService {
                     if (messages.size()>1) {
                         messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
                         if(messagesDuration.size()==1){
-                            jsonObject.put("comment_status", "已签到");
+                            jsonObject.put("comment_status", "已课评");
                         }
 
                     }
