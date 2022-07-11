@@ -687,23 +687,26 @@ public class LoginController {
 			signUp.setCreate_time(date_time + " 00:00:00");
 			signUp.setMark(mark);
 			signUp.setDuration(duration);
-			loginService.insertSignUp(signUp);
+			int insert_res = loginService.insertSignUp(signUp);
+			if(insert_res>0){
+				List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+				Float count = 0.0f;
+				Integer coins = 0;
+				if(lessons.size()>0){
+					count = lessons.get(0).getMinus();
+					Float coins_get = lessons.get(0).getCoins();
+					coins = Math.round(coins_get);
+				}
 
-			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-			Float count = 0.0f;
-			Integer coins = 0;
-			if(lessons.size()>0){
-				count = lessons.get(0).getMinus();
-				Float coins_get = lessons.get(0).getCoins();
-				coins = Math.round(coins_get);
+				if(Float.parseFloat(class_count) != 100){
+					count = Float.parseFloat(class_count);
+				}
+
+				loginService.updateMinusLesson(student_name,studio,count);
+				loginService.updateAddPoints(student_name,studio,coins);
 			}
 
-			if(Float.parseFloat(class_count) != 100){
-				count = Float.parseFloat(class_count);
-			}
 
-			loginService.updateMinusLesson(student_name,studio,count);
-			loginService.updateAddPoints(student_name,studio,coins);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
