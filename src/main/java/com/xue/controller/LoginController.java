@@ -1061,6 +1061,9 @@ public class LoginController {
 		String class_target = request.getParameter("class_target");
 		//获取课堂时间
 		String duration = request.getParameter("duration");
+		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
+			duration = "00:00-00:00";
+		}
 
 		//获取时间
 		String date_time = request.getParameter("date_time");
