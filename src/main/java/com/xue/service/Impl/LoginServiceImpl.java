@@ -380,7 +380,11 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 id = line.getId();
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration);
-                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration);
+                try {
+                    sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration);
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
 
                 //json
                 jsonObject.put("class_number", class_number);
