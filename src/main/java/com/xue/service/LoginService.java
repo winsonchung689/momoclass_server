@@ -40,7 +40,7 @@ public interface LoginService {
 
     public List  getLeaveRecord(String student_name,String studio);
 
-    public List  getArrangement(String studio,Integer dayofweek);
+    public List  getArrangement(String studio,Integer dayofweek,String date);
 
     public int insertSchedule(Schedule schedule);
 

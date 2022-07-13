@@ -352,7 +352,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangement(String studio,Integer dayofweek) {
+    public List getArrangement(String studio,Integer dayofweek,String date) {
         String class_number = null;
         String duration = null;
         String limits = null;
@@ -361,6 +361,7 @@ public class LoginServiceImpl implements LoginService {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
+        Integer sign_count =0;
         if(dayofweek==7){
             dayofweek_by=1;
         }else {
@@ -379,6 +380,7 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 id = line.getId();
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration);
+                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration);
 
                 //json
                 jsonObject.put("class_number", class_number);
@@ -388,6 +390,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("classes_count", classes_count);
                 jsonObject.put("dayofweek",dayofweek);
                 jsonObject.put("id",id);
+                jsonObject.put("sign_count",sign_count);
                 resul_list.add(jsonObject);
             }
 
