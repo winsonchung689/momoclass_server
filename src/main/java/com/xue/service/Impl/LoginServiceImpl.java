@@ -522,6 +522,10 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("comment_status", "已课评");
                             }
                         }
+                    }else if(messages.size()>=2){
+                        if(messages.get(0).getDuration().equals("00:00-00:00")){
+                            jsonObject.put("comment_status", "已课评");
+                        }
                     }else {
                         jsonObject.put("comment_status", "未课评");
                     }
@@ -627,7 +631,11 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("comment_status", "已课评");
                             }
                         }
-                    }else {
+                    }else if(messages.size()>=2){
+                        if(messages.get(0).getDuration().equals("00:00-00:00")){
+                            jsonObject.put("comment_status", "已课评");
+                        }
+                    } else {
                         jsonObject.put("comment_status", "未课评");
                     }
                     if (messages.size()>1) {
