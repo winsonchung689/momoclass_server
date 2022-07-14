@@ -513,7 +513,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_status", "未课评");
                 try {
                     messages = dao.getCommentByDate(student_name,studio,date_time);
-                    if (messages.size()==1){
+                    if (messages.size()>=1){
                         if(messages.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("comment_status", "已课评");
                         }else {
@@ -522,19 +522,8 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("comment_status", "已课评");
                             }
                         }
-                    }else if(messages.size()>=2){
-                        if(messages.get(0).getDuration().equals("00:00-00:00")){
-                            jsonObject.put("comment_status", "已课评");
-                        }
                     }else {
                         jsonObject.put("comment_status", "未课评");
-                    }
-                    if (messages.size()>1) {
-                        messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
-                        if(messagesDuration.size()==1){
-                            jsonObject.put("comment_status", "已课评");
-                        }
-
                     }
                 } catch (Exception e) {
                     jsonObject.put("comment_status", "未课评");
@@ -561,7 +550,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_up", "未签到");
                     try {
                         signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
-                        if(signUps.size()==1){
+                        if(signUps.size()>=1){
                             if(signUps.get(0).getDuration().equals("00:00-00:00")){
                                 jsonObject.put("sign_up", "已签到");
                             }else {
@@ -572,13 +561,6 @@ public class LoginServiceImpl implements LoginService {
                             }
                         }else {
                             jsonObject.put("sign_up", "未签到");
-                        }
-                        if (signUps.size()>1) {
-                            signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
-                            if(signUpsDuration.size()==1){
-                                jsonObject.put("sign_up", "已签到");
-                            }
-
                         }
                     } catch (Exception e) {
                         jsonObject.put("sign_up", "未签到");
@@ -622,7 +604,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_status", "未课评");
                 try {
                     messages = dao.getCommentByDate(student_name,studio,date_time);
-                    if (messages.size()==1){
+                    if (messages.size()>=1){
                         if(messages.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("comment_status", "已课评");
                         }else {
@@ -631,19 +613,8 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("comment_status", "已课评");
                             }
                         }
-                    }else if(messages.size()>=2){
-                        if(messages.get(0).getDuration().equals("00:00-00:00")){
-                            jsonObject.put("comment_status", "已课评");
-                        }
-                    } else {
+                    }else {
                         jsonObject.put("comment_status", "未课评");
-                    }
-                    if (messages.size()>1) {
-                        messagesDuration = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
-                        if(messagesDuration.size()==1){
-                            jsonObject.put("comment_status", "已课评");
-                        }
-
                     }
                 } catch (Exception e) {
                     jsonObject.put("comment_status", "未课评");
@@ -670,7 +641,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_up", "未签到");
                     try {
                         signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
-                        if(signUps.size()==1){
+                        if(signUps.size()>=1){
                             if(signUps.get(0).getDuration().equals("00:00-00:00")){
                                 jsonObject.put("sign_up", "已签到");
                             }else {
@@ -681,13 +652,6 @@ public class LoginServiceImpl implements LoginService {
                             }
                         }else {
                             jsonObject.put("sign_up", "未签到");
-                        }
-                        if (signUps.size()>1) {
-                            signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
-                            if(signUpsDuration.size()==1){
-                                jsonObject.put("sign_up", "已签到");
-                            }
-
                         }
                     } catch (Exception e) {
                         jsonObject.put("sign_up", "未签到");
