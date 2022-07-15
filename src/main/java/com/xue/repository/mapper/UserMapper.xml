@@ -217,7 +217,7 @@
 
   <!-- 插入签到记录 -->
   <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">
-    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration})
+    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count})
   </insert>
 
   <!-- 插入请假记录 -->
@@ -247,7 +247,7 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and studio = #{param2} order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count from sign_up_record where student_name =#{param1} and studio = #{param2} order by create_time
   </select>
 
   <!-- 查找签到记录 -->

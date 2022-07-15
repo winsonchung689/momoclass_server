@@ -216,6 +216,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String mark = null;
         String duration = null;
+        Float count = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -229,6 +230,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 mark = line.getMark();
                 duration = line.getDuration();
+                count = line.getCount();
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 Date create_time_dt = df1.parse(create_time.substring(0,10));
@@ -250,6 +252,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("rank", i + 1);
                 jsonObject.put("mark", mark);
                 jsonObject.put("duration", duration);
+                jsonObject.put("count", count);
                 resul_list.add(jsonObject);
             }
 

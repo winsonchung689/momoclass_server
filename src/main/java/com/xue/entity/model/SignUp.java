@@ -16,6 +16,16 @@ public class SignUp {
 
     private String duration;
 
+    private Float count;
+
+    public Float getCount() {
+        return count;
+    }
+
+    public void setCount(Float count) {
+        this.count = count;
+    }
+
     public String getDuration() {
         return duration;
     }
