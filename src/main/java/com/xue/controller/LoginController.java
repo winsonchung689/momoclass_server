@@ -1053,12 +1053,21 @@ public class LoginController {
 
 		//获取积极度
 		Integer positive = Integer.parseInt(request.getParameter("positive"));
+		if(positive == null || positive.equals("null") || "undefined".equals(positive)){
+			positive = 1;
+		}
 
 		//获取纪律性
 		Integer discipline = Integer.parseInt(request.getParameter("discipline"));
+		if(discipline == null || discipline.equals("null") || "undefined".equals(discipline)){
+			discipline = 1;
+		}
 
 		//获取开心值
 		Integer happiness = Integer.parseInt(request.getParameter("happiness"));
+		if(happiness == null || happiness.equals("null") || "undefined".equals(happiness)){
+			happiness = 1;
+		}
 
 		//获取图片路径
 		String photo = request.getParameter("photo");
