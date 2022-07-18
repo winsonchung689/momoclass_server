@@ -1051,6 +1051,15 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
+		//获取积极度
+		Integer positive = Integer.parseInt(request.getParameter("positive"));
+
+		//获取纪律性
+		Integer discipline = Integer.parseInt(request.getParameter("discipline"));
+
+		//获取开心值
+		Integer happiness = Integer.parseInt(request.getParameter("happiness"));
+
 		//获取图片路径
 		String photo = request.getParameter("photo");
 		//获取文字
@@ -1099,6 +1108,9 @@ public class LoginController {
 			message.setClass_target_bak(class_target_bak);
 			message.setStudio(studio);
 			message.setDuration(duration);
+			message.setPositive(positive);
+			message.setDiscipline(discipline);
+			message.setHappiness(happiness);
 
 			if(!"奖状".equals(class_target)){
 				in = Imageutil.readImage(photo);

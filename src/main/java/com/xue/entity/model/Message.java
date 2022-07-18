@@ -1,6 +1,8 @@
 package com.xue.entity.model;
 
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class Message {
     private String student_name;
 
@@ -21,6 +23,36 @@ public class Message {
     private String studio;
 
     private String duration;
+
+    private Integer positive;
+
+    private Integer discipline;
+
+    private Integer happiness;
+
+    public Integer getPositive() {
+        return positive;
+    }
+
+    public void setPositive(Integer positive) {
+        this.positive = positive;
+    }
+
+    public Integer getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(Integer discipline) {
+        this.discipline = discipline;
+    }
+
+    public Integer getHappiness() {
+        return happiness;
+    }
+
+    public void setHappiness(Integer happiness) {
+        this.happiness = happiness;
+    }
 
     public String getDuration() {
         return duration;
