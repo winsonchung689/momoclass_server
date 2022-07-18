@@ -1538,6 +1538,9 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list=null;
         List<User> users=null;
         String duration = null;
+        Integer positive = 0;
+        Integer discipline = 0;
+        Integer happiness = 0;
         StringBuilder student_names = new StringBuilder();
 
         try {
@@ -1574,6 +1577,9 @@ public class LoginServiceImpl implements LoginService {
                     create_time = line.getCreate_time();
                     studio = line.getStudio();
                     duration = line.getDuration();
+                    positive = line.getPositive();
+                    discipline = line.getDiscipline();
+                    happiness = line.getHappiness();
 
                     try {
                         List<Lesson> lessons = dao.getLessonByName(student_name, studio);
@@ -1601,6 +1607,9 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("create_time", create_time.substring(0,10));
                     jsonObject.put("duration", duration);
+                    jsonObject.put("positive", positive);
+                    jsonObject.put("discipline", discipline);
+                    jsonObject.put("happiness", happiness);
                     resul_list.add(jsonObject);
                 }
             }

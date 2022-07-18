@@ -1052,22 +1052,27 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取积极度
-		Integer positive = Integer.parseInt(request.getParameter("positive"));
-		if(positive == null || positive.equals("null") || "undefined".equals(positive)){
-			positive = 1;
+		String positive_get = request.getParameter("positive");
+		if(positive_get == null || positive_get.isEmpty() || "undefined".equals(positive_get)){
+			positive_get = "1";
 		}
+		Integer positive = Integer.parseInt(positive_get);
+
 
 		//获取纪律性
-		Integer discipline = Integer.parseInt(request.getParameter("discipline"));
-		if(discipline == null || discipline.equals("null") || "undefined".equals(discipline)){
-			discipline = 1;
+		String discipline_get = request.getParameter("discipline");
+		if(discipline_get == null || discipline_get.isEmpty() || "undefined".equals(discipline_get)){
+			discipline_get = "1";
 		}
+		Integer discipline = Integer.parseInt(discipline_get);
 
 		//获取开心值
-		Integer happiness = Integer.parseInt(request.getParameter("happiness"));
-		if(happiness == null || happiness.equals("null") || "undefined".equals(happiness)){
-			happiness = 1;
+		String happiness_get = request.getParameter("happiness");
+		if(happiness_get == null || happiness_get.isEmpty() || "undefined".equals(happiness_get)){
+			happiness_get = "1";
 		}
+		Integer happiness = Integer.parseInt(happiness_get);
+
 
 		//获取图片路径
 		String photo = request.getParameter("photo");
