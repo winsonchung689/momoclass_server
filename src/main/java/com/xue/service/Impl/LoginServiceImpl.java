@@ -557,32 +557,30 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    List<SignUp> signUps = null;
-                    List<SignUp> signUpsDuration = null;
                     jsonObject.put("sign_up", "未签到");
-                    try {
-                        signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
-                        if(signUps.size()>=1){
-                            if(signUps.get(0).getDuration().equals("00:00-00:00")){
-                                jsonObject.put("sign_up", "已签到");
-                            }else {
-                                signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
-                                if(signUpsDuration.size()==1){
-                                    jsonObject.put("sign_up", "已签到");
-                                }
-                            }
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    if(signUps.size()>=1){
+                        if(signUps.get(0).getDuration().equals("00:00-00:00")){
+                            jsonObject.put("sign_up", "已签到");
                         }else {
-                            jsonObject.put("sign_up", "未签到");
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
+                            if(signUpsDuration.size()==1){
+                                jsonObject.put("sign_up", "已签到");
+                            }
                         }
-                    } catch (Exception e) {
+                    }else {
                         jsonObject.put("sign_up", "未签到");
                     }
+
+                    jsonObject.put("leave", "未请假");
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
+                    if(leaves.size()==1){
+                        jsonObject.put("leave", "已请假");
+                    }
+
                     resul_list.add(jsonObject);
                 }
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -648,25 +646,25 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
 
-                    List<SignUp> signUps = null;
-                    List<SignUp> signUpsDuration = null;
                     jsonObject.put("sign_up", "未签到");
-                    try {
-                        signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
-                        if(signUps.size()>=1){
-                            if(signUps.get(0).getDuration().equals("00:00-00:00")){
-                                jsonObject.put("sign_up", "已签到");
-                            }else {
-                                signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
-                                if(signUpsDuration.size()==1){
-                                    jsonObject.put("sign_up", "已签到");
-                                }
-                            }
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    if(signUps.size()>=1){
+                        if(signUps.get(0).getDuration().equals("00:00-00:00")){
+                            jsonObject.put("sign_up", "已签到");
                         }else {
-                            jsonObject.put("sign_up", "未签到");
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
+                            if(signUpsDuration.size()==1){
+                                jsonObject.put("sign_up", "已签到");
+                            }
                         }
-                    } catch (Exception e) {
+                    }else {
                         jsonObject.put("sign_up", "未签到");
+                    }
+
+                    jsonObject.put("leave", "未请假");
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
+                    if(leaves.size()==1){
+                        jsonObject.put("leave", "已请假");
                     }
                     resul_list.add(jsonObject);
                 }
