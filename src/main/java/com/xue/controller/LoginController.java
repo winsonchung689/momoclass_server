@@ -769,7 +769,6 @@ public class LoginController {
 			message.setId(id);
 			message.setStudio(studio);
 			loginService.updateComment(message);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
