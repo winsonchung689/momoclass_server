@@ -521,14 +521,17 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
+                jsonObject.put("comment_color", "black");
                 List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
                 if (messages.size()>=1){
                     if(messages.get(0).getDuration().equals("00:00-00:00")){
                         jsonObject.put("comment_status", "已课评");
+                        jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     }else {
                         List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
+                            jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                         }
                     }
                 }
@@ -548,16 +551,20 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("create_time", create_time.substring(0,10));
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
+                    jsonObject.put("leave_color", "black");
+                    jsonObject.put("sign_color", "black");
 
                     jsonObject.put("sign_up", "未签到");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("sign_up", "已签到");
+                            jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
                         }else {
                             List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
                             if(signUpsDuration.size()==1){
                                 jsonObject.put("sign_up", "已签到");
+                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
                             }
                         }
                     }
@@ -566,6 +573,7 @@ public class LoginServiceImpl implements LoginService {
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
                         jsonObject.put("leave", "已请假");
+                        jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
 
                     resul_list.add(jsonObject);
@@ -600,14 +608,17 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("comment_status", "未课评");
+                jsonObject.put("comment_color", "black");
                 List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
                 if (messages.size()>=1){
                     if(messages.get(0).getDuration().equals("00:00-00:00")){
                         jsonObject.put("comment_status", "已课评");
+                        jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     }else {
                         List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
+                            jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                         }
                     }
                 }
@@ -627,16 +638,20 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("create_time", create_time.substring(0,10));
                     jsonObject.put("id", id);
                     jsonObject.put("update_time", update_time.substring(0,10));
+                    jsonObject.put("leave_color", "black");
+                    jsonObject.put("sign_color", "black");
 
                     jsonObject.put("sign_up", "未签到");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("sign_up", "已签到");
+                            jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
                         }else {
                             List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
                             if(signUpsDuration.size()==1){
                                 jsonObject.put("sign_up", "已签到");
+                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
                             }
                         }
                     }
@@ -645,6 +660,7 @@ public class LoginServiceImpl implements LoginService {
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
                         jsonObject.put("leave", "已请假");
+                        jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
                     resul_list.add(jsonObject);
                 }
