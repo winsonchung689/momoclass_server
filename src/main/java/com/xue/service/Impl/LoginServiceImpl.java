@@ -556,6 +556,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
 
                     jsonObject.put("sign_up", "未签到");
+                    jsonObject.put("mark", "备注");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
@@ -648,6 +649,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
 
                     jsonObject.put("sign_up", "未签到");
+                    jsonObject.put("mark", "备注");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
