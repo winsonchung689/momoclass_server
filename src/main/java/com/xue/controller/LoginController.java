@@ -1443,20 +1443,40 @@ public class LoginController {
 		// 获取工作室
 		String studio = request.getParameter("studio");
         // 获取单次积分
-		Float coins_amount_get = Float.valueOf(request.getParameter("coins_amount"));
-        // 获取单次扣课
-		Float minus_amount_get = Float.valueOf(request.getParameter("minus_amount"));
-        // 获取新名字
+		Float coins_amount_get = null;
+		try {
+			coins_amount_get = Float.valueOf(request.getParameter("coins_amount"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		// 获取单次扣课
+		Float minus_amount_get = null;
+		try {
+			minus_amount_get = Float.valueOf(request.getParameter("minus_amount"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		// 获取新名字
 		String student_name_new = request.getParameter("student_name_new");
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		//获取总课时
-		Float total_amount = Float.valueOf(request.getParameter("total_amount"));
+		Float total_amount = null;
+		try {
+			total_amount = Float.valueOf(request.getParameter("total_amount"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 		// 获取type
 		String modify_type = request.getParameter("modify_type");
 
 		// 获取type
-		Float lessons_amount = Float.valueOf(request.getParameter("lessons_amount"));
+		Float lessons_amount = null;
+		try {
+			lessons_amount = Float.valueOf(request.getParameter("lessons_amount"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 
 		Float minus_amount=0.0f;
 		Float coins_amount=0.0f;
