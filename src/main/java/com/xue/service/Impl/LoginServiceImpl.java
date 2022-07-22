@@ -521,7 +521,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number","临时加课");
                 }
 
-                jsonObject.put("comment_status", "未课评");
+                jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
                 List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
                 if (messages.size()>=1){
@@ -555,7 +555,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leave_color", "rgb(157, 162, 165)");
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
 
-                    jsonObject.put("sign_up", "未签到");
+                    jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
@@ -576,7 +576,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    jsonObject.put("leave", "未请假");
+                    jsonObject.put("leave", "请假");
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
                         jsonObject.put("leave", "已请假");
@@ -614,7 +614,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number","临时加课");
                 }
 
-                jsonObject.put("comment_status", "未课评");
+                jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
                 List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
                 if (messages.size()>=1){
@@ -648,7 +648,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leave_color", "rgb(157, 162, 165)");
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
 
-                    jsonObject.put("sign_up", "未签到");
+                    jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
                     List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
                     if(signUps.size()>=1){
@@ -669,7 +669,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    jsonObject.put("leave", "未请假");
+                    jsonObject.put("leave", "请假");
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
                         jsonObject.put("leave", "已请假");
