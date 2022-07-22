@@ -1442,123 +1442,120 @@ public class LoginController {
 
 		// 获取工作室
 		String studio = request.getParameter("studio");
-        // 获取单次积分
-		Float coins_amount_get = null;
-		try {
-			coins_amount_get = Float.valueOf(request.getParameter("coins_amount"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		// 获取单次扣课
-		Float minus_amount_get = null;
-		try {
-			minus_amount_get = Float.valueOf(request.getParameter("minus_amount"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		// 获取新名字
-		String student_name_new = request.getParameter("student_name_new");
 		//获取用户名
 		String student_name = request.getParameter("student_name");
-		//获取总课时
-		Float total_amount = null;
-		try {
-			total_amount = Float.valueOf(request.getParameter("total_amount"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		// 获取type
-		String modify_type = request.getParameter("modify_type");
-
-		// 获取type
-		Float lessons_amount = null;
-		try {
-			lessons_amount = Float.valueOf(request.getParameter("lessons_amount"));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
-		Float minus_amount=0.0f;
-		Float coins_amount=0.0f;
-		List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
-		if(!lessons_get.isEmpty()){
-			// 获取单扣课
-			minus_amount = lessons_get.get(0).getMinus();
-			coins_amount = lessons_get.get(0).getCoins();
-		}
-		if(minus_amount_get != 100){
-			minus_amount = minus_amount_get;
-		}
-		if(coins_amount_get != 100){
-			coins_amount = coins_amount_get;
-		}
-
-		//获年剩余课时
-		String left_amount_get = request.getParameter("left_amount");
-		Float left_amount =null;
-		if(left_amount_get.isEmpty()){
-			left_amount = -1.0f;
-		}else {
-			left_amount = Float.parseFloat(left_amount_get);
-		}
-
-
-		Lesson lesson =new Lesson();
-		lesson.setStudent_name(student_name);
-		lesson.setTotal_amount(total_amount);
-		lesson.setLeft_amount(left_amount);
-		lesson.setCreate_time(create_time);
-		lesson.setStudio(studio);
-		lesson.setMinus(minus_amount);
-		lesson.setCoins(coins_amount);
-
-		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-		if(!student_name_new.isEmpty()){
-			dao.updateScheduleName(student_name_new,student_name,studio);
-			dao.updateCommentName(student_name_new,student_name,studio);
-			dao.updateGiftRecordName(student_name_new,student_name,studio);
-			dao.updateLessonName(student_name_new,student_name,studio);
-			dao.updateSignUpRecordName(student_name_new,student_name,studio);
-		}else if(lessons.size()>0){
-			if("coins_modify_all".equals(modify_type)){
-				dao.updateLessonAll(coins_amount,studio);
-			}else {
-				loginService.updateLesson(lesson,lessons_amount);
-			}
-
-		}else {
-			Integer point = 0;
-			Float minus_amount_t = 1.0f;
-			Float coins_amount_t = 0.0f;
-			lesson.setPoints(point);
-			lesson.setMinus(minus_amount_t);
-			lesson.setCoins(coins_amount_t);
-			loginService.insertLesson(lesson);
-		}
-
 		// 发放开课礼物
-		Gift gift = new Gift();
-		try {
-			String gift_name = request.getParameter("gift_name");
-			if (!gift_name.equals("nobody")){
-				String gift_amount = request.getParameter("gift_amount");
-				String expired_days = request.getParameter("expired_days");
-				cal.add(cal.DATE,Integer.parseInt(expired_days));
-				String expired_time = df.format(cal.getTime());
+		String gift_name = request.getParameter("gift_name");
+		if (!gift_name.isEmpty()){
+			Gift gift = new Gift();
+			try {
+				gift_name = request.getParameter("gift_name");
+				if (!gift_name.equals("nobody")){
+					String gift_amount = request.getParameter("gift_amount");
+					String expired_days = request.getParameter("expired_days");
+					cal.add(cal.DATE,Integer.parseInt(expired_days));
+					String expired_time = df.format(cal.getTime());
 
-				gift.setStudent_name(student_name);
-				gift.setGift_name(gift_name);
-				gift.setGift_amount(Integer.parseInt(gift_amount));
-				gift.setCreate_time(create_time);
-				gift.setExpired_time(expired_time);
-				gift.setStudio(studio);
-				gift.setStatus(0);
-				loginService.insertGift(gift);
+					gift.setStudent_name(student_name);
+					gift.setGift_name(gift_name);
+					gift.setGift_amount(Integer.parseInt(gift_amount));
+					gift.setCreate_time(create_time);
+					gift.setExpired_time(expired_time);
+					gift.setStudio(studio);
+					gift.setStatus(0);
+					loginService.insertGift(gift);
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		}else {
+			// 获取单次积分
+			String coins_amount_get_1 = request.getParameter("coins_amount");
+			Float coins_amount_get = 0.0f;
+			if (!coins_amount_get_1.isEmpty()){
+				coins_amount_get = Float.valueOf(coins_amount_get_1);
+			}
+			// 获取单次扣课
+			String minus_amount_get_1 = request.getParameter("minus_amount");
+			Float minus_amount_get = 0.0f;
+			if (!minus_amount_get_1.isEmpty()){
+				coins_amount_get = Float.valueOf(minus_amount_get_1);
+			}
+			// 获取新名字
+			String student_name_new = request.getParameter("student_name_new");
+			//获取总课时
+			String total_amount_1 = request.getParameter("total_amount");
+			Float total_amount = 0.0f;
+			if (!total_amount_1.isEmpty()){
+				total_amount = Float.valueOf(total_amount_1);
+			}
+			// 获取type
+			String modify_type = request.getParameter("modify_type");
 
+			// 获取type
+			String lessons_amount_1 = request.getParameter("lessons_amount");
+			Float lessons_amount = 0.0f;
+			if (!total_amount_1.isEmpty()){
+				lessons_amount = Float.valueOf(lessons_amount_1);
+			}
+
+			Float minus_amount=0.0f;
+			Float coins_amount=0.0f;
+			List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
+			if(!lessons_get.isEmpty()){
+				// 获取单扣课
+				minus_amount = lessons_get.get(0).getMinus();
+				coins_amount = lessons_get.get(0).getCoins();
+			}
+			if(minus_amount_get != 100){
+				minus_amount = minus_amount_get;
+			}
+			if(coins_amount_get != 100){
+				coins_amount = coins_amount_get;
+			}
+
+			//获年剩余课时
+			String left_amount_get = request.getParameter("left_amount");
+			Float left_amount =null;
+			if(left_amount_get.isEmpty()){
+				left_amount = -1.0f;
+			}else {
+				left_amount = Float.parseFloat(left_amount_get);
+			}
+
+			Lesson lesson =new Lesson();
+			lesson.setStudent_name(student_name);
+			lesson.setTotal_amount(total_amount);
+			lesson.setLeft_amount(left_amount);
+			lesson.setCreate_time(create_time);
+			lesson.setStudio(studio);
+			lesson.setMinus(minus_amount);
+			lesson.setCoins(coins_amount);
+
+			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+			if(!student_name_new.isEmpty()){
+				dao.updateScheduleName(student_name_new,student_name,studio);
+				dao.updateCommentName(student_name_new,student_name,studio);
+				dao.updateGiftRecordName(student_name_new,student_name,studio);
+				dao.updateLessonName(student_name_new,student_name,studio);
+				dao.updateSignUpRecordName(student_name_new,student_name,studio);
+			}else if(lessons.size()>0){
+				if("coins_modify_all".equals(modify_type)){
+					dao.updateLessonAll(coins_amount,studio);
+				}else {
+					loginService.updateLesson(lesson,lessons_amount);
+				}
+
+			}else {
+				Integer point = 0;
+				Float minus_amount_t = 1.0f;
+				Float coins_amount_t = 0.0f;
+				lesson.setPoints(point);
+				lesson.setMinus(minus_amount_t);
+				lesson.setCoins(coins_amount_t);
+				loginService.insertLesson(lesson);
+			}
+		}
 
 		return "push massage successfully";
 	}
