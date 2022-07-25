@@ -1483,7 +1483,7 @@ public class LoginController {
 			String minus_amount_get_1 = request.getParameter("minus_amount");
 			Float minus_amount_get = 0.0f;
 			if (!minus_amount_get_1.isEmpty()){
-				coins_amount_get = Float.valueOf(minus_amount_get_1);
+				minus_amount_get = Float.valueOf(minus_amount_get_1);
 			}
 			// 获取新名字
 			String student_name_new = request.getParameter("student_name_new");
@@ -1499,7 +1499,7 @@ public class LoginController {
 			// 获取type
 			String lessons_amount_1 = request.getParameter("lessons_amount");
 			Float lessons_amount = 0.0f;
-			if (!total_amount_1.isEmpty()){
+			if (!lessons_amount_1.isEmpty()){
 				lessons_amount = Float.valueOf(lessons_amount_1);
 			}
 
