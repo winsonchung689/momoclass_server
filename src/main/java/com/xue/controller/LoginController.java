@@ -1440,37 +1440,38 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		try {
-			// 获取工作室
-			String studio = request.getParameter("studio");
-			//获取用户名
-			String student_name = request.getParameter("student_name");
-			// 发放开课礼物
-			String gift_name = request.getParameter("gift_name");
-			if (!gift_name.isEmpty()){
-				Gift gift = new Gift();
-				try {
-					gift_name = request.getParameter("gift_name");
-					if (!gift_name.equals("nobody")){
-						String gift_amount = request.getParameter("gift_amount");
-						String expired_days = request.getParameter("expired_days");
-						cal.add(cal.DATE,Integer.parseInt(expired_days));
-						String expired_time = df.format(cal.getTime());
 
-						gift.setStudent_name(student_name);
-						gift.setGift_name(gift_name);
-						gift.setGift_amount(Integer.parseInt(gift_amount));
-						gift.setCreate_time(create_time);
-						gift.setExpired_time(expired_time);
-						gift.setStudio(studio);
-						gift.setStatus(0);
-						loginService.insertGift(gift);
+		// 获取工作室
+		String studio = request.getParameter("studio");
+		//获取用户名
+		String student_name = request.getParameter("student_name");
+		// 发放开课礼物
+		String gift_name = request.getParameter("gift_name");
+		if (!gift_name.isEmpty()){
+			Gift gift = new Gift();
+			try {
+				gift_name = request.getParameter("gift_name");
+				if (!gift_name.equals("nobody")){
+					String gift_amount = request.getParameter("gift_amount");
+					String expired_days = request.getParameter("expired_days");
+					cal.add(cal.DATE,Integer.parseInt(expired_days));
+					String expired_time = df.format(cal.getTime());
+
+					gift.setStudent_name(student_name);
+					gift.setGift_name(gift_name);
+					gift.setGift_amount(Integer.parseInt(gift_amount));
+					gift.setCreate_time(create_time);
+					gift.setExpired_time(expired_time);
+					gift.setStudio(studio);
+					gift.setStatus(0);
+					loginService.insertGift(gift);
 					}
-				} catch (NumberFormatException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 
+		try {
 			// 获取单次积分
 			String coins_amount_get_1 = request.getParameter("coins_amount");
 			Float coins_amount_get = 0.0f;
@@ -1557,7 +1558,7 @@ public class LoginController {
 				lesson.setCoins(coins_amount_t);
 				loginService.insertLesson(lesson);
 			}
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
