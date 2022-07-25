@@ -1467,7 +1467,8 @@ public class LoginController {
 					loginService.insertGift(gift);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+//					e.printStackTrace();
+					logger.error("sent gift error");
 				}
 			}
 
@@ -1559,9 +1560,9 @@ public class LoginController {
 				loginService.insertLesson(lesson);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			logger.error("update lesson error");
 		}
-
 
 		return "push massage successfully";
 	}
