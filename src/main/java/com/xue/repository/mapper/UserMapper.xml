@@ -272,7 +272,7 @@
 
   <!-- 查找课评记录 -->
   <select id="getCommentByDateDuration" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select student_name,duration from class_comment where class_target_bak ='课评' and student_name =#{param1} and studio = #{param2} and date_format(create_time, '%Y-%m-%d') = #{param3} and duration=#{param4}  order by create_time
+    select student_name,duration from class_comment where class_target_bak ='课评' and student_name =#{param1} and studio = #{param2} and date_format(create_time, '%Y-%m-%d') = #{param3} and cast(replace(replace(duration,':',''),'-','') as signed)=cast(replace(replace(#{param4},':',''),'-','') as signed) order by create_time
   </select>
 
   <!-- 查找礼物记录 -->
