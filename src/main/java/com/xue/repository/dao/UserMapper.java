@@ -63,6 +63,8 @@ public interface UserMapper {
 
     //获取详情
     List<Message> getDetails(Integer id);
+    //获取详情
+    List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time);
 
     //插入
     int push(Message message);

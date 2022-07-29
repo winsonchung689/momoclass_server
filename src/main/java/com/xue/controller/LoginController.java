@@ -459,6 +459,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取详情页
+	@RequestMapping("/getDetailsUrlByDate")
+	@ResponseBody
+	public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time){
+		List list = null;
+		try {
+			list = loginService.getDetailsUrlByDate(studio,duration,student_name,date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getOpenidByNick")
 	@ResponseBody

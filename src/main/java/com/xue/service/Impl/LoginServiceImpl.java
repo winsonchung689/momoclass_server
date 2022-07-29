@@ -160,6 +160,63 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time) {
+        byte[] photo = null;
+        InputStream inputStream_photo = null;
+        String comment = null;
+        String class_name = null;
+        String class_target = null;
+        String id = null;
+        Integer positive = 0 ;
+        Integer discipline = 0;
+        Integer happiness = 0;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Message> list = dao.getDetailsUrlByDate(studio,duration,student_name,date_time);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Message line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                class_name = line.getClass_name();
+                comment = line.getComment();
+                photo = line.getPhoto();
+                class_target = line.getClass_target();
+                studio = line.getStudio();
+                duration = line.getDuration();
+                positive = line.getPositive();
+                discipline = line.getDiscipline();
+                happiness = line.getHappiness();
+                id = line.getId();
+
+                jsonObject.put("isHide",true);
+                List<User> user = dao.getUserByStudent(student_name,studio);
+                if (user.size()>0){
+                    jsonObject.put("isHide",false);
+                }
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("class_name", class_name);
+                jsonObject.put("comment", comment);
+                jsonObject.put("photo", photo);
+                jsonObject.put("class_target", class_target);
+                jsonObject.put("id", id);
+                jsonObject.put("duration", duration);
+                jsonObject.put("positive", positive);
+                jsonObject.put("discipline", discipline);
+                jsonObject.put("happiness", happiness);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getSearch(String student_name, String studio,Integer page) {
         String comment = null;
         String class_name = null;
