@@ -127,7 +127,7 @@
 
   <!-- 获取详情 -->
   <select id="getDetailsUrlByDate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness from class_comment where studio= #{param1} and duration= #{param2} and student_name= #{param3} and date_time= #{param4} and class_target_bak ='课评'
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness from class_comment where studio= #{param1} and duration= #{param2} and student_name= #{param3} and create_time= #{param4} and class_target_bak ='课评'
   </select>
 
   <!-- 获取详情 -->
