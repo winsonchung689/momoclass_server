@@ -1705,7 +1705,7 @@ public class LoginServiceImpl implements LoginService {
         String duration = null;
 
         try {
-            list = dao.getMessageInName(student_name,studio,page_start,page_length);
+            list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
