@@ -666,9 +666,9 @@ public class LoginServiceImpl implements LoginService {
                 if(arrangements.size()>0){
                     Arrangement arrangement = arrangements.get(0);
                     class_number = arrangement.getClass_number();
-                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("class_number", class_number+"(插班生)");
                 }else{
-                    jsonObject.put("class_number","临时加课");
+                    jsonObject.put("class_number","临时加课(插班生)");
                 }
 
                 jsonObject.put("comment_status", "课评");
