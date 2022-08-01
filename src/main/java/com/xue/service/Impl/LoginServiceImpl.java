@@ -1693,6 +1693,47 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGrowthRecord(String studio, Integer page, String student_name) {
+        String comment = null;
+        String id = null;
+        String create_time = null;
+        byte[] photo = null;
+        Integer page_start = (page - 1) * 3;
+        Integer page_length = 3;
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> list=null;
+        String duration = null;
+
+        try {
+            list = dao.getMessageInName(student_name,studio,page_start,page_length);
+            if(list.size()>0){
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    Message line = list.get(i);
+                    //获取字段
+                    comment = line.getComment();
+                    id = line.getId();
+                    create_time = line.getCreate_time();
+                    duration = line.getDuration();
+                    photo = line.getPhoto();
+
+                    //json
+                    jsonObject.put("comment", comment);
+                    jsonObject.put("id", id);
+                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("photo", photo);
+                    resul_list.add(jsonObject);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getUserByOpenid(String openid) {
         String role = null;
         String student_name = null;

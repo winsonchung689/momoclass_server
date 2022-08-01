@@ -171,6 +171,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getGrowthRecord")
+	@ResponseBody
+	public List getGrowthRecord(String studio,Integer page,String student_name){
+		List list = null;
+		try {
+			list = loginService.getGrowthRecord(studio,page,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取学生的课程数
 	@RequestMapping("/getLessonByName")
 	@ResponseBody
