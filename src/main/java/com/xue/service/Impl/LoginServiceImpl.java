@@ -1703,6 +1703,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=null;
         String duration = null;
+        String class_name = null;
 
         try {
             list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
@@ -1716,6 +1717,7 @@ public class LoginServiceImpl implements LoginService {
                     create_time = line.getCreate_time();
                     duration = line.getDuration();
                     photo = line.getPhoto();
+                    class_name = line.getClass_name();
 
                     //json
                     jsonObject.put("comment", comment);
@@ -1723,6 +1725,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("create_time", create_time.substring(0,10));
                     jsonObject.put("duration", duration);
                     jsonObject.put("photo", photo);
+                    jsonObject.put("class_name", class_name);
                     resul_list.add(jsonObject);
                 }
             }
