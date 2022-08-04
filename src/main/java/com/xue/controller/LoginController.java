@@ -328,6 +328,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取课程表
+	@RequestMapping("/getScheduleDetail")
+	@ResponseBody
+	public List getScheduleDetail(Integer weekDay,String duration,String studio){
+		List list = null;
+		try {
+			list = loginService.getScheduleDetail(weekDay,duration,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取范画
 	@RequestMapping("/getModel")
 	@ResponseBody

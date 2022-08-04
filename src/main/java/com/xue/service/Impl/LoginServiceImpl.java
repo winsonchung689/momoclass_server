@@ -743,6 +743,42 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getScheduleDetail(Integer weekDay, String duration, String studio) {
+        String age = null;
+        String student_name = null;
+        String id = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        // 获取常规学生
+        try {
+            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Schedule line = list.get(i);
+
+                //获取字段
+                age = line.getAge();
+                student_name = line.getStudent_name();
+                duration = line.getDuration();
+                id = line.getId();
+
+                jsonObject.put("age", age);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("duration", duration);
+                jsonObject.put("id", id);
+
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return resul_list;
+    }
+
+    @Override
     public int deleteComment(Integer id, String role) {
         try {
             dao.deleteComment(id);
