@@ -331,10 +331,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getScheduleDetail")
 	@ResponseBody
-	public List getScheduleDetail(Integer weekDay,String duration,String studio){
+	public List getScheduleDetail(String weekDay,String duration,String studio){
 		List list = null;
 		try {
-			list = loginService.getScheduleDetail(weekDay,duration,studio);
+			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
