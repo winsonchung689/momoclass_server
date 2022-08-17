@@ -2083,7 +2083,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getTipsDataUrl(String studio,Integer left_amount) {
+    public List getTipsDataUrl(String studio,Integer left_amount_get) {
         Float total_amount = 0.0f;
         String create_time = null;
         String id = null;
@@ -2091,17 +2091,19 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
+        Float left_amount = 0.0f;
         List<Lesson> list = null;
         String student_name =null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getTipsDataUrl(studio,left_amount);
+            list = dao.getTipsDataUrl(studio,left_amount_get);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
                 total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
                 id = line.getId();
                 create_time = line.getCreate_time();
