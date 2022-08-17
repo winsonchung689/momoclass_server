@@ -404,6 +404,11 @@
   </select>
 
   <!-- 获取总人数 -->
+  <select id="getLessonNeedPayCount" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
+    select count(distinct student_name) from lesson where left_amount < 5 and studio =#{param1};
+  </select>
+
+  <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
     select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and student_type ='ordinary'
   </select>
