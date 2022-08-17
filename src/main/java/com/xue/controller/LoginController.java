@@ -211,6 +211,19 @@ public class LoginController {
 	}
 
 	//	获取全部
+	@RequestMapping("/getTipsDataUrl")
+	@ResponseBody
+	public List getTipsDataUrl(String studio,Integer left_amount){
+		List list = null;
+		try {
+			list = loginService.getTipsDataUrl(studio,left_amount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody
 	public List getLessonInName(String studio,String student_name,Integer page){
