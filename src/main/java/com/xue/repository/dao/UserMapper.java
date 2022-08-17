@@ -148,6 +148,8 @@ public interface UserMapper {
 
     Integer getLessonNeedPayCount(String studio);
 
+    Integer getLessonOweCount(String studio);
+
     Integer getLessonAllCountByDay(String studio,Integer day,String duration);
 
     Integer getSignUpCountByDay(String studio,String date,String duration);

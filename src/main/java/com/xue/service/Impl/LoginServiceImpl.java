@@ -2023,9 +2023,11 @@ public class LoginServiceImpl implements LoginService {
         Integer length = student_name.split(",").length;
         Integer total_student =0;
         Integer need_pay = 0;
+        Integer owe = 0;
         try {
             total_student =dao.getLessonAllCount(studio);
             need_pay = dao.getLessonNeedPayCount(studio);
+            owe = dao.getLessonOweCount(studio);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2070,6 +2072,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("minus", minus);
                 jsonObject.put("coins", coins);
                 jsonObject.put("need_pay", need_pay);
+                jsonObject.put("owe", owe);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
