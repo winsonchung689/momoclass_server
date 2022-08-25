@@ -619,9 +619,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody
-	public int deleteComment(Integer id,String role){
+	public int deleteComment(Integer id,String role,String studio){
 		try {
-			loginService.deleteComment(id,role);
+			loginService.deleteComment(id,role,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -881,9 +881,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteLesson")
 	@ResponseBody
-	public int deleteLesson(Integer id,String role){
+	public int deleteLesson(Integer id,String role,String studio){
 		try {
-			loginService.deleteLesson(id,role);
+			loginService.deleteLesson(id,role,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

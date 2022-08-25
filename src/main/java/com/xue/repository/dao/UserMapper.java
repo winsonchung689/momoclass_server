@@ -77,7 +77,7 @@ public interface UserMapper {
     //插入
     int insertSchedule(Schedule schedule);
 
-    void deleteComment(Integer id);
+    void deleteComment(Integer id,String studio);
 
     void deleteArrangement(Integer id);
 
@@ -97,7 +97,7 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id);
 
-    void deleteLesson(Integer id);
+    void deleteLesson(Integer id,String studio);
 
     //插入
     int insertUser(User user);

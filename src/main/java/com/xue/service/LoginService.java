@@ -60,7 +60,7 @@ public interface LoginService {
 
     public List  getScheduleDetail(Integer weekDay,String duration,String studio);
 
-    public int  deleteComment(Integer id,String role);
+    public int  deleteComment(Integer id,String role,String studio);
 
     public int  deleteArrangement(Integer id);
 
@@ -72,7 +72,7 @@ public interface LoginService {
 
     public int  deleteSchedule(Integer id,String role);
 
-    public int  deleteLesson(Integer id,String role);
+    public int  deleteLesson(Integer id,String role,String studio);
 
     public int insertUser(User user);
 

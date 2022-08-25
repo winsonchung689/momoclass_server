@@ -779,10 +779,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteComment(Integer id, String role) {
+    public int deleteComment(Integer id, String role,String studio) {
         try {
-            dao.deleteComment(id);
-
+            if ("boss".equals(role)) {
+                dao.deleteComment(id, studio);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -854,10 +855,10 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteLesson(Integer id, String role) {
+    public int deleteLesson(Integer id, String role,String studio) {
         try {
             if ("boss".equals(role)) {
-                dao.deleteLesson(id);
+                dao.deleteLesson(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -158,7 +158,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    delete from class_comment where id =#{param1}
+    delete from class_comment where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 删除安排 -->
@@ -198,7 +198,7 @@
 
   <!-- 获取删除学生 -->
   <select id="deleteLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
-    delete from lesson where id =#{param1}
+    delete from lesson where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取课程表 -->
