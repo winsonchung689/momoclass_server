@@ -72,7 +72,7 @@ public interface LoginService {
 
     public int  deleteSchedule(Integer id,String role);
 
-    public int  deleteLesson(Integer id,String role,String studio);
+    public int  deleteLesson(Integer id,String role,String studio,String openid);
 
     public int insertUser(User user);
 

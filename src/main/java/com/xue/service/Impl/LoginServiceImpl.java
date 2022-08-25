@@ -855,9 +855,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteLesson(Integer id, String role,String studio) {
+    public int deleteLesson(Integer id, String role,String studio,String openid) {
         try {
-            if ("boss".equals(role)) {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio);
             }
         } catch (Exception e) {
