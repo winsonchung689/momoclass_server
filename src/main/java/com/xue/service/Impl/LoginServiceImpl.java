@@ -779,10 +779,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteComment(Integer id, String role,String studio) {
+    public int deleteComment(Integer id, String role,String studio,String openid) {
         try {
-            if ("boss".equals(role)) {
-                dao.deleteComment(id, studio);
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteComment(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -792,21 +795,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteArrangement(Integer id) {
+    public int deleteArrangement(Integer id,String role,String studio,String openid) {
         try {
-            dao.deleteArrangement(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-        return 1;
-    }
-
-    @Override
-    public int deleteSignUpRecord(Integer id, String role) {
-        try {
-            if ("boss".equals(role)) {
-                dao.deleteSignUpRecord(id);
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteArrangement(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -816,9 +810,28 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteSignUpAllRecord(String name, String role, String studio) {
+    public int deleteSignUpRecord(Integer id, String role,String studio,String openid) {
         try {
-            if ("boss".equals(role)) {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteSignUpRecord(id,studio);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public int deleteSignUpAllRecord(String name, String role, String studio,String openid) {
+        try {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteSignUpAllRecord(name,studio);
             }
         } catch (Exception e) {
@@ -829,10 +842,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteGiftRecord(Integer id, String role) {
+    public int deleteGiftRecord(Integer id, String role,String studio,String openid) {
         try {
-            if ("boss".equals(role)) {
-                dao.deleteGiftRecord(id);
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteGiftRecord(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -842,10 +858,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteSchedule(Integer id, String role) {
+    public int deleteSchedule(Integer id, String role,String studio,String openid) {
         try {
-            if ("boss".equals(role)) {
-                dao.deleteSchedule(id);
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteSchedule(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();

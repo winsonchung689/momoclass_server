@@ -79,23 +79,23 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
-    void deleteArrangement(Integer id);
+    void deleteArrangement(Integer id,String studio);
 
     void deleteStudentPhoto(String student_name,String studio);
 
     void deleteHome(String studio);
 
-    void deleteSignUpRecord(Integer id);
+    void deleteSignUpRecord(Integer id,String studio);
 
     void deleteSignUpAllRecord(String student_name,String studio);
 
     void deleteLeaveAllRecord(String student_name,String studio);
 
-    void deleteGiftRecord(Integer id);
+    void deleteGiftRecord(Integer id,String studio);
 
-    void deleteLeaveRecord(Integer id);
+    void deleteLeaveRecord(Integer id,String studio);
 
-    void deleteSchedule(Integer id);
+    void deleteSchedule(Integer id,String studio);
 
     void deleteLesson(Integer id,String studio);
 

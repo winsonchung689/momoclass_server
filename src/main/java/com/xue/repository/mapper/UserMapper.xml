@@ -163,12 +163,12 @@
 
   <!-- 删除安排 -->
   <select id="deleteArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    delete from schedule_arrangement where id =#{param1}
+    delete from schedule_arrangement where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    delete from sign_up_record where id =#{param1}
+    delete from sign_up_record where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
@@ -178,7 +178,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteGiftRecord" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
-    delete from gift_record where id =#{param1}
+    delete from gift_record where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
@@ -188,12 +188,12 @@
 
   <!-- 删除请假记录 -->
   <select id="deleteLeaveRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    delete from leave_record where id =#{param1}
+    delete from leave_record where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 刪除课程表 -->
   <select id="deleteSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
-    delete from class_schedule where id =#{param1}
+    delete from class_schedule where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取删除学生 -->

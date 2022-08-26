@@ -60,17 +60,17 @@ public interface LoginService {
 
     public List  getScheduleDetail(Integer weekDay,String duration,String studio);
 
-    public int  deleteComment(Integer id,String role,String studio);
+    public int  deleteComment(Integer id,String role,String studio,String openid);
 
-    public int  deleteArrangement(Integer id);
+    public int  deleteArrangement(Integer id,String role,String studio,String openid);
 
-    public int  deleteSignUpRecord(Integer id,String role);
+    public int  deleteSignUpRecord(Integer id,String role,String studio,String openid);
 
-    public int  deleteSignUpAllRecord(String name,String role,String studio);
+    public int  deleteSignUpAllRecord(String name,String role,String studio,String openid);
 
-    public int  deleteGiftRecord(Integer id,String role);
+    public int  deleteGiftRecord(Integer id,String role,String studio,String openid);
 
-    public int  deleteSchedule(Integer id,String role);
+    public int  deleteSchedule(Integer id,String role,String studio,String openid);
 
     public int  deleteLesson(Integer id,String role,String studio,String openid);
 

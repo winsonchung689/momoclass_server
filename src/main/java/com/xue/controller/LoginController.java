@@ -619,9 +619,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody
-	public int deleteComment(Integer id,String role,String studio){
+	public int deleteComment(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteComment(id,role,studio);
+			loginService.deleteComment(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -632,9 +632,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteArrangement")
 	@ResponseBody
-	public int deleteArrangement(Integer id,String role){
+	public int deleteArrangement(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteArrangement(id);
+			loginService.deleteArrangement(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -646,9 +646,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteSignUpRecord")
 	@ResponseBody
-	public int deleteSignUpRecord(Integer id,String role){
+	public int deleteSignUpRecord(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteSignUpRecord(id,role);
+			loginService.deleteSignUpRecord(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -659,9 +659,9 @@ public class LoginController {
 	//	清空签到记录
 	@RequestMapping("/deleteSignUpAllRecord")
 	@ResponseBody
-	public int deleteSignUpAllRecord(String name,String role,String studio){
+	public int deleteSignUpAllRecord(String name,String role,String studio,String openid){
 		try {
-			loginService.deleteSignUpAllRecord(name,role,studio);
+			loginService.deleteSignUpAllRecord(name,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -672,9 +672,14 @@ public class LoginController {
 	//	清空请假记录
 	@RequestMapping("/deleteLeaveAllRecord")
 	@ResponseBody
-	public int deleteLeaveAllRecord(String name,String studio){
+	public int deleteLeaveAllRecord(String name,String studio,String role,String openid){
 		try {
-			dao.deleteLeaveAllRecord(name,studio);
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+
+			if ("boss".equals(role) && studio_get.equals(studio)) {
+				dao.deleteLeaveAllRecord(name, studio);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -685,9 +690,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteGiftRecord")
 	@ResponseBody
-	public int deleteGiftRecord(Integer id,String role){
+	public int deleteGiftRecord(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteGiftRecord(id,role);
+			loginService.deleteGiftRecord(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -698,9 +703,13 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteLeaveRecord")
 	@ResponseBody
-	public int deleteLeaveRecord(Integer id){
+	public int deleteLeaveRecord(Integer id,String role,String studio,String openid){
 		try {
-			dao.deleteLeaveRecord(id);
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+			if ("boss".equals(role) && studio_get.equals(studio)) {
+				dao.deleteLeaveRecord(id, studio);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -710,9 +719,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteSchedule")
 	@ResponseBody
-	public int deleteSchedule(Integer id,String role){
+	public int deleteSchedule(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteSchedule(id,role);
+			loginService.deleteSchedule(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
