@@ -679,6 +679,8 @@ public class LoginController {
 
 			if ("boss".equals(role) && studio_get.equals(studio)) {
 				dao.deleteLeaveAllRecord(name, studio);
+			}else {
+				logger.error("it's not your studio, could not delete!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -709,6 +711,8 @@ public class LoginController {
 			String studio_get = list.get(0).getStudio();
 			if ("boss".equals(role) && studio_get.equals(studio)) {
 				dao.deleteLeaveRecord(id, studio);
+			}else {
+				logger.error("it's not your studio, could not delete!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -786,6 +786,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteComment(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -801,6 +803,8 @@ public class LoginServiceImpl implements LoginService {
             String studio_get = list.get(0).getStudio();
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteArrangement(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -817,6 +821,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteSignUpRecord(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -833,6 +839,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteSignUpAllRecord(name,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -849,6 +857,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteGiftRecord(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -865,6 +875,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteSchedule(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -881,6 +893,8 @@ public class LoginServiceImpl implements LoginService {
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
             }
         } catch (Exception e) {
             e.printStackTrace();
