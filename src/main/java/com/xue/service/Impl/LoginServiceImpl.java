@@ -2258,15 +2258,15 @@ public class LoginServiceImpl implements LoginService {
                     student_name = line.getStudent_name();
 
                     byte[] photo = null;
-                    try {
-                        list_student =dao.getStudentPhoto(student_name,studio);
-                        //获取图片
-                        if(list_student.size()>0){
-                            photo = list_student.get(0).getPhoto();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        list_student =dao.getStudentPhoto(student_name,studio);
+//                        //获取图片
+//                        if(list_student.size()>0){
+//                            photo = list_student.get(0).getPhoto();
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 
                     total_amount = line.getTotal_amount();
                     left_amount = line.getLeft_amount();
