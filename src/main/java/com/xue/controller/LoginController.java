@@ -925,11 +925,20 @@ public class LoginController {
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("photo");
+		String class_name =  request.getParameter("class_name");
+		String class_target =  request.getParameter("class_target");
+
+
 
 		//获取类路径
+		String p_path = null;
 		String path = System.getProperty("user.dir");
 		UUID uuid = UUID.randomUUID();
-		String p_path = path +"/uploadimages/"+ uuid + ".png";
+		if("相框模板".equals(class_target)){
+			 p_path = path +"/uploadimages/"+ class_name + ".png";
+		}else {
+			p_path = path +"/uploadimages/"+ uuid + ".png";
+		}
 
 		//保存图片
 		try {
