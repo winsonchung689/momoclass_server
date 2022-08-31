@@ -1004,7 +1004,7 @@ public class LoginController {
 
 	@RequestMapping("/get_file")
 	@ResponseBody
-	public ResponseEntity<byte[]> EIToolDownloads(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> get_file(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String path = System.getProperty("user.dir");
 		String p_path = path +"/uploadfiles/"+ file_name;
@@ -1013,6 +1013,24 @@ public class LoginController {
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
+	}
+
+	@RequestMapping("/get_frame")
+	@ResponseBody
+	public ResponseEntity<byte[]> get_frame(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String class_name =  request.getParameter("class_name");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadimages/"+ class_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("class_name", file.getName());
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
 		}else{
 			System.out.println("文件不存在,请重试...");
