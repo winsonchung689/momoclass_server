@@ -88,7 +88,7 @@
 
   <!-- 获取相框模板 -->
   <select id="getFrameModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,photo,class_name from class_comment where class_target='相框模板' and studio = #{param1} or id = '2527';
+    select id,photo,class_name from class_comment where class_target='相框模板' and studio = #{param1} or id = '2528';
   </select>
 
   <!-- 获取课程体系 -->
