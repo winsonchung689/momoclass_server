@@ -98,7 +98,7 @@ public interface LoginService {
 
     public List getCertificateModel(String class_name);
 
-    public List getFrameModel();
+    public List getFrameModel(String studio);
 
     public List getCertificateModelName();
 

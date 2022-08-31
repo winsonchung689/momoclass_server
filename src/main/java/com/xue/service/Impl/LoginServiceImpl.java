@@ -1177,14 +1177,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getFrameModel() {
+    public List getFrameModel(String studio) {
         byte[] photo = null;
         String class_name = null;
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<Message> list = dao.getFrameModel();
+            List<Message> list = dao.getFrameModel(studio);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);

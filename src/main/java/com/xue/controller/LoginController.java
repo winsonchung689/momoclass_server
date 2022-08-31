@@ -619,10 +619,10 @@ public class LoginController {
 	//	获取奖状模板
 	@RequestMapping("/getFrameModel")
 	@ResponseBody
-	public List getFrameModel(){
+	public List getFrameModel(String studio){
 		List list = null;
 		try {
-			list = loginService.getFrameModel();
+			list = loginService.getFrameModel(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
