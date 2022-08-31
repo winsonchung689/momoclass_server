@@ -1177,6 +1177,35 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getFrameModel() {
+        byte[] photo = null;
+        String class_name = null;
+        String id = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+
+            List<Message> list = dao.getFrameModel();
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Message line = list.get(i);
+                //获取字段
+                id = line.getId();
+                photo = line.getPhoto();
+                class_name =line.getClass_name();
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("photo", photo);
+                jsonObject.put("class_name", class_name);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCertificateModelName() {
         String class_name = null;
         List<String> resul_list = new ArrayList<>();

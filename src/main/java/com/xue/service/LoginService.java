@@ -98,6 +98,8 @@ public interface LoginService {
 
     public List getCertificateModel(String class_name);
 
+    public List getFrameModel();
+
     public List getCertificateModelName();
 
     public List getOpenidByNick(String student_name,String studio);

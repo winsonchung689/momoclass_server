@@ -616,6 +616,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取奖状模板
+	@RequestMapping("/getFrameModel")
+	@ResponseBody
+	public List getFrameModel(){
+		List list = null;
+		try {
+			list = loginService.getFrameModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody
