@@ -1183,6 +1183,10 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer page_start = (page - 1) * 8;
         Integer page_length = 8;
+        if (page>1){
+            page_start = (page - 1) * 4;
+            page_length = 4;
+        }
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<Message> list = dao.getFrameModel(studio,page_start,page_length);
