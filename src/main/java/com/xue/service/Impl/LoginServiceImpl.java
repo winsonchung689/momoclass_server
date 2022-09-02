@@ -1181,8 +1181,8 @@ public class LoginServiceImpl implements LoginService {
         byte[] photo = null;
         String class_name = null;
         String id = null;
-        Integer page_start = (page - 1) * 6;
-        Integer page_length = 6;
+        Integer page_start = (page - 1) * 8;
+        Integer page_length = 8;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<Message> list = dao.getFrameModel(studio,page_start,page_length);
