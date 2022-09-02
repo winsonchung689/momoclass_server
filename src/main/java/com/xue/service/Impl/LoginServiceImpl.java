@@ -1183,7 +1183,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer page_start = (page - 1) * 8;
         Integer page_length = 8;
-        if (page > 2){
+        if (page >= 2){
             page_start = (page - 2) * 4 + 8;
             page_length = 4;
         }
