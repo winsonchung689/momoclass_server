@@ -1181,9 +1181,13 @@ public class LoginServiceImpl implements LoginService {
         byte[] photo = null;
         String class_name = null;
         String id = null;
-        Integer page_start = (page - 1) * 8;
-        Integer page_length = 8;
-        if (page >= 2){
+        Integer page_start = 0;
+        Integer page_length = 0;
+        if (page == 1){
+            page_start = (page - 1) * 8;
+            page_length = 8;
+        }
+        if (page > 1){
             page_start = (page - 2) * 4 + 8;
             page_length = 4;
         }
