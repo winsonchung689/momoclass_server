@@ -88,7 +88,7 @@
 
   <!-- 获取相框模板 -->
   <select id="getFrameModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,photo,class_name from class_comment whereclass_target='相框模板' and studio  in ('MOMO画室',#{param1})  order by id limit #{param2},#{param3}; ;
+    select id,photo,class_name from class_comment where class_target='相框模板' and studio  in ('MOMO画室',#{param1})  order by id limit #{param2},#{param3}; ;
   </select>
 
   <!-- 获取课程体系 -->
