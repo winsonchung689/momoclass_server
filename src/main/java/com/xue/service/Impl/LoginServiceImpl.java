@@ -1184,11 +1184,11 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = 0;
         Integer page_length = 0;
         if (page == 1){
-            page_start = (page - 1) * 8;
-            page_length = 8;
+            page_start = (page - 1) * 6;
+            page_length = 6;
         }
         if (page > 1){
-            page_start = (page - 2) * 4 + 8;
+            page_start = (page - 2) * 4 + 6;
             page_length = 4;
         }
         List<JSONObject> resul_list = new ArrayList<>();
