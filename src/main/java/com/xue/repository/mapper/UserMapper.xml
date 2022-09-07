@@ -202,7 +202,7 @@
   </select>
 
   <!-- 确认课程 -->
-  <select id="deleteSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
+  <select id="confirmSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
     update class_schedule set status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
