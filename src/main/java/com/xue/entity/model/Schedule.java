@@ -20,6 +20,16 @@ public class Schedule {
 
     private String student_type;
 
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getUpdate_time() {
         return update_time;
     }

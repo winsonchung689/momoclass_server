@@ -213,12 +213,12 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' and status = 1 order by duration
   </select>
 
   <!-- 获取课程表 -->
   <select id="getScheduleDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and student_type ='ordinary' order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and student_type ='ordinary' order by duration
   </select>
 
   <!-- 获取课插班生 -->
@@ -233,7 +233,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status})
   </insert>
 
   <!-- 插入签到记录 -->

@@ -748,6 +748,8 @@ public class LoginServiceImpl implements LoginService {
         String student_name = null;
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer status = 0;
+        String status_str = "待确认";
 
         // 获取常规学生
         try {
@@ -761,11 +763,16 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 duration = line.getDuration();
                 id = line.getId();
+                status = line.getStatus();
+                if (1 == status){
+                    status_str = "已确认";
+                }
 
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("duration", duration);
                 jsonObject.put("id", id);
+                jsonObject.put("status_str", status_str);
 
                 resul_list.add(jsonObject);
             }

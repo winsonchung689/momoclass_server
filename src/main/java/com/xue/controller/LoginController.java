@@ -1335,6 +1335,8 @@ public class LoginController {
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
+		Integer status =Integer.parseInt(request.getParameter("status")) ;
+
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
@@ -1348,6 +1350,7 @@ public class LoginController {
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
 				schedule.setStudent_type("ordinary");
+				schedule.setStatus(status);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
