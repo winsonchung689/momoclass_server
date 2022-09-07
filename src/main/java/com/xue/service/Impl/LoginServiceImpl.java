@@ -764,14 +764,17 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 id = line.getId();
                 status = line.getStatus();
-                if (1 == status){
+                if(status == 1){
                     status_str = "已确认";
+                }else {
+                    status_str = "待确认";
                 }
 
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("duration", duration);
                 jsonObject.put("id", id);
+                jsonObject.put("status", status);
                 jsonObject.put("status_str", status_str);
 
                 resul_list.add(jsonObject);
