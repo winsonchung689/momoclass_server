@@ -1336,7 +1336,7 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 
 		String status =request.getParameter("status") ;
-		if(status.isEmpty()){
+		if(status == null || status.isEmpty() || "undefined".equals(status)){
 			status = "1";
 		}
 
