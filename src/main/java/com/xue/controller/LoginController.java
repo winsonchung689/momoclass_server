@@ -746,6 +746,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/confirmSchedule")
+	@ResponseBody
+	public int confirmSchedule(Integer id,String role,String studio,String openid){
+		try {
+			loginService.deleteSchedule(id,role,studio,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/signUpSchedule")
 	@ResponseBody
 	public int signUpSchedule(String student_name,String studio,String date_time,String mark,String class_count,String duration){

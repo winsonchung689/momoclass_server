@@ -896,6 +896,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int confirmSchedule(Integer id, String role, String studio, String openid) {
+        try {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.confirmSchedule(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public int deleteLesson(Integer id, String role,String studio,String openid) {
         try {
             List<User> list = dao.getUser(openid);

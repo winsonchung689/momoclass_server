@@ -97,6 +97,8 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id,String studio);
 
+    void confirmSchedule(Integer id,String studio);
+
     void deleteLesson(Integer id,String studio);
 
     //插入
