@@ -750,7 +750,7 @@ public class LoginController {
 	@ResponseBody
 	public int confirmSchedule(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteSchedule(id,role,studio,openid);
+			loginService.confirmSchedule(id,role,studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
