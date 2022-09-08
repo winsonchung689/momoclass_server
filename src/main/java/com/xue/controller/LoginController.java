@@ -1290,6 +1290,9 @@ public class LoginController {
 		String student_type = request.getParameter("student_type");
 
 		String studio = request.getParameter("studio");
+
+		Integer status = 1;
+
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
@@ -1303,6 +1306,7 @@ public class LoginController {
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
 				schedule.setStudent_type(student_type);
+				schedule.setStatus(status);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
