@@ -171,6 +171,11 @@
     delete from schedule_arrangement where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 更改课程名 -->
+  <select id="changeClassName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set class_number =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     delete from sign_up_record where id =#{param1} and studio =#{param2}

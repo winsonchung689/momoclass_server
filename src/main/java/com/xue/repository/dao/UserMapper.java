@@ -81,6 +81,8 @@ public interface UserMapper {
 
     void deleteArrangement(Integer id,String studio);
 
+    void changeClassName(Integer id,String studio,String class_number);
+
     void deleteStudentPhoto(String student_name,String studio);
 
     void deleteHome(String studio);

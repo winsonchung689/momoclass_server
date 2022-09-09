@@ -655,6 +655,19 @@ public class LoginController {
 		return 1;
 	}
 
+	//	获取详情页
+	@RequestMapping("/changeClassName")
+	@ResponseBody
+	public int changeClassName(Integer id,String role,String studio,String openid,String class_number){
+		try {
+			loginService.changeClassName(id,role,studio,openid,class_number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteSignUpRecord")
@@ -1271,9 +1284,9 @@ public class LoginController {
 
 
 	//	推送
-	@RequestMapping("/insertShedule")
+	@RequestMapping("/insertSchedule")
 	@ResponseBody
-	public String insertShedule(HttpServletRequest request, HttpServletResponse response){
+	public String insertSchedule(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
