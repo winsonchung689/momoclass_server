@@ -664,11 +664,12 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
-                if(class_number.isEmpty()){
-                    class_number = "无班号";
+                jsonObject.put("class_number","无班号(插班生)");
+                if(class_number.length()>0){
+                    jsonObject.put("class_number", class_number+"(插班生)");
                 }
 
-                jsonObject.put("class_number", class_number+"(插班生)");
+
 
 //                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
 //                if(arrangements.size()>0){
