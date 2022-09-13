@@ -1305,6 +1305,9 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 
 		String class_number = request.getParameter("class_number");
+		if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
+			duration = "无班号";
+		}
 
 		Integer status = 1;
 
