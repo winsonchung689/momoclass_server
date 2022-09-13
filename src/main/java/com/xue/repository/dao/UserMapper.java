@@ -54,7 +54,7 @@ public interface UserMapper {
     List<Schedule> getSchedule(Integer date_time,String studio);
 
     //获取
-    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio);
+    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number);
 
     //获取
     List<Schedule> getTransfer(String date_time,String studio);

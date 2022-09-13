@@ -344,10 +344,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getScheduleDetail")
 	@ResponseBody
-	public List getScheduleDetail(String weekDay,String duration,String studio){
+	public List getScheduleDetail(String weekDay,String duration,String studio,String class_number){
 		List list = null;
 		try {
-			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio);
+			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio,class_number);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

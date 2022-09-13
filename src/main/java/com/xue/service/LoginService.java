@@ -58,7 +58,7 @@ public interface LoginService {
 
     public List  getSchedule(String date_time,String studio);
 
-    public List  getScheduleDetail(Integer weekDay,String duration,String studio);
+    public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number);
 
     public int  deleteComment(Integer id,String role,String studio,String openid);
 

@@ -743,7 +743,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getScheduleDetail(Integer weekDay, String duration, String studio) {
+    public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number) {
         String age = null;
         String student_name = null;
         String id = null;
@@ -753,7 +753,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取常规学生
         try {
-            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio);
+            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio,class_number);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
