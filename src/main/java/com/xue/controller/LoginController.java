@@ -589,6 +589,20 @@ public class LoginController {
 		return list;
 	}
 
+
+	//	获取课程列表
+	@RequestMapping("/getArrangementsByDate")
+	@ResponseBody
+	public List getArrangementsByDate(String studio,String date_time){
+		List list = null;
+		try {
+			list = loginService.getArrangementsByDate(studio,date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取奖状名
 	@RequestMapping("/getCertificateModelName")
 	@ResponseBody

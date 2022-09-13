@@ -100,6 +100,8 @@ public interface LoginService {
 
     public List getArrangements(String studio);
 
+    public List getArrangementsByDate(String studio,String date_time);
+
     public List getCertificateModel(String class_name);
 
     public List getFrameModel(String studio,Integer page);

@@ -1210,6 +1210,46 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getArrangementsByDate(String studio, String date_time) {
+        String dayofweek = null;
+        String class_number = null;
+        String duration = null;
+        List<String> resul_list = new ArrayList<>();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        Integer weekDay=0;
+        Integer weekofday=0;
+
+        try {
+            Date d = null;
+            d = fmt.parse(date_time);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            if(weekDay==1){
+                weekofday=7;
+            }else {
+                weekofday = weekDay - 1;
+            }
+
+            List<Arrangement> list = dao.getArrangements(studio);
+            for (int i = 0; i < list.size(); i++) {
+                Arrangement line = list.get(i);
+                //获取字段
+                dayofweek = line.getDayofweek();
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+                String item = "星期"+dayofweek+ "," + class_number + "," + duration;
+                if(weekofday.equals(Integer.parseInt(dayofweek))){
+                    resul_list.add(item);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCertificateModel(String class_name) {
         byte[] photo = null;
         List<byte[]> resul_list = new ArrayList<>();
