@@ -244,7 +244,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number})
   </insert>
 
   <!-- 插入签到记录 -->

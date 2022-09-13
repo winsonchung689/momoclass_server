@@ -1381,6 +1381,7 @@ public class LoginController {
 				schedule.setCreate_time(create_time);
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
+				schedule.setClass_number(class_number);
 				schedule.setStudent_type("ordinary");
 				schedule.setStatus(Integer.parseInt(status));
 				loginService.insertSchedule(schedule);
