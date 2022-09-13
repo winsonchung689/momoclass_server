@@ -568,15 +568,17 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
+                class_number = line.getClass_number();
+                jsonObject.put("class_number", class_number);
 
-                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
-                if(arrangements.size()>0){
-                    Arrangement arrangement = arrangements.get(0);
-                    class_number = arrangement.getClass_number();
-                    jsonObject.put("class_number", class_number);
-                }else{
-                    jsonObject.put("class_number","临时加课");
-                }
+//                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
+//                if(arrangements.size()>0){
+//                    Arrangement arrangement = arrangements.get(0);
+//                    class_number = arrangement.getClass_number();
+//                    jsonObject.put("class_number", class_number);
+//                }else{
+//                    jsonObject.put("class_number","临时加课");
+//                }
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
@@ -661,15 +663,18 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
+                class_number = line.getClass_number();
 
-                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
-                if(arrangements.size()>0){
-                    Arrangement arrangement = arrangements.get(0);
-                    class_number = arrangement.getClass_number();
-                    jsonObject.put("class_number", class_number+"(插班生)");
-                }else{
-                    jsonObject.put("class_number","临时加课(插班生)");
-                }
+                jsonObject.put("class_number", class_number+"(插班生)");
+
+//                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
+//                if(arrangements.size()>0){
+//                    Arrangement arrangement = arrangements.get(0);
+//                    class_number = arrangement.getClass_number();
+//                    jsonObject.put("class_number", class_number+"(插班生)");
+//                }else{
+//                    jsonObject.put("class_number","临时加课(插班生)");
+//                }
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
