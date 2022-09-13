@@ -158,9 +158,9 @@ public interface UserMapper {
 
     Integer getLessonOweCount(String studio);
 
-    Integer getLessonAllCountByDay(String studio,Integer day,String duration);
+    Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number);
 
-    Integer getSignUpCountByDay(String studio,String date,String duration);
+    Integer getSignUpCountByDay(String studio,String date,String duration,String class_number);
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 
