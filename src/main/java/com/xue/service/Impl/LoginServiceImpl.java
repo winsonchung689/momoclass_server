@@ -664,6 +664,9 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
+                if(class_number.isEmpty()){
+                    class_number = "无班号";
+                }
 
                 jsonObject.put("class_number", class_number+"(插班生)");
 
