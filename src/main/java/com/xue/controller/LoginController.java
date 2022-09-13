@@ -1304,6 +1304,8 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String class_number = request.getParameter("class_number");
+
 		Integer status = 1;
 
 		Schedule schedule =new Schedule();
@@ -1320,6 +1322,7 @@ public class LoginController {
 				schedule.setStudio(studio);
 				schedule.setStudent_type(student_type);
 				schedule.setStatus(status);
+				schedule.setClass_number(class_number);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
