@@ -224,7 +224,7 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' and status = 1 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' and status = 1 order by duration
   </select>
 
   <!-- 获取课程表 -->
@@ -234,7 +234,7 @@
 
   <!-- 获取课插班生 -->
   <select id="getTransfer" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' order by duration
   </select>
 
   <!-- 插入信息 -->
