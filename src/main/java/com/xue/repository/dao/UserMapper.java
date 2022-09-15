@@ -91,7 +91,7 @@ public interface UserMapper {
 
     void deleteSignUpAllRecord(String student_name,String studio);
 
-    void deleteLeaveAllRecord(String student_name,String studio);
+    void deleteLeaveAllRecord(String student_name,String studio,String leave_type);
 
     void deleteGiftRecord(Integer id,String studio);
 

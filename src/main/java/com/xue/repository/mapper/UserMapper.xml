@@ -193,7 +193,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteLeaveAllRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    delete from leave_record where student_name =#{param1} and studio =#{param2}
+    delete from leave_record where student_name =#{param1} and studio =#{param2} and leave_type = #{param3}
   </select>
 
   <!-- 删除请假记录 -->
