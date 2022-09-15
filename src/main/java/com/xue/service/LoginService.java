@@ -44,7 +44,7 @@ public interface LoginService {
 
     public List  getGift(String student_name,String studio);
 
-    public List  getLeaveRecord(String student_name,String studio);
+    public List  getLeaveRecord(String student_name,String studio,String leave_type);
 
     public List  getArrangement(String studio,Integer dayofweek,String date);
 

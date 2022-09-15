@@ -386,7 +386,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLeaveRecord(String student_name, String studio) {
+    public List getLeaveRecord(String student_name, String studio,String leave_type) {
         String create_time = null;
         String date_time = null;
         String duration=null;
@@ -394,7 +394,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Leave> list = dao.getLeaveRecord(student_name, studio);
+            List<Leave> list = dao.getLeaveRecord(student_name, studio,leave_type);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Leave line = list.get(i);

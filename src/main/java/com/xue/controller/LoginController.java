@@ -462,10 +462,10 @@ public class LoginController {
 	//	获取请假记录
 	@RequestMapping("/getLeaveRecord")
 	@ResponseBody
-	public List getLeaveRecord(String student_name,String studio){
+	public List getLeaveRecord(String student_name,String studio,String leave_type){
 		List list = null;
 		try {
-			list = loginService.getLeaveRecord(student_name,studio);
+			list = loginService.getLeaveRecord(student_name,studio,leave_type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
