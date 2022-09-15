@@ -846,6 +846,9 @@ public class LoginController {
 			leave.setDate_time(date_time);
 			leave.setDuration(duration);
 			leave.setCreate_time(create_time);
+			if(leave_type == null || leave_type.isEmpty() || "undefined".equals(leave_type)){
+				leave_type = "请假";
+			}
 			leave.setLeave_type(leave_type);
 			dao.insertLeave(leave);
 		} catch (Exception e) {
