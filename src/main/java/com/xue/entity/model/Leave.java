@@ -15,6 +15,15 @@ public class Leave {
 
     private String duration;
 
+    private String leave_type;
+
+    public String getLeave_type() {
+        return leave_type;
+    }
+
+    public void setLeave_type(String leave_type) {
+        this.leave_type = leave_type;
+    }
 
     public String getDuration() {
         return duration;

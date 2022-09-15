@@ -635,10 +635,14 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    jsonObject.put("leave", "请假");
+                    jsonObject.put("leave", "缺席");
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
+                        String leave_type = leaves.get(0).getLeave_type();
                         jsonObject.put("leave", "已请假");
+                        if (leave_type.equals("旷课")){
+                            jsonObject.put("leave", "已旷课");
+                        }
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
 
@@ -735,10 +739,14 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    jsonObject.put("leave", "请假");
+                    jsonObject.put("leave", "缺席");
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
                     if(leaves.size()==1){
+                        String leave_type = leaves.get(0).getLeave_type();
                         jsonObject.put("leave", "已请假");
+                        if (leave_type.equals("旷课")){
+                            jsonObject.put("leave", "已旷课");
+                        }
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
                     resul_list.add(jsonObject);

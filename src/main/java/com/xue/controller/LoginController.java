@@ -836,7 +836,7 @@ public class LoginController {
 
 	@RequestMapping("/leaveRecord")
 	@ResponseBody
-	public int leaveRecord(String student_name,String studio,String date_time,String duration){
+	public int leaveRecord(String student_name,String studio,String date_time,String duration,String leave_type){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
@@ -846,6 +846,7 @@ public class LoginController {
 			leave.setDate_time(date_time);
 			leave.setDuration(duration);
 			leave.setCreate_time(create_time);
+			leave.setLeave_type(leave_type);
 			dao.insertLeave(leave);
 		} catch (Exception e) {
 			e.printStackTrace();
