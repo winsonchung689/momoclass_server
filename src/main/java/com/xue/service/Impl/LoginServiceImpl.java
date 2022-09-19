@@ -1088,7 +1088,9 @@ public class LoginServiceImpl implements LoginService {
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
 
-                list_lesson = dao.getLessonByName(student_name,studio);
+                if(!openid.equals("all")){
+                    list_lesson = dao.getLessonByName(student_name,studio);
+                }
 
                 //json
                 jsonObject.put("role", role);
