@@ -1063,7 +1063,8 @@ public class LoginServiceImpl implements LoginService {
         Integer coins = 0;
         String comment_style = null;
         String theme = null;
-        List<User> list= null;
+        List<User> list= new ArrayList<>();;
+        List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUser(openid);
@@ -1087,9 +1088,11 @@ public class LoginServiceImpl implements LoginService {
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
 
+                list_lesson = dao.getLessonByName(student_name,studio);
+
                 //json
                 jsonObject.put("role", role);
-                if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client")){
+                if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client") && list_lesson.size()>0){
                     jsonObject.put("role", "visit");
                 }
                 jsonObject.put("student_name", student_name);
