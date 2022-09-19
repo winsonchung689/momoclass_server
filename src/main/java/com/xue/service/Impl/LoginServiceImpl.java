@@ -1845,7 +1845,7 @@ public class LoginServiceImpl implements LoginService {
 
             if(comment_style.equals("self")&&role.equals("client")){
                 list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length);
-            }else {
+            }else if(role.equals("boss")||comment_style.equals("public")) {
                 list = dao.getMessage(studio, page_start, page_length);
             }
 
