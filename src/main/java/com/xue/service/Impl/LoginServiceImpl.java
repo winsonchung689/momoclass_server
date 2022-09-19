@@ -1823,7 +1823,7 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
-        List<Message> list=null;
+        List<Message> list=new ArrayList<>();;
         List<User> users=null;
         String duration = null;
         Integer positive = 0;
