@@ -1089,6 +1089,9 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("role", role);
+                if(!openid.equals("all") && nick_name.equals("no_name") && role.equals("client")){
+                    jsonObject.put("role", "visit");
+                }
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
