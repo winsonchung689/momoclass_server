@@ -1092,7 +1092,10 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("role", role);
-                if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client") && list_lesson.size()>0){
+                if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client")){
+                    jsonObject.put("role", "visit");
+                }
+                if(!openid.equals("all") && !student_name.equals("no_name") && role.equals("client") && list_lesson.size()==0){
                     jsonObject.put("role", "visit");
                 }
                 jsonObject.put("student_name", student_name);
