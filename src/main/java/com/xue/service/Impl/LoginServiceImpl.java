@@ -1062,6 +1062,7 @@ public class LoginServiceImpl implements LoginService {
         String expired_time = null;
         Integer coins = 0;
         String comment_style = null;
+        String openid_get = null;
         String theme = null;
         List<User> list= new ArrayList<>();;
         List<Lesson> list_lesson= new ArrayList<>();
@@ -1084,7 +1085,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 expired_time = line.getExpired_time();
                 coins = line.getCoins();
-                openid = line.getOpenid();
+                openid_get = line.getOpenid();
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
 
@@ -1108,7 +1109,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("coins", coins);
-                jsonObject.put("openid",openid);
+                jsonObject.put("openid",openid_get);
                 jsonObject.put("comment_style",comment_style);
                 jsonObject.put("theme",theme);
                 resul_list.add(jsonObject);
