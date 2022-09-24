@@ -249,7 +249,7 @@
 
   <!-- 插入签到记录 -->
   <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">
-    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count})
+    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count,class_number) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count},#{class_number})
   </insert>
 
   <!-- 插入请假记录 -->
