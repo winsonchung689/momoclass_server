@@ -818,6 +818,9 @@ public class LoginController {
 			signUp.setMark(mark);
 			signUp.setDuration(duration);
 			signUp.setCount(count);
+			if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
+				class_number = "无班号";
+			}
 			signUp.setClass_number(class_number);
 
 			int insert_res = loginService.insertSignUp(signUp);
@@ -1325,7 +1328,7 @@ public class LoginController {
 
 		String class_number = request.getParameter("class_number");
 		if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
-			duration = "无班号";
+			class_number = "无班号";
 		}
 
 		Integer status = 1;
