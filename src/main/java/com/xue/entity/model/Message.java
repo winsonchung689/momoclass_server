@@ -22,6 +22,8 @@ public class Message {
 
     private String studio;
 
+    private String mp3_url;
+
     private String duration;
 
     private Integer positive;
@@ -29,6 +31,14 @@ public class Message {
     private Integer discipline;
 
     private Integer happiness;
+
+    public String getMp3_url() {
+        return mp3_url;
+    }
+
+    public void setMp3_url(String mp3_url) {
+        this.mp3_url = mp3_url;
+    }
 
     public Integer getPositive() {
         return positive;

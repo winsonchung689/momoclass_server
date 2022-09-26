@@ -1245,6 +1245,8 @@ public class LoginController {
 		Integer happiness = Integer.parseInt(happiness_get);
 
 
+		//获取音频路径
+		String mp3_url = request.getParameter("mp3_url");
 		//获取图片路径
 		String photo = request.getParameter("photo");
 		//获取文字
@@ -1296,6 +1298,7 @@ public class LoginController {
 			message.setPositive(positive);
 			message.setDiscipline(discipline);
 			message.setHappiness(happiness);
+			message.setMp3_url(mp3_url);
 
 			if(!"奖状".equals(class_target)){
 				in = Imageutil.readImage(photo);
