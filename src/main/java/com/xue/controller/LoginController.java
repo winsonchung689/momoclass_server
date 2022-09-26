@@ -983,6 +983,8 @@ public class LoginController {
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
 			 p_path = path +"/uploadimages/"+ class_name + ".png";
+		}else if("录音文件".equals(class_target)){
+			p_path = path +"/uploadMP3/"+ uuid + ".mp3";
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
 		}
