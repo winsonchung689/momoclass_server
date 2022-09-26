@@ -1096,6 +1096,24 @@ public class LoginController {
 		}
 	}
 
+	@RequestMapping("/get_MP3")
+	@ResponseBody
+	public ResponseEntity<byte[]> get_MP3(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String class_name =  request.getParameter("class_name");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadMP3/"+ class_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("class_name", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
+	}
+
 	@RequestMapping("/submit_batch")
 	@ResponseBody
 	public String submit_batch(String studio) throws IOException{
