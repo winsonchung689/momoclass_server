@@ -1,4 +1,3 @@
-xiaow:
-  video:
+ video:
     upload: /data/uploadVideo
     mapping: /file

@@ -15,8 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,8 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1878,19 +1874,31 @@ public class LoginController {
 	}
 
 
-	@Configuration
-	public class UploadFilePathConfig extends WebMvcConfigurerAdapter {
-
-		@Value("${file.staticAccessPath}")
-		private String staticAccessPath;
-		@Value("${file.uploadFolder}")
-		private String uploadFolder;
-
-		@Override
-		public void addResourceHandlers(ResourceHandlerRegistry registry) {
-			registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + uploadFolder);
+	@RestController
+	@RequestMapping("/file")
+	public class FileController {
+		/**
+		 * 获取所有的视频文件的名称，用于访问本地文件时使用
+		 * @param path
+		 * @return
+		 */
+		@GetMapping("/getFiles")
+		public List<String> getFiles(String path){
+			ArrayList<String> fileNameList = new ArrayList<String>();
+			boolean flag = false;
+			File file = new File(path);
+			//获取文件夹下所有的文件
+			File[] tempList = file.listFiles();
+			//把文件名称添加至列表之中
+			for (int i = 0; i < tempList.length; i++) {
+				if (tempList[i].isFile()) {
+					fileNameList.add(tempList[i].getName());
+				}
+			}
+			return fileNameList;
 		}
 	}
+
 
 }
 	
