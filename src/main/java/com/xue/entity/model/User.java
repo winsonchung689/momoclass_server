@@ -26,6 +26,16 @@ public class User {
 
     private String theme;
 
+    private Integer display;
+
+    public Integer getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Integer display) {
+        this.display = display;
+    }
+
     public String getTheme() {
         return theme;
     }

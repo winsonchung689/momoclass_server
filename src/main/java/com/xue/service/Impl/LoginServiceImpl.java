@@ -1070,6 +1070,7 @@ public class LoginServiceImpl implements LoginService {
         String comment_style = null;
         String openid_get = null;
         String theme = null;
+        Integer display = null;
         List<User> list= new ArrayList<>();;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
@@ -1094,6 +1095,7 @@ public class LoginServiceImpl implements LoginService {
                 openid_get = line.getOpenid();
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
+                display = line.getDisplay();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio);
@@ -1118,6 +1120,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid",openid_get);
                 jsonObject.put("comment_style",comment_style);
                 jsonObject.put("theme",theme);
+                jsonObject.put("display",display);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
