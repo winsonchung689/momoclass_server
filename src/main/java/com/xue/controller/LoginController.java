@@ -1013,6 +1013,12 @@ public class LoginController {
 
 		String d_path = path +"/uploadVideo/"+ studio + "/" ;
 		File file = new File(d_path);
+
+		if (!file.exists()){ //如果不存在
+			boolean dr = file.mkdirs(); //创建目录
+		}
+
+
 		String[] content = file.list();//取得当前目录下所有文件和文件夹
 		for(String name : content){
 			File temp = new File(path, name);
@@ -1020,6 +1026,7 @@ public class LoginController {
 				System.err.println("Failed to delete " + name);
 			}
 		}
+
 
 		//获取类路径
 		String p_path = null;
