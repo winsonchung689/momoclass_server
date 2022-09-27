@@ -1004,17 +1004,27 @@ public class LoginController {
 	@RequestMapping("/push_video")
 	@ResponseBody
 	public String push_video(HttpServletRequest request, HttpServletResponse response){
+		String path = System.getProperty("user.dir");
 
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("video");
 		String studio =  request.getParameter("studio");
 
+		String d_path = path +"/uploadVideo/"+ studio + "/" ;
+		File file = new File(d_path);
+		String[] content = file.list();//取得当前目录下所有文件和文件夹
+		for(String name : content){
+			File temp = new File(path, name);
+			if(!temp.delete()){//直接删除文件
+				System.err.println("Failed to delete " + name);
+			}
+		}
+
 		//获取类路径
 		String p_path = null;
-		String path = System.getProperty("user.dir");
 		UUID uuid = UUID.randomUUID();
-		p_path = path +"/uploadVideo/"+ studio + ".mp4";
+		p_path = path +"/uploadVideo/"+ studio + "/" + uuid + ".mp4";
 
 		//保存图片
 		try {
@@ -1108,13 +1118,16 @@ public class LoginController {
 	@RequestMapping("/get_video")
 	@ResponseBody
 	public String get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("file_name");
+		String file_name = null;
+		String studio =  request.getParameter("studio");
 		String path = System.getProperty("user.dir");
-		String p_path = path +"/uploadVideo/"+ file_name;
+		String p_path = path +"/uploadVideo/"+ studio + "/";
 		System.out.printf("path:" + p_path);
 		File file = new File(p_path);
 		if(file.exists()){
-			return "文件存在";
+			 String[] content = file.list();
+			 file_name = content[0];
+			return file_name;
 		}else{
 			return "文件不存在";
 		}
