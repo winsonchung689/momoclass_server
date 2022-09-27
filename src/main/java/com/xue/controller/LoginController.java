@@ -1089,24 +1089,10 @@ public class LoginController {
 
 	@RequestMapping("/get_file")
 	@ResponseBody
-	public String get_file(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> get_file(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String path = System.getProperty("user.dir");
 		String p_path = path +"/uploadfiles/"+ file_name;
-		File file = new File(p_path);
-		if(file.exists()){
-			return "文件存在";
-		}else{
-			return "文件不存在";
-		}
-	}
-
-	@RequestMapping("/get_video")
-	@ResponseBody
-	public ResponseEntity<byte[]> get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("file_name");
-		String path = System.getProperty("user.dir");
-		String p_path = path +"/uploadVideo/"+ file_name;
 		File file = new File(p_path);
 		if(file.exists()){
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
@@ -1116,6 +1102,20 @@ public class LoginController {
 		}else{
 			System.out.println("文件不存在,请重试...");
 			return null;
+		}
+	}
+
+	@RequestMapping("/get_video")
+	@ResponseBody
+	public String get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String file_name =  request.getParameter("file_name");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/uploadVideo/"+ file_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			return "文件存在";
+		}else{
+			return "文件不存在";
 		}
 	}
 
