@@ -1111,6 +1111,7 @@ public class LoginController {
 		String file_name =  request.getParameter("file_name");
 		String path = System.getProperty("user.dir");
 		String p_path = path +"/uploadVideo/"+ file_name;
+		System.out.printf("path:" + p_path);
 		File file = new File(p_path);
 		if(file.exists()){
 			return "文件存在";
@@ -1611,6 +1612,18 @@ public class LoginController {
 
 		try {
 			dao.updateTheme(theme,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updatVideoDisplay")
+	@ResponseBody
+	public String updatVideoDisplay(String studio,Integer display){
+		try {
+			dao.updatVideoDisplay(studio,display);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

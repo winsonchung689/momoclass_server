@@ -1,5 +1,6 @@
 package com.xue;
 
+import org.apache.catalina.connector.Connector;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,12 @@ public class SpringbootLoginApplication {
 	@Bean
 	public ConfigurableServletWebServerFactory webServerFactory() {
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-		factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> connector.setProperty("relaxedQueryChars", "|{}[]\\"));
+		factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
+			@Override
+			public void customize(Connector connector) {
+				connector.setProperty("relaxedQueryChars", "|{}[]%");
+			}
+		});
 		return factory;
 	}
 

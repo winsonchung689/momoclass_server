@@ -118,6 +118,8 @@ public interface UserMapper {
 
     int updateTheme(String theme,String param2);
 
+    int updatVideoDisplay(String studio,Integer display);
+
     int updateUserPay(User user);
 
     int updateComentStyle(User user);
