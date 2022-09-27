@@ -1021,10 +1021,8 @@ public class LoginController {
 
 		String[] content = file.list();//取得当前目录下所有文件和文件夹
 		for(String name : content){
-			File temp = new File(path, name);
-			if(!temp.delete()){//直接删除文件
-				System.err.println("Failed to delete " + name);
-			}
+			File temp = new File(d_path, name);
+			temp.delete();
 		}
 
 
