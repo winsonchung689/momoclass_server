@@ -488,7 +488,7 @@
 
   <!-- 更新展示视频 -->
   <update id="updatVideoDisplay" parameterType="com.xue.entity.model.User">
-    update user set display=#{param1} where studio=#{param2}
+    update user set display=#{param2} where studio=#{param1}
   </update>
 
   <!-- 续费更新 -->
