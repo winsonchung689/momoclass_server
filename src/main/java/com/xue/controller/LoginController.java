@@ -1000,6 +1000,31 @@ public class LoginController {
 		return p_path;
 	}
 
+	//	推送图片
+	@RequestMapping("/push_video")
+	@ResponseBody
+	public String push_video(HttpServletRequest request, HttpServletResponse response){
+
+		//获取图片
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile multipartFile = req.getFile("video");
+		String studio =  request.getParameter("studio");
+
+		//获取类路径
+		String p_path = null;
+		String path = System.getProperty("user.dir");
+		UUID uuid = UUID.randomUUID();
+		p_path = path +"/uploadVideo/"+ studio + ".mp4";
+
+		//保存图片
+		try {
+			multipartFile.transferTo(new File(p_path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return p_path;
+	}
+
 	//	推送文件
 	@RequestMapping("/push_file")
 	@ResponseBody
