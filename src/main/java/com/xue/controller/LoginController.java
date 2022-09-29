@@ -1649,6 +1649,18 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updatCoverDisplay")
+	@ResponseBody
+	public String updatCoverDisplay(String studio,Integer cover){
+		try {
+			dao.updatCoverDisplay(studio,cover);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateComentStyle")
 	@ResponseBody
 	public String updateComentStyle(HttpServletRequest request, HttpServletResponse response){

@@ -120,6 +120,8 @@ public interface UserMapper {
 
     int updatVideoDisplay(String studio,Integer display);
 
+    int updatCoverDisplay(String studio,Integer cover);
+
     int updateUserPay(User user);
 
     int updateComentStyle(User user);
