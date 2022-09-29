@@ -28,6 +28,16 @@ public class User {
 
     private Integer display;
 
+    private Integer cover;
+
+    public Integer getCover() {
+        return cover;
+    }
+
+    public void setCover(Integer cover) {
+        this.cover = cover;
+    }
+
     public Integer getDisplay() {
         return display;
     }
