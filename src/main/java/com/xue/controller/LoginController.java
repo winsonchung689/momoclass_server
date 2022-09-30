@@ -1955,33 +1955,6 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-
-	@RestController
-	@RequestMapping("/file")
-	public class FileController {
-		/**
-		 * 获取所有的视频文件的名称，用于访问本地文件时使用
-		 * @param path
-		 * @return
-		 */
-		@GetMapping("/getFiles")
-		public List<String> getFiles(String path){
-			ArrayList<String> fileNameList = new ArrayList<String>();
-			boolean flag = false;
-			File file = new File(path);
-			//获取文件夹下所有的文件
-			File[] tempList = file.listFiles();
-			//把文件名称添加至列表之中
-			for (int i = 0; i < tempList.length; i++) {
-				if (tempList[i].isFile()) {
-					fileNameList.add(tempList[i].getName());
-				}
-			}
-			return fileNameList;
-		}
-	}
-
-
 }
 	
 	
