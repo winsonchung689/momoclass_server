@@ -941,8 +941,8 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
             Integer weekofday=0;
-            if(weekDay==1){
-                weekofday=7;
+            if(weekDay==7){
+                weekofday=1;
             }else {
                 weekofday = weekDay + 1;
             }
