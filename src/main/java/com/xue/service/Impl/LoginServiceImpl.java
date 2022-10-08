@@ -940,9 +940,14 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
-
+            Integer weekofday=0;
+            if(weekDay==1){
+                weekofday=7;
+            }else {
+                weekofday = weekDay + 1;
+            }
             if ("boss".equals(role) && studio_get.equals(studio)) {
-                dao.deleteScheduleByDate(weekDay,duration,studio,class_number);
+                dao.deleteScheduleByDate(weekofday,duration,studio,class_number);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }
