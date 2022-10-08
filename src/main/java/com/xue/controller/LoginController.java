@@ -490,10 +490,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/changeClass")
 	@ResponseBody
-	public String changeClass(String studio,Integer changeday,String duration,String class_number,Integer dayofweek){
+	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday){
 		String result=null;
 		try {
-			 result = loginService.changeClass(studio,changeday,duration,class_number,dayofweek);
+			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -674,9 +674,10 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteArrangement")
 	@ResponseBody
-	public int deleteArrangement(Integer id,String role,String studio,String openid){
+	public int deleteArrangement(Integer id,String role,String studio,String openid,String duration,String weekday,String class_number){
 		try {
 			loginService.deleteArrangement(id,role,studio,openid);
+			loginService.deleteScheduleByDate(Integer.parseInt(weekday),duration,studio,class_number,role,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

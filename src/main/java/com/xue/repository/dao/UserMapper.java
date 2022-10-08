@@ -79,6 +79,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
+    void deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number);
+
     void deleteArrangement(Integer id,String studio);
 
     void changeClassName(Integer id,String studio,String class_number);

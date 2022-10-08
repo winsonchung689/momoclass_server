@@ -936,6 +936,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number,String role,String openid) {
+        try {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteScheduleByDate(weekDay,duration,studio,class_number);
+            }else {
+                logger.error("it's not your studio, could not delete!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public int confirmSchedule(Integer id, String role, String studio, String openid) {
         try {
             List<User> list = dao.getUser(openid);
@@ -1930,21 +1948,21 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer dayofweek) {
+    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         String limits = null;
         String add_date = null;
         String student_name = null;
         String student_type = null;
-        if(dayofweek==7){
+        if(weekday==7){
             dayofweek_by=1;
         }else {
-            dayofweek_by = dayofweek + 1;
+            dayofweek_by = weekday + 1;
         }
 
         try {
-            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration);
+            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration);
             for (int i = 0; i < arrangement_list.size(); i++) {
                 Arrangement line = arrangement_list.get(i);
                 //获取字段

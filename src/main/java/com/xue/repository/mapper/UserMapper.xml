@@ -232,6 +232,11 @@
     select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and student_type ='ordinary' order by duration
   </select>
 
+  <!-- 获取课程表 -->
+  <select id="deleteScheduleByDate" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    delete from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and student_type ='ordinary' order by duration
+  </select>
+
   <!-- 获取课插班生 -->
   <select id="getTransfer" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' order by duration
@@ -269,7 +274,7 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangementByDate" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param3} order by duration
+    select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} order by duration
   </select>
 
   <!-- 查找请假记录 -->
