@@ -186,6 +186,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangement(String studio,String dayofweek);
 
+    List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration);
+
     List<SignUp> getSignUp(String student_name,String studio);
 
     List<Message> getCommentByDate(String student_name,String studio,String date_time);

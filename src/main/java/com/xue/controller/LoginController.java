@@ -487,6 +487,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/changeClass")
+	@ResponseBody
+	public String changeClass(String studio,Integer changeday,String duration,String class_number,Integer dayofweek){
+		String result=null;
+		try {
+			 result = loginService.changeClass(studio,changeday,duration,class_number,dayofweek);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody

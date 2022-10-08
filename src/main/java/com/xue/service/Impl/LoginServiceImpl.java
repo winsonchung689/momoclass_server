@@ -1930,6 +1930,93 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer dayofweek) {
+        Integer dayofweek_by= 0;
+        List<JSONObject> resul_list = new ArrayList<>();
+        String limits = null;
+        String add_date = null;
+        String student_name = null;
+        String student_type = null;
+        if(dayofweek==7){
+            dayofweek_by=1;
+        }else {
+            dayofweek_by = dayofweek + 1;
+        }
+
+        try {
+            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration);
+            for (int i = 0; i < arrangement_list.size(); i++) {
+                Arrangement line = arrangement_list.get(i);
+                //获取字段
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+                limits = line.getLimits();
+
+                Arrangement arrangement =new Arrangement();
+                arrangement.setDayofweek(changeday.toString());
+                arrangement.setClass_number(class_number);
+                arrangement.setLimits(limits);
+                arrangement.setStudio(studio);
+                arrangement.setDuration(duration);
+                dao.insertArrangement(arrangement);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+            String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+            String age =null;
+            Integer status = 0;
+            if(changeday==1){
+                add_date = "2022-05-02";
+            }else if(changeday==2){
+                add_date = "2022-05-03";
+            }else if(changeday==3){
+                add_date = "2022-05-04";
+            }else if(changeday==4){
+                add_date = "2022-05-05";
+            }else if(changeday==5){
+                add_date = "2022-05-06";
+            }else if(changeday==6){
+                add_date = "2022-05-07";
+            }else if(changeday==7){
+                add_date = "2022-05-08";
+            }
+            for (int i = 0; i < schedule_list.size(); i++) {
+                Schedule line = schedule_list.get(i);
+                //获取字段
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+                student_name = line.getStudent_name();
+                student_type = line.getStudent_type();
+                age = line.getAge();
+                status = line.getStatus();
+
+                Schedule schedule =new Schedule();
+                schedule.setAdd_date(add_date);
+                schedule.setAge(age);
+                schedule.setStudent_name(student_name);
+                schedule.setDuration(duration);
+                schedule.setCreate_time(create_time);
+                schedule.setUpdate_time(create_time);
+                schedule.setStudio(studio);
+                schedule.setClass_number(class_number);
+                schedule.setStudent_type(student_type);
+                schedule.setStatus(status);
+                dao.insertSchedule(schedule);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "changeClass successfully";
+    }
+
+    @Override
     public List getGrowthRecord(String studio, Integer page, String student_name) {
         String comment = null;
         String id = null;
