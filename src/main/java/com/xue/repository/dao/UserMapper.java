@@ -85,6 +85,8 @@ public interface UserMapper {
 
     void changeClassName(Integer id,String studio,String class_number);
 
+    void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number);
+
     void deleteStudentPhoto(String student_name,String studio);
 
     void deleteHome(String studio);
@@ -187,6 +189,8 @@ public interface UserMapper {
     int insertGift(Gift gift);
 
     List<Arrangement> getArrangement(String studio,String dayofweek);
+
+    List<Arrangement> getArrangementById(String studio,Integer id);
 
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration);
 

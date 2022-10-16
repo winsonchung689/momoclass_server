@@ -851,8 +851,15 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
+            List<Arrangement> list_1 = dao.getArrangementById(studio,id);
+            Arrangement arrangement = list_1.get(0);
+            String duration = arrangement.getDuration();
+            String old_class_number = arrangement.getClass_number();
+
+
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 dao.changeClassName(id,studio,class_number);
+                dao.changeScheduleClassName(old_class_number,studio,duration,class_number);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }
