@@ -239,7 +239,7 @@
 
   <!-- 获取课程表 -->
   <select id="deleteScheduleByDate" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    delete from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and student_type ='ordinary' order by duration
+    update class_schedule set delete_status = 1 where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and student_type ='ordinary' order by duration
   </select>
 
   <!-- 获取课插班生 -->
