@@ -168,7 +168,7 @@
 
   <!-- 删除安排 -->
   <select id="deleteArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    delete from schedule_arrangement where id =#{param1} and studio =#{param2}
+    update schedule_arrangement set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 更改课程名 -->
@@ -208,7 +208,7 @@
 
   <!-- 刪除课程表 -->
   <select id="deleteSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
-    delete from class_schedule where id =#{param1} and studio =#{param2}
+    update class_schedule set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 确认课程 -->
