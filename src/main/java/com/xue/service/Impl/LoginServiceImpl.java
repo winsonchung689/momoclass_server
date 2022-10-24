@@ -1279,6 +1279,7 @@ public class LoginServiceImpl implements LoginService {
         String dayofweek = null;
         String class_number = null;
         String duration = null;
+        String subject = null;
         List<String> resul_list = new ArrayList<>();
         try {
 
@@ -1289,9 +1290,10 @@ public class LoginServiceImpl implements LoginService {
                 dayofweek = line.getDayofweek();
                 class_number = line.getClass_number();
                 duration = line.getDuration();
+                subject = line.getSubject();
 
 
-                String item = "星期"+dayofweek+ "," + class_number + "," + duration;
+                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
 
                 //json
                 resul_list.add(item);
