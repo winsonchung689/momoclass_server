@@ -190,7 +190,7 @@ public interface UserMapper {
 
     int insertGift(Gift gift);
 
-    List<Arrangement> getArrangement(String studio,String dayofweek);
+    List<Arrangement> getArrangement(String studio,String dayofweek,String subject);
 
     List<Arrangement> getArrangementById(String studio,Integer id);
 
