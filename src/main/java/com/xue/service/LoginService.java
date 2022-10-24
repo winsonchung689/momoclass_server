@@ -102,6 +102,8 @@ public interface LoginService {
 
     public List getStudio();
 
+    public List getClassNumbers(String studio);
+
     public List getArrangements(String studio);
 
     public List getArrangementsByDate(String studio,String date_time);

@@ -144,6 +144,8 @@ public interface UserMapper {
 
     List<User> getStudio();
 
+    List<Schedule> getClassNumbers(String studio);
+
     List<Arrangement> getArrangements(String studio);
 
     List<Arrangement> getArrangementsByDate(String studio);

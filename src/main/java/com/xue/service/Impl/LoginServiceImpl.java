@@ -1244,6 +1244,29 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getClassNumbers(String studio) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        String class_number = null;
+        try {
+
+            List<Schedule> list = dao.getClassNumbers(studio);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Schedule line = list.get(i);
+                //获取字段
+                class_number = line.getClass_number();
+
+                //json
+                jsonObject.put("class_number", class_number);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getArrangements(String studio) {
         String dayofweek = null;
         String class_number = null;

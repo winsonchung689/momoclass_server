@@ -591,6 +591,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取工作室列表
+	@RequestMapping("/getClassNumbers")
+	@ResponseBody
+	public List getClassNumbers(String studio){
+		List list = null;
+		try {
+			list = loginService.getClassNumbers(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取课程列表
 	@RequestMapping("/getArrangements")
 	@ResponseBody
