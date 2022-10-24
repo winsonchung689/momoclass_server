@@ -444,7 +444,13 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Arrangement> list = dao.getArrangement(studio,dayofweek.toString(),subject);
+            List<Arrangement> list =null;
+            if(subject.equals("全部")){
+                list = dao.getArrangementAll(studio,dayofweek.toString());
+            }else {
+                list = dao.getArrangement(studio,dayofweek.toString(),subject);
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);

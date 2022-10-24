@@ -278,6 +278,11 @@
   </select>
 
   <!-- 查找课程表 -->
+  <select id="getArrangementAll" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and delete_status = 0 order by duration
+  </select>
+
+  <!-- 查找课程表 -->
   <select id="getArrangementByDate" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and delete_status = 0 order by duration
   </select>

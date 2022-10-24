@@ -192,6 +192,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject);
 
+    List<Arrangement> getArrangementAll(String studio,String dayofweek);
+
     List<Arrangement> getArrangementById(String studio,Integer id);
 
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject);
