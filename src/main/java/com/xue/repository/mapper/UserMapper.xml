@@ -445,7 +445,7 @@
   </select>
 
   <select id="getArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select distinct dayofweek,class_number,duration,studio from schedule_arrangement where studio =#{param1} and id =#{param2} and delete_status = 0
+    select distinct dayofweek,class_number,duration,studio,subject from schedule_arrangement where studio =#{param1} and id =#{param2} and delete_status = 0
   </select>
 
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
