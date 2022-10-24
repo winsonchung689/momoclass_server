@@ -1583,6 +1583,8 @@ public class LoginController {
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
+		String subject = request.getParameter("subject");
+
 		String status =request.getParameter("status") ;
 		if(status == null || status.isEmpty() || "undefined".equals(status)){
 			status = "1";
@@ -1603,6 +1605,7 @@ public class LoginController {
 				schedule.setClass_number(class_number);
 				schedule.setStudent_type("ordinary");
 				schedule.setStatus(Integer.parseInt(status));
+				schedule.setSubject(subject);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
