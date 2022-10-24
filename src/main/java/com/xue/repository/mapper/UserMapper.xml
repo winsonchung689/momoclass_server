@@ -411,7 +411,7 @@
     select distinct studio from user
   </select>
 
-  <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseUser">
+  <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select distinct class_number from class_schedule where studio = #{param1}
   </select>
 
