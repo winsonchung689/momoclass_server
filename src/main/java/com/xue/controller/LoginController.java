@@ -1018,7 +1018,7 @@ public class LoginController {
 			arrangement.setStudio(studio);
 			arrangement.setSubject(subject);
 			loginService.insertArrangement(arrangement);
-			if (student_name == null || student_name.isEmpty() || "undefined".equals(student_name)) {
+			if (student_name != null && !student_name.isEmpty() & !"undefined".equals(student_name)) {
 				String add_date = null;
 				if (dayofweek.equals("1")) {
 					add_date = "2022-05-02";
