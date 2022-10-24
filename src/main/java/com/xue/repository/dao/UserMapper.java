@@ -54,7 +54,7 @@ public interface UserMapper {
     List<Schedule> getSchedule(Integer date_time,String studio);
 
     //获取
-    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number);
+    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
 
     //获取
     List<Schedule> getTransfer(String date_time,String studio);
@@ -194,7 +194,7 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementById(String studio,Integer id);
 
-    List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration);
+    List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject);
 
     List<SignUp> getSignUp(String student_name,String studio);
 

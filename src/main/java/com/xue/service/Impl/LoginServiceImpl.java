@@ -774,7 +774,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number) {
+    public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number,String subject) {
         String age = null;
         String student_name = null;
         String id = null;
@@ -784,7 +784,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取常规学生
         try {
-            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio,class_number);
+            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
@@ -1991,7 +1991,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday) {
+    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         String limits = null;
@@ -2005,7 +2005,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration);
+            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration,subject);
             for (int i = 0; i < arrangement_list.size(); i++) {
                 Arrangement line = arrangement_list.get(i);
                 //获取字段
@@ -2027,7 +2027,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number);
+            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
             String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
             String age =null;

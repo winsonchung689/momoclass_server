@@ -346,10 +346,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getScheduleDetail")
 	@ResponseBody
-	public List getScheduleDetail(String weekDay,String duration,String studio,String class_number){
+	public List getScheduleDetail(String weekDay,String duration,String studio,String class_number,String subject){
 		List list = null;
 		try {
-			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio,class_number);
+			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio,class_number,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -490,10 +490,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/changeClass")
 	@ResponseBody
-	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday){
+	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday,String subject){
 		String result=null;
 		try {
-			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday));
+			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday),subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

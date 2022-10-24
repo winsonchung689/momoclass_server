@@ -8,7 +8,7 @@ public interface LoginService {
 
     public List  getMessage(String studio,Integer page,String comment_style,String openid,String role);
 
-    public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday);
+    public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject);
 
     public List  getGrowthRecord(String studio,Integer page,String student_name);
 
@@ -60,7 +60,7 @@ public interface LoginService {
 
     public List  getSchedule(String date_time,String studio);
 
-    public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number);
+    public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
 
     public int  deleteComment(Integer id,String role,String studio,String openid);
 
