@@ -2019,6 +2019,7 @@ public class LoginServiceImpl implements LoginService {
                 class_number = line.getClass_number();
                 duration = line.getDuration();
                 limits = line.getLimits();
+                subject = line.getSubject();
 
                 Arrangement arrangement =new Arrangement();
                 arrangement.setDayofweek(changeday.toString());
@@ -2026,6 +2027,7 @@ public class LoginServiceImpl implements LoginService {
                 arrangement.setLimits(limits);
                 arrangement.setStudio(studio);
                 arrangement.setDuration(duration);
+                arrangement.setSubject(subject);
                 dao.insertArrangement(arrangement);
             }
 
@@ -2063,6 +2065,7 @@ public class LoginServiceImpl implements LoginService {
                 student_type = line.getStudent_type();
                 age = line.getAge();
                 status = line.getStatus();
+                subject = line.getSubject();
 
                 Schedule schedule =new Schedule();
                 schedule.setAdd_date(add_date);
