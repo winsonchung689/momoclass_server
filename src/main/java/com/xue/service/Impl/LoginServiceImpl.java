@@ -551,6 +551,7 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
         Integer weekofday=0;
         String mark = null;
+        String subject = null;
 
 
         // 获取常规学生
@@ -578,6 +579,8 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
+                subject = line.getSubject();
+                jsonObject.put("subject", subject);
                 jsonObject.put("class_number", class_number);
 
 //                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
@@ -677,6 +680,8 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
+                subject = line.getSubject();
+                jsonObject.put("subject", subject);
                 jsonObject.put("class_number","无班号(插班生)");
                 if(class_number.length()>0){
                     jsonObject.put("class_number", class_number+"(插班生)");
