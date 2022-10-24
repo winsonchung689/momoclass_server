@@ -1578,13 +1578,13 @@ public class LoginController {
 
 		String class_number = list_get[1];
 		String duration = list_get[2];
+		String subject = list_get[3];
 
 		String studio = request.getParameter("studio");
 
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
-		String subject = request.getParameter("subject");
 
 		String status =request.getParameter("status") ;
 		if(status == null || status.isEmpty() || "undefined".equals(status)){
