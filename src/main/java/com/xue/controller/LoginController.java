@@ -709,9 +709,9 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/changeClassName")
 	@ResponseBody
-	public int changeClassName(Integer id,String role,String studio,String openid,String class_number){
+	public int changeClassName(Integer id,String role,String studio,String openid,String class_number,String change_tile){
 		try {
-			loginService.changeClassName(id,role,studio,openid,class_number);
+			loginService.changeClassName(id,role,studio,openid,class_number,change_tile);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

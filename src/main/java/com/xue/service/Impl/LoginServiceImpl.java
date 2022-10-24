@@ -860,7 +860,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int changeClassName(Integer id, String role, String studio, String openid,String class_number) {
+    public int changeClassName(Integer id, String role, String studio, String openid,String class_number,String change_titile) {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
@@ -868,11 +868,18 @@ public class LoginServiceImpl implements LoginService {
             Arrangement arrangement = list_1.get(0);
             String duration = arrangement.getDuration();
             String old_class_number = arrangement.getClass_number();
+            String old_subject = arrangement.getSubject();
 
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
-                dao.changeClassName(id,studio,class_number);
-                dao.changeScheduleClassName(old_class_number,studio,duration,class_number);
+                if(change_titile.equals("班号")){
+                    dao.changeClassName(id,studio,class_number);
+                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number);
+                }else if(change_titile.equals("科目")){
+                    dao.changeSubjectName(id,studio,class_number);
+                    dao.changeScheduleSubject(old_subject,studio,duration,class_number);
+                }
+
             }else {
                 logger.error("it's not your studio, could not delete!");
             }
