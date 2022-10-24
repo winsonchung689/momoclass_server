@@ -1003,16 +1003,56 @@ public class LoginController {
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
-	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio){
+	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name){
+
 		try {
+
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
 			Arrangement arrangement =new Arrangement();
 			arrangement.setDayofweek(dayofweek);
 			arrangement.setClass_number(class_number);
 			arrangement.setDuration(duration);
 			arrangement.setLimits(limits);
 			arrangement.setStudio(studio);
+			arrangement.setSubject(subject);
 			loginService.insertArrangement(arrangement);
+			if (student_name == null || student_name.isEmpty() || "undefined".equals(student_name)) {
+				String add_date = null;
+				if (dayofweek.equals("1")) {
+					add_date = "2022-05-02";
+				} else if (dayofweek.equals("2")) {
+					add_date = "2022-05-03";
+				} else if (dayofweek.equals("3")) {
+					add_date = "2022-05-04";
+				} else if (dayofweek.equals("4")) {
+					add_date = "2022-05-05";
+				} else if (dayofweek.equals("5")) {
+					add_date = "2022-05-06";
+				} else if (dayofweek.equals("6")) {
+					add_date = "2022-05-07";
+				} else if (dayofweek.equals("7")) {
+					add_date = "2022-05-08";
+				}
 
+				Schedule schedule = new Schedule();
+				List<String> list = Arrays.asList(student_name.split(" "));
+				for (int i = 0; i < list.size(); i++) {
+					String list_student = list.get(i);
+					schedule.setAdd_date(add_date);
+					schedule.setAge("3-6");
+					schedule.setStudent_name(list_student);
+					schedule.setDuration(duration);
+					schedule.setCreate_time(create_time);
+					schedule.setUpdate_time(create_time);
+					schedule.setStudio(studio);
+					schedule.setClass_number(class_number);
+					schedule.setStudent_type("ordinary");
+					schedule.setStatus(1);
+					loginService.insertSchedule(schedule);
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

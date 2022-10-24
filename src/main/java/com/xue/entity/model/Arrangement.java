@@ -14,7 +14,18 @@ public class Arrangement {
 
     private String studio;
 
+    private String subject;
+
     private byte[] photo;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
 
     public byte[] getPhoto() {
         return photo;

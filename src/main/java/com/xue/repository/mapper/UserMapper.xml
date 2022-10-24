@@ -269,7 +269,7 @@
 
   <!-- 插入课程安排 -->
   <insert id="insertArrangement" parameterType="com.xue.entity.model.Arrangement">
-    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio})
+    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject})
   </insert>
 
   <!-- 查找课程表 -->
