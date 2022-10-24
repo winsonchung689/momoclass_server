@@ -860,7 +860,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int changeClassName(Integer id, String role, String studio, String openid,String class_number,String change_titile) {
+    public int changeClassName(Integer id, String role, String studio, String openid,String class_number,String change_title) {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
@@ -872,10 +872,10 @@ public class LoginServiceImpl implements LoginService {
 
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
-                if(change_titile.equals("班号")){
+                if(change_title.equals("班号")){
                     dao.changeClassName(id,studio,class_number);
                     dao.changeScheduleClassName(old_class_number,studio,duration,class_number);
-                }else if(change_titile.equals("科目")){
+                }else if(change_title.equals("科目")){
                     dao.changeSubjectName(id,studio,class_number);
                     dao.changeScheduleSubject(old_subject,studio,duration,class_number);
                 }
