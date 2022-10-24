@@ -51,13 +51,17 @@ public interface UserMapper {
     List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length);
 
     //获取
-    List<Schedule> getSchedule(Integer date_time,String studio);
+    List<Schedule> getScheduleAll(Integer date_time,String studio);
+
+    List<Schedule> getSchedule(Integer date_time,String studio,String subject);
 
     //获取
     List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
 
     //获取
-    List<Schedule> getTransfer(String date_time,String studio);
+    List<Schedule> getTransferAll(String date_time,String studio);
+
+    List<Schedule> getTransfer(String date_time,String studio,String subject);
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end);
 

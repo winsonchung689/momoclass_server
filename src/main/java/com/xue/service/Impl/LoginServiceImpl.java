@@ -539,7 +539,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSchedule(String date_time, String studio) {
+    public List getSchedule(String date_time, String studio,String subject) {
         String add_date = null;
         String age = null;
         String student_name = null;
@@ -556,8 +556,6 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
         Integer weekofday=0;
         String mark = null;
-        String subject = null;
-
 
         // 获取常规学生
         try {
@@ -571,7 +569,13 @@ public class LoginServiceImpl implements LoginService {
                 weekofday = weekDay - 1;
             }
 
-            List<Schedule> list = dao.getSchedule(weekDay, studio);
+            List<Schedule> list=null;
+            if(subject.equals("全科目")){
+                list = dao.getScheduleAll(weekDay, studio);
+            }else {
+                list = dao.getSchedule(weekDay, studio,subject);
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
@@ -587,15 +591,6 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 jsonObject.put("subject", subject);
                 jsonObject.put("class_number", class_number);
-
-//                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
-//                if(arrangements.size()>0){
-//                    Arrangement arrangement = arrangements.get(0);
-//                    class_number = arrangement.getClass_number();
-//                    jsonObject.put("class_number", class_number);
-//                }else{
-//                    jsonObject.put("class_number","临时加课");
-//                }
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
@@ -672,7 +667,12 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取插班生
         try {
-            List<Schedule> list = dao.getTransfer(date_time, studio);
+            List<Schedule> list=null;
+            if(subject.equals("全科目")){
+                list = dao.getTransferAll(date_time, studio);
+            }else {
+                list = dao.getTransfer(date_time, studio,subject);
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);

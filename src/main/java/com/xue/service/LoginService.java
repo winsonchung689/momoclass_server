@@ -58,7 +58,7 @@ public interface LoginService {
 
     public int insertGift(Gift gift);
 
-    public List  getSchedule(String date_time,String studio);
+    public List  getSchedule(String date_time,String studio,String subject);
 
     public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
 
