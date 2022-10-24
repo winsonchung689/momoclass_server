@@ -178,7 +178,7 @@ public interface UserMapper {
 
     Integer getLessonOweCount(String studio);
 
-    Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number);
+    Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject);
 
     Integer getSignUpCountByDay(String studio,String date,String duration,String class_number);
 
