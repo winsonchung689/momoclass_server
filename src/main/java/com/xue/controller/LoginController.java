@@ -1050,6 +1050,7 @@ public class LoginController {
 					schedule.setClass_number(class_number);
 					schedule.setStudent_type("ordinary");
 					schedule.setStatus(1);
+					schedule.setSubject(subject);
 					loginService.insertSchedule(schedule);
 				}
 			}
