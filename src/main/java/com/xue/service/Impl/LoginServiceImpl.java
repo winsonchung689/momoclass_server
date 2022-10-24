@@ -445,7 +445,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<Arrangement> list =null;
-            if(subject.equals("全部")){
+            if(subject.equals("全科目")){
                 list = dao.getArrangementAll(studio,dayofweek.toString());
             }else {
                 list = dao.getArrangement(studio,dayofweek.toString(),subject);
