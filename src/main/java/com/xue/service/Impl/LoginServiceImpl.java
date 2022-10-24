@@ -427,7 +427,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangement(String studio,Integer dayofweek,String date) {
+    public List getArrangement(String studio,Integer dayofweek,String date,String subject) {
         String class_number = null;
         String duration = null;
         String limits = null;
@@ -437,7 +437,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
         Integer sign_count =0;
-        String subject = null;
         if(dayofweek==7){
             dayofweek_by=1;
         }else {
