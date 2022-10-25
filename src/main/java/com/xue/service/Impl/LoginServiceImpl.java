@@ -875,10 +875,10 @@ public class LoginServiceImpl implements LoginService {
             if ("boss".equals(role) && studio_get.equals(studio)) {
                 if(change_title.equals("班号")){
                     dao.changeClassName(id1,studio,class_number);
-                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number);
+                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject);
                 }else if(change_title.equals("科目")){
                     dao.changeSubjectName(id1,studio,class_number);
-                    dao.changeScheduleSubject(old_subject,studio,duration,class_number);
+                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number);
                 }
 
             }else {

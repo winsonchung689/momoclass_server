@@ -91,9 +91,9 @@ public interface UserMapper {
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
-    void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number);
+    void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
 
-    void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject);
+    void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number);
 
     void deleteStudentPhoto(String student_name,String studio);
 
