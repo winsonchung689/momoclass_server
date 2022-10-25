@@ -183,7 +183,7 @@
 
   <!-- 更改课程名 -->
   <select id="changeScheduleClassName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update class_schedule set class_number =#{param4} where class_number =#{param1} and studio =#{param2} and duration =#{param3} nd subject =#{param5}
+    update class_schedule set class_number =#{param4} where class_number =#{param1} and studio =#{param2} and duration =#{param3} and subject =#{param5}
   </select>
 
   <!-- 更改课程名 -->
