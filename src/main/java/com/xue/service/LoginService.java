@@ -66,7 +66,7 @@ public interface LoginService {
 
     public int  deleteArrangement(Integer id,String role,String studio,String openid);
 
-    public int  changeClassName(Integer id,String role,String studio,String openid,String class_number,String change_title);
+    public int  changeClassName(String id,String role,String studio,String openid,String class_number,String change_title);
 
     public int  deleteSignUpRecord(Integer id,String role,String studio,String openid);
 
