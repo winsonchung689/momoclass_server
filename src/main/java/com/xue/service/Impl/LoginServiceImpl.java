@@ -1322,6 +1322,7 @@ public class LoginServiceImpl implements LoginService {
         String dayofweek = null;
         String class_number = null;
         String duration = null;
+        String subject = null;
         List<String> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Integer weekDay=0;
@@ -1346,7 +1347,8 @@ public class LoginServiceImpl implements LoginService {
                 dayofweek = line.getDayofweek();
                 class_number = line.getClass_number();
                 duration = line.getDuration();
-                String item = "星期"+dayofweek+ "," + class_number + "," + duration;
+                subject = line.getSubject();
+                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
                 if(weekofday.equals(Integer.parseInt(dayofweek))){
                     resul_list.add(item);
                 }
