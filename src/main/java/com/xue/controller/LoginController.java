@@ -1523,6 +1523,11 @@ public class LoginController {
 			class_number = "无班号";
 		}
 
+		String subject = request.getParameter("subject");
+		if(subject == null || subject.isEmpty() || "undefined".equals(subject)){
+			subject = "美术";
+		}
+
 		Integer status = 1;
 
 		Schedule schedule =new Schedule();
@@ -1540,6 +1545,7 @@ public class LoginController {
 				schedule.setStudent_type(student_type);
 				schedule.setStatus(status);
 				schedule.setClass_number(class_number);
+				schedule.setSubject(subject);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
