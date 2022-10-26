@@ -463,7 +463,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 subject = line.getSubject();
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
-                classes_count_all = classes_count_all + classes_count;
+                classes_count_all = dao.getLessonAllCount(studio);
                 try {
                     sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
                 } catch (Exception e) {
