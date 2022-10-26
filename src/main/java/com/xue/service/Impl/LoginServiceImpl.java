@@ -437,6 +437,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
         Integer sign_count =0;
+        Integer classes_count_all =0;
         if(dayofweek==7){
             dayofweek_by=1;
         }else {
@@ -464,6 +465,7 @@ public class LoginServiceImpl implements LoginService {
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
                 try {
                     sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
+                    classes_count_all = classes_count_all + sign_count;
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
@@ -478,6 +480,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("sign_count",sign_count);
                 jsonObject.put("subject",subject);
+                jsonObject.put("classes_count_all",classes_count_all);
                 resul_list.add(jsonObject);
             }
 
