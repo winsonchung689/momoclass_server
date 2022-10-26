@@ -448,8 +448,10 @@ public class LoginServiceImpl implements LoginService {
             List<Arrangement> list =null;
             if(subject.equals("全科目")){
                 list = dao.getArrangementAll(studio,dayofweek.toString());
+                classes_count_all=dao.getClassesCountAll(studio);
             }else {
                 list = dao.getArrangement(studio,dayofweek.toString(),subject);
+                classes_count_all=dao.getClassesCountBySubject(studio,subject);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -463,7 +465,6 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 subject = line.getSubject();
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
-                classes_count_all = dao.getLessonAllCount(studio);
                 try {
                     sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
                 } catch (Exception e) {

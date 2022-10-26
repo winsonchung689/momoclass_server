@@ -180,6 +180,10 @@ public interface UserMapper {
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject);
 
+    Integer getClassesCountAll(String studio);
+
+    Integer getClassesCountBySubject(String studio,String subject);
+
     Integer getSignUpCountByDay(String studio,String date,String duration,String class_number);
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
