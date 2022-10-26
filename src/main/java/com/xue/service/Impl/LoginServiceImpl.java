@@ -573,6 +573,9 @@ public class LoginServiceImpl implements LoginService {
         }else {
             sign_counts = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7));
         }
+        JSONObject jsonObject_1 = new JSONObject();
+        jsonObject_1.put("sign_counts", sign_counts);
+        resul_list.add(jsonObject_1);
 
         // 获取常规学生
         try {
