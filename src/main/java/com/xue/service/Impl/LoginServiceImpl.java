@@ -608,7 +608,6 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 jsonObject.put("subject", subject);
                 jsonObject.put("class_number", class_number);
-                jsonObject.put("sign_counts", sign_counts);
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
@@ -709,7 +708,6 @@ public class LoginServiceImpl implements LoginService {
                 if(class_number.length()>0){
                     jsonObject.put("class_number", class_number+"(插班生)");
                 }
-                jsonObject.put("sign_counts", sign_counts);
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
