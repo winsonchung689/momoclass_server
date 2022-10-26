@@ -510,7 +510,7 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return "push massage successfully";
 	}
 
 	//	获取详情页
