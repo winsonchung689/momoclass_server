@@ -516,12 +516,12 @@
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2}
+    select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2}
   </select>
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3}
+    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3}
   </select>
 
 
