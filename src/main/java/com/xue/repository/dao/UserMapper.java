@@ -93,7 +93,11 @@ public interface UserMapper {
 
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
 
+    void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
+
     void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number);
+
+    void changeSignUpSubject(String old_subject,String studio,String duration,String new_subject,String class_number);
 
     void deleteStudentPhoto(String student_name,String studio);
 
@@ -185,6 +189,10 @@ public interface UserMapper {
     Integer getClassesCountAllLesson(String studio);
 
     Integer getClassesCountBySubject(String studio,String subject);
+
+    Integer getSignUpByMonthAll(String studio,String create_time);
+
+    Integer getSignUpByMonth(String studio,String subject,String create_time);
 
     Integer getClassesCountBySubjectLesson(String studio,String subject);
 

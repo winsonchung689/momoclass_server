@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -559,11 +560,19 @@ public class LoginServiceImpl implements LoginService {
         Float total = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fmt_m = new SimpleDateFormat("yyyy-MM");
         Date d = null;
         String class_number = null;
         Integer weekDay=0;
         Integer weekofday=0;
         String mark = null;
+        Integer sign_counts=0;
+
+        if(subject.equals("全科目")){
+            sign_counts = dao.getSignUpByMonthAll(studio, date_time.substring(0,7));
+        }else {
+            sign_counts = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7));
+        }
 
         // 获取常规学生
         try {
@@ -571,11 +580,6 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
-            if(weekDay==1){
-                weekofday=7;
-            }else {
-                weekofday = weekDay - 1;
-            }
 
             List<Schedule> list=null;
             if(subject.equals("全科目")){
@@ -599,6 +603,7 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 jsonObject.put("subject", subject);
                 jsonObject.put("class_number", class_number);
+                jsonObject.put("sign_counts", sign_counts);
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
@@ -699,17 +704,7 @@ public class LoginServiceImpl implements LoginService {
                 if(class_number.length()>0){
                     jsonObject.put("class_number", class_number+"(插班生)");
                 }
-
-
-
-//                List<Arrangement> arrangements = dao.getClassNumber(studio,weekofday,duration);
-//                if(arrangements.size()>0){
-//                    Arrangement arrangement = arrangements.get(0);
-//                    class_number = arrangement.getClass_number();
-//                    jsonObject.put("class_number", class_number+"(插班生)");
-//                }else{
-//                    jsonObject.put("class_number","临时加课(插班生)");
-//                }
+                jsonObject.put("sign_counts", sign_counts);
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
@@ -884,9 +879,11 @@ public class LoginServiceImpl implements LoginService {
                 if(change_title.equals("班号")){
                     dao.changeClassName(id1,studio,class_number);
                     dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject);
+                    dao.changeSignUpClassName(old_class_number,studio,duration,class_number,old_subject);
                 }else if(change_title.equals("科目")){
                     dao.changeSubjectName(id1,studio,class_number);
                     dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number);
+                    dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number);
                 }
 
             }else {
