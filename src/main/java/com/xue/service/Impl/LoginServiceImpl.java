@@ -567,17 +567,20 @@ public class LoginServiceImpl implements LoginService {
         Integer weekofday=0;
         String mark = null;
         Integer sign_counts=0;
+        Integer sign_counts_get=0;
+
 
         if(subject.equals("全科目")){
-            sign_counts = dao.getSignUpByMonthAll(studio, date_time.substring(0,7));
+            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7));
         }else {
-            sign_counts = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7));
+            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7));
         }
-        if(sign_counts!=null){
-            JSONObject jsonObject_1 = new JSONObject();
-            jsonObject_1.put("sign_counts", sign_counts);
-            resul_list.add(jsonObject_1);
+        JSONObject jsonObject_1 = new JSONObject();
+        if(sign_counts_get!=null){
+            sign_counts=sign_counts_get;
         }
+        jsonObject_1.put("sign_counts", sign_counts);
+        resul_list.add(jsonObject_1);
 
         // 获取常规学生
         try {
