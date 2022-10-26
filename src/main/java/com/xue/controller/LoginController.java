@@ -504,7 +504,6 @@ public class LoginController {
 	@RequestMapping("/modifyMark")
 	@ResponseBody
 	public String modifyMark(String id,String studio,String mark){
-		String result=null;
 		try {
 			dao.modifyMark(id,studio,mark);
 		} catch (Exception e) {
