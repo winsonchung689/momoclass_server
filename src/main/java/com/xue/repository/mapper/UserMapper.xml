@@ -177,6 +177,11 @@
   </select>
 
   <!-- 更改课程名 -->
+  <select id="modifyMark" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
+    update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
+  <!-- 更改课程名 -->
   <select id="changeSubjectName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set subject =#{param3} where id =#{param1} and studio =#{param2}
   </select>

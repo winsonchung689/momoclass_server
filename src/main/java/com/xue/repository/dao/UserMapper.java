@@ -89,6 +89,8 @@ public interface UserMapper {
 
     void changeClassName(Integer id,String studio,String class_number);
 
+    void modifyMark(String id,String studio,String mark);
+
     void changeSubjectName(Integer id,String studio,String class_number);
 
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);

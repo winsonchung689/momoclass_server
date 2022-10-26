@@ -500,6 +500,19 @@ public class LoginController {
 		return result;
 	}
 
+	//	获取全部
+	@RequestMapping("/modifyMark")
+	@ResponseBody
+	public String modifyMark(String id,String studio,String mark){
+		String result=null;
+		try {
+			dao.modifyMark(id,studio,mark);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
