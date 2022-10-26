@@ -438,6 +438,7 @@ public class LoginServiceImpl implements LoginService {
         Integer classes_count =0;
         Integer sign_count =0;
         Integer classes_count_all =0;
+        Integer classes_count_all_lesson =0;
         if(dayofweek==7){
             dayofweek_by=1;
         }else {
@@ -449,9 +450,11 @@ public class LoginServiceImpl implements LoginService {
             if(subject.equals("全科目")){
                 list = dao.getArrangementAll(studio,dayofweek.toString());
                 classes_count_all=dao.getClassesCountAll(studio);
+                classes_count_all_lesson = dao.getClassesCountAllLesson(studio);
             }else {
                 list = dao.getArrangement(studio,dayofweek.toString(),subject);
                 classes_count_all=dao.getClassesCountBySubject(studio,subject);
+                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -482,6 +485,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("sign_count",sign_count);
                 jsonObject.put("subject",subject);
                 jsonObject.put("classes_count_all",classes_count_all);
+                jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
                 resul_list.add(jsonObject);
             }
 

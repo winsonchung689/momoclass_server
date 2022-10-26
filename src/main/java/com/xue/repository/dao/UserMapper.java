@@ -182,7 +182,11 @@ public interface UserMapper {
 
     Integer getClassesCountAll(String studio);
 
+    Integer getClassesCountAllLesson(String studio);
+
     Integer getClassesCountBySubject(String studio,String subject);
+
+    Integer getClassesCountBySubjectLesson(String studio,String subject);
 
     Integer getSignUpCountByDay(String studio,String date,String duration,String class_number);
 
