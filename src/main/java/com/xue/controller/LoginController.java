@@ -857,7 +857,7 @@ public class LoginController {
 
 	@RequestMapping("/signUpSchedule")
 	@ResponseBody
-	public int signUpSchedule(String student_name,String studio,String date_time,String mark,String class_count,String duration,String class_number){
+	public int signUpSchedule(String student_name,String studio,String date_time,String mark,String class_count,String duration,String class_number,String subject){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
@@ -888,6 +888,7 @@ public class LoginController {
 			signUp.setMark(mark);
 			signUp.setDuration(duration);
 			signUp.setCount(count);
+			signUp.setSubject(subject);
 			if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 				class_number = "无班号";
 			}
