@@ -1690,12 +1690,11 @@ public class LoginController {
 			user.setStudio(studio);
 			user.setExpired_time(expired_time);
 			int res = loginService.updateUser(user);
-			if (0==res){
+			if(0==res){
 				user.setUser_type("新用户");
 				user.setComment_style(comment_style);
 				loginService.insertUser(user);
-			}
-			if(res>0&&!student_name.equals("no_name")){
+			}else if(res>0&&!student_name.equals("no_name")){
 				List<User> list= dao.getUser(openid);
 				String user_type_get = list.get(0).getUser_type();
 				String role_get = list.get(0).getRole();
