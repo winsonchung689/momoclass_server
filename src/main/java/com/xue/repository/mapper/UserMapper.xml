@@ -32,7 +32,7 @@
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
   <resultMap id="BaseAllCount" type="com.xue.entity.model.AllCount">
-    <result column="student_count" jdbcType="Integer" property="student_count" />
+    <result column="student_count" jdbcType="INTEGER" property="student_count" />
   </resultMap>
 
 
