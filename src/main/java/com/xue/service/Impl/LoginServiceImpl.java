@@ -2403,10 +2403,15 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
         Integer total_student =0;
+        Float total_amount_all = 0.0f ;
+        Float left_amount_all = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
         try {
-            total_student =dao.getLessonAllCount(studio);
+            AllCount allCount =dao.getLessonAllCount(studio);
+            total_student = allCount.getStudent_count();
+            total_amount_all = allCount.getTotal_amount();
+            left_amount_all = allCount.getLeft_amount();
             need_pay = dao.getLessonNeedPayCount(studio);
             owe = dao.getLessonOweCount(studio);
         } catch (Exception e) {
@@ -2450,6 +2455,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
                 jsonObject.put("total_student", total_student);
+                jsonObject.put("total_amount_all", total_amount_all);
+                jsonObject.put("left_amount_all", left_amount_all);
                 jsonObject.put("minus", minus);
                 jsonObject.put("coins", coins);
                 jsonObject.put("need_pay", need_pay);

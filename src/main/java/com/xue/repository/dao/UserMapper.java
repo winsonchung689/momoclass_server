@@ -178,7 +178,7 @@ public interface UserMapper {
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount);
 
-    Integer getLessonAllCount(String studio);
+    AllCount getLessonAllCount(String studio);
 
     Integer getLessonNeedPayCount(String studio);
 
