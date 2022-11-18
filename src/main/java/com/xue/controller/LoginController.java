@@ -103,13 +103,13 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendClassRemind")
 	@ResponseBody
-	public String sendClassRemind(String token, String openid, String duration, String studentname,String remindDay){
+	public String sendClassRemind(String token, String openid, String duration, String studentname,String remindDay,String class_number){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample3);
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("date1").put("value",remindDay + "|" + duration.replace(":",""));
-		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studentname);
+		queryJson.getJSONObject("data").getJSONObject("date1").put("value",remindDay+" " + duration.split("-")[0]);
+		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
 		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
