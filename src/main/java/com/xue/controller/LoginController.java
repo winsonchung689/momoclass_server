@@ -44,7 +44,7 @@ public class LoginController {
 
 	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"xwY-9Dx1udclJoPVNna583hd25fZmBl8AtgcOj7jSN0\",\"data\":{\"thing2\":{\"value\": \"classname\"},\"thing4\":{\"value\": \"studentname\"},\"thing1\":{\"value\": \"来看看小朋友今天的表现吧~~\"},\"time3\":{\"value\": \"mytime\"}}}";
 	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"X4-OA7Aj-Ayn5exDPAk28GiSRJQ5-C827ekUyQH5hA8\",\"data\":{\"thing1\":{\"value\": \"一起总结一下最近的成果吧\"},\"thing2\":{\"value\": \"process\"}}}";
-	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"thing1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"thing3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"今天记得来上课哦\"}}}";
+	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"今天记得来上课哦\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -108,9 +108,9 @@ public class LoginController {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample3);
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",remindDay + "|" + duration.replace(":",""));
+		queryJson.getJSONObject("data").getJSONObject("date1").put("value",remindDay + "|" + duration.replace(":",""));
 		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studentname);
-		queryJson.getJSONObject("data").getJSONObject("thing3").put("value",studentname);
+		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
