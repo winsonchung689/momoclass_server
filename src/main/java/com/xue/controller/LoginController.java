@@ -138,7 +138,7 @@ public class LoginController {
 		String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&js_code="+ code +"&grant_type=authorization_code";
 		if ("MOMO2B".equals(app)){
 			param = MOMO2B_param;
-		}else {
+		}else if ("MOMO2C".equals(app)){
 			param = MOMO2C_param;
 		}
 		try {
@@ -164,7 +164,7 @@ public class LoginController {
 		String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&grant_type=client_credential";
 		if ("MOMO2B".equals(app)){
 			param = MOMO2B_param;
-		}else {
+		}else if ("MOMO2C".equals(app)){
 			param = MOMO2C_param;
 		}
 		try {
