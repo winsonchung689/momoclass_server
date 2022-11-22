@@ -1443,6 +1443,7 @@ public class LoginServiceImpl implements LoginService {
         String goods_intro = null;
         Float goods_price = 0.0f;
         Integer status = 0;
+        String status_get = null;
         String create_time = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
@@ -1457,12 +1458,18 @@ public class LoginServiceImpl implements LoginService {
                 goods_intro = line.getGoods_intro();
                 goods_price = line.getGoods_price();
                 status = line.getStatus();
+                if(0==status){
+                    status_get="未发货";
+                }
+                if(1==status){
+                    status_get="已发货";
+                }
                 create_time = line.getCreate_time();
 
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
-                jsonObject.put("status", status);
+                jsonObject.put("status", status_get);
                 jsonObject.put("create_time", create_time);
 
                 //json

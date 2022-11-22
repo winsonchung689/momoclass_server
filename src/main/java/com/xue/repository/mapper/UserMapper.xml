@@ -352,7 +352,7 @@
 
   <!-- 查找课程表 -->
   <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from order where studio = #{param1} and openid =#{param2} order by create_time
+    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and openid =#{param2} order by create_time
   </select>
 
   <!-- 查找课程表 -->
