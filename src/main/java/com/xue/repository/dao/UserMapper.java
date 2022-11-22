@@ -81,6 +81,8 @@ public interface UserMapper {
     //插入
     int insertSchedule(Schedule schedule);
 
+    int insertOrder(Order order);
+
     void deleteComment(Integer id,String studio);
 
     void deleteGoodsList(Integer id,String studio);

@@ -37,6 +37,10 @@
   <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
     <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
   </resultMap>
+  <resultMap id="BaseOrder" type="com.xue.entity.model.Order">
+    <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
+  </resultMap>
+
 
 
 
@@ -309,6 +313,12 @@
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
     insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,delete_status,subject) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number},0,#{subject})
   </insert>
+
+  <!-- 插入订单 -->
+  <insert id="insertOrder" parameterType="com.xue.entity.model.Order">
+    insert order(nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time) values(#{nick_name},#{openid},#{phone_number},#{location},#{goods_name},#{goods_intro},#{goods_price},#{studio},#{create_time})
+  </insert>
+
 
   <!-- 插入签到记录 -->
   <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">

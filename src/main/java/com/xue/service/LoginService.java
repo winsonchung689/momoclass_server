@@ -36,6 +36,8 @@ public interface LoginService {
 
     public int insertLesson(Lesson lesson);
 
+    public int insertOrder(Order order);
+
 	public int updateLesson(Lesson lesson,Float lessons_amount);
 
     public List  getDetails(Integer id);

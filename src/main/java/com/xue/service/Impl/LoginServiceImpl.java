@@ -55,6 +55,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int insertOrder(Order order) {
+        int result = 0;
+        try {
+            result = dao.insertOrder(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public int updateLesson(Lesson lesson,Float lessons_amount) {
         int result = 0;
         try {
