@@ -1028,6 +1028,29 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateLocation")
+	@ResponseBody
+	public int updateLocation(HttpServletRequest request, HttpServletResponse response){
+
+		//获取电话
+		String phone_number = request.getParameter("phone_number");
+		//获取地址
+		String location = request.getParameter("location");
+
+		String studio = request.getParameter("studio");
+
+		String openid = request.getParameter("openid");
+
+		try {
+			dao.updateLocation(studio,openid,phone_number,location);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){

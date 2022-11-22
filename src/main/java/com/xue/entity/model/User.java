@@ -30,6 +30,29 @@ public class User {
 
     private Integer cover;
 
+    private String phone_number;
+
+    private String location;
+
+
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
     public Integer getCover() {
         return cover;
     }

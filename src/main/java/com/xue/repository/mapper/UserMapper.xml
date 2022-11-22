@@ -193,6 +193,11 @@
     update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 更改地址及电话号码 -->
+  <select id="updateLocation" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set phone_number =#{param3},location=#{param4} where studio =#{param1} and openid =#{param2}
+  </select>
+
   <!-- 更改课程名 -->
   <select id="changeSubjectName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set subject =#{param3} where id =#{param1} and studio =#{param2}
@@ -437,7 +442,7 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover from user where openid =#{param1} order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location from user where openid =#{param1} order by id desc limit 1
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

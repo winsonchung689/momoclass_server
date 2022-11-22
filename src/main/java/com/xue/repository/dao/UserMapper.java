@@ -93,6 +93,8 @@ public interface UserMapper {
 
     void modifyMark(String id,String studio,String mark);
 
+    void updateLocation(String studio,String openid,String phone_number,String location);
+
     void changeSubjectName(Integer id,String studio,String class_number);
 
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
