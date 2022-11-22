@@ -1438,6 +1438,43 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getMyOrder(String studio, String openid) {
+        String goods_name = null;
+        String goods_intro = null;
+        Float goods_price = 0.0f;
+        Integer status = 0;
+        String create_time = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+
+            List<Order> list = dao.getMyOrder(studio,openid);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Order line = list.get(i);
+                //获取字段
+                goods_name = line.getGoods_name();
+                goods_intro = line.getGoods_intro();
+                goods_price = line.getGoods_price();
+                status = line.getStatus();
+                create_time = line.getCreate_time();
+
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("status", status);
+                jsonObject.put("create_time", create_time);
+
+                //json
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getFrameModel(String studio,Integer page) {
         byte[] photo = null;
         String class_name = null;

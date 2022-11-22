@@ -714,6 +714,20 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取订单
+	@RequestMapping("/getMyOrder")
+	@ResponseBody
+	public List getMyOrder(String studio,String openid){
+		List list = null;
+		try {
+			list = loginService.getMyOrder(studio,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
 	//	获取详情页
 	@RequestMapping("/deleteComment")
 	@ResponseBody

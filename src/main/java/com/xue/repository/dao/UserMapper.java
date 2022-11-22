@@ -168,6 +168,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangements(String studio);
 
+    List<Order> getMyOrder(String studio,String openid);
+
     List<Arrangement> getArrangementsByDate(String studio);
 
     List<Arrangement> getClassNumber(String studio,Integer dayofweek,String duration);

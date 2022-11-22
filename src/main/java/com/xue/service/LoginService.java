@@ -118,6 +118,8 @@ public interface LoginService {
 
     public List getCertificateModel(String class_name);
 
+    public List getMyOrder(String studio,String openid);
+
     public List getFrameModel(String studio,Integer page);
 
     public List getCertificateModelName();
