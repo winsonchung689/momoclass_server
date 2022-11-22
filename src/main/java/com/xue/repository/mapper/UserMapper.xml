@@ -34,6 +34,9 @@
   <resultMap id="BaseAllCount" type="com.xue.entity.model.AllCount">
     <result column="student_count" jdbcType="INTEGER" property="student_count" />
   </resultMap>
+  <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
+    <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
+  </resultMap>
 
 
 
@@ -309,6 +312,11 @@
   <!-- 插入课程安排 -->
   <insert id="insertArrangement" parameterType="com.xue.entity.model.Arrangement">
     insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject})
+  </insert>
+
+  <!-- 插入商品列表 -->
+  <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo})
   </insert>
 
   <!-- 查找课程表 -->

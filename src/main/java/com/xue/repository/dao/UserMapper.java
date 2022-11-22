@@ -214,6 +214,8 @@ public interface UserMapper {
 
     int insertArrangement(Arrangement arrangement);
 
+    int insertGoodsList(GoodsList goodsList);
+
     int insertGift(Gift gift);
 
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject);

@@ -1585,6 +1585,43 @@ public class LoginController {
 	}
 
 	//	推送
+	@RequestMapping("/insertGoodsList")
+	@ResponseBody
+	public String insertGoodsList(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取商品名称
+		String goods_name = request.getParameter("goods_name");
+		//获取商品简介
+		String goods_intro = request.getParameter("goods_intro");
+		//获取商品价格
+		String goods_price = request.getParameter("goods_price");
+
+		String studio = request.getParameter("studio");
+
+		String photo = request.getParameter("photo");
+		FileInputStream in = null;
+
+
+		GoodsList goodsList =new GoodsList();
+		try {
+			in = Imageutil.readImage(photo);
+			goodsList.setPhoto(FileCopyUtils.copyToByteArray(in));
+			goodsList.setGoods_name(goods_name);
+			goodsList.setGoods_intro(goods_intro);
+			goodsList.setGoods_price(Float.parseFloat(goods_price));
+			goodsList.setStudio(studio);
+			goodsList.setCreate_time(create_time);
+
+			loginService.insertGoodsList(goodsList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	//	推送
 	@RequestMapping("/arrangeClass")
 	@ResponseBody
 	public String arrangeClass(HttpServletRequest request, HttpServletResponse response){

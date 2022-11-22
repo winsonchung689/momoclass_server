@@ -548,6 +548,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int insertGoodsList(GoodsList goodsList) {
+        int result = 0;
+        try {
+            result = dao.insertGoodsList(goodsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public List getSchedule(String date_time, String studio,String subject) {
         String add_date = null;
         String age = null;
