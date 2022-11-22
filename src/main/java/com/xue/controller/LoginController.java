@@ -727,6 +727,19 @@ public class LoginController {
 	}
 
 	//	获取详情页
+	@RequestMapping("/deleteGoodsList")
+	@ResponseBody
+	public int deleteGoodsList(Integer id,String role,String studio,String openid){
+		try {
+			loginService.deleteGoodsList(id,role,studio,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	//	获取详情页
 	@RequestMapping("/deleteArrangement")
 	@ResponseBody
 	public int deleteArrangement(Integer id,String role,String studio,String openid,String duration,String weekday,String class_number){

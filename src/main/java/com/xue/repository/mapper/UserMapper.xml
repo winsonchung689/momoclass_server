@@ -172,6 +172,12 @@
      update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 删除商品 -->
+  <select id="deleteGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set delete_status = 1 where id =#{param1} and studio =#{param2}
+  </select>
+
+
   <!-- 删除安排 -->
   <select id="deleteArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set delete_status = 1 where id =#{param1} and studio =#{param2}

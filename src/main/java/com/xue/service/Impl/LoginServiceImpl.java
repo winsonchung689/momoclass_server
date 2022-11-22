@@ -863,6 +863,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int deleteGoodsList(Integer id, String role, String studio, String openid) {
+        try {
+            List<User> list = dao.getUser(openid);
+            String studio_get = list.get(0).getStudio();
+
+            if ("boss".equals(role) && studio_get.equals(studio)) {
+                dao.deleteGoodsList(id,studio);
+            }else {
+                logger.error("it's not your studio, could not delete!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public int deleteArrangement(Integer id,String role,String studio,String openid) {
         try {
             List<User> list = dao.getUser(openid);
