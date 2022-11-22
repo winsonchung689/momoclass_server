@@ -12,6 +12,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import org.apache.commons.io.FileUtils;
+import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1140,6 +1141,32 @@ public class LoginController {
 
 		return 1;
 
+	}
+
+	@RequestMapping("/insertOrder")
+	@ResponseBody
+	public int insertOrder(String nick_name,String openid,String phone_number,String location,String goods_name,String goods_price,String studio){
+
+		try {
+
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+			Order order = new Order();
+			order.setNick_name(nick_name);
+			order.setOpenid(openid);
+			order.setPhone_number(phone_number);
+			order.setLocation(location);
+			order.setGoods_name(goods_name);
+			order.setGoods_price(Float.parseFloat(goods_price));
+			order.setStudio(studio);
+			order.setCreate_time(create_time);
+
+			loginService.insertOrder(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
 	}
 
 	@RequestMapping("/deleteLesson")

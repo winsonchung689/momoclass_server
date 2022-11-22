@@ -17,6 +17,14 @@ public class Order {
 
     private Float goods_price;
 
+    public Float getGoods_price() {
+        return goods_price;
+    }
+
+    public void setGoods_price(Float goods_price) {
+        this.goods_price = goods_price;
+    }
+
 
     public String getCreate_time() {
         return create_time;
