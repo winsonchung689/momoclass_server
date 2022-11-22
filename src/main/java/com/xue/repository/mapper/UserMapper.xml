@@ -316,7 +316,7 @@
 
   <!-- 插入订单 -->
   <insert id="insertOrder" parameterType="com.xue.entity.model.Order">
-    insert order(nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time) values(#{nick_name},#{openid},#{phone_number},#{location},#{goods_name},#{goods_intro},#{goods_price},#{studio},#{create_time})
+    insert `order`(nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time) values(#{nick_name},#{openid},#{phone_number},#{location},#{goods_name},#{goods_intro},#{goods_price},#{studio},#{create_time})
   </insert>
 
 
