@@ -742,6 +742,34 @@ public class LoginController {
 	}
 
 	//	获取详情页
+	@RequestMapping("/deleteMyOrder")
+	@ResponseBody
+	public int deleteMyOrder(Integer id){
+		try {
+			dao.deleteMyOrder(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	//	获取详情页
+	@RequestMapping("/deliverMyOrder")
+	@ResponseBody
+	public int deliverMyOrder(Integer id){
+		try {
+			dao.deliverMyOrder(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+
+
+	//	获取详情页
 	@RequestMapping("/deleteGoodsList")
 	@ResponseBody
 	public int deleteGoodsList(Integer id,String role,String studio,String openid){

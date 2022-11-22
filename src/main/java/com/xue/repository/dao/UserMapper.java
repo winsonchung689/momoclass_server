@@ -111,6 +111,10 @@ public interface UserMapper {
 
     void deleteHome(String studio);
 
+    void deleteMyOrder(Integer id);
+
+    void deliverMyOrder(Integer id);
+
     void deleteSignUpRecord(Integer id,String studio);
 
     void deleteSignUpAllRecord(String student_name,String studio);

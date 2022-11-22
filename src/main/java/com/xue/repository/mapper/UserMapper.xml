@@ -171,6 +171,16 @@
     update class_comment set delete_status = 1 where class_target = '主页' and studio =#{param1}
   </select>
 
+  <!-- 删除详情 -->
+  <select id="deleteMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
+    update `order` set delete_status = 1 where id = #{param1};
+  </select>
+
+  <!-- 删除详情 -->
+  <select id="deliverMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
+    update `order` set status = 1 where id = #{param1};
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
      update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
@@ -352,7 +362,7 @@
 
   <!-- 查找课程表 -->
   <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and openid =#{param2} order by create_time
+    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
   </select>
 
   <!-- 查找课程表 -->

@@ -1445,6 +1445,7 @@ public class LoginServiceImpl implements LoginService {
         Integer status = 0;
         String status_get = null;
         String create_time = null;
+        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -1454,6 +1455,7 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
                 //获取字段
+                id = line.getId();
                 goods_name = line.getGoods_name();
                 goods_intro = line.getGoods_intro();
                 goods_price = line.getGoods_price();
@@ -1466,6 +1468,7 @@ public class LoginServiceImpl implements LoginService {
                 }
                 create_time = line.getCreate_time();
 
+                jsonObject.put("id", id);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);

@@ -18,6 +18,14 @@ public class Order {
     private Float goods_price;
     private Integer status;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Integer getStatus() {
         return status;
     }
