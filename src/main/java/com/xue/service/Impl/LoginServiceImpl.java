@@ -2624,7 +2624,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Float goods_price = 0.0f;
         Integer page_start = (page - 1) * 5;
-        Integer page_length = 100;
+        Integer page_length = 5;
         List<GoodsList> list = null;
         byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
