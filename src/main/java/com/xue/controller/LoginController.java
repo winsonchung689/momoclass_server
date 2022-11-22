@@ -255,6 +255,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取商品列表
+	@RequestMapping("/getGoodsList")
+	@ResponseBody
+	public List getGoodsList(String studio,Integer page){
+		List list = null;
+		try {
+			list = loginService.getGoodsList(studio,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getRating")
 	@ResponseBody

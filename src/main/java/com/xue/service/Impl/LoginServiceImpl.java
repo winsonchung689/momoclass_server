@@ -2599,6 +2599,47 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGoodsList(String studio, Integer page) {
+        String goods_name = null;
+        String goods_intro = null;
+        String create_time = null;
+        String id = null;
+        Float goods_price = 0.0f;
+        Integer page_start = (page - 1) * 100;
+        Integer page_length = 100;
+        List<GoodsList> list = null;
+        byte[] photo = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            list = dao.getGoodsList(studio,page_start,page_length);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                GoodsList line = list.get(i);
+                //获取字段
+                goods_name = line.getGoods_name();
+                goods_intro = line.getGoods_intro();
+                goods_price = line.getGoods_price();
+                photo = line.getPhoto();
+                id = line.getId();
+                create_time = line.getCreate_time();
+                //json
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("photo", photo);
+                jsonObject.put("id", id);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getRating(String studio,String student_name,Integer page) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;

@@ -220,6 +220,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject);
 
+    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
+
     List<Arrangement> getArrangementAll(String studio,String dayofweek);
 
     List<Arrangement> getArrangementById(String studio,Integer id);

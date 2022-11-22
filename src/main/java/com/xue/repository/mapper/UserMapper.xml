@@ -319,6 +319,11 @@
     insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo})
   </insert>
 
+  <!-- 获取全部 -->
+  <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
+    select id,goods_name,goods_intro,goods_price,create_time,studio,photo from class_comment where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+  </select>
+
   <!-- 查找课程表 -->
   <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3}  and delete_status = 0 order by duration
