@@ -1145,7 +1145,7 @@ public class LoginController {
 
 	@RequestMapping("/insertOrder")
 	@ResponseBody
-	public int insertOrder(String nick_name,String openid,String phone_number,String location,String goods_name,String goods_price,String studio){
+	public int insertOrder(String nick_name,String openid,String phone_number,String location,String goods_name,String goods_intro ,String goods_price,String studio){
 
 		try {
 
@@ -1158,6 +1158,7 @@ public class LoginController {
 			order.setPhone_number(phone_number);
 			order.setLocation(location);
 			order.setGoods_name(goods_name);
+			order.setGoods_intro(goods_intro);
 			order.setGoods_price(Float.parseFloat(goods_price));
 			order.setStudio(studio);
 			order.setCreate_time(create_time);
