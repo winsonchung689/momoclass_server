@@ -2623,7 +2623,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         Float goods_price = 0.0f;
-        Integer page_start = (page - 1) * 100;
+        Integer page_start = (page - 1) * 5;
         Integer page_length = 100;
         List<GoodsList> list = null;
         byte[] photo = null;
