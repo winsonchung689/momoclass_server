@@ -1452,8 +1452,8 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<Order> list =null;
-            if("All".equals(studio)){
-                list = dao.getAllOrder();
+            if("All".equals(openid)){
+                list = dao.getAllOrder(studio);
             }else {
                 list = dao.getMyOrder(studio,openid);
             }
