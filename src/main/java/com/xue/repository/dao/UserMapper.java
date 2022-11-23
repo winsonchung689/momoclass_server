@@ -174,6 +174,8 @@ public interface UserMapper {
 
     List<Order> getMyOrder(String studio,String openid);
 
+    List<Order> getAllOrder();
+
     List<Arrangement> getArrangementsByDate(String studio);
 
     List<Arrangement> getClassNumber(String studio,Integer dayofweek,String duration);

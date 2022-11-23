@@ -1451,8 +1451,13 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
+            List<Order> list =null;
+            if("All".equals(studio)){
+                list = dao.getAllOrder();
+            }else {
+                list = dao.getMyOrder(studio,openid);
+            }
 
-            List<Order> list = dao.getMyOrder(studio,openid);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
