@@ -2201,15 +2201,28 @@ public class LoginController {
 		String inputdefault = request.getParameter("inputdefault");
 		String openid = request.getParameter("openid");
 
-		User user_get= dao.getUser(openid).get(0);
-		String lessons = user_get.getLessons();
-		if(!lessons.isEmpty()){
-			inputdefault = lessons + "|" + inputdefault;
+		try {
+			User user_get= dao.getUser(openid).get(0);
+			String lessons = user_get.getLessons();
+			String result = null;
+			if(!lessons.isEmpty()){
+				for(String lesson :lessons.split("|")){
+					if(!lesson.equals(inputdefault)){
+						result = result + "|" + lesson;
+					}
+				}
+				inputdefault = result + "|" + inputdefault;
+			}
+
+			User user=new User();
+			user.setOpenid(openid);
+			user.setLessons(inputdefault);
+			loginService.updateBossLessons(user);
+		} catch (Exception e) {
+//			e.printStackTrace();
 		}
 
-		User user=new User();
-		user.setOpenid(openid);
-		user.setLessons(inputdefault);
+
 
 		return "push massage successfully";
 	}

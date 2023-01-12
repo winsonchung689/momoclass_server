@@ -472,7 +472,7 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location from user where openid =#{param1} order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons from user where openid =#{param1} order by id desc limit 1
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
