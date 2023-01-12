@@ -2190,6 +2190,30 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateBossLessons")
+	@ResponseBody
+	public String updateBossLessons(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取用户名
+		String inputdefault = request.getParameter("inputdefault");
+		String openid = request.getParameter("openid");
+
+		User user_get= dao.getUser(openid).get(0);
+		String lessons = user_get.getLessons();
+		if(!lessons.isEmpty()){
+			inputdefault = lessons + "|" + inputdefault;
+		}
+
+		User user=new User();
+		user.setOpenid(openid);
+		user.setLessons(inputdefault);
+
+		return "push massage successfully";
+	}
+
 
 	@RequestMapping("/updateCoins")
 	@ResponseBody
