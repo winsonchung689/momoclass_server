@@ -52,7 +52,7 @@ public interface LoginService {
 
     public List  getLeaveRecord(String student_name,String studio,String leave_type);
 
-    public List  getArrangement(String studio,Integer dayofweek,String date,String subject);
+    public List  getArrangement(String studio,Integer dayofweek,String date,String subject,String openid);
 
     public int insertSchedule(Schedule schedule);
 
@@ -64,7 +64,7 @@ public interface LoginService {
 
     public int insertGoodsList(GoodsList goodsList);
 
-    public List  getSchedule(String date_time,String studio,String subject);
+    public List  getSchedule(String date_time,String studio,String subject,String openid);
 
     public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
 

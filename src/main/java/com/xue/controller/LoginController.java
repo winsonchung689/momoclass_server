@@ -364,10 +364,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getSchedule")
 	@ResponseBody
-	public List getSchedule(String date_time,String studio,String subject){
+	public List getSchedule(String date_time,String studio,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getSchedule(date_time,studio,subject);
+			list = loginService.getSchedule(date_time,studio,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -508,10 +508,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
-	public List getArrangement(String studio,Integer dayofweek,String date,String subject){
+	public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getArrangement(studio,dayofweek,date,subject);
+			list = loginService.getArrangement(studio,dayofweek,date,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2200,18 +2200,38 @@ public class LoginController {
 		//获取用户名
 		String inputdefault = request.getParameter("inputdefault");
 		String openid = request.getParameter("openid");
+		String chooselesson = request.getParameter("chooselesson");
 
 		try {
 			User user_get= dao.getUser(openid).get(0);
 			String lessons = user_get.getLessons();
-			String result = null;
-			if(!lessons.isEmpty()){
-				for(String lesson :lessons.split("|")){
-					if(!lesson.equals(inputdefault)){
-						result = result + "|" + lesson;
+			HashSet<String> hs = new HashSet<>();
+			if(lessons != null){
+				String[] list_1 =lessons.split("\\|");
+				List<String> list_2 = Arrays.asList(list_1);
+				for(String lesson :list_2){
+					if(!inputdefault.equals(lesson)){
+						hs.add(lesson);
 					}
 				}
-				inputdefault = result + "|" + inputdefault;
+				if(chooselesson.equals("未选")){
+					for (String i : hs){
+						inputdefault = inputdefault + "|" + i;
+					}
+
+				}else if(chooselesson.equals("已选")){
+					inputdefault = "1";
+					for (String i : hs){
+						inputdefault = inputdefault + "|" + i;
+					}
+					if(inputdefault.length()>2){
+						inputdefault =inputdefault.substring(2);
+					}else {
+						inputdefault=null;
+					}
+
+				}
+
 			}
 
 			User user=new User();
@@ -2219,7 +2239,7 @@ public class LoginController {
 			user.setLessons(inputdefault);
 			loginService.updateBossLessons(user);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 
 
