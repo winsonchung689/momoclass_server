@@ -649,19 +649,21 @@ public class LoginServiceImpl implements LoginService {
                 List<String> list_2 = null;
                 Integer contains = 0;
                 try {
-                    User user_get= dao.getUser(openid).get(0);
-                    String lessons_string = user_get.getLessons();
-                    role = user_get.getRole();
-                    String[] list_1 =lessons_string.split("\\|");
-                    if(weekDay == 7){
-                        weekofday = 1 ;
-                    }else {
-                        weekofday = weekDay - 1;
-                    }
-                    lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
-                    list_2 = Arrays.asList(list_1);
-                    if(list_2.contains(lesson_string)){
-                        contains = 1;
+                    if(openid.length()>0){
+                        User user_get= dao.getUser(openid).get(0);
+                        String lessons_string = user_get.getLessons();
+                        role = user_get.getRole();
+                        String[] list_1 =lessons_string.split("\\|");
+                        if(weekDay == 7){
+                            weekofday = 1 ;
+                        }else {
+                            weekofday = weekDay - 1;
+                        }
+                        lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
+                        list_2 = Arrays.asList(list_1);
+                        if(list_2.contains(lesson_string)){
+                            contains = 1;
+                        }
                     }
                 } catch (Exception e) {
 //                    e.printStackTrace();
