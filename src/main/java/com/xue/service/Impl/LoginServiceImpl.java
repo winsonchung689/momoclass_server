@@ -655,7 +655,7 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
                 List<String> list_2 = Arrays.asList(list_1);
-                if(list_2.contains(lesson_string) || role.equals("client")) {
+                if(list_2.contains(lesson_string) || role.equals("client") || openid == null) {
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number);
 
