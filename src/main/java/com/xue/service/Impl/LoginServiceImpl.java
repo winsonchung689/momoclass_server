@@ -644,12 +644,12 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
 
 
-                String role = null;
+                String role = "visit";
                 String lesson_string = null;
                 List<String> list_2 = null;
                 Integer contains = 0;
                 try {
-                    if(openid.length()>0){
+                    if(openid != null){
                         User user_get= dao.getUser(openid).get(0);
                         String lessons_string = user_get.getLessons();
                         role = user_get.getRole();
