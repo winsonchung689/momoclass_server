@@ -654,8 +654,8 @@ public class LoginServiceImpl implements LoginService {
                         String lessons_string = user_get.getLessons();
                         role = user_get.getRole();
                         String[] list_1 =lessons_string.split("\\|");
-                        if(weekDay == 7){
-                            weekofday = 1 ;
+                        if(weekDay == 1){
+                            weekofday = 7 ;
                         }else {
                             weekofday = weekDay - 1;
                         }
