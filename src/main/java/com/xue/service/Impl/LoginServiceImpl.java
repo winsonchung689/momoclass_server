@@ -439,12 +439,13 @@ public class LoginServiceImpl implements LoginService {
     public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid) {
         String class_number = null;
         String duration = null;
-        String limits = null;
+        String limits = "0";
         byte[] photo = null;
         String id = null;
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer classes_count =0;
+        Integer class_res =0;
         Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
@@ -453,6 +454,10 @@ public class LoginServiceImpl implements LoginService {
         }else {
             dayofweek_by = dayofweek + 1;
         }
+
+        List<User> user_get= dao.getUser(openid);
+        String role = user_get.get(0).getRole();
+        Integer user_get_size = user_get.size();
 
         try {
             List<Arrangement> list =null;
@@ -476,7 +481,20 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 id = line.getId();
                 subject = line.getSubject();
-                classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
+
+                if("client".equals(role)){
+                    for(int j = 0; j < user_get_size;j++){
+                        String student_name = user_get.get(j).getStudent_name();
+                        class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name);
+                        if(class_res > 0){
+                             classes_count = classes_count + 1;
+                        }
+                    }
+
+                }else {
+                    classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
+                }
+
                 try {
                     sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
                 } catch (Exception e) {
@@ -485,8 +503,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("chooseLesson","未选");
                 try {
-                    User user_get= dao.getUser(openid).get(0);
-                    String lessons = user_get.getLessons();
+                    String lessons = user_get.get(0).getLessons();
                     String[] list_1 =lessons.split("\\|");
                     String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
                     List<String> list_2 = Arrays.asList(list_1);
