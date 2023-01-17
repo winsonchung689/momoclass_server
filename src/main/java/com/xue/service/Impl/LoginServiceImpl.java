@@ -487,7 +487,7 @@ public class LoginServiceImpl implements LoginService {
                         String student_name = user_get.get(j).getStudent_name();
                         class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name);
                         if(class_res > 0){
-                             classes_count = classes_count + 1;
+                             classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
                         }
                     }
 
