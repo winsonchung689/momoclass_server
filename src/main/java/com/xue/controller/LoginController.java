@@ -1131,6 +1131,9 @@ public class LoginController {
 
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+			if (class_number == null){
+				class_number = "无班号";
+			}
 
 			Arrangement arrangement =new Arrangement();
 			arrangement.setDayofweek(dayofweek);
