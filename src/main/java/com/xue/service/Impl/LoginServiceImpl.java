@@ -488,19 +488,17 @@ public class LoginServiceImpl implements LoginService {
                         class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name);
                         if(class_res > 0){
                              classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
+                            if(date != null){
+                                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
+                            }
                         }
                     }
 
                 }else {
                     classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
-                }
-
-                try {
                     if(date != null){
                         sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
                 jsonObject.put("chooseLesson","未选");
