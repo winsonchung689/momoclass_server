@@ -527,6 +527,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("classes_count_all",classes_count_all);
                 jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
                 resul_list.add(jsonObject);
+                classes_count = 0;
             }
 
         } catch (Exception e) {
