@@ -683,4 +683,10 @@
     update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3}
   </update>
 
+  <!-- 用户过期 -->
+  <update id="updateUserExpired" parameterType="com.xue.entity.model.User">
+    update user set role=#{param1} where studio=#{param2} and role=#{param3}
+  </update>
+
+
 </mapper>
