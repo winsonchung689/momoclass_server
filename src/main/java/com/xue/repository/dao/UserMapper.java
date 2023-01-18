@@ -280,6 +280,8 @@ public interface UserMapper {
 
     int updateSignUpRecordName(String student_name_new,String student_name,String studio);
 
+    int updateUserStudent(String student_name_new,String student_name,String studio);
+
     List<Lesson> getLessonByName(String student_name,String studio);
 
     int updateLessonPoint(Lesson lesson);

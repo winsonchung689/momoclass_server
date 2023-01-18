@@ -2191,6 +2191,7 @@ public class LoginController {
 				dao.updateGiftRecordName(student_name_new,student_name,studio);
 				dao.updateLessonName(student_name_new,student_name,studio);
 				dao.updateSignUpRecordName(student_name_new,student_name,studio);
+				dao.updateUserStudent(student_name_new,student_name,studio);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio);

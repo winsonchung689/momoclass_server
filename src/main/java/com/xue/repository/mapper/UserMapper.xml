@@ -678,4 +678,9 @@
     update user set coins=#{coins} where openid=#{openid}
   </update>
 
+  <!-- 更新学生名字 -->
+  <update id="updateUserStudent" parameterType="com.xue.entity.model.User">
+    update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3}
+  </update>
+
 </mapper>
