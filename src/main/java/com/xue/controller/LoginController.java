@@ -1007,6 +1007,72 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/signUpScheduleClass")
+	@ResponseBody
+	public int signUpScheduleClass(String studio,String date_time,String duration,String class_number,String subject){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = null;
+		String student_name = null;
+		String mark = "无备注";
+
+
+		try {
+			d = fmt.parse(date_time);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
+
+			List<Schedule> schedules = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject);
+			for(int i = 0;i < schedules.size(); i++){
+				student_name = schedules.get(i).getStudent_name();
+				Schedule schedule =new Schedule();
+				SignUp signUp = new SignUp();
+				schedule.setStudent_name(student_name);
+				schedule.setStudio(studio);
+				schedule.setUpdate_time(update_time);
+				loginService.updateSchedule(schedule);
+
+				List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+				Float count = 0.0f;
+				Integer coins = 0;
+				if(lessons.size()>0){
+					count = lessons.get(0).getMinus();
+					Float coins_get = lessons.get(0).getCoins();
+					coins = Math.round(coins_get);
+				}
+
+				signUp.setStudent_name(student_name);
+				signUp.setStudio(studio);
+				signUp.setSign_time(update_time);
+				signUp.setCreate_time(date_time + " 00:00:00");
+				signUp.setMark(mark);
+				signUp.setDuration(duration);
+				signUp.setCount(count);
+				signUp.setSubject(subject);
+				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
+					class_number = "无班号";
+				}
+				signUp.setClass_number(class_number);
+
+				int insert_res = loginService.insertSignUp(signUp);
+				if(insert_res>0){
+					loginService.updateMinusLesson(student_name,studio,count);
+					loginService.updateAddPoints(student_name,studio,coins);
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/leaveRecord")
 	@ResponseBody
 	public int leaveRecord(String student_name,String studio,String date_time,String duration,String leave_type){
