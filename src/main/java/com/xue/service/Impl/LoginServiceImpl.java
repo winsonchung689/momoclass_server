@@ -495,11 +495,9 @@ public class LoginServiceImpl implements LoginService {
                     classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
                 }
 
-
                 if(date != null){
                     sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
                 }
-
 
                 jsonObject.put("chooseLesson","未选");
                 try {
