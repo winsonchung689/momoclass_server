@@ -1256,13 +1256,14 @@ public class LoginServiceImpl implements LoginService {
                 if(list.size()>0){
                     String role_get = list.get(0).getRole();
                     String expird_time_get = list.get(0).getExpired_time();
+                    String studio_get = list.get(0).getStudio();
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                     String today_time = df.format(new Date());
                     Date today_dt = df.parse(today_time.substring(0,10));
                     Date expired_dt = df.parse(expird_time_get.substring(0,10));
                     int compare = today_dt.compareTo(expired_dt);
                     if(role_get.equals("boss") && compare > 0){
-                        dao.updateUserExpired("client",studio,role_get);
+                        dao.updateUserExpired("client",studio_get,role_get);
                     }
                 }
             }
