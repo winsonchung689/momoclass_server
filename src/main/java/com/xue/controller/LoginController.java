@@ -81,12 +81,22 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count){
+	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
 
-		String thing8 = "本次扣课" + class_count + "课时，总课时" + total + "课时";
+		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+		Float count = 0.0f;
+		if(lessons.size()>0){
+			count = lessons.get(0).getMinus();
+		}
+
+		if(Float.parseFloat(class_count) != 100){
+			count = Float.parseFloat(class_count);
+		}
+
+		String thing8 = "本次扣课" + count + "课时，总课时" + total + "课时";
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name);
