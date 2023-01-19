@@ -619,6 +619,7 @@ public class LoginServiceImpl implements LoginService {
         String mark = null;
         Integer sign_counts=0;
         Integer sign_counts_get=0;
+        List<Schedule> list_tra=null;
 
 
         if(subject.equals("全科目")){
@@ -643,8 +644,10 @@ public class LoginServiceImpl implements LoginService {
             List<Schedule> list=null;
             if(subject.equals("全科目")){
                 list = dao.getScheduleAll(weekDay, studio);
+                list_tra = dao.getTransferAll(date_time, studio);
             }else {
                 list = dao.getSchedule(weekDay, studio,subject);
+                list_tra = dao.getTransfer(date_time, studio,subject);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -766,15 +769,9 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取插班生
         try {
-            List<Schedule> list=null;
-            if(subject.equals("全科目")){
-                list = dao.getTransferAll(date_time, studio);
-            }else {
-                list = dao.getTransfer(date_time, studio,subject);
-            }
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list_tra.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
-                Schedule line = list.get(i);
+                Schedule line = list_tra.get(i);
                 //获取字段
                 add_date = line.getAdd_date();
                 age = line.getAge();
