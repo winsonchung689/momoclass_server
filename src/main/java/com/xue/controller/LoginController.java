@@ -44,7 +44,7 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"5kASxPkT-RY5K-ti-iFh924Xgd97858juXOjynsTWVo\",\"data\":{\"thing6\":{\"value\": \"classname\"},\"name3\":{\"value\": \"studentname\"},\"thing4\":{\"value\": \"来看看小朋友的表现吧~~\"},\"date5\":{\"value\": \"mytime\"}}}";
-	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"-_cgWTQuKBy4QnFuVEnsvkJcFeAFWP_xn9fMY7uClJY\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"number7\":{\"value\": \"process\"},\"thing4\":{\"value\": \"process\"}}}";
+	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"wi0QTuLQiYFUbCWGk2eP_KJIviqnDVh8XVq364Q3704\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"date2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"AA\"},\"thing6\":{\"value\": \"process\"},\"thing8\":{\"value\": \"process\"}}}";
 	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
 
 	@Autowired
@@ -79,16 +79,22 @@ public class LoginController {
 
 
 	//	获取token
-	@RequestMapping("/sendRemind")
+	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendRemind(String token, String openid, String total, String left,String student_name){
+	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
+
+		String thing8 = "本次扣课" + class_count + "课时，总课时" + total + "课时";
+
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
-		queryJson.getJSONObject("data").getJSONObject("number7").put("value",total);
-		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",left);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name);
+		queryJson.getJSONObject("data").getJSONObject("date2").put("value",date_time);
+		queryJson.getJSONObject("data").getJSONObject("thing3").put("value","签到成功");
+		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",left + "课时");
+		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",thing8);
+
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
