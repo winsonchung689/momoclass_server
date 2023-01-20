@@ -2423,7 +2423,7 @@ public class LoginController {
 
 				List<Lesson> list1 = dao.getLessonByName(student_name, studio);
 				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Integer.parseInt(coins.toString()));
+				loginService.updateAddPoints(student_name,studio,-Math.round(coins));
 
 			} catch (Exception e) {
 				e.printStackTrace();
