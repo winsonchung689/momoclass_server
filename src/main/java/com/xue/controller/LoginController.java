@@ -2401,6 +2401,40 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/cancelSignUp")
+	@ResponseBody
+	public String cancelSignUp(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+
+		String id = request.getParameter("id");
+		String role = request.getParameter("role");
+		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		String student_name = request.getParameter("student_name");
+		String count = request.getParameter("count");
+
+		List<User> list = dao.getUser(openid);
+		String studio_get = list.get(0).getStudio();
+
+		if ("boss".equals(role) && studio_get.equals(studio)) {
+			try {
+				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
+				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count));
+
+				List<Lesson> list1 = dao.getLessonByName(student_name, studio);
+				Float coins = list1.get(0).getCoins();
+				loginService.updateAddPoints(student_name,studio,-Integer.parseInt(coins.toString()));
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			logger.error("it's not your studio, could not delete!");
+		}
+
+		return "push massage successfully";
+	}
+
 }
 	
 	
