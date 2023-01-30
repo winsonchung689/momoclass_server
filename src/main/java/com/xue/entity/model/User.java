@@ -36,6 +36,15 @@ public class User {
 
     private String lessons;
 
+    private String subjects;
+
+    public String getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(String subjects) {
+        this.subjects = subjects;
+    }
 
     public String getLessons() {
         return lessons;
