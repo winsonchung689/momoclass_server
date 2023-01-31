@@ -16,9 +16,19 @@ public class Lesson {
 
     private String studio;
 
+    private String subject;
+
     private Float minus;
 
     private Float coins;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     public Float getCoins() {
         return coins;

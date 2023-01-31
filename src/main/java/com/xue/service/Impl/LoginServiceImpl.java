@@ -2586,6 +2586,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount = 0.0f;
         String create_time = null;
         String id = null;
+        String subject = null;
         Integer points = 0;
         Float percent = 0.0f;
         Float minus = 0.0f;
@@ -2634,6 +2635,7 @@ public class LoginServiceImpl implements LoginService {
                 points = line.getPoints();
                 minus = line.getMinus();
                 coins = line.getCoins();
+                subject = line.getSubject();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -2653,6 +2655,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("coins", coins);
                 jsonObject.put("need_pay", need_pay);
                 jsonObject.put("owe", owe);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
