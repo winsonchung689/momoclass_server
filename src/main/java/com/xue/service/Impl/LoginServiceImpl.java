@@ -2603,12 +2603,22 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         try {
-            AllCount allCount =dao.getLessonAllCount(studio);
-            total_student = allCount.getStudent_count();
-            total_amount_all = allCount.getTotal_amount();
-            left_amount_all = allCount.getLeft_amount();
-            need_pay = dao.getLessonNeedPayCount(studio);
-            owe = dao.getLessonOweCount(studio);
+            if(subject.equals("全科目")){
+                AllCount allCount =dao.getLessonAllCount(studio);
+                total_student = allCount.getStudent_count();
+                total_amount_all = allCount.getTotal_amount();
+                left_amount_all = allCount.getLeft_amount();
+                need_pay = dao.getLessonNeedPayCount(studio);
+                owe = dao.getLessonOweCount(studio);
+            }else{
+                AllCount allCount =dao.getLessonAllCountBySubject(studio,subject);
+                total_student = allCount.getStudent_count();
+                total_amount_all = allCount.getTotal_amount();
+                left_amount_all = allCount.getLeft_amount();
+                need_pay = dao.getLessonNeedPayCountBySubject(studio,subject);
+                owe = dao.getLessonOweCountBySubject(studio,subject);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

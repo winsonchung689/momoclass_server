@@ -200,9 +200,15 @@ public interface UserMapper {
 
     AllCount getLessonAllCount(String studio);
 
+    AllCount getLessonAllCountBySubject(String studio,String subject);
+
     Integer getLessonNeedPayCount(String studio);
 
+    Integer getLessonNeedPayCountBySubject(String studio,String subject);
+
     Integer getLessonOweCount(String studio);
+
+    Integer getLessonOweCountBySubject(String studio,String subject);
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject);
 
