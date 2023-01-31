@@ -2018,7 +2018,7 @@ public class LoginController {
 
 		//获取openid
 		String openid = request.getParameter("openid");
-		String subjects = request.getParameter("subject");
+		String subjects = request.getParameter("subjects");
 
 		//获取用户类型
 
