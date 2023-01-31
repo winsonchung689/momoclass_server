@@ -1529,6 +1529,7 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
+		String subject =null;
 		String student_name =null;
 		String total_amount= null;
 		String left_amount= null;
@@ -1558,31 +1559,34 @@ public class LoginController {
 					Cell cell=sheet.getCell(j, i);
 					System.out.println("cell:" + cell.getContents());
 					if(0==j){
+						subject = cell.getContents();
+						lesson.setSubject(subject);
+					}else if(1==j){
 						student_name = cell.getContents();
 						lesson.setStudent_name(student_name);
 						gift.setStudent_name(student_name);
-					}else if(1==j){
+					}else if(2==j){
 						total_amount =cell.getContents();
 						if(!total_amount.isEmpty()){
 							lesson.setTotal_amount(Float.parseFloat(total_amount));
 						}
 
-					}else if(2==j){
+					}else if(3==j){
 						left_amount = cell.getContents();
 						if(!left_amount.isEmpty()){
 							lesson.setLeft_amount(Float.parseFloat(left_amount));
 						}
 
-					}else if (3==j){
+					}else if (4==j){
 						gift_name = cell.getContents();
 						gift.setGift_name(gift_name);
-					}else if(4==j){
+					}else if(5==j){
 						gift_amount =cell.getContents();
 						if(!gift_amount.isEmpty()){
 							gift.setGift_amount(Integer.parseInt(gift_amount));
 						}
 
-					}else if(5==j){
+					}else if(6==j){
 						String expired_days = null;
 						expired_days = cell.getContents();
 						if(!expired_days.isEmpty()){
