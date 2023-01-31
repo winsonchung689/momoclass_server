@@ -99,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
                             coins_amount = coins;
                         }
                         subject_get = lesson_get.getSubject();
-                        if(!subject.equals("美术")){
+                        if(!subject_get.equals("美术")){
                             subject_get = subject;
                         }
                     }
