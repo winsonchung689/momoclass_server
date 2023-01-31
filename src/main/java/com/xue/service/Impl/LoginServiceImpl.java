@@ -77,7 +77,6 @@ public class LoginServiceImpl implements LoginService {
             Float minus_amount = 0.0f;
             Float left_amount = 0.0f;
             Float coins_amount = 0.0f;
-            String subject_get = "美术";
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio);
                     if(lessons.size()>0){
@@ -98,10 +97,6 @@ public class LoginServiceImpl implements LoginService {
                         if (coins >= 0) {
                             coins_amount = coins;
                         }
-                        subject_get = lesson_get.getSubject();
-                        if(!subject_get.equals("美术")){
-                            subject_get = subject;
-                        }
                     }
             }
             lesson.setStudent_name(student_name);
@@ -109,7 +104,7 @@ public class LoginServiceImpl implements LoginService {
             lesson.setLeft_amount(left_amount + lessons_amount);
             lesson.setMinus(minus_amount);
             lesson.setCoins(coins_amount);
-            lesson.setSubject(subject_get);
+            lesson.setSubject(subject);
             result = dao.updateLesson(lesson);
         } catch (Exception e) {
             e.printStackTrace();
