@@ -2612,11 +2612,13 @@ public class LoginServiceImpl implements LoginService {
                 owe = dao.getLessonOweCount(studio);
             }else{
                 AllCount allCount =dao.getLessonAllCountBySubject(studio,subject);
-                total_student = allCount.getStudent_count();
-                total_amount_all = allCount.getTotal_amount();
-                left_amount_all = allCount.getLeft_amount();
-                need_pay = dao.getLessonNeedPayCountBySubject(studio,subject);
-                owe = dao.getLessonOweCountBySubject(studio,subject);
+                if(allCount.getStudent_count()>0){
+                    total_student = allCount.getStudent_count();
+                    total_amount_all = allCount.getTotal_amount();
+                    left_amount_all = allCount.getLeft_amount();
+                    need_pay = dao.getLessonNeedPayCountBySubject(studio,subject);
+                    owe = dao.getLessonOweCountBySubject(studio,subject);
+                }
             }
 
         } catch (Exception e) {
