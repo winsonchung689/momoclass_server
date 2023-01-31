@@ -194,6 +194,8 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio);
 
+    List<Lesson> getLessonBySubject(String studio,String subject);
+
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount);
 
     AllCount getLessonAllCount(String studio);

@@ -22,7 +22,7 @@ public interface LoginService {
 
     public List  getPpt(Integer page);
 
-    public List  getLesson(String studio,String student_name);
+    public List  getLesson(String studio,String student_name,String subject);
 
     public List  getTipsDataUrl(String studio,Integer left_amount);
 

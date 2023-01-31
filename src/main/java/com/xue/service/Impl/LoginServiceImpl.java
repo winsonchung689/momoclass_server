@@ -2583,7 +2583,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getLesson(String studio,String student_name) {
+    public List getLesson(String studio,String student_name,String subject_input) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -2613,10 +2613,13 @@ public class LoginServiceImpl implements LoginService {
             e.printStackTrace();
         }
 
-
         try {
             if(student_name.equals("all")) {
+                if(subject.equals("全科目")){
                     list = dao.getLesson(studio);
+                }else {
+                    list = dao.getLessonBySubject(studio,subject_input);
+                }
             }else if (length>1) {
                     list = dao.getLessonInName(studio,student_name,0,10000);
             }else {
