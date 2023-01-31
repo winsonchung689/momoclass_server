@@ -2583,12 +2583,12 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getLesson(String studio,String student_name,String subject_input) {
+    public List getLesson(String studio,String student_name,String subject) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
         String id = null;
-        String subject = null;
+        String subject_get = null;
         Integer points = 0;
         Float percent = 0.0f;
         Float minus = 0.0f;
@@ -2618,7 +2618,7 @@ public class LoginServiceImpl implements LoginService {
                 if(subject.equals("全科目")){
                     list = dao.getLesson(studio);
                 }else {
-                    list = dao.getLessonBySubject(studio,subject_input);
+                    list = dao.getLessonBySubject(studio,subject);
                 }
             }else if (length>1) {
                     list = dao.getLessonInName(studio,student_name,0,10000);
@@ -2640,7 +2640,7 @@ public class LoginServiceImpl implements LoginService {
                 points = line.getPoints();
                 minus = line.getMinus();
                 coins = line.getCoins();
-                subject = line.getSubject();
+                subject_get = line.getSubject();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -2660,7 +2660,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("coins", coins);
                 jsonObject.put("need_pay", need_pay);
                 jsonObject.put("owe", owe);
-                jsonObject.put("subject", subject);
+                jsonObject.put("subject", subject_get);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
