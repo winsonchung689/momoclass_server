@@ -2128,8 +2128,13 @@ public class LoginController {
 
 		// 获取工作室
 		String studio = request.getParameter("studio");
+
 		//获取用户名
 		String student_name = request.getParameter("student_name");
+
+		//获取用户名
+		String subject = request.getParameter("subject");
+
 		// 发放开课礼物
 		String gift_name = request.getParameter("gift_name");
 		if (!gift_name.isEmpty()){
@@ -2220,6 +2225,7 @@ public class LoginController {
 			lesson.setStudio(studio);
 			lesson.setMinus(minus_amount);
 			lesson.setCoins(coins_amount);
+			lesson.setSubject(subject);
 
 			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
 			if(!student_name_new.isEmpty()){
