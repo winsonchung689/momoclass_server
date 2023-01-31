@@ -2012,6 +2012,27 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateSubject")
+	@ResponseBody
+	public String updateSubject(HttpServletRequest request, HttpServletResponse response){
+
+		//获取openid
+		String openid = request.getParameter("openid");
+		String subjects = request.getParameter("subject");
+
+		//获取用户类型
+
+		try {
+			User user =new User();
+			user.setOpenid(openid);
+			user.setSubjects(subjects);
+			dao.updateSubject(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateTheme")
 	@ResponseBody
 	public String updateTheme(String theme, String openid){

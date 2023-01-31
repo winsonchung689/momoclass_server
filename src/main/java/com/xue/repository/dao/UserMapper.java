@@ -146,6 +146,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateSubject(User user);
+
     int updateTheme(String theme,String param2);
 
     int updatVideoDisplay(String studio,Integer display);
