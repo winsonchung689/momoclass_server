@@ -50,6 +50,8 @@ public interface UserMapper {
 
     List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length);
 
+    List<Lesson> getLessonInNameBySubject(String studio,String student_names,Integer page_start,Integer page_length,String subject);
+
     //获取
     List<Schedule> getScheduleAll(Integer date_time,String studio);
 
@@ -233,6 +235,8 @@ public interface UserMapper {
     List<Lesson> getRatingByName(String studio,String student_name,Integer page_start,Integer page_end);
 
     List<Lesson> getLessonLikeName(String studio,String student_name);
+
+    List<Lesson> getLessonLikeNameBySubject(String studio,String student_name,String subject);
 
     int insertLesson(Lesson lesson);
 

@@ -2633,9 +2633,19 @@ public class LoginServiceImpl implements LoginService {
                     list = dao.getLessonBySubject(studio,subject);
                 }
             }else if (length>1) {
+                if(subject.equals("全科目")){
                     list = dao.getLessonInName(studio,student_name,0,10000);
+                }else {
+                    list = dao.getLessonInNameBySubject(studio,student_name,0,10000,subject);
+                }
             }else {
+                if(subject.equals("全科目")){
                     list = dao.getLessonLikeName(studio,student_name);
+                }else {
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject);
+                }
+
+
             }
 
             for (int i = 0; i < list.size(); i++) {
