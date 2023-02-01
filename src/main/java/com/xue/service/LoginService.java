@@ -30,7 +30,7 @@ public interface LoginService {
 
     public List  getGoodsList(String studio,Integer page);
 
-    public List  getRating(String studio,String student_name,Integer page);
+    public List  getRating(String studio,String student_name,Integer page,String subject);
 
     public int push(Message message);
 

@@ -232,7 +232,11 @@ public interface UserMapper {
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 
+    List<Lesson> getRatingBySubject(String studio,Integer page_start,Integer page_end,String subject);
+
     List<Lesson> getRatingByName(String studio,String student_name,Integer page_start,Integer page_end);
+
+    List<Lesson> getRatingByNameBySubject(String studio,String student_name,Integer page_start,Integer page_end,String subject);
 
     List<Lesson> getLessonLikeName(String studio,String student_name);
 
