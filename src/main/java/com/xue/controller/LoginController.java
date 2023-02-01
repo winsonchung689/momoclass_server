@@ -1555,50 +1555,49 @@ public class LoginController {
 				lesson.setMinus(1.0f);
 				lesson.setCoins(0.0f);
 				lesson.setPoints(0);
-				for(int j=0;j<sheet.getColumns();j++){
-					Cell cell=sheet.getCell(j, i);
-					System.out.println("cell:" + cell.getContents());
-					if(0==j){
-						subject = cell.getContents();
-						lesson.setSubject(subject);
-					}else if(1==j){
-						student_name = cell.getContents();
-						lesson.setStudent_name(student_name);
-						gift.setStudent_name(student_name);
-					}else if(2==j){
-						total_amount =cell.getContents();
-						if(!total_amount.isEmpty()){
-							lesson.setTotal_amount(Float.parseFloat(total_amount));
-						}
-
-					}else if(3==j){
-						left_amount = cell.getContents();
-						if(!left_amount.isEmpty()){
-							lesson.setLeft_amount(Float.parseFloat(left_amount));
-						}
-
-					}else if (4==j){
-						gift_name = cell.getContents();
-						gift.setGift_name(gift_name);
-					}else if(5==j){
-						gift_amount =cell.getContents();
-						if(!gift_amount.isEmpty()){
-							gift.setGift_amount(Integer.parseInt(gift_amount));
-						}
-
-					}else if(6==j){
-						String expired_days = null;
-						expired_days = cell.getContents();
-						if(!expired_days.isEmpty()){
-							Calendar cal_get = Calendar.getInstance();
-							SimpleDateFormat df_get = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-							cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
-							String expired_time = df_get.format(cal_get.getTime());
-							gift.setExpired_time(expired_time);
+				Cell cell_get=sheet.getCell(0, i);
+				if(!cell_get.getContents().isEmpty()){
+					for(int j=0;j<sheet.getColumns();j++){
+						Cell cell=sheet.getCell(j, i);
+						if(0==j){
+							subject = cell.getContents();
+							lesson.setSubject(subject);
+						}else if(1==j){
+							student_name = cell.getContents();
+							lesson.setStudent_name(student_name);
+							gift.setStudent_name(student_name);
+						}else if(2==j){
+							total_amount =cell.getContents();
+							if(!total_amount.isEmpty()){
+								lesson.setTotal_amount(Float.parseFloat(total_amount));
+							}
+						}else if(3==j){
+							left_amount = cell.getContents();
+							if(!left_amount.isEmpty()){
+								lesson.setLeft_amount(Float.parseFloat(left_amount));
+							}
+						}else if (4==j){
+							gift_name = cell.getContents();
+							gift.setGift_name(gift_name);
+						}else if(5==j){
+							gift_amount =cell.getContents();
+							if(!gift_amount.isEmpty()){
+								gift.setGift_amount(Integer.parseInt(gift_amount));
+							}
+						}else if(6==j){
+							String expired_days = null;
+							expired_days = cell.getContents();
+							if(!expired_days.isEmpty()){
+								Calendar cal_get = Calendar.getInstance();
+								SimpleDateFormat df_get = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+								cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
+								String expired_time = df_get.format(cal_get.getTime());
+								gift.setExpired_time(expired_time);
+							}
 						}
 					}
-
 				}
+
 				try {
 					List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
 					if(lessons_get.isEmpty()){
