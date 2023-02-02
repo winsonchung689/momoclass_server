@@ -2134,9 +2134,7 @@ public class LoginServiceImpl implements LoginService {
             studio = user.getStudio();
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
-            System.out.println("now_time:" + now_time);
             if(!"no_name".equals(student_name) && "大雄工作室".equals(studio) && send_time.equals(now_time)){
-
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
                 for (int j = 0; j < list_schedule.size(); j++) {
                     Schedule schedule = list_schedule.get(j);
