@@ -129,6 +129,8 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id,String studio);
 
+    void deleteScheduleByLesson(String student_name,String studio);
+
     void confirmSchedule(Integer id,String studio);
 
     void deleteLesson(Integer id,String studio);
