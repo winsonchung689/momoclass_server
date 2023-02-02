@@ -2076,18 +2076,6 @@ public class LoginController {
 	@RequestMapping("/updateComentStyle")
 	@ResponseBody
 	public String updateComentStyle(HttpServletRequest request, HttpServletResponse response){
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-		try {
-			cal.setTime(df.parse(create_time));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		cal.add(cal.DATE,30);
-		String expired_time = df.format(cal.getTime());
-
 		//获取openid
 		String openid = request.getParameter("openid");
 
@@ -2103,13 +2091,33 @@ public class LoginController {
 			comment_style = "public";
 		}
 
-		//获取用户类型
-
 		try {
 			User user =new User();
 			user.setComment_style(comment_style);
 			user.setStudio(studio);
 			loginService.updateComentStyle(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateSendTime")
+	@ResponseBody
+	public String updateSendTime(HttpServletRequest request, HttpServletResponse response){
+		//获取openid
+		String openid = request.getParameter("openid");
+
+		String studio = request.getParameter("studio");
+
+		String send_time = request.getParameter("send_time");
+
+
+		try {
+			User user =new User();
+			user.setSend_time(send_time);
+			user.setStudio(studio);
+			dao.updateSendTime(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

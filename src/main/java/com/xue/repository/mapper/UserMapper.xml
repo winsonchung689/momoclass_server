@@ -516,6 +516,11 @@
     update user set comment_style=#{comment_style} where studio = #{studio}
   </update>
 
+  <!-- 更新课评风格 -->
+  <update id="updateSendTime" parameterType="com.xue.entity.model.User">
+    update user set send_time=#{send_time} where studio = #{studio}
+  </update>
+
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select comment_style from user where studio = #{studio} order by create_time limit 1
   </select>

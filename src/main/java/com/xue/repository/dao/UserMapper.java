@@ -164,6 +164,8 @@ public interface UserMapper {
 
     int updateComentStyle(User user);
 
+    int updateSendTime(User user);
+
     List<User> getUser(String openid);
 
     List<User> getUserByOpenid(String openid);
