@@ -2126,7 +2126,7 @@ public class LoginServiceImpl implements LoginService {
             role = user.getRole();
             studio = user.getStudio();
             student_name = user.getStudent_name();
-            if(!"no_name".equals(student_name) && "大雄工作室".equals("studio")){
+            if(!"no_name".equals(student_name) && "大雄工作室".equals(studio)){
                 openid = user.getOpenid();
 
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
