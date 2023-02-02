@@ -1249,6 +1249,7 @@ public class LoginServiceImpl implements LoginService {
         Integer cover = null;
         String subjects = null;
         List<User> list= new ArrayList<>();;
+        String send_time = null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -1292,6 +1293,7 @@ public class LoginServiceImpl implements LoginService {
                 phone_number=line.getPhone_number();
                 location = line.getLocation();
                 subjects = line.getSubjects();
+                send_time = line.getSend_time();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio);
@@ -1321,6 +1323,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("phone_number",phone_number);
                 jsonObject.put("location",location);
                 jsonObject.put("subjects",subjects);
+                jsonObject.put("send_time",send_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
