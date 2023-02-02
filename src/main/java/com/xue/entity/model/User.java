@@ -38,6 +38,16 @@ public class User {
 
     private String subjects;
 
+    private String send_time;
+
+    public String getSend_time() {
+        return send_time;
+    }
+
+    public void setSend_time(String send_time) {
+        this.send_time = send_time;
+    }
+
     public String getSubjects() {
         return subjects;
     }

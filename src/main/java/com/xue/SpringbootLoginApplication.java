@@ -40,7 +40,7 @@ public class SpringbootLoginApplication {
 		SpringApplication.run(SpringbootLoginApplication.class, args);
 	}
 
-	@Scheduled(cron = "0 * * * * ?")
+	@Scheduled(cron = "0 0 12 * * ?")
 	public void sendClassRemind(){
 		loginService.sendClassRemind();
 	}

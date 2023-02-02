@@ -2103,10 +2103,12 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取用户信息
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal   =   Calendar.getInstance();
         cal.add(Calendar.DATE,+1);
         Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
         String date_time = df.format(cal.getTime());
+        String now_time = df_now.format(new Date()).split(" ")[1];
 
         String result = null;
         String openid = null;
@@ -2115,6 +2117,7 @@ public class LoginServiceImpl implements LoginService {
         String role = null;
         String duration = null;
         String class_number = null;
+        String send_time = null;
         List<User> list= null;
         List<Schedule> list_schedule = null;
         String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
@@ -2126,9 +2129,9 @@ public class LoginServiceImpl implements LoginService {
             role = user.getRole();
             studio = user.getStudio();
             student_name = user.getStudent_name();
-            if(!"no_name".equals(student_name) && "大雄工作室".equals(studio)){
+            send_time = user.getSend_time();
+            if(!"no_name".equals(student_name) && "大雄工作室".equals(studio) && send_time.equals(now_time)){
                 openid = user.getOpenid();
-
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
                 for (int j = 0; j < list_schedule.size(); j++) {
                     Schedule schedule = list_schedule.get(j);
