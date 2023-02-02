@@ -154,6 +154,8 @@ public interface LoginService {
 
     public int updateGift(String id);
 
+    public void sendClassRemind();
+
 
 
 }

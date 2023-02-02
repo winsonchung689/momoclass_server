@@ -1,10 +1,12 @@
 package com.xue.service.Impl;
 
 import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2086,6 +2088,71 @@ public class LoginServiceImpl implements LoginService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public void sendClassRemind() {
+        // 获取 token
+        String token_result = null;
+        String token = null;
+        String url = "https://api.weixin.qq.com/cgi-bin/token";
+        String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&grant_type=client_credential";
+        token_result = HttpUtil.sendPost(url,MOMO2B_param);
+        JSONObject jsonObject = JSON.parseObject(token_result);
+        token = jsonObject.getString("access_token");
+
+        // 获取用户信息
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal   =   Calendar.getInstance();
+        cal.add(Calendar.DATE,+1);
+        Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
+        String date_time = df.format(cal.getTime());
+
+        String result = null;
+        String openid = null;
+        String studio =null;
+        String student_name = null;
+        String role = null;
+        String duration = null;
+        String class_number = null;
+        List<User> list= null;
+        List<Schedule> list_schedule = null;
+        String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
+        String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+
+        list = dao.getAllUser();
+        for (int i = 0; i < list.size(); i++) {
+            User user = list.get(i);
+            role = user.getRole();
+            studio = user.getStudio();
+            student_name = user.getStudent_name();
+            if(!"no_name".equals(student_name) && "大雄工作室".equals("studio")){
+                openid = user.getOpenid();
+
+                list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
+                for (int j = 0; j < list_schedule.size(); j++) {
+                    Schedule schedule = list_schedule.get(j);
+                    duration = schedule.getDuration();
+                    class_number = schedule.getClass_number();
+
+                    JSONObject queryJson = JSONObject.parseObject(tample3);
+                    queryJson.put("touser",openid);
+                    queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
+                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
+                    queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
+
+                    // String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+                    // System.out.printf("param:"+param);
+                    // 发送上课提醒
+                    try {
+                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                        System.out.printf("res:" + result);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
 

@@ -55,6 +55,8 @@ public interface UserMapper {
     //获取
     List<Schedule> getScheduleAll(Integer date_time,String studio);
 
+    List<Schedule> getScheduleByUser(Integer date_time,String studio,String student_name);
+
     List<Schedule> getSchedule(Integer date_time,String studio,String subject);
 
     //获取
