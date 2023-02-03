@@ -507,7 +507,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},role=#{role} where openid = #{openid}
+    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time} where openid = #{openid}
   </update>
 
   <!-- 更新选课 -->
