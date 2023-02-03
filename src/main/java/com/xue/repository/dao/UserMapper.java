@@ -168,6 +168,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<User> getUserSendTime(String studio);
+
     List<User> getUserByOpenid(String openid);
 
     List<User> getUserByStudent(String student_name,String studio);

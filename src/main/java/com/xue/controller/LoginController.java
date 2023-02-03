@@ -1932,6 +1932,12 @@ public class LoginController {
 		String avatarurl = request.getParameter("avatarurl");
 
 		String studio = request.getParameter("studio");
+		List<User> list_send = dao.getUserSendTime(studio);
+		String send_time = "12:00:00";
+		if(list_send.size()>0){
+			send_time = list_send.get(0).getSend_time();
+		}
+
         //获取 comment_style
 		String comment_style = "public";
 		List<User> list_u = dao.getComentStyle(studio);
@@ -1954,6 +1960,7 @@ public class LoginController {
 			if(0==res){
 				user.setUser_type("新用户");
 				user.setComment_style(comment_style);
+				user.setSend_time(send_time);
 				loginService.insertUser(user);
 			}else if(res>0&&!student_name.equals("no_name")){
 				List<User> list= dao.getUser(openid);
