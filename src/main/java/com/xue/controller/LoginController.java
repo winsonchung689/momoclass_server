@@ -249,10 +249,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getTipsDataUrl")
 	@ResponseBody
-	public List getTipsDataUrl(String studio,Integer left_amount){
+	public List getTipsDataUrl(String studio,Integer left_amount,String subject){
 		List list = null;
 		try {
-			list = loginService.getTipsDataUrl(studio,left_amount);
+			list = loginService.getTipsDataUrl(studio,left_amount,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

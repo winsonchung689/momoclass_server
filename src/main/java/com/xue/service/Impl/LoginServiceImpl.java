@@ -2770,7 +2770,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getTipsDataUrl(String studio,Integer left_amount_get) {
+    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject) {
         Float total_amount = 0.0f;
         String create_time = null;
         String id = null;
@@ -2783,7 +2783,7 @@ public class LoginServiceImpl implements LoginService {
         String student_name =null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getTipsDataUrl(studio,left_amount_get);
+            list = dao.getTipsDataUrl(studio,left_amount_get,subject);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
@@ -2797,6 +2797,7 @@ public class LoginServiceImpl implements LoginService {
                 points = line.getPoints();
                 minus = line.getMinus();
                 coins = line.getCoins();
+                subject = line.getSubject();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -2811,6 +2812,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("search", student_name);
                 jsonObject.put("minus", minus);
                 jsonObject.put("coins", coins);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

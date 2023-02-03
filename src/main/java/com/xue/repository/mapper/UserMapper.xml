@@ -561,12 +561,12 @@
 
   <!-- 获取课时 -->
   <select id="getLessonBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and subject =#{param2} and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subjsubjectect from lesson where studio =#{param1} and subject =#{param2} and delete_status = 0 order by left_amount
   </select>
 
   <!-- 获取课时 -->
   <select id="getTipsDataUrl" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins from lesson where studio =#{param1} and left_amount &lt; #{param2} and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and left_amount &lt; #{param2} and subject =#{param3} and delete_status = 0 order by left_amount
   </select>
 
 
