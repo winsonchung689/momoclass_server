@@ -2783,7 +2783,11 @@ public class LoginServiceImpl implements LoginService {
         String student_name =null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getTipsDataUrl(studio,left_amount_get,subject);
+            if("全科目".equals(subject)){
+                list = dao.getTipsDataUrlAll(studio,left_amount_get);
+            }else{
+                list = dao.getTipsDataUrl(studio,left_amount_get,subject);
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);

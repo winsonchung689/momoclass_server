@@ -208,6 +208,8 @@ public interface UserMapper {
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject);
 
+    List<Lesson> getTipsDataUrlAll(String studio,Integer left_amount);
+
     AllCount getLessonAllCount(String studio);
 
     AllCount getLessonAllCountBySubject(String studio,String subject);
