@@ -1969,6 +1969,7 @@ public class LoginController {
 				user.setUser_type(user_type_get);
 				user.setRole(role_get);
 				user.setComment_style(comment_style);
+				user.setSend_time(send_time);
 				loginService.insertUser(user);
 			}
 		} catch (Exception e) {
