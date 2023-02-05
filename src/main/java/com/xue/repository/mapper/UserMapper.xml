@@ -347,7 +347,7 @@
 
   <!-- 插入请假记录 -->
   <insert id="insertLeave" parameterType="com.xue.entity.model.Leave">
-    insert leave_record(student_name,date_time,studio,create_time,duration,leave_type) values(#{student_name},#{date_time},#{studio},#{create_time},#{duration},#{leave_type})
+    insert leave_record(student_name,date_time,studio,create_time,duration,leave_type,mark_leave) values(#{student_name},#{date_time},#{studio},#{create_time},#{duration},#{leave_type},#{mark_leave})
   </insert>
 
   <!-- 插入课程安排 -->

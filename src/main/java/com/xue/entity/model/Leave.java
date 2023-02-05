@@ -17,6 +17,16 @@ public class Leave {
 
     private String leave_type;
 
+    private String mark_leave;
+
+    public String getMark_leave() {
+        return mark_leave;
+    }
+
+    public void setMark_leave(String mark_leave) {
+        this.mark_leave = mark_leave;
+    }
+
     public String getLeave_type() {
         return leave_type;
     }
