@@ -26,6 +26,16 @@ public class Schedule {
 
     private String subject;
 
+    private Integer remind;
+
+    public Integer getRemind() {
+        return remind;
+    }
+
+    public void setRemind(Integer remind) {
+        this.remind = remind;
+    }
+
     public String getSubject() {
         return subject;
     }

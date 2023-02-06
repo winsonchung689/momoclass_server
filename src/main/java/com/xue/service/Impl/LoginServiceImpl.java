@@ -627,6 +627,7 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_counts=0;
         Integer sign_counts_get=0;
         List<Schedule> list_tra=null;
+        Integer remind=0;
 
 
         if(subject.equals("全科目")){
@@ -670,6 +671,8 @@ public class LoginServiceImpl implements LoginService {
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
                 subject = line.getSubject();
+                remind = line.getRemind();
+
 
 
                 String role = "visit";
@@ -733,6 +736,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("update_time", update_time.substring(0, 10));
                         jsonObject.put("leave_color", "rgb(157, 162, 165)");
                         jsonObject.put("sign_color", "rgb(157, 162, 165)");
+                        jsonObject.put("remind",remind);
 
                         jsonObject.put("sign_up", "签到");
                         jsonObject.put("mark", "备注");
