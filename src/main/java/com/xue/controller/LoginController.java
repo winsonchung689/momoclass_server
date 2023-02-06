@@ -400,7 +400,7 @@ public class LoginController {
 		}else if("reremind".equals(type)){
 			remind = 1;
 		}
-		String[] list = subject_class.split("|");
+		String[] list = subject_class.split(",");
 		String subject = list[0];
 		String class_number = list[1];
 		String duration = list[2];
