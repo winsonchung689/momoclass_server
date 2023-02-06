@@ -2129,6 +2129,7 @@ public class LoginServiceImpl implements LoginService {
         String class_number = null;
         String send_time = null;
         List<User> list= null;
+        Integer remind = 0;
         List<Schedule> list_schedule = null;
         String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
@@ -2147,21 +2148,21 @@ public class LoginServiceImpl implements LoginService {
                     Schedule schedule = list_schedule.get(j);
                     duration = schedule.getDuration();
                     class_number = schedule.getClass_number();
-
+                    remind = schedule.getRemind();
                     JSONObject queryJson = JSONObject.parseObject(tample3);
-                    queryJson.put("touser",openid);
-                    queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
-                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
-                    queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
 
-                    // String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-                    // System.out.printf("param:"+param);
-                    // 发送上课提醒
-                    try {
-                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                        System.out.printf("res:" + result);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if(remind == 1){
+                        queryJson.put("touser",openid);
+                        queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
+                        queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
+                        queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
+
+                        try {
+                            result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                            System.out.printf("res:" + result);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
