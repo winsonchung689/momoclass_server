@@ -440,6 +440,11 @@
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}
   </update>
 
+  <!-- 更新课时 -->
+  <update id="updateRemind" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set remind=#{remind} where subject=#{subject} and studio = #{studio} and duration = #{duration} and class_number = #{class_number}
+  </update>
+
   <!-- 更新名字 -->
   <update id="updateScheduleName" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
