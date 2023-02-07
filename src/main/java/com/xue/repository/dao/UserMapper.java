@@ -315,7 +315,9 @@ public interface UserMapper {
 
     int updateUserExpired(String role,String studio,String role_old);
 
-    List<Lesson> getLessonByName(String student_name,String studio,String subject);
+    List<Lesson> getLessonByName(String student_name,String studio);
+
+    List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject);
 
     int updateLessonPoint(Lesson lesson);
 
