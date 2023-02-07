@@ -26,7 +26,7 @@ public interface LoginService {
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject);
 
-    public List  getLessonInName(String studio,String student_name,Integer page);
+    public List  getLessonInName(String studio,String student_name,Integer page,String subject);
 
     public List  getGoodsList(String studio,Integer page);
 

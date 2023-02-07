@@ -291,10 +291,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody
-	public List getLessonInName(String studio,String student_name,Integer page){
+	public List getLessonInName(String studio,String student_name,Integer page,String subject){
 		List list = null;
 		try {
-			list = loginService.getLessonInName(studio,student_name,page);
+			list = loginService.getLessonInName(studio,student_name,page,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

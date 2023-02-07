@@ -2892,7 +2892,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonInName(String studio, String student_name,Integer page) {
+    public List getLessonInName(String studio, String student_name,Integer page,String subject) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -2908,9 +2908,19 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             if (length>1) {
-                list = dao.getLessonInName(studio,student_name,page_start,page_length);
+                if("全科目".equals(subject)){
+                    list = dao.getLessonInName(studio,student_name,page_start,page_length);
+                }else {
+                    list = dao.getLessonInNameBySubject(studio,student_name,page_start,page_length,subject);
+                }
+
             }else {
-                list = dao.getLessonLikeName(studio,student_name);
+                if("全科目".equals(subject)){
+                    list = dao.getLessonLikeName(studio,student_name);
+                }else {
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject);
+                }
+
             }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
