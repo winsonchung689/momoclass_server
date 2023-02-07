@@ -126,7 +126,7 @@ public class LoginController {
 	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample2);
+		JSONObject queryJson = JSONObject.parseObject(tample4);
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
