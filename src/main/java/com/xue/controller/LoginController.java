@@ -47,6 +47,8 @@ public class LoginController {
 	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"wi0QTuLQiYFUbCWGk2eP_KJIviqnDVh8XVq364Q3704\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"date2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"AA\"},\"thing6\":{\"value\": \"process\"},\"thing8\":{\"value\": \"process\"}}}";
 	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
 
+	private static final String tample4 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"2-SXAUTnbKpaHkY-xZCzFoyyJF3kTXvX3FCaiZodbvk\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing5\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
+
 	@Autowired
 	private LoginService loginService;
 
@@ -104,6 +106,32 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing3").put("value","签到成功");
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",left + "课时");
 		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",thing8);
+
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	//	获取token
+	@RequestMapping("/sendNotice")
+	@ResponseBody
+	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample2);
+
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content);
+		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
 
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
