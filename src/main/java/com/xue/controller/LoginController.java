@@ -2314,7 +2314,7 @@ public class LoginController {
 			lesson.setCoins(coins_amount);
 			lesson.setSubject(subject);
 
-			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+			List<Lesson> lessons = dao.getLessonByName(student_name, studio,subject);
 			if(!student_name_new.isEmpty()){
 				dao.updateScheduleName(student_name_new,student_name,studio);
 				dao.updateCommentName(student_name_new,student_name,studio);
