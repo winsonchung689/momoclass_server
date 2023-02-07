@@ -506,6 +506,10 @@
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where (nick_name like "%"#{nick_name}"%" or student_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") order by create_time desc
   </select>
 
+  <select id="getUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where  studio =#{param1}  order by create_time desc
+  </select>
+
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user order by role
   </select>

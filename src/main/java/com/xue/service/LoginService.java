@@ -108,7 +108,9 @@ public interface LoginService {
 
     public List getUser(String openid);
 
-    public List getUserByNickName(String openid);
+    public List getUserByNickName(String nickName);
+
+    public List getUserByStudio(String Studio);
 
     public List getStudio();
 

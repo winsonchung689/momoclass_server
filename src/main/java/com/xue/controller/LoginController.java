@@ -661,6 +661,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取用户
+	@RequestMapping("/getUserByStudio")
+	@ResponseBody
+	public List getUserByStudio(String studio){
+		List list = null;
+		try {
+			list = loginService.getUserByStudio(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取工作室列表
 	@RequestMapping("/getStudio")
 	@ResponseBody

@@ -1398,6 +1398,63 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getUserByStudio(String studio) {
+        String role = null;
+        String student_name = null;
+        String avatarurl = null;
+        String nick_name = null;
+        String user_type = null;
+        String create_time = null;
+        String expired_time = null;
+        Integer coins = 0;
+        String comment_style = null;
+        String openid = null;
+        String subjects = null;
+        List<User> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getUserByStudio(studio);
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                User line = list.get(i);
+                //获取字段
+                role = line.getRole();
+                student_name = line.getStudent_name();
+                avatarurl = line.getAvatarurl();
+                nick_name = line.getNick_name();
+                studio = line.getStudio();
+                user_type = line.getUser_type();
+                create_time = line.getCreate_time();
+                expired_time = line.getExpired_time();
+                coins = line.getCoins();
+                comment_style =line.getComment_style();
+                openid = line.getOpenid();
+                subjects = line.getSubjects();
+
+
+                //json
+                jsonObject.put("role", role);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("studio", studio);
+                jsonObject.put("user_type", user_type);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("coins", coins);
+                jsonObject.put("comment_style",comment_style);
+                jsonObject.put("openid",openid);
+                jsonObject.put("subjects",subjects);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getStudio() {
         String studio = null;
         List<JSONObject> resul_list = new ArrayList<>();
