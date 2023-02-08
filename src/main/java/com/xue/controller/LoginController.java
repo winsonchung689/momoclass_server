@@ -2,6 +2,8 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.xue.JsonUtils.JsonUtils;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
@@ -77,6 +79,29 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+
+	@RequestMapping("/chat")
+	@ResponseBody
+	public static String chat(String question){
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Content-Type", "application/json");
+		header.put("Authorization", "Bearer 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");
+		JSONObject params = new JSONObject();
+		params.put("model", "text-davinci-003");
+		params.put("prompt", question);
+		params.put("temperature", 0.9);
+		params.put("max_tokens", 2048);
+		params.put("top_p", 1);
+		params.put("frequency_penalty", 0.0);
+		params.put("presence_penalty", 0.6);
+
+		JSONArray stop = new JSONArray();
+		stop.add("<br>");
+		params.put("stop", stop);
+
+		return JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
 	}
 
 
