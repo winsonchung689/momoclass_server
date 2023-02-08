@@ -2744,6 +2744,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount_all = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
+        String parent = "未绑定";
         try {
             if(subject.equals("全科目")){
                 AllCount allCount =dao.getLessonAllCount(studio);
@@ -2795,6 +2796,10 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                List<User> user = dao.getUserByStudent(student_name,studio);
+                if(user.size()>0){
+                    parent = user.get(0).getNick_name();
+                }
 
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
@@ -2825,6 +2830,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("need_pay", need_pay);
                 jsonObject.put("owe", owe);
                 jsonObject.put("subject", subject_get);
+                jsonObject.put("parent", parent);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
