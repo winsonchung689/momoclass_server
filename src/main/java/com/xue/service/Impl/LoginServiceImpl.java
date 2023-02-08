@@ -2744,7 +2744,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount_all = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
-        String parent = "未绑定";
+
         try {
             if(subject.equals("全科目")){
                 AllCount allCount =dao.getLessonAllCount(studio);
@@ -2792,6 +2792,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                String parent = "未绑定";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
