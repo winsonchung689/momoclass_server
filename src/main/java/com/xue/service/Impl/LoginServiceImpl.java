@@ -2912,6 +2912,7 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
+        String subject_get = null;
 
         try {
             if (length>1) {
@@ -2952,6 +2953,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 create_time = line.getCreate_time();
                 points = line.getPoints();
+                subject_get = line.getSubject();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -2965,6 +2967,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
                 jsonObject.put("photo", photo);
+                jsonObject.put("subject_get", subject_get);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -3028,6 +3031,7 @@ public class LoginServiceImpl implements LoginService {
         List<Lesson> list = null;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
+        String subject_get = null;
         if(student_name.equals("all")){
             try {
                 if(subject.equals("全科目")){
@@ -3048,6 +3052,7 @@ public class LoginServiceImpl implements LoginService {
                     id = line.getId();
                     create_time = line.getCreate_time();
                     points = line.getPoints();
+                    subject_get = line.getSubject();
                     //json
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("total_amount", total_amount);
@@ -3058,6 +3063,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("points", points);
                     jsonObject.put("rank", i + page_start + 1);
                     jsonObject.put("photo", photo);
+                    jsonObject.put("subject_get", subject_get);
                     resul_list.add(jsonObject);
                 }
 
