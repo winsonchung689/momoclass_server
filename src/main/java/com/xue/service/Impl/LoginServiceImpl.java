@@ -126,6 +126,7 @@ public class LoginServiceImpl implements LoginService {
         Integer discipline = 0;
         Integer happiness = 0;
         String mp3_url=null;
+        String uuids=null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -145,6 +146,7 @@ public class LoginServiceImpl implements LoginService {
                 discipline = line.getDiscipline();
                 happiness = line.getHappiness();
                 mp3_url=line.getMp3_url();
+                uuids = line.getUuids();
 
                 jsonObject.put("isHide",true);
                 List<User> user = dao.getUserByStudent(student_name,studio);
@@ -164,6 +166,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("discipline", discipline);
                 jsonObject.put("happiness", happiness);
                 jsonObject.put("mp3_url", mp3_url);
+                jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
             }
 
