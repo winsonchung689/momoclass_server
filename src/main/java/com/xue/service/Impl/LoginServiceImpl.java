@@ -2004,6 +2004,7 @@ public class LoginServiceImpl implements LoginService {
         String class_target = null;
         String id = null;
         String create_time = null;
+        String uuids = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -2016,6 +2017,10 @@ public class LoginServiceImpl implements LoginService {
                 class_name = line.getClass_name();
                 comment = line.getComment();
                 photo = line.getPhoto();
+                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                if(uuids == null){
+                   photo = null;
+                }
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
