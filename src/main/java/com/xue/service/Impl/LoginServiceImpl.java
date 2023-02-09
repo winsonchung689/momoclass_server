@@ -145,7 +145,7 @@ public class LoginServiceImpl implements LoginService {
                 discipline = line.getDiscipline();
                 happiness = line.getHappiness();
                 mp3_url=line.getMp3_url();
-                uuids = line.getUuids();
+                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 photo = line.getPhoto();
                 if(uuids != null){
                     photo = null;
