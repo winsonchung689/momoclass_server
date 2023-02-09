@@ -145,7 +145,11 @@ public class LoginServiceImpl implements LoginService {
                 discipline = line.getDiscipline();
                 happiness = line.getHappiness();
                 mp3_url=line.getMp3_url();
-                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
                 photo = line.getPhoto();
                 if(uuids != null){
                     photo = null;
@@ -2017,7 +2021,11 @@ public class LoginServiceImpl implements LoginService {
                 class_name = line.getClass_name();
                 comment = line.getComment();
                 photo = line.getPhoto();
-                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
                 if(uuids == null){
                    photo = null;
                 }
