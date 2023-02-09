@@ -1903,7 +1903,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                if(uuids == null){
+                if(uuids != null){
                     photo = null;
                 }
                 class_target = line.getClass_target();
@@ -2036,7 +2036,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                if(uuids == null){
+                if(uuids != null){
                    photo = null;
                 }
                 class_target = line.getClass_target();
