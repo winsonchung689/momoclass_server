@@ -326,7 +326,7 @@
 
   <!-- 插入信息 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
-      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url})
+      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids})
   </insert>
 
   <!-- 插入课程表 -->
