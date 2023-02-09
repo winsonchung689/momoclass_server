@@ -1885,6 +1885,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         Integer page_start = (page - 1) * 1;
         Integer page_length = 1;
+        String uuids = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -1897,6 +1898,14 @@ public class LoginServiceImpl implements LoginService {
                 class_name = line.getClass_name();
                 comment = line.getComment();
                 photo = line.getPhoto();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                if(uuids == null){
+                    photo = null;
+                }
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
@@ -1908,6 +1917,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
             }
 
