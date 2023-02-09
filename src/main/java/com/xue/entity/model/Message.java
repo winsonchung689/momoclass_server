@@ -32,6 +32,16 @@ public class Message {
 
     private Integer happiness;
 
+    private String uuids;
+
+    public String getUuids() {
+        return uuids;
+    }
+
+    public void setUuids(String uuids) {
+        this.uuids = uuids;
+    }
+
     public String getMp3_url() {
         return mp3_url;
     }

@@ -58,9 +58,9 @@ public class LoginController {
 	private UserMapper dao;
 
 	//	获取token
-	@RequestMapping("/sendSubscribe")
+	@RequestMapping("/sendPostRemind")
 	@ResponseBody
-	public String sendSubscribe(String token, String openid, String classname,String studentname, String mytime){
+	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample1);
@@ -1755,6 +1755,8 @@ public class LoginController {
 		String class_name = request.getParameter("class_name");
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
+
+		String uuids = request.getParameter("uuids");
 		//获取课堂时间
 		String duration = request.getParameter("duration");
 		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
@@ -1797,6 +1799,7 @@ public class LoginController {
 			message.setDiscipline(discipline);
 			message.setHappiness(happiness);
 			message.setMp3_url(mp3_url);
+			message.setUuids(uuids);
 
 			if(!"奖状".equals(class_target)){
 				in = Imageutil.readImage(photo);

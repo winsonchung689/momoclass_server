@@ -30,8 +30,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int push(Message message) {
         int result = 0;
-        FileInputStream in = null;
-        System.out.println(message);
         try {
             result = dao.push(message);
         } catch (Exception e) {
