@@ -138,7 +138,6 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 class_name = line.getClass_name();
                 comment = line.getComment();
-                photo = line.getPhoto();
                 class_target = line.getClass_target();
 				studio = line.getStudio();
                 duration = line.getDuration();
@@ -147,6 +146,11 @@ public class LoginServiceImpl implements LoginService {
                 happiness = line.getHappiness();
                 mp3_url=line.getMp3_url();
                 uuids = line.getUuids();
+                photo = line.getPhoto();
+                if(uuids != null){
+                    photo = null;
+
+                }
 
                 jsonObject.put("isHide",true);
                 List<User> user = dao.getUserByStudent(student_name,studio);
