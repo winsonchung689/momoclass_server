@@ -65,9 +65,9 @@ public class LoginController {
 		JSONObject queryJson = JSONObject.parseObject(tample5);
 
 		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-		Float left_amount = 0.0f;
+		String left_amount = "0";
 		if(lessons.size()>0){
-			left_amount = lessons.get(0).getLeft_amount();
+			left_amount = lessons.get(0).getLeft_amount().toString();
 		}
 
 		queryJson.put("touser",openid);
