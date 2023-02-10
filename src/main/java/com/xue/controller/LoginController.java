@@ -2317,6 +2317,12 @@ public class LoginController {
 				lessons_amount = Float.valueOf(lessons_amount_1);
 			}
 
+			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
+			Float consume_lesson_amount = 0.0f;
+			if (!consume_lesson_amount_1.isEmpty()){
+				consume_lesson_amount = Float.valueOf(consume_lesson_amount_1);
+			}
+
 			Float minus_amount=0.0f;
 			Float coins_amount=0.0f;
 			List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
@@ -2339,6 +2345,7 @@ public class LoginController {
 				left_amount = -1.0f;
 			}else {
 				left_amount = Float.parseFloat(left_amount_get);
+				left_amount = left_amount - consume_lesson_amount;
 			}
 
 			Lesson lesson =new Lesson();
