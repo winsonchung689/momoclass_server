@@ -59,7 +59,7 @@ public class LoginController {
 
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
-	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark){
+	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark,String subject){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample5);
@@ -71,7 +71,7 @@ public class LoginController {
 		}
 
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",subject+"_"+student_name);
 		queryJson.getJSONObject("data").getJSONObject("short_thing2").put("value",consume_lesson_amount+"课时");
 		queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",left_amount+"课时");
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",mark);
