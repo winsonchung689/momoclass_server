@@ -1695,7 +1695,7 @@ public class LoginController {
 					if(lessons_get.isEmpty()){
 						loginService.insertLesson(lesson);
 					}else {
-						loginService.updateLesson(lesson,0.0f);
+						loginService.updateLesson(lesson,0.0f,0.0f);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -2369,7 +2369,7 @@ public class LoginController {
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio);
 				}else {
-					loginService.updateLesson(lesson,lessons_amount);
+					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount);
 				}
 
 			}else {

@@ -63,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateLesson(Lesson lesson,Float lessons_amount) {
+    public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount) {
         int result = 0;
         try {
             String student_name = lesson.getStudent_name();
@@ -89,6 +89,8 @@ public class LoginServiceImpl implements LoginService {
                         if (left >= 0) {
                             left_amount = left;
                         }
+                        left_amount = left_amount - consume_lesson_amount;
+
                         minus_amount = lesson_get.getMinus();
                         if (minus >= 0) {
                             minus_amount = minus;
