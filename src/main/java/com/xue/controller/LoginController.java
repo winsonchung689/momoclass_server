@@ -72,8 +72,8 @@ public class LoginController {
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
-		queryJson.getJSONObject("data").getJSONObject("short_thing2").put("value",consume_lesson_amount);
-		queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",left_amount);
+		queryJson.getJSONObject("data").getJSONObject("short_thing2").put("value",consume_lesson_amount+"课时");
+		queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",left_amount+"课时");
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",mark);
 		queryJson.getJSONObject("data").getJSONObject("time4").put("value",mytime);
 
