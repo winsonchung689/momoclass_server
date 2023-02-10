@@ -2943,8 +2943,8 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
-        Integer page_start = (page - 1) * 100;
-        Integer page_length = 100;
+        Integer page_start = (page - 1) * 10000;
+        Integer page_length = 10000;
         List<Lesson> list = null;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -3063,8 +3063,8 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer points = 0;
         Float percent = 0.0f;
-        Integer page_start = (page - 1) * 100;
-        Integer page_length = 100;
+        Integer page_start = (page - 1) * 10000;
+        Integer page_length = 10000;
         List<Lesson> list = null;
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
