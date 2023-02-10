@@ -1120,7 +1120,7 @@ public class LoginController {
 			loginService.updateSchedule(schedule);
 
 			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-			Float count = 1.0f;
+			Float count = 0.0f;
 			Integer coins = 0;
 			if(lessons.size()>0){
 				count = lessons.get(0).getMinus();
@@ -1189,7 +1189,7 @@ public class LoginController {
 				loginService.updateSchedule(schedule);
 
 				List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-				Float count = 1.0f;
+				Float count = 0.0f;
 				Integer coins = 0;
 				if(lessons.size()>0){
 					count = lessons.get(0).getMinus();
