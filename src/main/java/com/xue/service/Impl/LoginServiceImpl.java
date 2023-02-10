@@ -2892,10 +2892,15 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getTipsDataUrl(studio,left_amount_get,subject);
             }
             for (int i = 0; i < list.size(); i++) {
+                String parent = "未绑定";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                List<User> user = dao.getUserByStudent(student_name,studio);
+                if(user.size()>0){
+                    parent = user.get(0).getNick_name();
+                }
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -2920,6 +2925,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("minus", minus);
                 jsonObject.put("coins", coins);
                 jsonObject.put("subject", subject);
+                jsonObject.put("parent", parent);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
