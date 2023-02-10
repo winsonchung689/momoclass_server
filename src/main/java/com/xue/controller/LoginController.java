@@ -48,14 +48,47 @@ public class LoginController {
 	private static final String tample1 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"5kASxPkT-RY5K-ti-iFh924Xgd97858juXOjynsTWVo\",\"data\":{\"thing6\":{\"value\": \"classname\"},\"name3\":{\"value\": \"studentname\"},\"thing4\":{\"value\": \"来看看小朋友的表现吧\"},\"date5\":{\"value\": \"mytime\"}}}";
 	private static final String tample2 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"wi0QTuLQiYFUbCWGk2eP_KJIviqnDVh8XVq364Q3704\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"date2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"AA\"},\"thing6\":{\"value\": \"process\"},\"thing8\":{\"value\": \"process\"}}}";
 	private static final String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
-
 	private static final String tample4 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"2-SXAUTnbKpaHkY-xZCzFlgdPL9iKW3Bc9Z0HuB79UE\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing5\":{\"value\": \"A1\"},\"thing4\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
+	private static final String tample5 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"vKZCYXHkl8p4vcE6A8CmjwBbRNYcUa2oJ29gfKMEOEk\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"short_thing2\":{\"value\": \"A1\"},\"short_thing3\":{\"value\": \"A1\"},\"thing5\":{\"value\": \"time\"},\"time4\":{\"value\": \"time\"}}}";
 
 	@Autowired
 	private LoginService loginService;
 
 	@Autowired
 	private UserMapper dao;
+
+	@RequestMapping("/sendConsumeLesson")
+	@ResponseBody
+	public String sendConsumeLesson(String token, String openid, String consume_lesson_amount,String student_name, String mytime,String studio,String mark){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample5);
+
+		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+		Float left_amount = 0.0f;
+		if(lessons.size()>0){
+			left_amount = lessons.get(0).getLeft_amount();
+		}
+
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+		queryJson.getJSONObject("data").getJSONObject("short_thing2").put("value",consume_lesson_amount);
+		queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",left_amount);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",mark);
+		queryJson.getJSONObject("data").getJSONObject("time4").put("value",mytime);
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	//	获取token
 	@RequestMapping("/sendPostRemind")
