@@ -240,12 +240,12 @@
 
   <!-- 获取详情 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    delete from sign_up_record where id =#{param1} and studio =#{param2}
+    update sign_up_record set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
   <select id="deleteSignUpAllRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    delete from sign_up_record where student_name =#{param1} and studio =#{param2}
+    update sign_up_record set delete_status = 1 where student_name =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
@@ -402,17 +402,17 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count from sign_up_record where student_name =#{param1} and studio = #{param2} order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} order by create_time
   </select>
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDate" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3}  order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3}  order by create_time
   </select>
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDateDuration" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and duration=#{param4} order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} order by create_time
   </select>
 
   <!-- 查找请假记录 -->
@@ -641,12 +641,12 @@
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2}
+    select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and delete_status = 0
   </select>
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3}
+    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0
   </select>
 
 
@@ -657,7 +657,7 @@
 
   <!-- 获取今天签到人数 -->
   <select id="getSignUpCountByDay" parameterType="com.xue.entity.model.SignUp" resultType="java.lang.Integer">
-    select count(distinct student_name) from sign_up_record where studio =#{param1} and create_time =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4}
+    select count(distinct student_name) from sign_up_record where studio =#{param1} and create_time =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and delete_status = 0
   </select>
 
   <!-- 获取课时 -->
