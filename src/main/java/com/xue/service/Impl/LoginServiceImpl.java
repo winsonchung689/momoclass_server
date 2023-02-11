@@ -63,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount) {
+    public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject) {
         int result = 0;
         try {
             String student_name = lesson.getStudent_name();
@@ -72,7 +72,7 @@ public class LoginServiceImpl implements LoginService {
             Float minus = lesson.getMinus();
             Float coins = lesson.getCoins();
             String studio = lesson.getStudio();
-            String subject = lesson.getSubject();
+            String subject_new = lesson.getSubject();
             Float total_amount = 0.0f;
             Float minus_amount = 0.0f;
             Float left_amount = 0.0f;
@@ -106,8 +106,12 @@ public class LoginServiceImpl implements LoginService {
             lesson.setLeft_amount(left_amount + lessons_amount);
             lesson.setMinus(minus_amount);
             lesson.setCoins(coins_amount);
-            lesson.setSubject(subject);
-            result = dao.updateLesson(lesson);
+            lesson.setSubject(subject_new);
+            if(!"全科目".equals(subject)){
+                result =  dao.updateLesson(lesson);
+            }else {
+                result =  dao.updateLessonSubject(subject_new,student_name,studio,subject);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

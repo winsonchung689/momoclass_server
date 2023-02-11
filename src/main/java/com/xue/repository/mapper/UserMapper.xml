@@ -708,6 +708,11 @@
   </update>
 
   <!-- 更新课时 -->
+  <update id="updateLessonSubject" parameterType="com.xue.entity.model.Lesson">
+    update lesson set subject=#{param1} where student_name=#{param2} and studio = #{param3} and subject=#{param4} and delete_status = 0
+  </update>
+
+  <!-- 更新课时 -->
   <update id="updateLessonAll" parameterType="com.xue.entity.model.Lesson">
     update lesson set coins=#{param1} where studio = #{param2} and delete_status = 0
   </update>
