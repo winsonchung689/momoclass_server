@@ -2403,7 +2403,7 @@ public class LoginController {
 			lesson.setStudio(studio);
 			lesson.setMinus(minus_amount);
 			lesson.setCoins(coins_amount);
-			lesson.setSubject(subject_new);
+			lesson.setSubject(subject);
 
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
 			if(!student_name_new.isEmpty()){
@@ -2417,7 +2417,7 @@ public class LoginController {
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio);
 				}else {
-					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject);
+					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new);
 				}
 
 			}else {
