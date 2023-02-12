@@ -1788,7 +1788,6 @@ public class LoginServiceImpl implements LoginService {
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
-                uuids = line.getUuids();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
