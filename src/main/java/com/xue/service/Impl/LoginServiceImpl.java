@@ -1777,6 +1777,14 @@ public class LoginServiceImpl implements LoginService {
                 class_name = line.getClass_name();
                 comment = line.getComment();
                 photo = line.getPhoto();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                if(uuids != null){
+                    photo = null;
+                }
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
