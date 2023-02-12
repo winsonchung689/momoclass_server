@@ -1426,6 +1426,7 @@ public class LoginServiceImpl implements LoginService {
         String openid = null;
         String subjects = null;
         List<User> list= null;
+        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUserByStudio(studio);
