@@ -223,7 +223,16 @@ public class LoginServiceImpl implements LoginService {
                 happiness = line.getHappiness();
                 id = line.getId();
                 mp3_url=line.getMp3_url();
-                uuids = line.getUuids();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                photo = line.getPhoto();
+                if(uuids != null){
+                    photo = null;
+
+                }
 
                 jsonObject.put("isHide",true);
                 List<User> user = dao.getUserByStudent(student_name,studio);
