@@ -117,6 +117,8 @@ public interface UserMapper {
 
     void deleteMyOrder(Integer id);
 
+    void deleteUser(Integer id);
+
     void deliverMyOrder(Integer id);
 
     void deleteSignUpRecord(Integer id,String studio);

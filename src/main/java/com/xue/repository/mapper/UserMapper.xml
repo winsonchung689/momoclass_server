@@ -177,6 +177,12 @@
   </select>
 
   <!-- 删除详情 -->
+  <select id="deleteUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set delete_status = 1 where id = #{param1};
+  </select>
+
+
+  <!-- 删除详情 -->
   <select id="deliverMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
     update `order` set status = 1 where id = #{param1};
   </select>
@@ -487,31 +493,31 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where openid =#{param1} order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where openid =#{param1} and delete_status = 0 and  order by id desc limit 1
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where studio =#{param1} and role ='boss' order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where studio =#{param1} and role ='boss' and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where openid =#{param1} order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByStudent" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where student_name =#{param1} and studio =#{param2}  order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByNickName" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where (nick_name like "%"#{nick_name}"%" or student_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where (nick_name like "%"#{nick_name}"%" or student_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where  studio =#{param1}  order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where  studio =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user order by role
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where delete_status = 0 order by role
   </select>
 
   <!-- 更新工作室 -->
@@ -535,11 +541,11 @@
   </update>
 
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select comment_style from user where studio = #{studio} order by create_time limit 1
+    select comment_style from user where studio = #{studio} and delete_status = 0 order by create_time limit 1
   </select>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct studio from user
+    select distinct studio from user where delete_status = 0
   </select>
 
   <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
@@ -555,7 +561,7 @@
   </select>
 
   <select id="getOpenidByNick" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct openid from user where student_name =#{param1} and studio = #{param2}
+    select distinct openid from user where student_name =#{param1} and studio = #{param2} and delete_status = 0
   </select>
 
   <!-- 插入课时 -->
