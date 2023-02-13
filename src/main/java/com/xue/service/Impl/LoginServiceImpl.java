@@ -2683,6 +2683,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Message> list = dao.getModel(studio, page_start, page_length);
             for (int i = 0; i < list.size(); i++) {
+                String uuids = null;
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
@@ -2693,6 +2694,15 @@ public class LoginServiceImpl implements LoginService {
                 class_target = line.getClass_target();
                 id = line.getId();
                 create_time = line.getCreate_time();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                if(uuids != null){
+                    photo = null;
+
+                }
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
@@ -2701,6 +2711,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
             }
 
