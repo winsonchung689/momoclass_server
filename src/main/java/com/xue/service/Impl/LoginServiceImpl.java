@@ -2521,12 +2521,12 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list=null;
         String duration = null;
         String class_name = null;
-        String uuids = null;
 
         try {
             list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
+                    String uuids = null;
                     JSONObject jsonObject = new JSONObject();
                     Message line = list.get(i);
                     //获取字段
