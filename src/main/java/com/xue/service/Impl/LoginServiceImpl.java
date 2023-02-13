@@ -2541,7 +2541,6 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
 //                    throw new RuntimeException(e);
                     }
-                    photo = line.getPhoto();
                     if(uuids != null){
                         photo = null;
 
@@ -2554,6 +2553,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("duration", duration);
                     jsonObject.put("photo", photo);
                     jsonObject.put("class_name", class_name);
+                    jsonObject.put("uuids", uuids);
                     resul_list.add(jsonObject);
                 }
             }
