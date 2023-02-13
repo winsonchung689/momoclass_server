@@ -1381,6 +1381,7 @@ public class LoginServiceImpl implements LoginService {
         String openid = null;
         String subjects = null;
         List<User> list= null;
+        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUserByNickName(nickName);
@@ -1401,9 +1402,11 @@ public class LoginServiceImpl implements LoginService {
                 comment_style =line.getComment_style();
                 openid = line.getOpenid();
                 subjects = line.getSubjects();
+                id = line.getId();
 
 
                 //json
+                jsonObject.put("id", id);
                 jsonObject.put("role", role);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("avatarurl", avatarurl);
