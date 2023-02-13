@@ -2521,6 +2521,7 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list=null;
         String duration = null;
         String class_name = null;
+        String uuids = null;
 
         try {
             list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
@@ -2535,6 +2536,16 @@ public class LoginServiceImpl implements LoginService {
                     duration = line.getDuration();
                     photo = line.getPhoto();
                     class_name = line.getClass_name();
+                    try {
+                        uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
+                    photo = line.getPhoto();
+                    if(uuids != null){
+                        photo = null;
+
+                    }
 
                     //json
                     jsonObject.put("comment", comment);
