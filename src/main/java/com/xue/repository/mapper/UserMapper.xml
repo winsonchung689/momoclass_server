@@ -484,7 +484,7 @@
 
   <!-- 更新课评 -->
   <update id="updateDetailPhoto" parameterType="com.xue.entity.model.Message">
-    update class_comment set photo=#{photo} where id=#{id} and studio = #{studio}
+    update class_comment set photo=#{photo},uuids=#{uuids} where id=#{id} and studio = #{studio}
   </update>
 
   <!-- 更新课时 -->

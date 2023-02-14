@@ -1340,6 +1340,8 @@ public class LoginController {
 
 		String id = request.getParameter("id");
 
+		String uuids = request.getParameter("uuids");
+
 		FileInputStream in = null;
 
 		try {
@@ -1348,6 +1350,7 @@ public class LoginController {
 			message.setPhoto(FileCopyUtils.copyToByteArray(in));
 			message.setId(id);
 			message.setStudio(studio);
+			message.setUuids(uuids);
 			loginService.updateDetailPhoto(message);
 
 		} catch (Exception e) {
