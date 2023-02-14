@@ -227,6 +227,8 @@ public interface UserMapper {
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject);
 
+    Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject);
+
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name);
 
     Integer getClassesCountAll(String studio);
