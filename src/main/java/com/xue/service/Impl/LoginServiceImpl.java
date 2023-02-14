@@ -478,12 +478,11 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer classes_count =0;
         Integer class_res =0;
         Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
-        Integer uncomfirmed_count = 0;
+
         if(dayofweek==7){
             dayofweek_by=1;
         }else {
@@ -507,6 +506,8 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                Integer classes_count =0;
+                Integer uncomfirmed_count = 0;
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
                 //获取字段
@@ -565,7 +566,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
                 jsonObject.put("uncomfirmed_count",uncomfirmed_count);
                 resul_list.add(jsonObject);
-                classes_count = 0;
             }
 
         } catch (Exception e) {
