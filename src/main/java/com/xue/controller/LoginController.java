@@ -2405,7 +2405,7 @@ public class LoginController {
 			String left_amount_get = request.getParameter("left_amount");
 			Float left_amount =null;
 			if(left_amount_get.isEmpty()){
-				left_amount = -1.0f;
+				left_amount = total_amount;
 			}else {
 				left_amount = Float.parseFloat(left_amount_get) - consume_lesson_amount;
 			}
