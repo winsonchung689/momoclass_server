@@ -103,6 +103,8 @@ public interface UserMapper {
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
+    void changeLimit(Integer id,String studio,String class_number);
+
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
 
     void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
