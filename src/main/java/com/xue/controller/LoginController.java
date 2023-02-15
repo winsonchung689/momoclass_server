@@ -2139,7 +2139,11 @@ public class LoginController {
 				user.setSend_time(send_time);
 				user.setDisplay(display);
 				user.setCover(cover);
-				loginService.insertUser(user);
+				try {
+					loginService.insertUser(user);
+				} catch (Exception e) {
+					dao.updateUserDelete(user);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

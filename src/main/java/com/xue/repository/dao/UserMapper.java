@@ -146,6 +146,8 @@ public interface UserMapper {
 
     int updateUser(User user);
 
+    int updateUserDelete(User user);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);
