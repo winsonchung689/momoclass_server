@@ -2110,44 +2110,42 @@ public class LoginController {
 		}
 
 
-		try {
-			User user =new User();
-			user.setNick_name(nick_name);
-			user.setStudent_name(student_name);
-			user.setRole(role);
-			user.setOpenid(openid);
-			user.setCreate_time(create_time);
-			user.setAvatarurl(avatarurl);
-			user.setStudio(studio);
-			user.setExpired_time(expired_time);
+
+		User user =new User();
+		user.setNick_name(nick_name);
+		user.setStudent_name(student_name);
+		user.setRole(role);
+		user.setOpenid(openid);
+		user.setCreate_time(create_time);
+		user.setAvatarurl(avatarurl);
+		user.setStudio(studio);
+		user.setExpired_time(expired_time);
+		user.setSend_time(send_time);
+		int res = loginService.updateUser(user);
+		if(0==res){
+			user.setUser_type("新用户");
+			user.setComment_style(comment_style);
 			user.setSend_time(send_time);
-			int res = loginService.updateUser(user);
-			if(0==res){
-				user.setUser_type("新用户");
-				user.setComment_style(comment_style);
-				user.setSend_time(send_time);
-				user.setDisplay(display);
-				user.setCover(cover);
+			user.setDisplay(display);
+			user.setCover(cover);
+			loginService.insertUser(user);
+		}else if(res>0&&!student_name.equals("no_name")){
+			List<User> list= dao.getUser(openid);
+			String user_type_get = list.get(0).getUser_type();
+			String role_get = list.get(0).getRole();
+			user.setUser_type(user_type_get);
+			user.setRole(role_get);
+			user.setComment_style(comment_style);
+			user.setSend_time(send_time);
+			user.setDisplay(display);
+			user.setCover(cover);
+			try {
 				loginService.insertUser(user);
-			}else if(res>0&&!student_name.equals("no_name")){
-				List<User> list= dao.getUser(openid);
-				String user_type_get = list.get(0).getUser_type();
-				String role_get = list.get(0).getRole();
-				user.setUser_type(user_type_get);
-				user.setRole(role_get);
-				user.setComment_style(comment_style);
-				user.setSend_time(send_time);
-				user.setDisplay(display);
-				user.setCover(cover);
-				try {
-					loginService.insertUser(user);
-				} catch (Exception e) {
-					dao.updateUserDelete(user);
-				}
+			} catch (Exception e) {
+				dao.updateUserDelete(user);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
 		return "push massage successfully";
 	}
 
