@@ -2140,9 +2140,12 @@ public class LoginController {
 			user.setDisplay(display);
 			user.setCover(cover);
 			try {
-				loginService.insertUser(user);
+				int update_res = dao.updateUserDelete(user);
+				if(update_res==0){
+					loginService.insertUser(user);
+				}
 			} catch (Exception e) {
-				dao.updateUserDelete(user);
+				e.printStackTrace();
 			}
 		}
 
