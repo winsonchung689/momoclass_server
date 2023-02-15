@@ -2128,7 +2128,14 @@ public class LoginController {
 			user.setSend_time(send_time);
 			user.setDisplay(display);
 			user.setCover(cover);
-			loginService.insertUser(user);
+			try {
+				int update_res = dao.updateUserDelete(user);
+				if(update_res==0){
+					loginService.insertUser(user);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(res>0&&!student_name.equals("no_name")){
 			List<User> list= dao.getUser(openid);
 			String user_type_get = list.get(0).getUser_type();
