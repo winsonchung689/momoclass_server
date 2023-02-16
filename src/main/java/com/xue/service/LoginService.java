@@ -46,7 +46,7 @@ public interface LoginService {
 
     public List  getSearch(String student_name,String studio,Integer page);
 
-    public List  getSignUp(String student_name,String studio);
+    public List  getSignUp(String student_name,String studio,String subject);
 
     public List  getGift(String student_name,String studio);
 
@@ -144,11 +144,11 @@ public interface LoginService {
 
     public List getHome(String studio);
 
-    public int updateMinusLesson(String student_name,String studio,Float class_count);
+    public int updateMinusLesson(String student_name,String studio,Float class_count,String subject);
 
     public List  getLessonByName(String student_name,String studio);
 
-    public int updateAddPoints(String student_name,String studio,Integer points);
+    public int updateAddPoints(String student_name,String studio,Integer points,String subject);
 
     public int deletePoints(String student_name,String studio,Integer points);
 

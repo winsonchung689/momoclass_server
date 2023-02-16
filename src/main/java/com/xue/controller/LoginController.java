@@ -596,10 +596,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSignUp")
 	@ResponseBody
-	public List getSignUp(String student_name,String studio){
+	public List getSignUp(String student_name,String studio,String subject){
 		List list = null;
 		try {
-			list = loginService.getSignUp(student_name,studio);
+			list = loginService.getSignUp(student_name,studio,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1134,7 +1134,7 @@ public class LoginController {
 			schedule.setUpdate_time(update_time);
 			loginService.updateSchedule(schedule);
 
-			List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
 			Float count = 0.0f;
 			Integer coins = 0;
 			if(lessons.size()>0){
@@ -1162,8 +1162,8 @@ public class LoginController {
 
 			int insert_res = loginService.insertSignUp(signUp);
 			if(insert_res>0){
-				loginService.updateMinusLesson(student_name,studio,count);
-				loginService.updateAddPoints(student_name,studio,coins);
+				loginService.updateMinusLesson(student_name,studio,count,subject);
+				loginService.updateAddPoints(student_name,studio,coins,subject);
 			}
 
 
@@ -1203,7 +1203,7 @@ public class LoginController {
 				schedule.setUpdate_time(update_time);
 				loginService.updateSchedule(schedule);
 
-				List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+				List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
 				Float count = 0.0f;
 				Integer coins = 0;
 				if(lessons.size()>0){
@@ -1227,8 +1227,8 @@ public class LoginController {
 
 				int insert_res = loginService.insertSignUp(signUp);
 				if(insert_res>0){
-					loginService.updateMinusLesson(student_name,studio,count);
-					loginService.updateAddPoints(student_name,studio,coins);
+					loginService.updateMinusLesson(student_name,studio,count,subject);
+					loginService.updateAddPoints(student_name,studio,coins,subject);
 				}
 
 			}
@@ -2505,10 +2505,11 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
 		String points = request.getParameter("points");
+		String subject = request.getParameter("subject");
 		Integer points_int = Integer.parseInt(points);
 
 		try {
-			loginService.updateAddPoints(student_name,studio,points_int);
+			loginService.updateAddPoints(student_name,studio,points_int,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2677,6 +2678,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		String student_name = request.getParameter("student_name");
 		String count = request.getParameter("count");
+		String subject = request.getParameter("subject");
 
 		List<User> list = dao.getUser(openid);
 		String studio_get = list.get(0).getStudio();
@@ -2684,11 +2686,11 @@ public class LoginController {
 		if ("boss".equals(role) && studio_get.equals(studio)) {
 			try {
 				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
-				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count));
+				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject);
 
-				List<Lesson> list1 = dao.getLessonByName(student_name, studio);
+				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject);
 				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Math.round(coins));
+				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject);
 
 			} catch (Exception e) {
 				e.printStackTrace();

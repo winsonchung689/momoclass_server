@@ -418,7 +418,7 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3}  order by create_time
   </select>
 
   <!-- 查找签到记录 -->
@@ -790,7 +790,7 @@
 
   <!-- 更新积分 -->
   <update id="updateLessonPoint" parameterType="com.xue.entity.model.Lesson">
-    update lesson set points=#{points} where student_name=#{student_name} and studio = #{studio} and delete_status = 0
+    update lesson set points=#{points} where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and delete_status = 0
   </update>
 
   <!-- 更新用户金币 -->

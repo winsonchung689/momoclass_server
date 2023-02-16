@@ -322,7 +322,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUp(String student_name, String studio) {
+    public List getSignUp(String student_name, String studio,String subject) {
         String create_time = null;
         String sign_time = null;
         String id = null;
@@ -332,7 +332,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<SignUp> list = dao.getSignUp(student_name, studio);
+            List<SignUp> list = dao.getSignUp(student_name, studio,subject);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
@@ -2101,17 +2101,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateMinusLesson(String student_name, String studio,Float class_count) {
+    public int updateMinusLesson(String student_name, String studio,Float class_count,String subject) {
         int result = 0;
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         Float new_left = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
-        String subject = null;
+//        String subject = null;
         System.out.println(student_name);
 
-        List<Lesson> list = dao.getLessonByName(student_name, studio);
+        List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
@@ -2139,12 +2139,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateAddPoints(String student_name, String studio,Integer points_int) {
+    public int updateAddPoints(String student_name, String studio,Integer points_int,String subject) {
         int result = 0;
         Integer points = 0;
         Integer new_points = 0;
 
-        List<Lesson> list = dao.getLessonByName(student_name, studio);
+        List<Lesson> list = dao.getLessonLikeNameBySubject(student_name, studio,subject);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
@@ -2157,6 +2157,7 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setStudent_name(student_name);
                 lesson.setPoints(new_points);
                 lesson.setStudio(studio);
+                lesson.setSubject(subject);
                 result = dao.updateLessonPoint(lesson);
             }
         } catch (Exception e) {
