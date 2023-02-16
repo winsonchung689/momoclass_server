@@ -531,6 +531,11 @@
   </update>
 
   <!-- 更新工作室 -->
+  <update id="updateAvatar" parameterType="com.xue.entity.model.User">
+    update user set avatarUrl=#{avatarUrl} where openid = #{openid}
+  </update>
+
+  <!-- 更新工作室 -->
   <update id="updateUserDelete" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
   </update>

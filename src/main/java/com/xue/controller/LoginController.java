@@ -1361,6 +1361,29 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateAvatar")
+	@ResponseBody
+	public int updateAvatar(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String avatarUrl = request.getParameter("avatarUrl");
+
+		String openid = request.getParameter("openid");
+
+		try {
+			User user =new User();
+			user.setAvatarurl(avatarUrl);
+			user.setOpenid(openid);
+			dao.updateAvatar(user);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
 	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name){
