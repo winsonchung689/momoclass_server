@@ -1319,8 +1319,15 @@ public class LoginController {
 
 		String openid = request.getParameter("openid");
 
+		String new_name = request.getParameter("new_name");
+
 		try {
-			dao.updateLocation(studio,openid,phone_number,location);
+			if(new_name == null){
+				dao.updateLocation(studio,openid,phone_number,location);
+			}else {
+				dao.updateNewName(openid,new_name);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

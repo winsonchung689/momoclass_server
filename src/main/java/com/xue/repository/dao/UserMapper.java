@@ -101,6 +101,8 @@ public interface UserMapper {
 
     void updateLocation(String studio,String openid,String phone_number,String location);
 
+    void updateNewName(String openid,String new_name);
+
     void changeSubjectName(Integer id,String studio,String class_number);
 
     void changeLimit(Integer id,String studio,String class_number);

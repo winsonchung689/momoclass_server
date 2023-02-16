@@ -218,6 +218,11 @@
     update user set phone_number =#{param3},location=#{param4} where studio =#{param1} and openid =#{param2}
   </select>
 
+  <!-- 更改用户名 -->
+  <select id="updateNewName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set nick_name =#{param2} where openid =#{param1}
+  </select>
+
   <!-- 更改课程名 -->
   <select id="changeSubjectName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set subject =#{param3} where id =#{param1} and studio =#{param2}
