@@ -1322,7 +1322,7 @@ public class LoginController {
 		String new_name = request.getParameter("new_name");
 
 		try {
-			if(new_name == null){
+			if(new_name.trim().length() <= 0){
 				dao.updateLocation(studio,openid,phone_number,location);
 			}else {
 				dao.updateNewName(openid,new_name);
