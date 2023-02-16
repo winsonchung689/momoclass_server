@@ -141,7 +141,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio){
+	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
@@ -159,7 +159,7 @@ public class LoginController {
 		String thing8 = "本次扣课" + count + "课时，总课时" + total + "课时";
 
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",subject+"_"+student_name);
 		queryJson.getJSONObject("data").getJSONObject("date2").put("value",date_time);
 		queryJson.getJSONObject("data").getJSONObject("thing3").put("value","签到成功");
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",left + "课时");
@@ -314,6 +314,19 @@ public class LoginController {
 		List list = null;
 		try {
 			list = loginService.getLessonByName(student_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取学生的课程数
+	@RequestMapping("/getLessonByNameSubject")
+	@ResponseBody
+	public List getLessonByNameSubject(String student_name,String studio,String subject){
+		List list = null;
+		try {
+			list = loginService.getLessonByNameSubject(student_name,studio,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2452,7 +2465,7 @@ public class LoginController {
 			if(left_amount_get.isEmpty()){
 				left_amount = total_amount;
 			}else {
-				left_amount = Float.parseFloat(left_amount_get) - consume_lesson_amount;
+				left_amount = Float.parseFloat(left_amount_get);
 			}
 
 			Lesson lesson =new Lesson();

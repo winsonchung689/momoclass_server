@@ -2327,6 +2327,31 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
+    @Override
+    public List getLessonByNameSubject(String student_name, String studio,String subject) {
+        Float total_amount = 0.0f;
+        Float left_amount = 0.0f;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+
+            List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Lesson line = list.get(i);
+                //获取字段
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                //json
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
 
     @Override
     public List getMessage(String studio, Integer page,String comment_style,String openid,String role) {

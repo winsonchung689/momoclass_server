@@ -148,6 +148,8 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name,String studio);
 
+    public List  getLessonByNameSubject(String student_name,String studio,String subject);
+
     public int updateAddPoints(String student_name,String studio,Integer points,String subject);
 
     public int deletePoints(String student_name,String studio,Integer points);
