@@ -365,6 +365,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mark", mark);
                 jsonObject.put("duration", duration);
                 jsonObject.put("count", count);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
 
