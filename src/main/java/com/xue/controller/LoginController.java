@@ -1785,7 +1785,7 @@ public class LoginController {
 				}
 
 				try {
-					List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
+					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
 					if(lessons_get.isEmpty()){
 						loginService.insertLesson(lesson);
 					}else {
