@@ -2446,7 +2446,7 @@ public class LoginController {
 
 			Float minus_amount=0.0f;
 			Float coins_amount=0.0f;
-			List<Lesson> lessons_get = dao.getLessonByName(student_name,studio);
+			List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
 			if(!lessons_get.isEmpty()){
 				// 获取单扣课
 				minus_amount = lessons_get.get(0).getMinus();
