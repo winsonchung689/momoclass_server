@@ -1366,13 +1366,13 @@ public class LoginController {
 	public int updateAvatar(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
-		String avatarUrl = request.getParameter("avatarUrl");
+		String avatarurl = request.getParameter("avatarurl");
 
 		String openid = request.getParameter("openid");
 
 		try {
 			User user =new User();
-			user.setAvatarurl(avatarUrl);
+			user.setAvatarurl(avatarurl);
 			user.setOpenid(openid);
 			dao.updateAvatar(user);
 

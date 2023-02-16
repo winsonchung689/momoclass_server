@@ -532,7 +532,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateAvatar" parameterType="com.xue.entity.model.User">
-    update user set avatarUrl=#{avatarUrl} where openid = #{openid}
+    update user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
 
   <!-- 更新工作室 -->
