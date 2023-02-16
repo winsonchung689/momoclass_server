@@ -159,7 +159,7 @@ public class LoginController {
 		String thing8 = "本次扣课" + count + "课时，总课时" + total + "课时";
 
 		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",subject+student_name);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",subject+"_"+student_name);
 		queryJson.getJSONObject("data").getJSONObject("date2").put("value",date_time);
 		queryJson.getJSONObject("data").getJSONObject("thing3").put("value","签到成功");
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",left + "课时");
