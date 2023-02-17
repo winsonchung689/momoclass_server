@@ -19,6 +19,16 @@ public class Leave {
 
     private String mark_leave;
 
+    private String subject;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public String getMark_leave() {
         return mark_leave;
     }
