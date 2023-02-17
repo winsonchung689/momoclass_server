@@ -2170,11 +2170,10 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public int deletePoints(String student_name, String studio,Integer points) {
+    public int deletePoints(String student_name, String studio,Integer points,String subject) {
         int result = 0;
-        System.out.println(student_name);
         try {
-            List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+            List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
             Lesson lesson_get = lessons.get(0);
             Integer total_points = lesson_get.getPoints();
             Integer new_points = total_points-points;
@@ -2183,6 +2182,7 @@ public class LoginServiceImpl implements LoginService {
             lesson.setStudent_name(student_name);
             lesson.setPoints(new_points);
             lesson.setStudio(studio);
+            lesson.setSubject(subject);
             result = dao.updateLessonPoint(lesson);
 
         } catch (Exception e) {

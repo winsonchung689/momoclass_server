@@ -2724,10 +2724,11 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
 		String points_get = request.getParameter("points");
+		String subject = request.getParameter("subject");
 		Integer points = Integer.parseInt(points_get);
 
 		try {
-			loginService.deletePoints(student_name,studio,points);
+			loginService.deletePoints(student_name,studio,points,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
