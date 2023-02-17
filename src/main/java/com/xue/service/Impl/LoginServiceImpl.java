@@ -2146,7 +2146,7 @@ public class LoginServiceImpl implements LoginService {
         Integer points = 0;
         Integer new_points = 0;
 
-        List<Lesson> list = dao.getLessonLikeNameBySubject(student_name, studio,subject);
+        List<Lesson> list = dao.getLessonLikeNameBySubject(studio, student_name,subject);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
