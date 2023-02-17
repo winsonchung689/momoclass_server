@@ -1045,13 +1045,13 @@ public class LoginController {
 	//	清空请假记录
 	@RequestMapping("/deleteLeaveAllRecord")
 	@ResponseBody
-	public int deleteLeaveAllRecord(String name,String studio,String role,String openid,String leave_type){
+	public int deleteLeaveAllRecord(String student_name,String studio,String role,String openid,String leave_type,String subject){
 		try {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
 			if ("boss".equals(role) && studio_get.equals(studio)) {
-				dao.deleteLeaveAllRecord(name, studio,leave_type);
+				dao.deleteLeaveAllRecord(student_name, studio,leave_type,subject);
 			}else {
 				logger.error("it's not your studio, could not delete!");
 			}

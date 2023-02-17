@@ -271,7 +271,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteLeaveAllRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    update leave_record set delete_status = 1 where student_name =#{param1} and studio =#{param2} and leave_type = #{param3}
+    update leave_record set delete_status = 1 where student_name =#{param1} and studio =#{param2} and leave_type = #{param3} and subject = #{param4}
   </select>
 
   <!-- 删除请假记录 -->

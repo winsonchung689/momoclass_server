@@ -129,7 +129,7 @@ public interface UserMapper {
 
     void deleteSignUpAllRecord(String student_name,String studio);
 
-    void deleteLeaveAllRecord(String student_name,String studio,String leave_type);
+    void deleteLeaveAllRecord(String student_name,String studio,String leave_type,String subject);
 
     void deleteGiftRecord(Integer id,String studio);
 
