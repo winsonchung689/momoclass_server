@@ -1216,7 +1216,7 @@ public class LoginController {
 
 	@RequestMapping("/signUpScheduleClass")
 	@ResponseBody
-	public int signUpScheduleClass(String studio,String date_time,String duration,String class_number,String subject){
+	public int signUpScheduleClass(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
@@ -1224,6 +1224,14 @@ public class LoginController {
 		Date d = null;
 		String student_name = null;
 		String mark = "无备注";
+
+		String studio = request.getParameter("studio");
+		String date_time = request.getParameter("date_time");
+		String class_count = request.getParameter("class_count");
+		String duration = request.getParameter("duration");
+		String class_number = request.getParameter("class_number");
+		String subject = request.getParameter("subject");
+		String openid = request.getParameter("openid");
 
 
 		try {
@@ -1251,6 +1259,12 @@ public class LoginController {
 					coins = Math.round(coins_get);
 				}
 
+				List<User> users = dao.getUser(openid);
+				String teacher = "无";
+				if(users.size()>0){
+					teacher = users.get(0).getNick_name();
+				}
+
 				signUp.setStudent_name(student_name);
 				signUp.setStudio(studio);
 				signUp.setSign_time(update_time);
@@ -1259,6 +1273,7 @@ public class LoginController {
 				signUp.setDuration(duration);
 				signUp.setCount(count);
 				signUp.setSubject(subject);
+				signUp.setTeacher(teacher);
 				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 					class_number = "无班号";
 				}
