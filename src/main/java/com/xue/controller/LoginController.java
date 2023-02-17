@@ -2571,6 +2571,9 @@ public class LoginController {
 		String points = request.getParameter("points");
 		String subject = request.getParameter("subject");
 		Integer points_int = Integer.parseInt(points);
+		if(subject==null){
+			subject="美术";
+		}
 
 		try {
 			loginService.updateAddPoints(student_name,studio,points_int,subject);
