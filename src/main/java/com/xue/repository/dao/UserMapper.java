@@ -299,7 +299,7 @@ public interface UserMapper {
 
     List<Gift> getGift(String student_name,String studio);
 
-    List<Leave> getLeaveRecord(String student_name,String studio,String leave_type);
+    List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject);
 
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration);
 

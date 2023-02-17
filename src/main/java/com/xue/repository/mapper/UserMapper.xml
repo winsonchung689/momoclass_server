@@ -408,7 +408,7 @@
 
   <!-- 查找请假记录 -->
   <select id="getLeaveRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select id,student_name,date_time,studio,create_time,duration,leave_type,mark_leave from leave_record where student_name =#{param1} and studio = #{param2} and leave_type = #{param3} and delete_status = 0 order by date_time
+    select id,student_name,date_time,studio,create_time,duration,leave_type,mark_leave,subject from leave_record where student_name =#{param1} and studio = #{param2} and leave_type = #{param3} and subject = #{param4} and delete_status = 0 order by date_time
   </select>
 
   <!-- 发放礼物记录 -->
