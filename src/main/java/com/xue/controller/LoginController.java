@@ -899,7 +899,14 @@ public class LoginController {
 	@ResponseBody
 	public int deleteComment(Integer id,String role,String studio,String openid){
 		try {
-			loginService.deleteComment(id,role,studio,openid);
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+
+			if ("boss".equals(role) && studio_get.equals(studio)) {
+				loginService.deleteComment(id,role,studio,openid);
+			}else {
+				logger.error("it's not your studio, could not delete!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -1501,7 +1508,16 @@ public class LoginController {
 	@ResponseBody
 	public int deleteLesson(Integer id,String role,String studio,String openid,String student_name){
 		try {
-			loginService.deleteLesson(id,role,studio,openid,student_name);
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+
+			if ("boss".equals(role) && studio_get.equals(studio)) {
+				loginService.deleteLesson(id,role,studio,openid,student_name);
+			}else {
+				logger.error("it's not your studio, could not delete!");
+			}
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
