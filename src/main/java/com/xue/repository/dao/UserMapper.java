@@ -91,7 +91,7 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
-    void deleteUuids(Integer id,String studio,String uuids);
+    void updateUuids(Integer id,String studio,String uuids);
 
     void deleteGoodsList(Integer id,String studio);
 

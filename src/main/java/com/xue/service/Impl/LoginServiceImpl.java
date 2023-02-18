@@ -986,7 +986,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if ("boss".equals(role) && studio_get.equals(studio)) {
-                dao.deleteUuids(id,studio,list_new.toString().replace(" ",""));
+                dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
             }else {
                 logger.error("it's not your studio, could not delete!");
             }
