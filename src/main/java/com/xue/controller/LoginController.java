@@ -1974,7 +1974,7 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 
 
-		if("课程体系".equals(class_target)){
+		if("课程体系".equals(class_target) || "环境".equals(class_target)){
 			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
 			String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
 			String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
