@@ -31,6 +31,8 @@ public interface UserMapper {
     //获取
     List<Message> getClassSys(String class_target,String studio,Integer page_start, Integer page_length);
 
+    List<Message> getUuidById(String studio,Integer id);
+
     //获取
     List<Message> getCourseList(String studio,Integer page_start, Integer page_length);
 
@@ -88,6 +90,8 @@ public interface UserMapper {
     int insertOrder(Order order);
 
     void deleteComment(Integer id,String studio);
+
+    void deleteUuids(Integer id,String studio,String uuids);
 
     void deleteGoodsList(Integer id,String studio);
 

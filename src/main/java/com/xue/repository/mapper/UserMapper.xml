@@ -106,6 +106,11 @@
     select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target = #{param1} and delete_status = 0 and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
+  <!-- 获取课程体系 -->
+  <select id="getUuidById" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where delete_status = 0 and studio = #{param1} and id =#{param2} ;
+  </select>
+
   <!-- 获取教程列表 -->
   <select id="getCourseList" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '教程列表' and delete_status = 0 and studio = #{param1} order by create_time desc limit #{param2},#{param3};
@@ -191,6 +196,12 @@
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
      update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
+
+  <!-- 获取详情 -->
+  <select id="deleteUuids" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    update class_comment set uuids =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
 
   <!-- 删除商品 -->
   <select id="deleteGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
