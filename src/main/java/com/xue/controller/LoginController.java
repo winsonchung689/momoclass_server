@@ -146,7 +146,7 @@ public class LoginController {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
 
-		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
 		Float count = 0.0f;
 		if(lessons.size()>0){
 			count = lessons.get(0).getMinus();
