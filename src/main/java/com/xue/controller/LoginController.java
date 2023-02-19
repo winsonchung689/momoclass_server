@@ -625,7 +625,7 @@ public class LoginController {
 	public List getStudentByTeacher(String studio,String openid,String date_start,String date_end){
 		List list = null;
 		try {
-			if(date_start==null){
+			if(date_end.length() <= 0 && date_start.length() <= 0){
 				list = dao.getStudentByTeacher(studio,openid);
 			}else {
 				list = dao.getStudentByTeacherByDuration(studio,openid,date_start,date_end);
