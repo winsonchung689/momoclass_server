@@ -295,6 +295,8 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
+    List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
+
     List<Message> getCommentByDate(String student_name,String studio,String date_time);
 
     List<Message> getCommentByDateDuration(String student_name,String studio,String date_time,String duration);

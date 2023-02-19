@@ -622,10 +622,15 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getStudentByTeacher")
 	@ResponseBody
-	public List getStudentByTeacher(String studio,String openid){
+	public List getStudentByTeacher(String studio,String openid,String date_start,String date_end){
 		List list = null;
 		try {
-			list = dao.getStudentByTeacher(studio,openid);
+			if(date_start==null){
+				list = dao.getStudentByTeacher(studio,openid);
+			}else {
+				list = dao.getStudentByTeacherByDuration(studio,openid,date_start,date_end);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
