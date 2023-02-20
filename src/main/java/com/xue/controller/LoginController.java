@@ -1978,9 +1978,25 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		FileInputStream in = null;
+		Message message =new Message();
+		message.setComment(comment);
+		message.setStudent_name(student_name);
+		message.setCreate_time(date_time);
+		message.setClass_name(class_name);
+		message.setClass_target(class_target);
+		message.setClass_target_bak(class_target_bak);
+		message.setStudio(studio);
+		message.setDuration(duration);
+		message.setPositive(positive);
+		message.setDiscipline(discipline);
+		message.setHappiness(happiness);
+		message.setMp3_url(mp3_url);
+		message.setUuids(uuids);
+
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target)){
-			if(id != null){
+			if(!"undefined".equals(id)){
 				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
 				String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
 				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
@@ -1994,26 +2010,17 @@ public class LoginController {
 					list_new.add(result2[i]);
 				}
 				dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+			}else{
+				try {
+					in = Imageutil.readImage(photo);
+					message.setPhoto(FileCopyUtils.copyToByteArray(in));
+					loginService.push(message);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}else{
-			FileInputStream in = null;
 			try {
-				Message message =new Message();
-
-				message.setComment(comment);
-				message.setStudent_name(student_name);
-				message.setCreate_time(date_time);
-				message.setClass_name(class_name);
-				message.setClass_target(class_target);
-				message.setClass_target_bak(class_target_bak);
-				message.setStudio(studio);
-				message.setDuration(duration);
-				message.setPositive(positive);
-				message.setDiscipline(discipline);
-				message.setHappiness(happiness);
-				message.setMp3_url(mp3_url);
-				message.setUuids(uuids);
-
 				if(!"奖状".equals(class_target)){
 					in = Imageutil.readImage(photo);
 					message.setPhoto(FileCopyUtils.copyToByteArray(in));
