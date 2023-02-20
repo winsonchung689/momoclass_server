@@ -1980,19 +1980,21 @@ public class LoginController {
 
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target)){
-			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
-			String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
-			String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
-			String[] result1 = uuids_get.split(",");
-			String[] result2 = uuids_add.split(",");
-			List<String> list_new = new ArrayList<>();
-			for(int i =0;i<result1.length;i++){
+			if(id != null){
+				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
+				String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
+				String[] result1 = uuids_get.split(",");
+				String[] result2 = uuids_add.split(",");
+				List<String> list_new = new ArrayList<>();
+				for(int i =0;i<result1.length;i++){
 					list_new.add(result1[i]);
+				}
+				for(int i =0;i<result2.length;i++){
+					list_new.add(result2[i]);
+				}
+				dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 			}
-			for(int i =0;i<result2.length;i++){
-				list_new.add(result2[i]);
-			}
-			dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 		}else{
 			FileInputStream in = null;
 			try {
