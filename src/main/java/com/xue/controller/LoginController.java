@@ -1944,9 +1944,6 @@ public class LoginController {
 
 		//获取图片路径
 		String photo = request.getParameter("photo");
-		if(photo == null || photo.isEmpty() || "undefined".equals(photo)){
-			photo = "no_photo";
-		}
 
 		//获取文字
 		String comment = request.getParameter("comment");
