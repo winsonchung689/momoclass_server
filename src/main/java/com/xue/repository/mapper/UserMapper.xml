@@ -148,7 +148,7 @@
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids from class_comment where id = #{param1} and class_target_bak ='课评' and delete_status = 0
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids from class_comment where id = #{param1} and delete_status = 0
   </select>
 
   <!-- 获取详情 -->
