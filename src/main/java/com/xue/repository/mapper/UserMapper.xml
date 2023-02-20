@@ -47,7 +47,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness from class_comment where class_target_bak ='课评' and studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+      select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness from class_comment where class_target_bak = #{param4} and studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取全部 -->
@@ -62,7 +62,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessageInName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,duration from class_comment where class_target_bak ='课评' and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,duration from class_comment where class_target_bak =#{param5} and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取全部 -->
@@ -143,7 +143,7 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target_bak ='课评' and studio = #{param2} and delete_status = 0  order by create_time desc limit #{param3},#{param4};
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target_bak =#{param5} and studio = #{param2} and delete_status = 0  order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取详情 -->

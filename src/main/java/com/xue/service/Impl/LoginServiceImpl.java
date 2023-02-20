@@ -263,10 +263,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSearch(String student_name, String studio,Integer page) {
+    public List getSearch(String student_name, String studio,Integer page,String class_target) {
         String comment = null;
         String class_name = null;
-        String class_target = null;
         String id = null;
         String create_time = null;
         Integer page_start = (page - 1) * 7;
@@ -274,7 +273,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length);
+            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length,class_target);
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
@@ -2381,10 +2380,9 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getMessage(String studio, Integer page,String comment_style,String openid,String role) {
+    public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target) {
         String comment = null;
         String class_name = null;
-        String class_target = null;
         String id = null;
         String create_time = null;
         byte[] photo = null;
@@ -2414,9 +2412,9 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(comment_style.equals("self")&&role.equals("client")){
-                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length);
+                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length,class_target);
             }else if(role.equals("boss")||comment_style.equals("public")) {
-                list = dao.getMessage(studio, page_start, page_length);
+                list = dao.getMessage(studio, page_start, page_length,class_target);
             }
 
             if(list.size()>0){

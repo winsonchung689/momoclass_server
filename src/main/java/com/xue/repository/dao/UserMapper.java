@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserMapper {
     //获取
-    List<Message> getMessage(String studio,Integer page_start,Integer page_length);
+    List<Message> getMessage(String studio,Integer page_start,Integer page_length,String class_target);
 
     List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
 
@@ -46,7 +46,7 @@ public interface UserMapper {
     List<Message> getMessageClient(String student_name);
 
     //获取
-    List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length);
+    List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length,String class_target);
 
     List<Message> getMessageGrowth(String student_names,String studio,Integer page_start,Integer page_length);
 
@@ -74,7 +74,7 @@ public interface UserMapper {
     List<Message> getMamaShare(Integer page_start,Integer page_end);
 
     //获取
-    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end);
+    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end,String class_target);
 
     //获取详情
     List<Message> getDetails(Integer id);

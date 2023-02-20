@@ -6,7 +6,7 @@ import com.xue.entity.model.*;
 
 public interface LoginService {
 
-    public List  getMessage(String studio,Integer page,String comment_style,String openid,String role);
+    public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target);
 
     public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject);
 
@@ -44,7 +44,7 @@ public interface LoginService {
 
     public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time);
 
-    public List  getSearch(String student_name,String studio,Integer page);
+    public List  getSearch(String student_name,String studio,Integer page,String class_target);
 
     public List  getSignUp(String student_name,String studio,String subject);
 

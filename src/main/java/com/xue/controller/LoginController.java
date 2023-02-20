@@ -284,10 +284,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(String studio,Integer page,String comment_style,String openid,String role){
+	public List getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target){
 		List list = null;
 		try {
-			list = loginService.getMessage(studio,page,comment_style,openid,role);
+			list = loginService.getMessage(studio,page,comment_style,openid,role,class_target);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -596,10 +596,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody
-	public List getSearch(String student_name,String studio,Integer page){
+	public List getSearch(String student_name,String studio,Integer page,String class_target){
 		List list = null;
 		try {
-			list = loginService.getSearch(student_name,studio,page);
+			list = loginService.getSearch(student_name,studio,page,class_target);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
