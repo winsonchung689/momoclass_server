@@ -2017,20 +2017,30 @@ public class LoginController {
 		message.setUuids(uuids);
 
 
-		if("课程体系".equals(class_target) || "环境".equals(class_target) && !id.equals("noid")){
-			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
-			String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
-			String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
-			String[] result1 = uuids_get.split(",");
-			String[] result2 = uuids_add.split(",");
-			List<String> list_new = new ArrayList<>();
-			for(int i =0;i<result1.length;i++){
-				list_new.add(result1[i]);
+		if("课程体系".equals(class_target) || "环境".equals(class_target) ){
+			if("noid".equals(id)){
+				try {
+					in = Imageutil.readImage(photo);
+					message.setPhoto(FileCopyUtils.copyToByteArray(in));
+					loginService.push(message);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}else{
+				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
+				String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
+				String[] result1 = uuids_get.split(",");
+				String[] result2 = uuids_add.split(",");
+				List<String> list_new = new ArrayList<>();
+				for(int i =0;i<result1.length;i++){
+					list_new.add(result1[i]);
+				}
+				for(int i =0;i<result2.length;i++){
+					list_new.add(result2[i]);
+				}
+				dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 			}
-			for(int i =0;i<result2.length;i++){
-				list_new.add(result2[i]);
-			}
-			dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 		}else{
 			try {
 				if(!"奖状".equals(class_target)){
