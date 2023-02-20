@@ -1971,7 +1971,7 @@ public class LoginController {
 
 		String uuids = request.getParameter("uuids");
 		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
-			id = "no_uuids";
+			uuids = "no_uuids";
 		}
 
 		//获取课堂时间
@@ -2017,7 +2017,7 @@ public class LoginController {
 		message.setUuids(uuids);
 
 
-		if(("课程体系".equals(class_target) || "环境".equals(class_target)) && !id.equals("noid")){
+		if("课程体系".equals(class_target) || "环境".equals(class_target) && !id.equals("noid")){
 			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
 			String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
 			String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
