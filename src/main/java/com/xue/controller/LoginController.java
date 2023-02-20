@@ -1938,14 +1938,32 @@ public class LoginController {
 
 		//获取音频路径
 		String mp3_url = request.getParameter("mp3_url");
+		if(mp3_url == null || mp3_url.isEmpty() || "undefined".equals(mp3_url)){
+			mp3_url = "no_mp3_url";
+		}
+
 		//获取图片路径
 		String photo = request.getParameter("photo");
+		if(photo == null || photo.isEmpty() || "undefined".equals(photo)){
+			photo = "no_photo";
+		}
+
 		//获取文字
 		String comment = request.getParameter("comment");
+		if(comment == null || comment.isEmpty() || "undefined".equals(comment)){
+			comment = "no_comment";
+		}
+
 		//获取学生名字
 		String student_name = request.getParameter("student_name");
+		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
+			student_name = "no_student_name";
+		}
 		//获取课堂名称
 		String class_name = request.getParameter("class_name");
+		if(class_name == null || class_name.isEmpty() || "undefined".equals(class_name)){
+			class_name = "no_class_name";
+		}
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
@@ -1955,6 +1973,10 @@ public class LoginController {
 		}
 
 		String uuids = request.getParameter("uuids");
+		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
+			id = "no_uuids";
+		}
+
 		//获取课堂时间
 		String duration = request.getParameter("duration");
 		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
