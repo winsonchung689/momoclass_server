@@ -1508,7 +1508,7 @@ public class LoginController {
 
 				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
 
-				if(uuids_get.length()>0){
+				if(uuids_get != null){
 					String[] result1 = uuids_get.split(",");
 					for(int i =0;i<result1.length;i++){
 						list_new.add(result1[i]);
