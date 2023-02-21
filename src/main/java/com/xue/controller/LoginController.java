@@ -1501,7 +1501,7 @@ public class LoginController {
 				}
 
 				if("课后作业".equals(class_target)){
-					if(uuids_c_get.length()>0){
+					if(uuids_c_get != null){
 						uuids_c_get = uuids_c_get.replace("\"","").replace("[","").replace("]","");
 						uuids_c_get_list = uuids_c_get.split(",");
 						for(int i =0;i<uuids_c_get_list.length;i++){
