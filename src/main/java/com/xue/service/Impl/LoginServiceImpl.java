@@ -981,8 +981,8 @@ public class LoginServiceImpl implements LoginService {
     public int deleteUuids(Integer id, String role,String studio,String openid,String uuid) {
         try {
             List<Message> list = dao.getUuidById(studio,id);
-            String class_target = list.get(0).getClass_target();
-            if("课评".equals(class_target)){
+            String class_target_bak = list.get(0).getClass_target_bak();
+            if("课评".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
@@ -998,7 +998,7 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     logger.error("it's not your studio, could not delete!");
                 }
-            }else if ("课后作业".equals(class_target)){
+            }else if ("课后作业".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
