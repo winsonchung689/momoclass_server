@@ -133,6 +133,7 @@ public class LoginServiceImpl implements LoginService {
         Integer happiness = 0;
         String mp3_url=null;
         String uuids=null;
+        String uuids_c=null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -153,6 +154,11 @@ public class LoginServiceImpl implements LoginService {
                 mp3_url=line.getMp3_url();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                try {
+                    uuids_c = line.getUuids_c().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -181,6 +187,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("happiness", happiness);
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("uuids_c", uuids_c);
                 resul_list.add(jsonObject);
             }
 
