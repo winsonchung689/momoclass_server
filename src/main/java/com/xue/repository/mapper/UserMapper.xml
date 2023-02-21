@@ -185,6 +185,11 @@
   </select>
 
   <!-- 删除详情 -->
+  <select id="deleteNote" parameterType="com.xue.entity.model.Note" resultMap="BaseResultMap">
+    delete from class_note where id = #{param1};
+  </select>
+
+  <!-- 删除详情 -->
   <select id="deleteUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set delete_status = 1 where id = #{param1};
   </select>

@@ -978,6 +978,19 @@ public class LoginController {
 		return 1;
 	}
 
+	//	获取详情页
+	@RequestMapping("/deleteNote")
+	@ResponseBody
+	public int deleteNote(Integer id){
+		try {
+			dao.deleteNote(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteUser")

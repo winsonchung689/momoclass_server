@@ -125,6 +125,8 @@ public interface UserMapper {
 
     void deleteMyOrder(Integer id);
 
+    void deleteNote(Integer id);
+
     void deleteUser(Integer id);
 
     void deliverMyOrder(Integer id);
