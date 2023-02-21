@@ -1456,8 +1456,6 @@ public class LoginController {
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
-		String photo = request.getParameter("photo");
-
 		String class_target = request.getParameter("class_target");
 
 		String studio = request.getParameter("studio");
@@ -1470,67 +1468,45 @@ public class LoginController {
 		String uuids = request.getParameter("uuids");
 
 		List<String> list_new = new ArrayList<>();
+		String[] uuids_get_list = null;
+		String[] uuids_c_get_list = null;
+		String[] uuids_add_list = null;
 
-		FileInputStream in = null;
-		Message message =new Message();
-		message.setId(id);
-		message.setStudio(studio);
-		if(class_target.equals("课评")){
-			message.setUuids(uuids);
-		}else if(class_target.equals("课后作业")){
-			message.setUuids_c(uuids);
-		}
-
-
+		String uuids_get =null;
+		String uuids_c_get =null;
+		String uuids_add =null;
 		try {
-			if("noid".equals(id)){
-				try {
-//					in = Imageutil.readImage(photo);
-//					message.setPhoto(FileCopyUtils.copyToByteArray(in));
-					loginService.push(message);
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			}else{
-				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
-				String uuids_get = null;
-				try {
-					if(class_target.equals("课评")){
-						uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
+			if(list.size()>0){
+				uuids_get = list.get(0).getUuids();
+				uuids_c_get = list.get(0).getUuids_c();
 
-					}else if(class_target.equals("课后作业")){
-						uuids_get = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
-
-					}
-				} catch (Exception e) {
-//					throw new RuntimeException(e);
-				}
-
-				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
-
-				if(uuids_get != null){
-					String[] result1 = uuids_get.split(",");
-					for(int i =0;i<result1.length;i++){
-						list_new.add(result1[i]);
+				if(uuids.length()>0){
+					uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
+					uuids_add_list = uuids_c_get.split(",");
+					for(int i =0;i<uuids_add_list.length;i++){
+						list_new.add(uuids_add_list[i]);
 					}
 				}
 
-				if(uuids_add.length()>0){
-					String[] result2 = uuids_get.split(",");
-					for(int i =0;i<result2.length;i++){
-						list_new.add(result2[i]);
+				if(uuids_get.length()>0 && "课评".equals(class_target)){
+					uuids_get = uuids_get.replace("\"","").replace("[","").replace("]","");
+					uuids_get_list = uuids_get.split(",");
+					for(int i =0;i<uuids_get_list.length;i++){
+						list_new.add(uuids_get_list[i]);
 					}
-				}
-
-				if(class_target.equals("课评")){
 					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
-				}else if(class_target.equals("课后作业")){
+				}
+
+				if(uuids_c_get.length()>0 && "课后作业".equals(class_target)){
+					uuids_c_get = uuids_c_get.replace("\"","").replace("[","").replace("]","");
+					uuids_c_get_list = uuids_c_get.split(",");
+					for(int i =0;i<uuids_c_get_list.length;i++){
+						list_new.add(uuids_c_get_list[i]);
+					}
 					dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 				}
-
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
