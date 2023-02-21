@@ -219,6 +219,8 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio);
 
+    List<Lesson> getClassNote(String subject,String studio,String student_name);
+
     List<Lesson> getLessonBySubject(String studio,String subject);
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject);
@@ -268,6 +270,8 @@ public interface UserMapper {
     List<Lesson> getLessonLikeName(String studio,String student_name);
 
     List<Lesson> getLessonLikeNameBySubject(String studio,String student_name,String subject);
+
+    int insertNote(Note note);
 
     int insertLesson(Lesson lesson);
 

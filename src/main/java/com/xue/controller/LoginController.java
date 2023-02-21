@@ -637,6 +637,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getClassNote")
+	@ResponseBody
+	public List getClassNote(String subject,String studio,String student_name){
+		List list = null;
+		try {
+			list = dao.getClassNote(subject,studio,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	//	获取全部
 	@RequestMapping("/getGift")
@@ -1590,6 +1602,31 @@ public class LoginController {
 			order.setCreate_time(create_time);
 
 			loginService.insertOrder(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
+	@RequestMapping("/insertNote")
+	@ResponseBody
+	public int insertNote(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String studio =  request.getParameter("studio");
+		String student_name =  request.getParameter("student_name");
+		String note_content =  request.getParameter("note_content");
+		String subject =  request.getParameter("subject");
+
+		try {
+			Note note = new Note();
+			note.setStudio(studio);
+			note.setSubject(subject);
+			note.setStudent_name(student_name);
+			note.setCreate_time(create_time);
+			note.setNote_content(note_content);
+			dao.insertNote(note);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
