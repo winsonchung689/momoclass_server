@@ -1522,7 +1522,13 @@ public class LoginController {
 					}
 				}
 
-				dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+				if(class_target.equals("课评")){
+					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+				}else if(class_target.equals("课后作业")){
+					dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+				}
+
+
 			}
 
 		} catch (Exception e) {
