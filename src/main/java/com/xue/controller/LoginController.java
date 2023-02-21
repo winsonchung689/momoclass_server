@@ -1489,23 +1489,28 @@ public class LoginController {
 					}
 				}
 
-				if(uuids_get.length()>0 && "课评".equals(class_target)){
-					uuids_get = uuids_get.replace("\"","").replace("[","").replace("]","");
-					uuids_get_list = uuids_get.split(",");
-					for(int i =0;i<uuids_get_list.length;i++){
-						list_new.add(uuids_get_list[i]);
+				if("课评".equals(class_target)){
+					if(uuids_get.length()>0){
+						uuids_get = uuids_get.replace("\"","").replace("[","").replace("]","");
+						uuids_get_list = uuids_get.split(",");
+						for(int i =0;i<uuids_get_list.length;i++){
+							list_new.add(uuids_get_list[i]);
+						}
 					}
 					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 				}
 
-				if(uuids_c_get.length()>0 && "课后作业".equals(class_target)){
-					uuids_c_get = uuids_c_get.replace("\"","").replace("[","").replace("]","");
-					uuids_c_get_list = uuids_c_get.split(",");
-					for(int i =0;i<uuids_c_get_list.length;i++){
-						list_new.add(uuids_c_get_list[i]);
+				if("课后作业".equals(class_target)){
+					if(uuids_c_get.length()>0){
+						uuids_c_get = uuids_c_get.replace("\"","").replace("[","").replace("]","");
+						uuids_c_get_list = uuids_c_get.split(",");
+						for(int i =0;i<uuids_c_get_list.length;i++){
+							list_new.add(uuids_c_get_list[i]);
+						}
 					}
 					dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
