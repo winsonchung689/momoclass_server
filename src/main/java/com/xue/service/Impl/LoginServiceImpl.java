@@ -981,21 +981,41 @@ public class LoginServiceImpl implements LoginService {
     public int deleteUuids(Integer id, String role,String studio,String openid,String uuid) {
         try {
             List<Message> list = dao.getUuidById(studio,id);
-            String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
-            String studio_get = list.get(0).getStudio();
-            String[] result = uuids.split(",");
-            List<String> list_new = new ArrayList<>();
-            for(int i =0;i<result.length;i++){
-                if(!result[i].equals(uuid)){
-                    list_new.add(result[i]);
+            String class_target = list.get(0).getClass_target();
+            if("课评".equals(class_target)){
+                String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+                String studio_get = list.get(0).getStudio();
+                String[] result = uuids.split(",");
+                List<String> list_new = new ArrayList<>();
+                for(int i =0;i<result.length;i++){
+                    if(!result[i].equals(uuid)){
+                        list_new.add(result[i]);
+                    }
+                }
+
+                if ("boss".equals(role) && studio_get.equals(studio)) {
+                    dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
+                }else {
+                    logger.error("it's not your studio, could not delete!");
+                }
+            }else if ("课后作业".equals(class_target)){
+                String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
+                String studio_get = list.get(0).getStudio();
+                String[] result = uuids.split(",");
+                List<String> list_new = new ArrayList<>();
+                for(int i =0;i<result.length;i++){
+                    if(!result[i].equals(uuid)){
+                        list_new.add(result[i]);
+                    }
+                }
+
+                if ("boss".equals(role) && studio_get.equals(studio)) {
+                    dao.updateUuids_c(id,studio,list_new.toString().replace(" ",""));
+                }else {
+                    logger.error("it's not your studio, could not delete!");
                 }
             }
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
-                dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
-            }else {
-                logger.error("it's not your studio, could not delete!");
-            }
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
