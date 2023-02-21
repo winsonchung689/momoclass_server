@@ -34,6 +34,16 @@ public class Message {
 
     private String uuids;
 
+    private String uuids_c;
+
+    public String getUuids_c() {
+        return uuids_c;
+    }
+
+    public void setUuids_c(String uuids_c) {
+        this.uuids_c = uuids_c;
+    }
+
     public String getUuids() {
         return uuids;
     }

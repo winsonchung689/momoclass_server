@@ -210,6 +210,11 @@
     update class_comment set uuids =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 获取详情 -->
+  <select id="updateUuids_c" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    update class_comment set uuids_c =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
 
   <!-- 删除商品 -->
   <select id="deleteGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
