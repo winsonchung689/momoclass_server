@@ -624,7 +624,7 @@
   </select>
 
   <select id="getClassNote" parameterType="com.xue.entity.model.Note" resultMap="BaseNote">
-    select id,subject,student_name,studio,create_time,note_content from lesson where subject =#{param1} and studio =#{param2} and student_name =#{param3} order by create_time desc
+    select id,subject,student_name,studio,create_time,note_content from class_note where subject =#{param1} and studio =#{param2} and student_name =#{param3} order by create_time desc
   </select>
 
   <!-- 获取课时 -->
