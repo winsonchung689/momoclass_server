@@ -1483,7 +1483,7 @@ public class LoginController {
 
 				if(uuids.length()>0){
 					uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
-					uuids_add_list = uuids_c_get.split(",");
+					uuids_add_list = uuids_add.split(",");
 					for(int i =0;i<uuids_add_list.length;i++){
 						list_new.add(uuids_add_list[i]);
 					}
