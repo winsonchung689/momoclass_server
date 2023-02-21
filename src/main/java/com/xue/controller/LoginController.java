@@ -1458,6 +1458,8 @@ public class LoginController {
 		//获取文字
 		String photo = request.getParameter("photo");
 
+		String class_target = request.getParameter("class_target");
+
 		String studio = request.getParameter("studio");
 
 		String id = request.getParameter("id");
@@ -1465,13 +1467,20 @@ public class LoginController {
 			id = "noid";
 		}
 
-		String uuids_c = request.getParameter("uuids");
+		String uuids = request.getParameter("uuids");
+
+		List<String> list_new = new ArrayList<>();
 
 		FileInputStream in = null;
 		Message message =new Message();
 		message.setId(id);
 		message.setStudio(studio);
-		message.setUuids_c(uuids_c);
+		if(class_target.equals("课评")){
+			message.setUuids(uuids);
+		}else if(class_target.equals("课后作业")){
+			message.setUuids_c(uuids);
+		}
+
 
 		try {
 			if("noid".equals(id)){
@@ -1484,17 +1493,35 @@ public class LoginController {
 				}
 			}else{
 				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
-				String uuids_get = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
-				String uuids_add = uuids_c.replace("\"","").replace("[","").replace("]","");
-				String[] result1 = uuids_get.split(",");
-				String[] result2 = uuids_add.split(",");
-				List<String> list_new = new ArrayList<>();
-				for(int i =0;i<result1.length;i++){
-					list_new.add(result1[i]);
+				String uuids_get = null;
+				try {
+					if(class_target.equals("课评")){
+						uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+
+					}else if(class_target.equals("课后作业")){
+						uuids_get = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
+
+					}
+				} catch (Exception e) {
+//					throw new RuntimeException(e);
 				}
-				for(int i =0;i<result2.length;i++){
-					list_new.add(result2[i]);
+
+				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
+
+				if(uuids_get.length()>0){
+					String[] result1 = uuids_get.split(",");
+					for(int i =0;i<result1.length;i++){
+						list_new.add(result1[i]);
+					}
 				}
+
+				if(uuids_add.length()>0){
+					String[] result2 = uuids_get.split(",");
+					for(int i =0;i<result2.length;i++){
+						list_new.add(result2[i]);
+					}
+				}
+
 				dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
 			}
 
