@@ -982,7 +982,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Message> list = dao.getUuidById(studio,id);
             String class_target_bak = list.get(0).getClass_target_bak();
-            if("课评".equals(class_target_bak)){
+            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
