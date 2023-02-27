@@ -350,8 +350,13 @@
   </select>
 
   <!-- 获取课程表 -->
-  <select id="getScheduleByClass" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and delete_status = 0 order by duration
+  <select id="getScheduleByClassOrdinary" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and delete_status = 0 and student_type ='ordinary' order by duration
+  </select>
+
+  <!-- 获取课程表 -->
+  <select id="getScheduleByClassTransferred" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where add_date = #{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and delete_status = 0 and student_type ='transferred' order by duration
   </select>
 
   <!-- 获取课程表 -->
