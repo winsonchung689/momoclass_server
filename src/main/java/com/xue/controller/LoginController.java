@@ -491,6 +491,19 @@ public class LoginController {
 	}
 
 	//	获取课程表
+	@RequestMapping("/getScheduleByClass")
+	@ResponseBody
+	public List getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid){
+		List list = null;
+		try {
+			list = loginService.getScheduleByClass(date_time,duration,studio,class_number,subject,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取课程表
 	@RequestMapping("/updateRemind")
 	@ResponseBody
 	public int updateRemind(String subject_class,String studio,String type){
