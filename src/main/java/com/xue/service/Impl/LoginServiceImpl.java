@@ -957,9 +957,6 @@ public class LoginServiceImpl implements LoginService {
                 update_time = line.getUpdate_time();
                 class_number = line.getClass_number();
                 student_type = line.getStudent_type();
-                if("transferred".equals(student_type)){
-                    class_number = class_number+"(插班生)";
-                }
                 subject = line.getSubject();
                 remind = line.getRemind();
                 String role = "visit";
@@ -987,7 +984,11 @@ public class LoginServiceImpl implements LoginService {
 //                    e.printStackTrace();
                 }
                 if( contains == 1 || role.equals("client") || studio.equals("MOMO画室")) {
+                    jsonObject.put("student_type", student_type);
                     jsonObject.put("subject", subject);
+                    if("transferred".equals(student_type)){
+                        class_number = class_number+"(插班生)";
+                    }
                     jsonObject.put("class_number", class_number);
 
                     jsonObject.put("comment_status", "课评");
