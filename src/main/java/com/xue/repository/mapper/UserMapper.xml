@@ -609,7 +609,7 @@
   </select>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct a.studio (select * from user where delete_status = 0 order by role) a
+    select distinct a.studio from (select * from user where delete_status = 0 order by role) a
   </select>
 
   <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
