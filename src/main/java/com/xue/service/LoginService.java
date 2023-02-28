@@ -116,7 +116,7 @@ public interface LoginService {
 
     public List getUserByStudio(String Studio);
 
-    public List getStudio();
+    public List getStudio(String role);
 
     public List getClassNumbers(String studio);
 

@@ -1721,12 +1721,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStudio() {
+    public List getStudio(String role) {
         String studio = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<User> list = dao.getStudio();
+            List<User> list = null;
+            if(role.equals("boss")){
+                list = dao.getStudioBoss(role);
+            }else{
+                list = dao.getStudio();
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);

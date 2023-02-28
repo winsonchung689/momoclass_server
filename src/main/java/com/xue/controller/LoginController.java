@@ -834,10 +834,10 @@ public class LoginController {
 	//	获取工作室列表
 	@RequestMapping("/getStudio")
 	@ResponseBody
-	public List getStudio(){
+	public List getStudio(String role){
 		List list = null;
 		try {
-			list = loginService.getStudio();
+			list = loginService.getStudio(role);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

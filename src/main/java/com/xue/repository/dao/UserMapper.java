@@ -205,6 +205,8 @@ public interface UserMapper {
 
     List<User> getStudio();
 
+    List<User> getStudioBoss(String role);
+
     List<Schedule> getClassNumbers(String studio);
 
     List<Arrangement> getArrangements(String studio);
