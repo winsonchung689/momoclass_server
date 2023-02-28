@@ -1507,7 +1507,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             if(openid.equals("all")){
                 list = dao.getAllUser();
-                for(int i=0;i<=list.size();i++){
+                for(int i=0;i<list.size();i++){
                     String role_get = list.get(i).getRole();
                     String expird_time_get = list.get(i).getExpired_time();
                     String studio_get = list.get(i).getStudio();
