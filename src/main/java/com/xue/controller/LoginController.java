@@ -1979,10 +1979,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		if(studio == null){
-			return "No Data !!!";
-		}
-
 		String subject =null;
 		String student_name =null;
 		String total_amount= null;
@@ -2056,7 +2052,7 @@ public class LoginController {
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
 					if(lessons_get.isEmpty()){
 						loginService.insertLesson(lesson);
-					}else {
+					}else if(student_name != null){
 						loginService.updateLesson(lesson,0.0f,0.0f,"全科目");
 					}
 				} catch (Exception e) {
