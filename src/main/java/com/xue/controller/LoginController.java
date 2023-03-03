@@ -1979,6 +1979,10 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
+		if(studio == null){
+			return "No Data !!!";
+		}
+
 		String subject =null;
 		String student_name =null;
 		String total_amount= null;
