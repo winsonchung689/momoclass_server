@@ -2066,6 +2066,11 @@ public class LoginController {
 
 		} catch (BiffException e) {
 			e.printStackTrace();
+		}finally {
+			for(String name : tempList){
+				File temp_delete = new File(path_1 + "/" + name);
+				temp_delete.delete();
+			}
 		}
 
 		return "push massage successfully";
