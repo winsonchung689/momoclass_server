@@ -1772,8 +1772,6 @@ public class LoginController {
 		String path = System.getProperty("user.dir");
 
 		//获取图片
-		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
-		MultipartFile multipartFile = req.getFile("video");
 		String studio =  request.getParameter("studio");
 
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
