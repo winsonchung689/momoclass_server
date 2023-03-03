@@ -33,9 +33,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -1764,6 +1762,64 @@ public class LoginController {
 			multipartFile.transferTo(new File(p_path));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		return p_path;
+	}
+
+	@RequestMapping("/downloadLesson")
+	@ResponseBody
+	public String downloadLesson(HttpServletRequest request, HttpServletResponse response){
+		String path = System.getProperty("user.dir");
+
+		//获取图片
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile multipartFile = req.getFile("video");
+		String studio =  request.getParameter("studio");
+
+		String d_path = path +"/downloadLesson/"+ studio + "/" ;
+		File file = new File(d_path);
+
+		if (!file.exists()){ //如果不存在
+			file.mkdirs(); //创建目录
+		}
+
+
+		String[] content = file.list();//取得当前目录下所有文件和文件夹
+		for(String name : content){
+			File temp = new File(d_path, name);
+			temp.delete();
+		}
+
+
+		//获取类路径
+		String p_path = null;
+		UUID uuid = UUID.randomUUID();
+		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".csv";
+		BufferedWriter bw = null;
+
+		//保存图片
+		try {
+			List<Lesson> lessons = dao.getLesson(studio);
+			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
+			for(int i=0; i<lessons.size(); i++){
+				String student_name = lessons.get(i).getStudent_name();
+				String total_amount = lessons.get(i).getTotal_amount().toString();
+				String left_amount = lessons.get(i).getLeft_amount().toString();
+				bw.write(student_name+","+total_amount+","+left_amount);
+				bw.newLine();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bw != null){
+					bw.flush();
+					bw.close();
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		return p_path;
 	}
