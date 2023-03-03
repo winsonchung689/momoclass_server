@@ -1782,7 +1782,7 @@ public class LoginController {
 		//获取类路径
 		String p_path = null;
 		UUID uuid = UUID.randomUUID();
-		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".xlsx";
+		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".xls";
 		BufferedWriter bw = null;
 
 		//保存csv
