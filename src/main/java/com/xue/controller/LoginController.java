@@ -1782,7 +1782,7 @@ public class LoginController {
 		//获取类路径
 		String p_path = null;
 		UUID uuid = UUID.randomUUID();
-		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".csv";
+		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".xlsx";
 		BufferedWriter bw = null;
 
 		//保存csv
@@ -1892,9 +1892,9 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/get_download_csv")
+	@RequestMapping("/get_download")
 	@ResponseBody
-	public ResponseEntity<byte[]> get_download_csv(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> get_download(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String studio =  request.getParameter("studio");
 		String path = System.getProperty("user.dir");
