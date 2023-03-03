@@ -1736,21 +1736,17 @@ public class LoginController {
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("video");
 		String studio =  request.getParameter("studio");
-
 		String d_path = path +"/uploadVideo/"+ studio + "/" ;
 		File file = new File(d_path);
-
 		if (!file.exists()){ //如果不存在
 			boolean dr = file.mkdirs(); //创建目录
 		}
-
 
 		String[] content = file.list();//取得当前目录下所有文件和文件夹
 		for(String name : content){
 			File temp = new File(d_path, name);
 			temp.delete();
 		}
-
 
 		//获取类路径
 		String p_path = null;
@@ -1768,12 +1764,8 @@ public class LoginController {
 
 	@RequestMapping("/downloadLesson")
 	@ResponseBody
-	public String downloadLesson(HttpServletRequest request, HttpServletResponse response){
+	public String downloadLesson(String studio){
 		String path = System.getProperty("user.dir");
-
-		//获取图片
-		String studio =  request.getParameter("studio");
-
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
 		File file = new File(d_path);
 
@@ -1781,13 +1773,11 @@ public class LoginController {
 			file.mkdirs(); //创建目录
 		}
 
-
 		String[] content = file.list();//取得当前目录下所有文件和文件夹
 		for(String name : content){
 			File temp = new File(d_path, name);
 			temp.delete();
 		}
-
 
 		//获取类路径
 		String p_path = null;
@@ -1795,7 +1785,7 @@ public class LoginController {
 		p_path = path +"/downloadLesson/"+ studio + "/" + uuid + ".csv";
 		BufferedWriter bw = null;
 
-		//保存图片
+		//保存csv
 		try {
 			List<Lesson> lessons = dao.getLesson(studio);
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
