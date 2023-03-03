@@ -2050,9 +2050,9 @@ public class LoginController {
 
 				try {
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
-					if(lessons_get.isEmpty()){
+					if(lessons_get.size()==0){
 						loginService.insertLesson(lesson);
-					}else if(student_name != null){
+					}else if(lessons_get.size()>0){
 						loginService.updateLesson(lesson,0.0f,0.0f,"全科目");
 					}
 				} catch (Exception e) {
