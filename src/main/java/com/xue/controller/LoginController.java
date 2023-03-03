@@ -1892,6 +1892,25 @@ public class LoginController {
 		}
 	}
 
+	@RequestMapping("/get_download_csv")
+	@ResponseBody
+	public ResponseEntity<byte[]> get_download_csv(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String file_name =  request.getParameter("file_name");
+		String studio =  request.getParameter("studio");
+		String path = System.getProperty("user.dir");
+		String p_path = path +"/downloadLesson/"+ studio+"/" +file_name;
+		File file = new File(p_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
+	}
+
 	@RequestMapping("/get_video")
 	@ResponseBody
 	public String get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
