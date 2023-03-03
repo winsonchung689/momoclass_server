@@ -1789,6 +1789,8 @@ public class LoginController {
 		try {
 			List<Lesson> lessons = dao.getLesson(studio);
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
+			bw.write("学生名,总课时,余课时");
+			bw.newLine();
 			for(int i=0; i<lessons.size(); i++){
 				String student_name = lessons.get(i).getStudent_name();
 				String total_amount = lessons.get(i).getTotal_amount().toString();
