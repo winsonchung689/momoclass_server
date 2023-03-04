@@ -221,7 +221,7 @@ public interface UserMapper {
 
     List<Message> getCertificateModel(String class_name);
 
-    List<Message> getFrameModel(String studio,Integer page_start,Integer page_length);
+    List<Message> getFrameModel(String studio,Integer page_start,Integer page_length,String class_target);
 
     List<Message> getCertificateModelName();
 

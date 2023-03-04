@@ -1928,10 +1928,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getFrameModel(String studio,Integer page) {
+    public List getFrameModel(String studio,Integer page,String class_target) {
         byte[] photo = null;
         String class_name = null;
         String id = null;
+        String uuids = null;
         Integer page_start = 0;
         Integer page_length = 0;
         if (page == 1){
@@ -1944,7 +1945,7 @@ public class LoginServiceImpl implements LoginService {
         }
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Message> list = dao.getFrameModel(studio,page_start,page_length);
+            List<Message> list = dao.getFrameModel(studio,page_start,page_length,class_target);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -1952,11 +1953,17 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 photo = line.getPhoto();
                 class_name =line.getClass_name();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
 
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("photo", photo);
                 jsonObject.put("class_name", class_name);
+                jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
