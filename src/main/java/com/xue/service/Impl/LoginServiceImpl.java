@@ -2532,7 +2532,6 @@ public class LoginServiceImpl implements LoginService {
 //                throw new RuntimeException(e);
             }
 
-
             if(role.equals("boss") && compare <= 5 && send_time.equals(now_time)){
                 JSONObject queryJson = JSONObject.parseObject(tample4);
                 queryJson.put("touser",openid);
@@ -2547,7 +2546,6 @@ public class LoginServiceImpl implements LoginService {
                     e.printStackTrace();
                 }
             }
-
 
             if(!"no_name".equals(student_name) && send_time.equals(now_time)){
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
