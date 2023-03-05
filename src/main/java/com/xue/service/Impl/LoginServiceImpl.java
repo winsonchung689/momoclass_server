@@ -2504,6 +2504,8 @@ public class LoginServiceImpl implements LoginService {
         List<User> list= null;
         Integer remind = 0;
         List<Schedule> list_schedule = null;
+        Date today_dt = null;
+        Date expired_dt = null;
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
@@ -2511,16 +2513,14 @@ public class LoginServiceImpl implements LoginService {
         list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
             User user = list.get(i);
-            Date today_dt = null;
-            Date expired_dt = null;
+            role = user.getRole();
+            openid = user.getOpenid();
+            studio = user.getStudio();
+            student_name = user.getStudent_name();
+            send_time = user.getSend_time();
+            expried_time = user.getExpired_time();
             int compare = 10;
             try {
-                role = user.getRole();
-                openid = user.getOpenid();
-                studio = user.getStudio();
-                student_name = user.getStudent_name();
-                send_time = user.getSend_time();
-                expried_time = user.getExpired_time();
                 today_dt = df.parse(now_date.substring(0,10));
                 cal.setTime(today_dt);
                 int day1 = cal.get(Calendar.DAY_OF_YEAR);
