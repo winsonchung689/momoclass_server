@@ -2511,20 +2511,19 @@ public class LoginServiceImpl implements LoginService {
         list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
             User user = list.get(i);
-            role = user.getRole();
-            openid = user.getOpenid();
-            studio = user.getStudio();
-            student_name = user.getStudent_name();
-            send_time = user.getSend_time();
             Date today_dt = null;
             Date expired_dt = null;
             int compare = 10;
             try {
+                role = user.getRole();
+                openid = user.getOpenid();
+                studio = user.getStudio();
+                student_name = user.getStudent_name();
+                send_time = user.getSend_time();
                 expried_time = user.getExpired_time();
                 today_dt = df.parse(now_date.substring(0,10));
                 cal.setTime(today_dt);
                 int day1 = cal.get(Calendar.DAY_OF_YEAR);
-
                 expired_dt = df.parse(expried_time.substring(0,10));
                 cal.setTime(expired_dt);
                 int day2 = cal.get(Calendar.DAY_OF_YEAR);
