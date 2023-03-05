@@ -2490,6 +2490,7 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
         String date_time = df.format(cal.getTime());
         String now_time = df_now.format(new Date()).split(" ")[1];
+        String now_date = df_now.format(new Date()).split(" ")[0];
 
         String result = null;
         String openid = null;
@@ -2519,7 +2520,7 @@ public class LoginServiceImpl implements LoginService {
             Date today_dt = null;
             Date expired_dt = null;
             try {
-                today_dt = df.parse(now_time.substring(0,10));
+                today_dt = df.parse(now_date.substring(0,10));
                 expired_dt = df.parse(expried_time.substring(0,10));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
