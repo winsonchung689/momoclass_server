@@ -2524,15 +2524,15 @@ public class LoginServiceImpl implements LoginService {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            int compare = today_dt.compareTo(expired_dt);
+            int compare = expired_dt.compareTo(today_dt);
 
-            if(role.equals("boss") && compare >0 && send_time.equals(now_time)){
+            if(role.equals("boss") && compare <= 5 && send_time.equals(now_time)){
                 JSONObject queryJson = JSONObject.parseObject(tample4);
                 queryJson.put("touser",openid);
                 queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
                 queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
                 queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
-                queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS快到期啦，记得续费哦～");
+                queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦～");
 
             }
 
