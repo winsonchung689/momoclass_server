@@ -2516,11 +2516,11 @@ public class LoginServiceImpl implements LoginService {
             studio = user.getStudio();
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
-            expried_time = user.getExpired_time();
             Date today_dt = null;
             Date expired_dt = null;
             int compare = 10;
             try {
+                expried_time = user.getExpired_time();
                 today_dt = df.parse(now_date.substring(0,10));
                 cal.setTime(today_dt);
                 int day1 = cal.get(Calendar.DAY_OF_YEAR);
