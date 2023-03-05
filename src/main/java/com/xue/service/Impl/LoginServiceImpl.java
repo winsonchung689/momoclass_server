@@ -2499,10 +2499,12 @@ public class LoginServiceImpl implements LoginService {
         String duration = null;
         String class_number = null;
         String send_time = null;
+        String expried_time = null;
         List<User> list= null;
         Integer remind = 0;
         List<Schedule> list_schedule = null;
-        String tample3 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
+        String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
+        String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 
         list = dao.getAllUser();
@@ -2513,6 +2515,28 @@ public class LoginServiceImpl implements LoginService {
             studio = user.getStudio();
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
+            expried_time = user.getExpired_time();
+            Date today_dt = null;
+            Date expired_dt = null;
+            try {
+                today_dt = df.parse(now_time.substring(0,10));
+                expired_dt = df.parse(expried_time.substring(0,10));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            int compare = today_dt.compareTo(expired_dt);
+
+            if(role.equals("boss") && compare >0 && send_time.equals(now_time)){
+                JSONObject queryJson = JSONObject.parseObject(tample4);
+                queryJson.put("touser",openid);
+                queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
+                queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
+                queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS快到期啦，记得续费哦～");
+
+            }
+
+
             if(!"no_name".equals(student_name) && send_time.equals(now_time)){
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
                 for (int j = 0; j < list_schedule.size(); j++) {
