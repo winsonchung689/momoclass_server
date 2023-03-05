@@ -2519,13 +2519,20 @@ public class LoginServiceImpl implements LoginService {
             expried_time = user.getExpired_time();
             Date today_dt = null;
             Date expired_dt = null;
+            int compare = 10;
             try {
                 today_dt = df.parse(now_date.substring(0,10));
+                cal.setTime(today_dt);
+                int day1 = cal.get(Calendar.DAY_OF_YEAR);
+
                 expired_dt = df.parse(expried_time.substring(0,10));
+                cal.setTime(expired_dt);
+                int day2 = cal.get(Calendar.DAY_OF_YEAR);
+                compare = day2 - day1;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            int compare = expired_dt.compareTo(today_dt);
+
 
             if(role.equals("boss") && compare <= 5 && send_time.equals(now_time)){
                 JSONObject queryJson = JSONObject.parseObject(tample4);
@@ -2534,7 +2541,6 @@ public class LoginServiceImpl implements LoginService {
                 queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
                 queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
                 queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦～");
-
             }
 
 
