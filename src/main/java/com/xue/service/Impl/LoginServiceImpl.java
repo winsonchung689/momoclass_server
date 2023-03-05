@@ -2530,7 +2530,7 @@ public class LoginServiceImpl implements LoginService {
                 int day2 = cal.get(Calendar.DAY_OF_YEAR);
                 compare = day2 - day1;
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+//                throw new RuntimeException(e);
             }
 
 
@@ -2540,7 +2540,7 @@ public class LoginServiceImpl implements LoginService {
                 queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
                 queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
                 queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
-                queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦～");
+                queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
                 try {
                     result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                     System.out.printf("res:" + result);
