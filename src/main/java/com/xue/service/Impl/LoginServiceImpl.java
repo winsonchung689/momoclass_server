@@ -645,7 +645,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSchedule(String date_time, String studio,String subject,String openid) {
+    public List getSchedule(String date_time, String studio,String subject,String openid,String test) {
         String add_date = null;
         String age = null;
         String student_name = null;
@@ -738,7 +738,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
-                if( contains == 1 || role.equals("client") || studio.equals("MOMO画室")) {
+                if( contains == 1 || "1".equals(test)) {
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number);
 

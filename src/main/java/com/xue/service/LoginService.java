@@ -64,7 +64,7 @@ public interface LoginService {
 
     public int insertGoodsList(GoodsList goodsList);
 
-    public List  getSchedule(String date_time,String studio,String subject,String openid);
+    public List  getSchedule(String date_time,String studio,String subject,String openid,String test);
 
     public List  getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid);
 

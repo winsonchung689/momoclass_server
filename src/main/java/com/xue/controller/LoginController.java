@@ -504,10 +504,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getSchedule")
 	@ResponseBody
-	public List getSchedule(String date_time,String studio,String subject,String openid){
+	public List getSchedule(String date_time,String studio,String subject,String openid,String test){
 		List list = null;
 		try {
-			list = loginService.getSchedule(date_time,studio,subject,openid);
+			list = loginService.getSchedule(date_time,studio,subject,openid,test);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
