@@ -2070,7 +2070,8 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getBook(String studio,String dimension) {
 
-        Float amount = 0.0f;
+        Float income = 0.0f;
+        Float expenditure = 0.0f;
         String type = null;
         String create_time = null;
         List<BookCount> list =null;
@@ -2086,17 +2087,14 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 BookCount line = list.get(i);
                 //获取字段
-                amount = line.getAmount();
-                type = line.getType();
+                income = line.getIncome();
+                expenditure = line.getExpenditure();
                 create_time = line.getCreate_time();
 
-                jsonObject.put("type", type);
+                jsonObject.put("income", income);
+                jsonObject.put("expenditure", expenditure);
                 jsonObject.put("create_time", create_time);
-                if("收入".equals(type)){
-                    jsonObject.put("income", amount);
-                }else if("支出".equals(type)){
-                    jsonObject.put("expenditure", amount);
-                }
+
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

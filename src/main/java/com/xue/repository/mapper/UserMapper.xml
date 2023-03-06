@@ -386,11 +386,11 @@
   </select>
 
   <select id="getBookByMonth" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select type,date_format(create_time, '%Y-%m') create_time,sum(amount) amount from account_book where studio = #{param1} and delete_status = 0 group by type,date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
+    select date_format(create_time, '%Y-%m') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0 group by date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
   </select>
 
   <select id="getBookByDate" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select type,date_format(create_time, '%Y-%m-%d') create_time,sum(amount) amount from account_book where studio = #{param1} and delete_status = 0 group by type,date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
+    select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
   <!-- 插入账单 -->
