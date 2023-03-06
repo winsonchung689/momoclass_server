@@ -409,6 +409,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取账本
+	@RequestMapping("/getBook")
+	@ResponseBody
+	public List getBook(String studio,String dimension){
+		List list = null;
+		try {
+			list = loginService.getBook(studio,dimension);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取奖状
 	@RequestMapping("/getCertificate")
 	@ResponseBody

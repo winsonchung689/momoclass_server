@@ -2068,6 +2068,44 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getBook(String studio,String dimension) {
+
+        Float amount = 0.0f;
+        String type = null;
+        String create_time = null;
+        List<BookCount> list =null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            if("月".equals(dimension)){
+                list = dao.getBookByMonth(studio);
+            }else if("日".equals(dimension)){
+                list = dao.getBookByDate(studio);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                BookCount line = list.get(i);
+                //获取字段
+                amount = line.getAmount();
+                type = line.getType();
+                create_time = line.getCreate_time();
+
+                jsonObject.put("type", type);
+                jsonObject.put("create_time", create_time);
+                if("收入".equals(type)){
+                    jsonObject.put("income", amount);
+                }else if("支出".equals(type)){
+                    jsonObject.put("expenditure", amount);
+                }
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCertificate(String studio, String student_name) {
         byte[] photo = null;
         InputStream inputStream_photo = null;

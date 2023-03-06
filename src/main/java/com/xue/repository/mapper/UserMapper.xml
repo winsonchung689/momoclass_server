@@ -34,6 +34,9 @@
   <resultMap id="BaseAllCount" type="com.xue.entity.model.AllCount">
     <result column="student_count" jdbcType="INTEGER" property="student_count" />
   </resultMap>
+  <resultMap id="BaseBookCount" type="com.xue.entity.model.BookCount">
+    <result column="amount" jdbcType="FLOAT" property="amount" />
+  </resultMap>
   <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
     <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
   </resultMap>
@@ -375,6 +378,19 @@
   <!-- 获取课插班生 -->
   <select id="getTransferAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' and delete_status = 0 order by duration
+  </select>
+
+  <!-- 获取课插班生 -->
+  <select id="getBook" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
+    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getBookByMonth" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select type,date_format(create_time, '%Y-%m') create_time,sum(amount) amount from account_book where studio = #{param1} delete_status = 0 type,date_format(create_time, '%Y-%m') order by date_format(create_time, '%Y-%m') desc
+  </select>
+
+  <select id="getBookByDate" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select type,date_format(create_time, '%Y-%m-%d') create_time,sum(amount) amount from account_book where studio = #{param1} delete_status = 0 type,date_format(create_time, '%Y-%m-%d') order by date_format(create_time, '%Y-%m-%d') desc
   </select>
 
   <!-- 插入账单 -->

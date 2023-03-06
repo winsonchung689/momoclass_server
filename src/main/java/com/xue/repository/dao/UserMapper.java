@@ -71,6 +71,12 @@ public interface UserMapper {
     //获取
     List<Schedule> getTransferAll(String date_time,String studio);
 
+    List<Book> getBook(String studio);
+
+    List<BookCount> getBookByMonth(String studio);
+
+    List<BookCount> getBookByDate(String studio);
+
     List<Schedule> getTransfer(String date_time,String studio,String subject);
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end);
