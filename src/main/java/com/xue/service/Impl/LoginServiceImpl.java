@@ -2069,14 +2069,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getBook(String studio,String dimension) {
-
         Float income = 0.0f;
         Float expenditure = 0.0f;
         String create_time = null;
         List<BookCount> list =null;
         Float sum = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
-
         try {
             if("月".equals(dimension)){
                 list = dao.getBookByMonth(studio);
@@ -2097,6 +2095,36 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("sum", sum);
                 jsonObject.put("create_time", create_time);
 
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getBookDetail(String studio, String create_time, String type) {
+
+        List<Book> list =null;
+        String mark = null;
+        Float amount = 0.0f;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getBookDetail(studio,create_time,type);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Book line = list.get(i);
+                //获取字段
+                mark = line.getMark();
+                amount = line.getAmount();
+                create_time = line.getCreate_time();
+                type = line.getType();
+
+                jsonObject.put("type", type);
+                jsonObject.put("amount", amount);
+                jsonObject.put("mark", mark);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

@@ -422,6 +422,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取账本明细
+	@RequestMapping("/getBookDetail")
+	@ResponseBody
+	public List getBookDetail(String studio, String create_time, String type){
+		List list = null;
+		try {
+			list = loginService.getBookDetail(studio,create_time,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取奖状
 	@RequestMapping("/getCertificate")
 	@ResponseBody

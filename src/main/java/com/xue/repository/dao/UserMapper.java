@@ -71,7 +71,7 @@ public interface UserMapper {
     //获取
     List<Schedule> getTransferAll(String date_time,String studio);
 
-    List<Book> getBook(String studio);
+    List<Book> getBookDetail(String studio,String create_time,String type);
 
     List<BookCount> getBookByMonth(String studio);
 

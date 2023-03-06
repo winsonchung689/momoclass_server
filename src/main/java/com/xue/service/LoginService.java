@@ -138,6 +138,8 @@ public interface LoginService {
 
     public List getBook(String studio,String dimension);
 
+    public List getBookDetail(String studio,String create_time,String type);
+
     public List getCertificate(String studio,String student_name);
 
     public List getPaycode(String student_name);
