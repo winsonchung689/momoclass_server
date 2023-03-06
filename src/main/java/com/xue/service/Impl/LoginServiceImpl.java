@@ -2074,6 +2074,7 @@ public class LoginServiceImpl implements LoginService {
         Float expenditure = 0.0f;
         String create_time = null;
         List<BookCount> list =null;
+        Float sum = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -2089,9 +2090,11 @@ public class LoginServiceImpl implements LoginService {
                 income = line.getIncome();
                 expenditure = line.getExpenditure();
                 create_time = line.getCreate_time();
+                sum = income  - expenditure;
 
                 jsonObject.put("income", income);
                 jsonObject.put("expenditure", expenditure);
+                jsonObject.put("sum", sum);
                 jsonObject.put("create_time", create_time);
 
                 resul_list.add(jsonObject);
