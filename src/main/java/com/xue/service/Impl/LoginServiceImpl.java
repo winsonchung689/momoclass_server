@@ -965,53 +965,33 @@ public class LoginServiceImpl implements LoginService {
                 String lesson_string = null;
                 List<String> list_2 = null;
                 Integer contains = 0;
-                try {
-                    if(openid != null){
-                        User user_get= dao.getUser(openid).get(0);
-                        String lessons_string = user_get.getLessons();
-                        role = user_get.getRole();
-                        String[] list_1 =lessons_string.split("\\|");
-                        if(weekDay == 1){
-                            weekofday = 7 ;
-                        }else {
-                            weekofday = weekDay - 1;
-                        }
-                        lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
-                        list_2 = Arrays.asList(list_1);
-                        if(list_2.contains(lesson_string)){
-                            contains = 1;
-                        }
-                    }
-                } catch (Exception e) {
-//                    e.printStackTrace();
-                }
-                if( contains == 1 || role.equals("client") || studio.equals("MOMO画室")) {
-                    jsonObject.put("student_type", student_type);
-                    jsonObject.put("subject", subject);
-                    if("transferred".equals(student_type)){
-                        class_number = class_number+"(插班生)";
-                    }
-                    jsonObject.put("class_number", class_number);
 
-                    jsonObject.put("comment_status", "课评");
-                    jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time);
-                    if (messages.size() >= 1) {
-                        if (messages.get(0).getDuration().equals("00:00-00:00")) {
+                jsonObject.put("student_type", student_type);
+                jsonObject.put("subject", subject);
+                if("transferred".equals(student_type)){
+                    class_number = class_number+"(插班生)";
+                }
+                jsonObject.put("class_number", class_number);
+
+                jsonObject.put("comment_status", "课评");
+                jsonObject.put("comment_color", "rgb(157, 162, 165)");
+                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time);
+                if (messages.size() >= 1) {
+                    if (messages.get(0).getDuration().equals("00:00-00:00")) {
+                        jsonObject.put("comment_status", "已课评");
+                        jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
+                    } else {
+                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
+                        if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                        } else {
-                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
-                            if (messagesDuration.size() == 1) {
-                                jsonObject.put("comment_status", "已课评");
-                                jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                            }
                         }
                     }
+                }
 
-                    //json
-                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
-                    if (lessons.size() > 0) {
+                //json
+                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                if (lessons.size() > 0) {
                         Lesson lesson = lessons.get(0);
                         left = lesson.getLeft_amount();
                         total = lesson.getTotal_amount();
@@ -1062,12 +1042,10 @@ public class LoginServiceImpl implements LoginService {
 
                         resul_list.add(jsonObject);
                     }
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return resul_list;
     }
 
