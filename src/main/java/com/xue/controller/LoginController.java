@@ -2240,13 +2240,36 @@ public class LoginController {
 
 		}
 
-
-
-
-
 		return "push massage successfully";
 	}
 
+	//	推送
+	@RequestMapping("/bookkeeping")
+	@ResponseBody
+	public String bookkeeping(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String studio = request.getParameter("studio");
+		String mark = request.getParameter("mark");
+		String type = request.getParameter("type");
+		String amount = request.getParameter("amount");
+
+		Book book =new Book();
+		book.setStudio(studio);
+		book.setType(type);
+		book.setMark(mark);
+		book.setAmount(Float.parseFloat(amount));
+		book.setCreate_time(create_time);
+
+		try {
+			dao.insertBook(book);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
 
 	//	推送
 	@RequestMapping("/insertSchedule")

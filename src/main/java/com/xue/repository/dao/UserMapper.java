@@ -86,6 +86,8 @@ public interface UserMapper {
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time);
 
     //插入
+    int insertBook(Book book);
+
     int push(Message message);
 
     //插入

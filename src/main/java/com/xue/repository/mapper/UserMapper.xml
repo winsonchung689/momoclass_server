@@ -43,6 +43,9 @@
   <resultMap id="BaseNote" type="com.xue.entity.model.Note">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
+  <resultMap id="BaseBook" type="com.xue.entity.model.Book">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -373,6 +376,11 @@
   <select id="getTransferAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' and delete_status = 0 order by duration
   </select>
+
+  <!-- 插入账单 -->
+  <insert id="insertBook" parameterType="com.xue.entity.model.Book">
+    insert account_book(studio,type,mark,amount,create_time) values(#{studio},#{type},#{mark},#{amount},#{create_time})
+  </insert>
 
   <!-- 插入信息 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
