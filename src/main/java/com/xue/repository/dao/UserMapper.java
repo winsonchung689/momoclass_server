@@ -103,6 +103,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
+    void deleteBookDetail(Integer id,String studio);
+
     void updateUuids(Integer id,String studio,String uuids);
 
     void updateUuids_c(Integer id,String studio,String uuids_c);

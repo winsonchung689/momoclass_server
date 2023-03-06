@@ -983,6 +983,26 @@ public class LoginController {
 	}
 
 	//	获取详情页
+	@RequestMapping("/deleteBookDetail")
+	@ResponseBody
+	public int deleteBookDetail(Integer id,String role,String studio,String openid){
+		try {
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+
+			if ("boss".equals(role) && studio_get.equals(studio)) {
+				dao.deleteBookDetail(id,studio);
+			}else {
+				logger.error("it's not your studio, could not delete!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	//	获取详情页
 	@RequestMapping("/deleteUuids")
 	@ResponseBody
 	public int deleteUuids(Integer id,String role,String studio,String openid,String uuid){

@@ -2109,6 +2109,7 @@ public class LoginServiceImpl implements LoginService {
         List<Book> list =null;
         String mark = null;
         Float amount = 0.0f;
+        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getBookDetail(studio,create_time,type);
@@ -2120,11 +2121,13 @@ public class LoginServiceImpl implements LoginService {
                 amount = line.getAmount();
                 create_time = line.getCreate_time();
                 type = line.getType();
+                id = line.getId();
 
                 jsonObject.put("type", type);
                 jsonObject.put("amount", amount);
                 jsonObject.put("mark", mark);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
