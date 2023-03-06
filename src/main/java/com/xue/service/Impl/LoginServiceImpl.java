@@ -2072,7 +2072,6 @@ public class LoginServiceImpl implements LoginService {
 
         Float income = 0.0f;
         Float expenditure = 0.0f;
-        String type = null;
         String create_time = null;
         List<BookCount> list =null;
         List<JSONObject> resul_list = new ArrayList<>();
