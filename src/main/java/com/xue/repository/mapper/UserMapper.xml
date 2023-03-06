@@ -208,12 +208,12 @@
 
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-     update account_book set delete_status = 1 where id =#{param1} and studio =#{param2}
+     update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 删除账单 -->
   <select id="deleteBookDetail" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
+    update account_book set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
