@@ -2603,20 +2603,18 @@ public class LoginServiceImpl implements LoginService {
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
             expried_time = user.getExpired_time();
-            int compare = 10;
+            Long compare = 10L;
             try {
                 today_dt = df.parse(now_date.substring(0,10));
-                cal.setTime(today_dt);
-                int day1 = cal.get(Calendar.DAY_OF_YEAR);
                 expired_dt = df.parse(expried_time.substring(0,10));
-                cal.setTime(expired_dt);
-                int day2 = cal.get(Calendar.DAY_OF_YEAR);
-                compare = day2 - day1;
+                Long day2 = expired_dt.getTime();
+                Long day1 = today_dt.getTime();
+                compare = (day2 - day1)/24/60/1000;
             } catch (ParseException e) {
 //                throw new RuntimeException(e);
             }
 
-            if(role.equals("boss") && compare <= 5 && send_time.equals(now_time)){
+            if(role.equals("boss") && compare <= 5L && send_time.equals(now_time)){
                 JSONObject queryJson = JSONObject.parseObject(tample4);
                 queryJson.put("touser",openid);
                 queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
