@@ -435,6 +435,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/searchBookDetail")
+	@ResponseBody
+	public List searchBookDetail(String studio, String value, String type){
+		List list = null;
+		try {
+			list = loginService.searchBookDetail(studio,value,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取奖状
 	@RequestMapping("/getCertificate")
 	@ResponseBody
