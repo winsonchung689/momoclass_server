@@ -1303,7 +1303,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number,String role,String openid) {
+    public int deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number,String role,String openid,String subject) {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
@@ -1314,7 +1314,7 @@ public class LoginServiceImpl implements LoginService {
                 weekofday = weekDay + 1;
             }
             if ("boss".equals(role) && studio_get.equals(studio)) {
-                dao.deleteScheduleByDate(weekofday,duration,studio,class_number);
+                dao.deleteScheduleByDate(weekofday,duration,studio,class_number,subject);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }

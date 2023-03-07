@@ -1106,14 +1106,14 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteArrangement")
 	@ResponseBody
-	public int deleteArrangement(Integer id,String role,String studio,String openid,String duration,String weekday,String class_number){
+	public int deleteArrangement(Integer id,String role,String studio,String openid,String duration,String weekday,String class_number,String subject){
 		try {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
 			if ("boss".equals(role) && studio_get.equals(studio)) {
 				loginService.deleteArrangement(id,role,studio,openid);
-				loginService.deleteScheduleByDate(Integer.parseInt(weekday),duration,studio,class_number,role,openid);
+				loginService.deleteScheduleByDate(Integer.parseInt(weekday),duration,studio,class_number,role,openid,subject);
 			}else {
 				logger.error("it's not your studio, could not delete!");
 			}

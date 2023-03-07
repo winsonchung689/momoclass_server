@@ -117,7 +117,7 @@ public interface UserMapper {
 
     void deleteGoodsList(Integer id,String studio);
 
-    void deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number);
+    void deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number,String subject);
 
     void deleteArrangement(Integer id,String studio);
 
