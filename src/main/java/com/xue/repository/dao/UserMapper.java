@@ -77,6 +77,10 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio);
 
+    List<BookCount> getBookByYear(String studio);
+
+    List<BookCount> getBookByAll(String studio);
+
     List<Schedule> getTransfer(String date_time,String studio,String subject);
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end);

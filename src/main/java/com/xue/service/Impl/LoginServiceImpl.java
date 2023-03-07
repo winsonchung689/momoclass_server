@@ -2058,7 +2058,12 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getBookByMonth(studio);
             }else if("日".equals(dimension)){
                 list = dao.getBookByDate(studio);
+            }else if("年".equals(dimension)){
+                list = dao.getBookByYear(studio);
+            }else if("总".equals(dimension)){
+                list = dao.getBookByAll(studio);
             }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 BookCount line = list.get(i);
