@@ -215,7 +215,7 @@ public class LoginController {
 		List<User> list = dao.getUser(openid);
 		String nick_name = list.get(0).getNick_name();
 
-		queryJson.put("touser",openid);
+		queryJson.put("touser","oRRfU5TCmjXtbw9WsxnekwJAa72M");
 		queryJson.getJSONObject("data").getJSONObject("thing12").put("value",studio);
 		queryJson.getJSONObject("data").getJSONObject("thing16").put("value",nick_name);
 		queryJson.getJSONObject("data").getJSONObject("amount13").put("value",amount);
