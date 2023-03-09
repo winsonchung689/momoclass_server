@@ -142,7 +142,7 @@
 
   <!-- 获取付款码 -->
   <select id="getPaycode" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='付款码' and delete_status = 0 and student_name = #{param1} order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='付款码' and delete_status = 0 and student_name = #{param1} order by create_time desc limit 1
   </select>
 
   <!-- 获取个人奖状 -->
