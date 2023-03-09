@@ -609,7 +609,7 @@
   </select>
 
   <select id="getUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where  studio =#{param1} and delete_status = 0 order by role
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days from user where  studio =#{param1} and delete_status = 0 order by role
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -874,7 +874,7 @@
 
   <!-- 续费更新 -->
   <update id="updateUserPay" parameterType="com.xue.entity.model.User">
-    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where studio=#{studio} and role='boss'
+    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} ,days=#{days} where studio=#{studio} and role='boss'
   </update>
 
   <!-- 获取学生名课时 -->

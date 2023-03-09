@@ -49,6 +49,7 @@ public class LoginController {
 	private static final String tample4 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"2-SXAUTnbKpaHkY-xZCzFlgdPL9iKW3Bc9Z0HuB79UE\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing5\":{\"value\": \"A1\"},\"thing4\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
 	private static final String tample5 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"vKZCYXHkl8p4vcE6A8CmjwBbRNYcUa2oJ29gfKMEOEk\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"short_thing2\":{\"value\": \"A1\"},\"short_thing3\":{\"value\": \"A1\"},\"thing5\":{\"value\": \"time\"},\"time4\":{\"value\": \"time\"}}}";
 	private static final String tample6 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"JMbp5CzEiKiI7Xt7vxOO4RU8DSD8L3lm5sjlqtjv_Ys\",\"data\":{\"thing12\":{\"value\": \"AA\"},\"thing16\":{\"value\": \"A1\"},\"amount13\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"time\"}}}";
+	private static final String tample7 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"UlD842xsgrqPJsmr5jfPi3tA_wUcosee-YPFer0QcE0\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"A1\"},\"thing5\":{\"value\": \"time\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -232,6 +233,33 @@ public class LoginController {
 		}
 		return result;
 	}
+
+	//续费成功通知
+	@RequestMapping("/sendFeedback")
+	@ResponseBody
+	public String sendFeedback(String token, String openid, String studio, String expired_time,String days){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample7);
+
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio);
+		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",days);
+		queryJson.getJSONObject("data").getJSONObject("time3").put("value",expired_time);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value","续费成功，请刷新状态即可！");
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	//	获取token
 	@RequestMapping("/sendClassRemind")
@@ -2959,12 +2987,27 @@ public class LoginController {
 	@ResponseBody
 	public String updateUserPay(HttpServletRequest request, HttpServletResponse response){
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取用户名
 		String expired_time = request.getParameter("expired_time");
 		String studio = request.getParameter("studio");
+
+		List<User> list = dao.getUserByStudio(studio);
+        String expire_time_get = list.get(0).getExpired_time();
+		Long days = 0L;
+
+		try {
+			Date expired_time_dt = df.parse(expired_time);
+			Date expire_time_get_dt = df.parse(expire_time_get);
+			Long day2 = expired_time_dt.getTime();
+			Long day1 = expire_time_get_dt.getTime();
+			days = (day2 - day1)/(24*3600*1000);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
 
 		User user=new User();
 		user.setExpired_time(expired_time);
@@ -2972,6 +3015,7 @@ public class LoginController {
 		user.setCreate_time(create_time);
 		user.setUser_type("老用户");
 		user.setRole("boss");
+		user.setDays(Math.toIntExact(days));
 
 		try {
 			dao.updateUserPay(user);

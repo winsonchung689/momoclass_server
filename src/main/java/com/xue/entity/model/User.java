@@ -28,6 +28,8 @@ public class User {
 
     private Integer display;
 
+    private Integer days;
+
     private Integer cover;
 
     private String phone_number;
@@ -41,6 +43,15 @@ public class User {
     private String send_time;
 
     private String id;
+
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
 
     public String getId() {
         return id;
