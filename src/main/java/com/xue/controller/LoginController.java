@@ -51,6 +51,7 @@ public class LoginController {
 	private static final String tample6 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"JMbp5CzEiKiI7Xt7vxOO4RU8DSD8L3lm5sjlqtjv_Ys\",\"data\":{\"thing12\":{\"value\": \"AA\"},\"thing16\":{\"value\": \"A1\"},\"amount13\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"time\"}}}";
 	private static final String tample7 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"UlD842xsgrqPJsmr5jfPi3tA_wUcosee-YPFer0QcE0\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"A1\"},\"thing5\":{\"value\": \"time\"}}}";
 	private static final String tample8 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"RToa1-R_dkD_V-xaUGGpp0zPRE_hG2pRaKyX5Rq_Pi8\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"phone_number5\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
+	private static final String tample9 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"sUmPrHqHMJ4r_areM2Dwpyi-sK-A6ehYwrMyS9JS-Qw\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"name11\":{\"value\": \"A1\"},\"thing8\":{\"value\": \"A1\"},\"date6\":{\"value\": \"time\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -261,7 +262,7 @@ public class LoginController {
 		return result;
 	}
 
-	//续费成功通知
+	//客户下单通知
 	@RequestMapping("/sendOrderNotice")
 	@ResponseBody
 	public String sendOrderNotice(String token, String openid, String studio, String nick_name,String phone_number,String goods_name,String mytime){
@@ -286,6 +287,33 @@ public class LoginController {
 		}
 		return result;
 	}
+
+	//客户下单通知
+	@RequestMapping("/sendDeliverNotice")
+	@ResponseBody
+	public String sendDeliverNotice(String token, String openid, String studio, String nick_name,String phone_number,String goods_name,String mytime,String location){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample8);
+
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",goods_name);
+		queryJson.getJSONObject("data").getJSONObject("name11").put("value",nick_name + ":" +phone_number);
+		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",location);
+		queryJson.getJSONObject("data").getJSONObject("date6").put("value",mytime);
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	//	获取token
 	@RequestMapping("/sendClassRemind")
