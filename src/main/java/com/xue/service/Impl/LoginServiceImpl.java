@@ -1860,6 +1860,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String phone_number = null;
         String location = null;
+        String nick_name = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -1881,6 +1882,7 @@ public class LoginServiceImpl implements LoginService {
                 status = line.getStatus();
                 phone_number = line.getPhone_number();
                 location = line.getLocation();
+                nick_name = line.getNick_name();
 
                 if(0==status){
                     status_get="未发货";
@@ -1898,6 +1900,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
+                jsonObject.put("nick_name", nick_name);
 
                 //json
                 resul_list.add(jsonObject);
