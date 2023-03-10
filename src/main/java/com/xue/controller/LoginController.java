@@ -298,7 +298,7 @@ public class LoginController {
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",goods_name);
-		queryJson.getJSONObject("data").getJSONObject("name11").put("value",nick_name+phone_number);
+		queryJson.getJSONObject("data").getJSONObject("name11").put("value",nick_name);
 		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",location);
 		queryJson.getJSONObject("data").getJSONObject("date6").put("value",mytime);
 
