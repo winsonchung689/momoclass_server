@@ -487,6 +487,11 @@
     select id,student_name,date_time,studio,create_time,duration,leave_type,mark_leave,subject from leave_record where student_name =#{param1} and studio = #{param2} and leave_type = #{param3} and subject = #{param4} and delete_status = 0 order by date_time
   </select>
 
+  <!-- 查找请假记录 -->
+  <select id="getLeaveRecordAll" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
+    select id,student_name,date_time,studio,create_time,duration,leave_type,mark_leave,subject from leave_record where studio = #{param2} and leave_type = #{param3} and subject = #{param4} and delete_status = 0 order by date_time
+  </select>
+
   <!-- 发放礼物记录 -->
   <insert id="insertGift" parameterType="com.xue.entity.model.Gift">
     insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status})

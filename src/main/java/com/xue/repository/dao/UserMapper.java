@@ -339,6 +339,8 @@ public interface UserMapper {
 
     List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject);
 
+    List<Leave> getLeaveRecordAll(String student_name,String studio,String leave_type,String subject);
+
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration);
 
     int updateLesson(Lesson lesson);

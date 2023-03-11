@@ -449,6 +449,9 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<Leave> list = dao.getLeaveRecord(student_name, studio,leave_type,subject);
+            if("all".equals(student_name)){
+                list = dao.getLeaveRecordAll(student_name, studio,leave_type,subject);
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Leave line = list.get(i);
