@@ -1656,12 +1656,17 @@ public class LoginServiceImpl implements LoginService {
         String comment_style = null;
         String openid = null;
         String subjects = null;
+        List<User> list1= null;
+        List<User> list2= null;
         List<User> list= null;
         String id = null;
         Integer days=0;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getUserByStudio(studio);
+            list1 = dao.getUserByStudio(studio);
+            list2 = dao.getUserByStudio("大雄工作室");
+            list.addAll(list1);
+            list.addAll(list2);
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
