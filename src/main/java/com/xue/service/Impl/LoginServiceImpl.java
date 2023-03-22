@@ -743,7 +743,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
-                if( contains == 1 || "1".equals(test)) {
+                if( contains == 1 || "1".equals(test) || "client".equals(role)) {
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number);
 
