@@ -92,7 +92,7 @@
 
   <!-- 获取广告 -->
   <select id="getAdvertise" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='广告' and delete_status = 0 and studio = #{param1} order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target=#{param1} and delete_status = 0 and studio = #{param2} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取奖状模板 -->
