@@ -20,7 +20,7 @@ public interface UserMapper {
     List<Message> getCertificateByName(String studio,String student_name);
 
     //获取
-    List<Message> getAdvertise(String studio);
+    List<Message> getAdvertise(String class_target,String studio,Integer page_start, Integer page_length);
 
     //获取
     List<Message> getPpt(Integer page_start, Integer page_length);

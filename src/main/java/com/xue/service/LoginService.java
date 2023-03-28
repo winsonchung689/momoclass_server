@@ -134,7 +134,7 @@ public interface LoginService {
 
     public List getOpenidByNick(String student_name,String studio);
 
-    public List getAdvertise(String studio);
+    public List getAdvertise(String class_target,String studio,Integer page);
 
     public List getBook(String studio,String dimension);
 

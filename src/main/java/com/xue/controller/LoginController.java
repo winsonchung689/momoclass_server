@@ -511,10 +511,10 @@ public class LoginController {
 	//	获取广告
 	@RequestMapping("/getAdvertise")
 	@ResponseBody
-	public List getAdvertise(String studio){
+	public List getAdvertise(String class_target,String studio,Integer page){
 		List list = null;
 		try {
-			list = loginService.getAdvertise(studio);
+			list = loginService.getAdvertise(class_target,studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2357,7 +2357,7 @@ public class LoginController {
 		message.setUuids(uuids);
 
 
-		if("课程体系".equals(class_target) || "环境".equals(class_target) ){
+		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
 				try {
 //					in = Imageutil.readImage(photo);
