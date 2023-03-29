@@ -212,6 +212,8 @@ public interface UserMapper {
 
     List<User> getUserByStudent(String student_name,String studio);
 
+    List<User> getUserByNickStudio(String nick_name,String studio);
+
     List<User> getComentStyle(String studio);
 
     List<User> getUserByNickName(String nickName);
