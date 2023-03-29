@@ -617,6 +617,10 @@
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days from user where  studio =#{param1} and delete_status = 0 order by role
   </select>
 
+  <select id="getBossByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days from user where  studio =#{param1} and role ='boss' and delete_status = 0 order by role
+  </select>
+
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where delete_status = 0 order by role
   </select>

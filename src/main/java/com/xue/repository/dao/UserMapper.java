@@ -217,6 +217,8 @@ public interface UserMapper {
     List<User> getUserByNickName(String nickName);
 
     List<User> getUserByStudio(String studio);
+
+    List<User> getBossByStudio(String studio);
     List<User> getAllUser();
 
     List<User> getStudio();

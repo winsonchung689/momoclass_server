@@ -2727,6 +2727,17 @@ public class LoginController {
 
 		User user_get= dao.getUser(openid).get(0);
 		String role_get = user_get.getRole();
+		String studio_get = user_get.getRole();
+
+		try {
+			User user_get_b = dao.getBossByStudio(studio_get).get(0);
+			if (user_get_b.getExpired_time().length() >0){
+				expired_time = user_get_b.getExpired_time();
+			}
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
 		//定义role
 		String role =null;
 		if (role_get.equals("boss")){
