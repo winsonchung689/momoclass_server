@@ -2727,7 +2727,7 @@ public class LoginController {
 
 		User user_get= dao.getUser(openid).get(0);
 		String role_get = user_get.getRole();
-		String studio_get = user_get.getRole();
+		String studio_get = user_get.getStudio();
 
 		try {
 			User user_get_b = dao.getBossByStudio(studio_get).get(0);
