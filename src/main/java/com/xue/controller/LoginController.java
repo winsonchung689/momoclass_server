@@ -82,20 +82,8 @@ public class LoginController {
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
 		try {
-			SignUp signUp = new SignUp();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-			String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-			signUp.setStudent_name(student_name);
-			signUp.setStudio(studio);
-			signUp.setSign_time(update_time);
-			signUp.setMark("划课_"+mark);
-			signUp.setCount(Float.parseFloat(consume_lesson_amount));
-			signUp.setSubject(subject);
-			loginService.insertSignUp(signUp);
-
 			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
 			System.out.printf("res:" + result);
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1410,6 +1398,31 @@ public class LoginController {
 		}
 		return 1;
 	}
+
+	@RequestMapping("/insertSignUp")
+	@ResponseBody
+	public int insertSignUp(String openid,String studio, String consume_lesson_amount,String student_name,String mark,String subject){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		SignUp signUp = new SignUp();
+		signUp.setStudent_name(student_name);
+		signUp.setStudio(studio);
+		signUp.setSign_time(update_time);
+		signUp.setMark("划课_"+mark);
+		signUp.setCount(Float.parseFloat(consume_lesson_amount));
+		signUp.setSubject(subject);
+		signUp.setTeacher(openid);
+		try {
+			loginService.insertSignUp(signUp);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 
 	@RequestMapping("/signUpSchedule")
 	@ResponseBody
