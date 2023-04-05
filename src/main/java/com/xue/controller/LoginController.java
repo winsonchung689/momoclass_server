@@ -1413,6 +1413,9 @@ public class LoginController {
 		signUp.setCount(Float.parseFloat(consume_lesson_amount));
 		signUp.setSubject(subject);
 		signUp.setTeacher(openid);
+		signUp.setCreate_time(update_time);
+		signUp.setDuration("00:00:00");
+		signUp.setClass_number("无班号");
 		try {
 			loginService.insertSignUp(signUp);
 		} catch (Exception e) {
