@@ -993,6 +993,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUserByNickStudioEq")
+	@ResponseBody
+	public List getUserByNickStudioEq(String nick_name,String studio){
+		List list = null;
+		try {
+			list = dao.getUserByNickStudioEq(nick_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取工作室列表
 	@RequestMapping("/getStudio")
 	@ResponseBody

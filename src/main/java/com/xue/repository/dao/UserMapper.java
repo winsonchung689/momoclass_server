@@ -214,6 +214,8 @@ public interface UserMapper {
 
     List<User> getUserByNickStudio(String nick_name,String studio);
 
+    List<User> getUserByNickStudioEq(String nick_name,String studio);
+
     List<User> getComentStyle(String studio);
 
     List<User> getUserByNickName(String nickName);
