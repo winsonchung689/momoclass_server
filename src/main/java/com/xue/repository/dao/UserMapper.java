@@ -176,6 +176,8 @@ public interface UserMapper {
 
     int updateUser(User user);
 
+    int updateOpenid(User user);
+
     int updateAvatar(User user);
 
     int updateUserDelete(User user);

@@ -639,6 +639,11 @@
   </update>
 
   <!-- 更新工作室 -->
+  <update id="updateOpenid" parameterType="com.xue.entity.model.User">
+    update user set openid =#{openid}, create_time=#{create_time},role=#{role},send_time=#{send_time} where studio=#{studio} and nick_name=#{nick_name} and delete_status = 0
+  </update>
+
+  <!-- 更新工作室 -->
   <update id="updateAvatar" parameterType="com.xue.entity.model.User">
     update user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>

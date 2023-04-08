@@ -2686,9 +2686,9 @@ public class LoginController {
 		}
         //获取 openid
 		String openid = request.getParameter("openid");
-//		if(openid.length()!=28){
-//			return "invalid openid！！";
-//		}
+		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
+			openid = "no_openid";
+		}
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 

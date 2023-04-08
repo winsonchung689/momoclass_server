@@ -1386,6 +1386,10 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             result = dao.updateUser(user);
+            String openid = user.getOpenid();
+            if(result == 0 && openid != "no_openid"){
+                result = dao.updateOpenid(user);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
