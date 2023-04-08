@@ -2674,6 +2674,9 @@ public class LoginController {
 
 		//获取用户名
 		String nick_name = request.getParameter("nick_name");
+
+		String studio = request.getParameter("studio");
+
 		//获取学生名
 		String student_name = request.getParameter("student_name");
 		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
@@ -2687,12 +2690,11 @@ public class LoginController {
         //获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
-			openid = "no_openid";
+			openid = nick_name + "_" + studio;
 		}
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 
-		String studio = request.getParameter("studio");
 		List<User> list_send = dao.getUserSendTime(studio);
 		String send_time = "12:00:00";
 		Integer display = 1;
