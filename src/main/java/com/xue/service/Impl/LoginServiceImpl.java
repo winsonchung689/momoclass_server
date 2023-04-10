@@ -3324,6 +3324,7 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject_get = line.getSubject();
+                studio = line.getStudio();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -3345,6 +3346,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("owe", owe);
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("parent", parent);
+                jsonObject.put("studio", studio);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
