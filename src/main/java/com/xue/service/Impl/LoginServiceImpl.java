@@ -3306,7 +3306,7 @@ public class LoginServiceImpl implements LoginService {
 
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";
-                String avatarurl = "未绑定";
+                String avatarurl = "";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
