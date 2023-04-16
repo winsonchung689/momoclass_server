@@ -862,6 +862,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCommentByDateDuration")
+	@ResponseBody
+	public List getCommentByDateDuration(String student_name,String studio,String date_time,String duration){
+		List list = null;
+		try {
+			list = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
