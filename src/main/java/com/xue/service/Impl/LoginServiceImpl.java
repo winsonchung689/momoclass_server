@@ -2802,6 +2802,17 @@ public class LoginServiceImpl implements LoginService {
                     positive = line.getPositive();
                     discipline = line.getDiscipline();
                     happiness = line.getHappiness();
+                    String uuids = null;
+                    try {
+                        uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
+                    if(uuids != null){
+                        photo = null;
+
+                    }
+
 
                     try {
                         List<Lesson> lessons = dao.getLessonByName(student_name, studio);
@@ -2832,6 +2843,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("positive", positive);
                     jsonObject.put("discipline", discipline);
                     jsonObject.put("happiness", happiness);
+                    jsonObject.put("uuids", uuids);
                     resul_list.add(jsonObject);
                 }
             }
