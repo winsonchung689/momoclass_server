@@ -1670,7 +1670,7 @@ public class LoginController {
 			lesson.setStudent_name(student_name);
 			lesson.setTotal_amount(Float.parseFloat(total_amount));
 			lesson.setLeft_amount(Float.parseFloat(left_amount));
-			dao.updateLesson(lesson);
+			dao.insertLesson(lesson);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
