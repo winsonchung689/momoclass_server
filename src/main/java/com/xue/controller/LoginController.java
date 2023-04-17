@@ -1656,12 +1656,20 @@ public class LoginController {
 	@RequestMapping("/singleAdd")
 	@ResponseBody
 	public int singleAdd(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		String subject = request.getParameter("subject");
 		String studio = request.getParameter("studio");
 		String student_name = request.getParameter("student_name");
 		String total_amount = request.getParameter("total_amount");
-		String left_amount = request.getParameter("left_amount");
+		String left_amount = request.getParameter("left_amount")
 
 		try {
 			Lesson lesson =new Lesson();
@@ -1670,6 +1678,10 @@ public class LoginController {
 			lesson.setStudent_name(student_name);
 			lesson.setTotal_amount(Float.parseFloat(total_amount));
 			lesson.setLeft_amount(Float.parseFloat(left_amount));
+			lesson.setCreate_time(create_time);
+			lesson.setCoins(1.00f);
+			lesson.setPoints(0);
+			lesson.setMinus(1.00f);
 			dao.insertLesson(lesson);
 		} catch (Exception e) {
 			e.printStackTrace();
