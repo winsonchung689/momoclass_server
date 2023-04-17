@@ -2989,6 +2989,7 @@ public class LoginController {
 		//获取用户名
 		String subject = request.getParameter("subject");
 
+		//默认值必填 全科目
 		String subject_new = request.getParameter("subject_new");
 
 		// 发放开课礼物
