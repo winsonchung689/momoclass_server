@@ -2990,9 +2990,6 @@ public class LoginController {
 		String subject = request.getParameter("subject");
 
 		String subject_new = request.getParameter("subject_new");
-		if(subject_new == null || subject_new.isEmpty() || "undefined".equals(subject_new)){
-			subject_new = "全科目";
-		}
 
 		// 发放开课礼物
 		String gift_name = request.getParameter("gift_name");
