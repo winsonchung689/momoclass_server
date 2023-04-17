@@ -1669,7 +1669,7 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 		String student_name = request.getParameter("student_name");
 		String total_amount = request.getParameter("total_amount");
-		String left_amount = request.getParameter("left_amount")
+		String left_amount = request.getParameter("left_amount");
 
 		try {
 			Lesson lesson =new Lesson();
