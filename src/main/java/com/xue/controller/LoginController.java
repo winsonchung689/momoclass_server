@@ -1653,6 +1653,32 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/singleAdd")
+	@ResponseBody
+	public int singleAdd(HttpServletRequest request, HttpServletResponse response){
+
+		String subject = request.getParameter("subject");
+		String studio = request.getParameter("studio");
+		String student_name = request.getParameter("student_name");
+		String total_amount = request.getParameter("total_amount");
+		String left_amount = request.getParameter("left_amount");
+
+		try {
+			Lesson lesson =new Lesson();
+			lesson.setSubject(subject);
+			lesson.setStudio(studio);
+			lesson.setStudent_name(student_name);
+			lesson.setTotal_amount(Float.parseFloat(total_amount));
+			lesson.setLeft_amount(Float.parseFloat(left_amount));
+			dao.updateLesson(lesson);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateComment")
 	@ResponseBody
 	public int updateComment(HttpServletRequest request, HttpServletResponse response){
