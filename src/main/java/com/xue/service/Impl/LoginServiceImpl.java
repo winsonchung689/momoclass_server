@@ -946,14 +946,10 @@ public class LoginServiceImpl implements LoginService {
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
-            List<User> user_list = dao.getUser(openid);
-            String role_get = user_list.get(0).getRole();
-
             List<Schedule> list=null;
             list = dao.getScheduleByClassOrdinary(weekDay,duration,studio,class_number,subject);
             list_tra = dao.getScheduleByClassTransferred(date_time,duration,studio,class_number,subject);
             list.addAll(list_tra);
-
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
