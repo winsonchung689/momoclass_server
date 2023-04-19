@@ -495,6 +495,7 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
+        String student_string = null;
 
         if(dayofweek==7){
             dayofweek_by=1;
@@ -534,6 +535,7 @@ public class LoginServiceImpl implements LoginService {
                 if("client".equals(role)){
                     for(int j = 0; j < user_get_size;j++){
                         String student_name = user_get.get(j).getStudent_name();
+                        student_string = student_string + "," + student_name;
                         class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name);
                         uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject);
                         if(class_res > 0){
@@ -578,6 +580,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("classes_count_all",classes_count_all);
                 jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
                 jsonObject.put("uncomfirmed_count",uncomfirmed_count);
+                jsonObject.put("student_string",student_string);
                 resul_list.add(jsonObject);
             }
 
