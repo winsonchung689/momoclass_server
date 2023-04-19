@@ -495,7 +495,6 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
-        String student_string = null;
 
         if(dayofweek==7){
             dayofweek_by=1;
@@ -533,6 +532,7 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
 
                 if("client".equals(role)){
+                    String student_string = null;
                     for(int j = 0; j < user_get_size;j++){
                         String student_name = user_get.get(j).getStudent_name();
                         student_string = student_string + "," + student_name;
