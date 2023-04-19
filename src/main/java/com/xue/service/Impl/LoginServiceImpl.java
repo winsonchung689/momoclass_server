@@ -519,6 +519,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                String student_string = null;
                 Integer classes_count =0;
                 Integer uncomfirmed_count = 0;
                 JSONObject jsonObject = new JSONObject();
@@ -532,7 +533,6 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
 
                 if("client".equals(role)){
-                    String student_string = null;
                     for(int j = 0; j < user_get_size;j++){
                         String student_name = user_get.get(j).getStudent_name();
                         student_string = student_string + "," + student_name;
