@@ -2962,6 +2962,7 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list=null;
         String duration = null;
         String class_name = null;
+        String mp3_url = null;
 
         try {
             list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
@@ -2977,6 +2978,7 @@ public class LoginServiceImpl implements LoginService {
                     duration = line.getDuration();
                     photo = line.getPhoto();
                     class_name = line.getClass_name();
+                    mp3_url = line.getMp3_url();
                     try {
                         uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                     } catch (Exception e) {
@@ -2995,6 +2997,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("photo", photo);
                     jsonObject.put("class_name", class_name);
                     jsonObject.put("uuids", uuids);
+                    jsonObject.put("mp3_url", mp3_url);
                     resul_list.add(jsonObject);
                 }
             }
