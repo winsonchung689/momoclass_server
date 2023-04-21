@@ -167,6 +167,7 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing3").put("value","签到成功");
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",left + "课时");
 		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",thing8);
+		queryJson.put("page","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
 
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
