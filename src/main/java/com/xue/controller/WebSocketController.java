@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/websocket")
 public class WebSocketController {
 
-    @GetMapping("/pushone")
-    public void pushone(){
-        WebSocketService.sendMessage("baoba","test");
+    @GetMapping("/sendNotification")
+    public void sendNotification(String openid,String message){
+        WebSocketService.sendMessage(openid,message);
     }
 }
