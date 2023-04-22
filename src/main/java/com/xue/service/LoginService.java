@@ -48,6 +48,8 @@ public interface LoginService {
 
     public List  getSignUp(String student_name,String studio,String subject);
 
+    public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration);
+
     public List  getGift(String student_name,String studio);
 
     public List  getLeaveRecord(String student_name,String studio,String leave_type,String subject);
