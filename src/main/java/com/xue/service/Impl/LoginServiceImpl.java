@@ -7,6 +7,7 @@ import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1420,7 +1421,8 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             String nick_name = user.getNick_name();
             String studio = user.getStudio();
-            if(result == 0 && !openid.equals(nick_name + "_" + studio)){
+            String md5 = DigestUtils.md5Hex(nick_name + studio);
+            if(result == 0 && !openid.equals(md5)){
                 result = dao.updateOpenid(user);
             }
         } catch (Exception e) {
