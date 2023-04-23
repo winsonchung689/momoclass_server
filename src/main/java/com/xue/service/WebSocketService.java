@@ -36,7 +36,7 @@ public class WebSocketService {
         client.setUri(session.getRequestURI().toString());
         webSocketMap.put(userName,client);
 
-        log.info("connecting --- ");
+//        log.info("connecting --- ");
         try {
             sendMessage("成功");
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class WebSocketService {
                 subOnlineCount();
             }
         }
-        log.info("当前人数为：" + getOnlineCount());
+//        log.info("当前人数为：" + getOnlineCount());
     }
 
     @OnMessage
