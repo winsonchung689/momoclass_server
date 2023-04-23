@@ -37,6 +37,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @Controller
 public class LoginController {
@@ -2766,7 +2767,8 @@ public class LoginController {
         //获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
-			openid = nick_name + "_" + studio;
+//			openid = nick_name + "_" + studio;
+			openid = DigestUtils.md5Hex(nick_name + studio);
 		}
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
