@@ -20,6 +20,8 @@ import nl.martijndwars.webpush.Subscription;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.aspectj.weaver.ast.Or;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.jose4j.lang.BouncyCastleProviderHelp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.security.Security;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -3400,6 +3403,7 @@ public class LoginController {
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
 	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson){
+		Security.addProvider(new BouncyCastleProvider());
 
 		try {
 			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY, SUBJECT);
