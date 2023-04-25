@@ -3,6 +3,7 @@ package com.xue.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
+import com.google.gson.Gson;
 import com.xue.JsonUtils.JsonUtils;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
@@ -13,7 +14,11 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import nl.martijndwars.webpush.Notification;
+import nl.martijndwars.webpush.PushService;
+import nl.martijndwars.webpush.Subscription;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpResponse;
 import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -3389,6 +3391,29 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+
+	private static final String PUBLIC_KEY = "BLCgkVlBgC37Mk-8n0G0GMXyXiLVJDudK6A1DCGqLvaeu87B-GZw9jzzybRJ4vZE5BxYGhNGePeiDRWj06bit2o";
+	private static final String PRIVATE_KEY = "NulDpKbxecsYor6p1DVhWOm1j3e2VGHRxxmP__B3f-w";
+	private static final String SUBJECT = "Foobarbaz";
+	private static final String PAYLOAD = "My fancy message";
+
+	@RequestMapping("/sendSubscriptionJson")
+	@ResponseBody
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson){
+
+		try {
+			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY, SUBJECT);
+			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
+			Notification notification = new Notification(subscription, PAYLOAD);
+			HttpResponse httpResponse = pushService.send(notification);
+			int statusCode = httpResponse.getStatusLine().getStatusCode();
+
+			return String.valueOf(statusCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "something is wrong";
+		}
+	}
 }
 	
 	
