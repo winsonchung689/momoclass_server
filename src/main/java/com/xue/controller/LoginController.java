@@ -44,6 +44,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import static org.apache.coyote.Response.log;
+
 @Controller
 public class LoginController {
 	
@@ -3406,10 +3408,13 @@ public class LoginController {
 		Security.addProvider(new BouncyCastleProvider());
 
 		try {
+			logger.info("starting pushing --- ");
 			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY, SUBJECT);
 			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
 			Notification notification = new Notification(subscription, PAYLOAD);
+			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
+			logger.info(httpResponse);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
 			return String.valueOf(statusCode);
