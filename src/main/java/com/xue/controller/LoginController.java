@@ -3414,7 +3414,6 @@ public class LoginController {
 			Notification notification = new Notification(subscription, PAYLOAD);
 			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
-			logger.info(httpResponse);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
 			return String.valueOf(statusCode);
