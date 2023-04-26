@@ -3425,6 +3425,7 @@ public class LoginController {
 			HttpResponse httpResponse = pushService.send(notification);
 			logger.info("ending --- ");
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
+			logger.info(String.valueOf(statusCode));
 			return String.valueOf(statusCode);
 		} catch (Exception e) {
 			e.printStackTrace();
