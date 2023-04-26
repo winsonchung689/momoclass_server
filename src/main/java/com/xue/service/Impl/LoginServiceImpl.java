@@ -1524,6 +1524,7 @@ public class LoginServiceImpl implements LoginService {
         String subjects = null;
         List<User> list= new ArrayList<>();;
         String send_time = null;
+        String subscription = null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -1583,6 +1584,7 @@ public class LoginServiceImpl implements LoginService {
                 location = line.getLocation();
                 subjects = line.getSubjects();
                 send_time = line.getSend_time();
+                subscription = line.getSubscription();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio);
@@ -1613,6 +1615,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("location",location);
                 jsonObject.put("subjects",subjects);
                 jsonObject.put("send_time",send_time);
+                jsonObject.put("subscription",subscription);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
