@@ -3411,18 +3411,14 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-
-	private static final String PUBLIC_KEY = "BLCgkVlBgC37Mk-8n0G0GMXyXiLVJDudK6A1DCGqLvaeu87B-GZw9jzzybRJ4vZE5BxYGhNGePeiDRWj06bit2o";
-	private static final String PRIVATE_KEY = "NulDpKbxecsYor6p1DVhWOm1j3e2VGHRxxmP__B3f-w";
-
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload){
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key){
 		Security.addProvider(new BouncyCastleProvider());
 		try {
 			logger.info("starting pushing --- ");
 			logger.info("subscriptionJson :" + subscriptionJson);
-			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY);
+			PushService pushService = new PushService(public_key, private_key);
 			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
 			Notification notification = new Notification(subscription, payload);
 			logger.info("starting sending --- ");
