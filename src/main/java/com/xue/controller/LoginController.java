@@ -3426,6 +3426,10 @@ public class LoginController {
 			logger.info("ending --- ");
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			logger.info(String.valueOf(statusCode));
+
+			String  response = httpResponse.getStatusLine().getReasonPhrase();
+			logger.info(response);
+
 			return String.valueOf(statusCode);
 		} catch (Exception e) {
 			e.printStackTrace();
