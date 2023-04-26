@@ -3414,7 +3414,7 @@ public class LoginController {
 
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key,String endpoint){
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key){
 		Security.addProvider(new BouncyCastleProvider());
 
 
@@ -3427,13 +3427,25 @@ public class LoginController {
 			pushService.setGcmApiKey("BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk");
 
 			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
-			Notification notification = new Notification(subscription, payload);
-//			Notification notification = new Notification(
-//					endpoint,
-//					payload,
-//					public_key,
-//					private_key
-//			);
+			logger.info(subscriptionJson);
+
+			JSONObject json=(JSONObject) JSONObject.toJSON(JSON.parse(subscriptionJson));
+			String endpoint_string = json.getString("endpoint");
+			String auth_string = json.getJSONObject("keys").getString("auth");
+
+			logger.info(endpoint_string);
+			logger.info(public_key);
+			logger.info(private_key);
+			logger.info(auth_string);
+
+
+//			Notification notification = new Notification(subscription, payload);
+			Notification notification = new Notification(
+					endpoint_string,
+					public_key,
+					auth_string,
+					payload
+			);
 
 			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
