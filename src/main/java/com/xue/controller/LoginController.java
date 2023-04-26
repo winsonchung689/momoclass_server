@@ -42,6 +42,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import nl.martijndwars.webpush.*;
 
 @Controller
 public class LoginController {
@@ -3413,14 +3414,27 @@ public class LoginController {
 
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key){
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key,String endpoint){
 		Security.addProvider(new BouncyCastleProvider());
+
+
+
 		try {
 			logger.info("starting pushing --- ");
 			logger.info("subscriptionJson :" + subscriptionJson);
 			PushService pushService = new PushService(public_key, private_key);
+
+			pushService.setGcmApiKey("BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk");
+
 			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
 			Notification notification = new Notification(subscription, payload);
+//			Notification notification = new Notification(
+//					endpoint,
+//					payload,
+//					public_key,
+//					private_key
+//			);
+
 			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
 			logger.info("ending --- ");
