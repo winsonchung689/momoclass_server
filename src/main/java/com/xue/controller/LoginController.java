@@ -3414,23 +3414,21 @@ public class LoginController {
 
 	private static final String PUBLIC_KEY = "BLCgkVlBgC37Mk-8n0G0GMXyXiLVJDudK6A1DCGqLvaeu87B-GZw9jzzybRJ4vZE5BxYGhNGePeiDRWj06bit2o";
 	private static final String PRIVATE_KEY = "NulDpKbxecsYor6p1DVhWOm1j3e2VGHRxxmP__B3f-w";
-	private static final String SUBJECT = "Foobarbaz";
-	private static final String PAYLOAD = "My fancy message";
 
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson){
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload){
 		Security.addProvider(new BouncyCastleProvider());
-
 		try {
 			logger.info("starting pushing --- ");
-			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY, SUBJECT);
+			logger.info("subscriptionJson :" + subscriptionJson);
+			PushService pushService = new PushService(PUBLIC_KEY, PRIVATE_KEY);
 			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
-			Notification notification = new Notification(subscription, PAYLOAD);
+			Notification notification = new Notification(subscription, payload);
 			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
+			logger.info("ending --- ");
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
-
 			return String.valueOf(statusCode);
 		} catch (Exception e) {
 			e.printStackTrace();
