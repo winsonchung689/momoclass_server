@@ -874,6 +874,10 @@
     update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} where openid=#{openid}
   </update>
 
+  <update id="updateSubscription" parameterType="com.xue.entity.model.User">
+    update user set subscription=#{subscription} where openid=#{openid}
+  </update>
+
   <!-- 更新科目 -->
   <update id="updateSubject" parameterType="com.xue.entity.model.User">
     update user set subjects=#{subjects} where openid=#{openid}

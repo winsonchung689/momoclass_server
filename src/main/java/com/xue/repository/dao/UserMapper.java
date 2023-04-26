@@ -192,6 +192,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateSubscription(User user);
+
     int updateSubject(User user);
 
     int updateTheme(String theme,String param2);

@@ -44,6 +44,15 @@ public class User {
 
     private String id;
 
+    private String subscription;
+
+    public String getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(String subscription) {
+        this.subscription = subscription;
+    }
 
     public Integer getDays() {
         return days;

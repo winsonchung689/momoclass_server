@@ -34,7 +34,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -43,8 +42,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
-
-import static org.apache.coyote.Response.log;
 
 @Controller
 public class LoginController {
@@ -3229,6 +3226,24 @@ public class LoginController {
 
 		try {
 			dao.updateUserPay(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateSubscription")
+	@ResponseBody
+	public String updateSubscription(HttpServletRequest request, HttpServletResponse response){
+		String openid = request.getParameter("openid");
+		String subscription = request.getParameter("subscription");
+
+		User user=new User();
+		user.setOpenid(openid);
+		user.setSubscription(subscription);
+
+		try {
+			dao.updateSubscription(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
