@@ -9,6 +9,7 @@ import com.xue.entity.model.*;
 //import com.xue.entity.model.Subscription;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
 import com.xue.util.Imageutil;
 import jxl.Cell;
@@ -62,6 +63,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private WebPushService webPushService;
 
 	@Autowired
 	private UserMapper dao;
@@ -3413,58 +3417,18 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	private static final int TTL = 255;
-	private static final String SUBJECT = "Firefox";
-
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") Subscription subscription,String payload,String public_key,String private_key){
-		Security.addProvider(new BouncyCastleProvider());
+	public String sendSubscriptionJson(String subscription,String message){
 
 		try {
-			logger.info("starting pushing --- ");
-//			logger.info("subscriptionJson :" + subscriptionJson);
-			PushService pushService = new PushService(public_key, private_key);
+			logger.info("开始...");
+			Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
+			logger.info(subscriptionGson.endpoint);
+			logger.info(subscriptionGson.keys.toString());
 
-//			pushService.setGcmApiKey("BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk");
-
-//			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
-//			logger.info(subscriptionJson);
-
-//			JSONObject json=(JSONObject) JSONObject.toJSON(JSON.parse(subscriptionJson));
-//			String endpoint_string = json.getString("endpoint");
-//			String endpoint_keys = json.getString("keys");
-//			String auth_string = json.getJSONObject("keys").getString("auth");
-
-//			Subscription subscription =new Subscription();
-//			subscription.setEndpoint(endpoint_string);
-//			subscription.setKey(public_key);
-//			subscription.setAuth(auth_string);
-
-//			logger.info(endpoint_string);
-//			logger.info(public_key);
-//			logger.info(private_key);
-//			logger.info(auth_string);
-
-
-			Notification notification = new Notification(subscription, payload);
-//			Notification notification = new Notification(
-//					subscription.getEndpoint(),
-//					subscription.getKey(),
-//					subscription.getAuth(),
-//					payload
-//			);
-
-			logger.info("starting sending --- ");
-			HttpResponse httpResponse = pushService.send(notification);
-			logger.info("ending --- ");
-			int statusCode = httpResponse.getStatusLine().getStatusCode();
-			logger.info(String.valueOf(statusCode));
-
-			String  response = httpResponse.getStatusLine().getReasonPhrase();
-			logger.info(response);
-
-			return String.valueOf(statusCode);
+			webPushService.sendNotification(subscriptionGson,message);
+			return "";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "something is wrong";
