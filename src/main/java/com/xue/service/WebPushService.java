@@ -6,6 +6,8 @@ import nl.martijndwars.webpush.Subscription;
 import org.apache.http.HttpResponse;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jose4j.lang.JoseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class WebPushService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 //    @Value("${vapid.public.key}")
 //    private String publicKey;
@@ -40,8 +44,10 @@ public class WebPushService {
 
     public String sendNotification(Subscription subscription, String messageJson) {
         try {
+            logger.info("sending..");
             HttpResponse httpResponse = pushService.send(new Notification(subscription, messageJson));
             int statusCode = httpResponse.getStatusLine().getStatusCode();
+            logger.info("statusCode: " + statusCode);
             return String.valueOf(statusCode);
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             e.printStackTrace();

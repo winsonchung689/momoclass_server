@@ -3425,10 +3425,10 @@ public class LoginController {
 			logger.info("开始...");
 			Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
 			logger.info(subscriptionGson.endpoint);
-			logger.info(subscriptionGson.keys.toString());
+			logger.info(subscriptionGson.keys.auth);
 
-			webPushService.sendNotification(subscriptionGson,message);
-			return "";
+			String status = webPushService.sendNotification(subscriptionGson,message);
+			return status;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "something is wrong";
