@@ -3424,8 +3424,6 @@ public class LoginController {
 		try {
 			logger.info("开始...");
 			Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
-			logger.info(subscriptionGson.endpoint);
-			logger.info(subscriptionGson.keys.auth);
 
 			String status = webPushService.sendNotification(subscriptionGson,message);
 			return status;

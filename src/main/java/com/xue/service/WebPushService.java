@@ -1,8 +1,10 @@
 package com.xue.service;
 
+import com.alibaba.fastjson.JSONObject;
 import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 import nl.martijndwars.webpush.Subscription;
+import nl.martijndwars.webpush.Utils;
 import org.apache.http.HttpResponse;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jose4j.lang.JoseException;
@@ -35,19 +37,46 @@ public class WebPushService {
     @PostConstruct
     private void init() throws GeneralSecurityException {
         Security.addProvider(new BouncyCastleProvider());
-        pushService = new PushService(publicKey, privateKey);
+        pushService = new PushService();
     }
 
     public String getPublicKey() {
         return publicKey;
     }
 
-    public String sendNotification(Subscription subscription, String messageJson) {
+    public String sendNotification(Subscription subscription, String payload) {
         try {
+            //endpoint
+            String endpoint = subscription.endpoint;
+            logger.info("endpoint: " + endpoint);
+
+            //user key/auth
+            String userPlickKey =  subscription.keys.p256dh;
+            String userAuth = subscription.keys.auth;
+            logger.info("userPlickKey: " + userPlickKey);
+            logger.info("userAuth: " + userAuth);
+
+            // server public key/private key
+            String vapidPublicKey = publicKey;
+            String vapidPrivateKey = privateKey;
+            logger.info("vapidPublicKey: " + vapidPublicKey);
+            logger.info("vapidPrivateKey: " + vapidPrivateKey);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("title","Hello");
+            jsonObject.put("message","World -- java web");
+
+            Notification notification = new Notification(endpoint,userPlickKey,userAuth,jsonObject.toString().getBytes());
+            pushService.setSubject("mailto:exmaple@yourdomai.org");
+            pushService.setPublicKey(Utils.loadPublicKey(vapidPublicKey));
+            pushService.setPrivateKey(Utils.loadPrivateKey(vapidPrivateKey));
+
             logger.info("sending..");
-            HttpResponse httpResponse = pushService.send(new Notification(subscription, messageJson));
+            HttpResponse httpResponse = pushService.send(notification);
+            logger.info("Content : " + httpResponse);
+
             int statusCode = httpResponse.getStatusLine().getStatusCode();
-            logger.info("statusCode: " + statusCode);
+
             return String.valueOf(statusCode);
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             e.printStackTrace();
