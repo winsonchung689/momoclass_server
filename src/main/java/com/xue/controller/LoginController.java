@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONArray;
 import com.google.gson.Gson;
 import com.xue.JsonUtils.JsonUtils;
 import com.xue.entity.model.*;
+//import com.xue.entity.model.Subscription;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
@@ -3412,40 +3413,47 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	private static final int TTL = 255;
+	private static final String SUBJECT = "Firefox";
+
 	@RequestMapping("/sendSubscriptionJson")
 	@ResponseBody
-	public String sendSubscriptionJson(@RequestParam("subscriptionJson") String subscriptionJson,String payload,String public_key,String private_key){
+	public String sendSubscriptionJson(@RequestParam("subscriptionJson") Subscription subscription,String payload,String public_key,String private_key){
 		Security.addProvider(new BouncyCastleProvider());
-
-
 
 		try {
 			logger.info("starting pushing --- ");
-			logger.info("subscriptionJson :" + subscriptionJson);
+//			logger.info("subscriptionJson :" + subscriptionJson);
 			PushService pushService = new PushService(public_key, private_key);
 
-			pushService.setGcmApiKey("BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk");
+//			pushService.setGcmApiKey("BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk");
 
-			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
-			logger.info(subscriptionJson);
+//			Subscription subscription = new Gson().fromJson(subscriptionJson, Subscription.class);
+//			logger.info(subscriptionJson);
 
-			JSONObject json=(JSONObject) JSONObject.toJSON(JSON.parse(subscriptionJson));
-			String endpoint_string = json.getString("endpoint");
-			String auth_string = json.getJSONObject("keys").getString("auth");
+//			JSONObject json=(JSONObject) JSONObject.toJSON(JSON.parse(subscriptionJson));
+//			String endpoint_string = json.getString("endpoint");
+//			String endpoint_keys = json.getString("keys");
+//			String auth_string = json.getJSONObject("keys").getString("auth");
 
-			logger.info(endpoint_string);
-			logger.info(public_key);
-			logger.info(private_key);
-			logger.info(auth_string);
+//			Subscription subscription =new Subscription();
+//			subscription.setEndpoint(endpoint_string);
+//			subscription.setKey(public_key);
+//			subscription.setAuth(auth_string);
+
+//			logger.info(endpoint_string);
+//			logger.info(public_key);
+//			logger.info(private_key);
+//			logger.info(auth_string);
 
 
-//			Notification notification = new Notification(subscription, payload);
-			Notification notification = new Notification(
-					endpoint_string,
-					public_key,
-					auth_string,
-					payload
-			);
+			Notification notification = new Notification(subscription, payload);
+//			Notification notification = new Notification(
+//					subscription.getEndpoint(),
+//					subscription.getKey(),
+//					subscription.getAuth(),
+//					payload
+//			);
 
 			logger.info("starting sending --- ");
 			HttpResponse httpResponse = pushService.send(notification);
