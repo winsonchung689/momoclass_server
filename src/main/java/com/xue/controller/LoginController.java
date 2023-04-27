@@ -3417,15 +3417,15 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/sendSubscriptionJson")
+	@RequestMapping("/sendSubscription")
 	@ResponseBody
-	public String sendSubscriptionJson(String subscription,String message){
+	public String sendSubscription(String subscription,String publickey,String privatekey,String payload){
 
 		try {
 			logger.info("开始...");
 			Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
-
-			String status = webPushService.sendNotification(subscriptionGson,message);
+			String status = webPushService.sendNotification(subscriptionGson,publickey,privatekey,payload);
+			logger.info("status: " + status);
 			return status;
 		} catch (Exception e) {
 			e.printStackTrace();

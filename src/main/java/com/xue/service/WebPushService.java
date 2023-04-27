@@ -29,8 +29,8 @@ public class WebPushService {
 //    @Value("${vapid.private.key}")
 //    private String privateKey;
 
-    private static final String publicKey = "BP75YB6apr3U36uUoAGd_oEF4pK3QLu4RQl5jKA7SBvjPs5ssoQzVZKccSqKH-PXBgB5AAp_F4knCx3QRR9Pavg";
-    private static final String privateKey = "6ZAkoZHBvfPRq-0KLIK2ePLZ6HBmpOWVWae2DEuz0Lg";
+//    private static final String publicKey = "BP75YB6apr3U36uUoAGd_oEF4pK3QLu4RQl5jKA7SBvjPs5ssoQzVZKccSqKH-PXBgB5AAp_F4knCx3QRR9Pavg";
+//    private static final String privateKey = "6ZAkoZHBvfPRq-0KLIK2ePLZ6HBmpOWVWae2DEuz0Lg";
     private static final String GCMKey = "BBTlFdrD-2wGu50fiPgO2eMw2L9JW7Y6BGrt6nXmkXqxHnyX2SlXSy7EfFXCOzz0rxuubJcJFA86hQaTfdA0jXk";
 
     private PushService pushService;
@@ -41,11 +41,7 @@ public class WebPushService {
         pushService = new PushService();
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String sendNotification(Subscription subscription, String payload) {
+    public String sendNotification(Subscription subscription,String publickey,String privatekey, String payload) {
         try {
             //endpoint
             String endpoint = subscription.endpoint;
@@ -58,22 +54,21 @@ public class WebPushService {
             logger.info("userAuth: " + userAuth);
 
             // server public key/private key
-            String vapidPublicKey = publicKey;
-            String vapidPrivateKey = privateKey;
+            String vapidPublicKey = publickey;
+            String vapidPrivateKey = privatekey;
             logger.info("vapidPublicKey: " + vapidPublicKey);
             logger.info("vapidPrivateKey: " + vapidPrivateKey);
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("title","Hello");
-            jsonObject.put("message","World -- java web");
+            jsonObject.put("message",payload);
 
             Notification notification = new Notification(endpoint,userPlickKey,userAuth,jsonObject.toString().getBytes());
             pushService.setSubject("mailto:exmaple@yourdomai.org");
             pushService.setPublicKey(Utils.loadPublicKey(vapidPublicKey));
             pushService.setPrivateKey(Utils.loadPrivateKey(vapidPrivateKey));
 
-            pushService.setGcmApiKey(GCMKey);
-
+//            pushService.setGcmApiKey(GCMKey);
 
             logger.info("sending..");
             HttpResponse httpResponse = pushService.send(notification);
