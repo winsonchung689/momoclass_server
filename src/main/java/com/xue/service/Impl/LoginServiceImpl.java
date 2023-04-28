@@ -1704,6 +1704,7 @@ public class LoginServiceImpl implements LoginService {
         List<User> list= null;
         String id = null;
         Integer days=0;
+        String subscription = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUserByStudio(studio);
@@ -1725,6 +1726,7 @@ public class LoginServiceImpl implements LoginService {
                 subjects = line.getSubjects();
                 id = line.getId();
                 days = line.getDays();
+                subscription = line.getSubscription();
 
 
                 //json
@@ -1742,6 +1744,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_style",comment_style);
                 jsonObject.put("openid",openid);
                 jsonObject.put("subjects",subjects);
+                jsonObject.put("subscription",subscription);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
