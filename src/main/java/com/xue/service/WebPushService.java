@@ -59,10 +59,10 @@ public class WebPushService {
             logger.info("vapidPublicKey: " + vapidPublicKey);
             logger.info("vapidPrivateKey: " + vapidPrivateKey);
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("message",payload);
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("message",payload);
 
-            Notification notification = new Notification(endpoint,userPlickKey,userAuth,jsonObject.toString().getBytes());
+            Notification notification = new Notification(endpoint,userPlickKey,userAuth,payload.getBytes());
             pushService.setSubject("mailto:exmaple@yourdomai.org");
             pushService.setPublicKey(Utils.loadPublicKey(vapidPublicKey));
             pushService.setPrivateKey(Utils.loadPrivateKey(vapidPrivateKey));
