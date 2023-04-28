@@ -45,19 +45,13 @@ public class WebPushService {
         try {
             //endpoint
             String endpoint = subscription.endpoint;
-            logger.info("endpoint: " + endpoint);
-
             //user key/auth
             String userPlickKey =  subscription.keys.p256dh;
             String userAuth = subscription.keys.auth;
-            logger.info("userPlickKey: " + userPlickKey);
-            logger.info("userAuth: " + userAuth);
 
             // server public key/private key
             String vapidPublicKey = publickey;
             String vapidPrivateKey = privatekey;
-            logger.info("vapidPublicKey: " + vapidPublicKey);
-            logger.info("vapidPrivateKey: " + vapidPrivateKey);
 
 //            JSONObject jsonObject = new JSONObject();
 //            jsonObject.put("message",payload);
@@ -72,9 +66,7 @@ public class WebPushService {
             logger.info("sending..");
             HttpResponse httpResponse = pushService.send(notification);
             logger.info("Content : " + httpResponse);
-
             int statusCode = httpResponse.getStatusLine().getStatusCode();
-
             return String.valueOf(statusCode);
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             e.printStackTrace();
