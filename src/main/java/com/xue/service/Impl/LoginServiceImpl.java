@@ -386,6 +386,7 @@ public class LoginServiceImpl implements LoginService {
     public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration) {
         String id = null;
         String openid = null;
+        String subscription = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -398,10 +399,12 @@ public class LoginServiceImpl implements LoginService {
                 List<User> users = dao.getUserByStudent(student_name,studio);
                 if(users.size()>0){
                     openid = users.get(0).getOpenid();
+                    subscription = users.get(0).getSubscription();
                 }
 
                 jsonObject.put("id",id);
                 jsonObject.put("openid",openid);
+                jsonObject.put("subscription",subscription);
                 resul_list.add(jsonObject);
             }
 
