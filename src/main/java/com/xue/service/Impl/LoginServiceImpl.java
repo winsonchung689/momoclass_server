@@ -3,10 +3,13 @@ package com.xue.service.Impl;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
+import nl.martijndwars.webpush.Subscription;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UserMapper dao;
+
+    @Autowired
+    private WebPushService webPushService;
 
     @Override
     public int push(Message message) {
@@ -2659,10 +2665,13 @@ public class LoginServiceImpl implements LoginService {
         String expried_time = null;
         List<User> list= null;
         Integer remind = 0;
+        String subscription =null;
         List<Schedule> list_schedule = null;
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+        String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
+        String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
 
         list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
@@ -2673,6 +2682,7 @@ public class LoginServiceImpl implements LoginService {
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
             expried_time = user.getExpired_time();
+            subscription = user.getSubscription();
             Long compare = 10L;
             try {
                 Date today_dt = df.parse(now_date.substring(0,10));
@@ -2717,6 +2727,13 @@ public class LoginServiceImpl implements LoginService {
                         try {
                             result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                             System.out.printf("res:" + result);
+
+                            JSONObject payload = new JSONObject();
+                            payload.put("title",studio);
+                            payload.put("message","上课时间:"+ date_time +" "+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+
+                            String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                            System.out.printf("status:" + status);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

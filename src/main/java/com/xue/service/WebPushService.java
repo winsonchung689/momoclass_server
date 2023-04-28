@@ -1,6 +1,7 @@
 package com.xue.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 import nl.martijndwars.webpush.Subscription;
@@ -41,13 +42,16 @@ public class WebPushService {
         pushService = new PushService();
     }
 
-    public String sendNotification(Subscription subscription,String publickey,String privatekey, String payload) {
+    public String sendNotification(String subscription,String publickey,String privatekey, String payload) {
         try {
+            Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
             //endpoint
-            String endpoint = subscription.endpoint;
+
+            String endpoint = subscriptionGson.endpoint;
+
             //user key/auth
-            String userPlickKey =  subscription.keys.p256dh;
-            String userAuth = subscription.keys.auth;
+            String userPlickKey =  subscriptionGson.keys.p256dh;
+            String userAuth = subscriptionGson.keys.auth;
 
             // server public key/private key
             String vapidPublicKey = publickey;
@@ -55,12 +59,10 @@ public class WebPushService {
 
 //            JSONObject jsonObject = new JSONObject();
 //            jsonObject.put("message",payload);
-
             Notification notification = new Notification(endpoint,userPlickKey,userAuth,payload.getBytes());
             pushService.setSubject("mailto:exmaple@yourdomai.org");
             pushService.setPublicKey(Utils.loadPublicKey(vapidPublicKey));
             pushService.setPrivateKey(Utils.loadPrivateKey(vapidPrivateKey));
-
 //            pushService.setGcmApiKey(GCMKey);
 
             logger.info("sending..");

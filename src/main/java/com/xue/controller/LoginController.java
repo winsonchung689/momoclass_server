@@ -3423,8 +3423,7 @@ public class LoginController {
 
 		try {
 			logger.info("开始...");
-			Subscription subscriptionGson = new Gson().fromJson(subscription, Subscription.class);
-			String status = webPushService.sendNotification(subscriptionGson,publickey,privatekey,payload);
+			String status = webPushService.sendNotification(subscription,publickey,privatekey,payload);
 			logger.info("status: " + status);
 			return status;
 		} catch (Exception e) {
