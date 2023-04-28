@@ -60,7 +60,6 @@ public class WebPushService {
             logger.info("vapidPrivateKey: " + vapidPrivateKey);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("title","Hello");
             jsonObject.put("message",payload);
 
             Notification notification = new Notification(endpoint,userPlickKey,userAuth,jsonObject.toString().getBytes());
