@@ -367,7 +367,7 @@ public interface UserMapper {
 
     int updateScheduleName(String student_name_new,String student_name,String studio);
 
-    int updateRemind(Integer remind,String subject,String studio,String duration,String class_number);
+    int updateRemind(Integer remind,String subject,String studio,String duration,String class_number,String dayofweek);
 
     int updateCommentName(String student_name_new,String student_name,String studio);
 
