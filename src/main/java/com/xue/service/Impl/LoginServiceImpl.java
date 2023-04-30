@@ -561,7 +561,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_string = null;
                 Integer classes_count =0;
                 Integer uncomfirmed_count = 0;
-                Integer remind = 1;
+                Integer remind = 0;
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
                 //获取字段
@@ -588,6 +588,9 @@ public class LoginServiceImpl implements LoginService {
 
                 }else {
                     remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
+                    if(remind == null){
+                        remind = 0;
+                    }
                     classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
                     uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject);
                     if(date != null){
