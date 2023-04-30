@@ -549,7 +549,7 @@
 
   <!-- 更新课时 -->
   <update id="updateRemind" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set remind=#{remind} where subject=#{subject} and studio = #{studio} and duration = #{duration} and class_number = #{class_number} and dayofweek(add_date) =#{param2}
+    update class_schedule set remind=#{param1} where subject=#{param2} and studio = #{param3} and duration = #{param4} and class_number = #{param5} and dayofweek(add_date) =#{param6}
   </update>
 
   <!-- 更新名字 -->
