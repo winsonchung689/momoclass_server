@@ -11,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ServerEndpoint(value = "/websocket/{userName}")
+@ServerEndpoint(value = "/websocket")
 @Component
 public class WebSocketService {
 
