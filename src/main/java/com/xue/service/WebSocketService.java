@@ -37,7 +37,7 @@ public class WebSocketService {
         webSocketMap.put(userName,client);
 
         try {
-            sendMessage("connected_" + getOnlineCount());
+            sendMessage("connected");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
