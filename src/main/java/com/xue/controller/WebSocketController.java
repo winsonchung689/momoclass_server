@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebSocketController {
 
     @GetMapping("/sendNotification")
-    public void sendNotification(String openid,String message){
+    public String sendNotification(String openid,String message){
         WebSocketService.sendMessage(openid,message);
+        return "200";
     }
 
 }
