@@ -38,7 +38,7 @@ public class WebSocketService {
 
 //        log.info("connecting --- ");
         try {
-            sendMessage("成功");
+            sendMessage("connect successfully!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
