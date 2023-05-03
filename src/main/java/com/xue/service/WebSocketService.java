@@ -72,15 +72,20 @@ public class WebSocketService {
     }
 
     public static void sendMessage(String userName,String message){
-        WebSocketClient webSocketClient = webSocketMap.get(userName);
-        try {
-            if(webSocketClient != null){
-                webSocketClient.getSession().getBasicRemote().sendText(message);
+//        WebSocketClient webSocketClient = webSocketMap.get(userName);
+        for (WebSocketClient webSocketClient : webSocketMap.values()) {
+            try {
+                if(webSocketClient != null){
+                    webSocketClient.getSession().getBasicRemote().sendText(message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
+
         }
+
+
     }
 
     public static synchronized int getOnlineCount(){
