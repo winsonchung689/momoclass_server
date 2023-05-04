@@ -1658,6 +1658,7 @@ public class LoginServiceImpl implements LoginService {
         String subjects = null;
         List<User> list= null;
         String id = null;
+        String member = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUserByNickName(nickName);
@@ -1679,7 +1680,7 @@ public class LoginServiceImpl implements LoginService {
                 openid = line.getOpenid();
                 subjects = line.getSubjects();
                 id = line.getId();
-
+                member = line.getMember();
 
                 //json
                 jsonObject.put("id", id);
@@ -1695,6 +1696,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_style",comment_style);
                 jsonObject.put("openid",openid);
                 jsonObject.put("subjects",subjects);
+                jsonObject.put("member",member);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
