@@ -35,6 +35,7 @@ public class WebSocketService {
         client.setSession(session);
         client.setUri(session.getRequestURI().toString());
         webSocketMap.put(userName,client);
+        log.info("当前人数为：" + getOnlineCount());
         try {
             sendMessage("online:" + getOnlineCount());
         } catch (IOException e) {
