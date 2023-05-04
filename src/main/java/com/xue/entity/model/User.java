@@ -46,6 +46,17 @@ public class User {
 
     private String subscription;
 
+    private String member;
+
+
+    public String getMember() {
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
     public String getSubscription() {
         return subscription;
     }

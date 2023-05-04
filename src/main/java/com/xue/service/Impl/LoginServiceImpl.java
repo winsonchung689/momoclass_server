@@ -1537,6 +1537,7 @@ public class LoginServiceImpl implements LoginService {
         Integer display = null;
         Integer cover = null;
         String subjects = null;
+        String member = null;
         List<User> list= new ArrayList<>();;
         String send_time = null;
         String subscription = null;
@@ -1600,6 +1601,7 @@ public class LoginServiceImpl implements LoginService {
                 subjects = line.getSubjects();
                 send_time = line.getSend_time();
                 subscription = line.getSubscription();
+                member = line.getMember();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio);
@@ -1631,6 +1633,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subjects",subjects);
                 jsonObject.put("send_time",send_time);
                 jsonObject.put("subscription",subscription);
+                jsonObject.put("member",member);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
