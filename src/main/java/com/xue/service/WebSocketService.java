@@ -35,7 +35,6 @@ public class WebSocketService {
         client.setSession(session);
         client.setUri(session.getRequestURI().toString());
         webSocketMap.put(userName,client);
-
         try {
             sendMessage("online:" + getOnlineCount());
         } catch (IOException e) {
@@ -43,16 +42,15 @@ public class WebSocketService {
         }
     }
 
-
     @OnClose
     public void onClose(){
         if(webSocketMap.containsKey(userName)){
-            webSocketMap.remove(userName);
             if(webSocketMap.size()>0){
                 subOnlineCount();
             }
+            webSocketMap.remove(userName);
         }
-//        log.info("当前人数为：" + getOnlineCount());
+        log.info("当前人数为：" + getOnlineCount());
     }
 
     @OnMessage
