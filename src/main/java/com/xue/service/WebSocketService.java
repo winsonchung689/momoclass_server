@@ -74,7 +74,7 @@ public class WebSocketService {
 //        WebSocketClient webSocketClient = webSocketMap.get(userName);
         for (WebSocketClient webSocketClient : webSocketMap.values()) {
             try {
-                if(webSocketClient != null){
+                if(webSocketClient != null && webSocketClient != webSocketMap.get(userName)){
                     webSocketClient.getSession().getBasicRemote().sendText(message);
                 }
             } catch (IOException e) {
