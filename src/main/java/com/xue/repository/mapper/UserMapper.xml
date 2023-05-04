@@ -939,7 +939,7 @@
   </update>
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">
-    update user set member=#{param1} where studio=#{param2} and role=#{param3}
+    update user set member=#{param1} where studio=#{param2} and role='boss' and delete_status = 0
   </update>
 
 

@@ -3256,6 +3256,20 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateUserMember")
+	@ResponseBody
+	public String updateUserMember(HttpServletRequest request, HttpServletResponse response){
+		String studio = request.getParameter("studio");
+		String member = request.getParameter("member");
+
+		try {
+			dao.updateUserMember(member,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateBossLessons")
 	@ResponseBody
 	public String updateBossLessons(HttpServletRequest request, HttpServletResponse response){
