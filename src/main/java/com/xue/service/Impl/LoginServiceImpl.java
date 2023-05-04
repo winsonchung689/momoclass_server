@@ -1780,7 +1780,7 @@ public class LoginServiceImpl implements LoginService {
         try {
 
             List<User> list = null;
-            if(role.equals("boss")){
+            if(role.equals("boss") || role.endsWith("会员")){
                 list = dao.getStudioBoss(role);
             }else{
                 list = dao.getStudio();

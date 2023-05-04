@@ -677,7 +677,7 @@
   </select>
 
   <select id="getStudioBoss" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct studio from user where delete_status = 0 and role = #{param1}
+    select distinct studio from user where delete_status = 0 and (role = #{param1} or member = #{param1})
   </select>
 
   <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
