@@ -824,6 +824,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getAnnouncement")
+	@ResponseBody
+	public List getAnnouncement(String studio){
+		List list = null;
+		try {
+			list = dao.getAnnouncement(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	//	获取全部
 	@RequestMapping("/getGift")
@@ -1480,6 +1492,25 @@ public class LoginController {
 		signUp.setClass_number("无班号");
 		try {
 			loginService.insertSignUp(signUp);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+		return 1;
+	}
+
+	@RequestMapping("/insertAnnouncement")
+	@ResponseBody
+	public int insertAnnouncement(String studio,String content){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		Announcement announcement = new Announcement();
+		announcement.setCreate_time(create_time);
+		announcement.setStudio(studio);
+		announcement.setContent(content);
+
+		try {
+			dao.insertAnnouncement(announcement);
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}

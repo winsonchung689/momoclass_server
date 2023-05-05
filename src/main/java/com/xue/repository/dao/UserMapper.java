@@ -100,6 +100,8 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
+    int insertAnnouncement(Announcement announcement);
+
     int push(Message message);
 
     //插入
@@ -256,6 +258,8 @@ public interface UserMapper {
     List<Lesson> getLesson(String studio);
 
     List<Lesson> getClassNote(String subject,String studio,String student_name);
+
+    List<Announcement> getAnnouncement(String studio);
 
     List<Lesson> getLessonBySubject(String studio,String subject);
 
