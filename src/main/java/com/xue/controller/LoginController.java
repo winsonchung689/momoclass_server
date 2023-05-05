@@ -2902,6 +2902,7 @@ public class LoginController {
 
 		//获取openid
 		String openid = request.getParameter("openid");
+		String role = request.getParameter("role");
 
 		User user_get= dao.getUser(openid).get(0);
 		String role_get = user_get.getRole();
@@ -2917,12 +2918,12 @@ public class LoginController {
 		}
 
 		//定义role
-		String role =null;
-		if (role_get.equals("boss")){
-			role = "client";
-		} else {
-			role = "boss";
-		}
+//		String role =null;
+//		if (role_get.equals("boss")){
+//			role = "client";
+//		} else {
+//			role = "boss";
+//		}
 
         //获取用户类型
 		String user_type = "老用户";
