@@ -1181,7 +1181,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {
 				loginService.deleteComment(id,role,studio,openid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1201,7 +1201,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if (studio_get.equals(studio)) {
 				dao.deleteBookDetail(id,studio);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1221,7 +1221,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if (studio_get.equals(studio)) {
 				loginService.deleteUuids(id,role,studio,openid,uuid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1310,7 +1310,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if (studio_get.equals(studio)) {
 				loginService.deleteArrangement(id,role,studio,openid);
 				loginService.deleteScheduleByDate(Integer.parseInt(weekday),duration,studio,class_number,role,openid,subject);
 			}else {
@@ -1346,7 +1346,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {
 				loginService.deleteSignUpRecord(id,role,studio,openid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1367,7 +1367,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if (studio_get.equals(studio)) {
 				loginService.deleteSignUpAllRecord(name,role,studio,openid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1389,7 +1389,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if (studio_get.equals(studio)) {
 				dao.deleteLeaveAllRecord(student_name, studio,leave_type,subject);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1409,7 +1409,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {		
 				loginService.deleteGiftRecord(id,role,studio,openid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1429,7 +1429,7 @@ public class LoginController {
 		try {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {
 				dao.deleteLeaveRecord(id, studio);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -1448,7 +1448,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {
 				loginService.deleteSchedule(id,role,studio,openid);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -2020,7 +2020,7 @@ public class LoginController {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
 
-			if ("boss".equals(role) && studio_get.equals(studio)) {
+			if ( studio_get.equals(studio)) {
 				loginService.deleteLesson(id,role,studio,openid,student_name);
 			}else {
 				logger.error("it's not your studio, could not delete!");
@@ -3444,7 +3444,7 @@ public class LoginController {
 		List<User> list = dao.getUser(openid);
 		String studio_get = list.get(0).getStudio();
 
-		if ("boss".equals(role) && studio_get.equals(studio)) {
+		if ( studio_get.equals(studio)) {
 			try {
 				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
 				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject);

@@ -1153,7 +1153,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteComment(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1181,7 +1181,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if ("boss".equals(role) && studio_get.equals(studio)) {
+                if ( studio_get.equals(studio)) {
                     dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
                 }else {
                     logger.error("it's not your studio, could not delete!");
@@ -1197,7 +1197,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if ("boss".equals(role) && studio_get.equals(studio)) {
+                if ( studio_get.equals(studio)) {
                     dao.updateUuids_c(id,studio,list_new.toString().replace(" ",""));
                 }else {
                     logger.error("it's not your studio, could not delete!");
@@ -1217,7 +1217,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteGoodsList(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1234,7 +1234,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteArrangement(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1259,7 +1259,7 @@ public class LoginServiceImpl implements LoginService {
             String old_subject = arrangement.getSubject();
 
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 if(change_title.equals("班号")){
                     dao.changeClassName(id1,studio,class_number);
                     dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject);
@@ -1288,7 +1288,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteSignUpRecord(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1306,7 +1306,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteSignUpAllRecord(name,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1324,7 +1324,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteGiftRecord(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1342,7 +1342,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteSchedule(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1365,7 +1365,7 @@ public class LoginServiceImpl implements LoginService {
             }else {
                 weekofday = weekDay + 1;
             }
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteScheduleByDate(weekofday,duration,studio,class_number,subject);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1383,7 +1383,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.confirmSchedule(id,studio);
             }else {
                 logger.error("it's not your studio, could not delete!");
@@ -1401,7 +1401,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
 
-            if ("boss".equals(role) && studio_get.equals(studio)) {
+            if ( studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio);
                 dao.deleteScheduleByLesson(student_name,studio);
             }else {
