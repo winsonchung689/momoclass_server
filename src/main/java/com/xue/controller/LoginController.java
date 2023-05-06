@@ -3157,10 +3157,8 @@ public class LoginController {
 
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
-			Float left_amount =null;
-			if(left_amount_get.isEmpty()){
-				left_amount = total_amount;
-			}else {
+			Float left_amount = 0.0f;
+			if(!left_amount_get.isEmpty()){
 				left_amount = Float.parseFloat(left_amount_get);
 			}
 
