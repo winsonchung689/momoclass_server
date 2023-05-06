@@ -3199,8 +3199,8 @@ public class LoginController {
 				loginService.insertLesson(lesson);
 			}
 		} catch (Exception e) {
-//			e.printStackTrace();
-			logger.error("update lesson error");
+			e.printStackTrace();
+//			logger.error("update lesson error");
 		}
 
 		return "push massage successfully";
