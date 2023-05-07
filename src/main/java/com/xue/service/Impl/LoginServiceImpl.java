@@ -2176,7 +2176,12 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getBookDetail(studio,create_time,type);
+            if("all".equals(type)){
+                list = dao.getBookDetailAll(studio,create_time);
+            }else {
+                list = dao.getBookDetail(studio,create_time,type);
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Book line = list.get(i);
