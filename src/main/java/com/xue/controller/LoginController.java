@@ -551,10 +551,10 @@ public class LoginController {
 	//	获取账本明细
 	@RequestMapping("/getBookDetail")
 	@ResponseBody
-	public List getBookDetail(String studio, String create_time, String type){
+	public List getBookDetail(String studio, String create_time, String type,String start_date){
 		List list = null;
 		try {
-			list = loginService.getBookDetail(studio,create_time,type);
+			list = loginService.getBookDetail(studio,create_time,type,start_date);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

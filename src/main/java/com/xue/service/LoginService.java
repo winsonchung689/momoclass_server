@@ -140,7 +140,7 @@ public interface LoginService {
 
     public List getBook(String studio,String dimension);
 
-    public List getBookDetail(String studio,String create_time,String type);
+    public List getBookDetail(String studio,String create_time,String type,String start_date);
 
     public List searchBookDetail(String studio,String value,String type);
 

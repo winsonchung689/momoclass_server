@@ -390,11 +390,11 @@
 
   <!-- 获取账本 -->
   <select id="getBookDetail" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
-    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2} and type = #{param3} and delete_status = 0 order by create_time desc
+    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2} and date_format(create_time, '%Y-%m-%d') &gt;= #{param4} and type = #{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getBookDetailAll" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
-    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2}  and delete_status = 0 order by create_time desc
+    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2} and date_format(create_time, '%Y-%m-%d') &gt;= #{param3}  and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 获取课插班生 -->
