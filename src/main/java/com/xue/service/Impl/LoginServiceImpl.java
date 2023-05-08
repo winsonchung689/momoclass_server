@@ -1557,7 +1557,6 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getAllUser();
                 for (int i = 0; i < list.size(); i++) {
                     String role_get = list.get(i).getRole();
-                    campus = list.get(i).getCampus();
                     if(role_get.equals("boss")){
                         String expird_time_get = list.get(i).getExpired_time();
                         String studio_get = list.get(i).getStudio();
@@ -1574,7 +1573,6 @@ public class LoginServiceImpl implements LoginService {
             }else {
                 list = dao.getUser(openid);
                 if(list.size()>0){
-                    campus = list.get(0).getCampus();
                     String role_get = list.get(0).getRole();
                     String expird_time_get = list.get(0).getExpired_time();
                     String studio_get = list.get(0).getStudio();
@@ -1613,6 +1611,7 @@ public class LoginServiceImpl implements LoginService {
                 send_time = line.getSend_time();
                 subscription = line.getSubscription();
                 member = line.getMember();
+                campus = line.getCampus();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio,campus);
@@ -1645,6 +1644,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("send_time",send_time);
                 jsonObject.put("subscription",subscription);
                 jsonObject.put("member",member);
+                jsonObject.put("campus",campus);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
