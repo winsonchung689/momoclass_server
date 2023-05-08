@@ -337,7 +337,7 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementById(String studio,Integer id);
 
-    List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject);
+    List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
     List<SignUp> getSignUp(String student_name,String studio,String subject);
 

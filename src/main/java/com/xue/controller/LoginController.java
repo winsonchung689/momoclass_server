@@ -438,10 +438,12 @@ public class LoginController {
 	//	获取学生的课程数
 	@RequestMapping("/getLessonByName")
 	@ResponseBody
-	public List getLessonByName(String student_name,String studio){
+	public List getLessonByName(String student_name,String studio,String openid){
 		List list = null;
 		try {
-			list = loginService.getLessonByName(student_name,studio);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLessonByName(student_name,studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -451,10 +453,12 @@ public class LoginController {
 	//	获取学生的课程数
 	@RequestMapping("/getLessonByNameSubject")
 	@ResponseBody
-	public List getLessonByNameSubject(String student_name,String studio,String subject){
+	public List getLessonByNameSubject(String student_name,String studio,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getLessonByNameSubject(student_name,studio,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLessonByNameSubject(student_name,studio,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -706,10 +710,12 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getScheduleDetail")
 	@ResponseBody
-	public List getScheduleDetail(String weekDay,String duration,String studio,String class_number,String subject){
+	public List getScheduleDetail(String weekDay,String duration,String studio,String class_number,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio,class_number,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getScheduleDetail(Integer.parseInt(weekDay),duration,studio,class_number,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -937,10 +943,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/changeClass")
 	@ResponseBody
-	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday,String subject){
+	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday,String subject,String openid){
 		String result=null;
 		try {
-			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday),subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday),subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3482,12 +3490,15 @@ public class LoginController {
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 		String points_get = request.getParameter("points");
 		String subject = request.getParameter("subject");
 		Integer points = Integer.parseInt(points_get);
 
 		try {
-			loginService.deletePoints(student_name,studio,points,subject);
+			loginService.deletePoints(student_name,studio,points,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

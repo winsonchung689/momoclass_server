@@ -8,7 +8,7 @@ public interface LoginService {
 
     public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target);
 
-    public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject);
+    public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject,String campus);
 
     public List  getGrowthRecord(String studio,Integer page,String student_name);
 
@@ -70,7 +70,7 @@ public interface LoginService {
 
     public List  getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid);
 
-    public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
+    public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
     public int  deleteComment(Integer id,String role,String studio,String openid);
 
@@ -158,13 +158,13 @@ public interface LoginService {
 
     public int updateMinusLesson(String student_name,String studio,Float class_count,String subject,String campus);
 
-    public List  getLessonByName(String student_name,String studio);
+    public List  getLessonByName(String student_name,String studio,String campus);
 
-    public List  getLessonByNameSubject(String student_name,String studio,String subject);
+    public List  getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
     public int updateAddPoints(String student_name,String studio,Integer points,String subject,String campus);
 
-    public int deletePoints(String student_name,String studio,Integer points,String subject);
+    public int deletePoints(String student_name,String studio,Integer points,String subject,String campus);
 
     public int updateCoins(String openid,String type);
 

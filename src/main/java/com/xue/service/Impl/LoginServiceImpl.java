@@ -1109,7 +1109,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number,String subject) {
+    public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number,String subject,String campus) {
         String age = null;
         String student_name = null;
         String id = null;
@@ -1119,7 +1119,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 获取常规学生
         try {
-            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject);
+            List<Schedule> list = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
@@ -2598,10 +2598,10 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public int deletePoints(String student_name, String studio,Integer points,String subject) {
+    public int deletePoints(String student_name, String studio,Integer points,String subject,String campus) {
         int result = 0;
         try {
-            List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
             Lesson lesson_get = lessons.get(0);
             Integer total_points = lesson_get.getPoints();
             Integer new_points = total_points-points;
@@ -2773,7 +2773,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getLessonByName(String student_name, String studio) {
+    public List getLessonByName(String student_name, String studio,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String subject =null;
@@ -2781,7 +2781,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<Lesson> list = dao.getLessonByName(student_name, studio);
+            List<Lesson> list = dao.getLessonByName(student_name,studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
@@ -2807,13 +2807,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonByNameSubject(String student_name, String studio,String subject) {
+    public List getLessonByNameSubject(String student_name, String studio,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject);
+            List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
@@ -2946,7 +2946,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject) {
+    public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject,String campus) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
         String limits = null;
@@ -2960,7 +2960,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration,subject);
+            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration,subject,campus);
             for (int i = 0; i < arrangement_list.size(); i++) {
                 Arrangement line = arrangement_list.get(i);
                 //获取字段
@@ -2984,7 +2984,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject);
+            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
             String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
             String age =null;
@@ -3402,9 +3402,9 @@ public class LoginServiceImpl implements LoginService {
                 }
             }else {
                 if(subject.equals("全科目")){
-                    list = dao.getLessonLikeName(studio,student_name);
+                    list = dao.getLessonLikeName(studio,student_name,campus);
                 }else {
-                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject);
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
                 }
 
 
