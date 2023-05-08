@@ -138,7 +138,7 @@ public interface LoginService {
 
     public List getAdvertise(String class_target,String studio,Integer page);
 
-    public List getBook(String studio,String dimension);
+    public List getBook(String studio,String dimension,String campus);
 
     public List getBookDetail(String studio,String create_time,String type,String start_date);
 

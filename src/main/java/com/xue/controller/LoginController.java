@@ -552,10 +552,12 @@ public class LoginController {
 	//	获取账本
 	@RequestMapping("/getBook")
 	@ResponseBody
-	public List getBook(String studio,String dimension){
+	public List getBook(String studio,String dimension,String openid){
 		List list = null;
 		try {
-			list = loginService.getBook(studio,dimension);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getBook(studio,dimension,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

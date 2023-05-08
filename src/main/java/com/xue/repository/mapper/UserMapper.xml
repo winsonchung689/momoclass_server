@@ -360,7 +360,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} amd campus =#{param6} and student_type ='ordinary' and delete_status = 0 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type ='ordinary' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取课程表 -->
@@ -403,19 +403,19 @@
   </select>
 
   <select id="getBookByMonth" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%Y-%m') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0 group by date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
+    select date_format(create_time, '%Y-%m') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
   </select>
 
   <select id="getBookByDate" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
+    select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%Y') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0 group by date_format(create_time, '%Y') order by date_format(create_time,'%Y') desc
+    select date_format(create_time, '%Y') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y') order by date_format(create_time,'%Y') desc
   </select>
 
   <select id="getBookByAll" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select "汇总" create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and delete_status = 0
+    select "汇总" create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0
   </select>
 
   <!-- 插入账单 -->

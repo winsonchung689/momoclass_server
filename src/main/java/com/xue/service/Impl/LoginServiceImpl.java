@@ -2138,7 +2138,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getBook(String studio,String dimension) {
+    public List getBook(String studio,String dimension,String campus) {
         Float income = 0.0f;
         Float expenditure = 0.0f;
         String create_time = null;
@@ -2147,13 +2147,13 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             if("月".equals(dimension)){
-                list = dao.getBookByMonth(studio);
+                list = dao.getBookByMonth(studio,campus);
             }else if("日".equals(dimension)){
-                list = dao.getBookByDate(studio);
+                list = dao.getBookByDate(studio,campus);
             }else if("年".equals(dimension)){
-                list = dao.getBookByYear(studio);
+                list = dao.getBookByYear(studio,campus);
             }else if("总".equals(dimension)){
-                list = dao.getBookByAll(studio);
+                list = dao.getBookByAll(studio,campus);
             }
 
             for (int i = 0; i < list.size(); i++) {

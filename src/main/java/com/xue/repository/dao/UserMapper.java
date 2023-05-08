@@ -77,13 +77,13 @@ public interface UserMapper {
 
     List<Book> searchBookDetail(String studio,String value,String type);
 
-    List<BookCount> getBookByMonth(String studio);
+    List<BookCount> getBookByMonth(String studio,String campus);
 
-    List<BookCount> getBookByDate(String studio);
+    List<BookCount> getBookByDate(String studio,String campus);
 
-    List<BookCount> getBookByYear(String studio);
+    List<BookCount> getBookByYear(String studio,String campus);
 
-    List<BookCount> getBookByAll(String studio);
+    List<BookCount> getBookByAll(String studio,String campus);
 
     List<Schedule> getTransfer(String date_time,String studio,String subject);
 
