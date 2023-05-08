@@ -2652,6 +2652,9 @@ public class LoginController {
 		String mark = request.getParameter("mark");
 		String type = request.getParameter("type");
 		String amount = request.getParameter("amount");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 		Book book =new Book();
 		book.setStudio(studio);
@@ -2659,6 +2662,7 @@ public class LoginController {
 		book.setMark(mark);
 		book.setAmount(Float.parseFloat(amount));
 		book.setCreate_time(create_time);
+		book.setCampus(campus);
 
 		try {
 			dao.insertBook(book);
