@@ -528,10 +528,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getRating")
 	@ResponseBody
-	public List getRating(String studio,String student_name,Integer page,String subject){
+	public List getRating(String studio,String student_name,Integer page,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getRating(studio,student_name,page,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getRating(studio,student_name,page,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

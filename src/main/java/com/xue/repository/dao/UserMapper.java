@@ -303,9 +303,9 @@ public interface UserMapper {
 
     Integer getSignUpCountByDay(String studio,String date,String duration,String class_number,String campus);
 
-    List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
+    List<Lesson> getRating(String studio,Integer page_start,Integer page_end,String campus);
 
-    List<Lesson> getRatingBySubject(String studio,Integer page_start,Integer page_end,String subject);
+    List<Lesson> getRatingBySubject(String studio,Integer page_start,Integer page_end,String subject,String campus);
 
     List<Lesson> getRatingByName(String studio,String student_name,Integer page_start,Integer page_end);
 

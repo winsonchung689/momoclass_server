@@ -3651,7 +3651,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRating(String studio,String student_name,Integer page,String subject) {
+    public List getRating(String studio,String student_name,Integer page,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -3667,9 +3667,9 @@ public class LoginServiceImpl implements LoginService {
         if(student_name.equals("all")){
             try {
                 if(subject.equals("全科目")){
-                    list = dao.getRating(studio,page_start,page_length);
+                    list = dao.getRating(studio,page_start,page_length,campus);
                 }else {
-                    list = dao.getRatingBySubject(studio,page_start,page_length,subject);
+                    list = dao.getRatingBySubject(studio,page_start,page_length,subject,campus);
                 }
 
                 for (int i = 0; i < list.size(); i++) {
