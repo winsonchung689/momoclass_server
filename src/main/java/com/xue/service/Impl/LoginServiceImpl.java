@@ -1255,7 +1255,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int changeClassName(String id, String role, String studio, String openid,String class_number,String change_title,String limit_number) {
+    public int changeClassName(String id, String role, String studio, String openid,String class_number,String change_title,String limit_number,String campus) {
         try {
             Integer id1 = Integer.parseInt(id);
             List<User> list = dao.getUser(openid);
@@ -1270,12 +1270,12 @@ public class LoginServiceImpl implements LoginService {
             if ( studio_get.equals(studio)) {
                 if(change_title.equals("班号")){
                     dao.changeClassName(id1,studio,class_number);
-                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject);
-                    dao.changeSignUpClassName(old_class_number,studio,duration,class_number,old_subject);
+                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject,campus);
+                    dao.changeSignUpClassName(old_class_number,studio,duration,class_number,old_subject,campus);
                 }else if(change_title.equals("科目")){
                     dao.changeSubjectName(id1,studio,class_number);
-                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number);
-                    dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number);
+                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number,campus);
+                    dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number,campus);
                 }else if(change_title.equals("上限")){
                     dao.changeLimit(id1,studio,limit_number);
                 }
@@ -2977,6 +2977,7 @@ public class LoginServiceImpl implements LoginService {
                 arrangement.setStudio(studio);
                 arrangement.setDuration(duration);
                 arrangement.setSubject(subject);
+                arrangement.setCampus(campus);
                 dao.insertArrangement(arrangement);
             }
 
@@ -3028,6 +3029,7 @@ public class LoginServiceImpl implements LoginService {
                 schedule.setStudent_type(student_type);
                 schedule.setStatus(status);
                 schedule.setSubject(subject);
+                schedule.setCampus(campus);
                 dao.insertSchedule(schedule);
             }
         } catch (Exception e) {

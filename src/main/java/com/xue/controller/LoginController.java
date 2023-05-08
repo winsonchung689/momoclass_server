@@ -1363,7 +1363,9 @@ public class LoginController {
 	@ResponseBody
 	public int changeClassName(String id,String role,String studio,String openid,String class_number,String change_title,String limit_number){
 		try {
-			loginService.changeClassName(id,role,studio,openid,class_number,change_title,limit_number);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			loginService.changeClassName(id,role,studio,openid,class_number,change_title,limit_number,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

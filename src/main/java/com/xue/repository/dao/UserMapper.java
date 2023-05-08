@@ -137,13 +137,13 @@ public interface UserMapper {
 
     void changeLimit(Integer id,String studio,String class_number);
 
-    void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
+    void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus);
 
-    void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject);
+    void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus);
 
-    void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number);
+    void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number,String campus);
 
-    void changeSignUpSubject(String old_subject,String studio,String duration,String new_subject,String class_number);
+    void changeSignUpSubject(String old_subject,String studio,String duration,String new_subject,String class_number,String campus);
 
     void deleteStudentPhoto(String student_name,String studio);
 
