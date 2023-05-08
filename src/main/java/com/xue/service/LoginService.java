@@ -16,19 +16,19 @@ public interface LoginService {
 
     public List  getMessageClient(String nickName);
 
-    public List  getModel(String studio,Integer page);
+    public List  getModel(String studio,Integer page,String campus);
 
     public List  getMamaShare(Integer page);
 
     public List  getPpt(Integer page);
 
-    public List  getLesson(String studio,String student_name,String subject);
+    public List  getLesson(String studio,String student_name,String subject,String campus);
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject);
 
-    public List  getLessonInName(String studio,String student_name,Integer page,String subject);
+    public List  getLessonInName(String studio,String student_name,Integer page,String subject,String campus);
 
-    public List  getGoodsList(String studio,Integer page);
+    public List  getGoodsList(String studio,Integer page,String campus);
 
     public List  getRating(String studio,String student_name,Integer page,String subject);
 
@@ -38,17 +38,17 @@ public interface LoginService {
 
     public int insertOrder(Order order);
 
-	public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject_new);
+	public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject_new,String compus);
 
     public List  getDetails(Integer id);
 
-    public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time);
+    public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid);
 
-    public List  getSearch(String student_name,String studio,Integer page,String class_target);
+    public List  getSearch(String student_name,String studio,Integer page,String class_target,String campus);
 
     public List  getSignUp(String student_name,String studio,String subject);
 
-    public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration);
+    public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
 
     public List  getGift(String student_name,String studio);
 
@@ -116,7 +116,7 @@ public interface LoginService {
 
     public List getUserByNickName(String nickName);
 
-    public List getUserByStudio(String Studio);
+    public List getUserByStudio(String Studio,String campus);
 
     public List getStudio(String role);
 
@@ -130,7 +130,7 @@ public interface LoginService {
 
     public List getMyOrder(String studio,String openid);
 
-    public List getFrameModel(String studio,Integer page,String class_target);
+    public List getFrameModel(String studio,Integer page,String class_target,String campus);
 
     public List getCertificateModelName();
 
@@ -148,21 +148,21 @@ public interface LoginService {
 
     public List getPaycode(String student_name);
 
-    public List getClassSys(String class_target,String studio,Integer page);
+    public List getClassSys(String class_target,String studio,Integer page,String campus);
 
     public List getCourseList(String studio,Integer page);
 
     public List getCourseDetail(String studio,String class_name,Integer page);
 
-    public List getHome(String studio);
+    public List getHome(String studio,String campus);
 
-    public int updateMinusLesson(String student_name,String studio,Float class_count,String subject);
+    public int updateMinusLesson(String student_name,String studio,Float class_count,String subject,String campus);
 
     public List  getLessonByName(String student_name,String studio);
 
     public List  getLessonByNameSubject(String student_name,String studio,String subject);
 
-    public int updateAddPoints(String student_name,String studio,Integer points,String subject);
+    public int updateAddPoints(String student_name,String studio,Integer points,String subject,String campus);
 
     public int deletePoints(String student_name,String studio,Integer points,String subject);
 

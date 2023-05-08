@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserMapper {
     //获取
-    List<Message> getMessage(String studio,Integer page_start,Integer page_length,String class_target);
+    List<Message> getMessage(String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
     List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
 
@@ -26,10 +26,10 @@ public interface UserMapper {
     List<Message> getPpt(Integer page_start, Integer page_length);
 
     //获取
-    List<Message> getStudentPhoto(String student_name,String studio);
+    List<Message> getStudentPhoto(String student_name,String studio,String campus);
 
     //获取
-    List<Message> getClassSys(String class_target,String studio,Integer page_start, Integer page_length);
+    List<Message> getClassSys(String class_target,String studio,Integer page_start, Integer page_length,String campus);
 
     List<Message> getUuidById(String studio,Integer id);
 
@@ -40,19 +40,19 @@ public interface UserMapper {
     List<Message> getCourseDetail(String studio,String class_name,Integer page_start, Integer page_length);
 
     //获取
-    List<Message> getHome(String studio);
+    List<Message> getHome(String studio,String campus);
 
     //获取
     List<Message> getMessageClient(String student_name);
 
     //获取
-    List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length,String class_target);
+    List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
     List<Message> getMessageGrowth(String student_names,String studio,Integer page_start,Integer page_length);
 
-    List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length);
+    List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length,String campus);
 
-    List<Lesson> getLessonInNameBySubject(String studio,String student_names,Integer page_start,Integer page_length,String subject);
+    List<Lesson> getLessonInNameBySubject(String studio,String student_names,Integer page_start,Integer page_length,String subject,String campus);
 
     //获取
     List<Schedule> getScheduleAll(Integer date_time,String studio);
@@ -62,7 +62,7 @@ public interface UserMapper {
     List<Schedule> getSchedule(Integer date_time,String studio,String subject);
 
     //获取
-    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject);
+    List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
     List<Schedule> getScheduleByClassOrdinary(Integer weekDay,String duration,String studio,String class_number,String subject);
 
@@ -87,17 +87,17 @@ public interface UserMapper {
 
     List<Schedule> getTransfer(String date_time,String studio,String subject);
 
-    List<Message> getModel(String studio,Integer page_start,Integer page_end);
+    List<Message> getModel(String studio,Integer page_start,Integer page_end,String campus);
 
     List<Message> getMamaShare(Integer page_start,Integer page_end);
 
     //获取
-    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end,String class_target);
+    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end,String class_target,String campus);
 
     //获取详情
     List<Message> getDetails(Integer id);
     //获取详情
-    List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time);
+    List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
 
     //插入
     int insertBook(Book book);
@@ -228,7 +228,7 @@ public interface UserMapper {
 
     List<User> getUserByNickName(String nickName);
 
-    List<User> getUserByStudio(String studio);
+    List<User> getUserByStudio(String studio,String campus);
 
     List<User> getBossByStudio(String studio);
     List<User> getAllUser();
@@ -251,57 +251,57 @@ public interface UserMapper {
 
     List<Message> getCertificateModel(String class_name);
 
-    List<Message> getFrameModel(String studio,Integer page_start,Integer page_length,String class_target);
+    List<Message> getFrameModel(String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
     List<Message> getCertificateModelName();
 
     List<User> getOpenidByNick(String student_name,String studio);
 
-    List<Lesson> getLesson(String studio);
+    List<Lesson> getLesson(String studio,String campus);
 
     List<Lesson> getClassNote(String subject,String studio,String student_name);
 
     List<Announcement> getAnnouncement(String studio);
 
-    List<Lesson> getLessonBySubject(String studio,String subject);
+    List<Lesson> getLessonBySubject(String studio,String subject,String campus);
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject);
 
     List<Lesson> getTipsDataUrlAll(String studio,Integer left_amount);
 
-    AllCount getLessonAllCount(String studio);
+    AllCount getLessonAllCount(String studio,String campus);
 
-    AllCount getLessonAllCountBySubject(String studio,String subject);
+    AllCount getLessonAllCountBySubject(String studio,String subject,String campus);
 
-    Integer getLessonNeedPayCount(String studio);
+    Integer getLessonNeedPayCount(String studio,String campus);
 
-    Integer getLessonNeedPayCountBySubject(String studio,String subject);
+    Integer getLessonNeedPayCountBySubject(String studio,String subject,String campus);
 
     Integer getLessonOweCount(String studio);
 
-    Integer getLessonOweCountBySubject(String studio,String subject);
+    Integer getLessonOweCountBySubject(String studio,String subject,String campus);
 
-    Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject);
+    Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject,String campus);
 
     Integer getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
 
-    Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject);
+    Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject,String campus);
 
-    Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name);
+    Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 
-    Integer getClassesCountAll(String studio);
+    Integer getClassesCountAll(String studio,String campus);
 
-    Integer getClassesCountAllLesson(String studio);
+    Integer getClassesCountAllLesson(String studio,String campus);
 
-    Integer getClassesCountBySubject(String studio,String subject);
+    Integer getClassesCountBySubject(String studio,String subject,String campus);
 
     Integer getSignUpByMonthAll(String studio,String create_time);
 
     Integer getSignUpByMonth(String studio,String subject,String create_time);
 
-    Integer getClassesCountBySubjectLesson(String studio,String subject);
+    Integer getClassesCountBySubjectLesson(String studio,String subject,String campus);
 
-    Integer getSignUpCountByDay(String studio,String date,String duration,String class_number);
+    Integer getSignUpCountByDay(String studio,String date,String duration,String class_number,String campus);
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end);
 
@@ -311,9 +311,9 @@ public interface UserMapper {
 
     List<Lesson> getRatingByNameBySubject(String studio,String student_name,Integer page_start,Integer page_end,String subject);
 
-    List<Lesson> getLessonLikeName(String studio,String student_name);
+    List<Lesson> getLessonLikeName(String studio,String student_name,String campus);
 
-    List<Lesson> getLessonLikeNameBySubject(String studio,String student_name,String subject);
+    List<Lesson> getLessonLikeNameBySubject(String studio,String student_name,String subject,String campus);
 
     int insertNote(Note note);
 
@@ -329,11 +329,11 @@ public interface UserMapper {
 
     int insertGift(Gift gift);
 
-    List<Arrangement> getArrangement(String studio,String dayofweek,String subject);
+    List<Arrangement> getArrangement(String studio,String dayofweek,String subject,String campus);
 
-    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
+    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String campus);
 
-    List<Arrangement> getArrangementAll(String studio,String dayofweek);
+    List<Arrangement> getArrangementAll(String studio,String dayofweek,String campus);
 
     List<Arrangement> getArrangementById(String studio,Integer id);
 
@@ -345,13 +345,13 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
 
-    List<Message> getCommentByDate(String student_name,String studio,String date_time);
+    List<Message> getCommentByDate(String student_name,String studio,String date_time,String campus);
 
-    List<Message> getCommentByDateDuration(String student_name,String studio,String date_time,String duration);
+    List<Message> getCommentByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
 
-    List<SignUp> getSignUpByDate(String student_name,String studio,String date_time);
+    List<SignUp> getSignUpByDate(String student_name,String studio,String date_time,String campus);
 
-    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration);
+    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
 
     List<Gift> getGift(String student_name,String studio);
 
@@ -365,33 +365,33 @@ public interface UserMapper {
 
     int updateLessonSubject(String subject_new,String student_name,String studio, String subject);
 
-    int updateLessonAll(Float coins,String studio);
+    int updateLessonAll(Float coins,String studio,String campus);
 
     int updateGift(String id);
 
     int updateCoins(User user);
 
-    int updateScheduleName(String student_name_new,String student_name,String studio);
+    int updateScheduleName(String student_name_new,String student_name,String studio,String campus);
 
     int updateRemind(Integer remind,String subject,String studio,String duration,String class_number,String dayofweek);
 
-    int updateCommentName(String student_name_new,String student_name,String studio);
+    int updateCommentName(String student_name_new,String student_name,String studio,String campus);
 
-    int updateGiftRecordName(String student_name_new,String student_name,String studio);
+    int updateGiftRecordName(String student_name_new,String student_name,String studio,String campus);
 
-    int updateLessonName(String student_name_new,String student_name,String studio);
+    int updateLessonName(String student_name_new,String student_name,String studio,String campus);
 
-    int updateSignUpRecordName(String student_name_new,String student_name,String studio);
+    int updateSignUpRecordName(String student_name_new,String student_name,String studio,String campus);
 
-    int updateUserStudent(String student_name_new,String student_name,String studio);
+    int updateUserStudent(String student_name_new,String student_name,String studio,String campus);
 
-    int updateUserExpired(String role,String studio,String role_old);
+    int updateUserExpired(String role,String studio,String role_old,String campus);
 
     int updateUserMember(String member,String studio);
 
-    List<Lesson> getLessonByName(String student_name,String studio);
+    List<Lesson> getLessonByName(String student_name,String studio,String campus);
 
-    List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject);
+    List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
     int updateLessonPoint(Lesson lesson);
 

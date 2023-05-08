@@ -59,7 +59,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-      select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak = #{param4} and studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+      select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak = #{param4} and studio = #{param1} and campus =#{param5} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取全部 -->
@@ -74,7 +74,7 @@
 
   <!-- 获取全部 -->
   <select id="getMessageInName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak =#{param5} and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak =#{param5} and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} and campus =#{param5} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取全部 -->
@@ -85,7 +85,7 @@
 
   <!-- 获取范画 -->
   <select id="getModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='范画' and delete_status = 0 and studio = #{param1} order by create_time desc limit #{param2},#{param3};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='范画' and delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取范画 -->
@@ -110,12 +110,12 @@
 
   <!-- 获取相框模板 -->
   <select id="getFrameModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,photo,class_name,uuids from class_comment where class_target=#{param4} and studio in (#{param1}) and delete_status = 0 order by id limit #{param2},#{param3};
+    select id,photo,class_name,uuids from class_comment where class_target=#{param4} and studio in (#{param1}) and campus =#{param5} and delete_status = 0 order by id limit #{param2},#{param3};
   </select>
 
   <!-- 获取课程体系 -->
   <select id="getClassSys" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target = #{param1} and delete_status = 0 and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target = #{param1} and delete_status = 0 and studio = #{param2} and campus =#{param5} order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取课程体系 -->
@@ -135,7 +135,7 @@
 
   <!-- 获取主页 -->
   <select id="getHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='主页' and delete_status = 0 and studio = #{param1} order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='主页' and delete_status = 0 and studio = #{param1} and campus =#{param2}  order by create_time desc limit 1
   </select>
 
   <!-- 获取奖状 -->
@@ -165,7 +165,7 @@
 
   <!-- 获取详情 -->
   <select id="getDetailsUrlByDate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where studio= #{param1} and cast(replace(replace(duration,':',''),'-','') as signed)=cast(replace(replace(#{param2},':',''),'-','') as signed) and student_name= #{param3} and date_format(create_time, '%Y-%m-%d')= #{param4} and class_target_bak ='课评' and delete_status = 0
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where studio= #{param1} and cast(replace(replace(duration,':',''),'-','') as signed)=cast(replace(replace(#{param2},':',''),'-','') as signed) and student_name= #{param3} and date_format(create_time, '%Y-%m-%d')= #{param4} and campus =#{param5} and class_target_bak ='课评' and delete_status = 0
   </select>
 
   <!-- 获取详情 -->
@@ -175,7 +175,7 @@
 
   <!-- 获取学生照片 -->
   <select id="getStudentPhoto" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '礼品乐园' and delete_status = 0 and student_name =#{param1} and studio =#{param2} order by create_time desc limit 1;
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '礼品乐园' and delete_status = 0 and student_name =#{param1} and studio =#{param2} and campus =#{param3} order by create_time desc limit 1;
   </select>
 
   <!-- 删除详情 -->
@@ -360,7 +360,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and student_type ='ordinary' and delete_status = 0 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} amd campus =#{param6} and student_type ='ordinary' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取课程表 -->
@@ -420,53 +420,53 @@
 
   <!-- 插入账单 -->
   <insert id="insertBook" parameterType="com.xue.entity.model.Book">
-    insert account_book(studio,type,mark,amount,create_time) values(#{studio},#{type},#{mark},#{amount},#{create_time})
+    insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
   <!-- 插入信息 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
-      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids})
+      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids,campus) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids},#{campus})
   </insert>
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,delete_status,subject) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number},0,#{subject})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,delete_status,subject,campus) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number},0,#{subject},#{campus})
   </insert>
 
   <!-- 插入订单 -->
   <insert id="insertOrder" parameterType="com.xue.entity.model.Order">
-    insert `order`(nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time) values(#{nick_name},#{openid},#{phone_number},#{location},#{goods_name},#{goods_intro},#{goods_price},#{studio},#{create_time})
+    insert `order`(nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,campus) values(#{nick_name},#{openid},#{phone_number},#{location},#{goods_name},#{goods_intro},#{goods_price},#{studio},#{create_time},#{campus})
   </insert>
 
 
   <!-- 插入签到记录 -->
   <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">
-    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count,class_number,subject,teacher) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count},#{class_number},#{subject},#{teacher})
+    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count,class_number,subject,teacher,campus) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count},#{class_number},#{subject},#{teacher},#{campus})
   </insert>
 
   <!-- 插入请假记录 -->
   <insert id="insertLeave" parameterType="com.xue.entity.model.Leave">
-    insert leave_record(student_name,date_time,studio,create_time,duration,leave_type,mark_leave,subject) values(#{student_name},#{date_time},#{studio},#{create_time},#{duration},#{leave_type},#{mark_leave},#{subject})
+    insert leave_record(student_name,date_time,studio,create_time,duration,leave_type,mark_leave,subject,campus) values(#{student_name},#{date_time},#{studio},#{create_time},#{duration},#{leave_type},#{mark_leave},#{subject},#{campus})
   </insert>
 
   <!-- 插入课程安排 -->
   <insert id="insertArrangement" parameterType="com.xue.entity.model.Arrangement">
-    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject})
+    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject,campus) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject},#{campus})
   </insert>
 
   <!-- 插入商品列表 -->
   <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
-    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo})
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus})
   </insert>
 
   <!-- 获取全部 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select id,goods_name,goods_intro,goods_price,create_time,studio,photo from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+    select id,goods_name,goods_intro,goods_price,create_time,studio,photo from goods_list where studio = #{param1} and campus =#{param4} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 查找课程表 -->
   <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3}  and delete_status = 0 order by duration
+    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3} and campus =#{param4} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找订单 -->
@@ -481,7 +481,7 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangementAll" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and delete_status = 0 order by duration
+    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus = #{param3} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找课程表 -->
@@ -501,7 +501,7 @@
 
   <!-- 发放礼物记录 -->
   <insert id="insertGift" parameterType="com.xue.entity.model.Gift">
-    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status})
+    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status,campus) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status},#{campus})
   </insert>
 
   <!-- 查找签到记录 -->
@@ -521,12 +521,12 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDate" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3}  order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3} and campus =#{param4}  order by create_time
   </select>
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDateDuration" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,class_number,teacher from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,class_number,teacher from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} and campus =#{param5} order by create_time
   </select>
 
   <!-- 查找请假记录 -->
@@ -551,7 +551,7 @@
 
   <!-- 更新课时 -->
   <update id="updateSchedule" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio}
+    update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio} and campus = #{campus}
   </update>
 
   <!-- 更新课时 -->
@@ -561,23 +561,23 @@
 
   <!-- 更新名字 -->
   <update id="updateScheduleName" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+    update class_schedule set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4}
   </update>
 
   <update id="updateCommentName" parameterType="com.xue.entity.model.Message">
-    update class_comment set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+    update class_comment set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4}
   </update>
 
   <update id="updateGiftRecordName" parameterType="com.xue.entity.model.Gift">
-    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
   </update>
 
   <update id="updateLessonName" parameterType="com.xue.entity.model.Lesson">
-    update lesson set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+    update lesson set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
   </update>
 
   <update id="updateSignUpRecordName" parameterType="com.xue.entity.model.SignUp">
-    update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3}
+    update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
   </update>
 
   <!-- 更新课评 -->
@@ -597,7 +597,7 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -629,7 +629,7 @@
   </select>
 
   <select id="getUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,subscription,member from user where  studio =#{param1} and delete_status = 0 order by role
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,subscription,member from user where studio =#{param1} and campus =#{param2} and delete_status = 0 order by role
   </select>
 
   <select id="getBossByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -642,12 +642,12 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time} where openid = #{openid} and delete_status = 0
+    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},campus=#{campus} where openid = #{openid} and delete_status = 0
   </update>
 
   <!-- 更新工作室 -->
   <update id="updateOpenid" parameterType="com.xue.entity.model.User">
-    update user set openid =#{openid}, create_time=#{create_time},role=#{role},send_time=#{send_time} where studio=#{studio} and nick_name=#{nick_name} and delete_status = 0
+    update user set openid =#{openid}, create_time=#{create_time},role=#{role},send_time=#{send_time} where studio=#{studio} and campus=#{campus} and nick_name=#{nick_name} and delete_status = 0
   </update>
 
   <!-- 更新头像 -->
@@ -657,7 +657,7 @@
 
   <!-- 删除用户 -->
   <update id="updateUserDelete" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
+    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},campus=#{campus},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
   </update>
 
   <!-- 更新选课 -->
@@ -692,7 +692,7 @@
   </select>
 
   <select id="getArrangements" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select distinct dayofweek,class_number,duration,studio,subject from schedule_arrangement where studio =#{param1} and delete_status = 0 order by dayofweek,duration,subject
+    select distinct dayofweek,class_number,duration,studio,subject,campus from schedule_arrangement where studio =#{param1} and campus =#{param2} and delete_status = 0 order by dayofweek,duration,subject
   </select>
 
   <select id="getArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
@@ -705,22 +705,22 @@
 
   <!-- 插入课时 -->
   <insert id="insertNote" parameterType="com.xue.entity.model.Lesson">
-    insert class_note(subject,student_name,studio,create_time,note_content) values(#{subject},#{student_name},#{studio},#{create_time},#{note_content})
+    insert class_note(subject,student_name,studio,create_time,note_content,campus) values(#{subject},#{student_name},#{studio},#{create_time},#{note_content},#{campus})
   </insert>
 
   <!-- 插入通知 -->
   <insert id="insertAnnouncement" parameterType="com.xue.entity.model.Announcement">
-    insert announcement(studio,create_time,content) values(#{studio},#{create_time},#{content})
+    insert announcement(studio,create_time,content,campus) values(#{studio},#{create_time},#{content},#{campus})
   </insert>
 
   <!-- 插入课时 -->
   <insert id="insertLesson" parameterType="com.xue.entity.model.Lesson">
-    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject})
+    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus})
   </insert>
 
   <!-- 获取课时 -->
   <select id="getLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and campus =#{param2} and delete_status = 0 order by left_amount
   </select>
 
   <select id="getClassNote" parameterType="com.xue.entity.model.Note" resultMap="BaseNote">
@@ -733,7 +733,7 @@
 
   <!-- 获取课时 -->
   <select id="getLessonBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and subject =#{param2} and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0 order by left_amount
   </select>
 
   <!-- 获取课时 -->
@@ -749,22 +749,22 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCount" parameterType="com.xue.entity.model.Lesson" resultMap="BaseAllCount">
-    select count(distinct student_name) student_count,sum(total_amount) total_amount,sum(left_amount) left_amount from lesson where studio =#{param1} and delete_status = 0
+    select count(distinct student_name) student_count,sum(total_amount) total_amount,sum(left_amount) left_amount from lesson where studio =#{param1} and campus =#{param2} and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseAllCount">
-    select count(distinct student_name) student_count,sum(total_amount) total_amount,sum(left_amount) left_amount from lesson where studio =#{param1} and subject =#{param2} and delete_status = 0
+    select count(distinct student_name) student_count,sum(total_amount) total_amount,sum(left_amount) left_amount from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getLessonNeedPayCount" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
-    select count(distinct student_name) from lesson where left_amount &lt; 5 and studio =#{param1} and delete_status = 0;
+    select count(distinct student_name) from lesson where left_amount &lt; 5 and studio =#{param1} and campus =#{param2} and delete_status = 0;
   </select>
 
   <!-- 获取总人数 -->
   <select id="getLessonNeedPayCountBySubject" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
-    select count(distinct student_name) from lesson where left_amount &lt; 5 and studio =#{param1} and subject =#{param2} and delete_status = 0;
+    select count(distinct student_name) from lesson where left_amount &lt; 5 and studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0;
   </select>
 
   <!-- 获取总人数 -->
@@ -774,12 +774,12 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonOweCountBySubject" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
-    select count(distinct student_name) from lesson where left_amount &lt; 0 and studio =#{param1} and subject =#{param2} and delete_status = 0;
+    select count(distinct student_name) from lesson where left_amount &lt; 0 and studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0;
   </select>
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取提醒状态 -->
@@ -789,27 +789,27 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDayUnconfirmed" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_type ='ordinary' and status = 0 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and status = 0 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDayByName" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_name =#{param6} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_name =#{param6} and campus =#{param7} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getClassesCountAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getClassesCountAllLesson" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from class_schedule where studio =#{param1} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getClassesCountBySubject" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and subject =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取单月课数 -->
@@ -825,32 +825,32 @@
 
   <!-- 获取总人数 -->
   <select id="getClassesCountBySubjectLesson" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from class_schedule where studio =#{param1} and subject =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and delete_status = 0
   </select>
 
   <!-- 获取今天签到人数 -->
   <select id="getSignUpCountByDay" parameterType="com.xue.entity.model.SignUp" resultType="java.lang.Integer">
-    select count(distinct student_name) from sign_up_record where studio =#{param1} and create_time =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and delete_status = 0
+    select count(distinct student_name) from sign_up_record where studio =#{param1} and create_time =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and campus =#{param5} and delete_status = 0
   </select>
 
   <!-- 获取课时 -->
   <select id="getLessonLikeName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and student_name like "%"#{param2}"%" and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and student_name like "%"#{param2}"%" and campus =#{param3} and delete_status = 0 order by left_amount
   </select>
 
   <!-- 获取课时 -->
   <select id="getLessonLikeNameBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and student_name like "%"#{param2}"%" and subject =#{param3} and delete_status = 0 order by left_amount
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and student_name like "%"#{param2}"%" and subject =#{param3} and campus =#{param4} and delete_status = 0 order by left_amount
   </select>
 
   <!-- 获取课时 -->
   <select id="getLessonInName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) and delete_status = 0 order by left_amount limit #{param3},#{param4};
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) and campus =#{param5} and delete_status = 0 order by left_amount limit #{param3},#{param4};
   </select>
 
   <!-- 获取课时 -->
   <select id="getLessonInNameBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) and subject =#{param5} and delete_status = 0 order by left_amount limit #{param3},#{param4};
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,subject from lesson where studio =#{param1} and find_in_set(student_name,#{param2}) and subject =#{param5} and campus =#{param6} and delete_status = 0 order by left_amount limit #{param3},#{param4};
   </select>
 
   <!-- 获取课时 -->
@@ -887,7 +887,7 @@
 
   <!-- 更新课时 -->
   <update id="updateLessonAll" parameterType="com.xue.entity.model.Lesson">
-    update lesson set coins=#{param1} where studio = #{param2} and delete_status = 0
+    update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and delete_status = 0
   </update>
 
   <!-- 更新用户类型 -->
@@ -926,12 +926,12 @@
 
   <!-- 获取学生名课时 -->
   <select id="getLessonByName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject from lesson where student_name=#{student_name} and studio = #{studio} and delete_status = 0
+    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject from lesson where student_name=#{student_name} and studio = #{studio} and campus =#{campus} and delete_status = 0
   </select>
 
   <!-- 获取学生名课时 -->
   <select id="getLessonByNameSubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and delete_status = 0
+    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
   </select>
 
   <!-- 更新积分 -->
@@ -951,7 +951,7 @@
 
   <!-- 用户过期 -->
   <update id="updateUserExpired" parameterType="com.xue.entity.model.User">
-    update user set role=#{param1} where studio=#{param2} and role=#{param3}
+    update user set role=#{param1} where studio=#{param2} and role=#{param3} and campus=#{param4}
   </update>
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">

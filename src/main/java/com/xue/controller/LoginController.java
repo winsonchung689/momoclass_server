@@ -76,8 +76,10 @@ public class LoginController {
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample5);
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
-		List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+		List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
 		int left_amount = 0;
 		if(lessons.size()>0){
 			Float left_amount_get = lessons.get(0).getLeft_amount();
@@ -159,8 +161,10 @@ public class LoginController {
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
-		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		Float count = 0.0f;
 		if(lessons.size()>0){
 			count = lessons.get(0).getMinus();
@@ -460,10 +464,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLesson")
 	@ResponseBody
-	public List getLesson(String studio,String student_name,String subject){
+	public List getLesson(String studio,String student_name,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getLesson(studio,student_name,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLesson(studio,student_name,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -486,10 +492,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody
-	public List getLessonInName(String studio,String student_name,Integer page,String subject){
+	public List getLessonInName(String studio,String student_name,Integer page,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getLessonInName(studio,student_name,page,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLessonInName(studio,student_name,page,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -499,10 +507,12 @@ public class LoginController {
 	//	获取商品列表
 	@RequestMapping("/getGoodsList")
 	@ResponseBody
-	public List getGoodsList(String studio,Integer page){
+	public List getGoodsList(String studio,Integer page,String openid){
 		List list = null;
 		try {
-			list = loginService.getGoodsList(studio,page);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getGoodsList(studio,page,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -602,10 +612,12 @@ public class LoginController {
 	//	获取课程体系
 	@RequestMapping("/getClassSys")
 	@ResponseBody
-	public List getClassSys(String class_target,String studio,Integer page){
+	public List getClassSys(String class_target,String studio,Integer page,String openid){
 		List list = null;
 		try {
-			list = loginService.getClassSys(class_target,studio,page);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getClassSys(class_target,studio,page,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -615,10 +627,12 @@ public class LoginController {
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody
-	public List getHome(String studio){
+	public List getHome(String studio,String openid){
 		List list = null;
 		try {
-			list = loginService.getHome(studio);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getHome(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -705,10 +719,12 @@ public class LoginController {
 	//	获取范画
 	@RequestMapping("/getModel")
 	@ResponseBody
-	public List getModel(String studio,Integer page){
+	public List getModel(String studio,Integer page,String openid){
 		List list = null;
 		try {
-			list = loginService.getModel(studio,page);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getModel(studio,page,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -771,10 +787,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSearch")
 	@ResponseBody
-	public List getSearch(String student_name,String studio,Integer page,String class_target){
+	public List getSearch(String student_name,String studio,Integer page,String class_target,String openid){
 		List list = null;
 		try {
-			list = loginService.getSearch(student_name,studio,page,class_target);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getSearch(student_name,studio,page,class_target,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -877,10 +895,12 @@ public class LoginController {
 
 	@RequestMapping("/getSignUpByDateDuration")
 	@ResponseBody
-	public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration){
+	public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String openid){
 		List list = null;
 		try {
-			list = loginService.getSignUpByDateDuration(student_name,studio,date_time,duration);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getSignUpByDateDuration(student_name,studio,date_time,duration,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -889,10 +909,12 @@ public class LoginController {
 
 	@RequestMapping("/getCommentByDateDuration")
 	@ResponseBody
-	public List getCommentByDateDuration(String student_name,String studio,String date_time,String duration){
+	public List getCommentByDateDuration(String student_name,String studio,String date_time,String duration,String openid){
 		List list = null;
 		try {
-			list = dao.getCommentByDateDuration(student_name,studio,date_time,duration);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = dao.getCommentByDateDuration(student_name,studio,date_time,duration,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -953,10 +975,10 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/getDetailsUrlByDate")
 	@ResponseBody
-	public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time){
+	public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid){
 		List list = null;
 		try {
-			list = loginService.getDetailsUrlByDate(studio,duration,student_name,date_time);
+			list = loginService.getDetailsUrlByDate(studio,duration,student_name,date_time,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1018,10 +1040,10 @@ public class LoginController {
 	//	获取用户
 	@RequestMapping("/getUserByStudio")
 	@ResponseBody
-	public List getUserByStudio(String studio){
+	public List getUserByStudio(String studio,String campus){
 		List list = null;
 		try {
-			list = loginService.getUserByStudio(studio);
+			list = loginService.getUserByStudio(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1149,10 +1171,12 @@ public class LoginController {
 	//	获取奖状模板
 	@RequestMapping("/getFrameModel")
 	@ResponseBody
-	public List getFrameModel(String studio,Integer page,String class_target){
+	public List getFrameModel(String studio,Integer page,String class_target,String openid){
 		List list = null;
 		try {
-			list = loginService.getFrameModel(studio,page,class_target);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getFrameModel(studio,page,class_target,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1535,6 +1559,8 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 
 		try {
@@ -1545,7 +1571,7 @@ public class LoginController {
 			schedule.setUpdate_time(update_time);
 			loginService.updateSchedule(schedule);
 
-			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			Float count = 0.0f;
 			Integer coins = 0;
 			if(lessons.size()>0){
@@ -1569,6 +1595,7 @@ public class LoginController {
 			signUp.setCount(count);
 			signUp.setSubject(subject);
 			signUp.setTeacher(openid);
+			signUp.setCampus(campus);
 			if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 				class_number = "无班号";
 			}
@@ -1576,8 +1603,8 @@ public class LoginController {
 
 			int insert_res = loginService.insertSignUp(signUp);
 			if(insert_res>0){
-				loginService.updateMinusLesson(student_name,studio,count,subject);
-				loginService.updateAddPoints(student_name,studio,coins,subject);
+				loginService.updateMinusLesson(student_name,studio,count,subject,campus);
+				loginService.updateAddPoints(student_name,studio,coins,subject,campus);
 			}
 
 
@@ -1607,6 +1634,8 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 
 		try {
@@ -1615,7 +1644,7 @@ public class LoginController {
 			cal.setTime(d);
 			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
-			List<Schedule> schedules = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject);
+			List<Schedule> schedules = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject,campus);
 			for(int i = 0;i < schedules.size(); i++){
 				student_name = schedules.get(i).getStudent_name();
 				Schedule schedule =new Schedule();
@@ -1623,9 +1652,10 @@ public class LoginController {
 				schedule.setStudent_name(student_name);
 				schedule.setStudio(studio);
 				schedule.setUpdate_time(update_time);
+				schedule.setCampus(campus);
 				loginService.updateSchedule(schedule);
 
-				List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+				List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 				Float count = 0.0f;
 				Integer coins = 0;
 				if(lessons.size()>0){
@@ -1649,6 +1679,7 @@ public class LoginController {
 				signUp.setCount(count);
 				signUp.setSubject(subject);
 				signUp.setTeacher(teacher);
+				signUp.setCampus(campus);
 				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 					class_number = "无班号";
 				}
@@ -1656,8 +1687,8 @@ public class LoginController {
 
 				int insert_res = loginService.insertSignUp(signUp);
 				if(insert_res>0){
-					loginService.updateMinusLesson(student_name,studio,count,subject);
-					loginService.updateAddPoints(student_name,studio,coins,subject);
+					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
+					loginService.updateAddPoints(student_name,studio,coins,subject,campus);
 				}
 
 			}
@@ -1898,15 +1929,20 @@ public class LoginController {
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
-	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name){
+	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name,String openid){
 
 		try {
 
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
 			if (class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 				class_number = "无班号";
 			}
+
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+
 
 			Arrangement arrangement =new Arrangement();
 			arrangement.setDayofweek(dayofweek);
@@ -1915,6 +1951,7 @@ public class LoginController {
 			arrangement.setLimits(limits);
 			arrangement.setStudio(studio);
 			arrangement.setSubject(subject);
+			arrangement.setCampus(campus);
 			loginService.insertArrangement(arrangement);
 			if (student_name != null && !student_name.isEmpty() & !"undefined".equals(student_name)) {
 				String add_date = null;
@@ -2106,7 +2143,7 @@ public class LoginController {
 
 	@RequestMapping("/downloadLesson")
 	@ResponseBody
-	public String downloadLesson(String studio){
+	public String downloadLesson(String studio,String openid){
 		String path = System.getProperty("user.dir");
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
 		File file = new File(d_path);
@@ -2128,7 +2165,9 @@ public class LoginController {
 
 		//保存csv
 		try {
-			List<Lesson> lessons = dao.getLesson(studio);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			List<Lesson> lessons = dao.getLesson(studio,campus);
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
 			bw.write("科目,学生名,总课时,余课时");
 			bw.newLine();
@@ -2311,7 +2350,7 @@ public class LoginController {
 
 	@RequestMapping("/submit_batch")
 	@ResponseBody
-	public String submit_batch(String studio) throws IOException{
+	public String submit_batch(String studio,String openid) throws IOException{
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -2333,6 +2372,8 @@ public class LoginController {
 		String[] tempList = myFilePath.list();
 		File temp = new File(path_1 + "/" + tempList[0]);
 		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
 			for(int i=1;i<sheet.getRows();i++){
@@ -2391,11 +2432,11 @@ public class LoginController {
 				}
 
 				try {
-					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
+					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 					if(lessons_get.size()==0){
 						loginService.insertLesson(lesson);
 					}else if(lessons_get.size()>0){
-						loginService.updateLesson(lesson,0.0f,0.0f,"全科目");
+						loginService.updateLesson(lesson,0.0f,0.0f,"全科目",campus);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -2512,6 +2553,10 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		FileInputStream in = null;
 		Message message =new Message();
 		message.setComment(comment);
@@ -2527,6 +2572,7 @@ public class LoginController {
 		message.setHappiness(happiness);
 		message.setMp3_url(mp3_url);
 		message.setUuids(uuids);
+		message.setCampus(campus);
 
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
@@ -2795,6 +2841,11 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String campus = request.getParameter("campus");
+		if(campus == null || campus.isEmpty() || "undefined".equals(campus)){
+			campus = studio;
+		}
+
 		//获取学生名
 		String student_name = request.getParameter("student_name");
 		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
@@ -2847,6 +2898,7 @@ public class LoginController {
 		user.setStudio(studio);
 		user.setExpired_time(expired_time);
 		user.setSend_time(send_time);
+		user.setCampus(campus);
 		int res = loginService.updateUser(user);
 		if(0==res){
 			user.setUser_type("新用户");
@@ -3067,6 +3119,10 @@ public class LoginController {
 		// 获取工作室
 		String studio = request.getParameter("studio");
 
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 
@@ -3094,6 +3150,7 @@ public class LoginController {
 					gift.setCreate_time(create_time);
 					gift.setExpired_time(expired_time);
 					gift.setStudio(studio);
+					gift.setCampus(campus);
 					gift.setStatus(0);
 					loginService.insertGift(gift);
 					}
@@ -3142,7 +3199,7 @@ public class LoginController {
 
 			Float minus_amount=0.0f;
 			Float coins_amount=0.0f;
-			List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject);
+			List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 			if(!lessons_get.isEmpty()){
 				// 获取单扣课
 				minus_amount = lessons_get.get(0).getMinus();
@@ -3168,23 +3225,24 @@ public class LoginController {
 			lesson.setLeft_amount(left_amount);
 			lesson.setCreate_time(create_time);
 			lesson.setStudio(studio);
+			lesson.setCampus(campus);
 			lesson.setMinus(minus_amount);
 			lesson.setCoins(coins_amount);
 			lesson.setSubject(subject);
 
-			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			if(!student_name_new.isEmpty()){
-				dao.updateScheduleName(student_name_new,student_name,studio);
-				dao.updateCommentName(student_name_new,student_name,studio);
-				dao.updateGiftRecordName(student_name_new,student_name,studio);
-				dao.updateLessonName(student_name_new,student_name,studio);
-				dao.updateSignUpRecordName(student_name_new,student_name,studio);
-				dao.updateUserStudent(student_name_new,student_name,studio);
+				dao.updateScheduleName(student_name_new,student_name,studio,campus);
+				dao.updateCommentName(student_name_new,student_name,studio,campus);
+				dao.updateGiftRecordName(student_name_new,student_name,studio,campus);
+				dao.updateLessonName(student_name_new,student_name,studio,campus);
+				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus);
+				dao.updateUserStudent(student_name_new,student_name,studio,campus);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
-					dao.updateLessonAll(coins_amount,studio);
+					dao.updateLessonAll(coins_amount,studio,campus);
 				}else {
-					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new);
+					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
 				}
 
 			}else {
@@ -3213,13 +3271,17 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 		String points = request.getParameter("points");
 		String subject = request.getParameter("subject");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		Integer points_int = Integer.parseInt(points);
 		if(subject==null){
 			subject="美术";
 		}
 
 		try {
-			loginService.updateAddPoints(student_name,studio,points_int,subject);
+			loginService.updateAddPoints(student_name,studio,points_int,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3236,8 +3298,11 @@ public class LoginController {
 		//获取用户名
 		String expired_time = request.getParameter("expired_time");
 		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
-		List<User> list = dao.getUserByStudio(studio);
+		List<User> list = dao.getUserByStudio(studio,campus);
         String expire_time_get = list.get(0).getExpired_time();
 		Long days = 0L;
 
@@ -3380,13 +3445,16 @@ public class LoginController {
 		String student_name_new = request.getParameter("student_name_new");
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 		try {
-			dao.updateScheduleName(student_name_new,student_name,studio);
-			dao.updateCommentName(student_name_new,student_name,studio);
-			dao.updateGiftRecordName(student_name_new,student_name,studio);
-			dao.updateLessonName(student_name_new,student_name,studio);
-			dao.updateSignUpRecordName(student_name_new,student_name,studio);
+			dao.updateScheduleName(student_name_new,student_name,studio,campus);
+			dao.updateCommentName(student_name_new,student_name,studio,campus);
+			dao.updateGiftRecordName(student_name_new,student_name,studio,campus);
+			dao.updateLessonName(student_name_new,student_name,studio,campus);
+			dao.updateSignUpRecordName(student_name_new,student_name,studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3438,6 +3506,8 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String count = request.getParameter("count");
 		String subject = request.getParameter("subject");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 		List<User> list = dao.getUser(openid);
 		String studio_get = list.get(0).getStudio();
@@ -3445,11 +3515,11 @@ public class LoginController {
 		if ( studio_get.equals(studio)) {
 			try {
 				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
-				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject);
+				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject,campus);
 
-				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject);
+				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject);
+				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus);
 
 			} catch (Exception e) {
 				e.printStackTrace();

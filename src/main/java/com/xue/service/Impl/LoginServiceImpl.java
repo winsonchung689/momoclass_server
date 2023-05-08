@@ -70,7 +70,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject_new) {
+    public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject_new,String campus) {
         int result = 0;
         try {
             String student_name = lesson.getStudent_name();
@@ -85,7 +85,7 @@ public class LoginServiceImpl implements LoginService {
             Float left_amount = 0.0f;
             Float coins_amount = 0.0f;
             if (student_name != null) {
-                List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject);
+                List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
                     if(lessons.size()>0){
                         Lesson lesson_get = lessons.get(0);
                         total_amount = lesson_get.getTotal_amount();
@@ -205,7 +205,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time) {
+    public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -220,7 +220,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getDetailsUrlByDate(studio,duration,student_name,date_time);
+            List<User> list_user = dao.getUser(openid);
+            String campus = list_user.get(0).getCampus();
+            List<Message> list = dao.getDetailsUrlByDate(studio,duration,student_name,date_time,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -277,7 +279,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSearch(String student_name, String studio,Integer page,String class_target) {
+    public List getSearch(String student_name, String studio,Integer page,String class_target,String campus) {
         String comment = null;
         String class_name = null;
         String id = null;
@@ -287,7 +289,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length,class_target);
+            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length,class_target,campus);
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
@@ -303,7 +305,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
 
                 try {
-                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                    List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
                     total = lesson.getTotal_amount();
@@ -389,14 +391,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration) {
+    public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus) {
         String id = null;
         String openid = null;
         String subscription = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<SignUp> list = dao.getSignUpByDateDuration(student_name,studio,date_time,duration);
+            List<SignUp> list = dao.getSignUpByDateDuration(student_name,studio,date_time,duration,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
@@ -544,17 +546,18 @@ public class LoginServiceImpl implements LoginService {
         List<User> user_get= dao.getUser(openid);
         String role = user_get.get(0).getRole();
         Integer user_get_size = user_get.size();
+        String campus = user_get.get(0).getCampus();
 
         try {
             List<Arrangement> list =null;
             if(subject.equals("全科目")){
-                list = dao.getArrangementAll(studio,dayofweek.toString());
-                classes_count_all=dao.getClassesCountAll(studio);
-                classes_count_all_lesson = dao.getClassesCountAllLesson(studio);
+                list = dao.getArrangementAll(studio,dayofweek.toString(),campus);
+                classes_count_all=dao.getClassesCountAll(studio,campus);
+                classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
             }else {
-                list = dao.getArrangement(studio,dayofweek.toString(),subject);
-                classes_count_all=dao.getClassesCountBySubject(studio,subject);
-                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject);
+                list = dao.getArrangement(studio,dayofweek.toString(),subject,campus);
+                classes_count_all=dao.getClassesCountBySubject(studio,subject,campus);
+                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject,campus);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -576,12 +579,12 @@ public class LoginServiceImpl implements LoginService {
                     for(int j = 0; j < user_get_size;j++){
                         String student_name = user_get.get(j).getStudent_name();
                         student_string = student_string + "," + student_name;
-                        class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name);
-                        uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject);
+                        class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name,campus);
+                        uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
                         if(class_res > 0){
-                             classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
+                             classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
                             if(date != null){
-                                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
+                                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
                             }
                         }
                     }
@@ -591,10 +594,10 @@ public class LoginServiceImpl implements LoginService {
                     if(remind == null){
                         remind = 0;
                     }
-                    classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject);
-                    uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject);
+                    classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
+                    uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
                     if(date != null){
-                        sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number);
+                        sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
                     }
                 }
 
@@ -720,6 +723,8 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_counts_get=0;
         List<Schedule> list_tra=null;
         Integer remind=0;
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
 
 
         if(subject.equals("全科目")){
@@ -797,13 +802,13 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("comment_status", "课评");
                     jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time);
+                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus);
                     if (messages.size() >= 1) {
                         if (messages.get(0).getDuration().equals("00:00-00:00")) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                         } else {
-                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
+                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
                             if (messagesDuration.size() == 1) {
                                 jsonObject.put("comment_status", "已课评");
                                 jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
@@ -812,7 +817,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     //json
-                    List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                    List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                     if (lessons.size() > 0) {
                         Lesson lesson = lessons.get(0);
                         left = lesson.getLeft_amount();
@@ -832,7 +837,7 @@ public class LoginServiceImpl implements LoginService {
 
                         jsonObject.put("sign_up", "签到");
                         jsonObject.put("mark", "备注");
-                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00");
+                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
                         if (signUps.size() >= 1) {
                             if (signUps.get(0).getDuration().equals("00:00-00:00")) {
                                 jsonObject.put("sign_up", "已签到");
@@ -841,7 +846,7 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("mark", mark);
 
                             } else {
-                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration);
+                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
                                 if (signUpsDuration.size() == 1) {
                                     jsonObject.put("sign_up", "已签到");
                                     jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -893,13 +898,13 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time);
+                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time,campus);
                 if (messages.size()>=1){
                     if(messages.get(0).getDuration().equals("00:00-00:00")){
                         jsonObject.put("comment_status", "已课评");
                         jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     }else {
-                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
+                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
@@ -908,7 +913,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
-                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                 if(lessons.size()>0){
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
@@ -927,7 +932,7 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00");
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00",campus);
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("sign_up", "已签到");
@@ -936,7 +941,7 @@ public class LoginServiceImpl implements LoginService {
                             jsonObject.put("mark", mark);
 
                         }else {
-                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration);
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration,campus);
                             if(signUpsDuration.size()==1){
                                 jsonObject.put("sign_up", "已签到");
                                 jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -985,6 +990,8 @@ public class LoginServiceImpl implements LoginService {
         List<Schedule> list_tra=null;
         Integer remind=0;
         String student_type=null;
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
 
 
         // 获取常规学生
@@ -1027,13 +1034,13 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time);
+                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus);
                 if (messages.size() >= 1) {
                     if (messages.get(0).getDuration().equals("00:00-00:00")) {
                         jsonObject.put("comment_status", "已课评");
                         jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     } else {
-                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration);
+                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
@@ -1042,7 +1049,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
-                List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                 if (lessons.size() > 0) {
                         Lesson lesson = lessons.get(0);
                         left = lesson.getLeft_amount();
@@ -1062,7 +1069,7 @@ public class LoginServiceImpl implements LoginService {
 
                         jsonObject.put("sign_up", "签到");
                         jsonObject.put("mark", "备注");
-                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00");
+                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
                         if (signUps.size() >= 1) {
                             if (signUps.get(0).getDuration().equals("00:00-00:00")) {
                                 jsonObject.put("sign_up", "已签到");
@@ -1071,7 +1078,7 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("mark", mark);
 
                             } else {
-                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration);
+                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
                                 if (signUpsDuration.size() == 1) {
                                     jsonObject.put("sign_up", "已签到");
                                     jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -1543,6 +1550,9 @@ public class LoginServiceImpl implements LoginService {
         String subscription = null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
+
         try {
             if(openid.equals("all")){
                 list = dao.getAllUser();
@@ -1557,7 +1567,7 @@ public class LoginServiceImpl implements LoginService {
                         Date expired_dt = df.parse(expird_time_get.substring(0,10));
                         int compare = today_dt.compareTo(expired_dt);
                         if(compare > 0){
-                            dao.updateUserExpired("client",studio_get,role_get);
+                            dao.updateUserExpired("client",studio_get,role_get,campus);
                         }
                     }
                 }
@@ -1573,7 +1583,7 @@ public class LoginServiceImpl implements LoginService {
                     Date expired_dt = df.parse(expird_time_get.substring(0,10));
                     int compare = today_dt.compareTo(expired_dt);
                     if(role_get.equals("boss") && compare > 0){
-                        dao.updateUserExpired("client",studio_get,role_get);
+                        dao.updateUserExpired("client",studio_get,role_get,campus);
                     }
                 }
             }
@@ -1604,7 +1614,7 @@ public class LoginServiceImpl implements LoginService {
                 member = line.getMember();
 
                 if(!openid.equals("all")){
-                    list_lesson = dao.getLessonByName(student_name,studio);
+                    list_lesson = dao.getLessonByName(student_name,studio,campus);
                 }
 
                 //json
@@ -1706,7 +1716,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getUserByStudio(String studio) {
+    public List getUserByStudio(String studio,String campus) {
         String role = null;
         String student_name = null;
         String avatarurl = null;
@@ -1725,7 +1735,7 @@ public class LoginServiceImpl implements LoginService {
         String member = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getUserByStudio(studio);
+            list = dao.getUserByStudio(studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
@@ -1836,7 +1846,6 @@ public class LoginServiceImpl implements LoginService {
         String subject = null;
         List<String> resul_list = new ArrayList<>();
         try {
-
             List<Arrangement> list = dao.getArrangements(studio);
             for (int i = 0; i < list.size(); i++) {
                 Arrangement line = list.get(i);
@@ -1987,7 +1996,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getFrameModel(String studio,Integer page,String class_target) {
+    public List getFrameModel(String studio,Integer page,String class_target,String campus) {
         byte[] photo = null;
         String class_name = null;
         String id = null;
@@ -2004,7 +2013,7 @@ public class LoginServiceImpl implements LoginService {
         }
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Message> list = dao.getFrameModel(studio,page_start,page_length,class_target);
+            List<Message> list = dao.getFrameModel(studio,page_start,page_length,class_target,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -2336,7 +2345,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getClassSys(String class_target, String studio,Integer page) {
+    public List getClassSys(String class_target, String studio,Integer page,String campus) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -2350,7 +2359,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getClassSys(class_target, studio,page_start,page_length);
+            List<Message> list = dao.getClassSys(class_target, studio,page_start,page_length,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -2470,7 +2479,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getHome(String studio) {
+    public List getHome(String studio,String campus) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -2483,7 +2492,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getHome(studio);
+            List<Message> list = dao.getHome(studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -2522,7 +2531,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateMinusLesson(String student_name, String studio,Float class_count,String subject) {
+    public int updateMinusLesson(String student_name, String studio,Float class_count,String subject,String campus) {
         int result = 0;
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
@@ -2532,7 +2541,7 @@ public class LoginServiceImpl implements LoginService {
 //        String subject = null;
         System.out.println(student_name);
 
-        List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject);
+        List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject,campus);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
@@ -2560,12 +2569,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateAddPoints(String student_name, String studio,Integer points_int,String subject) {
+    public int updateAddPoints(String student_name, String studio,Integer points_int,String subject,String campus) {
         int result = 0;
         Integer points = 0;
         Integer new_points = 0;
 
-        List<Lesson> list = dao.getLessonLikeNameBySubject(studio, student_name,subject);
+        List<Lesson> list = dao.getLessonLikeNameBySubject(studio, student_name,subject,campus);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
@@ -2846,6 +2855,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             users  =dao.getUserByOpenid(openid);
+            String campus = users.get(0).getCampus();
             if(users.size()>0){
                 for (int i = 0; i < users.size(); i++) {
                     User line = users.get(i);
@@ -2857,9 +2867,9 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(comment_style.equals("self")&&role.equals("client")){
-                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length,class_target);
+                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length,class_target,campus);
             }else if(role.equals("boss")||comment_style.equals("public")) {
-                list = dao.getMessage(studio, page_start, page_length,class_target);
+                list = dao.getMessage(studio, page_start, page_length,class_target,campus);
             }
 
             if(list.size()>0){
@@ -2895,7 +2905,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                     try {
-                        List<Lesson> lessons = dao.getLessonByName(student_name, studio);
+                        List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                         if(lessons.size()>0){
                             Lesson lesson = lessons.get(0);
                             left = lesson.getLeft_amount();
@@ -3187,7 +3197,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getModel(String studio, Integer page) {
+    public List getModel(String studio, Integer page,String campus) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -3201,7 +3211,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Message> list = dao.getModel(studio, page_start, page_length);
+            List<Message> list = dao.getModel(studio, page_start, page_length,campus);
             for (int i = 0; i < list.size(); i++) {
                 String uuids = null;
                 JSONObject jsonObject = new JSONObject();
@@ -3334,7 +3344,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getLesson(String studio,String student_name,String subject) {
+    public List getLesson(String studio,String student_name,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -3356,20 +3366,20 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             if(subject.equals("全科目")){
-                AllCount allCount =dao.getLessonAllCount(studio);
+                AllCount allCount =dao.getLessonAllCount(studio,campus);
                 total_student = allCount.getStudent_count();
                 total_amount_all = allCount.getTotal_amount();
                 left_amount_all = allCount.getLeft_amount();
-                need_pay = dao.getLessonNeedPayCount(studio);
+                need_pay = dao.getLessonNeedPayCount(studio,campus);
                 owe = dao.getLessonOweCount(studio);
             }else{
-                AllCount allCount =dao.getLessonAllCountBySubject(studio,subject);
+                AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
                 if(allCount.getStudent_count()>0){
                     total_student = allCount.getStudent_count();
                     total_amount_all = allCount.getTotal_amount();
                     left_amount_all = allCount.getLeft_amount();
-                    need_pay = dao.getLessonNeedPayCountBySubject(studio,subject);
-                    owe = dao.getLessonOweCountBySubject(studio,subject);
+                    need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
+                    owe = dao.getLessonOweCountBySubject(studio,subject,campus);
                 }
             }
 
@@ -3380,15 +3390,15 @@ public class LoginServiceImpl implements LoginService {
         try {
             if(student_name.equals("all")) {
                 if(subject.equals("全科目")){
-                    list = dao.getLesson(studio);
+                    list = dao.getLesson(studio,campus);
                 }else {
-                    list = dao.getLessonBySubject(studio,subject);
+                    list = dao.getLessonBySubject(studio,subject,campus);
                 }
             }else if (length>1) {
                 if(subject.equals("全科目")){
-                    list = dao.getLessonInName(studio,student_name,0,10000);
+                    list = dao.getLessonInName(studio,student_name,0,10000,campus);
                 }else {
-                    list = dao.getLessonInNameBySubject(studio,student_name,0,10000,subject);
+                    list = dao.getLessonInNameBySubject(studio,student_name,0,10000,subject,campus);
                 }
             }else {
                 if(subject.equals("全科目")){
@@ -3519,7 +3529,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonInName(String studio, String student_name,Integer page,String subject) {
+    public List getLessonInName(String studio, String student_name,Integer page,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -3537,16 +3547,16 @@ public class LoginServiceImpl implements LoginService {
         try {
             if (length>1) {
                 if("全科目".equals(subject)){
-                    list = dao.getLessonInName(studio,student_name,page_start,page_length);
+                    list = dao.getLessonInName(studio,student_name,page_start,page_length,campus);
                 }else {
-                    list = dao.getLessonInNameBySubject(studio,student_name,page_start,page_length,subject);
+                    list = dao.getLessonInNameBySubject(studio,student_name,page_start,page_length,subject,campus);
                 }
 
             }else {
                 if("全科目".equals(subject)){
-                    list = dao.getLessonLikeName(studio,student_name);
+                    list = dao.getLessonLikeName(studio,student_name,campus);
                 }else {
-                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject);
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
                 }
 
             }
@@ -3558,7 +3568,7 @@ public class LoginServiceImpl implements LoginService {
 
                 byte[] photo = null;
                 try {
-                    list_student =dao.getStudentPhoto(student_name,studio);
+                    list_student =dao.getStudentPhoto(student_name,studio,campus);
                     //获取图片
                     if(list_student.size()>0){
                         photo = list_student.get(0).getPhoto();
@@ -3598,7 +3608,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGoodsList(String studio, Integer page) {
+    public List getGoodsList(String studio, Integer page,String campus) {
         String goods_name = null;
         String goods_intro = null;
         String create_time = null;
@@ -3611,7 +3621,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            list = dao.getGoodsList(studio,page_start,page_length);
+            list = dao.getGoodsList(studio,page_start,page_length,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 GoodsList line = list.get(i);
