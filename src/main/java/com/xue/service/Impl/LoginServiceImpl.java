@@ -2834,7 +2834,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target) {
+    public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target,String campus) {
         String comment = null;
         String class_name = null;
         String id = null;
@@ -2856,7 +2856,6 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             users  =dao.getUserByOpenid(openid);
-            String campus = users.get(0).getCampus();
             if(users.size()>0){
                 for (int i = 0; i < users.size(); i++) {
                     User line = users.get(i);

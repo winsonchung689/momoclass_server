@@ -415,7 +415,9 @@ public class LoginController {
 	public List getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target){
 		List list = null;
 		try {
-			list = loginService.getMessage(studio,page,comment_style,openid,role,class_target);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getMessage(studio,page,comment_style,openid,role,class_target,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
