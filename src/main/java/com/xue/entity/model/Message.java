@@ -36,6 +36,16 @@ public class Message {
 
     private String uuids_c;
 
+    private String campus;
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
     public String getUuids_c() {
         return uuids_c;
     }

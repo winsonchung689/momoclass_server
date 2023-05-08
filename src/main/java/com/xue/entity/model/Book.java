@@ -15,8 +15,15 @@ public class Book {
 
     private String create_time;
 
+    private String campus;
 
+    public String getCampus() {
+        return campus;
+    }
 
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
 
     public String getCreate_time() {
         return create_time;

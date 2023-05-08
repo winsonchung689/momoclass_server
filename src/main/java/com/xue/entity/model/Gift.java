@@ -19,6 +19,15 @@ public class Gift {
 
     private Integer status;
 
+    private String campus;
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
 
     public Integer getStatus() {
         return status;

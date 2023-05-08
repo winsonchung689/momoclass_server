@@ -14,6 +14,16 @@ public class Note {
 
     private String note_content;
 
+    private String campus;
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
     public String getNote_content() {
         return note_content;
     }

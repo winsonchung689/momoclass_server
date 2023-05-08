@@ -48,6 +48,16 @@ public class User {
 
     private String member;
 
+    private String campus;
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
 
     public String getMember() {
         return member;

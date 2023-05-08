@@ -14,6 +14,16 @@ public class Order {
     private String studio;
     private String create_time;
 
+    private String campus;
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
 
     private Float goods_price;
     private Integer status;
