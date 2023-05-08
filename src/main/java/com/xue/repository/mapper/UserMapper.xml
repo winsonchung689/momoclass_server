@@ -135,7 +135,7 @@
 
   <!-- 获取主页 -->
   <select id="getHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='主页' and delete_status = 0 and studio = #{param1} and campus =#{param2}  order by create_time desc limit 1
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='主页' and delete_status = 0 and studio = #{param1} order by create_time desc limit 1
   </select>
 
   <!-- 获取奖状 -->
@@ -481,7 +481,7 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangementAll" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus = #{param3} and delete_status = 0 order by duration
+    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找课程表 -->
@@ -601,7 +601,7 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member,campus from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

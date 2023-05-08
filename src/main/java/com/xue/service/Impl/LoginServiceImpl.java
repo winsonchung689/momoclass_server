@@ -546,6 +546,7 @@ public class LoginServiceImpl implements LoginService {
         List<User> user_get= dao.getUser(openid);
         String role = user_get.get(0).getRole();
         Integer user_get_size = user_get.size();
+
         String campus = user_get.get(0).getCampus();
 
         try {
