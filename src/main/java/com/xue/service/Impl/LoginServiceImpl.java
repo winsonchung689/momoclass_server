@@ -1548,16 +1548,15 @@ public class LoginServiceImpl implements LoginService {
         List<User> list= new ArrayList<>();;
         String send_time = null;
         String subscription = null;
+        String campus =null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
-        List<User> list_user = dao.getUser(openid);
-        String campus = list_user.get(0).getCampus();
-
         try {
             if(openid.equals("all")){
                 list = dao.getAllUser();
                 for (int i = 0; i < list.size(); i++) {
                     String role_get = list.get(i).getRole();
+                    campus = list.get(i).getCampus();
                     if(role_get.equals("boss")){
                         String expird_time_get = list.get(i).getExpired_time();
                         String studio_get = list.get(i).getStudio();
@@ -1574,6 +1573,7 @@ public class LoginServiceImpl implements LoginService {
             }else {
                 list = dao.getUser(openid);
                 if(list.size()>0){
+                    campus = list.get(0).getCampus();
                     String role_get = list.get(0).getRole();
                     String expird_time_get = list.get(0).getExpired_time();
                     String studio_get = list.get(0).getStudio();
