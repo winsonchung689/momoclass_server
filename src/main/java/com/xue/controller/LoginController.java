@@ -2020,6 +2020,7 @@ public class LoginController {
 					schedule.setStudent_type("ordinary");
 					schedule.setStatus(1);
 					schedule.setSubject(subject);
+					schedule.setCampus(campus);
 					loginService.insertSchedule(schedule);
 				}
 			}
