@@ -1779,6 +1779,9 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String total_amount = request.getParameter("total_amount");
 		String left_amount = request.getParameter("left_amount");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
 
 		try {
 			Lesson lesson =new Lesson();
@@ -1791,6 +1794,7 @@ public class LoginController {
 			lesson.setCoins(1.00f);
 			lesson.setPoints(0);
 			lesson.setMinus(1.00f);
+			lesson.setCampus(campus);
 			dao.insertLesson(lesson);
 		} catch (Exception e) {
 			e.printStackTrace();
