@@ -692,7 +692,7 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/updateRemind")
 	@ResponseBody
-	public int updateRemind(String subject_class,String studio,String type,String dayofweek){
+	public int updateRemind(String subject_class,String studio,String type,String dayofweek,String openid){
 		Integer remind = 1;
 		if("cancel".equals(type)){
 			remind = 0;
@@ -704,9 +704,12 @@ public class LoginController {
 		String class_number = list[1];
 		String duration = list[2];
 
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		int result = 0;
 		try {
-			result =dao.updateRemind(remind,subject,studio,duration,class_number,dayofweek);
+			result =dao.updateRemind(remind,subject,studio,duration,class_number,dayofweek,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
