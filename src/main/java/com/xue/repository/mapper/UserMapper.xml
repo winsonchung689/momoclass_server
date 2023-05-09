@@ -155,7 +155,7 @@
 
   <!-- 获取全部 -->
   <select id="getSearch" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target_bak =#{param5} and studio = #{param2} and delete_status = 0  order by create_time desc limit #{param3},#{param4};
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where (student_name like "%"#{param1}"%" or class_name like "%"#{param1}"%") and class_target_bak =#{param5} and studio = #{param2} and campus =#{param6} and delete_status = 0  order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取详情 -->

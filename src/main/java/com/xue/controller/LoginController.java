@@ -1054,9 +1054,11 @@ public class LoginController {
 	//	获取用户
 	@RequestMapping("/getUserByStudio")
 	@ResponseBody
-	public List getUserByStudio(String studio,String campus){
+	public List getUserByStudio(String studio,String openid){
 		List list = null;
 		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
 			list = loginService.getUserByStudio(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2752,6 +2754,10 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		String photo = request.getParameter("photo");
 		FileInputStream in = null;
 
@@ -2765,6 +2771,7 @@ public class LoginController {
 			goodsList.setGoods_price(Float.parseFloat(goods_price));
 			goodsList.setStudio(studio);
 			goodsList.setCreate_time(create_time);
+			goodsList.setCampus(campus);
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {
@@ -2807,6 +2814,10 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
@@ -2832,6 +2843,7 @@ public class LoginController {
 				schedule.setStudent_type("ordinary");
 				schedule.setStatus(Integer.parseInt(status));
 				schedule.setSubject(subject);
+				schedule.setCampus(campus);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
