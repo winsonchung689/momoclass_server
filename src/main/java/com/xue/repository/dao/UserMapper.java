@@ -230,6 +230,8 @@ public interface UserMapper {
 
     List<User> getUserByStudio(String studio,String campus);
 
+    List<User> getAllUserByStudio(String studio);
+
     List<User> getBossByStudio(String studio);
     List<User> getAllUser();
 

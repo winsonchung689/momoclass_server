@@ -1067,6 +1067,19 @@ public class LoginController {
 	}
 
 	//	获取用户
+	@RequestMapping("/getAllUserByStudio")
+	@ResponseBody
+	public List getAllUserByStudio(String studio){
+		List list = null;
+		try {
+			list = dao.getAllUserByStudio(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取用户
 	@RequestMapping("/getUserByStudent")
 	@ResponseBody
 	public List getUserByStudent(String student_name,String studio){
