@@ -196,6 +196,8 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
+    int updateUserCampus(User user);
+
     int updateSubscription(User user);
 
     int updateSubject(User user);

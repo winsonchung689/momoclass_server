@@ -3014,13 +3014,6 @@ public class LoginController {
 //			throw new RuntimeException(e);
 		}
 
-		//定义role
-//		String role =null;
-//		if (role_get.equals("boss")){
-//			role = "client";
-//		} else {
-//			role = "boss";
-//		}
 
         //获取用户类型
 		String user_type = "老用户";
@@ -3033,6 +3026,24 @@ public class LoginController {
 			user.setCreate_time(create_time);
 			user.setExpired_time(expired_time);
 			loginService.updateUsertype(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateCampus")
+	@ResponseBody
+	public String updateCampus(HttpServletRequest request, HttpServletResponse response){
+		//获取openid
+		String openid = request.getParameter("openid");
+		String campus = request.getParameter("campus");
+
+		try {
+			User user =new User();
+			user.setOpenid(openid);
+			user.setCampus(campus);
+			dao.updateUserCampus(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
