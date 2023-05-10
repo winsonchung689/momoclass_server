@@ -331,6 +331,8 @@ public interface UserMapper {
 
     int insertGoodsList(GoodsList goodsList);
 
+    int insertGroupBuy(GroupBuy groupBuy);
+
     int insertGift(Gift gift);
 
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject,String campus);

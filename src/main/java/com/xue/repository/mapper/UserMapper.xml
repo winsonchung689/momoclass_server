@@ -459,6 +459,11 @@
     insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus})
   </insert>
 
+  <!-- 插入团购列表 -->
+  <insert id="insertGroupBuy" parameterType="com.xue.entity.model.GoodsList">
+    insert group_buy(goods_id,goods_name,nick_name,openid,create_time,studio) values(#{goods_id},#{goods_name},#{nick_name},#{openid},#{create_time},#{studio})
+  </insert>
+
   <!-- 获取全部 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
     select id,goods_name,goods_intro,goods_price,create_time,studio,photo from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};

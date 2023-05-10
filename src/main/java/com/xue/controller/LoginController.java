@@ -2801,6 +2801,39 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertGroupBuy")
+	@ResponseBody
+	public String insertGroupBuy(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取商品名称
+		String goods_name = request.getParameter("goods_name");
+		//获取商品ID
+		String goods_id = request.getParameter("goods_id");
+		//获取商品价格
+		String nick_name = request.getParameter("nick_name");
+
+		String studio = request.getParameter("studio");
+
+		String openid = request.getParameter("openid");
+
+		GroupBuy groupBuy =new GroupBuy();
+		try {
+			groupBuy.setGoods_id(goods_id);
+			groupBuy.setGoods_name(goods_name);
+			groupBuy.setNick_name(nick_name);
+			groupBuy.setOpenid(openid);
+			groupBuy.setCreate_time(create_time);
+			groupBuy.setStudio(studio);
+
+			dao.insertGroupBuy(groupBuy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	//	推送
 	@RequestMapping("/arrangeClass")
 	@ResponseBody
