@@ -3622,6 +3622,7 @@ public class LoginServiceImpl implements LoginService {
         Integer page_length = 5;
         List<GoodsList> list = null;
         List<GroupBuy> list_buy = null;
+        String uuids = null;
         byte[] photo = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
@@ -3644,6 +3645,16 @@ public class LoginServiceImpl implements LoginService {
                     group.append(nick_name+",");
                 }
                 create_time = line.getCreate_time();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                photo = line.getPhoto();
+                if(uuids != null){
+                    photo = null;
+
+                }
 
                 //json
                 jsonObject.put("goods_name", goods_name);

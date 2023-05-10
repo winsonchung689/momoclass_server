@@ -21,6 +21,16 @@ public class GoodsList {
 
     private String campus;
 
+    private String uuids;
+
+    public String getUuids() {
+        return uuids;
+    }
+
+    public void setUuids(String uuids) {
+        this.uuids = uuids;
+    }
+
     public String getCampus() {
         return campus;
     }

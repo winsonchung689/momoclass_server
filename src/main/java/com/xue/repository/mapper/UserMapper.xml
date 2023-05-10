@@ -463,7 +463,7 @@
 
   <!-- 插入商品列表 -->
   <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
-    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus})
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids})
   </insert>
 
   <!-- 插入团购列表 -->
@@ -473,7 +473,7 @@
 
   <!-- 获取商品列表 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select id,goods_name,goods_intro,goods_price,create_time,studio,photo from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+    select id,goods_name,goods_intro,goods_price,create_time,studio,photo,uuids from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取团购列表 -->

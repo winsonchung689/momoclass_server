@@ -2800,6 +2800,8 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String uuids = request.getParameter("uuids");
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -2818,6 +2820,7 @@ public class LoginController {
 			goodsList.setStudio(studio);
 			goodsList.setCreate_time(create_time);
 			goodsList.setCampus(campus);
+			goodsList.setUuids(uuids);
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {
