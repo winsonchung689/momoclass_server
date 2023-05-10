@@ -3639,7 +3639,7 @@ public class LoginServiceImpl implements LoginService {
                 for (int j = 0; j < list_buy.size(); j++) {
                     GroupBuy line_group = list_buy.get(j);
                     String nick_name = line_group.getNick_name();
-                    group.append(nick_name);
+                    group.append(nick_name+",");
                 }
                 create_time = line.getCreate_time();
 
