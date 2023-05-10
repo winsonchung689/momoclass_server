@@ -618,15 +618,15 @@
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time from user where studio =#{param1} and role ='boss' and delete_status = 0 order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,campus from user where studio =#{param1} and role ='boss' and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects from user where openid =#{param1} and delete_status = 0 order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus from user where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByStudent" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,subscription from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 and role = 'client' order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,subscription,campus from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 and role = 'client' order by create_time desc
   </select>
 
   <select id="getUserByNickStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -650,11 +650,11 @@
   </select>
 
   <select id="getBossByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days from user where  studio =#{param1} and role ='boss' and delete_status = 0 order by role
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,campus from user where  studio =#{param1} and role ='boss' and delete_status = 0 order by role
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member from user where delete_status = 0 order by role
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member,campus from user where delete_status = 0 order by role
   </select>
 
   <!-- 更新工作室 -->
