@@ -1371,6 +1371,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteGroupBuy")
+	@ResponseBody
+	public int deleteGroupBuy(String goods_id,String nick_name,String studio){
+		try {
+			dao.deleteGroupBuy(goods_id,nick_name,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteArrangement")
 	@ResponseBody

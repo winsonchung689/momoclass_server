@@ -126,6 +126,8 @@ public interface UserMapper {
 
     void deleteArrangement(Integer id,String studio);
 
+    void deleteGroupBuy(String goods_id,String nick_name,String studio);
+
     void changeClassName(Integer id,String studio,String class_number);
 
     void modifyMark(String id,String studio,String mark);
