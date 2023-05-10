@@ -340,7 +340,7 @@ public interface UserMapper {
 
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject,String campus);
 
-    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String campus);
+    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
 
     List<GroupBuy> getGroupBuy(String studio, String goods_id);
 

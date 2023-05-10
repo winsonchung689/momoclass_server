@@ -513,12 +513,12 @@ public class LoginController {
 	//	获取商品列表
 	@RequestMapping("/getGoodsList")
 	@ResponseBody
-	public List getGoodsList(String studio,Integer page,String openid){
+	public List getGoodsList(String studio,Integer page){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getGoodsList(studio,page,campus);
+//			List<User> list_user = dao.getUser(openid);
+//			String campus = list_user.get(0).getCampus();
+			list = loginService.getGoodsList(studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

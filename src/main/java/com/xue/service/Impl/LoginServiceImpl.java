@@ -3612,7 +3612,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGoodsList(String studio, Integer page,String campus) {
+    public List getGoodsList(String studio, Integer page) {
         String goods_name = null;
         String goods_intro = null;
         String create_time = null;
@@ -3627,7 +3627,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            list = dao.getGoodsList(studio,page_start,page_length,campus);
+            list = dao.getGoodsList(studio,page_start,page_length);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 GoodsList line = list.get(i);
