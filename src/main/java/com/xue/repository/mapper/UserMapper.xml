@@ -40,6 +40,9 @@
   <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
     <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
   </resultMap>
+  <resultMap id="BaseGroupBuy" type="com.xue.entity.model.GroupBuy">
+    <result column="goods_id" jdbcType="VARCHAR" property="goods_id" />
+  </resultMap>
   <resultMap id="BaseOrder" type="com.xue.entity.model.Order">
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
   </resultMap>
@@ -464,9 +467,14 @@
     insert group_buy(goods_id,goods_name,nick_name,openid,create_time,studio) values(#{goods_id},#{goods_name},#{nick_name},#{openid},#{create_time},#{studio})
   </insert>
 
-  <!-- 获取全部 -->
+  <!-- 获取商品列表 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
     select id,goods_name,goods_intro,goods_price,create_time,studio,photo from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+  </select>
+
+  <!-- 获取团购列表 -->
+  <select id="getGroupBuy" parameterType="com.xue.entity.model.GroupBuy" resultMap="BaseGroupBuy">
+    select id,goods_id,goods_name,nick_name,openid,create_time,studio from group_buy where studio = #{param1} and goods_id =#{param2} and delete_status = 0 order by create_time desc;
   </select>
 
   <!-- 查找课程表 -->

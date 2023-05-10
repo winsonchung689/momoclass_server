@@ -2,6 +2,7 @@ package com.xue.repository.dao;
 
 import com.xue.entity.model.*;
 
+import java.security.acl.Group;
 import java.util.List;
 
 public interface UserMapper {
@@ -338,6 +339,8 @@ public interface UserMapper {
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject,String campus);
 
     List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String campus);
+
+    List<GroupBuy> getGroupBuy(String studio, String goods_id);
 
     List<Arrangement> getArrangementAll(String studio,String dayofweek,String campus);
 

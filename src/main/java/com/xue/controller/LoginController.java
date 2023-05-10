@@ -525,6 +525,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取团购列表
+	@RequestMapping("/getGroupBuy")
+	@ResponseBody
+	public List getGroupBuy(String studio,String goods_id){
+		List list = null;
+		try {
+			list = loginService.getGroupBuy(studio,goods_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getRating")
 	@ResponseBody
