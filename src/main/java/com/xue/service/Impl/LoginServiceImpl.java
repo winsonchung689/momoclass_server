@@ -3664,6 +3664,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("photo", photo);
                 jsonObject.put("id", id);
                 jsonObject.put("group", group);
+                jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
