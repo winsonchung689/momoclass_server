@@ -26,6 +26,16 @@ public class SignUp {
 
     private String campus;
 
+    private Integer ending_status;
+
+    public Integer getEnding_status() {
+        return ending_status;
+    }
+
+    public void setEnding_status(Integer ending_status) {
+        this.ending_status = ending_status;
+    }
+
     public String getCampus() {
         return campus;
     }

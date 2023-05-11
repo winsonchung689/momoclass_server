@@ -344,6 +344,7 @@ public class LoginServiceImpl implements LoginService {
         String mark = null;
         String duration = null;
         Float count = 0.0f;
+        Integer ending_status = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -358,6 +359,12 @@ public class LoginServiceImpl implements LoginService {
                 mark = line.getMark();
                 duration = line.getDuration();
                 count = line.getCount();
+                ending_status = line.getEnding_status();
+                if (ending_status == 0) {
+                    jsonObject.put("ending_status", "未结课");
+                } else if(ending_status == 1){
+                    jsonObject.put("ending_status", "已结课");
+                }
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 Date create_time_dt = df1.parse(create_time.substring(0,10));
