@@ -306,7 +306,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteSignUpAllRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    update sign_up_record ending_status = 1 where student_name =#{param1} and studio =#{param2}
+    update sign_up_record set ending_status = 1 where student_name =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
