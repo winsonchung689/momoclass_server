@@ -2971,7 +2971,7 @@ public class LoginServiceImpl implements LoginService {
             if("public".equals(type)){
                  posts = dao.getPostPublic(page_start,page_length);
             }else if("private".equals(type)){
-                 posts = dao.getPostPrivate(page_start,page_length);
+                 posts = dao.getPostPrivate(page_start,page_length,studio);
             }
             for (int i = 0; i < posts.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
