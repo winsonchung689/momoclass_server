@@ -97,6 +97,8 @@ public interface UserMapper {
 
     //获取详情
     List<Message> getDetails(Integer id);
+
+    List<Post> getPost(Integer page_start,Integer page_length);
     //获取详情
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
 

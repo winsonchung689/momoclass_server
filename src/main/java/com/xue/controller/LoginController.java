@@ -424,6 +424,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getPost")
+	@ResponseBody
+	public List getPost(String studio,Integer page,String openid){
+		List list = null;
+		try {
+//			List<User> list_user = dao.getUser(openid);
+//			String campus = list_user.get(0).getCampus();
+			list = loginService.getPost(studio,page,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getGrowthRecord")
 	@ResponseBody

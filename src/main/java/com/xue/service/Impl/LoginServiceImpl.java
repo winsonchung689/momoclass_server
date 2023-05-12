@@ -2955,6 +2955,57 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getPost(String studio, Integer page, String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        String openid_get = null;
+        String studio_get = null;
+        String uuids = null;
+        String content =null;
+        String create_time = null;
+        String avatar = null;
+        String nick_name = null;
+        Integer page_start = (page - 1) * 4;
+        Integer page_length = 4;
+
+        try {
+            List<Post> posts = dao.getPost(page_start,page_length);
+            for (int i = 0; i < posts.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Post line = posts.get(i);
+                //获取字段
+                openid_get = line.getOpenid();
+                List<User> list_user = dao.getUser(openid_get);
+                avatar = list_user.get(0).getAvatarurl();
+                nick_name = list_user.get(0).getAvatarurl();
+
+                studio_get = line.getStudio();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                content = line.getContent();
+                create_time = line.getCreate_time();
+
+                jsonObject.put("openid_get", openid_get);
+                jsonObject.put("studio_get", studio_get);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("content", content);
+                jsonObject.put("avatar", avatar);
+                jsonObject.put("nick_name",nick_name);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject,String campus) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
