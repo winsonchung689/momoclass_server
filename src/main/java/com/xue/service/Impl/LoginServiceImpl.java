@@ -2980,7 +2980,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 openid_get = line.getOpenid();
                 try {
-                    List<User> list_user = dao.getUser(openid_get);
+                    List<User> list_user = dao.getUserByOpenidIgnore(openid_get);
                     avatar = list_user.get(0).getAvatarurl();
                     nick_name = list_user.get(0).getAvatarurl();
                 } catch (Exception e) {

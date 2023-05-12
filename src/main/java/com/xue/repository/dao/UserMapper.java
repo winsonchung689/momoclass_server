@@ -233,6 +233,8 @@ public interface UserMapper {
 
     List<User> getUserByOpenid(String openid);
 
+    List<User> getUserByOpenidIgnore(String openid);
+
     List<User> getUserByStudent(String student_name,String studio);
 
     List<User> getUserByNickStudio(String nick_name,String studio);
