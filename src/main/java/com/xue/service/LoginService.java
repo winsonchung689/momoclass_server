@@ -8,7 +8,7 @@ public interface LoginService {
 
     public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target,String campus);
 
-    public List  getPost(String studio,Integer page,String openid);
+    public List  getPost(String studio,Integer page,String openid,String type);
 
     public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject,String campus);
 

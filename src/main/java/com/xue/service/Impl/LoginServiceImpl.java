@@ -2955,30 +2955,39 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getPost(String studio, Integer page, String openid) {
+    public List getPost(String studio, Integer page, String openid,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
         String openid_get = null;
         String studio_get = null;
-        String uuids = null;
         String content =null;
         String create_time = null;
-        String avatar = null;
-        String nick_name = null;
+        String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+        String nick_name = "游客";
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
 
         try {
-            List<Post> posts = dao.getPost(page_start,page_length);
+            List<Post> posts =null;
+            if("public".equals(type)){
+                 posts = dao.getPostPublic(page_start,page_length);
+            }else if("private".equals(type)){
+                 posts = dao.getPostPrivate(page_start,page_length);
+            }
             for (int i = 0; i < posts.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Post line = posts.get(i);
                 //获取字段
                 openid_get = line.getOpenid();
-                List<User> list_user = dao.getUser(openid_get);
-                avatar = list_user.get(0).getAvatarurl();
-                nick_name = list_user.get(0).getAvatarurl();
+                try {
+                    List<User> list_user = dao.getUser(openid_get);
+                    avatar = list_user.get(0).getAvatarurl();
+                    nick_name = list_user.get(0).getAvatarurl();
+                } catch (Exception e) {
+                    // throw new RuntimeException(e);
+                }
 
                 studio_get = line.getStudio();
+                String uuids = null;
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
@@ -2995,8 +3004,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
-
             }
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

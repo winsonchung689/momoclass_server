@@ -58,6 +58,9 @@
   <resultMap id="BasePost" type="com.xue.entity.model.Post">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BasePostComment" type="com.xue.entity.model.PostComment">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -69,9 +72,15 @@
   </select>
 
   <!-- 获取全量发帖 -->
-  <select id="getPost" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
+  <select id="getPostPublic" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
     select id,openid,uuids,content,studio,create_time from post where delete_status = 0 order by create_time desc limit #{param1},#{param2};
   </select>
+
+  <!-- 获取本画室发帖 -->
+  <select id="getPostPrivate" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
+    select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and studio =#{param3} order by create_time desc limit #{param1},#{param2};
+  </select>
+
 
   <!-- 获取全部 -->
   <select id="getMessageByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
