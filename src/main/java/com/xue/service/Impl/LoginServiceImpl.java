@@ -2982,7 +2982,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     List<User> list_user = dao.getUserByOpenidIgnore(openid_get);
                     avatar = list_user.get(0).getAvatarurl();
-                    nick_name = list_user.get(0).getAvatarurl();
+                    nick_name = list_user.get(0).getNick_name();
                 } catch (Exception e) {
                     // throw new RuntimeException(e);
                 }
