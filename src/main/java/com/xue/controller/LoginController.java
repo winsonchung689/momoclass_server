@@ -2695,6 +2695,64 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+
+	//	推送
+	@RequestMapping("/insertPost")
+	@ResponseBody
+	public String insertPost(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取
+		String openid = request.getParameter("openid");
+		String uuids = request.getParameter("uuids");
+		String content = request.getParameter("content");
+		String studio = request.getParameter("studio");
+
+		Post post = new Post();
+		post.setOpenid(openid);
+		post.setUuids(uuids);
+		post.setContent(content);
+		post.setStudio(studio);
+		post.setCreate_time(create_time);
+
+		try {
+			dao.insertPost(post);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/insertPostComment")
+	@ResponseBody
+	public String insertPostComment(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取
+		String openid = request.getParameter("openid");
+		String post_id = request.getParameter("post_id");
+		String content = request.getParameter("content");
+		String studio = request.getParameter("studio");
+
+		PostComment postComment = new PostComment();
+		postComment.setOpenid(openid);
+		postComment.setPost_id(post_id);
+		postComment.setContent(content);
+		postComment.setStudio(studio);
+		postComment.setCreate_time(create_time);
+
+		try {
+			dao.insertPostComment(postComment);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	//	推送
 	@RequestMapping("/bookkeeping")
 	@ResponseBody

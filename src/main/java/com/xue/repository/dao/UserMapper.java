@@ -107,6 +107,10 @@ public interface UserMapper {
 
     int push(Message message);
 
+    int insertPost(Post post);
+
+    int insertPostComment(PostComment postComment);
+
     //插入
     int insertSchedule(Schedule schedule);
 
