@@ -1296,6 +1296,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deletePost")
+	@ResponseBody
+	public int deletePost(Integer id){
+		try {
+			dao.deletePost(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteUuids")
 	@ResponseBody

@@ -122,6 +122,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
+    void deletePost(Integer id);
+
     void deleteBookDetail(Integer id,String studio);
 
     void updateUuids(Integer id,String studio,String uuids);

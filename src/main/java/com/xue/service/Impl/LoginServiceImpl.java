@@ -2961,6 +2961,7 @@ public class LoginServiceImpl implements LoginService {
         String studio_get = null;
         String content =null;
         String create_time = null;
+        String id = null;
         String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
         String nick_name = "游客";
         Integer page_start = (page - 1) * 4;
@@ -2995,6 +2996,8 @@ public class LoginServiceImpl implements LoginService {
                 }
                 content = line.getContent();
                 create_time = line.getCreate_time();
+                id = line.getId();
+
 
                 jsonObject.put("openid_get", openid_get);
                 jsonObject.put("studio_get", studio_get);
@@ -3003,6 +3006,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatar", avatar);
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
 
