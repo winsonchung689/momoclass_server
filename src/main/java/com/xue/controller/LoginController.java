@@ -2896,8 +2896,8 @@ public class LoginController {
 
 		GoodsList goodsList =new GoodsList();
 		try {
-			in = Imageutil.readImage(photo);
-			goodsList.setPhoto(FileCopyUtils.copyToByteArray(in));
+//			in = Imageutil.readImage(photo);
+//			goodsList.setPhoto(FileCopyUtils.copyToByteArray(in));
 			goodsList.setGoods_name(goods_name);
 			goodsList.setGoods_intro(goods_intro);
 			goodsList.setGoods_price(Float.parseFloat(goods_price));
