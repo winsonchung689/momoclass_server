@@ -2734,6 +2734,7 @@ public class LoginController {
 		String uuids = request.getParameter("uuids");
 		String content = request.getParameter("content");
 		String studio = request.getParameter("studio");
+		String is_private = request.getParameter("is_private");
 
 		Post post = new Post();
 		post.setOpenid(openid);

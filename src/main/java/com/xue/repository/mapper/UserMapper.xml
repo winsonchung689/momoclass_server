@@ -73,7 +73,7 @@
 
   <!-- 获取全量发帖 -->
   <select id="getPostPublic" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
-    select id,openid,uuids,content,studio,create_time from post where delete_status = 0 order by create_time desc limit #{param1},#{param2};
+    select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and is_private = 0 order by create_time desc limit #{param1},#{param2};
   </select>
 
   <!-- 获取本画室发帖 -->

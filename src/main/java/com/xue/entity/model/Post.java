@@ -16,6 +16,16 @@ public class Post {
 
     private String delete_status;
 
+    private String is_private;
+
+
+    public String getIs_private() {
+        return is_private;
+    }
+
+    public void setIs_private(String is_private) {
+        this.is_private = is_private;
+    }
 
     public String getContent() {
         return content;
