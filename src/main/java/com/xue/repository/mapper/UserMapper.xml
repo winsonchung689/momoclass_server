@@ -460,7 +460,7 @@
 
   <!-- 插入帖子 -->
   <insert id="insertPost" parameterType="com.xue.entity.model.Post">
-    insert post(openid,uuids,content,studio,create_time) values(#{openid},#{uuids},#{content},#{studio},#{create_time})
+    insert post(openid,uuids,content,studio,create_time,is_private) values(#{openid},#{uuids},#{content},#{studio},#{create_time},#{is_private})
   </insert>
 
   <!-- 插入回帖 -->
