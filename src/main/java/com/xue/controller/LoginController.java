@@ -2742,6 +2742,7 @@ public class LoginController {
 		post.setContent(content);
 		post.setStudio(studio);
 		post.setCreate_time(create_time);
+		post.setIs_private(is_private);
 
 		try {
 			dao.insertPost(post);
