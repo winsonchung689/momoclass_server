@@ -2963,7 +2963,6 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
-        String nick_name = "游客";
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
 
@@ -2975,6 +2974,7 @@ public class LoginServiceImpl implements LoginService {
                  posts = dao.getPostPrivate(page_start,page_length,studio);
             }
             for (int i = 0; i < posts.size(); i++) {
+                String nick_name = "游客";
                 JSONObject jsonObject = new JSONObject();
                 Post line = posts.get(i);
                 //获取字段
