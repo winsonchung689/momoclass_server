@@ -465,7 +465,7 @@
 
   <!-- 插入回帖 -->
   <insert id="insertPostComment" parameterType="com.xue.entity.model.PostComment">
-    insert post(openid,post_id,content,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
+    insert post_comment(openid,post_id,content,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
   </insert>
 
   <!-- 插入课程表 -->
