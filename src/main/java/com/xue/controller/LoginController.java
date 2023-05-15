@@ -975,6 +975,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getPostLikeByOpenid")
+	@ResponseBody
+	public List getPostLike(String post_id,String openid){
+		List list = null;
+		try {
+			list = dao.getPostLikeByOpenid(post_id,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody

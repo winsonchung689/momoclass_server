@@ -106,6 +106,8 @@ public interface UserMapper {
 
     List<PostLike> getPostLike(String post_id);
 
+    List<PostLike> getPostLikeByOpenid(String post_id,String openid);
+
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
 
     //插入

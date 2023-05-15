@@ -95,6 +95,10 @@
     select id,openid,post_id,studio,create_time from post_like where delete_status = 0 and post_id =#{param1} order by create_time desc;
   </select>
 
+  <select id="getPostLikeByOpenid" parameterType="com.xue.entity.model.PostLike" resultMap="BasePostLike">
+    select id,openid,post_id,studio,create_time from post_like where delete_status = 0 and post_id =#{param1} and openid =#{param2} order by create_time desc;
+  </select>
+
   <!-- 获取全部 -->
   <select id="getMessageByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' and student_name = #{param1} and studio = #{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4};
