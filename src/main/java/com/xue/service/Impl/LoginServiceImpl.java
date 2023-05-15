@@ -3025,6 +3025,53 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getPostComment(String post_id) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        String openid = null;
+        String studio = null;
+        String content =null;
+        String create_time = null;
+        String id = null;
+
+        try {
+            List<PostComment> postComments = dao.getPostComment(post_id);
+            for (int i = 0; i < postComments.size(); i++) {
+                String nick_name = null;
+                String avatar = null;
+                JSONObject jsonObject = new JSONObject();
+                PostComment line = postComments.get(i);
+                //获取字段
+                openid = line.getOpenid();
+                try {
+                    List<User> list_user = dao.getUser(openid);
+                    avatar = list_user.get(0).getAvatarurl();
+                    nick_name = list_user.get(0).getNick_name();
+                } catch (Exception e) {
+                    // throw new RuntimeException(e);
+                }
+
+                studio = line.getStudio();
+                content = line.getContent();
+                create_time = line.getCreate_time();
+                id = line.getId();
+
+                jsonObject.put("openid", openid);
+                jsonObject.put("studio_get", studio);
+                jsonObject.put("content", content);
+                jsonObject.put("avatar", avatar);
+                jsonObject.put("nick_name",nick_name);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("id", id);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject,String campus) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();

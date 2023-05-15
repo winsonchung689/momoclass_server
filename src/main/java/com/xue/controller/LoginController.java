@@ -968,7 +968,7 @@ public class LoginController {
 	public List getPostComment(String post_id){
 		List list = null;
 		try {
-			list = dao.getPostComment(post_id);
+			list = loginService.getPostComment(post_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

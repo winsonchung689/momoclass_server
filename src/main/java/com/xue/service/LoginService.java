@@ -10,6 +10,8 @@ public interface LoginService {
 
     public List  getPost(String studio,Integer page,String openid,String type);
 
+    public List  getPostComment(String post_id);
+
     public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject,String campus);
 
     public List  getGrowthRecord(String studio,Integer page,String student_name);
