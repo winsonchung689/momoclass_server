@@ -1092,6 +1092,11 @@ public class LoginServiceImpl implements LoginService {
                                     jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
                                     mark = signUpsDuration.get(0).getMark();
                                     jsonObject.put("mark", mark);
+                                }else if(signUpsDuration.size() > 1){
+                                    jsonObject.put("sign_up", "重复签到");
+                                    jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
+                                    mark = signUpsDuration.get(0).getMark();
+                                    jsonObject.put("mark", mark);
                                 }
                             }
                         }
