@@ -483,7 +483,7 @@
 
   <!-- 插入点赞 -->
   <insert id="insertPostLike" parameterType="com.xue.entity.model.PostLike">
-    insert post_like(openid,post_id,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
+    insert post_like(openid,post_id,studio,create_time) values(#{openid},#{post_id},#{studio},#{create_time})
   </insert>
 
   <!-- 插入课程表 -->
