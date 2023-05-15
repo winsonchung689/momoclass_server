@@ -11,6 +11,7 @@ import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
 import nl.martijndwars.webpush.Subscription;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.type.IntegerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2980,6 +2981,8 @@ public class LoginServiceImpl implements LoginService {
             }
             for (int i = 0; i < posts.size(); i++) {
                 String nick_name = "游客";
+                Integer comment_amount = 0;
+                Integer like_amount = 0;
                 JSONObject jsonObject = new JSONObject();
                 Post line = posts.get(i);
                 //获取字段
@@ -2991,7 +2994,6 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     // throw new RuntimeException(e);
                 }
-
                 studio_get = line.getStudio();
                 String uuids = null;
                 try {
@@ -3002,6 +3004,19 @@ public class LoginServiceImpl implements LoginService {
                 content = line.getContent();
                 create_time = line.getCreate_time();
                 id = line.getId();
+                try {
+                    List<PostComment> postComments = dao.getPostComment(id);
+                    comment_amount = postComments.size();
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
+                try {
+                    List<PostLike> postLikes = dao.getPostLike(id);
+                    like_amount = postLikes.size();
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
 
 
                 jsonObject.put("openid_get", openid_get);
@@ -3011,7 +3026,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatar", avatar);
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("create_time", create_time);
-                jsonObject.put("id", id);
+                jsonObject.put("comment_amount", comment_amount);
+                jsonObject.put("like_amount", like_amount);
                 resul_list.add(jsonObject);
             }
 

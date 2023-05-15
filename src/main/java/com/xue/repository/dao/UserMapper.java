@@ -104,6 +104,8 @@ public interface UserMapper {
 
     List<PostComment> getPostComment(String post_id);
 
+    List<PostLike> getPostLike(String post_id);
+
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
 
     //插入
@@ -116,6 +118,8 @@ public interface UserMapper {
     int insertPost(Post post);
 
     int insertPostComment(PostComment postComment);
+
+    int insertPostLike(PostLike postLike);
 
     //插入
     int insertSchedule(Schedule schedule);

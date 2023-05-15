@@ -2793,6 +2793,31 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertPostLike")
+	@ResponseBody
+	public String insertPostLike(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取
+		String openid = request.getParameter("openid");
+		String post_id = request.getParameter("post_id");
+		String studio = request.getParameter("studio");
+
+		PostLike postLike = new PostLike();
+		postLike.setOpenid(openid);
+		postLike.setPost_id(post_id);
+		postLike.setStudio(studio);
+		postLike.setCreate_time(create_time);
+
+		try {
+			dao.insertPostLike(postLike);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return "push massage successfully";
+	}
+
 	//	推送
 	@RequestMapping("/bookkeeping")
 	@ResponseBody

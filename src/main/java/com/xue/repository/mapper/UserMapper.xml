@@ -61,6 +61,10 @@
   <resultMap id="BasePostComment" type="com.xue.entity.model.PostComment">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BasePostLike" type="com.xue.entity.model.PostLike">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
+
 
 
 
@@ -84,6 +88,11 @@
   <!-- 获取回帖 -->
   <select id="getPostComment" parameterType="com.xue.entity.model.PostComment" resultMap="BasePostComment">
     select id,openid,post_id,content,studio,create_time from post_comment where delete_status = 0 and post_id =#{param1} order by create_time desc limit 100;
+  </select>
+
+  <!-- 获取点赞 -->
+  <select id="getPostLike" parameterType="com.xue.entity.model.PostLike" resultMap="BasePostLike">
+    select id,openid,post_id,studio,create_time from post_like where delete_status = 0 and post_id =#{param1} order by create_time desc;
   </select>
 
   <!-- 获取全部 -->
@@ -470,6 +479,11 @@
   <!-- 插入回帖 -->
   <insert id="insertPostComment" parameterType="com.xue.entity.model.PostComment">
     insert post_comment(openid,post_id,content,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
+  </insert>
+
+  <!-- 插入点赞 -->
+  <insert id="insertPostLike" parameterType="com.xue.entity.model.PostLike">
+    insert post_like(openid,post_id,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
   </insert>
 
   <!-- 插入课程表 -->
