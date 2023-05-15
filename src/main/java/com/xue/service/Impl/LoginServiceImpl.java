@@ -3028,6 +3028,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("comment_amount", comment_amount);
                 jsonObject.put("like_amount", like_amount);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
 
