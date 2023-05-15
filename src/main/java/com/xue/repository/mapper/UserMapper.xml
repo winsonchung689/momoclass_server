@@ -81,6 +81,10 @@
     select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and studio =#{param3} order by create_time desc limit #{param1},#{param2};
   </select>
 
+  <!-- 获取回帖 -->
+  <select id="getPostComment" parameterType="com.xue.entity.model.PostComment" resultMap="PostComment">
+    select id,openid,post_id,content,studio,create_time from post_comment where delete_status = 0 and post_id =#{param1} order by create_time desc limit 100;
+  </select>
 
   <!-- 获取全部 -->
   <select id="getMessageByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">

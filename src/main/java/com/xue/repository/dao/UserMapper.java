@@ -101,7 +101,9 @@ public interface UserMapper {
     List<Post> getPostPublic(Integer page_start,Integer page_length);
 
     List<Post> getPostPrivate(Integer page_start,Integer page_length,String studio);
-    //获取详情
+
+    List<PostComment> getPostComment(String post_id);
+
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
 
     //插入

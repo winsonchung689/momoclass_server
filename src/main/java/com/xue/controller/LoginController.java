@@ -963,6 +963,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getPostComment")
+	@ResponseBody
+	public List getPostComment(String post_id){
+		List list = null;
+		try {
+			list = dao.getPostComment(post_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
