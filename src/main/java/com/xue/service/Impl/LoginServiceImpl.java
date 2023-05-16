@@ -3710,7 +3710,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("percent", percent);
                 jsonObject.put("points", points);
-                jsonObject.put("rank", i + 1);
+                jsonObject.put("rank", i + page_start + 1);
                 jsonObject.put("show", false);
                 jsonObject.put("name", student_name);
                 jsonObject.put("search", student_name);
