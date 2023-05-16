@@ -286,11 +286,15 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio,String campus);
 
+    List<Lesson> getLessonByPage(String studio,String campus,Integer page_start,Integer page_length);
+
     List<Lesson> getClassNote(String subject,String studio,String student_name);
 
     List<Announcement> getAnnouncement(String studio);
 
     List<Lesson> getLessonBySubject(String studio,String subject,String campus);
+
+    List<Lesson> getLessonBySubjectByPage(String studio,String subject,String campus,Integer page_start,Integer page_length);
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject);
 

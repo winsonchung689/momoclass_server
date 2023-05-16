@@ -3611,6 +3611,130 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getLessonByPage(String studio,String student_name,String subject,String campus,Integer page) {
+        Float total_amount = 0.0f;
+        Float left_amount = 0.0f;
+        String create_time = null;
+        String id = null;
+        String subject_get = null;
+        Integer points = 0;
+        Float percent = 0.0f;
+        Float minus = 0.0f;
+        Float coins = 0.0f;
+        List<Lesson> list = null;
+        Integer page_start = (page - 1) * 10;
+        Integer page_length = 10;
+//        List<Message> list_student = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        Integer length = student_name.split(",").length;
+        Integer total_student =0;
+        Float total_amount_all = 0.0f ;
+        Float left_amount_all = 0.0f ;
+        Integer need_pay = 0;
+        Integer owe = 0;
+
+        try {
+            if(subject.equals("全科目")){
+                AllCount allCount =dao.getLessonAllCount(studio,campus);
+                total_student = allCount.getStudent_count();
+                total_amount_all = allCount.getTotal_amount();
+                left_amount_all = allCount.getLeft_amount();
+                need_pay = dao.getLessonNeedPayCount(studio,campus);
+                owe = dao.getLessonOweCount(studio);
+            }else{
+                AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
+                if(allCount.getStudent_count()>0){
+                    total_student = allCount.getStudent_count();
+                    total_amount_all = allCount.getTotal_amount();
+                    left_amount_all = allCount.getLeft_amount();
+                    need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
+                    owe = dao.getLessonOweCountBySubject(studio,subject,campus);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if(student_name.equals("all")) {
+                if(subject.equals("全科目")){
+                    list = dao.getLessonByPage(studio,campus,page_start,page_length);
+                }else {
+                    list = dao.getLessonBySubjectByPage(studio,subject,campus,page_start,page_length);
+                }
+            }else if (length>1) {
+                if(subject.equals("全科目")){
+                    list = dao.getLessonInName(studio,student_name,0,10000,campus);
+                }else {
+                    list = dao.getLessonInNameBySubject(studio,student_name,0,10000,subject,campus);
+                }
+            }else {
+                if(subject.equals("全科目")){
+                    list = dao.getLessonLikeName(studio,student_name,campus);
+                }else {
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
+                }
+
+
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                String parent = "未绑定";
+                String avatarurl = "未绑定";
+                JSONObject jsonObject = new JSONObject();
+                Lesson line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                List<User> user = dao.getUserByStudent(student_name,studio);
+                if(user.size()>0){
+                    parent = user.get(0).getNick_name();
+                    avatarurl = user.get(0).getAvatarurl();
+                }
+
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                percent = (float) Math.round(left_amount * 100 / total_amount);
+                id = line.getId();
+                create_time = line.getCreate_time();
+                points = line.getPoints();
+                minus = line.getMinus();
+                coins = line.getCoins();
+                subject_get = line.getSubject();
+                studio = line.getStudio();
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("percent", percent);
+                jsonObject.put("points", points);
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("show", false);
+                jsonObject.put("name", student_name);
+                jsonObject.put("search", student_name);
+                jsonObject.put("total_student", total_student);
+                jsonObject.put("total_amount_all", total_amount_all);
+                jsonObject.put("left_amount_all", left_amount_all);
+                jsonObject.put("minus", minus);
+                jsonObject.put("coins", coins);
+                jsonObject.put("need_pay", need_pay);
+                jsonObject.put("owe", owe);
+                jsonObject.put("subject", subject_get);
+                jsonObject.put("parent", parent);
+                jsonObject.put("studio", studio);
+                jsonObject.put("avatarurl", avatarurl);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getTipsDataUrl(String studio,Integer left_amount_get,String subject) {
         Float total_amount = 0.0f;
         String create_time = null;

@@ -497,6 +497,22 @@ public class LoginController {
 	}
 
 	//	获取全部
+	@RequestMapping("/getLessonByPage")
+	@ResponseBody
+	public List getLessonByPage(String studio,String student_name,String subject,String openid,Integer page){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLessonByPage(studio,student_name,subject,campus,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+	//	获取全部
 	@RequestMapping("/getTipsDataUrl")
 	@ResponseBody
 	public List getTipsDataUrl(String studio,Integer left_amount,String subject){
