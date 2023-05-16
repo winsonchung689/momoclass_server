@@ -2963,12 +2963,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getPost(String studio, Integer page, String openid,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
-        String openid_get = null;
-        String studio_get = null;
-        String content =null;
-        String create_time = null;
-        String id = null;
-        String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
 
@@ -2980,6 +2974,12 @@ public class LoginServiceImpl implements LoginService {
                  posts = dao.getPostPrivate(page_start,page_length,studio);
             }
             for (int i = 0; i < posts.size(); i++) {
+                String openid_get = null;
+                String studio_get = null;
+                String content =null;
+                String create_time = null;
+                String id = null;
+                String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
                 String nick_name = "游客";
                 Integer comment_amount = 0;
                 Integer like_amount = 0;
@@ -3053,7 +3053,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<PostComment> postComments = dao.getPostComment(post_id);
             for (int i = 0; i < postComments.size(); i++) {
-                String nick_name = null;
+                String nick_name = "游客";
                 String avatar = null;
                 JSONObject jsonObject = new JSONObject();
                 PostComment line = postComments.get(i);
