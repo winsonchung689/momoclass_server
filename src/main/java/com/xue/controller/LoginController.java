@@ -2511,6 +2511,7 @@ public class LoginController {
 				gift.setCreate_time(create_time);
 				gift.setStudio(studio);
 				gift.setStatus(0);
+				gift.setCampus(campus);
 
 				Lesson lesson =new Lesson();
 				lesson.setCreate_time(create_time);
