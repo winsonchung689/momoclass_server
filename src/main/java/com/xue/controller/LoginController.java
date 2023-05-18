@@ -2512,6 +2512,7 @@ public class LoginController {
 				gift.setStudio(studio);
 				gift.setStatus(0);
 				gift.setCampus(campus);
+				gift.setExpired_time(create_time);
 
 				Lesson lesson =new Lesson();
 				lesson.setCreate_time(create_time);
@@ -2536,8 +2537,7 @@ public class LoginController {
 							if(!total_amount.isEmpty()){
 								lesson.setTotal_amount(Float.parseFloat(total_amount));
 							}else{
-								left_amount = cell.getContents();
-								lesson.setTotal_amount(Float.parseFloat(left_amount));
+								lesson.setTotal_amount(0.0f);
 							}
 						}else if(3==j){
 							left_amount = cell.getContents();
