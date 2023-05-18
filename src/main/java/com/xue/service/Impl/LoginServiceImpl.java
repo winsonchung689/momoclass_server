@@ -177,9 +177,13 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("isHide",true);
-                List<User> user = dao.getUserByStudent(student_name,studio);
-                if (user.size()>0){
-                    jsonObject.put("isHide",false);
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if (user.size()>0){
+                        jsonObject.put("isHide",false);
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
 
                 //json
@@ -252,9 +256,13 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 jsonObject.put("isHide",true);
-                List<User> user = dao.getUserByStudent(student_name,studio);
-                if (user.size()>0){
-                    jsonObject.put("isHide",false);
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if (user.size()>0){
+                        jsonObject.put("isHide",false);
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
 
                 //json
@@ -412,10 +420,14 @@ public class LoginServiceImpl implements LoginService {
                 SignUp line = list.get(i);
                 //获取字段
                 id = line.getId();
-                List<User> users = dao.getUserByStudent(student_name,studio);
-                if(users.size()>0){
-                    openid = users.get(0).getOpenid();
-                    subscription = users.get(0).getSubscription();
+                try {
+                    List<User> users = dao.getUserByStudent(student_name,studio);
+                    if(users.size()>0){
+                        openid = users.get(0).getOpenid();
+                        subscription = users.get(0).getSubscription();
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
 
                 jsonObject.put("id",id);
@@ -3562,10 +3574,14 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
-                List<User> user = dao.getUserByStudent(student_name,studio);
-                if(user.size()>0){
-                    parent = user.get(0).getNick_name();
-                    avatarurl = user.get(0).getAvatarurl();
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if(user.size()>0){
+                        parent = user.get(0).getNick_name();
+                        avatarurl = user.get(0).getAvatarurl();
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
 
                 total_amount = line.getTotal_amount();
@@ -3686,10 +3702,14 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
-                List<User> user = dao.getUserByStudent(student_name,studio);
-                if(user.size()>0){
-                    parent = user.get(0).getNick_name();
-                    avatarurl = user.get(0).getAvatarurl();
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if(user.size()>0){
+                        parent = user.get(0).getNick_name();
+                        avatarurl = user.get(0).getAvatarurl();
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
 
                 total_amount = line.getTotal_amount();
@@ -3759,9 +3779,13 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
-                List<User> user = dao.getUserByStudent(student_name,studio);
-                if(user.size()>0){
-                    parent = user.get(0).getNick_name();
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if(user.size()>0){
+                        parent = user.get(0).getNick_name();
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
