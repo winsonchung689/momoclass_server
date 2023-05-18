@@ -2518,6 +2518,7 @@ public class LoginController {
 				lesson.setMinus(1.0f);
 				lesson.setCoins(0.0f);
 				lesson.setPoints(0);
+				lesson.setCampus(campus);
 				Cell cell_get=sheet.getCell(0, i);
 				if(!cell_get.getContents().isEmpty()){
 					for(int j=0;j<sheet.getColumns();j++){
