@@ -3614,7 +3614,7 @@ public class LoginController {
 //		List<User> list_user = dao.getUser(openid);
 //		String campus = list_user.get(0).getCampus();
 
-		List<User> list = dao.getUserByStudioOnly(studio);
+		List<User> list = dao.getBossByStudio(studio);
         String expire_time_get = list.get(0).getExpired_time();
 		Long days = 0L;
 
