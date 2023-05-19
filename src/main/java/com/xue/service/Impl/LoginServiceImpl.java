@@ -507,6 +507,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         String mark_leave = null;
         String student_get = null;
+        String makeup_date = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -524,6 +525,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 mark_leave = line.getMark_leave();
                 student_get = line.getStudent_name();
+                makeup_date = line.getMakeup_date();
 
                 //json
                 jsonObject.put("student_name", student_get);
@@ -534,6 +536,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("mark_leave",mark_leave);
                 jsonObject.put("subject",subject);
+                jsonObject.put("makeup_date",makeup_date);
                 resul_list.add(jsonObject);
             }
 
