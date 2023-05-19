@@ -3913,6 +3913,7 @@ public class LoginServiceImpl implements LoginService {
         List<GroupBuy> list_buy = null;
         String uuids = null;
         byte[] photo = null;
+        Integer is_group = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3926,6 +3927,7 @@ public class LoginServiceImpl implements LoginService {
                 goods_price = line.getGoods_price();
                 photo = line.getPhoto();
                 id = line.getId();
+                is_group = line.getIs_group();
                 StringBuilder group = new StringBuilder(10);
                 list_buy = dao.getGroupBuy(studio,id);
                 for (int j = 0; j < list_buy.size(); j++) {
@@ -3954,6 +3956,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("group", group);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("is_group", is_group);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
