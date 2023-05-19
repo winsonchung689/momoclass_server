@@ -1006,10 +1006,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getArrangement")
 	@ResponseBody
-	public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid){
+	public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid,String student_name){
 		List list = null;
 		try {
-			list = loginService.getArrangement(studio,dayofweek,date,subject,openid);
+			list = loginService.getArrangement(studio,dayofweek,date,subject,openid,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

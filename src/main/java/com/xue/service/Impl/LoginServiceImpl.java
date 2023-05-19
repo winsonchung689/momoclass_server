@@ -544,7 +544,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid) {
+    public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid,String student_name_in) {
         String class_number = null;
         String duration = null;
         String limits = "0";
@@ -556,6 +556,7 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
+        Integer search_res = 0;
 
         if(dayofweek==7){
             dayofweek_by=1;
@@ -635,22 +636,42 @@ public class LoginServiceImpl implements LoginService {
 //                    e.printStackTrace();
                 }
 
-                //json
-                jsonObject.put("class_number", class_number);
-                jsonObject.put("duration", duration);
-                jsonObject.put("limits", limits);
-                jsonObject.put("photo", photo);
-                jsonObject.put("classes_count", classes_count);
-                jsonObject.put("dayofweek",dayofweek);
-                jsonObject.put("id",id);
-                jsonObject.put("sign_count",sign_count);
-                jsonObject.put("subject",subject);
-                jsonObject.put("classes_count_all",classes_count_all);
-                jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
-                jsonObject.put("uncomfirmed_count",uncomfirmed_count);
-                jsonObject.put("student_string",student_string);
-                jsonObject.put("remind",remind);
-                resul_list.add(jsonObject);
+                if(!"all".equals(student_name_in)){
+                    search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
+                    if(search_res>0){
+                        jsonObject.put("class_number", class_number);
+                        jsonObject.put("duration", duration);
+                        jsonObject.put("limits", limits);
+                        jsonObject.put("photo", photo);
+                        jsonObject.put("classes_count", classes_count);
+                        jsonObject.put("dayofweek",dayofweek);
+                        jsonObject.put("id",id);
+                        jsonObject.put("sign_count",sign_count);
+                        jsonObject.put("subject",subject);
+                        jsonObject.put("classes_count_all",classes_count_all);
+                        jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
+                        jsonObject.put("uncomfirmed_count",uncomfirmed_count);
+                        jsonObject.put("student_string",student_string);
+                        jsonObject.put("remind",remind);
+                        resul_list.add(jsonObject);
+                    }
+                }else {
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("limits", limits);
+                    jsonObject.put("photo", photo);
+                    jsonObject.put("classes_count", classes_count);
+                    jsonObject.put("dayofweek",dayofweek);
+                    jsonObject.put("id",id);
+                    jsonObject.put("sign_count",sign_count);
+                    jsonObject.put("subject",subject);
+                    jsonObject.put("classes_count_all",classes_count_all);
+                    jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
+                    jsonObject.put("uncomfirmed_count",uncomfirmed_count);
+                    jsonObject.put("student_string",student_string);
+                    jsonObject.put("remind",remind);
+                    resul_list.add(jsonObject);
+                }
             }
 
         } catch (Exception e) {
