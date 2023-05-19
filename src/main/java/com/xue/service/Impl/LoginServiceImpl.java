@@ -1000,7 +1000,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
                     resul_list.add(jsonObject);
-                }else {
+                }else if(lessons.size() == 0) {
                     jsonObject.put("left", 0);
                     jsonObject.put("total", 0);
                     jsonObject.put("add_date", add_date);
@@ -1015,7 +1015,6 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_up", "插班生");
                     jsonObject.put("mark", "插班生");
                     jsonObject.put("leave", "插班生");
-
                 }
             }
         } catch (Exception e) {
@@ -1105,61 +1104,76 @@ public class LoginServiceImpl implements LoginService {
                 //json
                 List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                 if (lessons.size() > 0) {
-                        Lesson lesson = lessons.get(0);
-                        left = lesson.getLeft_amount();
-                        total = lesson.getTotal_amount();
-                        jsonObject.put("left", left);
-                        jsonObject.put("total", total);
-                        jsonObject.put("add_date", add_date);
-                        jsonObject.put("age", age);
-                        jsonObject.put("student_name", student_name);
-                        jsonObject.put("duration", duration);
-                        jsonObject.put("create_time", create_time.substring(0, 10));
-                        jsonObject.put("id", id);
-                        jsonObject.put("update_time", update_time.substring(0, 10));
-                        jsonObject.put("leave_color", "rgb(157, 162, 165)");
-                        jsonObject.put("sign_color", "rgb(157, 162, 165)");
-                        jsonObject.put("remind",remind);
+                    Lesson lesson = lessons.get(0);
+                    left = lesson.getLeft_amount();
+                    total = lesson.getTotal_amount();
+                    jsonObject.put("left", left);
+                    jsonObject.put("total", total);
+                    jsonObject.put("add_date", add_date);
+                    jsonObject.put("age", age);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("create_time", create_time.substring(0, 10));
+                    jsonObject.put("id", id);
+                    jsonObject.put("update_time", update_time.substring(0, 10));
+                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
+                    jsonObject.put("remind",remind);
 
-                        jsonObject.put("sign_up", "签到");
-                        jsonObject.put("mark", "备注");
-                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
-                        if (signUps.size() >= 1) {
-                            if (signUps.get(0).getDuration().equals("00:00-00:00")) {
+                    jsonObject.put("sign_up", "签到");
+                    jsonObject.put("mark", "备注");
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
+                    if (signUps.size() >= 1) {
+                        if (signUps.get(0).getDuration().equals("00:00-00:00")) {
+                            jsonObject.put("sign_up", "已签到");
+                            jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
+                            mark = signUps.get(0).getMark();
+                            jsonObject.put("mark", mark);
+
+                        } else {
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
+                            if (signUpsDuration.size() == 1) {
                                 jsonObject.put("sign_up", "已签到");
                                 jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                mark = signUps.get(0).getMark();
+                                mark = signUpsDuration.get(0).getMark();
                                 jsonObject.put("mark", mark);
-
-                            } else {
-                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
-                                if (signUpsDuration.size() == 1) {
-                                    jsonObject.put("sign_up", "已签到");
-                                    jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                    mark = signUpsDuration.get(0).getMark();
-                                    jsonObject.put("mark", mark);
-                                }else if(signUpsDuration.size() > 1){
-                                    jsonObject.put("sign_up", "重复签到");
-                                    jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                    mark = signUpsDuration.get(0).getMark();
-                                    jsonObject.put("mark", mark);
-                                }
+                            }else if(signUpsDuration.size() > 1){
+                                jsonObject.put("sign_up", "重复签到");
+                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
+                                mark = signUpsDuration.get(0).getMark();
+                                jsonObject.put("mark", mark);
                             }
                         }
-
-                        jsonObject.put("leave", "缺席");
-                        List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
-                        if (leaves.size() == 1) {
-                            String leave_type = leaves.get(0).getLeave_type();
-                            jsonObject.put("leave", "已请假");
-                            if (leave_type.equals("旷课")) {
-                                jsonObject.put("leave", "已旷课");
-                            }
-                            jsonObject.put("leave_color", "rgb(218, 144, 84)");
-                        }
-
-                        resul_list.add(jsonObject);
                     }
+
+                    jsonObject.put("leave", "缺席");
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
+                    if (leaves.size() == 1) {
+                        String leave_type = leaves.get(0).getLeave_type();
+                        jsonObject.put("leave", "已请假");
+                        if (leave_type.equals("旷课")) {
+                            jsonObject.put("leave", "已旷课");
+                        }
+                        jsonObject.put("leave_color", "rgb(218, 144, 84)");
+                    }
+
+                    resul_list.add(jsonObject);
+                }else if(lessons.size() == 0) {
+                    jsonObject.put("left", 0);
+                    jsonObject.put("total", 0);
+                    jsonObject.put("add_date", add_date);
+                    jsonObject.put("age", age);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("id", id);
+                    jsonObject.put("update_time", update_time.substring(0,10));
+                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_up", "插班生");
+                    jsonObject.put("mark", "插班生");
+                    jsonObject.put("leave", "插班生");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
