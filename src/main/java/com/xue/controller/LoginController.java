@@ -2958,18 +2958,15 @@ public class LoginController {
 
 		String uuids = request.getParameter("uuids");
 
+		String is_group = request.getParameter("is_group");
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 
-		String photo = request.getParameter("photo");
-		FileInputStream in = null;
-
-
 		GoodsList goodsList =new GoodsList();
 		try {
-//			in = Imageutil.readImage(photo);
-//			goodsList.setPhoto(FileCopyUtils.copyToByteArray(in));
+
 			goodsList.setGoods_name(goods_name);
 			goodsList.setGoods_intro(goods_intro);
 			goodsList.setGoods_price(Float.parseFloat(goods_price));
@@ -2977,6 +2974,7 @@ public class LoginController {
 			goodsList.setCreate_time(create_time);
 			goodsList.setCampus(campus);
 			goodsList.setUuids(uuids);
+			goodsList.setIs_group(Integer.parseInt(is_group));
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {

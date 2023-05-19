@@ -15,6 +15,8 @@ public class GoodsList {
 
     private Integer delete_status;
 
+    private Integer is_group;
+
     private String studio;
 
     private byte[] photo;
@@ -22,6 +24,14 @@ public class GoodsList {
     private String campus;
 
     private String uuids;
+
+    public Integer getIs_group() {
+        return is_group;
+    }
+
+    public void setIs_group(Integer is_group) {
+        this.is_group = is_group;
+    }
 
     public String getUuids() {
         return uuids;
