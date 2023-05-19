@@ -150,6 +150,10 @@ public interface UserMapper {
 
     void modifyGoodsIntro(String id,String studio,String campus,String goods_intro);
 
+    void modifyGoodsName(String id,String studio,String campus,String goods_intro);
+
+    void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
+
     void modifyMark(String id,String studio,String mark);
 
     void updateLocation(String studio,String openid,String phone_number,String location);

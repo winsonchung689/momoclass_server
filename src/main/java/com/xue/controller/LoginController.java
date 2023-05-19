@@ -1045,12 +1045,19 @@ public class LoginController {
 
 	@RequestMapping("/modifyGoodsIntro")
 	@ResponseBody
-	public String modifyGoodsIntro(String goods_id,String goods_intro_modify,String openid){
+	public String modifyGoodsIntro(String goods_id,String goods_intro_modify,String openid,String type){
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
 			String studio = list_user.get(0).getStudio();
-			dao.modifyGoodsIntro(goods_id,studio,campus,goods_intro_modify);
+			if("intro".equals(type)){
+				dao.modifyGoodsIntro(goods_id,studio,campus,goods_intro_modify);
+			}else if("goodsName".equals(type)){
+				dao.modifyGoodsName(goods_id,studio,campus,goods_intro_modify);
+			}else if("price".equals(type)){
+				dao.modifyGoodsPrice(goods_id,studio,campus,goods_intro_modify);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
