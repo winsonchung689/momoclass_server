@@ -1000,7 +1000,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
                     resul_list.add(jsonObject);
-                }else if(lessons.size() == 0) {
+                }else{
                     jsonObject.put("left", 0);
                     jsonObject.put("total", 0);
                     jsonObject.put("add_date", add_date);
@@ -1158,7 +1158,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     resul_list.add(jsonObject);
-                }else if(lessons.size() == 0) {
+                }else{
                     jsonObject.put("left", 0);
                     jsonObject.put("total", 0);
                     jsonObject.put("add_date", add_date);
