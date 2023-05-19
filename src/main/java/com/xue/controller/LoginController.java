@@ -1043,6 +1043,20 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/modifyGoodsIntro")
+	@ResponseBody
+	public String modifyGoodsIntro(String goods_id,String goods_intro_modify,String openid){
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			String studio = list_user.get(0).getStudio();
+			dao.modifyGoodsIntro(goods_id,studio,campus,goods_intro_modify);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody

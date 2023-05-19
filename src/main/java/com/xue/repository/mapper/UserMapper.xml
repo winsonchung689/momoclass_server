@@ -298,6 +298,12 @@
     update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 更改课程名 -->
+  <select id="modifyGoodsIntro" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set goods_intro =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
+  </select>
+
+
   <!-- 更改地址及电话号码 -->
   <select id="updateLocation" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set phone_number =#{param3},location=#{param4} where studio =#{param1} and openid =#{param2}

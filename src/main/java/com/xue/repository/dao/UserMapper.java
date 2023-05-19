@@ -148,6 +148,8 @@ public interface UserMapper {
 
     void changeClassName(Integer id,String studio,String class_number);
 
+    void modifyGoodsIntro(String id,String studio,String campus,String goods_intro);
+
     void modifyMark(String id,String studio,String mark);
 
     void updateLocation(String studio,String openid,String phone_number,String location);
