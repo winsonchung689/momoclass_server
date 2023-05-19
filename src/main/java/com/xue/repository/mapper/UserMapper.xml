@@ -1036,7 +1036,7 @@
 
   <!-- 续费更新 -->
   <update id="updateUserPay" parameterType="com.xue.entity.model.User">
-    update user set role=#{role}, user_type=#{user_type},create_time=#{create_time},expired_time=#{expired_time} ,days=#{days} where studio=#{studio} and role='boss' or role = 'teacher'
+    update user set expired_time=#{expired_time} ,days=#{days} where studio=#{studio} and role='boss' or role = 'teacher'
   </update>
 
   <!-- 获取学生名课时 -->
@@ -1070,7 +1070,7 @@
   </update>
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">
-    update user set member=#{param1} where studio=#{param2} and role='boss' and delete_status = 0
+    update user set member=#{param1} where studio=#{param2} and role='boss' and role = 'teacher' and delete_status = 0
   </update>
 
 
