@@ -811,9 +811,6 @@ public class LoginServiceImpl implements LoginService {
                 class_number = line.getClass_number();
                 subject = line.getSubject();
                 remind = line.getRemind();
-
-
-
                 String role = "visit";
                 String lesson_string = null;
                 List<String> list_2 = null;
@@ -841,7 +838,6 @@ public class LoginServiceImpl implements LoginService {
                 if( contains == 1 || "1".equals(test) || "client".equals(role)) {
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number);
-
                     jsonObject.put("comment_status", "课评");
                     jsonObject.put("comment_color", "rgb(157, 162, 165)");
                     List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus);
@@ -1004,6 +1000,22 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
                     resul_list.add(jsonObject);
+                }else {
+                    jsonObject.put("left", 0);
+                    jsonObject.put("total", 0);
+                    jsonObject.put("add_date", add_date);
+                    jsonObject.put("age", age);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("id", id);
+                    jsonObject.put("update_time", update_time.substring(0,10));
+                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_up", "插班生");
+                    jsonObject.put("mark", "插班生");
+                    jsonObject.put("leave", "插班生");
+
                 }
             }
         } catch (Exception e) {
