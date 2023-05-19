@@ -328,9 +328,14 @@
     update schedule_arrangement set subject =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
-  <!-- 更改课程名 -->
+  <!-- 更改人数上限 -->
   <select id="changeLimit" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set limits =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
+  <!-- 更改时间 -->
+  <select id="changeDuration" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set duration =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 更改课程名 -->

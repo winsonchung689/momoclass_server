@@ -1354,6 +1354,8 @@ public class LoginServiceImpl implements LoginService {
                     dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number,campus);
                 }else if(change_title.equals("上限")){
                     dao.changeLimit(id1,studio,limit_number);
+                }else if(change_title.equals("时间")){
+                    dao.changeDuration(id1,studio,limit_number);
                 }
 
             }else {
