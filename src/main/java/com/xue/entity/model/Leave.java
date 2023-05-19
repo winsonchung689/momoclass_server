@@ -23,6 +23,16 @@ public class Leave {
 
     private String campus;
 
+    private String makeup_date;
+
+    public String getMakeup_date() {
+        return makeup_date;
+    }
+
+    public void setMakeup_date(String makeup_date) {
+        this.makeup_date = makeup_date;
+    }
+
     public String getCampus() {
         return campus;
     }
