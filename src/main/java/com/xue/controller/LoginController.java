@@ -3610,11 +3610,11 @@ public class LoginController {
 		//获取用户名
 		String expired_time = request.getParameter("expired_time");
 		String studio = request.getParameter("studio");
-		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
+//		String openid = request.getParameter("openid");
+//		List<User> list_user = dao.getUser(openid);
+//		String campus = list_user.get(0).getCampus();
 
-		List<User> list = dao.getUserByStudio(studio,campus);
+		List<User> list = dao.getUserByStudioOnly(studio);
         String expire_time_get = list.get(0).getExpired_time();
 		Long days = 0L;
 
