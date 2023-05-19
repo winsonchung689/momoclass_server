@@ -1000,6 +1000,21 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
 
+                }else {
+                    jsonObject.put("left", 0);
+                    jsonObject.put("total", 0);
+                    jsonObject.put("add_date", add_date);
+                    jsonObject.put("age", age);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("id", id);
+                    jsonObject.put("update_time", update_time.substring(0,10));
+                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
+                    jsonObject.put("sign_up", "试听生");
+                    jsonObject.put("mark", "试听生");
+                    jsonObject.put("leave", "试听生");
                 }
                 resul_list.add(jsonObject);
             }
@@ -1143,7 +1158,6 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
 
-                    resul_list.add(jsonObject);
                 }else{
                     jsonObject.put("left", 0);
                     jsonObject.put("total", 0);
@@ -1156,10 +1170,11 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("update_time", update_time.substring(0,10));
                     jsonObject.put("leave_color", "rgb(157, 162, 165)");
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
-                    jsonObject.put("sign_up", "插班生");
-                    jsonObject.put("mark", "插班生");
-                    jsonObject.put("leave", "插班生");
+                    jsonObject.put("sign_up", "试听生");
+                    jsonObject.put("mark", "试听生");
+                    jsonObject.put("leave", "试听生");
                 }
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();

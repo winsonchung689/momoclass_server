@@ -3045,24 +3045,35 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String add_date = null;
+		String student_type = "ordinary";
+
+		try {
+			student_type = request.getParameter("student_type");
+			add_date = request.getParameter("add_date");
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
 		String class_select = request.getParameter("class_select");
 		String[] list_get = class_select.split(",");
 		String weekofday = list_get[0];
 
-		if(weekofday.equals("星期1")){
-			add_date = "2022-05-02";
-		}else if(weekofday.equals("星期2")){
-			add_date = "2022-05-03";
-		}else if(weekofday.equals("星期3")){
-			add_date = "2022-05-04";
-		}else if(weekofday.equals("星期4")){
-			add_date = "2022-05-05";
-		}else if(weekofday.equals("星期5")){
-			add_date = "2022-05-06";
-		}else if(weekofday.equals("星期6")){
-			add_date = "2022-05-07";
-		}else if(weekofday.equals("星期7")){
-			add_date = "2022-05-08";
+		if("ordinary".equals(student_type)){
+			if(weekofday.equals("星期1")){
+				add_date = "2022-05-02";
+			}else if(weekofday.equals("星期2")){
+				add_date = "2022-05-03";
+			}else if(weekofday.equals("星期3")){
+				add_date = "2022-05-04";
+			}else if(weekofday.equals("星期4")){
+				add_date = "2022-05-05";
+			}else if(weekofday.equals("星期5")){
+				add_date = "2022-05-06";
+			}else if(weekofday.equals("星期6")){
+				add_date = "2022-05-07";
+			}else if(weekofday.equals("星期7")){
+				add_date = "2022-05-08";
+			}
 		}
 
 		String class_number = list_get[1];
@@ -3097,7 +3108,7 @@ public class LoginController {
 				schedule.setUpdate_time(create_time);
 				schedule.setStudio(studio);
 				schedule.setClass_number(class_number);
-				schedule.setStudent_type("ordinary");
+				schedule.setStudent_type(student_type);
 				schedule.setStatus(Integer.parseInt(status));
 				schedule.setSubject(subject);
 				schedule.setCampus(campus);
