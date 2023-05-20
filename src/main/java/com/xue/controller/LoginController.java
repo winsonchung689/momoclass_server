@@ -1183,6 +1183,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getBossByStudio")
+	@ResponseBody
+	public List getBossByStudio(String studio){
+		List list = null;
+		try {
+			list = dao.getBossByStudio(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getUserByNickStudio")
 	@ResponseBody
