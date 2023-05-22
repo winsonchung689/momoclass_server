@@ -3565,6 +3565,12 @@ public class LoginController {
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio,campus);
+				}else if("campus_modify".equals(modify_type)){
+					dao.updateLessonCampus(studio,student_name,campus);
+					dao.updateSignUpCampus(studio,student_name,campus);
+					dao.updateGiftCampus(studio,student_name,campus);
+					dao.updateNoteCampus(studio,student_name,campus);
+					dao.updateLeaveCampus(studio,student_name,campus);
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
 				}
@@ -3622,9 +3628,6 @@ public class LoginController {
 		//获取用户名
 		String expired_time = request.getParameter("expired_time");
 		String studio = request.getParameter("studio");
-//		String openid = request.getParameter("openid");
-//		List<User> list_user = dao.getUser(openid);
-//		String campus = list_user.get(0).getCampus();
 
 		List<User> list = dao.getBossByStudio(studio);
         String expire_time_get = list.get(0).getExpired_time();

@@ -227,6 +227,16 @@ public interface UserMapper {
 
     int updateUserCampus(User user);
 
+    int updateLessonCampus(String studio,String student_name,String campus);
+
+    int updateSignUpCampus(String studio,String student_name,String campus);
+
+    int updateGiftCampus(String studio,String student_name,String campus);
+
+    int updateNoteCampus(String studio,String student_name,String campus);
+
+    int updateLeaveCampus(String studio,String student_name,String campus);
+
     int updateSubscription(User user);
 
     int updateSubject(User user);
