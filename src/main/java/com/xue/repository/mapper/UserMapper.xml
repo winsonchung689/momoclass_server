@@ -1019,11 +1019,11 @@
   </update>
 
   <update id="updateGiftCampus" parameterType="com.xue.entity.model.Gift">
-    update gift_record set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
+    update gift_record set campus=#{param3} where studio=#{param1} and student_name=#{param2}
   </update>
 
   <update id="updateNoteCampus" parameterType="com.xue.entity.model.Note">
-    update class_note set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
+    update class_note set campus=#{param3} where studio=#{param1} and student_name=#{param2}
   </update>
 
   <update id="updateLeaveCampus" parameterType="com.xue.entity.model.Leave">

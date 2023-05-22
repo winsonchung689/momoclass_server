@@ -3566,11 +3566,12 @@ public class LoginController {
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio,campus);
 				}else if("campus_modify".equals(modify_type)){
-					dao.updateLessonCampus(studio,student_name,campus);
-					dao.updateSignUpCampus(studio,student_name,campus);
-					dao.updateGiftCampus(studio,student_name,campus);
-					dao.updateNoteCampus(studio,student_name,campus);
-					dao.updateLeaveCampus(studio,student_name,campus);
+					String campus_new = request.getParameter("campus_new");
+					dao.updateLessonCampus(studio,student_name,campus_new);
+					dao.updateSignUpCampus(studio,student_name,campus_new);
+					dao.updateGiftCampus(studio,student_name,campus_new);
+					dao.updateNoteCampus(studio,student_name,campus_new);
+					dao.updateLeaveCampus(studio,student_name,campus_new);
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
 				}
