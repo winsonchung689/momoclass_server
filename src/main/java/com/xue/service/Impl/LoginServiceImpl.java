@@ -3747,8 +3747,6 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
                 }
-
-
             }
 
             for (int i = 0; i < list.size(); i++) {
