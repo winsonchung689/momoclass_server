@@ -1163,7 +1163,7 @@ public class LoginController {
 	public List getAllUserByStudio(String studio){
 		List list = null;
 		try {
-			list = dao.getAllUserByStudio(studio);
+			list = dao.getLessonByStudio(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

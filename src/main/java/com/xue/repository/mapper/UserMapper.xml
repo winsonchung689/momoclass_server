@@ -841,6 +841,10 @@
     select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0 order by left_amount
   </select>
 
+  <select id="getLessonByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
+    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject,campus from lesson where studio =#{param1} and delete_status = 0
+  </select>
+
   <!-- 分页分科目获取课时 -->
   <select id="getLessonBySubjectByPage" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject,campus from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0 order by left_amount limit #{param4},#{param5};
