@@ -1158,9 +1158,9 @@ public class LoginController {
 	}
 
 	//	获取用户
-	@RequestMapping("/getAllUserByStudio")
+	@RequestMapping("/getLessonByStudio")
 	@ResponseBody
-	public List getAllUserByStudio(String studio){
+	public List getLessonByStudio(String studio){
 		List list = null;
 		try {
 			list = dao.getLessonByStudio(studio);
