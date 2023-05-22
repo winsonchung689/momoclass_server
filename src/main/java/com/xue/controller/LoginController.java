@@ -3499,6 +3499,9 @@ public class LoginController {
 			}
 			// 获取新名字
 			String student_name_new = request.getParameter("student_name_new");
+
+			String campus_new = request.getParameter("campus_new");
+
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 			Float total_amount = 0.0f;
@@ -3507,6 +3510,14 @@ public class LoginController {
 			}
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
+			if("campus_modify".equals(modify_type)){
+				dao.updateLessonCampus(studio,student_name,campus_new);
+				dao.updateSignUpCampus(studio,student_name,campus_new);
+				dao.updateGiftCampus(studio,student_name,campus_new);
+				dao.updateNoteCampus(studio,student_name,campus_new);
+				dao.updateLeaveCampus(studio,student_name,campus_new);
+				return "campus changed" ;
+			}
 
 			// 获取type
 			String lessons_amount_1 = request.getParameter("lessons_amount");
@@ -3565,13 +3576,6 @@ public class LoginController {
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					dao.updateLessonAll(coins_amount,studio,campus);
-				}else if("campus_modify".equals(modify_type)){
-					String campus_new = request.getParameter("campus_new");
-					dao.updateLessonCampus(studio,student_name,campus_new);
-					dao.updateSignUpCampus(studio,student_name,campus_new);
-					dao.updateGiftCampus(studio,student_name,campus_new);
-					dao.updateNoteCampus(studio,student_name,campus_new);
-					dao.updateLeaveCampus(studio,student_name,campus_new);
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
 				}
