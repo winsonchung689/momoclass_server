@@ -3328,18 +3328,20 @@ public class LoginController {
 	@ResponseBody
 	public String updateCampus(HttpServletRequest request, HttpServletResponse response){
 		//获取openid
-		String openid = request.getParameter("openid");
+		String openid_get = request.getParameter("openid");
 		String campus = request.getParameter("campus");
 		String type = request.getParameter("type");
 
 		try {
+			String openid = openid_get.split("_")[0];
+			String id = openid_get.split("_")[1];
 			if("校区".equals(type)){
 				User user =new User();
 				user.setOpenid(openid);
 				user.setCampus(campus);
 				dao.updateUserCampus(user);
 			}else if("学生名".equals(type)){
-				dao.updateUserStudentByOpenid(campus,openid);
+				dao.updateUserStudentByOpenid(campus,openid,id);
 			}
 
 		} catch (Exception e) {

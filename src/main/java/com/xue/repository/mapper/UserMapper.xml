@@ -1089,7 +1089,7 @@
   </update>
 
   <update id="updateUserStudentByOpenid" parameterType="com.xue.entity.model.User">
-    update user set student_name=#{param1} where openid=#{param2}
+    update user set student_name=#{param1} where openid=#{param2} and id =#{param3}
   </update>
 
   <!-- 用户过期 -->

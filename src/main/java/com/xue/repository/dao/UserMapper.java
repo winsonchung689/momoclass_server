@@ -440,7 +440,7 @@ public interface UserMapper {
 
     int updateUserStudent(String student_name_new,String student_name,String studio,String campus);
 
-    int updateUserStudentByOpenid(String student_name,String openid);
+    int updateUserStudentByOpenid(String student_name,String openid,String id);
 
     int updateUserExpired(String role,String studio,String role_old,String campus);
 
