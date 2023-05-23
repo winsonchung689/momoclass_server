@@ -3333,14 +3333,15 @@ public class LoginController {
 		String type = request.getParameter("type");
 
 		try {
-			String openid = openid_get.split("_")[0];
-			String id = openid_get.split("_")[1];
+
 			if("校区".equals(type)){
 				User user =new User();
-				user.setOpenid(openid);
+				user.setOpenid(openid_get);
 				user.setCampus(campus);
 				dao.updateUserCampus(user);
 			}else if("学生名".equals(type)){
+				String openid = openid_get.split("_")[0];
+				String id = openid_get.split("_")[1];
 				dao.updateUserStudentByOpenid(campus,openid,id);
 			}
 
