@@ -1016,6 +1016,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getTodaySchedule")
+	@ResponseBody
+	public List getTodaySchedule(String studio,Integer dayofweek,String date,String subject,String openid){
+		List list = null;
+		try {
+			list = loginService.getTodaySchedule(studio,dayofweek,date,subject,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/changeClass")
 	@ResponseBody

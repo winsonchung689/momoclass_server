@@ -64,6 +64,8 @@ public interface LoginService {
 
     public List  getArrangement(String studio,Integer dayofweek,String date,String subject,String openid,String student_name);
 
+    public List  getTodaySchedule(String studio,Integer dayofweek,String date,String subject,String openid);
+
     public int insertSchedule(Schedule schedule);
 
     public int insertSignUp(SignUp signUp);

@@ -684,6 +684,119 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getTodaySchedule(String studio, Integer dayofweek, String date, String subject, String openid) {
+        String class_number = null;
+        String duration = null;
+        String limits = "0";
+        String id = null;
+        Integer dayofweek_by= 0;
+        List<JSONObject> resul_list = new ArrayList<>();
+        Integer class_res =0;
+        Integer sign_count =0;
+        Integer classes_count_all =0;
+        Integer classes_count_all_lesson =0;
+        Integer search_res = 0;
+
+        if(dayofweek==7){
+            dayofweek_by=1;
+        }else {
+            dayofweek_by = dayofweek + 1;
+        }
+
+        List<User> user_get= dao.getUser(openid);
+        String role = user_get.get(0).getRole();
+        Integer user_get_size = user_get.size();
+
+        String campus = user_get.get(0).getCampus();
+
+        try {
+            List<Arrangement> list =null;
+            if(subject.equals("全科目")){
+                list = dao.getArrangementAll(studio,dayofweek.toString(),campus);
+                classes_count_all=dao.getClassesCountAll(studio,campus);
+                classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
+            }else {
+                list = dao.getArrangement(studio,dayofweek.toString(),subject,campus);
+                classes_count_all=dao.getClassesCountBySubject(studio,subject,campus);
+                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject,campus);
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                String student_string = null;
+                Integer classes_count =0;
+                Integer uncomfirmed_count = 0;
+                Integer remind = 0;
+                JSONObject jsonObject = new JSONObject();
+                Arrangement line = list.get(i);
+                //获取字段
+                class_number = line.getClass_number();
+                duration = line.getDuration();
+                limits = line.getLimits();
+                id = line.getId();
+                subject = line.getSubject();
+
+                if("client".equals(role)){
+                    for(int j = 0; j < user_get_size;j++){
+                        String student_name = user_get.get(j).getStudent_name();
+                        student_string = student_string + "," + student_name;
+                        class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name,campus);
+                        uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
+                        if(class_res > 0){
+                            classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
+                            if(date != null){
+                                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
+                            }
+                        }
+                    }
+
+                }else {
+                    remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
+                    if(remind == null){
+                        remind = 0;
+                    }
+                    classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
+                    uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
+                    if(date != null){
+                        sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
+                    }
+                }
+
+                jsonObject.put("chooseLesson","未选");
+                try {
+                    String lessons = user_get.get(0).getLessons();
+                    String[] list_1 =lessons.split("\\|");
+                    String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
+                    List<String> list_2 = Arrays.asList(list_1);
+                    if(list_2.contains(lesson_string)){
+                        jsonObject.put("chooseLesson","已选");
+                    }
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
+
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("duration", duration);
+                jsonObject.put("limits", limits);
+                jsonObject.put("classes_count", classes_count);
+                jsonObject.put("dayofweek",dayofweek);
+                jsonObject.put("id",id);
+                jsonObject.put("sign_count",sign_count);
+                jsonObject.put("subject",subject);
+                jsonObject.put("classes_count_all",classes_count_all);
+                jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
+                jsonObject.put("uncomfirmed_count",uncomfirmed_count);
+                jsonObject.put("student_string",student_string);
+                jsonObject.put("remind",remind);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
