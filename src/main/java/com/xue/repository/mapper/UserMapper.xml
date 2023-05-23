@@ -598,7 +598,7 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,ending_status from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3}  order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,ending_status from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3}  order by create_time,id,desc
   </select>
 
   <!-- 查找签到记录 -->
