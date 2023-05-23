@@ -3330,12 +3330,18 @@ public class LoginController {
 		//获取openid
 		String openid = request.getParameter("openid");
 		String campus = request.getParameter("campus");
+		String type = request.getParameter("type");
 
 		try {
-			User user =new User();
-			user.setOpenid(openid);
-			user.setCampus(campus);
-			dao.updateUserCampus(user);
+			if("校区".equals(type)){
+				User user =new User();
+				user.setOpenid(openid);
+				user.setCampus(campus);
+				dao.updateUserCampus(user);
+			}else if("学生名".equals(type)){
+				dao.updateUserStudentByOpenid(campus,openid);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
