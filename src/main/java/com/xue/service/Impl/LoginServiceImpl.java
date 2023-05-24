@@ -2955,7 +2955,7 @@ public class LoginServiceImpl implements LoginService {
 
                             JSONObject payload = new JSONObject();
                             payload.put("title",studio);
-                            payload.put("message","上课时间:"+ date_time +" "+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+                            payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
 
                             String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
                             System.out.printf("status:" + status);
