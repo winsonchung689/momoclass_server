@@ -28,6 +28,8 @@ public interface LoginService {
 
     public List  getLesson(String studio,String student_name,String subject,String campus);
 
+    public List  getLessonByStudio(String studio);
+
     public List  getLessonByPage(String studio,String student_name,String subject,String campus,Integer page);
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject);

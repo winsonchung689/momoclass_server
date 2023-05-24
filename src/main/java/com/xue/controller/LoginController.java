@@ -1175,7 +1175,7 @@ public class LoginController {
 	public List getLessonByStudio(String studio){
 		List list = null;
 		try {
-			list = dao.getLessonByStudio(studio);
+			list = loginService.getLessonByStudio(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
