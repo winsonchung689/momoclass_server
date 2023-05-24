@@ -3817,22 +3817,10 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             for (int i = 0; i < list.size(); i++) {
-                String parent = "未绑定";
-                String avatarurl = "未绑定";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
-                try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
-                    if(user.size()>0){
-                        parent = user.get(0).getNick_name();
-                        avatarurl = user.get(0).getAvatarurl();
-                    }
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                }
-
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -3863,9 +3851,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("need_pay", need_pay);
                 jsonObject.put("owe", owe);
                 jsonObject.put("subject", subject_get);
-                jsonObject.put("parent", parent);
                 jsonObject.put("studio", studio);
-                jsonObject.put("avatarurl", avatarurl);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
