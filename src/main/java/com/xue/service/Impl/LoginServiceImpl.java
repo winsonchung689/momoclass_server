@@ -3813,6 +3813,7 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         String student_name = null;
+        String campus = null;
         list = dao.getLessonByStudio(studio);
 
         try {
@@ -3831,6 +3832,7 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 subject_get = line.getSubject();
                 studio = line.getStudio();
+                campus = line.getCampus();
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -3852,6 +3854,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("owe", owe);
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
