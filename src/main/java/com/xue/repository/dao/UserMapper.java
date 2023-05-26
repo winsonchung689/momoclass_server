@@ -82,7 +82,7 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio,String campus);
 
-    List<BookCount> getAnalyzeSignUp(String studio,String campus);
+    List<BookCount> getAnalyzeSignUp(String studio,String campus,Integer weekDay);
 
     List<BookCount> getBookByYear(String studio,String campus);
 

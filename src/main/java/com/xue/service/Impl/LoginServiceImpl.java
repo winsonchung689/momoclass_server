@@ -3865,17 +3865,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAnalyzeDetail(String studio, String dimension, String campus) {
-        List<BookCount> list = null;
+    public List getAnalyzeDetail(String studio, String dimension, String campus,String date_time) {
         List<JSONObject> resul_list = new ArrayList<>();
-        list = dao.getAnalyzeSignUp(studio,campus);
-        for (int i = 0; i < list.size(); i++) {
-            JSONObject jsonObject = new JSONObject();
-            BookCount line = list.get(i);
-            Float signUpCount = line.getIncome();
-            String create_time = line.getCreate_time();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = fmt.parse(date_time);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            Integer weekDay = cal.get(Calendar.WEEK_OF_YEAR);
+            jsonObject.put("weekDay", weekDay);
+            List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
+            Float signcount = list.get(0).getIncome();
+            jsonObject.put("signcount", signcount);
 
 
+            resul_list.add(jsonObject);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
 

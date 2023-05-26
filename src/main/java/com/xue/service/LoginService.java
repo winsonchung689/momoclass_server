@@ -30,7 +30,7 @@ public interface LoginService {
 
     public List  getLessonByStudio(String studio);
 
-    public List  getAnalyzeDetail(String studio,String dimension,String campus);
+    public List  getAnalyzeDetail(String studio,String dimension,String campus,String date_time);
 
     public List  getLessonByPage(String studio,String student_name,String subject,String campus,Integer page);
 

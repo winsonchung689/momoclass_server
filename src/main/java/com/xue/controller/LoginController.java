@@ -890,17 +890,16 @@ public class LoginController {
 
 	@RequestMapping("/getAnalyzeDetail")
 	@ResponseBody
-	public List getAnalyzeDetail(String studio,String dimension,String openid){
+	public List getAnalyzeDetail(String studio,String dimension,String openid,String date_time){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getAnalyzeDetail(studio,dimension,campus);
+			list = loginService.getAnalyzeDetail(studio,dimension,campus,date_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
-	}
 	}
 
 	@RequestMapping("/getClassNote")
