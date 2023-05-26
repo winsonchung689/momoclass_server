@@ -1007,12 +1007,12 @@
 
   <!-- 更新课时 -->
   <update id="updateLesson" parameterType="com.xue.entity.model.Lesson">
-    update lesson set left_amount=#{left_amount}, total_amount=#{total_amount},minus=#{minus},coins=#{coins},subject=#{subject} where student_name=#{student_name} and studio = #{studio} and delete_status = 0
+    update lesson set left_amount=#{left_amount}, total_amount=#{total_amount},minus=#{minus},coins=#{coins},subject=#{subject} where student_name=#{student_name} and studio = #{studio} and campus = #{campus} and delete_status = 0
   </update>
 
   <!-- 更新课时 -->
   <update id="updateLessonSubject" parameterType="com.xue.entity.model.Lesson">
-    update lesson set subject=#{param1} where student_name=#{param2} and studio = #{param3} and subject=#{param4} and delete_status = 0
+    update lesson set subject=#{param1} where student_name=#{param2} and studio = #{param3} and subject=#{param4} and campus =#{param5} and delete_status = 0
   </update>
 
   <!-- 更新课时 -->

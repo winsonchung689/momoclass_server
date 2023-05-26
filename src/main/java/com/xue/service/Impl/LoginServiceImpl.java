@@ -115,10 +115,11 @@ public class LoginServiceImpl implements LoginService {
             lesson.setMinus(minus_amount);
             lesson.setCoins(coins_amount);
             lesson.setSubject(subject);
+            lesson.setCampus(campus);
             if("全科目".equals(subject_new)){
                 result =  dao.updateLesson(lesson);
             }else {
-                result =  dao.updateLessonSubject(subject_new,student_name,studio,subject);
+                result =  dao.updateLessonSubject(subject_new,student_name,studio,subject,campus);
             }
         } catch (Exception e) {
             e.printStackTrace();
