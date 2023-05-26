@@ -3875,22 +3875,38 @@ public class LoginServiceImpl implements LoginService {
             cal.setTime(d);
             Integer weekDay = cal.get(Calendar.WEEK_OF_YEAR);
             jsonObject.put("weekDay", weekDay);
-            List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
-            Float signCount = list.get(0).getIncome();
-            jsonObject.put("signCount", signCount);
-            List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
-            Float tryCount = list1.get(0).getIncome();
-            jsonObject.put("tryCount", tryCount);
-            List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
-            Float leaveCount = list2.get(0).getIncome();
-            jsonObject.put("leaveCount", leaveCount);
-            List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
-            Float absentCount = list3.get(0).getIncome();
-            jsonObject.put("absentCount", absentCount);
+            try {
+                List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
+                Float signCount = list.get(0).getIncome();
+                jsonObject.put("signCount", signCount);
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
+            try {
+                List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
+                Float tryCount = list1.get(0).getIncome();
+                jsonObject.put("tryCount", tryCount);
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
+            try {
+                List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
+                Float leaveCount = list2.get(0).getIncome();
+                jsonObject.put("leaveCount", leaveCount);
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
+            try {
+                List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
+                Float absentCount = list3.get(0).getIncome();
+                jsonObject.put("absentCount", absentCount);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             resul_list.add(jsonObject);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
 
 
