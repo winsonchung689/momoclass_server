@@ -2736,8 +2736,6 @@ public class LoginServiceImpl implements LoginService {
         Float new_left = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
-//        String subject = null;
-        System.out.println(student_name);
 
         List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject,campus);
         try {
@@ -2758,6 +2756,7 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setMinus(minus);
                 lesson.setCoins(coins);
                 lesson.setSubject(subject);
+                lesson.setCampus(campus);
                 result = dao.updateLesson(lesson);
             }
         } catch (Exception e) {
@@ -2786,6 +2785,7 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setPoints(new_points);
                 lesson.setStudio(studio);
                 lesson.setSubject(subject);
+                lesson.setCampus(campus);
                 result = dao.updateLessonPoint(lesson);
             }
         } catch (Exception e) {
@@ -2809,6 +2809,7 @@ public class LoginServiceImpl implements LoginService {
             lesson.setPoints(new_points);
             lesson.setStudio(studio);
             lesson.setSubject(subject);
+            lesson.setCampus(campus);
             result = dao.updateLessonPoint(lesson);
 
         } catch (Exception e) {
