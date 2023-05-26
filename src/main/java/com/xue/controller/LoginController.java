@@ -3164,7 +3164,7 @@ public class LoginController {
 				schedule.setStatus(Integer.parseInt(status));
 				schedule.setSubject(subject);
 				schedule.setCampus(campus);
-				schedule.setIs_try(is_try);
+				schedule.setIs_try(Integer.parseInt(is_try));
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
