@@ -486,11 +486,11 @@
   </select>
 
   <select id="getAnalyzeLeave" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
+    select date_format(date_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time, '%v')=#{param3}  group by date_format(date_time, '%v') order by date_format(date_time, '%v') desc
   </select>
 
   <select id="getAnalyzeAbsent" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
+    select date_format(date_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(date_time, '%v')=#{param3}  group by date_format(date_time, '%v') order by date_format(date_time, '%v') desc
   </select>
 
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
