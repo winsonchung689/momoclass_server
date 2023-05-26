@@ -3865,6 +3865,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getAnalyzeDetail(String studio, String dimension, String campus) {
+        List<BookCount> list = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        list = dao.getAnalyzeSignUp(studio,campus);
+        for (int i = 0; i < list.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            BookCount line = list.get(i);
+            Float signUpCount = line.getIncome();
+            String create_time = line.getCreate_time();
+
+
+        }
+
+
+        return resul_list;
+    }
+
+    @Override
     public List getLessonByPage(String studio,String student_name,String subject,String campus,Integer page) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;

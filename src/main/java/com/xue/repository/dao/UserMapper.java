@@ -82,6 +82,8 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio,String campus);
 
+    List<BookCount> getAnalyzeSignUp(String studio,String campus);
+
     List<BookCount> getBookByYear(String studio,String campus);
 
     List<BookCount> getBookByAll(String studio,String campus);

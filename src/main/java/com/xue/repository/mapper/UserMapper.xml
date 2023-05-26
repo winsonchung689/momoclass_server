@@ -477,6 +477,10 @@
     select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
+  <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select date_format(create_time, '%Y-%m-%d') create_time,count(1) income,'' expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
+  </select>
+
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
     select date_format(create_time, '%Y') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y') order by date_format(create_time,'%Y') desc
   </select>

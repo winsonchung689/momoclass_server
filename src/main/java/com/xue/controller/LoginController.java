@@ -888,6 +888,21 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getAnalyzeDetail")
+	@ResponseBody
+	public List getAnalyzeDetail(String studio,String dimension,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getAnalyzeDetail(studio,dimension,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	}
+
 	@RequestMapping("/getClassNote")
 	@ResponseBody
 	public List getClassNote(String subject,String studio,String student_name){
