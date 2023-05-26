@@ -30,6 +30,17 @@ public class Schedule {
 
     private String campus;
 
+    private Integer is_try;
+
+
+    public Integer getIs_try() {
+        return is_try;
+    }
+
+    public void setIs_try(Integer is_try) {
+        this.is_try = is_try;
+    }
+
     public String getCampus() {
         return campus;
     }

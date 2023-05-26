@@ -3130,6 +3130,7 @@ public class LoginController {
 		String class_number = list_get[1];
 		String duration = list_get[2];
 		String subject = list_get[3];
+		String is_try = list_get[4];
 
 		String studio = request.getParameter("studio");
 
@@ -3163,6 +3164,7 @@ public class LoginController {
 				schedule.setStatus(Integer.parseInt(status));
 				schedule.setSubject(subject);
 				schedule.setCampus(campus);
+				schedule.setIs_try(is_try);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
