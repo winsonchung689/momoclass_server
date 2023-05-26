@@ -3883,32 +3883,32 @@ public class LoginServiceImpl implements LoginService {
             try {
                 List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
                 signCount = list.get(0).getIncome();
-                jsonObject.put("signCount", signCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
                 tryCount = list1.get(0).getIncome();
-                jsonObject.put("tryCount", tryCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
                 leaveCount = list2.get(0).getIncome();
-                jsonObject.put("leaveCount", leaveCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
                 absentCount = list3.get(0).getIncome();
-                jsonObject.put("absentCount", absentCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
 
+            jsonObject.put("signCount", signCount);
+            jsonObject.put("tryCount", tryCount);
+            jsonObject.put("leaveCount", leaveCount);
+            jsonObject.put("absentCount", absentCount);
             resul_list.add(jsonObject);
         } catch (ParseException e) {
 //            throw new RuntimeException(e);
