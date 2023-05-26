@@ -3097,6 +3097,7 @@ public class LoginController {
 
 		String add_date = null;
 		String student_type = "ordinary";
+		String is_try = "0";
 
 		try {
 			student_type = request.getParameter("student_type");
@@ -3130,7 +3131,11 @@ public class LoginController {
 		String class_number = list_get[1];
 		String duration = list_get[2];
 		String subject = list_get[3];
-		String is_try = list_get[4];
+		try {
+			is_try = list_get[4];
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
 
 		String studio = request.getParameter("studio");
 
