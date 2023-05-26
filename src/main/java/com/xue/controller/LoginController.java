@@ -1913,6 +1913,9 @@ public class LoginController {
 			leave.setCreate_time(create_time);
 			leave.setMark_leave(mark_leave);
 			leave.setSubject(subject);
+			if(makeup_date == null){
+				makeup_date = "无";
+			}
 			leave.setMakeup_date(makeup_date);
 			leave.setCampus(campus);
 			if(leave_type == null || leave_type.isEmpty() || "undefined".equals(leave_type)){
