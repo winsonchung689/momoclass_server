@@ -3868,6 +3868,11 @@ public class LoginServiceImpl implements LoginService {
     public List getAnalyzeDetail(String studio, String dimension, String campus,String date_time) {
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
+        Float signCount = 0.0f;
+        Float tryCount = 0.0f;
+        Float leaveCount = 0.0f;
+        Float absentCount = 0.0f;
+
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date d = fmt.parse(date_time);
@@ -3877,31 +3882,31 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("weekDay", weekDay);
             try {
                 List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
-                Float signCount = list.get(0).getIncome();
+                signCount = list.get(0).getIncome();
                 jsonObject.put("signCount", signCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
-                Float tryCount = list1.get(0).getIncome();
+                tryCount = list1.get(0).getIncome();
                 jsonObject.put("tryCount", tryCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
-                Float leaveCount = list2.get(0).getIncome();
+                leaveCount = list2.get(0).getIncome();
                 jsonObject.put("leaveCount", leaveCount);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
             try {
                 List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
-                Float absentCount = list3.get(0).getIncome();
+                absentCount = list3.get(0).getIncome();
                 jsonObject.put("absentCount", absentCount);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+//                throw new RuntimeException(e);
             }
 
             resul_list.add(jsonObject);
