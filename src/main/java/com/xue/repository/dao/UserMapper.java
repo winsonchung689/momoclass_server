@@ -84,6 +84,12 @@ public interface UserMapper {
 
     List<BookCount> getAnalyzeSignUp(String studio,String campus,Integer weekDay);
 
+    List<BookCount> getAnalyzeTry(String studio,String campus,Integer weekDay);
+
+    List<BookCount> getAnalyzeLeave(String studio,String campus,Integer weekDay);
+
+    List<BookCount> getAnalyzeAbsent(String studio,String campus,Integer weekDay);
+
     List<BookCount> getBookByYear(String studio,String campus);
 
     List<BookCount> getBookByAll(String studio,String campus);

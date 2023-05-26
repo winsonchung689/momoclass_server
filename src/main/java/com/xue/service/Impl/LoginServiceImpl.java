@@ -3876,9 +3876,17 @@ public class LoginServiceImpl implements LoginService {
             Integer weekDay = cal.get(Calendar.WEEK_OF_YEAR);
             jsonObject.put("weekDay", weekDay);
             List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
-            Float signcount = list.get(0).getIncome();
-            jsonObject.put("signcount", signcount);
-
+            Float signCount = list.get(0).getIncome();
+            jsonObject.put("signCount", signCount);
+            List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
+            Float tryCount = list1.get(0).getIncome();
+            jsonObject.put("tryCount", tryCount);
+            List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
+            Float leaveCount = list2.get(0).getIncome();
+            jsonObject.put("leaveCount", leaveCount);
+            List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
+            Float absentCount = list3.get(0).getIncome();
+            jsonObject.put("absentCount", absentCount);
 
             resul_list.add(jsonObject);
         } catch (ParseException e) {

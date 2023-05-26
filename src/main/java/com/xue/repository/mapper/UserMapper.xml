@@ -481,6 +481,18 @@
     select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
   </select>
 
+  <select id="getAnalyzeTry" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
+  </select>
+
+  <select id="getAnalyzeLeave" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
+  </select>
+
+  <select id="getAnalyzeAbsent" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
+    select date_format(create_time, '%v') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(create_time, '%v')=#{param3}  group by date_format(create_time, '%v') order by date_format(create_time, '%v') desc
+  </select>
+
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
     select date_format(create_time, '%Y') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y') order by date_format(create_time,'%Y') desc
   </select>
