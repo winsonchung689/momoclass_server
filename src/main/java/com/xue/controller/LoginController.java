@@ -1840,7 +1840,7 @@ public class LoginController {
 			cal.setTime(d);
 			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
-			List<Schedule> schedules = dao.getScheduleDetail(weekDay,duration,studio,class_number,subject,campus);
+			List<Schedule> schedules = dao.getScheduleDetailAll(weekDay,duration,studio,class_number,subject,campus);
 			for(int i = 0;i < schedules.size(); i++){
 				student_name = schedules.get(i).getStudent_name();
 				Schedule schedule =new Schedule();
