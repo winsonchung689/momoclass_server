@@ -2977,6 +2977,10 @@ public class LoginController {
 		//获取时间段
 		String duration = request.getParameter("duration");
 
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
 		//获取学生类型
 		String student_type = request.getParameter("student_type");
 
@@ -3013,6 +3017,7 @@ public class LoginController {
 				schedule.setClass_number(class_number);
 				schedule.setSubject(subject);
 				schedule.setIs_try(Integer.parseInt(is_try));
+				schedule.setCampus(campus);
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
