@@ -3305,7 +3305,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
+            List<Schedule> schedule_list = dao.getScheduleDetailAll(dayofweek_by,duration,studio,class_number,subject,campus);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
             String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
             String age =null;
