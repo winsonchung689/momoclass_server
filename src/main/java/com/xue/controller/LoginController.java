@@ -2982,6 +2982,8 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String is_try = request.getParameter("is_try");
+
 		String class_number = request.getParameter("class_number");
 		if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 			class_number = "无班号";
@@ -3010,6 +3012,7 @@ public class LoginController {
 				schedule.setStatus(status);
 				schedule.setClass_number(class_number);
 				schedule.setSubject(subject);
+				schedule.setIs_try(Integer.parseInt(is_try));
 				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {

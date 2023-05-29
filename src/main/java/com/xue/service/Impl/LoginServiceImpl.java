@@ -50,7 +50,6 @@ public class LoginServiceImpl implements LoginService {
 	@Override
     public int insertLesson(Lesson lesson) {
         int result = 0;
-        System.out.println(lesson);
         try {
             result = dao.insertLesson(lesson);
         } catch (Exception e) {
@@ -801,7 +800,6 @@ public class LoginServiceImpl implements LoginService {
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
-        System.out.println(schedule);
         try {
             result = dao.insertSchedule(schedule);
         } catch (Exception e) {
@@ -814,7 +812,6 @@ public class LoginServiceImpl implements LoginService {
     public int insertSignUp(SignUp signUp) {
         int result = 0;
         FileInputStream in = null;
-        System.out.println(signUp);
         try {
             result = dao.insertSignUp(signUp);
         } catch (Exception e) {
@@ -827,7 +824,6 @@ public class LoginServiceImpl implements LoginService {
     public int insertArrangement(Arrangement arrangement) {
         int result = 0;
         FileInputStream in = null;
-        System.out.println(arrangement);
         try {
             result = dao.insertArrangement(arrangement);
         } catch (Exception e) {
@@ -1617,8 +1613,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int insertUser(User user) {
         int result = 0;
-        FileInputStream in = null;
-        System.out.println(user);
         try {
             result = dao.insertUser(user);
         } catch (Exception e) {
