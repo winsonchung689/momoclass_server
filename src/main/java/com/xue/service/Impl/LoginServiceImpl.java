@@ -3875,7 +3875,7 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             Integer weekDay_INIT = cal.get(Calendar.WEEK_OF_YEAR);
-            for(int weekDay = weekDay_INIT; weekDay <= 1; weekDay--){
+            for(int weekDay = weekDay_INIT; weekDay >= 1; weekDay--){
                 JSONObject jsonObject = new JSONObject();
                 Float signCount = 0.0f;
                 Float tryCount = 0.0f;
