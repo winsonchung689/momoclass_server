@@ -3880,38 +3880,39 @@ public class LoginServiceImpl implements LoginService {
             Date d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
-            Integer weekDay = cal.get(Calendar.WEEK_OF_YEAR);
-            jsonObject.put("weekDay", weekDay);
-            try {
-                List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
-                signCount = list.get(0).getIncome();
-            } catch (Exception e) {
+            Integer weekDay_INIT = cal.get(Calendar.WEEK_OF_YEAR);
+            for(int weekDay = weekDay_INIT-10; weekDay <=weekDay_INIT; weekDay++){
+                jsonObject.put("weekDay", weekDay);
+                try {
+                    List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
+                    signCount = list.get(0).getIncome();
+                } catch (Exception e) {
 //                throw new RuntimeException(e);
-            }
-            try {
-                List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
-                tryCount = list1.get(0).getIncome();
-            } catch (Exception e) {
+                }
+                try {
+                    List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
+                    tryCount = list1.get(0).getIncome();
+                } catch (Exception e) {
 //                throw new RuntimeException(e);
-            }
-            try {
-                List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
-                leaveCount = list2.get(0).getIncome();
-            } catch (Exception e) {
+                }
+                try {
+                    List<BookCount> list2 = dao.getAnalyzeLeave(studio,campus,weekDay);
+                    leaveCount = list2.get(0).getIncome();
+                } catch (Exception e) {
 //                throw new RuntimeException(e);
-            }
-            try {
-                List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
-                absentCount = list3.get(0).getIncome();
-            } catch (Exception e) {
+                }
+                try {
+                    List<BookCount> list3 = dao.getAnalyzeAbsent(studio,campus,weekDay);
+                    absentCount = list3.get(0).getIncome();
+                } catch (Exception e) {
 //                throw new RuntimeException(e);
+                }
+                jsonObject.put("signCount", signCount);
+                jsonObject.put("tryCount", tryCount);
+                jsonObject.put("leaveCount", leaveCount);
+                jsonObject.put("absentCount", absentCount);
+                resul_list.add(jsonObject);
             }
-
-            jsonObject.put("signCount", signCount);
-            jsonObject.put("tryCount", tryCount);
-            jsonObject.put("leaveCount", leaveCount);
-            jsonObject.put("absentCount", absentCount);
-            resul_list.add(jsonObject);
         } catch (ParseException e) {
 //            throw new RuntimeException(e);
         }
