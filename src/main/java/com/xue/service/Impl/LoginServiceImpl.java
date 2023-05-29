@@ -3869,12 +3869,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getAnalyzeDetail(String studio, String dimension, String campus,String date_time) {
         List<JSONObject> resul_list = new ArrayList<>();
-        JSONObject jsonObject = new JSONObject();
-        Float signCount = 0.0f;
-        Float tryCount = 0.0f;
-        Float leaveCount = 0.0f;
-        Float absentCount = 0.0f;
-
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date d = fmt.parse(date_time);
@@ -3882,6 +3876,12 @@ public class LoginServiceImpl implements LoginService {
             cal.setTime(d);
             Integer weekDay_INIT = cal.get(Calendar.WEEK_OF_YEAR);
             for(int weekDay = weekDay_INIT-10; weekDay <=weekDay_INIT; weekDay++){
+                JSONObject jsonObject = new JSONObject();
+                Float signCount = 0.0f;
+                Float tryCount = 0.0f;
+                Float leaveCount = 0.0f;
+                Float absentCount = 0.0f;
+
                 jsonObject.put("weekDay", weekDay);
                 try {
                     List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
