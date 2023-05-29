@@ -136,7 +136,7 @@ public class LoginController {
 	public static String chat(String question){
 		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "application/json");
-		header.put("Authorization", "Bearer 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");
+		header.put("Authorization", "Bearer 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");
 		JSONObject params = new JSONObject();
 		params.put("model", "text-davinci-003");
 		params.put("prompt", question);
