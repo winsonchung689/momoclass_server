@@ -67,9 +67,9 @@ public interface UserMapper {
 
     List<Schedule> getScheduleDetailAll(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
-    List<Schedule> getScheduleByClassOrdinary(Integer weekDay,String duration,String studio,String class_number,String subject);
+    List<Schedule> getScheduleByClassOrdinary(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
-    List<Schedule> getScheduleByClassTransferred(String add_date,String duration,String studio,String class_number,String subject);
+    List<Schedule> getScheduleByClassTransferred(String add_date,String duration,String studio,String class_number,String subject,String campus);
 
     //获取
     List<Schedule> getTransferAll(String date_time,String studio);
