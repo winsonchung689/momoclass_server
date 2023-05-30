@@ -427,7 +427,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 and is_try = 0 order by duration
   </select>
 
   <select id="getScheduleDetailAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
