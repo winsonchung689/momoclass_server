@@ -3929,7 +3929,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String subject = line.getSubject();
                 //json
-                jsonObject.put("create_time", create_time);
+                jsonObject.put("create_time", create_time.split(" ")[0]);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
