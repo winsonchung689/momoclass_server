@@ -929,7 +929,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and status = 1 and is_try = 0 and delete_status = 0
   </select>
 
   <!-- 获取提醒状态 -->
@@ -944,7 +944,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDayByName" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_name =#{param6} and campus =#{param7} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_name =#{param6} and campus =#{param7} and student_type ='ordinary' and status = 1 and delete_status = 0 and is_try = 0
   </select>
 
   <!-- 获取总人数 -->
