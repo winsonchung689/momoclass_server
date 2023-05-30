@@ -32,6 +32,8 @@ public interface LoginService {
 
     public List  getAnalyzeDetail(String studio,String dimension,String campus,String date_time);
 
+    public List  getAnalyzeDetailWeek(String studio,String type,Integer weekday,String campus);
+
     public List  getLessonByPage(String studio,String student_name,String subject,String campus,Integer page);
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject);

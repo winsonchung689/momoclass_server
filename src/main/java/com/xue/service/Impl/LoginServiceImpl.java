@@ -3916,6 +3916,75 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getAnalyzeDetailWeek(String studio, String type, Integer weekday,String campus) {
+
+        List<JSONObject> resul_list = new ArrayList<>();
+        if("请假".equals(type)){
+            List<SignUp> list = dao.getAnalyzeSignUpDetail(studio,campus,weekday);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SignUp line = list.get(i);
+                //获取字段
+                String create_time = line.getCreate_time();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+                //json
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        }else if("试听".equals(type)){
+            List<Schedule> list = dao.getAnalyzeTryDetail(studio,campus,weekday);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Schedule line = list.get(i);
+                //获取字段
+                String create_time = line.getAdd_date();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+                //json
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        }else if("请假".equals(type)){
+            List<Leave> list = dao.getAnalyzeLeaveDetail(studio,campus,weekday);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Leave line = list.get(i);
+                //获取字段
+                String create_time = line.getDate_time();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+                //json
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        }else if("旷课".equals(type)){
+            List<Leave> list = dao.getAnalyzeAbsentDetail(studio,campus,weekday);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Leave line = list.get(i);
+                //获取字段
+                String create_time = line.getDate_time();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+                //json
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getLessonByPage(String studio,String student_name,String subject,String campus,Integer page) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;

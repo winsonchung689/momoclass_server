@@ -902,6 +902,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getAnalyzeDetailWeek")
+	@ResponseBody
+	public List getAnalyzeDetailWeek(String studio,String type,Integer weekday,String campus){
+		List list = null;
+		try {
+			list = loginService.getAnalyzeDetailWeek(studio,type,weekday,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getClassNote")
 	@ResponseBody
 	public List getClassNote(String subject,String studio,String student_name){
