@@ -1055,6 +1055,10 @@
     update user set campus=#{campus} where openid=#{openid}
   </update>
 
+  <update id="updateCombine" parameterType="com.xue.entity.model.Lesson">
+    update lesson set is_combine=#{is_combine} where student_name=#{student_name} and studio=#{studio} and campus=#{campus}
+  </update>
+
   <update id="updateLessonCampus" parameterType="com.xue.entity.model.Lesson">
     update lesson set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
   </update>

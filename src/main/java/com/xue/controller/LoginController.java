@@ -2054,6 +2054,38 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateCombine")
+	@ResponseBody
+	public int updateCombine(HttpServletRequest request, HttpServletResponse response){
+
+		String studio = request.getParameter("studio");
+		String student_name = request.getParameter("student_name");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+		String is_combine = request.getParameter("is_combine");
+		Integer combine = 0;
+		if(is_combine == "分"){
+			combine = 1;
+		}
+
+		Lesson lesson = new Lesson();
+		lesson.setIs_combine(combine);
+		lesson.setStudio(studio);
+		lesson.setCampus(campus);
+		lesson.setStudent_name(student_name);
+
+
+		try {
+			dao.updateCombine(lesson);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){

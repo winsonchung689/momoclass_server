@@ -245,6 +245,8 @@ public interface UserMapper {
 
     int updateUserCampus(User user);
 
+    int updateCombine(Lesson lesson);
+
     int updateLessonCampus(String studio,String student_name,String campus);
 
     int updateSignUpCampus(String studio,String student_name,String campus);
