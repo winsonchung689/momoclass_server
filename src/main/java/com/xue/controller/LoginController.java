@@ -2065,7 +2065,7 @@ public class LoginController {
 		String campus = list_user.get(0).getCampus();
 		String is_combine = request.getParameter("is_combine");
 		Integer combine = 0;
-		if(is_combine == "分"){
+		if("分".equals(is_combine)){
 			combine = 1;
 		}
 
