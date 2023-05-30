@@ -4021,6 +4021,7 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         String campus_get = null;
+        Integer is_combine = 0;
 
         try {
             if(subject.equals("全科目")){
@@ -4094,6 +4095,8 @@ public class LoginServiceImpl implements LoginService {
                 subject_get = line.getSubject();
                 studio = line.getStudio();
                 campus_get = line.getCampus();
+                is_combine = line.getIs_combine();
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -4118,6 +4121,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("campus", campus_get);
+                jsonObject.put("is_combine", is_combine);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
