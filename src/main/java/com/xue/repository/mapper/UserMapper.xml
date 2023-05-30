@@ -490,7 +490,7 @@
   </select>
 
   <select id="getAnalyzeTryDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select add_date,student_name,subject from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%V')=#{param3}  order by create_time desc
+    select add_date,student_name,subject from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and date_format(create_time, '%V')=#{param3}  order by create_time desc
   </select>
 
   <select id="getAnalyzeLeaveDetail" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">

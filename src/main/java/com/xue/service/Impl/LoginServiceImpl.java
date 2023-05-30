@@ -3919,7 +3919,7 @@ public class LoginServiceImpl implements LoginService {
     public List getAnalyzeDetailWeek(String studio, String type, Integer weekday,String campus) {
 
         List<JSONObject> resul_list = new ArrayList<>();
-        if("请假".equals(type)){
+        if("签到".equals(type)){
             List<SignUp> list = dao.getAnalyzeSignUpDetail(studio,campus,weekday);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
