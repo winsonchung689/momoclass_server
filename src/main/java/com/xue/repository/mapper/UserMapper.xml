@@ -949,17 +949,17 @@
 
   <!-- 获取总人数 -->
   <select id="getClassesCountAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and is_try = 0 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getClassesCountAllLesson" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(student_name) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and status = 1 and is_try = 0 and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->
   <select id="getClassesCountBySubject" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(distinct student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and is_try = 0 and delete_status = 0
   </select>
 
   <!-- 获取单月课数 -->
@@ -975,7 +975,7 @@
 
   <!-- 获取总人数 -->
   <select id="getClassesCountBySubjectLesson" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and delete_status = 0
+    select count(student_name) from class_schedule where studio =#{param1} and subject =#{param2} and campus =#{param3} and student_type ='ordinary' and status = 1 and is_try = 0 and delete_status = 0
   </select>
 
   <!-- 获取今天签到人数 -->
