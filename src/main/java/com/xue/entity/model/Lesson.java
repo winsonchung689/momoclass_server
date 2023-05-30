@@ -24,6 +24,16 @@ public class Lesson {
 
     private String campus;
 
+    private Integer is_combine;
+
+    public Integer getIs_combine() {
+        return is_combine;
+    }
+
+    public void setIs_combine(Integer is_combine) {
+        this.is_combine = is_combine;
+    }
+
     public String getCampus() {
         return campus;
     }

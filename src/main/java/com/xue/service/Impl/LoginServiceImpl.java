@@ -84,6 +84,7 @@ public class LoginServiceImpl implements LoginService {
             Float minus_amount = 0.0f;
             Float left_amount = 0.0f;
             Float coins_amount = 0.0f;
+            Integer is_combine = 0;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
                     if(lessons.size()>0){
@@ -106,6 +107,8 @@ public class LoginServiceImpl implements LoginService {
                         if (coins > 0) {
                             coins_amount = coins;
                         }
+
+                        is_combine = lesson_get.getIs_combine();
                     }
             }
             lesson.setStudent_name(student_name);
@@ -116,7 +119,11 @@ public class LoginServiceImpl implements LoginService {
 //            lesson.setSubject(subject);
             lesson.setCampus(campus);
             if("全科目".equals(subject_new)){
-                result =  dao.updateLesson(lesson);
+                if(is_combine == 0){
+                    result = dao.updateLesson(lesson);
+                }else if (is_combine == 1){
+                    result = dao.updateLessonBoth(lesson);
+                }
             }else {
                 result =  dao.updateLessonSubject(subject_new,student_name,studio,subject,campus);
             }
@@ -2730,6 +2737,7 @@ public class LoginServiceImpl implements LoginService {
         Float new_left = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
+        Integer is_combine = 0;
 
         List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject,campus);
         try {
@@ -2741,6 +2749,7 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject = line.getSubject();
+                is_combine = line.getIs_combine();
 
                 Lesson lesson = new Lesson();
                 lesson.setStudent_name(student_name);
@@ -2751,7 +2760,12 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setCoins(coins);
                 lesson.setSubject(subject);
                 lesson.setCampus(campus);
-                result = dao.updateLesson(lesson);
+                if(is_combine == 0){
+                    result = dao.updateLesson(lesson);
+                }else if (is_combine == 1){
+                    result = dao.updateLessonBoth(lesson);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
