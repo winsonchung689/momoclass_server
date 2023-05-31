@@ -1139,7 +1139,7 @@
 
   <!-- 用户过期 -->
   <update id="updateUserExpired" parameterType="com.xue.entity.model.User">
-    update user set role=#{param1} where studio=#{param2} and role=#{param3} and campus=#{param4}
+    update user set role=#{param1} where studio=#{param2} and role in ('boss','teacher') and campus=#{param4}
   </update>
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">
