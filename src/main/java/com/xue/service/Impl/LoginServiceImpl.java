@@ -1473,6 +1473,7 @@ public class LoginServiceImpl implements LoginService {
                     dao.changeLimit(id1,studio,limit_number);
                 }else if(change_title.equals("时间")){
                     dao.changeDuration(id1,studio,limit_number);
+                    dao.changeScheduleDuration(class_number,studio,duration,limit_number,old_subject,campus);
                 }
 
             }else {
