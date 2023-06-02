@@ -3419,8 +3419,8 @@ public class LoginController {
 				user.setCampus(campus);
 				dao.updateUserCampus(user);
 			}else if("学生名".equals(type)){
-				String openid = openid_get.split("_")[0];
-				String id = openid_get.split("_")[1];
+				String openid = openid_get.split("@")[0];
+				String id = openid_get.split("@")[1];
 				dao.updateUserStudentByOpenid(campus,openid,id);
 			}
 
