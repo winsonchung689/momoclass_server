@@ -4194,7 +4194,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject) {
+    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in) {
         Float total_amount = 0.0f;
         String create_time = null;
         String id = null;
@@ -4210,9 +4210,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             if("全科目".equals(subject)){
-                list = dao.getTipsDataUrlAll(studio,left_amount_get);
+                list = dao.getTipsDataUrlAll(studio,left_amount_get,campus_in);
             }else{
-                list = dao.getTipsDataUrl(studio,left_amount_get,subject);
+                list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
             }
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";

@@ -529,10 +529,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getTipsDataUrl")
 	@ResponseBody
-	public List getTipsDataUrl(String studio,Integer left_amount,String subject){
+	public List getTipsDataUrl(String studio,Integer left_amount,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getTipsDataUrl(studio,left_amount,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getTipsDataUrl(studio,left_amount,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

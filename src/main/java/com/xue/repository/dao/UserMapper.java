@@ -340,9 +340,9 @@ public interface UserMapper {
 
     List<Lesson> getLessonBySubjectByPage(String studio,String subject,String campus,Integer page_start,Integer page_length);
 
-    List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject);
+    List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject,String campus);
 
-    List<Lesson> getTipsDataUrlAll(String studio,Integer left_amount);
+    List<Lesson> getTipsDataUrlAll(String studio,Integer left_amount,String campus);
 
     AllCount getLessonAllCount(String studio,String campus);
 
