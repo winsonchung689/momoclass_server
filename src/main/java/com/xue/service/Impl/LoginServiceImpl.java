@@ -4205,6 +4205,8 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount = 0.0f;
         List<Lesson> list = null;
         String student_name =null;
+        String campus =null;
+        Integer is_combine = 0;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             if("全科目".equals(subject)){
@@ -4235,6 +4237,13 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject = line.getSubject();
+                campus =line.getCampus();
+                is_combine = line.getIs_combine();
+                String combine = "分";
+                if(is_combine == 1){
+                    combine = "合";
+                }
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
