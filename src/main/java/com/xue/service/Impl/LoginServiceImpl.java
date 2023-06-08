@@ -3833,14 +3833,26 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            List<String> list_subject = new ArrayList<>();
             List<Lesson> subject_list = dao.getSubjectByStudio(studio,campus);
+            try {
+                for (int i = 0; i < subject_list.size(); i++) {
+                    String subject_get = subject_list.get(i).getSubject();
+                    if(!list_subject.contains(subject_get)){
+                        list_subject.add(subject_get);
+                    }
+                }
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
+
 
             jsonObject.put("total_student", total_student);
             jsonObject.put("total_amount_all", total_amount_all);
             jsonObject.put("left_amount_all", left_amount_all);
             jsonObject.put("need_pay", need_pay);
             jsonObject.put("owe", owe);
-            jsonObject.put("subject_list", subject_list.toString());
+            jsonObject.put("subject_list", subject_list);
 
             resul_list.add(jsonObject);
 
