@@ -928,7 +928,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonOweCount" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
-    select count(distinct student_name) from lesson where left_amount &lt; 0 and studio =#{param1} and delete_status = 0;
+    select count(distinct student_name) from lesson where left_amount &lt; 0 and studio =#{param1} and campus =#{param2} and delete_status = 0;
   </select>
 
   <!-- 获取总人数 -->

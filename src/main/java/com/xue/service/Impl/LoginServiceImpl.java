@@ -3821,7 +3821,7 @@ public class LoginServiceImpl implements LoginService {
                 total_amount_all = allCount.getTotal_amount();
                 left_amount_all = allCount.getLeft_amount();
                 need_pay = dao.getLessonNeedPayCount(studio,campus);
-                owe = dao.getLessonOweCount(studio);
+                owe = dao.getLessonOweCount(studio,campus);
             }else{
                 AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
                 if(allCount.getStudent_count()>0){

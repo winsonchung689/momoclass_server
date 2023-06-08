@@ -352,7 +352,7 @@ public interface UserMapper {
 
     Integer getLessonNeedPayCountBySubject(String studio,String subject,String campus);
 
-    Integer getLessonOweCount(String studio);
+    Integer getLessonOweCount(String studio,String campus);
 
     Integer getLessonOweCountBySubject(String studio,String subject,String campus);
 
