@@ -4261,7 +4261,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject);
                 jsonObject.put("parent", parent);
                 jsonObject.put("campus", campus);
-                jsonObject.put("combine", combine);
+                jsonObject.put("is_combine", combine);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
