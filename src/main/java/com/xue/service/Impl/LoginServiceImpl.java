@@ -3692,7 +3692,6 @@ public class LoginServiceImpl implements LoginService {
         Float minus = 0.0f;
         Float coins = 0.0f;
         List<Lesson> list = null;
-//        List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
         Integer total_student =0;
@@ -3743,9 +3742,8 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
                 }
-
-
             }
+
 
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";
@@ -3799,6 +3797,53 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 resul_list.add(jsonObject);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
+    public List getLessonHead(String studio, String student_name, String subject, String campus) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        Integer total_student =0;
+        Float total_amount_all = 0.0f ;
+        Float left_amount_all = 0.0f ;
+        Integer need_pay = 0;
+        Integer owe = 0;
+
+        try {
+            if(subject.equals("全科目")){
+                AllCount allCount =dao.getLessonAllCount(studio,campus);
+                total_student = allCount.getStudent_count();
+                total_amount_all = allCount.getTotal_amount();
+                left_amount_all = allCount.getLeft_amount();
+                need_pay = dao.getLessonNeedPayCount(studio,campus);
+                owe = dao.getLessonOweCount(studio);
+            }else{
+                AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
+                if(allCount.getStudent_count()>0){
+                    total_student = allCount.getStudent_count();
+                    total_amount_all = allCount.getTotal_amount();
+                    left_amount_all = allCount.getLeft_amount();
+                    need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
+                    owe = dao.getLessonOweCountBySubject(studio,subject,campus);
+                }
+            }
+
+            List<Lesson> subject_list = dao.getSubjectByStudio(studio,campus);
+
+            jsonObject.put("total_student", total_student);
+            jsonObject.put("total_amount_all", total_amount_all);
+            jsonObject.put("left_amount_all", left_amount_all);
+            jsonObject.put("need_pay", need_pay);
+            jsonObject.put("owe", owe);
+            jsonObject.put("subject_list", subject_list.toString());
+
+            resul_list.add(jsonObject);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

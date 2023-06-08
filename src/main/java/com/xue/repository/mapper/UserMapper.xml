@@ -828,6 +828,10 @@
     select distinct studio from user where delete_status = 0 and (role = #{param1} or member = #{param1})
   </select>
 
+  <select id="getSubjectByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
+    select distinct subject from lesson where delete_status = 0 and studio =#{param1} and campus =#{param2}
+  </select>
+
   <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select distinct class_number from class_schedule where studio = #{param1}
   </select>

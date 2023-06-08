@@ -496,6 +496,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getLessonHead")
+	@ResponseBody
+	public List getLessonHead(String studio,String student_name,String subject,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLessonHead(studio,student_name,subject,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getLessonByPage")
 	@ResponseBody
