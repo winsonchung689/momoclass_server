@@ -3175,6 +3175,9 @@ public class LoginController {
 
 		try {
 			student_type = request.getParameter("student_type");
+			if(student_type == null || student_type.isEmpty() || "undefined".equals(student_type)){
+				student_type = "ordinary";
+			}
 			add_date = request.getParameter("add_date");
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
