@@ -329,7 +329,7 @@ public class LoginServiceImpl implements LoginService {
                         percent = left * 100 / total;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
 
 
