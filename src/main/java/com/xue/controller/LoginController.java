@@ -6,7 +6,6 @@ import com.alibaba.fastjson2.JSONArray;
 import com.google.gson.Gson;
 import com.xue.JsonUtils.JsonUtils;
 import com.xue.entity.model.*;
-//import com.xue.entity.model.Subscription;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
@@ -60,6 +59,7 @@ public class LoginController {
 	private static final String tample7 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"UlD842xsgrqPJsmr5jfPi3tA_wUcosee-YPFer0QcE0\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"A1\"},\"thing5\":{\"value\": \"time\"}}}";
 	private static final String tample8 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"RToa1-R_dkD_V-xaUGGpp0zPRE_hG2pRaKyX5Rq_Pi8\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"phone_number5\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
 	private static final String tample9 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"sUmPrHqHMJ4r_areM2Dwpyi-sK-A6ehYwrMyS9JS-Qw\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"name11\":{\"value\": \"A1\"},\"thing8\":{\"value\": \"A1\"},\"date6\":{\"value\": \"time\"}}}";
+	private static final String tample10 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"LlmWw436tKz1DwZzpWmgnIBFAtXCUj_HxDN7xub03e4\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"time5\":{\"value\": \"time\"},\"thing3\":{\"value\": \"A1\"}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -69,6 +69,33 @@ public class LoginController {
 
 	@Autowired
 	private UserMapper dao;
+
+	@RequestMapping("/sendLeaveRemind")
+	@ResponseBody
+	public String sendLeaveRemind(String token, String openid, String studio,String subject,String student_name,String date_time,String mark_leave,String makeup_date){
+		String result = null;
+		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		JSONObject queryJson = JSONObject.parseObject(tample10);
+
+		queryJson.put("touser",openid);
+		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",subject + "_" + student_name);
+		queryJson.getJSONObject("data").getJSONObject("time5").put("value",date_time);
+		queryJson.getJSONObject("data").getJSONObject("thing3").put("value",mark_leave+",补课时间:" + makeup_date);
+
+		queryJson.put("page","/pages/leaverecord/leaverecord?share_studio=" + studio + "&share_student_name=" + student_name + "&share_subject=" + subject);
+
+
+		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
+		System.out.printf("param:"+param);
+		try {
+			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
@@ -104,7 +131,6 @@ public class LoginController {
 		}
 		return result;
 	}
-
 
 	//	获取token
 	@RequestMapping("/sendPostRemind")
@@ -152,7 +178,6 @@ public class LoginController {
 
 		return JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
 	}
-
 
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
