@@ -80,7 +80,7 @@ public class LoginController {
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",subject + "_" + student_name);
 		queryJson.getJSONObject("data").getJSONObject("time5").put("value",date_time);
-		queryJson.getJSONObject("data").getJSONObject("thing3").put("value",mark_leave+"_补课时间" + makeup_date + "_请点击排课");
+		queryJson.getJSONObject("data").getJSONObject("thing3").put("value",mark_leave+"_补" + makeup_date);
 
 		queryJson.put("page","/pages/leaverecord/leaverecord?share_studio=" + studio + "&share_student_name=" + student_name + "&share_subject=" + subject);
 
