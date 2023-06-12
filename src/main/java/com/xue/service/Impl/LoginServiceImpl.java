@@ -2592,7 +2592,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return resul_list;
     }
