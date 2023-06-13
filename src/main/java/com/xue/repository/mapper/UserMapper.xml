@@ -1018,7 +1018,7 @@
 
   <!-- 获取课时 -->
   <select id="getRating" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,coins,subject from lesson where studio =#{param1} and campus =#{param4} and delete_status = 0 order by points,id desc limit #{param2},#{param3};
+    select id,student_name,total_amount,left_amount,create_time,points,studio,coins,subject from lesson where studio =#{param1} and campus =#{param4} and delete_status = 0 order by id，points desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取课时 -->
