@@ -3882,6 +3882,7 @@ public class LoginServiceImpl implements LoginService {
         Integer owe = 0;
         String student_name = null;
         String campus = null;
+        String nick_name = null;
         list = dao.getLessonByStudio(studio);
 
         try {
@@ -3890,6 +3891,12 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                try {
+                    List<User> users = dao.getUserByStudent(student_name,studio);
+                    nick_name = users.get(0).getNick_name();
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -3923,6 +3930,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
+                jsonObject.put("campus", nick_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
