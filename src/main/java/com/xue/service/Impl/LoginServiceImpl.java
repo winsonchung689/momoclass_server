@@ -3930,7 +3930,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
-                jsonObject.put("campus", nick_name);
+                jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
