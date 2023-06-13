@@ -3882,11 +3882,11 @@ public class LoginServiceImpl implements LoginService {
         Integer owe = 0;
         String student_name = null;
         String campus = null;
-        String nick_name = null;
         list = dao.getLessonByStudio(studio);
 
         try {
             for (int i = 0; i < list.size(); i++) {
+                String nick_name = "未绑定";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
