@@ -2662,6 +2662,7 @@ public class LoginController {
 		String left_amount= null;
 		String gift_name =null;
 		String gift_amount = null;
+		String points = null;
 		String path = System.getProperty("user.dir");
 		String path_1 = path +"/uploadexcel/" + studio ;
 		java.io.File myFilePath = new java.io.File(path_1);
@@ -2685,7 +2686,7 @@ public class LoginController {
 				lesson.setStudio(studio);
 				lesson.setMinus(1.0f);
 				lesson.setCoins(0.0f);
-				lesson.setPoints(0);
+//				lesson.setPoints(0);
 				lesson.setCampus(campus);
 				Cell cell_get=sheet.getCell(0, i);
 				if(!cell_get.getContents().isEmpty()){
@@ -2727,6 +2728,11 @@ public class LoginController {
 								cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
 								String expired_time = df_get.format(cal_get.getTime());
 								gift.setExpired_time(expired_time);
+							}
+						}else if(7==j){
+							points =cell.getContents();
+							if(!points.isEmpty()){
+								lesson.setPoints(Integer.parseInt(points));
 							}
 						}
 					}
