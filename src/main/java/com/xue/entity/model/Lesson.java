@@ -22,9 +22,19 @@ public class Lesson {
 
     private Float coins;
 
+    private Float price;
+
     private String campus;
 
     private Integer is_combine;
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public Integer getIs_combine() {
         return is_combine;
