@@ -90,11 +90,11 @@ public class LoginServiceImpl implements LoginService {
                     if(lessons.size()>0){
                         Lesson lesson_get = lessons.get(0);
                         total_amount = lesson_get.getTotal_amount();
-                        if (total > 0) {
+                        if (total >= 0) {
                             total_amount = total;
                         }
                         left_amount = lesson_get.getLeft_amount();
-                        if (left > 0) {
+                        if (left >= 0) {
                             left_amount = left;
                         }
                         left_amount = left_amount - consume_lesson_amount;
