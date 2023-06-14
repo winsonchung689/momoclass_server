@@ -3963,7 +3963,6 @@ public class LoginServiceImpl implements LoginService {
                 Float leaveCount = 0.0f;
                 Float absentCount = 0.0f;
                 Float lessonCount = 0.0f;
-                Float weekPrice = 0.0f;
 
                 jsonObject.put("weekDay", weekDay);
                 try {
@@ -3971,19 +3970,20 @@ public class LoginServiceImpl implements LoginService {
                     signCount = list.get(0).getIncome();
                     lessonCount = list.get(0).getExpenditure();
                     List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,weekDay);
+                    Float weekPrice = 0.0f;
                     for (int i = 0; i < signUps.size(); i++) {
                         SignUp signUp = signUps.get(i);
                         String student_name = signUp.getStudent_name();
                         String subject = signUp.getSubject();
                         Float count = signUp.getCount();
                         List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                        Float price = lessons.get(0).getPrice();
-                        System.out.println("aa:" + price);
-                        weekPrice = weekPrice + price*count;
+                        if(lessons.size()>0){
+                            Float price = lessons.get(0).getPrice();
+                            weekPrice = weekPrice + price*count;
+                        }
                     }
-                    jsonObject.put("weekPrice", weekPrice);
                 } catch (Exception e) {
-//                throw new RuntimeException(e);
+                throw new RuntimeException(e);
                 }
                 try {
                     List<BookCount> list1 = dao.getAnalyzeTry(studio,campus,weekDay);
@@ -4008,6 +4008,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leaveCount", leaveCount);
                 jsonObject.put("absentCount", absentCount);
                 jsonObject.put("lessonCount", lessonCount);
+                jsonObject.put("weekPrice", weekPrice);
                 resul_list.add(jsonObject);
             }
         } catch (ParseException e) {
