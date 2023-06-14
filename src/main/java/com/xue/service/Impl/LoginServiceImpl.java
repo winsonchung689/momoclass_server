@@ -3982,7 +3982,6 @@ public class LoginServiceImpl implements LoginService {
                                     Float price = lessons.get(0).getPrice();
                                     weekPrice = weekPrice + price*count;
                                 }
-                                System.out.println("aa:" + weekPrice);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
