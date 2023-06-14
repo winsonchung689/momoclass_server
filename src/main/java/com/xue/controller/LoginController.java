@@ -3673,7 +3673,7 @@ public class LoginController {
 			Float total_amount = 0.0f;
 			if (!total_amount_1.isEmpty()){
 				total_amount = Float.valueOf(total_amount_1);
-			}else if (total_amount_1 == "0"){
+			}else if ("0".equals(total_amount_1)){
 				total_amount = 0.0f;
 				dao.updateLessonTotal(total_amount,studio,student_name,campus);
 			}
@@ -3683,7 +3683,8 @@ public class LoginController {
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty()){
 				left_amount = Float.parseFloat(left_amount_get);
-			}else if (left_amount_get == "0"){
+			}else if ("0".equals(left_amount_get)){
+				System.out.println("AA:" + left_amount_get);
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus);
 			}
