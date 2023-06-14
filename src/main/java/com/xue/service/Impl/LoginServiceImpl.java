@@ -3970,6 +3970,18 @@ public class LoginServiceImpl implements LoginService {
                     List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
                     signCount = list.get(0).getIncome();
                     lessonCount = list.get(0).getExpenditure();
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,weekDay);
+                    for (int i = 0; i < signUps.size(); i++) {
+                        SignUp signUp = signUps.get(i);
+                        String student_name = signUp.getStudent_name();
+                        String subject = signUp.getStudent_name();
+                        Float count = signUp.getCount();
+                        List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                        Float price = lessons.get(0).getPrice();
+                        weekPrice = weekPrice + price * count;
+                    }
+
+
                     weekPrice = list.get(0).getWeek_price();
                 } catch (Exception e) {
 //                throw new RuntimeException(e);
