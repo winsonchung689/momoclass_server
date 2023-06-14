@@ -4011,9 +4011,10 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String student_name = line.getStudent_name();
                 String subject = line.getSubject();
+                Float count = line.getCount();
                 //json
                 jsonObject.put("create_time", create_time.split(" ")[0]);
-                jsonObject.put("student_name", student_name);
+                jsonObject.put("student_name", student_name+"(课时:"+count+")");
                 jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
