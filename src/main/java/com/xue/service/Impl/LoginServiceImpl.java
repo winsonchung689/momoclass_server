@@ -4167,6 +4167,7 @@ public class LoginServiceImpl implements LoginService {
                 studio = line.getStudio();
                 campus_get = line.getCampus();
                 is_combine = line.getIs_combine();
+                price = line.getPrice();
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
@@ -4197,6 +4198,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("campus", campus_get);
                 jsonObject.put("is_combine", combine);
+                jsonObject.put("price", price);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
