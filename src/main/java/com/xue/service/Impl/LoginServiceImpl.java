@@ -3978,11 +3978,8 @@ public class LoginServiceImpl implements LoginService {
                         Float count = signUp.getCount();
                         List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                         Float price = lessons.get(0).getPrice();
-                        weekPrice = weekPrice + price * count;
+                        weekPrice = weekPrice + price*count;
                     }
-
-
-                    weekPrice = list.get(0).getWeek_price();
                 } catch (Exception e) {
 //                throw new RuntimeException(e);
                 }
