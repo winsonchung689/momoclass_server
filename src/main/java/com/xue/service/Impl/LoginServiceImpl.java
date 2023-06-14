@@ -3974,7 +3974,7 @@ public class LoginServiceImpl implements LoginService {
                     for (int i = 0; i < signUps.size(); i++) {
                         SignUp signUp = signUps.get(i);
                         String student_name = signUp.getStudent_name();
-                        String subject = signUp.getStudent_name();
+                        String subject = signUp.getSubject();
                         Float count = signUp.getCount();
                         List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                         Float price = lessons.get(0).getPrice();
