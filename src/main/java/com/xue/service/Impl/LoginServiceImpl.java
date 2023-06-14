@@ -3976,10 +3976,14 @@ public class LoginServiceImpl implements LoginService {
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
-                            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                            if(lessons.size()>0){
-                                Float price = lessons.get(0).getPrice();
-                                weekPrice = weekPrice + price*count;
+                            try {
+                                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                                if(lessons.size()>0){
+                                    Float price = lessons.get(0).getPrice();
+                                    weekPrice = weekPrice + price*count;
+                                }
+                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
                             }
                         }
                     }
