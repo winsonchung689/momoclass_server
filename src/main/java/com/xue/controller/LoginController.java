@@ -3680,10 +3680,12 @@ public class LoginController {
 
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
+			System.out.println("AA:" );
+			System.out.println(left_amount_get);
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty()){
 				left_amount = Float.parseFloat(left_amount_get);
-			}else if ("0".equals(left_amount_get)){
+			}else if ("A" + left_amount_get == "A0"){
 				System.out.println("AA:" + left_amount_get);
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus);
