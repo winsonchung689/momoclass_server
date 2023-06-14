@@ -3651,12 +3651,15 @@ public class LoginController {
 			}
 
 		try {
+			// 获取type
+			String modify_type = request.getParameter("modify_type");
+
 			// 获取单次积分
 			String coins_amount_get_1 = request.getParameter("coins_amount");
 			Float coins_amount_get = 0.0f;
-			if (!coins_amount_get_1.isEmpty() && !"0".equals(coins_amount_get_1)){
+			if (!coins_amount_get_1.isEmpty() && !"0".equals(coins_amount_get_1) && "coins_modify_single".equals(modify_type)){
 				coins_amount_get = Float.valueOf(coins_amount_get_1);
-			}else if ("0".equals(coins_amount_get_1)){
+			}else if ("0".equals(coins_amount_get_1) && "coins_modify_single".equals(modify_type)){
 				Float coins = 0.0f;
 				dao.updateLessonCoins(coins,studio,student_name,campus,subject);
 			}
@@ -3664,9 +3667,9 @@ public class LoginController {
 			// 获取单次扣课
 			String minus_amount_get_1 = request.getParameter("minus_amount");
 			Float minus_amount_get = 0.0f;
-			if (!minus_amount_get_1.isEmpty() && !"0".equals(minus_amount_get_1)){
+			if (!minus_amount_get_1.isEmpty() && !"0".equals(minus_amount_get_1) && "minus_modify".equals(modify_type)){
 				minus_amount_get = Float.valueOf(minus_amount_get_1);
-			}else if ("0".equals(minus_amount_get_1)){
+			}else if ("0".equals(minus_amount_get_1) && "minus_modify".equals(modify_type)){
 				Float minus = 0.0f;
 				dao.updateLessonMinus(minus,studio,student_name,campus,subject);
 			}
@@ -3679,9 +3682,9 @@ public class LoginController {
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 			Float total_amount = 0.0f;
-			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1)){
+			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1) && "total_modify".equals(modify_type)){
 				total_amount = Float.valueOf(total_amount_1);
-			}else if ("0".equals(total_amount_1)){
+			}else if ("0".equals(total_amount_1) && "total_modify".equals(modify_type)){
 				total_amount = 0.0f;
 				dao.updateLessonTotal(total_amount,studio,student_name,campus,subject);
 			}
@@ -3689,16 +3692,15 @@ public class LoginController {
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
 			Float left_amount = 0.0f;
-			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get)){
+			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get) && "left_modify".equals(modify_type)){
 				left_amount = Float.parseFloat(left_amount_get);
-			}else if ("0".equals(left_amount_get)){
+			}else if ("0".equals(left_amount_get) && "left_modify".equals(modify_type)){
 				System.out.println("AA:" + left_amount_get);
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
 			}
 
-			// 获取type
-			String modify_type = request.getParameter("modify_type");
+
 			if("campus_modify".equals(modify_type)){
 				dao.updateLessonCampus(studio,student_name,campus_new);
 				dao.updateSignUpCampus(studio,student_name,campus_new);
