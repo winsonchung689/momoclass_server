@@ -3656,6 +3656,9 @@ public class LoginController {
 			Float coins_amount_get = 0.0f;
 			if (!coins_amount_get_1.isEmpty() && !"0".equals(coins_amount_get_1)){
 				coins_amount_get = Float.valueOf(coins_amount_get_1);
+			}else if ("0".equals(coins_amount_get_1)){
+				Float coins = 0.0f;
+				dao.updateLessonCoins(coins,studio,student_name,campus,subject);
 			}
 
 			// 获取单次扣课
@@ -3663,6 +3666,9 @@ public class LoginController {
 			Float minus_amount_get = 0.0f;
 			if (!minus_amount_get_1.isEmpty() && !"0".equals(minus_amount_get_1)){
 				minus_amount_get = Float.valueOf(minus_amount_get_1);
+			}else if ("0".equals(minus_amount_get_1)){
+				Float minus = 0.0f;
+				dao.updateLessonMinus(minus,studio,student_name,campus,subject);
 			}
 
 			// 获取新名字

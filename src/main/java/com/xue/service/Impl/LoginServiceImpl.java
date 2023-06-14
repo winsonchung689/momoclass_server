@@ -100,11 +100,11 @@ public class LoginServiceImpl implements LoginService {
                         left_amount = left_amount - consume_lesson_amount;
 
                         minus_amount = lesson_get.getMinus();
-                        if (minus >= 0) {
+                        if (minus > 0) {
                             minus_amount = minus;
                         }
                         coins_amount = lesson_get.getCoins();
-                        if (coins >= 0) {
+                        if (coins > 0) {
                             coins_amount = coins;
                         }
 

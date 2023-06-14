@@ -1097,6 +1097,14 @@
     update lesson set total_amount=#{param1} where studio=#{param2} and student_name=#{param3} and campus=#{param4} and subject=#{param5} and delete_status = 0
   </update>
 
+  <update id="updateLessonMinus" parameterType="com.xue.entity.model.Lesson">
+    update lesson set minus=#{param1} where studio=#{param2} and student_name=#{param3} and campus=#{param4} and subject=#{param5} and delete_status = 0
+  </update>
+
+  <update id="updateLessonCoins" parameterType="com.xue.entity.model.Lesson">
+    update lesson set coins=#{param1} where studio=#{param2} and student_name=#{param3} and campus=#{param4} and subject=#{param5} and delete_status = 0
+  </update>
+
   <update id="updateSignUpCampus" parameterType="com.xue.entity.model.SignUp">
     update sign_up_record set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
   </update>
