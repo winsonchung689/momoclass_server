@@ -3978,8 +3978,10 @@ public class LoginServiceImpl implements LoginService {
                         Float count = signUp.getCount();
                         List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                         Float price = lessons.get(0).getPrice();
+                        System.out.println("aa:" + price);
                         weekPrice = weekPrice + price*count;
                     }
+                    jsonObject.put("weekPrice", weekPrice);
                 } catch (Exception e) {
 //                throw new RuntimeException(e);
                 }
@@ -4006,7 +4008,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leaveCount", leaveCount);
                 jsonObject.put("absentCount", absentCount);
                 jsonObject.put("lessonCount", lessonCount);
-                jsonObject.put("weekPrice", weekPrice);
                 resul_list.add(jsonObject);
             }
         } catch (ParseException e) {
