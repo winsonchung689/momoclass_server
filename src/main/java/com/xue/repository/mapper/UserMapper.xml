@@ -1059,7 +1059,7 @@
   </update>
 
   <update id="updateCoinsByStudent" parameterType="com.xue.entity.model.Lesson">
-    update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and delete_status = 0 and student_name=#{param4}
+    update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and subject=#{param5} and delete_status = 0 and student_name=#{param4}
   </update>
 
   <!-- 更新单价 -->
@@ -1068,7 +1068,7 @@
   </update>
 
   <update id="updatePriceByStudent" parameterType="com.xue.entity.model.Lesson">
-    update lesson set price =#{param1} where studio =#{param2} and campus =#{param3} and delete_status = 0 and student_name=#{param4}
+    update lesson set price =#{param1} where studio =#{param2} and campus =#{param3} and subject=#{param5} and delete_status = 0 and student_name=#{param4}
   </update>
 
   <!-- 更新用户类型 -->

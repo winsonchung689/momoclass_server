@@ -3767,9 +3767,9 @@ public class LoginController {
 					}
 				}else if("coins_modify_single".equals(modify_type)){
 					if("积分".equals(m_type)){
-						dao.updateCoinsByStudent(coins_amount,studio,campus,student_name);
+						dao.updateCoinsByStudent(coins_amount,studio,campus,student_name,subject);
 					}else if("单价".equals(m_type)){
-						dao.updatePriceByStudent(coins_amount,studio,campus,student_name);
+						dao.updatePriceByStudent(coins_amount,studio,campus,student_name,subject);
 					}
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
