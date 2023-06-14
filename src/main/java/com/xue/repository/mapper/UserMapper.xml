@@ -864,7 +864,7 @@
 
   <!-- 插入课时 -->
   <insert id="insertLesson" parameterType="com.xue.entity.model.Lesson">
-    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus})
+    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus,price) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus},#{price})
   </insert>
 
   <!-- 获取课时 -->
@@ -1054,8 +1054,21 @@
   </update>
 
   <!-- 更新课时 -->
-  <update id="updateLessonAll" parameterType="com.xue.entity.model.Lesson">
+  <update id="updateCoinsAll" parameterType="com.xue.entity.model.Lesson">
     update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and delete_status = 0
+  </update>
+
+  <update id="updateCoinsByStudent" parameterType="com.xue.entity.model.Lesson">
+    update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and delete_status = 0 and student_name=#{param4}
+  </update>
+
+  <!-- 更新单价 -->
+  <update id="updatePriceAll" parameterType="com.xue.entity.model.Lesson">
+    update lesson set price =#{param1} where studio =#{param2} and campus =#{param3} and delete_status = 0
+  </update>
+
+  <update id="updatePriceByStudent" parameterType="com.xue.entity.model.Lesson">
+    update lesson set price =#{param1} where studio =#{param2} and campus =#{param3} and delete_status = 0 and student_name=#{param4}
   </update>
 
   <!-- 更新用户类型 -->

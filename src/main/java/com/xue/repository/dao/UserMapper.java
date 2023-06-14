@@ -448,7 +448,13 @@ public interface UserMapper {
 
     int updateLessonSubject(String subject_new,String student_name,String studio, String subject,String campus);
 
-    int updateLessonAll(Float coins,String studio,String campus);
+    int updateCoinsAll(Float coins,String studio,String campus);
+
+    int updateCoinsByStudent(Float coins,String studio,String campus,String student_name);
+
+    int updatePriceAll(Float coins,String studio,String campus);
+
+    int updatePriceByStudent(Float coins,String studio,String campus,String student_name);
 
     int updateGift(String id);
 

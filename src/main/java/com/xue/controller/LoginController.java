@@ -2018,6 +2018,7 @@ public class LoginController {
 			lesson.setCreate_time(create_time);
 			lesson.setCoins(1.00f);
 			lesson.setPoints(0);
+			lesson.setPrice(0.00f);
 			lesson.setMinus(1.00f);
 			lesson.setCampus(campus);
 			dao.insertLesson(lesson);
@@ -3684,6 +3685,8 @@ public class LoginController {
 				return "campus changed" ;
 			}
 
+			String m_type = request.getParameter("m_type");
+
 			// 获取type
 			String lessons_amount_1 = request.getParameter("lessons_amount");
 			Float lessons_amount = 0.0f;
@@ -3740,7 +3743,17 @@ public class LoginController {
 				dao.updateUserStudent(student_name_new,student_name,studio,campus);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
-					dao.updateLessonAll(coins_amount,studio,campus);
+					if("积分".equals(m_type)){
+						dao.updateCoinsAll(coins_amount,studio,campus);
+					}else if("单价".equals(m_type)){
+						dao.updatePriceAll(coins_amount,studio,campus);
+					}
+				}else if("coins_modify_single".equals(modify_type)){
+					if("积分".equals(m_type)){
+						dao.updateCoinsByStudent(coins_amount,studio,campus,student_name);
+					}else if("单价".equals(m_type)){
+						dao.updatePriceByStudent(coins_amount,studio,campus,student_name);
+					}
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
 				}
@@ -3749,9 +3762,11 @@ public class LoginController {
 				Integer point = 0;
 				Float minus_amount_t = 1.0f;
 				Float coins_amount_t = 0.0f;
+				Float price = 0.0f;
 				lesson.setPoints(point);
 				lesson.setMinus(minus_amount_t);
 				lesson.setCoins(coins_amount_t);
+				lesson.setPrice(price);
 				loginService.insertLesson(lesson);
 			}
 		} catch (Exception e) {
