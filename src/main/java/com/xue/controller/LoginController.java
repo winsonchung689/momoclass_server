@@ -3673,14 +3673,19 @@ public class LoginController {
 			Float total_amount = 0.0f;
 			if (!total_amount_1.isEmpty()){
 				total_amount = Float.valueOf(total_amount_1);
+			}else if (total_amount_1 == "0"){
+				total_amount = 0.0f;
+				dao.updateLessonTotal(total_amount,studio,student_name,campus);
 			}
 
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
-			System.out.println("aa:" + left_amount_get);
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty()){
 				left_amount = Float.parseFloat(left_amount_get);
+			}else if (left_amount_get == "0"){
+				left_amount = 0.0f;
+				dao.updateLessonLeft(left_amount,studio,student_name,campus);
 			}
 
 			// 获取type
