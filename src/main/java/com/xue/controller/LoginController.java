@@ -3671,24 +3671,22 @@ public class LoginController {
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 			Float total_amount = 0.0f;
-			if (!total_amount_1.isEmpty()){
+			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1)){
 				total_amount = Float.valueOf(total_amount_1);
 			}else if ("0".equals(total_amount_1)){
 				total_amount = 0.0f;
-				dao.updateLessonTotal(total_amount,studio,student_name,campus);
+				dao.updateLessonTotal(total_amount,studio,student_name,campus,subject);
 			}
 
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
-			System.out.println("AA:" );
-			System.out.println(left_amount_get);
 			Float left_amount = 0.0f;
-			if(!left_amount_get.isEmpty()){
+			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get)){
 				left_amount = Float.parseFloat(left_amount_get);
-			}else if ("A" + left_amount_get == "A0"){
+			}else if ("0".equals(left_amount_get)){
 				System.out.println("AA:" + left_amount_get);
 				left_amount = 0.0f;
-				dao.updateLessonLeft(left_amount,studio,student_name,campus);
+				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
 			}
 
 			// 获取type

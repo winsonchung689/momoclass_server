@@ -253,9 +253,9 @@ public interface UserMapper {
 
     int updateLessonCampus(String studio,String student_name,String campus);
 
-    int updateLessonLeft(Float left_amount,String studio,String student_name,String campus);
+    int updateLessonLeft(Float left_amount,String studio,String student_name,String campus,String subject);
 
-    int updateLessonTotal(Float left_amount,String studio,String student_name,String campus);
+    int updateLessonTotal(Float left_amount,String studio,String student_name,String campus,String subject);
 
     int updateSignUpCampus(String studio,String student_name,String campus);
 
