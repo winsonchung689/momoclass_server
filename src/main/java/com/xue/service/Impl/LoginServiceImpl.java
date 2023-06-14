@@ -4079,6 +4079,7 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
+        Float price = 0.0f;
         List<Lesson> list = null;
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
