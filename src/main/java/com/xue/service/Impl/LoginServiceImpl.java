@@ -3811,6 +3811,8 @@ public class LoginServiceImpl implements LoginService {
         Integer total_student =0;
         Float total_amount_all = 0.0f ;
         Float left_amount_all = 0.0f ;
+        Float total_price_all = 0.0f ;
+        Float left_price_all = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
 
@@ -3820,6 +3822,8 @@ public class LoginServiceImpl implements LoginService {
                 total_student = allCount.getStudent_count();
                 total_amount_all = allCount.getTotal_amount();
                 left_amount_all = allCount.getLeft_amount();
+                total_price_all = allCount.getTotal_price();
+                left_price_all = allCount.getLeft_price();
                 need_pay = dao.getLessonNeedPayCount(studio,campus);
                 owe = dao.getLessonOweCount(studio,campus);
             }else{
@@ -3828,6 +3832,8 @@ public class LoginServiceImpl implements LoginService {
                     total_student = allCount.getStudent_count();
                     total_amount_all = allCount.getTotal_amount();
                     left_amount_all = allCount.getLeft_amount();
+                    total_price_all = allCount.getTotal_price();
+                    left_price_all = allCount.getLeft_price();
                     need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
                     owe = dao.getLessonOweCountBySubject(studio,subject,campus);
                 }
@@ -3846,10 +3852,11 @@ public class LoginServiceImpl implements LoginService {
 //                throw new RuntimeException(e);
             }
 
-
             jsonObject.put("total_student", total_student);
             jsonObject.put("total_amount_all", total_amount_all);
             jsonObject.put("left_amount_all", left_amount_all);
+            jsonObject.put("total_price_all", total_price_all);
+            jsonObject.put("left_price_all", left_price_all);
             jsonObject.put("need_pay", need_pay);
             jsonObject.put("owe", owe);
             jsonObject.put("subject_list", subject_list);

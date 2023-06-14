@@ -9,6 +9,26 @@ public class AllCount {
 
     private Float left_amount;
 
+    private Float total_price;
+
+    private Float left_price;
+
+
+    public Float getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(Float total_price) {
+        this.total_price = total_price;
+    }
+
+    public Float getLeft_price() {
+        return left_price;
+    }
+
+    public void setLeft_price(Float left_price) {
+        this.left_price = left_price;
+    }
 
     public Integer getStudent_count() {
         return student_count;
