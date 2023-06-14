@@ -3967,20 +3967,23 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("weekDay", weekDay);
                 try {
                     List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
-                    signCount = list.get(0).getIncome();
-                    lessonCount = list.get(0).getExpenditure();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,weekDay);
-                    for (int i = 0; i < signUps.size(); i++) {
-                        SignUp signUp = signUps.get(i);
-                        String student_name = signUp.getStudent_name();
-                        String subject = signUp.getSubject();
-                        Float count = signUp.getCount();
-                        List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                        if(lessons.size()>0){
-                            Float price = lessons.get(0).getPrice();
-                            weekPrice = weekPrice + price*count;
+                    if(list.size()>0){
+                        signCount = list.get(0).getIncome();
+                        lessonCount = list.get(0).getExpenditure();
+                        List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,weekDay);
+                        for (int i = 0; i < signUps.size(); i++) {
+                            SignUp signUp = signUps.get(i);
+                            String student_name = signUp.getStudent_name();
+                            String subject = signUp.getSubject();
+                            Float count = signUp.getCount();
+                            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                            if(lessons.size()>0){
+                                Float price = lessons.get(0).getPrice();
+                                weekPrice = weekPrice + price*count;
+                            }
                         }
                     }
+
                 } catch (Exception e) {
                 throw new RuntimeException(e);
                 }
