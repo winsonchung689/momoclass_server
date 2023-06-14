@@ -491,7 +491,7 @@
   </select>
 
   <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%V') create_time,count(1) income,'' expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%V')=#{param3}  group by date_format(create_time, '%V') order by date_format(create_time, '%V') desc
+    select date_format(create_time, '%V') create_time,count(1) income,sum(count) expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%V')=#{param3}  group by date_format(create_time, '%V') order by date_format(create_time, '%V') desc
   </select>
 
   <select id="getAnalyzeSignUpDetail" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
