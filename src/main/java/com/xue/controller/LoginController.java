@@ -3674,6 +3674,15 @@ public class LoginController {
 			if (!total_amount_1.isEmpty()){
 				total_amount = Float.valueOf(total_amount_1);
 			}
+
+			//获年剩余课时
+			String left_amount_get = request.getParameter("left_amount");
+			System.out.println("aa:" + left_amount_get);
+			Float left_amount = 0.0f;
+			if(!left_amount_get.isEmpty()){
+				left_amount = Float.parseFloat(left_amount_get);
+			}
+
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
 			if("campus_modify".equals(modify_type)){
@@ -3715,12 +3724,6 @@ public class LoginController {
 				coins_amount = coins_amount_get;
 			}
 
-			//获年剩余课时
-			String left_amount_get = request.getParameter("left_amount");
-			Float left_amount = 0.0f;
-			if(!left_amount_get.isEmpty()){
-				left_amount = Float.parseFloat(left_amount_get);
-			}
 
 			Lesson lesson =new Lesson();
 			lesson.setStudent_name(student_name);
