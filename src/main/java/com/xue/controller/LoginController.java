@@ -3654,15 +3654,17 @@ public class LoginController {
 			// 获取单次积分
 			String coins_amount_get_1 = request.getParameter("coins_amount");
 			Float coins_amount_get = 0.0f;
-			if (!coins_amount_get_1.isEmpty()){
+			if (!coins_amount_get_1.isEmpty() && !"0".equals(coins_amount_get_1)){
 				coins_amount_get = Float.valueOf(coins_amount_get_1);
 			}
+
 			// 获取单次扣课
 			String minus_amount_get_1 = request.getParameter("minus_amount");
 			Float minus_amount_get = 0.0f;
-			if (!minus_amount_get_1.isEmpty()){
+			if (!minus_amount_get_1.isEmpty() && !"0".equals(minus_amount_get_1)){
 				minus_amount_get = Float.valueOf(minus_amount_get_1);
 			}
+
 			// 获取新名字
 			String student_name_new = request.getParameter("student_name_new");
 
@@ -3723,13 +3725,13 @@ public class LoginController {
 				minus_amount = lessons_get.get(0).getMinus();
 				coins_amount = lessons_get.get(0).getCoins();
 			}
-			if(minus_amount_get != 100){
+
+			if(minus_amount_get != 0.0f){
 				minus_amount = minus_amount_get;
 			}
-			if(coins_amount_get != 100){
+			if(coins_amount_get != 0.0f){
 				coins_amount = coins_amount_get;
 			}
-
 
 			Lesson lesson =new Lesson();
 			lesson.setStudent_name(student_name);
