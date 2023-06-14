@@ -3963,14 +3963,13 @@ public class LoginServiceImpl implements LoginService {
                 Float leaveCount = 0.0f;
                 Float absentCount = 0.0f;
                 Float lessonCount = 0.0f;
-
+                Float weekPrice = 0.0f;
                 jsonObject.put("weekDay", weekDay);
                 try {
                     List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
                     signCount = list.get(0).getIncome();
                     lessonCount = list.get(0).getExpenditure();
                     List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,weekDay);
-                    Float weekPrice = 0.0f;
                     for (int i = 0; i < signUps.size(); i++) {
                         SignUp signUp = signUps.get(i);
                         String student_name = signUp.getStudent_name();
