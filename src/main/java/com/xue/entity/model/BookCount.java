@@ -9,7 +9,16 @@ public class BookCount {
 
     private Float expenditure;
 
+    private Float week_price;
 
+
+    public Float getWeek_price() {
+        return week_price;
+    }
+
+    public void setWeek_price(Float week_price) {
+        this.week_price = week_price;
+    }
 
     public String getCreate_time() {
         return create_time;

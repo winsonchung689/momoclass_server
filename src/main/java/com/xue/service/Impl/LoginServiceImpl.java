@@ -3963,12 +3963,14 @@ public class LoginServiceImpl implements LoginService {
                 Float leaveCount = 0.0f;
                 Float absentCount = 0.0f;
                 Float lessonCount = 0.0f;
+                Float weekPrice = 0.0f;
 
                 jsonObject.put("weekDay", weekDay);
                 try {
                     List<BookCount> list = dao.getAnalyzeSignUp(studio,campus,weekDay);
                     signCount = list.get(0).getIncome();
                     lessonCount = list.get(0).getExpenditure();
+                    weekPrice = list.get(0).getWeek_price();
                 } catch (Exception e) {
 //                throw new RuntimeException(e);
                 }
@@ -3995,6 +3997,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leaveCount", leaveCount);
                 jsonObject.put("absentCount", absentCount);
                 jsonObject.put("lessonCount", lessonCount);
+                jsonObject.put("weekPrice", weekPrice);
                 resul_list.add(jsonObject);
             }
         } catch (ParseException e) {
