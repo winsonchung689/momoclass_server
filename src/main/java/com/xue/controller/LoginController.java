@@ -3682,7 +3682,7 @@ public class LoginController {
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 			Float total_amount = 0.0f;
-			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1) ){
+			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1)){
 				total_amount = Float.valueOf(total_amount_1);
 			}else if ("0".equals(total_amount_1) && "total_modify".equals(modify_type)){
 				total_amount = 0.0f;
