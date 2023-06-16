@@ -2609,7 +2609,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = list_user.get(i).getStudent_name();
                 List<Message> list = dao.getAlbum(studio,campus,student_name);
                 JSONObject jsonObject = new JSONObject();
-                for (int j = 0; j < list.size(); i++) {
+                for (int j = 0; j < list.size(); j++) {
                     Message line = list.get(j);
                     try {
                         uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
