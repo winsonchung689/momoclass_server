@@ -168,6 +168,8 @@ public interface LoginService {
 
     public List getClassSys(String class_target,String studio,Integer page,String campus);
 
+    public List getAlbum(String studio,String campus,String student_name);
+
     public List getCourseList(String studio,Integer page);
 
     public List getCourseDetail(String studio,String class_name,Integer page);

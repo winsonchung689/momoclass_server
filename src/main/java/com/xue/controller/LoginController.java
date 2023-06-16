@@ -720,6 +720,21 @@ public class LoginController {
 		return list;
 	}
 
+	// 获取相册
+	@RequestMapping("/getAlbum")
+	@ResponseBody
+	public List getAlbum(String studio,String student_name,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getAlbum(studio,campus,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody

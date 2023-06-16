@@ -75,6 +75,10 @@
       select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak = #{param4} and studio = #{param1} and campus =#{param5} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
+  <select id="getAlbum" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where class_target_bak ='课评' and studio = #{param1} and campus =#{param2} and student_name=#{param3} and delete_status = 0 order by create_time desc limit 10;
+  </select>
+
   <!-- 获取全量发帖 -->
   <select id="getPostPublic" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
     select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and is_private = 0 order by create_time desc limit #{param1},#{param2};

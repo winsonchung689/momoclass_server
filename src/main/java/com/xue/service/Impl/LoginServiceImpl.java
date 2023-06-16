@@ -2598,6 +2598,34 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getAlbum(String studio, String campus, String student_name) {
+        String uuids = null;
+        StringBuilder uuidString = new StringBuilder();
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Message> list = dao.getAlbum(studio,campus,student_name);
+            JSONObject jsonObject = new JSONObject();
+            for (int i = 0; i < list.size(); i++) {
+                Message line = list.get(i);
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                uuidString.append(uuids).append(",");
+            }
+            jsonObject.put("uuidString", uuidString);
+            resul_list.add(jsonObject);
+
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getCourseList(String studio, Integer page) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
@@ -3068,7 +3096,6 @@ public class LoginServiceImpl implements LoginService {
                     User line = users.get(i);
                     student_name_get = line.getStudent_name();
                     student_names = student_names.append(student_name_get).append(",");
-
                 }
                 student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
