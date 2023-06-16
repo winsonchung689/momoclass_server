@@ -2618,7 +2618,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                     uuidString.append(uuids).append(",");
                 }
-                jsonObject.put("uuidString", uuidString);
+                jsonObject.put("uuidString", uuidString.deleteCharAt(uuidString.length()-1));
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
