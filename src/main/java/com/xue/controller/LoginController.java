@@ -723,12 +723,10 @@ public class LoginController {
 	// 获取相册
 	@RequestMapping("/getAlbum")
 	@ResponseBody
-	public List getAlbum(String studio,String student_name,String openid){
+	public List getAlbum(String studio,String openid){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getAlbum(studio,campus,student_name);
+			list = loginService.getAlbum(studio,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

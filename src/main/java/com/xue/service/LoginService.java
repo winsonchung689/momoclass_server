@@ -168,7 +168,7 @@ public interface LoginService {
 
     public List getClassSys(String class_target,String studio,Integer page,String campus);
 
-    public List getAlbum(String studio,String campus,String student_name);
+    public List getAlbum(String studio, String student_name);
 
     public List getCourseList(String studio,Integer page);
 

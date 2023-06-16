@@ -2598,30 +2598,32 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAlbum(String studio, String campus, String student_name) {
+    public List getAlbum(String studio,String openid) {
         String uuids = null;
         StringBuilder uuidString = new StringBuilder();
         List<JSONObject> resul_list = new ArrayList<>();
-
+        List<User> list_user = dao.getUser(openid);
         try {
-            List<Message> list = dao.getAlbum(studio,campus,student_name);
-            JSONObject jsonObject = new JSONObject();
-            for (int i = 0; i < list.size(); i++) {
-                Message line = list.get(i);
-                try {
-                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
+            for(int i = 0;i< list_user.size();i++){
+                String campus = list_user.get(i).getCampus();
+                String student_name = list_user.get(i).getStudent_name();
+                List<Message> list = dao.getAlbum(studio,campus,student_name);
+                JSONObject jsonObject = new JSONObject();
+                for (int j = 0; j < list.size(); i++) {
+                    Message line = list.get(j);
+                    try {
+                        uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                    } catch (Exception e) {
+    //                    throw new RuntimeException(e);
+                    }
+                    uuidString.append(uuids).append(",");
                 }
-                uuidString.append(uuids).append(",");
+                jsonObject.put("uuidString", uuidString);
+                resul_list.add(jsonObject);
             }
-            jsonObject.put("uuidString", uuidString);
-            resul_list.add(jsonObject);
-
         } catch (Exception e) {
 //            e.printStackTrace();
         }
-
         return resul_list;
     }
 
