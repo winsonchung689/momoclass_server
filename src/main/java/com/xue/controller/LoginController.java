@@ -120,7 +120,7 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",mark);
 		queryJson.getJSONObject("data").getJSONObject("time4").put("value",mytime);
 
-		queryJson.put("page","/pages/leaverecord/leaverecord?share_studio=" + studio + "&share_student_name=" + student_name + "&share_subject=" + subject + "&share_openid=" + openid);
+		queryJson.put("page","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
