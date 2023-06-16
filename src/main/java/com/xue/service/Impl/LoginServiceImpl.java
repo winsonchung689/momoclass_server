@@ -2600,7 +2600,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getAlbum(String studio,String openid) {
         String uuids = null;
-        StringBuilder uuidString = new StringBuilder();
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUser(openid);
         try {
@@ -2616,9 +2615,8 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
     //                    throw new RuntimeException(e);
                     }
-                    uuidString.append(uuids).append(",");
+                    jsonObject.put("uuids", uuids);
                 }
-                jsonObject.put("uuidString", uuidString);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
