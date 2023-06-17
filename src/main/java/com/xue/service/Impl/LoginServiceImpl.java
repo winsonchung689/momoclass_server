@@ -2600,11 +2600,18 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getAlbum(String studio,String openid) {
         String uuids = null;
+        String back_uuids = null;
         StringBuilder uuidString = new StringBuilder();
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUserByOpenid(openid);
         try {
             JSONObject jsonObject = new JSONObject();
+            try {
+                back_uuids = list_user.get(0).getBack_uuid().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+                //                    throw new RuntimeException(e);
+            }
+
             for(int i = 0;i< list_user.size();i++){
                 String campus = list_user.get(i).getCampus();
                 String student_name = list_user.get(i).getStudent_name();
@@ -2620,7 +2627,7 @@ public class LoginServiceImpl implements LoginService {
                     uuidString.append(uuids).append(",");
                 }
             }
-            jsonObject.put("back_uuid",list_user.get(0).getBack_uuid());
+            jsonObject.put("back_uuid",back_uuids);
             jsonObject.put("uuidString", uuidString.deleteCharAt(uuidString.length()-1));
             resul_list.add(jsonObject);
         } catch (Exception e) {
