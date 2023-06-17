@@ -50,6 +50,16 @@ public class User {
 
     private String campus;
 
+    private String back_uuid;
+
+    public String getBack_uuid() {
+        return back_uuid;
+    }
+
+    public void setBack_uuid(String back_uuid) {
+        this.back_uuid = back_uuid;
+    }
+
     public String getCampus() {
         return campus;
     }

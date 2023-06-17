@@ -239,6 +239,9 @@ public interface UserMapper {
 
     int updateUserDelete(User user);
 
+
+    int updateUserBackUrl(User user);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);

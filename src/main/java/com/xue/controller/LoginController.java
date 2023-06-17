@@ -2215,6 +2215,30 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateBackUrl")
+	@ResponseBody
+	public int updateBackUrl(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String class_target = request.getParameter("class_target");
+		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		String uuids = request.getParameter("uuids");
+
+		User user = new User();
+		user.setBack_uuid(uuids);
+		user.setOpenid(openid);
+
+		try {
+			dao.updateUserBackUrl(user);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateAvatar")
 	@ResponseBody
 	public int updateAvatar(HttpServletRequest request, HttpServletResponse response){

@@ -2604,11 +2604,12 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUserByOpenid(openid);
         try {
+            JSONObject jsonObject = new JSONObject();
             for(int i = 0;i< list_user.size();i++){
                 String campus = list_user.get(i).getCampus();
                 String student_name = list_user.get(i).getStudent_name();
                 List<Message> list = dao.getAlbum(studio,campus,student_name);
-                JSONObject jsonObject = new JSONObject();
+
                 for (int j = 0; j < list.size(); j++) {
                     Message line = list.get(j);
                     try {
@@ -2618,9 +2619,10 @@ public class LoginServiceImpl implements LoginService {
                     }
                     uuidString.append(uuids).append(",");
                 }
-                jsonObject.put("uuidString", uuidString.deleteCharAt(uuidString.length()-1));
-                resul_list.add(jsonObject);
             }
+            jsonObject.put("back_uuid",list_user.get(0).getBack_uuid());
+            jsonObject.put("uuidString", uuidString.deleteCharAt(uuidString.length()-1));
+            resul_list.add(jsonObject);
         } catch (Exception e) {
 //            e.printStackTrace();
         }
