@@ -597,7 +597,7 @@
 
   <!-- 获取商品列表 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select id,goods_name,goods_intro,goods_price,create_time,studio,photo,uuids,is_group from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
+    select id,goods_name,goods_intro,goods_price,create_time,studio,photo,uuids,is_group from goods_list where studio = #{param1} and delete_status = 0 order by create_time,id desc limit #{param2},#{param3};
   </select>
 
   <!-- 获取团购列表 -->
