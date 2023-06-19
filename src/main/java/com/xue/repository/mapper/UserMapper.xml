@@ -67,8 +67,10 @@
 
 
 
-
-
+  <!-- 获取课评模版 -->
+  <select id="getCommentModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select id,comment,class_target,studio from class_comment where class_target_bak = '模版' and studio ='大雄工作室' and campus ='大雄工作室' and delete_status = 0 order by class_target;
+  </select>
 
   <!-- 获取课评 -->
   <select id="getMessage" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">

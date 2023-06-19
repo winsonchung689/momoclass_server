@@ -3145,9 +3145,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                     if(uuids != null){
                         photo = null;
-
                     }
-
 
                     try {
                         List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
@@ -3186,6 +3184,25 @@ public class LoginServiceImpl implements LoginService {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getCommentModel() {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> list = dao.getCommentModel();
+        for (int i = 0; i < list.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Message line = list.get(i);
+            String class_target = line.getClass_target();
+            String comment = line.getComment();
+            String id = line.getId();
+
+            jsonObject.put("class_target", class_target);
+            jsonObject.put("comment", comment);
+            jsonObject.put("id", id);
+            resul_list.add(jsonObject);
         }
         return resul_list;
     }

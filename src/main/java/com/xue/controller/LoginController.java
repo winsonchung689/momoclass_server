@@ -451,6 +451,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCommentModel")
+	@ResponseBody
+	public List getCommentModel(){
+		List list = null;
+		try {
+			list = loginService.getCommentModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getPost")
 	@ResponseBody
 	public List getPost(String studio,Integer page,String openid,String type){

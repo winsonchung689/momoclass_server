@@ -8,6 +8,8 @@ public interface LoginService {
 
     public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target,String campus);
 
+    public List  getCommentModel();
+
     public List  getPost(String studio,Integer page,String openid,String type);
 
     public List  getPostComment(String post_id);
