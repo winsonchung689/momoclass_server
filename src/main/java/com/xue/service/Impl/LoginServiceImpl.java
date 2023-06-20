@@ -4460,8 +4460,8 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         Float goods_price = 0.0f;
-        Integer page_start = (page - 1) * 5;
-        Integer page_length = 5;
+        Integer page_start = (page - 1) * 10;
+        Integer page_length = 10;
         List<GoodsList> list = null;
         List<GroupBuy> list_buy = null;
         String uuids = null;
