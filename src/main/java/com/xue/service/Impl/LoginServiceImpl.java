@@ -1975,6 +1975,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subjects",subjects);
                 jsonObject.put("subscription",subscription);
                 jsonObject.put("member",member);
+                jsonObject.put("show", false);
+                jsonObject.put("name", nick_name);
+                jsonObject.put("search", nick_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
