@@ -1281,7 +1281,7 @@ public class LoginController {
 	public List getAllUserByStudio(String studio){
 		List list = null;
 		try {
-			list = dao.getAllUserByStudio(studio);
+			list = loginService.getAllUserByStudio(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -34,6 +34,8 @@ public interface LoginService {
 
     public List  getLessonByStudio(String studio);
 
+    public List  getAllUserByStudio(String studio);
+
     public List  getAnalyzeDetail(String studio,String dimension,String campus,String date_time);
 
     public List  getAnalyzeDetailWeek(String studio,String type,Integer weekday,String campus);
