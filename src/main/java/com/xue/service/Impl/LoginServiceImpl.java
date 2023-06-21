@@ -3425,6 +3425,7 @@ public class LoginServiceImpl implements LoginService {
                 schedule.setStatus(status);
                 schedule.setSubject(subject);
                 schedule.setCampus(campus);
+                schedule.setIs_try(0);
                 dao.insertSchedule(schedule);
             }
         } catch (Exception e) {
