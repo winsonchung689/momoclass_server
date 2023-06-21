@@ -793,7 +793,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},campus=#{campus} where openid = #{openid} and delete_status = 0
+    update user set studio=#{studio}, create_time=#{create_time},campus=#{campus} where openid = #{openid} and delete_status = 0
   </update>
 
   <!-- 更新工作室 -->
@@ -808,7 +808,7 @@
 
   <!-- 恢复已删除用户 -->
   <update id="updateUserDelete" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},role=#{role},send_time=#{send_time},campus=#{campus},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
+    update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
   </update>
 
   <update id="updateUserBackUrl" parameterType="com.xue.entity.model.User">

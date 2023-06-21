@@ -3413,7 +3413,6 @@ public class LoginController {
 		User user =new User();
 		user.setNick_name(nick_name);
 		user.setStudent_name(student_name);
-		user.setRole(role);
 		user.setOpenid(openid);
 		user.setCreate_time(create_time);
 		user.setAvatarurl(avatarurl);
@@ -3424,6 +3423,7 @@ public class LoginController {
 		int res = loginService.updateUser(user);
 		if(0==res){
 			user.setUser_type("新用户");
+			user.setRole("client");
 			user.setComment_style(comment_style);
 			user.setSend_time(send_time);
 			user.setDisplay(display);
