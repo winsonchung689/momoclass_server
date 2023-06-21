@@ -4042,6 +4042,9 @@ public class LoginServiceImpl implements LoginService {
                 String expired_time = line.getExpired_time();
                 String openid = line.getOpenid();
                 String id = line.getId();
+                String subjects = line.getSubjects();
+                String member = line.getMember();
+
                 //json
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
@@ -4054,6 +4057,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("openid", openid);
                 jsonObject.put("id", id);
+                jsonObject.put("subjects", subjects);
+                jsonObject.put("member", member);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
