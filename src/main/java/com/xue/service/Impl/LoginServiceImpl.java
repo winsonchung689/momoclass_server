@@ -4039,6 +4039,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String campus = line.getCampus();
+                String expired_time = line.getExpired_time();
                 //json
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
@@ -4048,6 +4049,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_style", comment_style);
                 jsonObject.put("commentStyle_cn", commentStyle_cn);
                 jsonObject.put("campus", campus);
+                jsonObject.put("expired_time", expired_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
