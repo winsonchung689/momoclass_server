@@ -1091,6 +1091,37 @@
     update user set campus=#{campus} where openid=#{openid}
   </update>
 
+  <!-- 更改工作室名 -->
+  <update id="updateUserStudio" parameterType="com.xue.entity.model.User">
+    update user set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonStudio" parameterType="com.xue.entity.model.Lesson">
+    update lesson set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateClassScheduleStudio" parameterType="com.xue.entity.model.Arrangement">
+    update class_schedule set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateCommentStudio" parameterType="com.xue.entity.model.Message">
+    update class_comment set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateScheduleArrangementStudio" parameterType="com.xue.entity.model.Arrangement">
+    update schedule_arrangement set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateSignUpRecordStudio" parameterType="com.xue.entity.model.SignUp">
+    update sign_up_record set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLeaveRecordStudio" parameterType="com.xue.entity.model.Leave">
+    update leave_record set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+
+
   <update id="updateCombine" parameterType="com.xue.entity.model.Lesson">
     update lesson set is_combine=#{is_combine} where student_name=#{student_name} and studio=#{studio} and campus=#{campus}
   </update>

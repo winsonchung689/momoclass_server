@@ -3536,6 +3536,26 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/UpdateStudio")
+	@ResponseBody
+	public String UpdateStudio(HttpServletRequest request, HttpServletResponse response){
+		String studio = request.getParameter("studio");
+		String new_studio = request.getParameter("new_studio");
+
+		try {
+			dao.updateUserStudio(studio,new_studio);
+			dao.updateLessonStudio(studio,new_studio);
+			dao.updateClassScheduleStudio(studio,new_studio);
+			dao.updateCommentStudio(studio,new_studio);
+			dao.updateScheduleArrangementStudio(studio,new_studio);
+			dao.updateSignUpRecordStudio(studio,new_studio);
+			dao.updateLeaveRecordStudio(studio,new_studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateSubject")
 	@ResponseBody
 	public String updateSubject(HttpServletRequest request, HttpServletResponse response){

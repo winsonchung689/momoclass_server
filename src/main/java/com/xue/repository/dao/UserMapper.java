@@ -257,6 +257,20 @@ public interface UserMapper {
 
     int updateUserCampus(User user);
 
+    int updateUserStudio(String studio,String new_studio);
+
+    int updateLessonStudio(String studio,String new_studio);
+
+    int updateClassScheduleStudio(String studio,String new_studio);
+
+    int updateCommentStudio(String studio,String new_studio);
+
+    int updateScheduleArrangementStudio(String studio,String new_studio);
+
+    int updateSignUpRecordStudio(String studio,String new_studio);
+
+    int updateLeaveRecordStudio(String studio,String new_studio);
+
     int updateCombine(Lesson lesson);
 
     int updateLessonCampus(String studio,String student_name,String campus);
