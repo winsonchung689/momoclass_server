@@ -1783,7 +1783,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                     long diff = expired_dt.getTime() - expired_dt.getTime();
                     pay_days = diff / 24*60*60*1000;
-
                 }
             }
 
