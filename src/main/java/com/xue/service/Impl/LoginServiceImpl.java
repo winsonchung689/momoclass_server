@@ -3000,8 +3000,14 @@ public class LoginServiceImpl implements LoginService {
                     subject = schedule.getSubject();
                     remind = schedule.getRemind();
                     Integer choose = 0;
+                    Integer weekDayChoose = 0;
+                    if(weekDay == 1){
+                        weekDayChoose = 7;
+                    }else {
+                        weekDayChoose = weekDay -1;
+                    }
 
-                    String chooseLesson = "星期"+  weekDay + "," + subject + "," + class_number + "," + duration ;
+                    String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
                     List<User> users = null;
                     try {
                         users = dao.getUserByChooseLesson(chooseLesson);
