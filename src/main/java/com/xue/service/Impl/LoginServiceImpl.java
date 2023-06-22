@@ -1828,10 +1828,12 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
 
                 try {
-                    List<Book> books = dao.getBookByStudio(studio);
-                    String mark = books.get(0).getMark();
-                    String pay_type = mark.substring(mark.length() - 2);
-                    jsonObject.put("pay_type", pay_type);
+                    if(!openid.equals("all")) {
+                        List<Book> books = dao.getBookByStudio(studio);
+                        String mark = books.get(0).getMark();
+                        String pay_type = mark.substring(mark.length() - 2);
+                        jsonObject.put("pay_type", pay_type);
+                    }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
