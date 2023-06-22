@@ -1746,7 +1746,7 @@ public class LoginServiceImpl implements LoginService {
         String campus =null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer compare = 0;
+        long pay_days = 0;
         try {
             if(openid.equals("all")){
                 list = dao.getAllUser();
@@ -1777,10 +1777,13 @@ public class LoginServiceImpl implements LoginService {
                     String today_time = df.format(new Date());
                     Date today_dt = df.parse(today_time.substring(0,10));
                     Date expired_dt = df.parse(expird_time_get.substring(0,10));
-                    compare = today_dt.compareTo(expired_dt);
+                    int compare = today_dt.compareTo(expired_dt);
                     if(role_get.equals("boss") && compare > 0){
                         dao.updateUserExpired("client",studio_get,role_get,campus_get);
                     }
+                    long diff = expired_dt.getTime() - expired_dt.getTime();
+                    pay_days = diff / 24*60*60*1000;
+
                 }
             }
 
@@ -1856,7 +1859,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("show", false);
                 jsonObject.put("name", nick_name);
                 jsonObject.put("search", nick_name);
-                jsonObject.put("compare", compare);
+                jsonObject.put("pay_days", pay_days);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
