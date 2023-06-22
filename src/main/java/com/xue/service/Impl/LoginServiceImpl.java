@@ -1811,16 +1811,12 @@ public class LoginServiceImpl implements LoginService {
                 campus = line.getCampus();
 
                 if(!openid.equals("all")){
-                    try {
-                        list_lesson = dao.getLessonByName(student_name,studio,campus);
-                        List<Book> books = dao.getBookByStudio(studio);
-                        if(books.size()>0){
-                            String mark = books.get(0).getMark();
-                            String pay_type = mark.substring(mark.length() - 2);
-                            jsonObject.put("pay_type", pay_type);
-                        }
-                    } catch (Exception e) {
-//                    throw new RuntimeException(e);
+                    list_lesson = dao.getLessonByName(student_name,studio,campus);
+                    List<Book> books = dao.getBookByStudio(studio);
+                    if(books.size()>0){
+                        String mark = books.get(0).getMark();
+                        String pay_type = mark.substring(mark.length() - 2);
+                        jsonObject.put("pay_type", pay_type);
                     }
                 }
 
