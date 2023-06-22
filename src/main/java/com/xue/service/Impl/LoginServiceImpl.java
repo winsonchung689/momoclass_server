@@ -1811,7 +1811,17 @@ public class LoginServiceImpl implements LoginService {
                 campus = line.getCampus();
 
                 if(!openid.equals("all")){
-                    list_lesson = dao.getLessonByName(student_name,studio,campus);
+                    try {
+                        list_lesson = dao.getLessonByName(student_name,studio,campus);
+                        List<Book> books = dao.getBookByStudio(studio);
+                        if(books.size()>0){
+                            String mark = books.get(0).getMark();
+                            String pay_type = mark.substring(mark.length() - 2);
+                            jsonObject.put("pay_type", pay_type);
+                        }
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
                 }
 
                 //json
@@ -1826,16 +1836,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("studio", studio);
-
-                try {
-                    List<Book> books = dao.getBookByStudio(studio);
-                    String mark = books.get(0).getMark();
-                    String pay_type = mark.substring(mark.length() - 2);
-                    jsonObject.put("pay_type", pay_type);
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                }
-
                 jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
