@@ -479,6 +479,10 @@
     select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2} and date_format(create_time, '%Y-%m-%d') &gt;= #{param4} and type = #{param3} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getBookByStudio" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
+    select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and type ="收入" and delete_status = 0 order by create_time desc limit 1
+  </select>
+
   <select id="getBookDetailAll" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
     select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and date_format(create_time, '%Y-%m-%d') &lt;= #{param2} and date_format(create_time, '%Y-%m-%d') &gt;= #{param3}  and delete_status = 0 order by create_time desc
   </select>

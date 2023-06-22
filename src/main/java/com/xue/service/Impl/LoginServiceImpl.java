@@ -1746,6 +1746,7 @@ public class LoginServiceImpl implements LoginService {
         String campus =null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer compare = 0;
         try {
             if(openid.equals("all")){
                 list = dao.getAllUser();
@@ -1759,8 +1760,8 @@ public class LoginServiceImpl implements LoginService {
                         String today_time = df.format(new Date());
                         Date today_dt = df.parse(today_time.substring(0,10));
                         Date expired_dt = df.parse(expird_time_get.substring(0,10));
-                        int compare = today_dt.compareTo(expired_dt);
-                        if(compare > 0){
+                        int compare_all = today_dt.compareTo(expired_dt);
+                        if(compare_all > 0){
                             dao.updateUserExpired("client",studio_get,role_get,campus_get);
                         }
                     }
@@ -1776,7 +1777,7 @@ public class LoginServiceImpl implements LoginService {
                     String today_time = df.format(new Date());
                     Date today_dt = df.parse(today_time.substring(0,10));
                     Date expired_dt = df.parse(expird_time_get.substring(0,10));
-                    int compare = today_dt.compareTo(expired_dt);
+                    compare = today_dt.compareTo(expired_dt);
                     if(role_get.equals("boss") && compare > 0){
                         dao.updateUserExpired("client",studio_get,role_get,campus_get);
                     }
@@ -1825,6 +1826,16 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("studio", studio);
+
+                try {
+                    List<Book> books = dao.getBookByStudio(studio);
+                    String mark = books.get(0).getMark();
+                    String pay_type = mark.substring(mark.length() - 2);
+                    jsonObject.put("pay_type", pay_type);
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
                 jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
@@ -1844,6 +1855,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("show", false);
                 jsonObject.put("name", nick_name);
                 jsonObject.put("search", nick_name);
+                jsonObject.put("compare", compare);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
