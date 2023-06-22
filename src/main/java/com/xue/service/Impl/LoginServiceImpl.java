@@ -1781,7 +1781,7 @@ public class LoginServiceImpl implements LoginService {
                     if(role_get.equals("boss") && compare > 0){
                         dao.updateUserExpired("client",studio_get,role_get,campus_get);
                     }
-                    long diff = expired_dt.getTime() - expired_dt.getTime();
+                    long diff = expired_dt.getTime() - today_dt.getTime();
                     pay_days = diff / 24*60*60*1000;
                 }
             }
