@@ -1782,7 +1782,7 @@ public class LoginServiceImpl implements LoginService {
                         dao.updateUserExpired("client",studio_get,role_get,campus_get);
                     }
                     long diff = expired_dt.getTime() - today_dt.getTime();
-                    pay_days = diff / 24*60*60*1000;
+                    pay_days = diff / (24*60*60*1000);
                 }
             }
 
