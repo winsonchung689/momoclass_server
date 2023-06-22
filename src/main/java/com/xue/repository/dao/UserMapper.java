@@ -162,6 +162,8 @@ public interface UserMapper {
 
     void updateUuids(Integer id,String studio,String uuids);
 
+    void updateBookMark(Integer id,String mark);
+
     void updateUuids_c(Integer id,String studio,String uuids_c);
 
     void deleteGoodsList(Integer id,String studio);

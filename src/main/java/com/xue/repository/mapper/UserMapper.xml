@@ -492,6 +492,10 @@
     select id,studio,type,mark,amount,create_time from account_book where studio = #{param1} and (create_time like "%"#{param2}"%" or mark like "%"#{param2}"%") and type = #{param3} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="updateBookMark" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
+    update account_book set mark=#{param2} where id=#{param1}
+  </select>
+
   <select id="getBookByMonth" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
     select date_format(create_time, '%Y-%m') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
   </select>

@@ -1487,6 +1487,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateBookMark")
+	@ResponseBody
+	public int updateBookMark(Integer id,String mark){
+		try {
+			dao.updateBookMark(id,mark);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deletePost")
 	@ResponseBody
 	public int deletePost(Integer id){
