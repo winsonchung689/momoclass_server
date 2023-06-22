@@ -313,6 +313,8 @@ public interface UserMapper {
 
     List<User> getUserByOpenid(String openid);
 
+    List<User> getUserByChooseLesson(String chooseLesson);
+
     List<User> getUserByOpenidIgnore(String openid);
 
     List<User> getUserByStudent(String student_name,String studio);

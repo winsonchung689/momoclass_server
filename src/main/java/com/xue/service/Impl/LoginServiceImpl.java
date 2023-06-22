@@ -2944,6 +2944,7 @@ public class LoginServiceImpl implements LoginService {
         String class_number = null;
         String send_time = null;
         String expried_time = null;
+        String subject = null;
         List<User> list= null;
         Integer remind = 0;
         String subscription =null;
@@ -2996,10 +2997,24 @@ public class LoginServiceImpl implements LoginService {
                     Schedule schedule = list_schedule.get(j);
                     duration = schedule.getDuration();
                     class_number = schedule.getClass_number();
+                    subject = schedule.getSubject();
                     remind = schedule.getRemind();
+                    Integer choose = 0;
+
+                    String chooseLesson = "星期"+  weekDay + "," + subject + "," + class_number + "," + duration ;
+                    List<User> users = dao.getUserByChooseLesson(chooseLesson);
+                    try {
+                        if(users.size()>0){
+                            choose = 1;
+                        }
+                    } catch (Exception e) {
+//                        throw new RuntimeException(e);
+                    }
+
+
                     JSONObject queryJson = JSONObject.parseObject(tample3);
 
-                    if(remind == 1){
+                    if(remind == 1 && choose == 1){
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
                         queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
