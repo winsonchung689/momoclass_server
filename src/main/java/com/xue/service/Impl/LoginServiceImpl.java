@@ -3002,8 +3002,9 @@ public class LoginServiceImpl implements LoginService {
                     Integer choose = 0;
 
                     String chooseLesson = "星期"+  weekDay + "," + subject + "," + class_number + "," + duration ;
-                    List<User> users = dao.getUserByChooseLesson(chooseLesson);
+                    List<User> users = null;
                     try {
+                        users = dao.getUserByChooseLesson(chooseLesson);
                         if(users.size()>0){
                             choose = 1;
                         }
