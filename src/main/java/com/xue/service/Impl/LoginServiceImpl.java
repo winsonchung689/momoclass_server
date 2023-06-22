@@ -1828,6 +1828,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
 
                 try {
+                    jsonObject.put("pay_type", "无");
                     if(!openid.equals("all")) {
                         List<Book> books = dao.getBookByStudio(studio);
                         String mark = books.get(0).getMark();
