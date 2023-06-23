@@ -1835,8 +1835,14 @@ public class LoginServiceImpl implements LoginService {
                     List<Book> books = dao.getBookByStudio(studio);
                     if(books.size()>0){
                         String mark = books.get(0).getMark();
-                        String pay_type = mark.substring(mark.length() - 2);
-                        jsonObject.put("pay_type", pay_type);
+                        String[] mark_list = mark.split("_");
+                        if(mark_list.length == 2){
+                            String pay_type = mark_list[0].substring(mark.length() - 2);
+                            jsonObject.put("pay_type", pay_type);
+
+                            String all_days = mark_list[1];
+                            jsonObject.put("all_days", all_days);
+                        }
                     }
                 }
 
