@@ -1831,10 +1831,13 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("pay_type", "无");
                 jsonObject.put("all_days", 0);
+                jsonObject.put("amount", 0);
                 if(!openid.equals("all")) {
                     List<Book> books = dao.getBookByStudio(studio);
                     if(books.size()>0){
                         String mark = books.get(0).getMark();
+                        Float amount = books.get(0).getAmount();
+                        jsonObject.put("amount", amount);
                         String[] mark_list = mark.split("_");
                         if(mark_list.length == 3){
                             String pay_type = mark_list[1];
