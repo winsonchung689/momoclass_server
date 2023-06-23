@@ -1836,11 +1836,11 @@ public class LoginServiceImpl implements LoginService {
                     if(books.size()>0){
                         String mark = books.get(0).getMark();
                         String[] mark_list = mark.split("_");
-                        if(mark_list.length == 2){
-                            String pay_type = mark_list[0].substring(mark.length() - 2);
+                        if(mark_list.length == 3){
+                            String pay_type = mark_list[1];
                             jsonObject.put("pay_type", pay_type);
 
-                            String all_days = mark_list[1];
+                            String all_days = mark_list[2];
                             jsonObject.put("all_days", all_days);
                         }
                     }
