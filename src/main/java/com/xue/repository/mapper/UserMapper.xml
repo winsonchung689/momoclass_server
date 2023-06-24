@@ -764,7 +764,7 @@
   </select>
 
   <select id="getUserByChooseLesson" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus,back_uuid from user where lessons like "%"#{param1}"%" and delete_status = 0 limit 1;
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus,back_uuid from user where lessons like "%"#{param1}"%" and role in ('boss','teacher') and delete_status = 0 limit 1;
   </select>
 
   <select id="getUserByOpenidIgnore" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
