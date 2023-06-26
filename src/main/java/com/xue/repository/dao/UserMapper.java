@@ -397,6 +397,8 @@ public interface UserMapper {
 
     Integer getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
 
+    List<Lesson> getCampusByStudio(String studio);
+
     Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject,String campus);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);

@@ -1276,6 +1276,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取校区
+	@RequestMapping("/getCampusByStudio")
+	@ResponseBody
+	public List getCampusByStudio(String studio){
+		List list = null;
+		try {
+			list = dao.getCampusByStudio(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getAllUserByStudio")
 	@ResponseBody
 	public List getAllUserByStudio(String studio){
