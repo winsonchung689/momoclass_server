@@ -2327,16 +2327,19 @@ public class LoginController {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
 
+			List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek,class_number,duration,subject,campus);
+			if(arrangement_list.size() == 0){
+				Arrangement arrangement =new Arrangement();
+				arrangement.setDayofweek(dayofweek);
+				arrangement.setClass_number(class_number);
+				arrangement.setDuration(duration);
+				arrangement.setLimits(limits);
+				arrangement.setStudio(studio);
+				arrangement.setSubject(subject);
+				arrangement.setCampus(campus);
+				loginService.insertArrangement(arrangement);
+			}
 
-			Arrangement arrangement =new Arrangement();
-			arrangement.setDayofweek(dayofweek);
-			arrangement.setClass_number(class_number);
-			arrangement.setDuration(duration);
-			arrangement.setLimits(limits);
-			arrangement.setStudio(studio);
-			arrangement.setSubject(subject);
-			arrangement.setCampus(campus);
-			loginService.insertArrangement(arrangement);
 			if (student_name != null && !student_name.isEmpty() & !"undefined".equals(student_name)) {
 				String add_date = null;
 				if (dayofweek.equals("1")) {
