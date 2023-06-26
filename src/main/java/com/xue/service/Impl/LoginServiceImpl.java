@@ -3500,77 +3500,80 @@ public class LoginServiceImpl implements LoginService {
                 limits = line.getLimits();
                 subject = line.getSubject();
 
-                Arrangement arrangement =new Arrangement();
-                arrangement.setDayofweek(changeday.toString());
-                arrangement.setClass_number(class_number);
-                arrangement.setLimits(limits);
-                arrangement.setStudio(studio);
-                arrangement.setDuration(duration);
-                arrangement.setSubject(subject);
-                arrangement.setCampus(campus);
-                if(changeday != weekday){
-                    dao.insertArrangement(arrangement);
-                }
+                List<Arrangement> check_list = dao.getArrangementByDate(studio,changeday.toString(),class_number,duration,subject,campus);
+                if(check_list.size() == 0){
+                    Arrangement arrangement =new Arrangement();
+                    arrangement.setDayofweek(changeday.toString());
+                    arrangement.setClass_number(class_number);
+                    arrangement.setLimits(limits);
+                    arrangement.setStudio(studio);
+                    arrangement.setDuration(duration);
+                    arrangement.setSubject(subject);
+                    arrangement.setCampus(campus);
+                    if(changeday != weekday){
+                        dao.insertArrangement(arrangement);
 
+                        try {
+                            List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+                            String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+                            String age =null;
+                            Integer status = 0;
+                            if(changeday==1){
+                                add_date = "2022-05-02";
+                            }else if(changeday==2){
+                                add_date = "2022-05-03";
+                            }else if(changeday==3){
+                                add_date = "2022-05-04";
+                            }else if(changeday==4){
+                                add_date = "2022-05-05";
+                            }else if(changeday==5){
+                                add_date = "2022-05-06";
+                            }else if(changeday==6){
+                                add_date = "2022-05-07";
+                            }else if(changeday==7){
+                                add_date = "2022-05-08";
+                            }
+                            for (int j = 0; j < schedule_list.size(); j++) {
+                                Schedule line_class = schedule_list.get(j);
+                                //获取字段
+                                class_number = line_class.getClass_number();
+                                duration = line_class.getDuration();
+                                student_name = line_class.getStudent_name();
+                                student_type = line_class.getStudent_type();
+                                age = line_class.getAge();
+                                status = line_class.getStatus();
+                                subject = line_class.getSubject();
+
+                                Schedule schedule =new Schedule();
+                                schedule.setAdd_date(add_date);
+                                schedule.setAge(age);
+                                schedule.setStudent_name(student_name);
+                                schedule.setDuration(duration);
+                                schedule.setCreate_time(create_time);
+                                schedule.setUpdate_time(create_time);
+                                schedule.setStudio(studio);
+                                schedule.setClass_number(class_number);
+                                schedule.setStudent_type(student_type);
+                                schedule.setStatus(status);
+                                schedule.setSubject(subject);
+                                schedule.setCampus(campus);
+                                schedule.setIs_try(0);
+                                dao.insertSchedule(schedule);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try {
-            if(changeday != weekday){
-                List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
-                String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-                String age =null;
-                Integer status = 0;
-                if(changeday==1){
-                    add_date = "2022-05-02";
-                }else if(changeday==2){
-                    add_date = "2022-05-03";
-                }else if(changeday==3){
-                    add_date = "2022-05-04";
-                }else if(changeday==4){
-                    add_date = "2022-05-05";
-                }else if(changeday==5){
-                    add_date = "2022-05-06";
-                }else if(changeday==6){
-                    add_date = "2022-05-07";
-                }else if(changeday==7){
-                    add_date = "2022-05-08";
-                }
-                for (int i = 0; i < schedule_list.size(); i++) {
-                    Schedule line = schedule_list.get(i);
-                    //获取字段
-                    class_number = line.getClass_number();
-                    duration = line.getDuration();
-                    student_name = line.getStudent_name();
-                    student_type = line.getStudent_type();
-                    age = line.getAge();
-                    status = line.getStatus();
-                    subject = line.getSubject();
 
-                    Schedule schedule =new Schedule();
-                    schedule.setAdd_date(add_date);
-                    schedule.setAge(age);
-                    schedule.setStudent_name(student_name);
-                    schedule.setDuration(duration);
-                    schedule.setCreate_time(create_time);
-                    schedule.setUpdate_time(create_time);
-                    schedule.setStudio(studio);
-                    schedule.setClass_number(class_number);
-                    schedule.setStudent_type(student_type);
-                    schedule.setStatus(status);
-                    schedule.setSubject(subject);
-                    schedule.setCampus(campus);
-                    schedule.setIs_try(0);
-                    dao.insertSchedule(schedule);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return "changeClass successfully";
     }
