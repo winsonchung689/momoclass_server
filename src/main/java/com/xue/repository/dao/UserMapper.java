@@ -61,11 +61,15 @@ public interface UserMapper {
     List<Lesson> getLessonInNameBySubject(String studio,String student_names,Integer page_start,Integer page_length,String subject,String campus);
 
     //获取
-    List<Schedule> getScheduleAll(Integer date_time,String studio);
+    List<Schedule> getScheduleAll(Integer date_time,String studio,String campus);
+
+    List<Schedule> getScheduleAllDistinct(Integer date_time,String studio,String campus);
 
     List<Schedule> getScheduleByUser(Integer date_time,String studio,String student_name);
 
-    List<Schedule> getSchedule(Integer date_time,String studio,String subject);
+    List<Schedule> getSchedule(Integer date_time,String studio,String subject,String campus);
+
+    List<Schedule> getScheduleDistinct(Integer date_time,String studio,String subject,String campus);
 
     //获取
     List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
@@ -79,7 +83,7 @@ public interface UserMapper {
     List<Schedule> getScheduleByClassTransferred(String add_date,String duration,String studio,String class_number,String subject,String campus);
 
     //获取
-    List<Schedule> getTransferAll(String date_time,String studio);
+    List<Schedule> getTransferAll(String date_time,String studio,String campus);
 
     List<Book> getBookDetail(String studio,String create_time,String type,String start_date);
 
@@ -112,7 +116,7 @@ public interface UserMapper {
 
     List<BookCount> getBookByAll(String studio,String campus);
 
-    List<Schedule> getTransfer(String date_time,String studio,String subject);
+    List<Schedule> getTransfer(String date_time,String studio,String subject,String campus);
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end,String campus);
 
@@ -409,9 +413,9 @@ public interface UserMapper {
 
     Integer getClassesCountBySubject(String studio,String subject,String campus);
 
-    Integer getSignUpByMonthAll(String studio,String create_time);
+    Integer getSignUpByMonthAll(String studio,String create_time,String campus);
 
-    Integer getSignUpByMonth(String studio,String subject,String create_time);
+    Integer getSignUpByMonth(String studio,String subject,String create_time,String campus);
 
     Integer getClassesCountBySubjectLesson(String studio,String subject,String campus);
 

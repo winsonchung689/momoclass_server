@@ -46,7 +46,6 @@ public class LoginServiceImpl implements LoginService {
         return result;
     }
 
-
 	@Override
     public int insertLesson(Lesson lesson) {
         int result = 0;
@@ -890,9 +889,9 @@ public class LoginServiceImpl implements LoginService {
 
 
         if(subject.equals("全科目")){
-            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7));
+            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
         }else {
-            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7));
+            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
         }
         JSONObject jsonObject_1 = new JSONObject();
         if(sign_counts_get!=null){
@@ -910,11 +909,11 @@ public class LoginServiceImpl implements LoginService {
 
             List<Schedule> list=null;
             if(subject.equals("全科目")){
-                list = dao.getScheduleAll(weekDay, studio);
-                list_tra = dao.getTransferAll(date_time, studio);
+                list = dao.getScheduleAll(weekDay, studio,campus);
+                list_tra = dao.getTransferAll(date_time, studio,campus);
             }else {
-                list = dao.getSchedule(weekDay, studio,subject);
-                list_tra = dao.getTransfer(date_time, studio,subject);
+                list = dao.getSchedule(weekDay, studio,subject,campus);
+                list_tra = dao.getTransfer(date_time, studio,subject,campus);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -1137,6 +1136,106 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leave", "试听生");
                 }
                 resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
+    public List getClassByDate(String date_time, String studio, String subject, String openid, String test) {
+        String add_date = null;
+        String age = null;
+        String student_name = null;
+        String duration = null;
+        String create_time = null;
+        String id = null;
+        String update_time = null;
+        Float left = 0.0f;
+        Float total = 0.0f;
+        List<JSONObject> resul_list = new ArrayList<>();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fmt_m = new SimpleDateFormat("yyyy-MM");
+        Date d = null;
+        String class_number = null;
+        Integer weekDay=0;
+        Integer weekofday=0;
+        String mark = null;
+        Integer sign_counts=0;
+        Integer sign_counts_get=0;
+        List<Schedule> list_tra=null;
+        Integer remind=0;
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
+
+        if(subject.equals("全科目")){
+            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
+        }else {
+            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
+        }
+        JSONObject jsonObject_1 = new JSONObject();
+        if(sign_counts_get!=null){
+            sign_counts=sign_counts_get;
+        }
+        jsonObject_1.put("sign_counts", sign_counts);
+        resul_list.add(jsonObject_1);
+
+        try {
+            d = fmt.parse(date_time);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            weekDay = cal.get(Calendar.DAY_OF_WEEK);
+
+            List<Schedule> list=null;
+            if(subject.equals("全科目")){
+                list = dao.getScheduleAllDistinct(weekDay, studio,campus);
+            }else {
+                list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Schedule line = list.get(i);
+                //获取字段
+                studio = line.getStudio();
+                duration = line.getDuration();
+                class_number = line.getClass_number();
+                subject = line.getSubject();
+                remind = line.getRemind();
+                String lesson_string = null;
+                List<String> list_2 = null;
+                Integer contains = 0;
+
+                try {
+                    if(openid != null){
+                        User user_get= dao.getUser(openid).get(0);
+                        String lessons_string = user_get.getLessons();
+                        String role = user_get.getRole();
+                        String[] list_1 =lessons_string.split("\\|");
+                        if(weekDay == 1){
+                            weekofday = 7 ;
+                        }else {
+                            weekofday = weekDay - 1;
+                        }
+                        lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
+                        list_2 = Arrays.asList(list_1);
+                        if(list_2.contains(lesson_string)){
+                            contains = 1;
+                        }
+                    }
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
+                if(contains == 1 || "1".equals(test)){
+                    jsonObject.put("studio", studio);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("subject", subject);
+                    jsonObject.put("remind",remind);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

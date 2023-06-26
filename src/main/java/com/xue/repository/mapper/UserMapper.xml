@@ -423,12 +423,22 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+  </select>
+
+  <!-- 获取课程表 -->
+  <select id="getScheduleDistinct" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select distinct duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0
   </select>
 
   <!-- 获取课程表 -->
   <select id="getScheduleAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus =#{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+  </select>
+
+  <!-- 获取课程表 -->
+  <select id="getScheduleAllDistinct" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select distinct duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus = #{param3} and student_type ='ordinary' and delete_status = 0
   </select>
 
   <!-- 获取课程表 -->
@@ -466,12 +476,12 @@
 
   <!-- 获取课插班生 -->
   <select id="getTransfer" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and subject = #{param3} and student_type ='transferred' and delete_status = 0 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and subject = #{param3} and campus= #{param4} and student_type ='transferred' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取课插班生 -->
   <select id="getTransferAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and student_type ='transferred' and delete_status = 0 order by duration
+    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and campus= #{param3} and student_type ='transferred' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取账本 -->
@@ -1004,12 +1014,12 @@
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and delete_status = 0
+    select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus=#{param3} and delete_status = 0
   </select>
 
   <!-- 获取单月课数 -->
   <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0
+    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus=#{param4} and delete_status = 0
   </select>
 
 

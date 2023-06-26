@@ -92,6 +92,8 @@ public interface LoginService {
 
     public List  getSchedule(String date_time,String studio,String subject,String openid,String test);
 
+    public List  getClassByDate(String date_time,String studio,String subject,String openid,String test);
+
     public List  getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid);
 
     public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);

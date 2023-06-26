@@ -787,6 +787,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getClassByDate")
+	@ResponseBody
+	public List getClassByDate(String date_time,String studio,String subject,String openid,String test){
+		List list = null;
+		try {
+			list = loginService.getClassByDate(date_time,studio,subject,openid,test);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取课程表
 	@RequestMapping("/getScheduleByClass")
 	@ResponseBody
