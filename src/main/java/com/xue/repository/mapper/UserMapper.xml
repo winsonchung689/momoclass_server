@@ -428,7 +428,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleDistinct" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0
+    select distinct duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0
   </select>
 
   <!-- 获取课程表 -->
@@ -438,7 +438,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleAllDistinct" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus = #{param3} and student_type ='ordinary' and delete_status = 0
+    select distinct duration,studio,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus = #{param3} and student_type ='ordinary' and delete_status = 0
   </select>
 
   <!-- 获取课程表 -->

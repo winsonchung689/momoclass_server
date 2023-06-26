@@ -1206,7 +1206,7 @@ public class LoginServiceImpl implements LoginService {
                 remind = line.getRemind();
                 String lesson_string = null;
                 List<String> list_2 = null;
-                Integer contains = 0;
+                Integer contains = 1;
 
                 try {
                     if(openid != null){
@@ -1226,7 +1226,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 } catch (Exception e) {
-//                    e.printStackTrace();
+                    e.printStackTrace();
                 }
                 if(contains == 1 || "1".equals(test)){
                     jsonObject.put("studio", studio);
