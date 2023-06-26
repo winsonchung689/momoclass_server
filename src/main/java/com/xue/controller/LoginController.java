@@ -2751,7 +2751,7 @@ public class LoginController {
 				lesson.setStudio(studio);
 				lesson.setMinus(1.0f);
 				lesson.setCoins(0.0f);
-//				lesson.setPoints(0);
+				lesson.setPrice(0.0f);
 				lesson.setCampus(campus);
 				Cell cell_get=sheet.getCell(0, i);
 				if(!cell_get.getContents().isEmpty()){
