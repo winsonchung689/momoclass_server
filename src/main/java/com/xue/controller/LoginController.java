@@ -1319,7 +1319,7 @@ public class LoginController {
 	public List getUserByNickStudio(String nick_name,String studio){
 		List list = null;
 		try {
-			list = dao.getUserByNickStudio(nick_name,studio);
+			list = loginService.getUserByNickStudio(nick_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
