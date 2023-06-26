@@ -1222,8 +1222,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("subject", subject);
                     jsonObject.put("remind",remind);
-                    resul_list.add(jsonObject_1);
                 }
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
