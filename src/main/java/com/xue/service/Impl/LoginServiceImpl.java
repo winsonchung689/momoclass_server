@@ -1146,26 +1146,15 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getClassByDate(String date_time, String studio, String subject, String openid, String test) {
-        String add_date = null;
-        String age = null;
-        String student_name = null;
         String duration = null;
-        String create_time = null;
-        String id = null;
-        String update_time = null;
-        Float left = 0.0f;
-        Float total = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat fmt_m = new SimpleDateFormat("yyyy-MM");
         Date d = null;
         String class_number = null;
         Integer weekDay=0;
         Integer weekofday=0;
-        String mark = null;
         Integer sign_counts=0;
         Integer sign_counts_get=0;
-        List<Schedule> list_tra=null;
         Integer remind=0;
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
@@ -1206,13 +1195,12 @@ public class LoginServiceImpl implements LoginService {
                 remind = line.getRemind();
                 String lesson_string = null;
                 List<String> list_2 = null;
-                Integer contains = 1;
+                Integer contains = 0;
 
                 try {
                     if(openid != null){
                         User user_get= dao.getUser(openid).get(0);
                         String lessons_string = user_get.getLessons();
-                        String role = user_get.getRole();
                         String[] list_1 =lessons_string.split("\\|");
                         if(weekDay == 1){
                             weekofday = 7 ;
@@ -1234,6 +1222,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("subject", subject);
                     jsonObject.put("remind",remind);
+                    resul_list.add(jsonObject_1);
                 }
             }
         } catch (Exception e) {
