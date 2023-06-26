@@ -1235,7 +1235,6 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("subject", subject);
                     jsonObject.put("remind",remind);
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
