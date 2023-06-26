@@ -1829,7 +1829,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("studio", studio);
 
-                jsonObject.put("pay_type", "无");
+                jsonObject.put("pay_type", "试用");
                 jsonObject.put("all_days", 0);
                 jsonObject.put("amount", 0);
                 if(!openid.equals("all")) {
