@@ -3129,21 +3129,39 @@ public class LoginController {
 		String type = request.getParameter("type");
 		String amount = request.getParameter("amount");
 		String openid = request.getParameter("openid");
+		String student_name = request.getParameter("student_name");
+		String content = request.getParameter("content");
+		String class_target = request.getParameter("class_target");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 
-		Book book =new Book();
-		book.setStudio(studio);
-		book.setType(type);
-		book.setMark(mark);
-		book.setAmount(Float.parseFloat(amount));
-		book.setCreate_time(create_time);
-		book.setCampus(campus);
+		if("账本".equals(class_target)){
+			Book book =new Book();
+			book.setStudio(studio);
+			book.setType(type);
+			book.setMark(mark);
+			book.setAmount(Float.parseFloat(amount));
+			book.setCreate_time(create_time);
+			book.setCampus(campus);
 
-		try {
-			dao.insertBook(book);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+			try {
+				dao.insertBook(book);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}else if("沟通记录".equals(class_target)){
+			CommunicateRecord communicateRecord = new CommunicateRecord();
+			communicateRecord.setStudent_name(student_name);
+			communicateRecord.setStudio(studio);
+			communicateRecord.setCampus(campus);
+			communicateRecord.setContent(content);
+			communicateRecord.setOpenid(openid);
+			communicateRecord.setCreate_time(create_time);
+			try {
+				dao.insertCommunicateRecord(communicateRecord);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 
 		return "push massage successfully";

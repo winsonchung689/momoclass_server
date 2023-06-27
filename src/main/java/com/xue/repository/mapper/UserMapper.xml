@@ -559,6 +559,11 @@
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
+  <!-- 插入沟通记录 -->
+  <insert id="insertCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord">
+    insert communicate_record(student_name,studio,campus,content,openid,create_time) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time})
+  </insert>
+
   <!-- 插入课评 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
       insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids,campus) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids},#{campus})

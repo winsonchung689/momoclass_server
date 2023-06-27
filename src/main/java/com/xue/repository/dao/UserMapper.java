@@ -143,6 +143,8 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
+    int insertCommunicateRecord(CommunicateRecord communicateRecord);
+
     int insertAnnouncement(Announcement announcement);
 
     int push(Message message);
