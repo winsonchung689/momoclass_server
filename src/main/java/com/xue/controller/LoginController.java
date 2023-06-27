@@ -1526,6 +1526,25 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteCommunicateRecord")
+	@ResponseBody
+	public int deleteCommunicateRecord(Integer id,String role,String studio,String openid){
+		try {
+			List<User> list = dao.getUser(openid);
+			String studio_get = list.get(0).getStudio();
+
+			if (studio_get.equals(studio)) {
+				dao.deleteCommunicateRecord(id,studio);
+			}else {
+				logger.error("it's not your studio, could not delete!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/updateBookMark")
 	@ResponseBody
 	public int updateBookMark(Integer id,String mark){

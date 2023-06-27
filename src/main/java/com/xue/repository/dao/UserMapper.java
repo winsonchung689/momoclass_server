@@ -168,6 +168,8 @@ public interface UserMapper {
 
     void deleteBookDetail(Integer id,String studio);
 
+    void deleteCommunicateRecord(Integer id,String studio);
+
     void updateUuids(Integer id,String studio,String uuids);
 
     void updateBookMark(Integer id,String mark);
