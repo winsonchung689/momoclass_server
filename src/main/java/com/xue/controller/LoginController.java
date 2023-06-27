@@ -869,6 +869,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCommunicateRecord")
+	@ResponseBody
+	public List getCommunicateRecord(String studio,Integer page,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getCommunicateRecord(studio,page,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取妈妈分享
 	@RequestMapping("/getMamaShare")
 	@ResponseBody

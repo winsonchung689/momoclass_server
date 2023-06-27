@@ -24,6 +24,8 @@ public interface LoginService {
 
     public List  getModel(String studio,Integer page,String campus);
 
+    public List  getCommunicateRecord(String studio,Integer page,String campus);
+
     public List  getMamaShare(Integer page);
 
     public List  getPpt(Integer page);

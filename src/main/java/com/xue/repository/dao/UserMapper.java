@@ -120,6 +120,8 @@ public interface UserMapper {
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end,String campus);
 
+    List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
+
     List<Message> getMamaShare(Integer page_start,Integer page_end);
 
     //获取

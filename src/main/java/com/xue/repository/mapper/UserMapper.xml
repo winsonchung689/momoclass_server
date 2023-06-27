@@ -64,6 +64,9 @@
   <resultMap id="BasePostLike" type="com.xue.entity.model.PostLike">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseCommunicateRecord" type="com.xue.entity.model.CommunicateRecord">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -128,7 +131,11 @@
 
   <!-- 获取范画 -->
   <select id="getModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='范画' and delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc limit #{param2},#{param3};
+    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='范画' and delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
+  </select>
+
+  <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select id,student_name,studio,campus,openid,content,create_time from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <!-- 获取范画 -->
