@@ -174,6 +174,10 @@ public interface UserMapper {
 
     void updateBookMark(Integer id,String mark);
 
+    void updateBookAmount(Integer id,String amount);
+
+    void updateBookCreateTime(Integer id,String create_time);
+
     void updateUuids_c(Integer id,String studio,String uuids_c);
 
     void deleteGoodsList(Integer id,String studio);

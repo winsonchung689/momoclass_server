@@ -1547,9 +1547,15 @@ public class LoginController {
 
 	@RequestMapping("/updateBookMark")
 	@ResponseBody
-	public int updateBookMark(Integer id,String mark){
+	public int updateBookMark(Integer id,String data,String type){
 		try {
-			dao.updateBookMark(id,mark);
+			if("时间".equals(type)){
+				dao.updateBookCreateTime(id,data);
+			}else if("备注".equals(type)){
+				dao.updateBookMark(id,data);
+			}else if("金额".equals(type)){
+				dao.updateBookAmount(id,data);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

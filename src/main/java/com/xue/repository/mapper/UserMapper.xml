@@ -517,6 +517,14 @@
     update account_book set mark=#{param2} where id=#{param1}
   </select>
 
+  <select id="updateBookAmount" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
+    update account_book set amount=#{param2} where id=#{param1}
+  </select>
+
+  <select id="updateBookCreateTime" parameterType="com.xue.entity.model.Book" resultMap="BaseBook">
+    update account_book set create_time=#{param2} where id=#{param1}
+  </select>
+
   <select id="getBookByMonth" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
     select date_format(create_time, '%Y-%m') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m') order by date_format(create_time,'%Y-%m') desc
   </select>
