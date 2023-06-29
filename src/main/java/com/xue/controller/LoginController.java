@@ -2024,11 +2024,6 @@ public class LoginController {
 					coins = Math.round(coins_get);
 				}
 
-				List<User> users = dao.getUser(openid);
-				String teacher = "无";
-				if(users.size()>0){
-					teacher = users.get(0).getNick_name();
-				}
 
 				signUp.setStudent_name(student_name);
 				signUp.setStudio(studio);
@@ -2038,7 +2033,7 @@ public class LoginController {
 				signUp.setDuration(duration);
 				signUp.setCount(count);
 				signUp.setSubject(subject);
-				signUp.setTeacher(teacher);
+				signUp.setTeacher(openid);
 				signUp.setCampus(campus);
 				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 					class_number = "无班号";
