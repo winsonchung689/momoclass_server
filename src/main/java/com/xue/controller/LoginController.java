@@ -817,9 +817,9 @@ public class LoginController {
 	@ResponseBody
 	public int updateRemind(String subject_class,String studio,String type,String dayofweek,String openid){
 		Integer remind = 1;
-		if("cancel".equals(type)){
+		if("是".equals(type)){
 			remind = 0;
-		}else if("reremind".equals(type)){
+		}else if("否".equals(type)){
 			remind = 1;
 		}
 		String[] list = subject_class.split(",");
