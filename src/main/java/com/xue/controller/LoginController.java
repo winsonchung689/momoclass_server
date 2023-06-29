@@ -1855,18 +1855,23 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		SignUp signUp = new SignUp();
-		signUp.setStudent_name(student_name);
-		signUp.setStudio(studio);
-		signUp.setSign_time(update_time);
-		signUp.setMark("划课_"+mark);
-		signUp.setCount(Float.parseFloat(consume_lesson_amount));
-		signUp.setSubject(subject);
-		signUp.setTeacher(openid);
-		signUp.setCreate_time(update_time);
-		signUp.setDuration("00:00:00");
-		signUp.setClass_number("无班号");
+
 		try {
+			SignUp signUp = new SignUp();
+			signUp.setStudent_name(student_name);
+			signUp.setStudio(studio);
+			signUp.setSign_time(update_time);
+			signUp.setMark("划课_"+mark);
+			signUp.setCount(Float.parseFloat(consume_lesson_amount));
+			signUp.setSubject(subject);
+			signUp.setTeacher(openid);
+			signUp.setCreate_time(update_time);
+			signUp.setDuration("00:00:00");
+			signUp.setClass_number("无班号");
+			List<User> list = dao.getUser(openid);
+			String campus = list.get(0).getCampus();
+			signUp.setCampus(campus);
+
 			loginService.insertSignUp(signUp);
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
