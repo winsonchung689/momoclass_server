@@ -3134,7 +3134,7 @@ public class LoginServiceImpl implements LoginService {
 
                     JSONObject queryJson = JSONObject.parseObject(tample3);
 
-                    if(remind == 1 && choose == 1){
+                    if(choose == 1){
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
                         queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
