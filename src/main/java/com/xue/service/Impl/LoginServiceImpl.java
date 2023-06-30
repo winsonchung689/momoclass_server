@@ -3112,6 +3112,20 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            if("boss".equals(role) && send_time.equals(now_time)){
+                list_schedule = dao.getScheduleAll(weekDay,studio,campus);
+                if(list_schedule.size()>0){
+                    JSONObject queryJson = JSONObject.parseObject(tample3);
+                    queryJson.put("touser",openid);
+                    queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
+                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value","温馨提醒");
+                    queryJson.getJSONObject("data").getJSONObject("name3").put("value","老师今日有课");
+
+                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                    System.out.printf("res:" + result);
+                }
+            }
+
             if(!"no_name".equals(student_name) && send_time.equals(now_time)){
                 list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
                 for (int j = 0; j < list_schedule.size(); j++) {
@@ -3161,20 +3175,8 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
-            }else if("boss".equals(role) && send_time.equals(now_time)){
-                list_schedule = dao.getScheduleAll(weekDay,studio,campus);
-                if(list_schedule.size()>0){
-                    JSONObject queryJson = JSONObject.parseObject(tample3);
-                    queryJson.put("touser",openid);
-                    queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
-                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value","温馨提醒");
-                    queryJson.getJSONObject("data").getJSONObject("name3").put("value","老师今日有课");
-
-                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                    System.out.printf("res:" + result);
-                }
-
             }
+
         }
     }
 
