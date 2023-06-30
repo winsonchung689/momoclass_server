@@ -3073,6 +3073,7 @@ public class LoginServiceImpl implements LoginService {
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
+        String campus = null;
 
         list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
@@ -3085,6 +3086,7 @@ public class LoginServiceImpl implements LoginService {
             expried_time = user.getExpired_time();
             subscription = user.getSubscription();
             Long compare = 10L;
+            campus = user.getCampus();
             try {
                 Date today_dt = df.parse(now_date.substring(0,10));
                 Date expired_dt = df.parse(expried_time.substring(0,10));
@@ -3137,9 +3139,7 @@ public class LoginServiceImpl implements LoginService {
 //                        throw new RuntimeException(e);
                     }
 
-
                     JSONObject queryJson = JSONObject.parseObject(tample3);
-
                     if(remind == 1 && choose == 1){
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
@@ -3161,6 +3161,19 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
+            }else if("boss".equals(role) && send_time.equals(now_time)){
+                list_schedule = dao.getScheduleAll(weekDay,studio,campus);
+                if(list_schedule.size()>0){
+                    JSONObject queryJson = JSONObject.parseObject(tample3);
+                    queryJson.put("touser",openid);
+                    queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
+                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value","温馨提醒");
+                    queryJson.getJSONObject("data").getJSONObject("name3").put("value","老师今日有课");
+
+                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                    System.out.printf("res:" + result);
+                }
+
             }
         }
     }
