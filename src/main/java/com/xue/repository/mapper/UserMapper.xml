@@ -839,7 +839,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},campus=#{campus} where openid = #{openid} and delete_status = 0
+    update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},comment_style=#{comment_style} where openid = #{openid} and delete_status = 0
   </update>
 
   <!-- 更新工作室 -->
@@ -877,7 +877,7 @@
   </update>
 
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select comment_style from user where studio = #{studio} and delete_status = 0 order by create_time limit 1
+    select comment_style from user where studio = #{studio} and role = 'boss' and delete_status = 0 order by create_time limit 1
   </select>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

@@ -3518,14 +3518,14 @@ public class LoginController {
 		user.setExpired_time(expired_time);
 		user.setSend_time(send_time);
 		user.setCampus(campus);
+		user.setComment_style(comment_style);
+		user.setSend_time(send_time);
+		user.setDisplay(display);
+		user.setCover(cover);
 		int res = loginService.updateUser(user);
 		if(0==res){
 			user.setUser_type("新用户");
 			user.setRole("client");
-			user.setComment_style(comment_style);
-			user.setSend_time(send_time);
-			user.setDisplay(display);
-			user.setCover(cover);
 			try {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0){
@@ -3540,10 +3540,6 @@ public class LoginController {
 			String role_get = list.get(0).getRole();
 			user.setUser_type(user_type_get);
 			user.setRole(role_get);
-			user.setComment_style(comment_style);
-			user.setSend_time(send_time);
-			user.setDisplay(display);
-			user.setCover(cover);
 			try {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0){
