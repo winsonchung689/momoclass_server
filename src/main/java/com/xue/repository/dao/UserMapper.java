@@ -65,7 +65,7 @@ public interface UserMapper {
 
     List<Schedule> getScheduleAllDistinct(Integer date_time,String studio,String campus);
 
-    List<Schedule> getScheduleByUser(Integer date_time,String studio,String student_name);
+    List<Schedule> getScheduleByUser(Integer date_time,String studio,String student_name,String campus);
 
     List<Schedule> getSchedule(Integer date_time,String studio,String subject,String campus);
 

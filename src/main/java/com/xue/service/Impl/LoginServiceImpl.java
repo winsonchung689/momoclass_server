@@ -3113,7 +3113,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(!"no_name".equals(student_name) && send_time.equals(now_time)){
-                list_schedule = dao.getScheduleByUser(weekDay,studio,student_name);
+                list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
                 for (int j = 0; j < list_schedule.size(); j++) {
                     Schedule schedule = list_schedule.get(j);
                     duration = schedule.getDuration();
