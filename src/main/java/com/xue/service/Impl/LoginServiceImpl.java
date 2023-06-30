@@ -4297,6 +4297,8 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String subjects = line.getSubjects();
                 String member = line.getMember();
+                nick_name = line.getNick_name();
+                studio = line.getStudio();
 
                 //json
                 jsonObject.put("studio", studio);
