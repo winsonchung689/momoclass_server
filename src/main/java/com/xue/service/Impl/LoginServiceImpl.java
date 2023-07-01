@@ -3145,11 +3145,11 @@ public class LoginServiceImpl implements LoginService {
                         //公众号通知
                         JSONObject queryJson1 = JSONObject.parseObject(tample5);
                         queryJson1.put("touser",openid);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("first").put("value","上课提醒");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","老师好");
+//                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("first").put("value","上课提醒");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","今日上课通知已发送");
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",date_time);
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("remark").put("value","今日上课通知已发送");
+//                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("remark").put("value","今日上课通知已发送");
 
                         System.out.println("json:" + queryJson1.toJSONString());
                         result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
@@ -3196,11 +3196,10 @@ public class LoginServiceImpl implements LoginService {
 
                         //公众号通知
                         queryJson1.put("touser",openid);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time5").put("value",date_time);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","老师好");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing7").put("value","今日上课通知已发送");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
-
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",class_number + "("+ student_name + ")");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",date_time + " " + duration.split("-")[0]);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
+//
                         try {
                             result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                             System.out.printf("res:" + result);
