@@ -60,6 +60,8 @@ public class LoginController {
 	private static final String tample8 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"RToa1-R_dkD_V-xaUGGpp0zPRE_hG2pRaKyX5Rq_Pi8\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"phone_number5\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"},\"time3\":{\"value\": \"time\"}}}";
 	private static final String tample9 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"sUmPrHqHMJ4r_areM2Dwpyi-sK-A6ehYwrMyS9JS-Qw\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"name11\":{\"value\": \"A1\"},\"thing8\":{\"value\": \"A1\"},\"date6\":{\"value\": \"time\"}}}";
 	private static final String tample10 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"LlmWw436tKz1DwZzpWmgnIBFAtXCUj_HxDN7xub03e4\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"time5\":{\"value\": \"time\"},\"thing3\":{\"value\": \"A1\"}}}";
+	private static final String tample11 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}}}}";
+
 
 	@Autowired
 	private LoginService loginService;
@@ -193,7 +195,9 @@ public class LoginController {
 	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample2);
+		JSONObject queryJson1 = JSONObject.parseObject(tample11);
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 
@@ -217,11 +221,21 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing8").put("value",thing8);
 		queryJson.put("page","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
 
-
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
+
+		queryJson1.put("touser",openid);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",date_time);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",subject+"_"+student_name);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
+		queryJson.getJSONObject("mp_template_msg").getJSONObject("miniprogram").getJSONObject("pagepath").put("value","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
+
 		try {
 			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
 			System.out.printf("res:" + result);
 
 		} catch (Exception e) {
