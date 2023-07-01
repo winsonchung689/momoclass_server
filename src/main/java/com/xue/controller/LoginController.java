@@ -229,7 +229,7 @@ public class LoginController {
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",subject+student_name);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
-//		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").getJSONObject("pagepath").put("value","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").getJSONObject("pagepath").put("value","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
 		System.out.printf("param:"+param1);
