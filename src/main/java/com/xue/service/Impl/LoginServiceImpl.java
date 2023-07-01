@@ -3150,6 +3150,7 @@ public class LoginServiceImpl implements LoginService {
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing7").put("value","今日上课通知已发送");
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
+                        System.out.println("json:" + queryJson1.toJSONString());
                         result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
                         System.out.printf("res:" + result);
 
