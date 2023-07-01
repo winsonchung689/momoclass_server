@@ -3045,13 +3045,18 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void sendClassRemind() {
         // 获取 token
-        String token_result = null;
-        String token = null;
         String url = "https://api.weixin.qq.com/cgi-bin/token";
         String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&grant_type=client_credential";
-        token_result = HttpUtil.sendPost(url,MOMO2B_param);
+        String MOMO_param = "appid=wxa3dc1d41d6fa8284&secret=f2c191273540906cbc74e67d0b8fdd2a&grant_type=client_credential";
+
+        String token_result = HttpUtil.sendPost(url,MOMO2B_param);
         JSONObject jsonObject = JSON.parseObject(token_result);
-        token = jsonObject.getString("access_token");
+        String token = jsonObject.getString("access_token");
+
+        String token_resul1 = HttpUtil.sendPost(url,MOMO_param);
+        JSONObject jsonObject1 = JSON.parseObject(token_resul1);
+        String token1 = jsonObject1.getString("access_token");
+
 
         // 获取用户信息
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -3079,7 +3084,9 @@ public class LoginServiceImpl implements LoginService {
         List<Schedule> list_schedule = null;
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
+        String tample5 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"MQMjxZmSoXPg2esFC0nJjJqFtYbeOx51MsKXzL4WThw\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxc61d8f694d20f083\",\"pagepath\":\"index?foo=bar\"},\"data\":{\"time5\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"time\"},\"thing7\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+        String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token1;
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
         String campus = null;
@@ -3125,6 +3132,7 @@ public class LoginServiceImpl implements LoginService {
                 if(send_time.equals(now_time)){
                     list_schedule = dao.getScheduleAll(weekDay,studio,campus);
                     if(list_schedule.size()>0){
+                        //小程序通知
                         JSONObject queryJson = JSONObject.parseObject(tample3);
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
@@ -3133,6 +3141,18 @@ public class LoginServiceImpl implements LoginService {
 
                         result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                         System.out.printf("res:" + result);
+
+                        //公众号通知
+                        JSONObject queryJson1 = JSONObject.parseObject(tample5);
+                        queryJson1.put("touser",openid);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time5").put("value",date_time);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","老师好");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing7").put("value","今日上课通知已发送");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+
+                        result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
+                        System.out.printf("res:" + result);
+
                     }
                 }
             }
@@ -3165,14 +3185,25 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     JSONObject queryJson = JSONObject.parseObject(tample3);
+                    JSONObject queryJson1 = JSONObject.parseObject(tample5);
                     if(remind == 1 && choose == 1){
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
                         queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
                         queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
 
+                        //公众号通知
+                        queryJson1.put("touser",openid);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time5").put("value",date_time);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","老师好");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing7").put("value","今日上课通知已发送");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+
                         try {
                             result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                            System.out.printf("res:" + result);
+
+                            result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
                             System.out.printf("res:" + result);
 
                             JSONObject payload = new JSONObject();
