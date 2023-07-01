@@ -145,6 +145,12 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",classname);
 		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
 		queryJson.getJSONObject("data").getJSONObject("date5").put("value",mytime);
+		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
+		String comment_style = list_user.get(0).getComment_style();
+		String role = list_user.get(0).getRole();
+		queryJson.put("page","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
+
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
