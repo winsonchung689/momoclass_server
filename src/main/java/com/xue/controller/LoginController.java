@@ -401,10 +401,14 @@ public class LoginController {
 
 		String MOMO2C_param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&js_code="+ code +"&grant_type=authorization_code";
 		String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&js_code="+ code +"&grant_type=authorization_code";
+		String MOMO_param = "appid=wxa3dc1d41d6fa8284&secret=f2c191273540906cbc74e67d0b8fdd2a&js_code="+ code +"&grant_type=authorization_code";
+
 		if ("MOMO2B".equals(app)){
 			param = MOMO2B_param;
 		}else if ("MOMO2C".equals(app)){
 			param = MOMO2C_param;
+		}else if("MOMO".equals(app)){
+			param = MOMO_param;
 		}
 		try {
 			result = HttpUtil.sendPost(url	,param);
