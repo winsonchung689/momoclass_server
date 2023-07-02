@@ -61,6 +61,7 @@ public class LoginController {
 	private static final String tample9 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"sUmPrHqHMJ4r_areM2Dwpyi-sK-A6ehYwrMyS9JS-Qw\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"name11\":{\"value\": \"A1\"},\"thing8\":{\"value\": \"A1\"},\"date6\":{\"value\": \"time\"}}}";
 	private static final String tample10 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"LlmWw436tKz1DwZzpWmgnIBFAtXCUj_HxDN7xub03e4\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"time5\":{\"value\": \"time\"},\"thing3\":{\"value\": \"A1\"}}}";
 	private static final String tample11 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}}}}";
+	private static final String tample12 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"rZo_hR3cgG1-wJ9jC374P3V4gEECmX5CgOUzAk0FzCY\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}}}}";
 
 
 	@Autowired
@@ -142,24 +143,39 @@ public class LoginController {
 	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample1);
+		JSONObject queryJson1 = JSONObject.parseObject(tample12);
+
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",classname);
 		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
 		queryJson.getJSONObject("data").getJSONObject("date5").put("value",mytime);
+
 		List<User> list_user = dao.getUser(openid);
 		String studio = list_user.get(0).getStudio();
 		String comment_style = list_user.get(0).getComment_style();
 		String role = list_user.get(0).getRole();
 		queryJson.put("page","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
 
-
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
+
+		queryJson1.put("touser",openid);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",studentname);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",classname);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
+
+		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
+		System.out.printf("param:"+param1);
+
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			result = HttpUtil.sendPostJson(url, queryJson.toJSONString());
 			System.out.printf("res:" + result);
 
+			result = HttpUtil.sendPostJson(url_union, queryJson.toJSONString());
+			System.out.printf("res:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
