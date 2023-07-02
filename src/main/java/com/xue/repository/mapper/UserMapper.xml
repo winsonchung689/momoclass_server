@@ -853,7 +853,7 @@
   </update>
 
   <update id="updateOpenidById" parameterType="com.xue.entity.model.User">
-    update user set openid =#{param2} where openid=#{param1}
+    update user set openid =#{param2} where openid=#{param1} and delete_status = 0
   </update>
 
   <!-- 更新头像 -->
