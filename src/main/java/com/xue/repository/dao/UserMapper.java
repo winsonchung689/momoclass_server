@@ -255,6 +255,8 @@ public interface UserMapper {
 
     int updateOpenid(User user);
 
+    int updateOpenidById(String openid_old,String openid_new);
+
     int updateAvatar(User user);
 
     int updateUserDelete(User user);

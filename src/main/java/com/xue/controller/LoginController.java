@@ -4092,6 +4092,20 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateOpenid")
+	@ResponseBody
+	public String updateOpenid(HttpServletRequest request, HttpServletResponse response){
+		String openid_get = request.getParameter("openid_get");
+		String openid = request.getParameter("openid");
+
+		try {
+			dao.updateOpenidById(openid_get,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateUserMember")
 	@ResponseBody
 	public String updateUserMember(HttpServletRequest request, HttpServletResponse response){

@@ -847,6 +847,10 @@
     update user set openid =#{openid} where studio=#{studio} and campus=#{campus} and nick_name=#{nick_name} and delete_status = 0
   </update>
 
+  <update id="updateOpenidById" parameterType="com.xue.entity.model.User">
+    update user set openid =#{param2} where openid=#{param1}
+  </update>
+
   <!-- 更新头像 -->
   <update id="updateAvatar" parameterType="com.xue.entity.model.User">
     update user set avatarurl=#{avatarurl} where openid = #{openid}
