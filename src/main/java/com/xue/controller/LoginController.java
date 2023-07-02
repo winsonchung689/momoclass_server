@@ -3533,7 +3533,6 @@ public class LoginController {
         //获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
-//			openid = nick_name + "_" + studio;
 			openid = DigestUtils.md5Hex(nick_name + studio);
 		}
 		//获取 avatarurl
@@ -3561,7 +3560,6 @@ public class LoginController {
 		}
 
 
-
 		User user =new User();
 		user.setNick_name(nick_name);
 		user.setStudent_name(student_name);
@@ -3570,7 +3568,6 @@ public class LoginController {
 		user.setAvatarurl(avatarurl);
 		user.setStudio(studio);
 		user.setExpired_time(expired_time);
-		user.setSend_time(send_time);
 		user.setCampus(campus);
 		user.setComment_style(comment_style);
 		user.setSend_time(send_time);
@@ -3588,16 +3585,18 @@ public class LoginController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(res>0 && !student_name.equals("no_name") && "client".equals(role)){
+		}else if(res>0 && !student_name.equals("no_name")){
 			List<User> list= dao.getUser(openid);
 			String user_type_get = list.get(0).getUser_type();
 			String role_get = list.get(0).getRole();
 			user.setUser_type(user_type_get);
 			user.setRole(role_get);
 			try {
-				int update_res = dao.updateUserDelete(user);
-				if(update_res==0){
-					loginService.insertUser(user);
+				if("client".equals(role_get)){
+					int update_res = dao.updateUserDelete(user);
+					if(update_res==0 ){
+						loginService.insertUser(user);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
