@@ -3588,7 +3588,7 @@ public class LoginController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(res>0&&!student_name.equals("no_name")){
+		}else if(res>0 && !student_name.equals("no_name") && "client".equals(role)){
 			List<User> list= dao.getUser(openid);
 			String user_type_get = list.get(0).getUser_type();
 			String role_get = list.get(0).getRole();
