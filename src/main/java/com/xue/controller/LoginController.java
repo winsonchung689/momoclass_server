@@ -4108,7 +4108,9 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 
 		try {
-			dao.updateOpenidById(openid_get,openid);
+			if(openid_get != null && openid != null){
+				dao.updateOpenidById(openid_get,openid);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
