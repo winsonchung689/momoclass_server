@@ -3623,7 +3623,11 @@ public class LoginServiceImpl implements LoginService {
                                 schedule.setSubject(subject);
                                 schedule.setCampus(campus);
                                 schedule.setIs_try(0);
-                                dao.insertSchedule(schedule);
+                                List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus);
+                                if(check_schedule.size()==0){
+                                    dao.insertSchedule(schedule);
+                                }
+
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
