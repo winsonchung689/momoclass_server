@@ -3880,12 +3880,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String id = line.getId();
                 create_time = line.getCreate_time();
-                String openid = line.getOpenid();
-                List<User> users = dao.getUser(openid);
-                String nick_name = null;
-                if(users.size()>0){
-                    nick_name = users.get(0).getNick_name();
-                }
+                String nick_name = line.getOpenid();
 
                 //json
                 jsonObject.put("student_name", student_name);

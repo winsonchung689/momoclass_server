@@ -1015,21 +1015,12 @@ public class LoginController {
 	public List getStudentByTeacher(String studio,String openid,String date_start,String date_end){
 		List list = null;
 		try {
+			List<User> list_user = dao.getUser(openid);
+			String nick_name = list_user.get(0).getNick_name();
 			if(date_end.equals("undefined")){
-				list = dao.getStudentByTeacher(studio,openid);
+				list = dao.getStudentByTeacher(studio,nick_name);
 			}else {
-				list = dao.getStudentByTeacherByDuration(studio,openid,date_start,date_end);
-			}
-			List<SignUp> signUps = dao.getStudentByTeacherAll();
-			for (int i = 0; i < signUps.size(); i++) {
-				SignUp line = signUps.get(i);
-				String id = line.getId();
-				String teacher = line.getTeacher();
-				List<User> users = dao.getUserByOpenid(teacher);
-				if(users.size() > 0){
-					String nick_name = users.get(0).getNick_name();
-					dao.updateSignUpTeacher(nick_name,id);
-				}
+				list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
 			}
 
 		} catch (Exception e) {
