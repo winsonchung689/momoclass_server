@@ -1020,6 +1020,17 @@ public class LoginController {
 			}else {
 				list = dao.getStudentByTeacherByDuration(studio,openid,date_start,date_end);
 			}
+			List<SignUp> signUps = dao.getStudentByTeacherAll();
+			for (int i = 0; i < signUps.size(); i++) {
+				SignUp line = signUps.get(i);
+				String id = line.getId();
+				String teacher = line.getTeacher();
+				List<User> users = dao.getUserByOpenid(teacher);
+				if(users.size() > 0){
+					String nick_name = users.get(0).getNick_name();
+					dao.updateSignUpTeacher(nick_name,id);
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

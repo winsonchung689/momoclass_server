@@ -479,6 +479,9 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
+
+    List<SignUp> getStudentByTeacherAll();
+
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
 
     List<Message> getCommentByDate(String student_name,String studio,String date_time,String campus);
@@ -498,6 +501,8 @@ public interface UserMapper {
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration);
 
     int updateLesson(Lesson lesson);
+
+    int updateSignUpTeacher(String teacher,String id);
 
     int updateLessonBoth(Lesson lesson);
 
