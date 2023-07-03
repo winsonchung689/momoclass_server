@@ -1902,8 +1902,10 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-
 		try {
+			List<User> users = dao.getUser(openid);
+			String nick_name = users.get(0).getNick_name();
+
 			SignUp signUp = new SignUp();
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
@@ -1911,7 +1913,7 @@ public class LoginController {
 			signUp.setMark("划课_"+mark);
 			signUp.setCount(Float.parseFloat(consume_lesson_amount));
 			signUp.setSubject(subject);
-			signUp.setTeacher(openid);
+			signUp.setTeacher(nick_name);
 			signUp.setCreate_time(update_time);
 			signUp.setDuration("00:00:00");
 			signUp.setClass_number("无班号");
@@ -1965,7 +1967,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
-
+		String nick_name = list_user.get(0).getNick_name();
 
 		try {
 			Schedule schedule =new Schedule();
@@ -1998,7 +2000,7 @@ public class LoginController {
 			signUp.setDuration(duration);
 			signUp.setCount(count);
 			signUp.setSubject(subject);
-			signUp.setTeacher(openid);
+			signUp.setTeacher(nick_name);
 			signUp.setCampus(campus);
 			if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 				class_number = "无班号";
@@ -2040,7 +2042,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
-
+		String nick_name =list_user.get(0).getNick_name();
 
 		try {
 			d = fmt.parse(date_time);
@@ -2080,7 +2082,7 @@ public class LoginController {
 				signUp.setDuration(duration);
 				signUp.setCount(count);
 				signUp.setSubject(subject);
-				signUp.setTeacher(openid);
+				signUp.setTeacher(nick_name);
 				signUp.setCampus(campus);
 				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 					class_number = "无班号";
@@ -3223,6 +3225,7 @@ public class LoginController {
 		String class_target = request.getParameter("class_target");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		String nick_name = list_user.get(0).getNick_name();
 
 		if("账本".equals(class_target)){
 			Book book =new Book();
@@ -3244,7 +3247,7 @@ public class LoginController {
 			communicateRecord.setStudio(studio);
 			communicateRecord.setCampus(campus);
 			communicateRecord.setContent(content);
-			communicateRecord.setOpenid(openid);
+			communicateRecord.setOpenid(nick_name);
 			communicateRecord.setCreate_time(create_time);
 			try {
 				dao.insertCommunicateRecord(communicateRecord);
