@@ -4103,12 +4103,12 @@ public class LoginController {
 	@RequestMapping("/updateOpenid")
 	@ResponseBody
 	public String updateOpenid(HttpServletRequest request, HttpServletResponse response){
-		String openid_get = request.getParameter("openid_get");
-		String openid = request.getParameter("openid");
+		String openid_old = request.getParameter("openid_old");
+		String openid_new = request.getParameter("openid_new");
 
 		try {
-			if(openid_get != null && openid != null){
-				dao.updateOpenidById(openid_get,openid);
+			if(openid_old != null && openid_new != null){
+				dao.updateOpenidById(openid_old,openid_new);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
