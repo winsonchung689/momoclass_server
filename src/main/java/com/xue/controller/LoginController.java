@@ -271,13 +271,14 @@ public class LoginController {
 		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample4);
 		JSONObject queryJson1 = JSONObject.parseObject(tample13);
+		String content_head = null;
 		if(content.length() > 10){
-			content = content.substring(0, 10) + "...";
+			content_head = content.substring(0, 10) + "...";
 		}
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content_head);
 		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
 		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
 		queryJson.put("page","/pages/event/event?share_studio=" + studio);
@@ -287,7 +288,7 @@ public class LoginController {
 
 		queryJson1.put("touser",openid);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",title);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
@@ -302,19 +303,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-		Announcement announcement = new Announcement();
-		announcement.setCreate_time(create_time);
-		announcement.setStudio(studio);
-		announcement.setContent(content);
-
-		try {
-			dao.insertAnnouncement(announcement);
-		} catch (Exception e) {
-//			throw new RuntimeException(e);
-		}
 		return result;
 	}
 
