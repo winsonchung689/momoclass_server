@@ -298,9 +298,22 @@ public class LoginController {
 
 			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
 			System.out.printf("res:" + result);
-
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		Announcement announcement = new Announcement();
+		announcement.setCreate_time(create_time);
+		announcement.setStudio(studio);
+		announcement.setContent(content);
+
+		try {
+			dao.insertAnnouncement(announcement);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
 		}
 		return result;
 	}
