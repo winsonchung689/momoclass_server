@@ -285,7 +285,7 @@ public class LoginController {
 		queryJson1.put("touser",openid);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",title);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content.substring(0, 10) + "...");
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio;
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
 		System.out.printf("param:"+param1);
