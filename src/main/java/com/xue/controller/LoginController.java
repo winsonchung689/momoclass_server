@@ -62,7 +62,7 @@ public class LoginController {
 	private static final String tample10 ="{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"LlmWw436tKz1DwZzpWmgnIBFAtXCUj_HxDN7xub03e4\",\"data\":{\"thing1\":{\"value\": \"AA\"},\"time5\":{\"value\": \"time\"},\"thing3\":{\"value\": \"A1\"}}}";
 	private static final String tample11 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}}}}";
 	private static final String tample12 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"rZo_hR3cgG1-wJ9jC374P3V4gEECmX5CgOUzAk0FzCY\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"课后点评已上传\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"remark\":{\"value\": \"请点击查看课后点评。\"}}}}";
-
+	private static final String tample13 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"通知广播\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"请点击查看详情。\"}}}}";
 
 	@Autowired
 	private LoginService loginService;
@@ -268,20 +268,32 @@ public class LoginController {
 	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample4);
+		JSONObject queryJson1 = JSONObject.parseObject(tample13);
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content);
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content.substring(0, 10) + "...");
 		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
 		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
 		queryJson.put("page","/pages/event/event?share_studio=" + studio);
 
-
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
 		System.out.printf("param:"+param);
+
+		queryJson1.put("touser",openid);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",title);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content.substring(0, 10) + "...");
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio;
+
+		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
+		System.out.printf("param:"+param1);
 		try {
 			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
+			System.out.printf("res:" + result);
+
+			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
 			System.out.printf("res:" + result);
 
 		} catch (Exception e) {
