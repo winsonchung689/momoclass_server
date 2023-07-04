@@ -271,10 +271,13 @@ public class LoginController {
 		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
 		JSONObject queryJson = JSONObject.parseObject(tample4);
 		JSONObject queryJson1 = JSONObject.parseObject(tample13);
+		if(content.length() > 10){
+			content = content.substring(0, 10) + "...";
+		}
 
 		queryJson.put("touser",openid);
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content.substring(0, 10) + "...");
+		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content);
 		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
 		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
 		queryJson.put("page","/pages/event/event?share_studio=" + studio);
@@ -284,7 +287,7 @@ public class LoginController {
 
 		queryJson1.put("touser",openid);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",title);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content.substring(0, 10) + "...");
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
