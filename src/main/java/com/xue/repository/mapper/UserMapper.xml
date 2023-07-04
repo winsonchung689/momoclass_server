@@ -701,7 +701,7 @@
 
   <!-- 查找签到记录 -->
   <select id="getStudentByTeacher" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2}  order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2}  order by create_time desc
   </select>
 
   <select id="getStudentByTeacherAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
