@@ -124,6 +124,8 @@ public interface UserMapper {
 
     List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
 
+    List<CommunicateRecord> getCommunicateLike(String studio,String item,String campus);
+
     List<Message> getMamaShare(Integer page_start,Integer page_end);
 
     //获取

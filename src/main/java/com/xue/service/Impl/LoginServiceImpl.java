@@ -3863,7 +3863,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getCommunicateRecord(String studio, Integer page,String campus) {
-
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -3899,6 +3898,38 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
+    @Override
+    public List getCommunicateLike(String studio,String item,String campus) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<CommunicateRecord> list = dao.getCommunicateLike(studio, item, campus);
+            for (int i = 0; i < list.size(); i++) {
+                String uuids = null;
+                JSONObject jsonObject = new JSONObject();
+                CommunicateRecord line = list.get(i);
+                //获取字段
+                String student_name = line.getStudent_name();
+                String content = line.getContent();
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String nick_name = line.getOpenid();
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
+                jsonObject.put("content", content);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("nick_name",nick_name);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
 
     @Override
     public List getMamaShare(Integer page) {
