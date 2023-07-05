@@ -3870,7 +3870,6 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<CommunicateRecord> list = dao.getCommunicateRecord(studio, page_start, page_length,campus);
             for (int i = 0; i < list.size(); i++) {
-                String uuids = null;
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord line = list.get(i);
                 //获取字段
@@ -3880,6 +3879,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 create_time = line.getCreate_time();
                 String nick_name = line.getOpenid();
+                String uuids = line.getUuids();
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -3889,6 +3889,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("nick_name",nick_name);
+                jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
             }
 
