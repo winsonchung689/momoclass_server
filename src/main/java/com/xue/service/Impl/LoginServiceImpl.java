@@ -3877,7 +3877,6 @@ public class LoginServiceImpl implements LoginService {
                 String content = line.getContent();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
-                create_time = line.getCreate_time();
                 String nick_name = line.getOpenid();
                 String uuids = line.getUuids();
 
