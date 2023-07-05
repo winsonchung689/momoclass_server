@@ -2416,9 +2416,9 @@ public class LoginController {
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");;
 
 		try {
-			if(content != null){
+			if(!"noid".equals(content)){
 				dao.updateCommunicateContent(id,content);
-			}else if(uuids != null){
+			}else if(!"noid".equals(uuids)){
 				dao.updateCommunicateUuids(id,uuids);
 			}
 
