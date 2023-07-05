@@ -3146,7 +3146,7 @@ public class LoginServiceImpl implements LoginService {
                         JSONObject queryJson1 = JSONObject.parseObject(tample5);
                         queryJson1.put("touser",openid);
 //                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("first").put("value","上课提醒");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","今日上课通知已发送");
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","上课提醒已发送");
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",date_time);
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
 //                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("remark").put("value","今日上课通知已发送");
