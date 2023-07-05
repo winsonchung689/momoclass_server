@@ -951,7 +951,7 @@ public class LoginController {
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getCommunicateRecord(studio,item,campus);
+			list = loginService.getCommunicateLike(studio,item,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
