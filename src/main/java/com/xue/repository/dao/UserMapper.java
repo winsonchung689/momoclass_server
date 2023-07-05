@@ -265,8 +265,9 @@ public interface UserMapper {
 
     int updateUserDelete(User user);
 
-
     int updateUserBackUrl(User user);
+
+    int updateCommunicateContent(String id,String content);
 
     int updateBossLessons(User user);
 

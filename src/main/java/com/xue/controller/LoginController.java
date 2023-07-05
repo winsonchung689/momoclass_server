@@ -2406,6 +2406,23 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateCommunicateContent")
+	@ResponseBody
+	public int updateCommunicateContent(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String id = request.getParameter("id");
+		String content = request.getParameter("content");
+
+		try {
+			dao.updateCommunicateContent(id,content);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return 1;
+
+	}
+
 	@RequestMapping("/updateAvatar")
 	@ResponseBody
 	public int updateAvatar(HttpServletRequest request, HttpServletResponse response){
