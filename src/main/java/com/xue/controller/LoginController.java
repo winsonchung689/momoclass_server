@@ -2416,13 +2416,20 @@ public class LoginController {
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");;
 
 		try {
-			if(!"noid".equals(content)){
+			if("modify_content".equals(uuids)){
 				dao.updateCommunicateContent(id,content);
-			}else if(!"noid".equals(uuids)){
+			}else if("modify_uuids".equals(content)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
 				if(uuids_get != null){
 					uuids = uuids_get + "," + uuids;
+				}
+				dao.updateCommunicateUuids(id,uuids);
+			}else if("update_uuids".equals(content)){
+				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+				String uuids_get = communicateRecords.get(0).getUuids();
+				if(uuids_get != null){
+					uuids = uuids_get .replace(uuids,"");
 				}
 				dao.updateCommunicateUuids(id,uuids);
 			}
