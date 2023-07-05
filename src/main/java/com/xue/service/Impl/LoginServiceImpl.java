@@ -3137,7 +3137,7 @@ public class LoginServiceImpl implements LoginService {
                         queryJson.put("touser",openid);
                         queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
                         queryJson.getJSONObject("data").getJSONObject("thing2").put("value","老师好");
-                        queryJson.getJSONObject("data").getJSONObject("name3").put("value","今日上课通知已发送");
+                        queryJson.getJSONObject("data").getJSONObject("name3").put("value","上课提醒已发送");
 
                         result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                         System.out.printf("res:" + result);
