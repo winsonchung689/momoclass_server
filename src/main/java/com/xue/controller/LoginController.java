@@ -2406,16 +2406,22 @@ public class LoginController {
 
 	}
 
-	@RequestMapping("/updateCommunicateContent")
+	@RequestMapping("/updateCommunicate")
 	@ResponseBody
-	public int updateCommunicateContent(HttpServletRequest request, HttpServletResponse response){
+	public int updateCommunicate(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
 		String id = request.getParameter("id");
 		String content = request.getParameter("content");
+		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");;
 
 		try {
-			dao.updateCommunicateContent(id,content);
+			if(content != null){
+				dao.updateCommunicateContent(id,content);
+			}else if(uuids != null){
+				dao.updateCommunicateUuids(id,uuids);
+			}
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

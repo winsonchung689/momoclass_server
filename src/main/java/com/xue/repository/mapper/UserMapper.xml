@@ -886,6 +886,10 @@
     update communicate_record set content=#{param2} where id =#{param1} and delete_status=0
   </update>
 
+  <update id="updateCommunicateUuids" parameterType="com.xue.entity.model.CommunicateRecord">
+    update communicate_record set uuids=#{param2} where id =#{param1} and delete_status=0
+  </update>
+
   <!-- 更新选课 -->
   <update id="updateBossLessons" parameterType="com.xue.entity.model.User">
     update user set lessons=#{lessons} where openid = #{openid}

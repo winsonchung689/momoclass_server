@@ -269,6 +269,8 @@ public interface UserMapper {
 
     int updateCommunicateContent(String id,String content);
 
+    int updateCommunicateUuids(String id,String uuids);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);
