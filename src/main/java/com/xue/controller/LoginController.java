@@ -4186,10 +4186,14 @@ public class LoginController {
 		try {
 			if(openid_old != null && openid_new != null){
 				List<User> users = dao.getUserByOpenid(openid_new);
-				String role = users.get(0).getRole();
-				if("client".equals(role)){
+				if(users.size()>0){
+					String role = users.get(0).getRole();
+					if("client".equals(role)){
+					}
+				}else {
 					dao.updateOpenidById(openid_old,openid_new);
 				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
