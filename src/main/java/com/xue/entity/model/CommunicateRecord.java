@@ -17,6 +17,16 @@ public class CommunicateRecord {
 
     private String campus;
 
+    private String uuids;
+
+    public String getUuids() {
+        return uuids;
+    }
+
+    public void setUuids(String uuids) {
+        this.uuids = uuids;
+    }
+
     public String getContent() {
         return content;
     }

@@ -2419,6 +2419,11 @@ public class LoginController {
 			if(!"noid".equals(content)){
 				dao.updateCommunicateContent(id,content);
 			}else if(!"noid".equals(uuids)){
+				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+				String uuids_get = communicateRecords.get(0).getUuids();
+				if(uuids_get != null){
+					uuids = uuids_get + "," + uuids;
+				}
 				dao.updateCommunicateUuids(id,uuids);
 			}
 
