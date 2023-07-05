@@ -2429,9 +2429,15 @@ public class LoginController {
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
 				if(uuids_get != null){
-					uuids = uuids_get .replace(uuids,"");
+					String[] result = uuids_get.split(",");
+					List<String> list_new = new ArrayList<>();
+					for(int i =0;i<result.length;i++){
+						if(!result[i].equals(uuids)){
+							list_new.add(result[i]);
+						}
+					}
+					dao.updateCommunicateUuids(id,list_new.toString());
 				}
-				dao.updateCommunicateUuids(id,uuids);
 			}
 
 		} catch (Exception e) {

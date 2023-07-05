@@ -1485,7 +1485,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if ( studio_get.equals(studio)) {
+                if (studio_get.equals(studio)) {
                     dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
                 }else {
                     logger.error("it's not your studio, could not delete!");
