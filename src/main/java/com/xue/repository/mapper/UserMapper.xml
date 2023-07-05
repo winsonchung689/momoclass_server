@@ -139,7 +139,7 @@
   </select>
 
   <select id="getCommunicateLike" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
-    select id,student_name,studio,campus,openid,content,create_time from communicate_record where delete_status = 0 and studio = #{param1} and (student_name like "%"#{param2}"%" or content like "%"#{param2}"%" or openid like "%"#{param2}"%")  and campus =#{param3} order by create_time desc,id asc;
+    select id,student_name,studio,campus,openid,content,create_time,uuids from communicate_record where delete_status = 0 and studio = #{param1} and (student_name like "%"#{param2}"%" or content like "%"#{param2}"%" or openid like "%"#{param2}"%")  and campus =#{param3} order by create_time desc,id asc;
   </select>
 
   <select id="getCommunicateById" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
