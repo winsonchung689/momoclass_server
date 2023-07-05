@@ -2437,7 +2437,7 @@ public class LoginController {
 							list_new.add(result[i]);
 						}
 					}
-					dao.updateCommunicateUuids(id,list_new.toString().replace("[","").replace("]",""));
+					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
 				}
 			}
 
