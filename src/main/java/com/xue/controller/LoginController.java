@@ -2413,7 +2413,7 @@ public class LoginController {
 		//获取文字
 		String id = request.getParameter("id");
 		String content = request.getParameter("content");
-		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");;
+		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
 
 		try {
 			if("modify_content".equals(uuids)){
@@ -2437,7 +2437,7 @@ public class LoginController {
 							list_new.add(result[i]);
 						}
 					}
-					dao.updateCommunicateUuids(id,list_new.toString());
+					dao.updateCommunicateUuids(id,list_new.toString().replace("[","").replace("]",""));
 				}
 			}
 
