@@ -4185,7 +4185,11 @@ public class LoginController {
 
 		try {
 			if(openid_old != null && openid_new != null){
-				dao.updateOpenidById(openid_old,openid_new);
+				List<User> users = dao.getUserByOpenid(openid_new);
+				String role = users.get(0).getRole();
+				if("client".equals(role)){
+					dao.updateOpenidById(openid_old,openid_new);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
