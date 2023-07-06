@@ -803,7 +803,7 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

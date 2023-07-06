@@ -3576,7 +3576,7 @@ public class LoginController {
 	@ResponseBody
 	public String insertUser(HttpServletRequest request, HttpServletResponse response){
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
@@ -3666,8 +3666,12 @@ public class LoginController {
 			List<User> list= dao.getUser(openid);
 			String user_type_get = list.get(0).getUser_type();
 			String role_get = list.get(0).getRole();
+			String phone_number = list.get(0).getPhone_number();
+			String location = list.get(0).getLocation();
 			user.setUser_type(user_type_get);
 			user.setRole(role_get);
+			user.setPhone_number(phone_number);
+			user.setLocation(location);
 			try {
 				if("client".equals(role_get)){
 					int update_res = dao.updateUserDelete(user);
