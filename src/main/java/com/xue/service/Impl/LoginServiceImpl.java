@@ -3085,6 +3085,7 @@ public class LoginServiceImpl implements LoginService {
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
         String tample5 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"AvUav55Zplm-MihGDlW0TxWMr_QMhWgP_6PFfJs27wc\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}}}}";
+        String tample13 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"first\":{\"value\": \"通知广播\"},\"keyword1\":{\"value\": \"time\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"请点击查看详情。\"}}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
         String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token1;
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
@@ -3120,8 +3121,18 @@ public class LoginServiceImpl implements LoginService {
                 queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
                 queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
                 queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
+
+                //公众号通知
+                JSONObject queryJson1 = JSONObject.parseObject(tample13);
+                queryJson1.put("touser",openid);
+                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",studio + "有效期至:" + expried_time);
+                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
+
                 try {
                     result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                    System.out.printf("res:" + result);
+
+                    result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
                     System.out.printf("res:" + result);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -3145,11 +3156,9 @@ public class LoginServiceImpl implements LoginService {
                         //公众号通知
                         JSONObject queryJson1 = JSONObject.parseObject(tample5);
                         queryJson1.put("touser",openid);
-//                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("first").put("value","上课提醒");
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","上课提醒已发送");
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",date_time);
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
-//                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("remark").put("value","今日上课通知已发送");
 
                         System.out.println("json:" + queryJson1.toJSONString());
                         result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
