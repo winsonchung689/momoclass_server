@@ -3125,8 +3125,8 @@ public class LoginServiceImpl implements LoginService {
                 //公众号通知
                 JSONObject queryJson1 = JSONObject.parseObject(tample13);
                 queryJson1.put("touser",openid);
-                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",studio + "有效期至:" + expried_time);
-                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
+                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value","有效期至:" + expried_time);
+                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",studio+"还有"+ compare +"天就期啦，记得续费哦");
 
                 try {
                     result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
