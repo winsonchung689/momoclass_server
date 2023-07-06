@@ -1605,7 +1605,7 @@ public class LoginController {
 
 	@RequestMapping("/deleteCommunicateRecord")
 	@ResponseBody
-	public int deleteCommunicateRecord(Integer id,String role,String studio,String openid){
+	public int deleteCommunicateRecord(Integer id,String studio,String openid){
 		try {
 			List<User> list = dao.getUser(openid);
 			String studio_get = list.get(0).getStudio();
@@ -2438,6 +2438,8 @@ public class LoginController {
 						}
 					}
 					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
+				}else{
+					dao.updateCommunicateUuids(id,uuids);
 				}
 			}
 
