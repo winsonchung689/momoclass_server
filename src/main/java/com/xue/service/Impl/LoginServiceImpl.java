@@ -1436,6 +1436,14 @@ public class LoginServiceImpl implements LoginService {
                     status_str = "待确认";
                 }
 
+                if(student_classes == null){
+                    student_classes = 0;
+                }
+
+                if(student_count == null){
+                    student_count = 0;
+                }
+
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("duration", duration);
