@@ -2998,6 +2998,13 @@ public class LoginController {
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
 			for(int i=1;i<sheet.getRows();i++){
+				LessonPackage lessonPackage = new LessonPackage();
+				lessonPackage.setCreate_time(create_time);
+				lessonPackage.setCreate_time("首次录入");
+				lessonPackage.setStudio(studio);
+				lessonPackage.setCampus(campus);
+				lessonPackage.setTotal_money(0.0f);
+
 				Gift gift = new Gift();
 				gift.setCreate_time(create_time);
 				gift.setStudio(studio);
@@ -3024,6 +3031,7 @@ public class LoginController {
 							student_name = cell.getContents();
 							lesson.setStudent_name(student_name);
 							gift.setStudent_name(student_name);
+							lessonPackage.setStudent_name(student_name);
 						}else if(2==j){
 							total_amount =cell.getContents();
 							if(!total_amount.isEmpty()){
@@ -3059,6 +3067,31 @@ public class LoginController {
 							if(!points.isEmpty()){
 								lesson.setPoints(Integer.parseInt(points));
 							}
+						}else if(8==j){
+							String total_money =cell.getContents();
+							if(!total_money.isEmpty()){
+								lessonPackage.setTotal_money(Float.parseFloat(total_money));
+							}
+						}else if(9==j){
+							String discount_money =cell.getContents();
+							if(!discount_money.isEmpty()){
+								lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+							}
+						}else if(10==j){
+							String start_date =cell.getContents();
+							if(!start_date.isEmpty()){
+								lessonPackage.setStart_date(start_date);
+							}
+						}else if(11==j){
+							String end_date =cell.getContents();
+							if(!end_date.isEmpty()){
+								lessonPackage.setEnd_date(end_date);
+							}
+						}else if(12==j){
+							String mark =cell.getContents();
+							if(!mark.isEmpty()){
+								lessonPackage.setMark(mark);
+							}
 						}
 					}
 				}
@@ -3076,6 +3109,10 @@ public class LoginController {
 
 				if (!gift.getGift_name().isEmpty()){
 					loginService.insertGift(gift);
+				}
+
+				if (lessonPackage.getTotal_money() != 0.0f){
+					dao.insertLessonPackage(lessonPackage);
 				}
 			}
 
