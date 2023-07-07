@@ -947,7 +947,7 @@
   </insert>
 
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
-    insert class_note(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time})
+    insert lesson_package(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time})
   </insert>
 
   <!-- 插入通知 -->
