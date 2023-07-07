@@ -946,6 +946,10 @@
     insert class_note(subject,student_name,studio,create_time,note_content,campus) values(#{subject},#{student_name},#{studio},#{create_time},#{note_content},#{campus})
   </insert>
 
+  <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
+    insert class_note(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time})
+  </insert>
+
   <!-- 插入通知 -->
   <insert id="insertAnnouncement" parameterType="com.xue.entity.model.Announcement">
     insert announcement(studio,create_time,content,campus) values(#{studio},#{create_time},#{content},#{campus})

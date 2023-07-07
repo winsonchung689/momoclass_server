@@ -464,6 +464,8 @@ public interface UserMapper {
 
     int insertNote(Note note);
 
+    int insertLessonPackage(LessonPackage lessonPackage);
+
     int insertLesson(Lesson lesson);
 
     int insertSignUp(SignUp signUp);

@@ -2606,6 +2606,42 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/insertLessonPackage")
+	@ResponseBody
+	public int insertLessonPackage(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String studio =  request.getParameter("studio");
+		String student_name =  request.getParameter("student_name");
+		String mark =  request.getParameter("mark");
+		String openid =  request.getParameter("openid");
+		List<User> list = dao.getUser(openid);
+		String campus = list.get(0).getCampus();
+		String total_money =  request.getParameter("total_money");
+		String discount_money =  request.getParameter("discount_money");
+		String start_date =  request.getParameter("start_date");
+		String end_date =  request.getParameter("end_date");
+
+		try {
+			LessonPackage lessonPackage = new LessonPackage();
+			lessonPackage.setStudent_name(student_name);
+			lessonPackage.setTotal_money(Float.parseFloat(total_money));
+			lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+			lessonPackage.setMark(mark);
+			lessonPackage.setStart_date(start_date);
+			lessonPackage.setEnd_date(end_date);
+			lessonPackage.setCampus(campus);
+			lessonPackage.setStudio(studio);
+			lessonPackage.setCreate_time(create_time);
+
+			dao.insertLessonPackage(lessonPackage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteLesson")
 	@ResponseBody
 	public int deleteLesson(Integer id,String role,String studio,String openid,String student_name){
