@@ -4603,6 +4603,8 @@ public class LoginServiceImpl implements LoginService {
         Integer total_student =0;
         Float total_amount_all = 0.0f ;
         Float left_amount_all = 0.0f ;
+        Float total_money = 0.0f ;
+        Float discount_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
         String campus_get = null;
@@ -4688,6 +4690,13 @@ public class LoginServiceImpl implements LoginService {
                 if(is_combine == 1){
                     combine = "合";
                 }
+                total_money = line.getTotal_money();
+                discount_money = line.getDiscount_money();
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/total_amount;
+                if(re_price>0){
+                    price = re_price;
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -4716,6 +4725,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_combine", combine);
                 jsonObject.put("price", price);
                 jsonObject.put("phone_number", phone_number);
+                jsonObject.put("total_money", total_money);
+                jsonObject.put("discount_money", discount_money);
+                jsonObject.put("receipts", receipts);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

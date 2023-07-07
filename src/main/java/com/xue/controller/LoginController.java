@@ -4004,6 +4004,17 @@ public class LoginController {
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
 			}
 
+			//获取原价
+			String total_money = request.getParameter("total_money");
+			if(total_money == null || total_money.isEmpty() || "undefined".equals(total_money)){
+				total_money = "0";
+			}
+			//获取折扣
+			String discount_money = request.getParameter("discount_money");
+			if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
+				discount_money = "0";
+			}
+
 
 			if("campus_modify".equals(modify_type)){
 				dao.updateLessonCampus(studio,student_name,campus_new);
@@ -4055,6 +4066,8 @@ public class LoginController {
 			lesson.setMinus(minus_amount);
 			lesson.setCoins(coins_amount);
 			lesson.setSubject(subject);
+			lesson.setTotal_money(Float.parseFloat(total_money));
+			lesson.setDiscount_money(Float.parseFloat(discount_money));
 
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			if(!student_name_new.isEmpty()){

@@ -24,6 +24,10 @@ public class Lesson {
 
     private Float price;
 
+    private Float total_money;
+
+    private Float discount_money;
+
     private String campus;
 
     private Integer is_combine;
@@ -34,6 +38,22 @@ public class Lesson {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Float getTotal_money() {
+        return total_money;
+    }
+
+    public void setTotal_money(Float total_money) {
+        this.total_money = total_money;
+    }
+
+    public Float getDiscount_money() {
+        return discount_money;
+    }
+
+    public void setDiscount_money(Float discount_money) {
+        this.discount_money = discount_money;
     }
 
     public Integer getIs_combine() {
