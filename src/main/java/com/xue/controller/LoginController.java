@@ -2421,13 +2421,16 @@ public class LoginController {
 			}else if("modify_uuids".equals(content)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
-				if(uuids_get.length() > 5){
-					uuids = uuids_get + "," + uuids;
-					dao.updateCommunicateUuids(id,uuids);
+				if(uuids_get != null){
+					if(uuids_get.length() > 5){
+						uuids = uuids_get + "," + uuids;
+						dao.updateCommunicateUuids(id,uuids);
+					}else{
+						dao.updateCommunicateUuids(id,uuids);
+					}
 				}else{
 					dao.updateCommunicateUuids(id,uuids);
 				}
-
 			}else if("update_uuids".equals(content)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
