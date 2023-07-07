@@ -3246,31 +3246,33 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getLessonByName(String student_name, String studio,String campus) {
-        Float total_amount = 0.0f;
-        Float left_amount = 0.0f;
-        String subject =null;
-        Integer points=0;
+    public List getLessonByName(String student_name, String studio,String campus)
+
+    @Override
+    public List getLessonPackage(String student_name, String studio,String campus) {
+        Float total_money = 0.0f;
+        Float discount_money = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<Lesson> list = dao.getLessonByName(student_name,studio,campus);
+            List<LessonPackage> list = dao.getLessonPackage(student_name,studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
-                Lesson line = list.get(i);
+                LessonPackage line = list.get(i);
                 //获取字段
-                total_amount = line.getTotal_amount();
-                left_amount = line.getLeft_amount();
-                subject = line.getSubject();
-                points = line.getPoints();
+                total_money = line.getTotal_money();
+                discount_money = line.getDiscount_money();
+                String mark = line.getMark();
+                String start_date = line.getStart_date();
+                String end_date = line.getEnd_date();
 
                 //json
-                jsonObject.put("total_amount", total_amount);
-                jsonObject.put("left_amount", left_amount);
-                jsonObject.put("subject", subject);
                 jsonObject.put("student_name", student_name);
-                jsonObject.put("studio", studio);
-                jsonObject.put("points", points);
+                jsonObject.put("total_money", total_money);
+                jsonObject.put("discount_money", discount_money);
+                jsonObject.put("mark", mark);
+                jsonObject.put("start_date", start_date);
+                jsonObject.put("end_date", end_date);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

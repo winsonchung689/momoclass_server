@@ -192,6 +192,8 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name,String studio,String campus);
 
+    public List  getLessonPackage(String student_name,String studio,String campus);
+
     public List  getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
     public int updateAddPoints(String student_name,String studio,Integer points,String subject,String campus);
