@@ -3975,7 +3975,7 @@ public class LoginController {
 				return "push massage successfully";
 			}
 
-			if("discount_money".equals(discount_money)){
+			if("discount_money".equals(modify_type)){
 				dao.updateLessonDiscountMoney(Float.valueOf(discount_money),studio,student_name,campus,subject);
 				return "push massage successfully";
 			}
