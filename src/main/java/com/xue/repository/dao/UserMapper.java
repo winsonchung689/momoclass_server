@@ -254,6 +254,8 @@ public interface UserMapper {
 
     void deleteLesson(Integer id,String studio);
 
+    void deleteLessonPackage(Integer id);
+
     //插入
     int insertUser(User user);
 

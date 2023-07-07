@@ -432,7 +432,6 @@
     update class_schedule set status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
-
   <!-- 获取删除学生 -->
   <select id="deleteLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
     update lesson set delete_status = 1 where id =#{param1} and studio =#{param2}

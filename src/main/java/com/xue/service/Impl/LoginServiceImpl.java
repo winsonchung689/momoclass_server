@@ -3295,6 +3295,7 @@ public class LoginServiceImpl implements LoginService {
                 String mark = line.getMark();
                 String start_date = line.getStart_date();
                 String end_date = line.getEnd_date();
+                String id = line.getId();
 
                 //json
                 jsonObject.put("student_name", student_name);
