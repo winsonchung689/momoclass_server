@@ -2421,7 +2421,7 @@ public class LoginController {
 			}else if("modify_uuids".equals(content)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
-				if(uuids_get.length() > 1){
+				if(uuids_get.length() > 5){
 					uuids = uuids_get + "," + uuids;
 					dao.updateCommunicateUuids(id,uuids);
 				}else{
