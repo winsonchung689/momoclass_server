@@ -3959,6 +3959,25 @@ public class LoginController {
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
 
+			//获取原价
+			String total_money = request.getParameter("total_money");
+			if(total_money == null || total_money.isEmpty() || "undefined".equals(total_money)){
+				total_money = "0";
+			}
+			//获取折扣
+			String discount_money = request.getParameter("discount_money");
+			if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
+				discount_money = "0";
+			}
+
+			if("total_money".equals(modify_type)){
+				dao.updateLessonTotalMoney(Float.valueOf(total_money),studio,student_name,campus,subject);
+			}
+
+			if("discount_money".equals(discount_money)){
+				dao.updateLessonDiscountMoney(Float.valueOf(discount_money),studio,student_name,campus,subject);
+			}
+
 			// 获取单次积分
 			String coins_amount_get_1 = request.getParameter("coins_amount");
 			Float coins_amount_get = 0.0f;
@@ -4002,17 +4021,6 @@ public class LoginController {
 			}else if ("0".equals(left_amount_get) && "left_modify".equals(modify_type)){
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
-			}
-
-			//获取原价
-			String total_money = request.getParameter("total_money");
-			if(total_money == null || total_money.isEmpty() || "undefined".equals(total_money)){
-				total_money = "0";
-			}
-			//获取折扣
-			String discount_money = request.getParameter("discount_money");
-			if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
-				discount_money = "0";
 			}
 
 

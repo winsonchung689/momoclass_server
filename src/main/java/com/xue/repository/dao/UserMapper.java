@@ -311,6 +311,10 @@ public interface UserMapper {
 
     int updateLessonCoins(Float coins,String studio,String student_name,String campus,String subject);
 
+    int updateLessonTotalMoney(Float total_money,String studio,String student_name,String campus,String subject);
+
+    int updateLessonDiscountMoney(Float discount_money,String studio,String student_name,String campus,String subject);
+
     int updateSignUpCampus(String studio,String student_name,String campus);
 
     int updateGiftCampus(String studio,String student_name,String campus);
