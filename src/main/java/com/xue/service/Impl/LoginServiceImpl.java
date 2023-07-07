@@ -4655,6 +4655,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";
                 String avatarurl = "未绑定";
+                String phone_number = "未录入";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -4664,6 +4665,7 @@ public class LoginServiceImpl implements LoginService {
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
+                        phone_number = user.get(0).getPhone_number();
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -4713,6 +4715,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("campus", campus_get);
                 jsonObject.put("is_combine", combine);
                 jsonObject.put("price", price);
+                jsonObject.put("phone_number", phone_number);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
