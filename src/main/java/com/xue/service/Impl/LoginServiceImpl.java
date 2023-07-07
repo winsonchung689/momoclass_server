@@ -3336,7 +3336,6 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
-
     @Override
     public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target,String campus) {
         String comment = null;
