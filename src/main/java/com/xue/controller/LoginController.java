@@ -3408,6 +3408,7 @@ public class LoginController {
 
 		//获取日期
 		String add_date = request.getParameter("add_date");
+
 		//获年龄段
 		String age = request.getParameter("age");
 		//获取名字
@@ -3426,6 +3427,8 @@ public class LoginController {
 
 		String is_try = request.getParameter("is_try");
 
+		String weekofday = request.getParameter("weekofday");
+
 		String class_number = request.getParameter("class_number");
 		if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 			class_number = "无班号";
@@ -3437,6 +3440,24 @@ public class LoginController {
 		}
 
 		Integer status = 1;
+
+		if("ordinary".equals(student_type)){
+			if(weekofday.equals("星期1")){
+				add_date = "2022-05-02";
+			}else if(weekofday.equals("星期2")){
+				add_date = "2022-05-03";
+			}else if(weekofday.equals("星期3")){
+				add_date = "2022-05-04";
+			}else if(weekofday.equals("星期4")){
+				add_date = "2022-05-05";
+			}else if(weekofday.equals("星期5")){
+				add_date = "2022-05-06";
+			}else if(weekofday.equals("星期6")){
+				add_date = "2022-05-07";
+			}else if(weekofday.equals("星期7")){
+				add_date = "2022-05-08";
+			}
+		}
 
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
