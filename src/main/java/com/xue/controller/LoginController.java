@@ -3972,10 +3972,12 @@ public class LoginController {
 
 			if("total_money".equals(modify_type)){
 				dao.updateLessonTotalMoney(Float.valueOf(total_money),studio,student_name,campus,subject);
+				return "push massage successfully";
 			}
 
 			if("discount_money".equals(discount_money)){
 				dao.updateLessonDiscountMoney(Float.valueOf(discount_money),studio,student_name,campus,subject);
+				return "push massage successfully";
 			}
 
 			// 获取单次积分
@@ -4085,12 +4087,15 @@ public class LoginController {
 				dao.updateLessonName(student_name_new,student_name,studio,campus);
 				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus);
 				dao.updateUserStudent(student_name_new,student_name,studio,campus);
+				return "push massage successfully";
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					if("积分".equals(m_type)){
 						dao.updateCoinsAll(coins_amount,studio,campus);
+						return "push massage successfully";
 					}else if("单价".equals(m_type)){
 						dao.updatePriceAll(coins_amount,studio,campus);
+						return "push massage successfully";
 					}
 				}else if("coins_modify_single".equals(modify_type)){
 					if("积分".equals(m_type)){
@@ -4100,6 +4105,7 @@ public class LoginController {
 					}
 				}else {
 					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
+					return "push massage successfully";
 				}
 
 			}else {
@@ -4112,6 +4118,7 @@ public class LoginController {
 				lesson.setCoins(coins_amount_t);
 				lesson.setPrice(price);
 				loginService.insertLesson(lesson);
+				return "push massage successfully";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
