@@ -1407,8 +1407,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number,String subject,String campus) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         String age = null;
-        String student_name = null;
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer status = 0;
@@ -1423,7 +1424,9 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取字段
                 age = line.getAge();
-                student_name = line.getStudent_name();
+                String student_name = line.getStudent_name();
+                Integer student_count = dao.getSignUpByMonthStudent(studio,subject,create_time,campus,student_name);
+                Integer student_classes = dao.getClassesCountByStudent(studio,subject,campus,student_name);
                 duration = line.getDuration();
                 id = line.getId();
                 status = line.getStatus();
@@ -1439,7 +1442,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("status", status);
                 jsonObject.put("status_str", status_str);
-
+                jsonObject.put("student_count", student_count);
+                jsonObject.put("student_classes", student_classes*4);
                 resul_list.add(jsonObject);
             }
 
