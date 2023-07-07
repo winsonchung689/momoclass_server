@@ -1407,7 +1407,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getScheduleDetail(Integer weekDay, String duration, String studio,String class_number,String subject,String campus) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         String age = null;
         String id = null;
