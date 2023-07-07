@@ -2677,6 +2677,19 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteLessonPackage")
+	@ResponseBody
+	public int deleteLessonPackage(Integer id){
+		try {
+			dao.deleteLessonPackage(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+
 	//	推送图片
 	@RequestMapping("/push_photo")
 	@ResponseBody
