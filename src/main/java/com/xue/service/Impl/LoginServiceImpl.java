@@ -4697,6 +4697,10 @@ public class LoginServiceImpl implements LoginService {
                 if(re_price>0){
                     price = re_price;
                 }
+                Float left_money = price * left_amount;
+                if(total_money == 0.0f){
+                    left_money = 0.0f;
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -4728,6 +4732,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("total_money", total_money);
                 jsonObject.put("discount_money", discount_money);
                 jsonObject.put("receipts", receipts);
+                jsonObject.put("left_money", left_money);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
