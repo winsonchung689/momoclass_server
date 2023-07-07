@@ -2424,6 +2424,8 @@ public class LoginController {
 				if(uuids_get != null){
 					uuids = uuids_get + "," + uuids;
 					dao.updateCommunicateUuids(id,uuids);
+				}else{
+					dao.updateCommunicateUuids(id,uuids);
 				}
 
 			}else if("update_uuids".equals(content)){
@@ -2438,8 +2440,6 @@ public class LoginController {
 						}
 					}
 					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
-				}else{
-					dao.updateCommunicateUuids(id,uuids);
 				}
 			}
 
