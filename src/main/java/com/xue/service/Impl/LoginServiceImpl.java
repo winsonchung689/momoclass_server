@@ -3288,7 +3288,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> users =dao.getBossByStudio(studio);
             if(users.size()>0){
                 openid = users.get(0).getOpenid();
-                JSONObject queryJson = null;
+                JSONObject queryJson = new JSONObject();;
                 if(value>=0){
                     JSONObject.parseObject(tample1);
                     queryJson.put("touser",openid);
