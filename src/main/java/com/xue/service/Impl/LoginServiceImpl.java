@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -4755,6 +4756,8 @@ public class LoginServiceImpl implements LoginService {
                     left_money = 0.0f;
                 }
 
+                DecimalFormat df = new DecimalFormat("0.00");
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -4782,10 +4785,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_combine", combine);
                 jsonObject.put("price", price);
                 jsonObject.put("phone_number", phone_number);
-                jsonObject.put("total_money", total_money);
-                jsonObject.put("discount_money", discount_money);
-                jsonObject.put("receipts", receipts);
-                jsonObject.put("left_money", left_money);
+                jsonObject.put("total_money", df.format(total_money));
+                jsonObject.put("discount_money", df.format(discount_money));
+                jsonObject.put("receipts", df.format(receipts));
+                jsonObject.put("left_money", df.format(left_money));
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
