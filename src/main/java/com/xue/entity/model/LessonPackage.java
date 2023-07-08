@@ -18,10 +18,30 @@ public class LessonPackage {
 
     private Float discount_money;
 
+    private Float all_lesson;
+
+    private Float give_lesson;
+
     private String  start_date;
 
     private String  end_date;
 
+
+    public Float getAll_lesson() {
+        return all_lesson;
+    }
+
+    public void setAll_lesson(Float all_lesson) {
+        this.all_lesson = all_lesson;
+    }
+
+    public Float getGive_lesson() {
+        return give_lesson;
+    }
+
+    public void setGive_lesson(Float give_lesson) {
+        this.give_lesson = give_lesson;
+    }
 
     public String getStart_date() {
         return start_date;

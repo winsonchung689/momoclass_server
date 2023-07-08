@@ -3004,6 +3004,9 @@ public class LoginController {
 				lessonPackage.setStudio(studio);
 				lessonPackage.setCampus(campus);
 				lessonPackage.setTotal_money(0.0f);
+				lessonPackage.setDiscount_money(0.0f);
+				lessonPackage.setAll_lesson(0.0f);
+				lessonPackage.setGive_lesson(0.0f);
 
 				Gift gift = new Gift();
 				gift.setCreate_time(create_time);
@@ -3091,6 +3094,17 @@ public class LoginController {
 							String mark =cell.getContents();
 							if(!mark.isEmpty()){
 								lessonPackage.setMark(mark);
+							}
+						}
+						else if(13==j){
+							String all_lesson =cell.getContents();
+							if(!all_lesson.isEmpty()){
+								lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+							}
+						}else if(14==j){
+							String give_lesson =cell.getContents();
+							if(!give_lesson.isEmpty()){
+								lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 							}
 						}
 					}
