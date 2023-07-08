@@ -3287,28 +3287,33 @@ public class LoginServiceImpl implements LoginService {
 
             List<User> users =dao.getBossByStudio(studio);
             if(users.size()>0){
-                openid = users.get(0).getOpenid();
-                JSONObject queryJson = new JSONObject();;
-                if(value>=0){
-                    queryJson = JSONObject.parseObject(tample1);
-                    queryJson.put("touser",openid);
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
-                }else if(value<0){
-                    queryJson = JSONObject.parseObject(tample2);
-                    queryJson.put("touser",openid);
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing13").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",df.format(Math.abs(value)));
-                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number5").put("value",df.format(new_number));
-                }
+                for(int i=0;i < users.size(); i++){
+                    openid = users.get(0).getOpenid();
+                    String role = users.get(0).getRole();
+                    if("boss".equals(role)){
+                        JSONObject queryJson = new JSONObject();;
+                        if(value>=0){
+                            queryJson = JSONObject.parseObject(tample1);
+                            queryJson.put("touser",openid);
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
+                        }else if(value<0){
+                            queryJson = JSONObject.parseObject(tample2);
+                            queryJson.put("touser",openid);
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing13").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",df.format(Math.abs(value)));
+                            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number5").put("value",df.format(new_number));
+                        }
 
-                String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
-                System.out.printf("param:"+param1);
-                result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
-                System.out.printf("res:" + result);
+                        String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
+                        System.out.printf("param:"+param1);
+                        result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
+                        System.out.printf("res:" + result);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
