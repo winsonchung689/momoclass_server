@@ -4141,9 +4141,13 @@ public class LoginController {
 			String student_name_new = request.getParameter("student_name_new");
 
 			String campus_new = request.getParameter("campus_new");
-
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
+
+			if("total_modify".equals(modify_type)){
+				loginService.updateLessonRemind(student_name,studio,campus,subject,total_amount_1,openid,modify_type);
+			}
+
 			Float total_amount = 0.0f;
 			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1)){
 				total_amount = Float.valueOf(total_amount_1);
@@ -4152,8 +4156,14 @@ public class LoginController {
 				dao.updateLessonTotal(total_amount,studio,student_name,campus,subject);
 			}
 
+
 			//获年剩余课时
 			String left_amount_get = request.getParameter("left_amount");
+
+			if("left_modify".equals(modify_type)){
+				loginService.updateLessonRemind(student_name,studio,campus,subject,total_amount_1,openid,modify_type);
+			}
+
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get)){
 				left_amount = Float.parseFloat(left_amount_get);

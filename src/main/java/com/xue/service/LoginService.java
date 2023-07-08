@@ -206,6 +206,8 @@ public interface LoginService {
 
     public void sendClassRemind();
 
+    public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
 
+    public String getToken(String app);
 
 }

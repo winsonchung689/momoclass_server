@@ -3246,6 +3246,90 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String updateLessonRemind(String student_name, String studio, String campus, String subject, String modify_amount,String openid,String modify_type) {
+        String result = null;
+        String modify_name = null;
+        Float total_amount = 0.0f;
+        Float left_amount = 0.0f;
+        Float old_number = 0.0f;
+        Float new_number = 0.0f;
+        String token = getToken("MOMO");
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
+        String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"KrFUcqBQqmMP3sJVOJIekn5Q4L2RMXrIwrpZ9EmoT-4\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"phrase3\":{\"value\": \"通知广播\"},\"thing11\":{\"value\": \"time\"},\"number4\":{\"value\": \"1\"},\"number6\":{\"value\": \"1\"},\"number9\":{\"value\": \"1\"}}}}";
+
+        List<User> list = dao.getUser(openid);
+        String nick_name = list.get(0).getNick_name();
+
+        List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+        total_amount = lessons_get.get(0).getTotal_amount();
+        left_amount = lessons_get.get(0).getLeft_amount();
+
+        if (!modify_amount.isEmpty() && !"0".equals(modify_amount)){
+            new_number = Float.valueOf(modify_amount);
+        }else if ("0".equals(modify_amount) && "total_modify".equals(modify_type)){
+            new_number = 0.0f;
+        }
+
+        if("total_modify".equals(modify_type)){
+            modify_name = "总课时";
+            old_number = total_amount;
+        }else if("left_modify".equals(modify_type)){
+            modify_name = "余课时";
+            old_number = left_amount;
+        }
+
+
+
+        JSONObject queryJson = JSONObject.parseObject(tample1);
+        queryJson.put("touser",openid);
+        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value",nick_name + "老师修改:" + modify_name);
+        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",studio+"_"+student_name);
+        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",old_number);
+        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",new_number - old_number);
+        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",new_number);
+
+        String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
+        System.out.printf("param:"+param1);
+        try {
+            result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
+            System.out.printf("res:" + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        return null;
+    }
+
+    @Override
+    public String getToken(String app) {
+        String result = null;
+        String token = null;
+        String param = null;
+        String url = "https://api.weixin.qq.com/cgi-bin/token";
+
+        String MOMO2C_param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&grant_type=client_credential";
+        String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&grant_type=client_credential";
+        String MOMO_param = "appid=wxa3dc1d41d6fa8284&secret=f2c191273540906cbc74e67d0b8fdd2a&grant_type=client_credential";
+        if ("MOMO2B".equals(app)){
+            param = MOMO2B_param;
+        }else if ("MOMO2C".equals(app)){
+            param = MOMO2C_param;
+        }else if ("MOMO".equals(app)){
+            param = MOMO_param;
+        }
+        try {
+            result = HttpUtil.sendPost(url,param);
+            JSONObject jsonObject = JSON.parseObject(result);
+            token = jsonObject.getString("access_token");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return token;
+    }
+
+    @Override
     public List getLessonByName(String student_name, String studio,String campus){
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
