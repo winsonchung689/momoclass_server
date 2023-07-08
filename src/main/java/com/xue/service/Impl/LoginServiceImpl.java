@@ -3257,49 +3257,48 @@ public class LoginServiceImpl implements LoginService {
         String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
         String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"KrFUcqBQqmMP3sJVOJIekn5Q4L2RMXrIwrpZ9EmoT-4\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"phrase3\":{\"value\": \"通知广播\"},\"thing11\":{\"value\": \"time\"},\"number4\":{\"value\": \"1\"},\"number6\":{\"value\": \"1\"},\"number9\":{\"value\": \"1\"}}}}";
 
-        List<User> list = dao.getUser(openid);
-        String nick_name = list.get(0).getNick_name();
-
-        List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-        total_amount = lessons_get.get(0).getTotal_amount();
-        left_amount = lessons_get.get(0).getLeft_amount();
-
-        if (!modify_amount.isEmpty() && !"0".equals(modify_amount)){
-            new_number = Float.valueOf(modify_amount);
-        }else if ("0".equals(modify_amount) && "total_modify".equals(modify_type)){
-            new_number = 0.0f;
-        }
-
-        if("total_modify".equals(modify_type)){
-            modify_name = "总课时";
-            old_number = total_amount;
-        }else if("left_modify".equals(modify_type)){
-            modify_name = "余课时";
-            old_number = left_amount;
-        }
-
-
-
-        JSONObject queryJson = JSONObject.parseObject(tample1);
-        queryJson.put("touser",openid);
-        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value",nick_name + "老师修改:" + modify_name);
-        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",studio+"_"+student_name);
-        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",old_number);
-        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",new_number - old_number);
-        queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",new_number);
-
-        String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
-        System.out.printf("param:"+param1);
         try {
-            result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
-            System.out.printf("res:" + result);
+            List<User> list = dao.getUser(openid);
+            String nick_name = list.get(0).getNick_name();
+
+            List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+            total_amount = lessons_get.get(0).getTotal_amount();
+            left_amount = lessons_get.get(0).getLeft_amount();
+
+            if (!modify_amount.isEmpty() && !"0".equals(modify_amount)){
+                new_number = Float.valueOf(modify_amount);
+            }else if ("0".equals(modify_amount) && "total_modify".equals(modify_type)){
+                new_number = 0.0f;
+            }
+
+            if("total_modify".equals(modify_type)){
+                modify_name = "总课时";
+                old_number = total_amount;
+            }else if("left_modify".equals(modify_type)){
+                modify_name = "余课时";
+                old_number = left_amount;
+            }
+
+            List<User> users =dao.getBossByStudio(studio);
+            if(users.size()>0){
+                openid = users.get(0).getOpenid();
+                JSONObject queryJson = JSONObject.parseObject(tample1);
+                queryJson.put("touser",openid);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value",nick_name + "老师修改:" + modify_name);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",studio+"_"+student_name);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",old_number);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",new_number - old_number);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",new_number);
+
+                String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
+                System.out.printf("param:"+param1);
+                result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
+                System.out.printf("res:" + result);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-        return null;
+        return result;
     }
 
     @Override
