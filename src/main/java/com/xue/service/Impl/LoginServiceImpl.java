@@ -3324,6 +3324,7 @@ public class LoginServiceImpl implements LoginService {
     public List getLessonByNameSubject(String student_name, String studio,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
+        Float minus = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
@@ -3331,12 +3332,16 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
+
                 //获取字段
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
+                minus = line.getMinus();
+
                 //json
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
+                jsonObject.put("minus", minus);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
