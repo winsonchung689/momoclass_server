@@ -4734,10 +4734,12 @@ public class LoginServiceImpl implements LoginService {
 
                 try {
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus);
-                    for(int j = 0; j < list.size(); j++){
-                        LessonPackage lessonPackage = lessonPackages.get(j);
-                        total_money = total_money + lessonPackage.getTotal_money();
-                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < list.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
