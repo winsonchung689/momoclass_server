@@ -3282,6 +3282,8 @@ public class LoginServiceImpl implements LoginService {
     public List getLessonPackage(String student_name, String studio,String campus) {
         Float total_money = 0.0f;
         Float discount_money = 0.0f;
+        Float all_lesson = 0.0f;
+        Float give_lesson = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
@@ -3296,6 +3298,8 @@ public class LoginServiceImpl implements LoginService {
                 String start_date = line.getStart_date();
                 String end_date = line.getEnd_date();
                 String id = line.getId();
+                all_lesson = line.getAll_lesson();
+                give_lesson = line.getGive_lesson();
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -3305,6 +3309,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("start_date", start_date);
                 jsonObject.put("end_date", end_date);
                 jsonObject.put("id", id);
+                jsonObject.put("all_lesson", all_lesson);
+                jsonObject.put("give_lesson", give_lesson);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
