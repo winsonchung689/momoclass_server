@@ -3290,14 +3290,14 @@ public class LoginServiceImpl implements LoginService {
                 openid = users.get(0).getOpenid();
                 JSONObject queryJson = new JSONObject();;
                 if(value>=0){
-                    JSONObject.parseObject(tample1);
+                    queryJson = JSONObject.parseObject(tample1);
                     queryJson.put("touser",openid);
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
                 }else if(value<0){
-                    JSONObject.parseObject(tample2);
+                    queryJson = JSONObject.parseObject(tample2);
                     queryJson.put("touser",openid);
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
                     queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing13").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
