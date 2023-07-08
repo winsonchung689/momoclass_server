@@ -4358,6 +4358,7 @@ public class LoginController {
 				if(users.size()>0){
 					String role = users.get(0).getRole();
 					if("client".equals(role)){
+                        dao.updateOpenidById(openid_old,openid_new);
 					}
 				}else {
 					dao.updateOpenidById(openid_old,openid_new);
