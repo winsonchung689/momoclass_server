@@ -4783,7 +4783,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("campus", campus_get);
                 jsonObject.put("is_combine", combine);
-                jsonObject.put("price", price);
+                jsonObject.put("price",df.format(price));
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("total_money", df.format(total_money));
                 jsonObject.put("discount_money", df.format(discount_money));
