@@ -3297,7 +3297,7 @@ public class LoginServiceImpl implements LoginService {
                 queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value",modify_name);
                 queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "老师_"+ student_name);
                 queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",df.format(old_number));
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(new_number - old_number));
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
                 queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
 
                 String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
