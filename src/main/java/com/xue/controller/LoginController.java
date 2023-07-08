@@ -3000,7 +3000,7 @@ public class LoginController {
 			for(int i=1;i<sheet.getRows();i++){
 				LessonPackage lessonPackage = new LessonPackage();
 				lessonPackage.setCreate_time(create_time);
-				lessonPackage.setCreate_time("首次录入");
+				lessonPackage.setMark("首次录入");
 				lessonPackage.setStudio(studio);
 				lessonPackage.setCampus(campus);
 				lessonPackage.setTotal_money(0.0f);
