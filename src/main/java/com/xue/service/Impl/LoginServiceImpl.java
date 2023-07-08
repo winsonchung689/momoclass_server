@@ -4636,14 +4636,11 @@ public class LoginServiceImpl implements LoginService {
         List<Lesson> list = null;
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
-//        List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
         Integer total_student =0;
         Float total_amount_all = 0.0f ;
         Float left_amount_all = 0.0f ;
-        Float total_money = 0.0f ;
-        Float discount_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
         String campus_get = null;
@@ -4694,13 +4691,17 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                Float total_money = 0.0f ;
+                Float discount_money = 0.0f ;
                 String parent = "未绑定";
                 String avatarurl = "未绑定";
                 String phone_number = "未录入";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
+
                 //获取字段
                 student_name = line.getStudent_name();
+
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
                     if(user.size()>0){
@@ -4725,12 +4726,23 @@ public class LoginServiceImpl implements LoginService {
                 campus_get = line.getCampus();
                 is_combine = line.getIs_combine();
                 price = line.getPrice();
+
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
                 }
-                total_money = line.getTotal_money();
-                discount_money = line.getDiscount_money();
+
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus);
+                    for(int j = 0; j < list.size(); j++){
+                        LessonPackage lessonPackage = lessonPackages.get(j);
+                        total_money = total_money + lessonPackage.getTotal_money();
+                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
                 Float receipts = total_money - discount_money;
                 Float re_price = receipts/total_amount;
                 if(re_price>0){
