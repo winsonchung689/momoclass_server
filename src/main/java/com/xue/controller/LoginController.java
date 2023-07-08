@@ -4161,7 +4161,7 @@ public class LoginController {
 			String left_amount_get = request.getParameter("left_amount");
 
 			if("left_modify".equals(modify_type)){
-				loginService.updateLessonRemind(student_name,studio,campus,subject,total_amount_1,openid,modify_type);
+				loginService.updateLessonRemind(student_name,studio,campus,subject,left_amount_get,openid,modify_type);
 			}
 
 			Float left_amount = 0.0f;
