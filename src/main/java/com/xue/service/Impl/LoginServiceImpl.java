@@ -3256,7 +3256,8 @@ public class LoginServiceImpl implements LoginService {
         Float value = 0.0f;
         String token = getToken("MOMO");
         String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-        String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"KrFUcqBQqmMP3sJVOJIekn5Q4L2RMXrIwrpZ9EmoT-4\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"phrase3\":{\"value\": \"通知广播\"},\"thing11\":{\"value\": \"time\"},\"number4\":{\"value\": \"1\"},\"number6\":{\"value\": \"1\"},\"number9\":{\"value\": \"1\"}}}}";
+        String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"KrFUcqBQqmMP3sJVOJIeku7zQUh0JNXqUpHCbK_CpJI\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"phrase3\":{\"value\": \"通知广播\"},\"thing11\":{\"value\": \"time\"},\"number6\":{\"value\": \"1\"},\"number9\":{\"value\": \"1\"}}}}";
+        String tample2 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"KNSzzGomOzv8xiO0NryfMueMm2rfNfUkG53gAqk8yPY\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"phrase3\":{\"value\": \"通知广播\"},\"thing13\":{\"value\": \"time\"},\"number4\":{\"value\": \"1\"},\"number5\":{\"value\": \"1\"}}}}";
 
         try {
             List<User> list = dao.getUser(openid);
@@ -3281,24 +3282,28 @@ public class LoginServiceImpl implements LoginService {
             }
 
             value = new_number - old_number;
-            if(value>=0){
-                modify_name = "增" + modify_name;
-            }else if(value<0){
-                modify_name = "减" + modify_name;
-            }
 
             DecimalFormat df = new DecimalFormat("0.00");
 
             List<User> users =dao.getBossByStudio(studio);
             if(users.size()>0){
                 openid = users.get(0).getOpenid();
-                JSONObject queryJson = JSONObject.parseObject(tample1);
-                queryJson.put("touser",openid);
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value",modify_name);
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "老师_"+ student_name);
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",df.format(old_number));
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
+                JSONObject queryJson = null;
+                if(value>=0){
+                    JSONObject.parseObject(tample1);
+                    queryJson.put("touser",openid);
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing11").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number6").put("value",df.format(Math.abs(value)));
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number9").put("value",df.format(new_number));
+                }else if(value<0){
+                    JSONObject.parseObject(tample2);
+                    queryJson.put("touser",openid);
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("phrase3").put("value","修改" + modify_name);
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing13").put("value",nick_name + "(操作老师)_" + student_name + "(学生)");
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number4").put("value",df.format(Math.abs(value)));
+                    queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("number5").put("value",df.format(new_number));
+                }
 
                 String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
                 System.out.printf("param:"+param1);
