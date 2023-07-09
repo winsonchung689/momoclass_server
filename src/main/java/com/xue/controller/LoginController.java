@@ -2636,6 +2636,8 @@ public class LoginController {
 		String discount_money =  request.getParameter("discount_money");
 		String start_date =  request.getParameter("start_date");
 		String end_date =  request.getParameter("end_date");
+		String all_lesson =  request.getParameter("all_lesson");
+		String give_lesson =  request.getParameter("give_lesson");
 
 		try {
 			LessonPackage lessonPackage = new LessonPackage();
@@ -2648,6 +2650,8 @@ public class LoginController {
 			lessonPackage.setCampus(campus);
 			lessonPackage.setStudio(studio);
 			lessonPackage.setCreate_time(create_time);
+			lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+			lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 
 			dao.insertLessonPackage(lessonPackage);
 		} catch (Exception e) {
@@ -4096,6 +4100,18 @@ public class LoginController {
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
 
+			String all_lesson = request.getParameter("all_lesson");
+			if(all_lesson == null || all_lesson.isEmpty() || "undefined".equals(all_lesson)){
+				all_lesson = "0";
+			}
+			String give_lesson = request.getParameter("give_lesson");
+			if(give_lesson == null || give_lesson.isEmpty() || "undefined".equals(give_lesson)){
+				give_lesson = "0";
+			}
+			String mark = request.getParameter("mark");
+			String start_date = request.getParameter("start_date");
+			String end_date = request.getParameter("end_date");
+
 			//获取原价
 			String total_money = request.getParameter("total_money");
 			if(total_money == null || total_money.isEmpty() || "undefined".equals(total_money)){
@@ -4172,7 +4188,6 @@ public class LoginController {
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
 			}
 
-
 			if("campus_modify".equals(modify_type)){
 				dao.updateLessonCampus(studio,student_name,campus_new);
 				dao.updateSignUpCampus(studio,student_name,campus_new);
@@ -4189,6 +4204,24 @@ public class LoginController {
 			Float lessons_amount = 0.0f;
 			if (!lessons_amount_1.isEmpty()){
 				lessons_amount = Float.valueOf(lessons_amount_1);
+			}
+
+			//续课记录
+			if(lessons_amount>0 && "add_lessons".equals(modify_type)){
+				LessonPackage lessonPackage = new LessonPackage();
+				lessonPackage.setStudent_name(student_name);
+				lessonPackage.setTotal_money(Float.parseFloat(total_money));
+				lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+				lessonPackage.setMark(mark);
+				lessonPackage.setStart_date(start_date);
+				lessonPackage.setEnd_date(end_date);
+				lessonPackage.setCampus(campus);
+				lessonPackage.setStudio(studio);
+				lessonPackage.setCreate_time(create_time);
+				lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+
+				dao.insertLessonPackage(lessonPackage);
 			}
 
 			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
