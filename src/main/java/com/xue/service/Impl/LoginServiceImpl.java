@@ -3401,6 +3401,8 @@ public class LoginServiceImpl implements LoginService {
                     throw new RuntimeException(e);
                 }
 
+                DecimalFormat df = new DecimalFormat("0.00");
+
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
                 jsonObject.put("campus", campus);
@@ -3409,7 +3411,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
-                jsonObject.put("price", price);
+                jsonObject.put("price", df.format(price));
                 resul_list.add(jsonObject);
             }
 
