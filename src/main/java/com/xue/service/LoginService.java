@@ -192,7 +192,7 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name,String studio,String campus);
 
-    public List  getLessonPackage(String student_name,String studio,String campus);
+    public List  getLessonPackage(String student_name,String studio,String campus,String subject);
 
     public List  getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
@@ -209,5 +209,7 @@ public interface LoginService {
     public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
 
     public String getToken(String app);
+
+    public List getStudentByTeacher(String studio,String openid,String date_start,String date_end);
 
 }

@@ -396,7 +396,7 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio,String campus);
 
-    List<LessonPackage> getLessonPackage(String student_name,String studio,String campus);
+    List<LessonPackage> getLessonPackage(String student_name,String studio,String campus,String subject);
 
     List<Lesson> getLessonByPage(String studio,String campus,Integer page_start,Integer page_length);
 

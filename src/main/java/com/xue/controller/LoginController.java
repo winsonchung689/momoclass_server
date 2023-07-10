@@ -568,12 +568,12 @@ public class LoginController {
 
 	@RequestMapping("/getLessonPackage")
 	@ResponseBody
-	public List getLessonPackage(String student_name,String studio,String openid){
+	public List getLessonPackage(String student_name,String studio,String openid,String subject){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getLessonPackage(student_name,studio,campus);
+			list = loginService.getLessonPackage(student_name,studio,campus,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1059,14 +1059,7 @@ public class LoginController {
 	public List getStudentByTeacher(String studio,String openid,String date_start,String date_end){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String nick_name = list_user.get(0).getNick_name();
-			if(date_end.equals("undefined")){
-				list = dao.getStudentByTeacher(studio,nick_name);
-			}else {
-				list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
-			}
-
+			list = loginService.getStudentByTeacher(studio,openid,date_start,date_end);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2638,6 +2631,7 @@ public class LoginController {
 		String end_date =  request.getParameter("end_date");
 		String all_lesson =  request.getParameter("all_lesson");
 		String give_lesson =  request.getParameter("give_lesson");
+		String subject =  request.getParameter("subject");
 
 		try {
 			LessonPackage lessonPackage = new LessonPackage();
@@ -2649,6 +2643,7 @@ public class LoginController {
 			lessonPackage.setEnd_date(end_date);
 			lessonPackage.setCampus(campus);
 			lessonPackage.setStudio(studio);
+			lessonPackage.setSubject(subject);
 			lessonPackage.setCreate_time(create_time);
 			lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 			lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
@@ -4217,6 +4212,7 @@ public class LoginController {
 				lessonPackage.setEnd_date(end_date);
 				lessonPackage.setCampus(campus);
 				lessonPackage.setStudio(studio);
+				lessonPackage.setSubject(subject);
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));

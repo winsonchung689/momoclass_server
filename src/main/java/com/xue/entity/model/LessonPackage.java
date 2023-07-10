@@ -8,6 +8,8 @@ public class LessonPackage {
 
     private String studio;
 
+    private String subject;
+
     private String create_time;
 
     private String mark;
@@ -26,6 +28,14 @@ public class LessonPackage {
 
     private String  end_date;
 
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     public Float getAll_lesson() {
         return all_lesson;

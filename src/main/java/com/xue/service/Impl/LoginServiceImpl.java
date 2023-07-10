@@ -3349,6 +3349,77 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getStudentByTeacher(String studio, String openid, String date_start, String date_end) {
+        List<SignUp> list = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<User> list_user = dao.getUser(openid);
+            String nick_name = list_user.get(0).getNick_name();
+            String campus = list_user.get(0).getCampus();
+            if(date_end.equals("undefined")){
+                list = dao.getStudentByTeacher(studio,nick_name);
+            }else {
+                list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SignUp line = list.get(i);
+                String subject = line.getSubject();
+                String student_name = line.getStudent_name();
+                String sign_time =line.getSign_time();
+                String create_time = line.getCreate_time();
+                String mark = line.getMark();
+                Float count = line.getCount();
+                Float total_amount = 0.0f;
+                Float total_money = 0.0f;
+                Float discount_money = 0.0f;
+                Float price = 0.0f;
+
+                try {
+                    List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                    Lesson lesson = lessons.get(0);
+                    price = lesson.getPrice();
+                    total_amount = lesson.getTotal_amount();
+
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
+                    }
+
+                    Float receipts = total_money - discount_money;
+                    Float re_price = receipts/total_amount;
+                    if(re_price>0){
+                        price = re_price;
+                    }
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                jsonObject.put("studio", studio);
+                jsonObject.put("subject", subject);
+                jsonObject.put("campus", campus);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("sign_time", sign_time);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("mark", mark);
+                jsonObject.put("count", count);
+                jsonObject.put("price", price);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getLessonByName(String student_name, String studio,String campus){
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
@@ -3383,7 +3454,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonPackage(String student_name, String studio,String campus) {
+    public List getLessonPackage(String student_name, String studio,String campus,String subject) {
         Float total_money = 0.0f;
         Float discount_money = 0.0f;
         Float all_lesson = 0.0f;
@@ -3391,7 +3462,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
 
-            List<LessonPackage> list = dao.getLessonPackage(student_name,studio,campus);
+            List<LessonPackage> list = dao.getLessonPackage(student_name,studio,campus,subject);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);
@@ -4842,7 +4913,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 try {
-                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus);
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
                     if(lessonPackages.size()>0){
                         for(int j = 0; j < lessonPackages.size(); j++){
                             LessonPackage lessonPackage = lessonPackages.get(j);
