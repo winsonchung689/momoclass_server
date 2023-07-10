@@ -3378,9 +3378,12 @@ public class LoginServiceImpl implements LoginService {
 
                 try {
                     List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                    Lesson lesson = lessons.get(0);
-                    price = lesson.getPrice();
-                    total_amount = lesson.getTotal_amount();
+                    if(lessons.size()>0){
+                        Lesson lesson = lessons.get(0);
+                        price = lesson.getPrice();
+                        total_amount = lesson.getTotal_amount();
+                    }
+
 
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
                     if(lessonPackages.size()>0){
