@@ -1187,7 +1187,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(sign_counts_get!=null){
-                sign_counts=sign_counts_get;
+                sign_counts = sign_counts_get;
             }
             jsonObject_1.put("sign_counts", sign_counts);
             resul_list.add(jsonObject_1);
@@ -1198,11 +1198,16 @@ public class LoginServiceImpl implements LoginService {
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
             List<Schedule> list=null;
-            if(subject.equals("全科目")){
-                list = dao.getScheduleAllDistinct(weekDay, studio,campus);
-            }else {
-                list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
+            try {
+                if(subject.equals("全科目")){
+                    list = dao.getScheduleAllDistinct(weekDay, studio,campus);
+                }else {
+                    list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
+                }
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
             }
+
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
