@@ -190,7 +190,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("isHide",false);
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
                 //json
@@ -1174,25 +1174,24 @@ public class LoginServiceImpl implements LoginService {
         Integer remind=0;
         String campus = null;
         JSONObject jsonObject_1 = new JSONObject();
-
-        List<User> list_user = dao.getUser(openid);
-        if(list_user.size()>0){
-            campus = list_user.get(0).getCampus();
-        }
-
-        if(subject.equals("全科目")){
-            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
-        }else {
-            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
-        }
-
-        if(sign_counts_get!=null){
-            sign_counts=sign_counts_get;
-        }
-        jsonObject_1.put("sign_counts", sign_counts);
-        resul_list.add(jsonObject_1);
-
         try {
+            List<User> list_user = dao.getUser(openid);
+            if(list_user.size()>0){
+                campus = list_user.get(0).getCampus();
+            }
+
+            if(subject.equals("全科目")){
+                sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
+            }else {
+                sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
+            }
+
+            if(sign_counts_get!=null){
+                sign_counts=sign_counts_get;
+            }
+            jsonObject_1.put("sign_counts", sign_counts);
+            resul_list.add(jsonObject_1);
+
             d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
