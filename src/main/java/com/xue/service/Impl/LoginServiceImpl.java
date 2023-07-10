@@ -1172,15 +1172,20 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_counts=0;
         Integer sign_counts_get=0;
         Integer remind=0;
+        String campus = null;
+        JSONObject jsonObject_1 = new JSONObject();
+
         List<User> list_user = dao.getUser(openid);
-        String campus = list_user.get(0).getCampus();
+        if(list_user.size()>0){
+            campus = list_user.get(0).getCampus();
+        }
 
         if(subject.equals("全科目")){
             sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
         }else {
             sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
         }
-        JSONObject jsonObject_1 = new JSONObject();
+
         if(sign_counts_get!=null){
             sign_counts=sign_counts_get;
         }
