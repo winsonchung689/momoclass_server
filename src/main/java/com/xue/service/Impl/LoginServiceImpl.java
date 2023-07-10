@@ -1204,48 +1204,49 @@ public class LoginServiceImpl implements LoginService {
             }else {
                 list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
             }
+            if(list.size()>0){
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    Schedule line = list.get(i);
+                    //获取字段
+                    studio = line.getStudio();
+                    duration = line.getDuration();
+                    class_number = line.getClass_number();
+                    subject = line.getSubject();
+                    remind = line.getRemind();
+                    String lesson_string = null;
+                    List<String> list_2 = null;
+                    Integer contains = 0;
 
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Schedule line = list.get(i);
-                //获取字段
-                studio = line.getStudio();
-                duration = line.getDuration();
-                class_number = line.getClass_number();
-                subject = line.getSubject();
-                remind = line.getRemind();
-                String lesson_string = null;
-                List<String> list_2 = null;
-                Integer contains = 0;
-
-                try {
-                    if(openid != null){
-                        User user_get= dao.getUser(openid).get(0);
-                        String lessons_string = user_get.getLessons();
-                        String[] list_1 =lessons_string.split("\\|");
-                        if(weekDay == 1){
-                            weekofday = 7 ;
-                        }else {
-                            weekofday = weekDay - 1;
+                    try {
+                        if(openid != null){
+                            User user_get= dao.getUser(openid).get(0);
+                            String lessons_string = user_get.getLessons();
+                            String[] list_1 =lessons_string.split("\\|");
+                            if(weekDay == 1){
+                                weekofday = 7 ;
+                            }else {
+                                weekofday = weekDay - 1;
+                            }
+                            lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
+                            list_2 = Arrays.asList(list_1);
+                            if(list_2.contains(lesson_string)){
+                                contains = 1;
+                            }
                         }
-                        lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
-                        list_2 = Arrays.asList(list_1);
-                        if(list_2.contains(lesson_string)){
-                            contains = 1;
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if(contains == 1 || "1".equals(test)){
-                    jsonObject.put("studio", studio);
-                    jsonObject.put("duration", duration);
-                    jsonObject.put("class_number", class_number);
-                    jsonObject.put("subject", subject);
-                    jsonObject.put("remind",remind);
-                    resul_list.add(jsonObject);
-                }
+                    if(contains == 1 || "1".equals(test)){
+                        jsonObject.put("studio", studio);
+                        jsonObject.put("duration", duration);
+                        jsonObject.put("class_number", class_number);
+                        jsonObject.put("subject", subject);
+                        jsonObject.put("remind",remind);
+                        resul_list.add(jsonObject);
+                    }
 
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
