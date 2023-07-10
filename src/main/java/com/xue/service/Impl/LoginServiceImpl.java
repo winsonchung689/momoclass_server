@@ -2519,7 +2519,7 @@ public class LoginServiceImpl implements LoginService {
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return resul_list;
     }
