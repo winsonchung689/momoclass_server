@@ -162,9 +162,10 @@ public class LoginController {
 		System.out.printf("param:"+param);
 
 		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",studentname);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",classname);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",studio);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studentname);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",classname);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value",studio);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing4").put("value",mytime);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
