@@ -4096,6 +4096,10 @@ public class LoginController {
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
 
+			if("subject_modify".equals(modify_type)) {
+				dao.updateLessonSubject(subject_new,student_name,studio,subject,campus);
+			}
+
 			String all_lesson = request.getParameter("all_lesson");
 			if(all_lesson == null || all_lesson.isEmpty() || "undefined".equals(all_lesson)){
 				all_lesson = "0";

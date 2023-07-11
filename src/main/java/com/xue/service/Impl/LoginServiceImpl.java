@@ -124,8 +124,6 @@ public class LoginServiceImpl implements LoginService {
                 }else if (is_combine == 1){
                     result = dao.updateLessonBoth(lesson);
                 }
-            }else {
-                result =  dao.updateLessonSubject(subject_new,student_name,studio,subject,campus);
             }
         } catch (Exception e) {
             e.printStackTrace();
