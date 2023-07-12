@@ -452,18 +452,14 @@ public class LoginController {
 		String param = null;
 		String appid = Constants.appid;
 		String secret = Constants.secret;
+		String appid_2b = Constants.appid_2b;
+		String secret_2b = Constants.secret_2b;
 		String url = "https://api.weixin.qq.com/sns/jscode2session";
 
-		String MOMO2C_param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&js_code="+ code +"&grant_type=authorization_code";
-		String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&js_code="+ code +"&grant_type=authorization_code";
-		String MOMO_param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
-
 		if ("MOMO2B".equals(app)){
-			param = MOMO2B_param;
-		}else if ("MOMO2C".equals(app)){
-			param = MOMO2C_param;
+			param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";;
 		}else if("MOMO".equals(app)){
-			param = MOMO_param;
+			param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
 		}
 		try {
 			result = HttpUtil.sendPost(url	,param);
@@ -484,17 +480,14 @@ public class LoginController {
 		String param = null;
 		String appid = Constants.appid;
 		String secret = Constants.secret;
+		String appid_2b = Constants.appid_2b;
+		String secret_2b = Constants.secret_2b;
 		String url = "https://api.weixin.qq.com/cgi-bin/token";
 
-		String MOMO2C_param="appid=wx3f5dc09cc495429b&secret=ac693c65ae57020643224561ac102dce&grant_type=client_credential";
-		String MOMO2B_param = "appid=wxc61d8f694d20f083&secret=ed083522ff79ac7dad24e115aecfbc08&grant_type=client_credential";
-		String MOMO_param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";
 		if ("MOMO2B".equals(app)){
-			param = MOMO2B_param;
-		}else if ("MOMO2C".equals(app)){
-			param = MOMO2C_param;
+			param = "appid=" + appid_2b + "&secret=" + secret_2b + "&grant_type=client_credential";
 		}else if ("MOMO".equals(app)){
-			param = MOMO_param;
+			param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";;
 		}
 		try {
 			result = HttpUtil.sendPost(url,param);
