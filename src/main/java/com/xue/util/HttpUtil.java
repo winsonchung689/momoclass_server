@@ -50,7 +50,7 @@ public class HttpUtil {
             }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流
         finally{
@@ -63,7 +63,7 @@ public class HttpUtil {
                 }
             }
             catch(IOException ex){
-                ex.printStackTrace();
+//                ex.printStackTrace();
             }
         }
         return result;
@@ -83,7 +83,7 @@ public class HttpUtil {
                 httppost.setEntity(stringentity);
                 httpresponse = httpclient.execute(httppost);
                 response = EntityUtils.toString(httpresponse.getEntity());
-                System.out.printf("response: " + response);
+//                System.out.printf("response: " + response);
             } finally {
                 if (httpclient != null) {
                     httpclient.close();
@@ -93,7 +93,7 @@ public class HttpUtil {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return response;
     }
