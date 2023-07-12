@@ -281,7 +281,7 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content_head);
 		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
-		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
+		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime.replace("-",""));
 		queryJson.put("page","/pages/event/event?share_studio=" + studio);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
