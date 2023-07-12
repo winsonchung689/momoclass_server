@@ -165,7 +165,7 @@ public class LoginController {
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studentname);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",classname);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value",studio);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing4").put("value",mytime);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing4").put("value",mytime.replace("-",""));
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
@@ -281,7 +281,7 @@ public class LoginController {
 		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
 		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content_head);
 		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
-		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime.replace("-",""));
+		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
 		queryJson.put("page","/pages/event/event?share_studio=" + studio);
 
 		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
