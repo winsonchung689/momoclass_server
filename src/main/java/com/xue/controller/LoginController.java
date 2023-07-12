@@ -212,7 +212,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject){
+	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject,String class_number){
 		String result = null;
 		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
 		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
@@ -246,7 +246,7 @@ public class LoginController {
 
 		queryJson1.put("touser",openid);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",date_time);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",subject +"_"+ student_name);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
