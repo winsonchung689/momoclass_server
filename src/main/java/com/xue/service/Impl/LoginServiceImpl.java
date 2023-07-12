@@ -4497,7 +4497,7 @@ public class LoginServiceImpl implements LoginService {
 
             if(total_money > 0){
                 total_price_all = total_money;
-                left_price_all = total_money - discount_money;
+                left_price_all = left_amount_all/total_amount_all * total_price_all;
             }
 
             jsonObject.put("total_student", total_student);
