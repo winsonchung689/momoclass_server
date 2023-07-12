@@ -970,6 +970,14 @@
     select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getLessonPackageByStudent" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getLessonPackageByStudentSubject" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getLessonPackageByCampus" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
     select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc
   </select>

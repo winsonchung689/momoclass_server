@@ -4437,7 +4437,7 @@ public class LoginServiceImpl implements LoginService {
         Float total_price_all = 0.0f ;
         Float left_price_all = 0.0f ;
         Float total_money = 0.0f ;
-        Float discount_money = 0.0f ;
+        Float left_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
 
@@ -4452,14 +4452,29 @@ public class LoginServiceImpl implements LoginService {
                 need_pay = dao.getLessonNeedPayCount(studio,campus);
                 owe = dao.getLessonOweCount(studio,campus);
 
-                List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
-                if(lessonPackages.size()>0){
-                    for(int j = 0; j < lessonPackages.size(); j++){
-                        LessonPackage lessonPackage = lessonPackages.get(j);
-                        total_money = total_money + lessonPackage.getTotal_money();
-                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                List<Lesson> lessons = dao.getLesson(studio,campus);
+                for(int i = 0;i < lessons.size();i++){
+                    Lesson lesson = lessons.get(i);
+                    String student_name_all = lesson.getStudent_name();
+                    Float total_amount = lesson.getTotal_amount();
+                    Float left_amount = lesson.getLeft_amount();
+                    Float total = 0.0f;
+                    Float disc = 0.0f;
+                    List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudent(student_name_all,studio,campus);
+                    if(lessonPackages1.size()>0){
+                        for(int j = 0; j < lessonPackages1.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages1.get(j);
+                            total = total + lessonPackage.getTotal_money();
+                            disc = disc + lessonPackage.getDiscount_money();
+                        }
                     }
+
+                    Float price = (total-disc)/total_amount;
+                    Float left_single = price * left_amount;
+                    total_money = total_money + (total-disc);
+                    left_money = left_money + left_single;
                 }
+
             }else{
                 AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
                 if(allCount.getStudent_count()>0){
@@ -4471,13 +4486,27 @@ public class LoginServiceImpl implements LoginService {
                     need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
                     owe = dao.getLessonOweCountBySubject(studio,subject,campus);
 
-                    List<LessonPackage> lessonPackages = dao.getLessonPackageBySubject(studio,campus,subject);
-                    if(lessonPackages.size()>0){
-                        for(int j = 0; j < lessonPackages.size(); j++){
-                            LessonPackage lessonPackage = lessonPackages.get(j);
-                            total_money = total_money + lessonPackage.getTotal_money();
-                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                    List<Lesson> lessons = dao.getLessonBySubject(studio,subject,campus);
+                    for(int i = 0;i < lessons.size();i++){
+                        Lesson lesson = lessons.get(i);
+                        String student_name_all = lesson.getStudent_name();
+                        Float total_amount = lesson.getTotal_amount();
+                        Float left_amount = lesson.getLeft_amount();
+                        Float total = 0.0f;
+                        Float disc = 0.0f;
+                        List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject);
+                        if(lessonPackages1.size()>0){
+                            for(int j = 0; j < lessonPackages1.size(); j++){
+                                LessonPackage lessonPackage = lessonPackages1.get(j);
+                                total = total + lessonPackage.getTotal_money();
+                                disc = disc + lessonPackage.getDiscount_money();
+                            }
                         }
+
+                        Float price = (total-disc)/total_amount;
+                        Float left_single = price * left_amount;
+                        total_money = total_money + (total-disc);
+                        left_money = left_money + left_single;
                     }
                 }
             }
@@ -4496,7 +4525,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(total_money > 0){
-                total_price_all = total_money-discount_money;
+                total_price_all = total_money;
                 left_price_all = left_amount_all/total_amount_all * total_price_all;
             }
             DecimalFormat df = new DecimalFormat("0.00");
