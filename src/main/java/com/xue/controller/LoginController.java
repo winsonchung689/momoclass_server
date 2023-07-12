@@ -447,27 +447,7 @@ public class LoginController {
 	@RequestMapping("/getOpenid")
 	@ResponseBody
 	public String getOpenid(String code,String app){
-		String result = null;
-		String openid = null;
-		String param = null;
-		String appid = Constants.appid;
-		String secret = Constants.secret;
-		String appid_2b = Constants.appid_2b;
-		String secret_2b = Constants.secret_2b;
-		String url = "https://api.weixin.qq.com/sns/jscode2session";
-
-		if ("MOMO2B".equals(app)){
-			param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";;
-		}else if("MOMO".equals(app)){
-			param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
-		}
-		try {
-			result = HttpUtil.sendPost(url	,param);
-			JSONObject jsonObject = JSON.parseObject(result);
-			openid = jsonObject.getString("openid");
-		} catch (Exception e) {
-//			e.printStackTrace();
-		}
+		String openid = loginService.getOpenid(code,app);
 		return openid;
 	}
 
@@ -475,27 +455,7 @@ public class LoginController {
 	@RequestMapping("/getToken")
 	@ResponseBody
 	public String getToken(String app){
-		String result = null;
-		String token = null;
-		String param = null;
-		String appid = Constants.appid;
-		String secret = Constants.secret;
-		String appid_2b = Constants.appid_2b;
-		String secret_2b = Constants.secret_2b;
-		String url = "https://api.weixin.qq.com/cgi-bin/token";
-
-		if ("MOMO2B".equals(app)){
-			param = "appid=" + appid_2b + "&secret=" + secret_2b + "&grant_type=client_credential";
-		}else if ("MOMO".equals(app)){
-			param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";;
-		}
-		try {
-			result = HttpUtil.sendPost(url,param);
-			JSONObject jsonObject = JSON.parseObject(result);
-			token = jsonObject.getString("access_token");
-		} catch (Exception e) {
-//			e.printStackTrace();
-		}
+		String token = loginService.getToken(app);
 		return token;
 	}
 

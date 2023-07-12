@@ -212,4 +212,6 @@ public interface LoginService {
 
     public List getStudentByTeacher(String studio,String openid,String date_start,String date_end);
 
+    public String getOpenid(String code,String app);
+
 }
