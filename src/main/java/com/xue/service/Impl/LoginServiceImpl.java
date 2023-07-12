@@ -4526,7 +4526,7 @@ public class LoginServiceImpl implements LoginService {
 
             if(total_money > 0){
                 total_price_all = total_money;
-                left_price_all = left_amount_all/total_amount_all * total_price_all;
+                left_price_all = left_money;
             }
             DecimalFormat df = new DecimalFormat("0.00");
 
