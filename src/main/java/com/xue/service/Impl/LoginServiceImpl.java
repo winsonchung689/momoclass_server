@@ -4445,6 +4445,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
+        DecimalFormat df = new DecimalFormat("0.00");
 
         try {
             if(subject.equals("全科目")){
@@ -4534,13 +4535,13 @@ public class LoginServiceImpl implements LoginService {
                 left_price_all = left_money;
             }
 
-            DecimalFormat df = new DecimalFormat("0.00");
+
 
             jsonObject.put("total_student", total_student);
-            jsonObject.put("total_amount_all", df.format(total_amount_all));
-            jsonObject.put("left_amount_all", df.format(left_amount_all));
-            jsonObject.put("total_price_all", df.format(total_price_all));
-            jsonObject.put("left_price_all", df.format(left_price_all));
+            jsonObject.put("total_amount_all", total_amount_all);
+            jsonObject.put("left_amount_all", left_amount_all);
+            jsonObject.put("total_price_all", total_price_all);
+            jsonObject.put("left_price_all", left_price_all);
             jsonObject.put("need_pay", need_pay);
             jsonObject.put("owe", owe);
             jsonObject.put("subject_list", subject_list);
