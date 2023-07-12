@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.xue.config.Constants;
+import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
@@ -3347,9 +3348,13 @@ public class LoginServiceImpl implements LoginService {
             param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";;
         }
         try {
-            result = HttpUtil.sendPost(url,param);
-            JSONObject jsonObject = JSON.parseObject(result);
-            token = jsonObject.getString("access_token");
+            token = TokenCache.get(app);
+            if(token == null){
+                result = HttpUtil.sendPost(url,param);
+                JSONObject jsonObject = JSON.parseObject(result);
+                token = jsonObject.getString("access_token");
+                TokenCache.put(app,token);
+            }
         } catch (Exception e) {
 //			e.printStackTrace();
         }

@@ -4,46 +4,39 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 public class TokenCache {
-    private static final long EXPIRATION_TIME = 60*60*1000; // 过期时间为60秒
+    private static final long EXPIRATION_TIME = 60 * 60 * 1000; // 过期时间为1分钟
     private static final Map<String, CacheEntry> cache = new WeakHashMap<>();
-
-    public static String getString(String key) {
-        CacheEntry entry = cache.get(key);
-        if (entry != null && !isExpired(entry)) {
-            return entry.getValue();
-        } else {
-            String value = retrieveValueFromSource(key); // 从数据源获取值
-            cache.put(key, new CacheEntry(value));
-            return value;
-        }
-    }
-
-    private static boolean isExpired(CacheEntry entry) {
-        long currentTime = System.currentTimeMillis();
-        return currentTime - entry.getTimestamp() > EXPIRATION_TIME;
-    }
-
-    private static String retrieveValueFromSource(String key) {
-        // 从数据源获取值的逻辑
-        // 这里只是一个示例，你可以根据实际情况来实现
-        return "Value for " + key;
-    }
 
     private static class CacheEntry {
         private final String value;
-        private final long timestamp;
+        private final long expirationTime;
 
-        public CacheEntry(String value) {
+        public CacheEntry(String value, long expirationTime) {
             this.value = value;
-            this.timestamp = System.currentTimeMillis();
+            this.expirationTime = expirationTime;
         }
 
         public String getValue() {
             return value;
         }
 
-        public long getTimestamp() {
-            return timestamp;
+        public boolean isExpired() {
+            return System.currentTimeMillis() > expirationTime;
         }
+    }
+
+    public static synchronized String get(String key) {
+        CacheEntry entry = cache.get(key);
+        if (entry != null && !entry.isExpired()) {
+            return entry.getValue();
+        } else {
+            return null;
+        }
+    }
+
+    public static synchronized void put(String key, String value) {
+        long expirationTime = System.currentTimeMillis() + EXPIRATION_TIME;
+        CacheEntry entry = new CacheEntry(value, expirationTime);
+        cache.put(key, entry);
     }
 }
