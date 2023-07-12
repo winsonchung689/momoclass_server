@@ -140,7 +140,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPostRemind")
 	@ResponseBody
-	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime){
+	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime,String class_number,String duration){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
@@ -165,8 +165,8 @@ public class LoginController {
 		System.out.printf("param:"+param);
 
 		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",studentname);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",classname);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",class_number);
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",studentname + "_" + classname);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",create_time);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword4").put("value",create_time);
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
