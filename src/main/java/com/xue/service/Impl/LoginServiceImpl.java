@@ -4436,6 +4436,8 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount_all = 0.0f ;
         Float total_price_all = 0.0f ;
         Float left_price_all = 0.0f ;
+        Float total_money = 0.0f ;
+        Float discount_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
 
@@ -4449,6 +4451,15 @@ public class LoginServiceImpl implements LoginService {
                 left_price_all = allCount.getLeft_price();
                 need_pay = dao.getLessonNeedPayCount(studio,campus);
                 owe = dao.getLessonOweCount(studio,campus);
+
+                List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
+                if(lessonPackages.size()>0){
+                    for(int j = 0; j < lessonPackages.size(); j++){
+                        LessonPackage lessonPackage = lessonPackages.get(j);
+                        total_money = total_money + lessonPackage.getTotal_money();
+                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                    }
+                }
             }else{
                 AllCount allCount =dao.getLessonAllCountBySubject(studio,subject,campus);
                 if(allCount.getStudent_count()>0){
@@ -4459,6 +4470,15 @@ public class LoginServiceImpl implements LoginService {
                     left_price_all = allCount.getLeft_price();
                     need_pay = dao.getLessonNeedPayCountBySubject(studio,subject,campus);
                     owe = dao.getLessonOweCountBySubject(studio,subject,campus);
+
+                    List<LessonPackage> lessonPackages = dao.getLessonPackageBySubject(studio,campus,subject);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
+                    }
                 }
             }
 
@@ -4473,6 +4493,11 @@ public class LoginServiceImpl implements LoginService {
                 }
             } catch (Exception e) {
 //                throw new RuntimeException(e);
+            }
+
+            if(total_money > 0){
+                total_price_all = total_money;
+                left_price_all = total_money - discount_money;
             }
 
             jsonObject.put("total_student", total_student);

@@ -398,6 +398,10 @@ public interface UserMapper {
 
     List<LessonPackage> getLessonPackage(String student_name,String studio,String campus,String subject);
 
+    List<LessonPackage> getLessonPackageByCampus(String studio,String campus);
+
+    List<LessonPackage> getLessonPackageBySubject(String studio,String campus,String subject);
+
     List<Lesson> getLessonByPage(String studio,String campus,Integer page_start,Integer page_length);
 
     List<Lesson> getClassNote(String subject,String studio,String student_name);
