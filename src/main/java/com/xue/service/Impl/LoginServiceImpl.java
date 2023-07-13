@@ -4789,7 +4789,22 @@ public class LoginServiceImpl implements LoginService {
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
+                                    Float total_amount = lessons.get(0).getTotal_amount();
+                                    List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                                    Float total_money = 0.0f;
+                                    Float dis_money = 0.0f;
+                                    if(lessonPackages.size()>0){
+                                        for (int j = 0; j < signUps.size(); j++) {
+                                            Float t_money = lessonPackages.get(j).getTotal_money();
+                                            Float d_money = lessonPackages.get(j).getDiscount_money();
+                                            total_money = total_money + t_money;
+                                            dis_money = dis_money + d_money;
+                                        }
+                                    }
                                     Float price = lessons.get(0).getPrice();
+                                    if(total_money>0){
+                                        price = (total_money - dis_money)/total_amount;
+                                    }
                                     weekPrice = weekPrice + price*count;
                                 }
                             } catch (Exception e) {
@@ -4819,12 +4834,14 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                throw new RuntimeException(e);
                 }
+                DecimalFormat df = new DecimalFormat("0.00");
+
                 jsonObject.put("signCount", signCount);
                 jsonObject.put("tryCount", tryCount);
                 jsonObject.put("leaveCount", leaveCount);
                 jsonObject.put("absentCount", absentCount);
                 jsonObject.put("lessonCount", lessonCount);
-                jsonObject.put("weekPrice", weekPrice);
+                jsonObject.put("weekPrice", df.format(weekPrice));
                 resul_list.add(jsonObject);
             }
         } catch (ParseException e) {
