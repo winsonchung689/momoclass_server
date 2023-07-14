@@ -2173,6 +2173,7 @@ public class LoginController {
 					int result1 = dao.insertSignUp(signUp);
 					if(result1>0){
 						loginService.updateMinusLesson(student_name,studio,1.0f,subject,campus);
+						dao.updateLeaveAllRecord(student_name,studio,campus);
 					}
 				}
 
