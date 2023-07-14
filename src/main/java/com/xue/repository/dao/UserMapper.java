@@ -240,6 +240,8 @@ public interface UserMapper {
 
     void deleteSignUpAllRecord(String student_name,String studio);
 
+    void updateLeaveAllRecord(String student_name,String studio,String campus);
+
     void deleteLeaveAllRecord(String student_name,String studio,String leave_type,String subject);
 
     void deleteGiftRecord(Integer id,String studio);

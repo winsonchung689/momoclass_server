@@ -402,6 +402,10 @@
     update sign_up_record set ending_status = 1 where student_name =#{param1} and studio =#{param2}
   </select>
 
+  <select id="updateLeaveAllRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
+    update leave_record set ending_status = 1 where student_name =#{param1} and studio =#{param2} and campus =#{param3}
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteGiftRecord" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
     delete from gift_record where id =#{param1} and studio =#{param2}
