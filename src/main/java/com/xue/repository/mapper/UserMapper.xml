@@ -1329,7 +1329,7 @@
 
   <!-- 获取学生名课时 -->
   <select id="getLessonByNameSubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,is_combine,price,,final_time,leave_times from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
+    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,is_combine,price,final_time,leave_times from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
   </select>
 
   <!-- 更新积分 -->
