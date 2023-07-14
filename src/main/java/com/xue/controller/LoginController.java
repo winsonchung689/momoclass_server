@@ -2157,7 +2157,7 @@ public class LoginController {
 					}
 				}
 
-				if(leave_counts == leave_times && leave_times != 0.0f){
+				if(leave_counts.equals(leave_times) && leave_times != 0.0f){
 					SignUp signUp = new SignUp();
 					signUp.setStudent_name(student_name);
 					signUp.setStudio(studio);
