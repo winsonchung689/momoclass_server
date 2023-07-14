@@ -1342,6 +1342,9 @@ public class LoginServiceImpl implements LoginService {
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
                     total = lesson.getTotal_amount();
+                    String final_time = lesson.getFinal_time();
+                    Float leave_times = lesson.getLeave_times();
+
                     jsonObject.put("left", left);
                     jsonObject.put("total", total);
                     jsonObject.put("add_date", add_date);
@@ -1354,6 +1357,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leave_color", "rgb(157, 162, 165)");
                     jsonObject.put("sign_color", "rgb(157, 162, 165)");
                     jsonObject.put("remind",remind);
+                    jsonObject.put("final_time",final_time);
+                    jsonObject.put("leave_times",leave_times);
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
@@ -1407,6 +1412,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("sign_up", "试听生");
                     jsonObject.put("mark", "试听生");
                     jsonObject.put("leave", "试听生");
+                    jsonObject.put("final_time","无");
+                    jsonObject.put("leave_times","无");
                 }
                 resul_list.add(jsonObject);
             }

@@ -32,6 +32,27 @@ public class Lesson {
 
     private Integer is_combine;
 
+    private String final_time;
+
+    private Float leave_times;
+
+
+    public Float getLeave_times() {
+        return leave_times;
+    }
+
+    public void setLeave_times(Float leave_times) {
+        this.leave_times = leave_times;
+    }
+
+    public String getFinal_time() {
+        return final_time;
+    }
+
+    public void setFinal_time(String final_time) {
+        this.final_time = final_time;
+    }
+
     public Float getPrice() {
         return price;
     }
