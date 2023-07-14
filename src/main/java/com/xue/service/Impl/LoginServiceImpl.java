@@ -377,9 +377,9 @@ public class LoginServiceImpl implements LoginService {
                 count = line.getCount();
                 ending_status = line.getEnding_status();
                 if (ending_status == 0) {
-                    jsonObject.put("ending_status", "未结课");
+                    jsonObject.put("ending_status", "未结");
                 } else if(ending_status == 1){
-                    jsonObject.put("ending_status", "已结课");
+                    jsonObject.put("ending_status", "已结");
                 }
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -387,11 +387,11 @@ public class LoginServiceImpl implements LoginService {
                 Date sign_time_dt = df1.parse(sign_time.substring(0,10));
                 int compare = sign_time_dt.compareTo(create_time_dt);
                 if (compare == 0) {
-                    jsonObject.put("status", "正常签到");
+                    jsonObject.put("status", "正常签");
                 } else if(compare > 0){
-                    jsonObject.put("status", "补签到");
+                    jsonObject.put("status", "补签");
                 } else if(compare < 0){
-                    jsonObject.put("status", "提前签到");
+                    jsonObject.put("status", "提前签");
                 }
 
                 //json
