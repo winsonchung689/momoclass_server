@@ -1343,11 +1343,11 @@
   </update>
 
   <update id="updateFinalTime" parameterType="com.xue.entity.model.Lesson">
-    update user set final_time=#{param3} where studio=#{param1} and campus =#{param2}
+    update lesson set final_time=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
 
   <update id="updateLeaveTimes" parameterType="com.xue.entity.model.Lesson">
-    update user set leave_times=#{param3} where studio=#{param1} and campus =#{param2}
+    update lesson set leave_times=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
 
   <!-- 更新学生名字 -->
