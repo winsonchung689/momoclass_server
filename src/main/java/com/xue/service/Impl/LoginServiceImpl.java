@@ -841,45 +841,6 @@ public class LoginServiceImpl implements LoginService {
         FileInputStream in = null;
         try {
             result = dao.insertSignUp(signUp);
-            String student_name = signUp.getStudent_name();
-            String studio = signUp.getStudio();
-            String subject = signUp.getSubject();
-            String campus = signUp.getCampus();
-            String teacher = signUp.getTeacher();
-            String update_time = signUp.getCreate_time();
-            if(result>0){
-                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                Float leave_times = lessons.get(0).getLeave_times();
-                List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject);
-                Float leave_counts = 0.0f;
-                if(leaves.size()>0){
-                    for(int i =0; i<leaves.size();i++){
-                        leave_counts = leave_counts + 1.0f;
-                    }
-                }
-
-                if(leave_counts == leave_times && leave_times != 0.0f){
-                    SignUp signUp1 = new SignUp();
-                    signUp1.setStudent_name(student_name);
-                    signUp1.setStudio(studio);
-                    signUp1.setSign_time(update_time);
-                    signUp1.setMark("请假"+leave_times+"次数扣1课时");
-                    signUp1.setCount(1.0f);
-                    signUp1.setSubject(subject);
-                    signUp1.setTeacher(teacher);
-                    signUp1.setCreate_time(update_time);
-                    signUp1.setDuration("00:00:00");
-                    signUp1.setClass_number("无班号");
-                    signUp1.setCampus(campus);
-                    int result1 = dao.insertSignUp(signUp1);
-                    if(result1>0){
-                        updateMinusLesson(student_name,studio,1.0f,subject,campus);
-                    }
-                }
-
-
-
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

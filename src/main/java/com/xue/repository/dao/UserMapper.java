@@ -508,7 +508,7 @@ public interface UserMapper {
 
     List<SignUp> getSignUp(String student_name,String studio,String subject);
 
-    List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject);
+    List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 

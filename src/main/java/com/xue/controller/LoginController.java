@@ -2127,6 +2127,7 @@ public class LoginController {
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
+			String teacher = list_user.get(0).getNick_name();
 			Leave leave =new Leave();
 			leave.setStudent_name(student_name);
 			leave.setStudio(studio);
@@ -2144,7 +2145,41 @@ public class LoginController {
 				leave_type = "请假";
 			}
 			leave.setLeave_type(leave_type);
-			dao.insertLeave(leave);
+			int result = dao.insertLeave(leave);
+			if(result>0){
+				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+				Float leave_times = lessons.get(0).getLeave_times();
+				List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject,campus);
+				Float leave_counts = 0.0f;
+				if(leaves.size()>0){
+					for(int i =0; i<leaves.size();i++){
+						leave_counts = leave_counts + 1.0f;
+					}
+				}
+
+				if(leave_counts == leave_times && leave_times != 0.0f){
+					SignUp signUp = new SignUp();
+					signUp.setStudent_name(student_name);
+					signUp.setStudio(studio);
+					signUp.setSign_time(create_time);
+					signUp.setMark("请假"+leave_times+"次数扣1课时");
+					signUp.setCount(1.0f);
+					signUp.setSubject(subject);
+					signUp.setTeacher(teacher);
+					signUp.setCreate_time(create_time);
+					signUp.setDuration("00:00:00");
+					signUp.setClass_number("无班号");
+					signUp.setCampus(campus);
+					int result1 = dao.insertSignUp(signUp);
+					if(result1>0){
+						loginService.updateMinusLesson(student_name,studio,1.0f,subject,campus);
+					}
+				}
+
+
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
