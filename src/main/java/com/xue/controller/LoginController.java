@@ -2220,6 +2220,36 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateFinal")
+	@ResponseBody
+	public int updateFinal(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String studio = request.getParameter("studio");
+
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
+		String final_time = request.getParameter("final_time");
+
+		String type = request.getParameter("type");
+
+		try {
+			if("final_time".equals(type)){
+				dao.updateFinalTime(studio,campus,final_time);
+			}else {
+//				dao.updateNewName(openid,new_name);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateLocation")
 	@ResponseBody
 	public int updateLocation(HttpServletRequest request, HttpServletResponse response){

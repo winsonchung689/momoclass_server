@@ -539,6 +539,8 @@ public interface UserMapper {
 
     int updateCoinsAll(Float coins,String studio,String campus);
 
+    int updateFinalTime(String studio,String campus,String final_time);
+
     int updateCoinsByStudent(Float coins,String studio,String campus,String student_name,String subject);
 
     int updatePriceAll(Float coins,String studio,String campus);

@@ -5037,6 +5037,8 @@ public class LoginServiceImpl implements LoginService {
                 campus_get = line.getCampus();
                 is_combine = line.getIs_combine();
                 price = line.getPrice();
+                String final_time = line.getFinal_time();
+                Float leave_times = line.getLeave_times();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -5099,6 +5101,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("discount_money", df.format(discount_money));
                 jsonObject.put("receipts", df.format(receipts));
                 jsonObject.put("left_money", df.format(left_money));
+                jsonObject.put("final_time", final_time);
+                jsonObject.put("leave_times", leave_times);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
