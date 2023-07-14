@@ -533,8 +533,12 @@ public class LoginServiceImpl implements LoginService {
                 mark_leave = line.getMark_leave();
                 student_get = line.getStudent_name();
                 makeup_date = line.getMakeup_date();
+                Integer ending_status = line.getEnding_status();
 
-                //json
+                jsonObject.put("ending_status","未扣");
+                if(ending_status == 1){
+                    jsonObject.put("ending_status","已扣");
+                }
                 jsonObject.put("student_name", student_get);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("date_time", date_time);
@@ -544,6 +548,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mark_leave",mark_leave);
                 jsonObject.put("subject",subject);
                 jsonObject.put("makeup_date",makeup_date);
+
                 resul_list.add(jsonObject);
             }
 

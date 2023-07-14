@@ -25,6 +25,17 @@ public class Leave {
 
     private String makeup_date;
 
+    private Integer ending_status;
+
+
+    public Integer getEnding_status() {
+        return ending_status;
+    }
+
+    public void setEnding_status(Integer ending_status) {
+        this.ending_status = ending_status;
+    }
+
     public String getMakeup_date() {
         return makeup_date;
     }
