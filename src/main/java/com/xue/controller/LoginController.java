@@ -2238,8 +2238,8 @@ public class LoginController {
 		try {
 			if("final_time".equals(type)){
 				dao.updateFinalTime(studio,campus,final_time);
-			}else {
-//				dao.updateNewName(openid,new_name);
+			}else if("leave_times".equals(type)){
+				dao.updateLeaveTimes(studio,campus,final_time);
 			}
 
 		} catch (Exception e) {

@@ -1346,6 +1346,10 @@
     update user set final_time=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
 
+  <update id="updateLeaveTimes" parameterType="com.xue.entity.model.Lesson">
+    update user set leave_times=#{param3} where studio=#{param1} and campus =#{param2}
+  </update>
+
   <!-- 更新学生名字 -->
   <update id="updateUserStudent" parameterType="com.xue.entity.model.User">
     update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3}
