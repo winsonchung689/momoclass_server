@@ -858,7 +858,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if(leave_counts == leave_times && leave_counts != 0.0f){
+                if(leave_counts == leave_times && leave_times != 0.0f){
                     SignUp signUp1 = new SignUp();
                     signUp1.setStudent_name(student_name);
                     signUp1.setStudio(studio);
