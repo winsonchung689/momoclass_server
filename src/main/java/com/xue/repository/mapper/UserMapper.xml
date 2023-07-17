@@ -389,7 +389,7 @@
 
   <!-- 更改课程名 -->
   <select id="changeSignUpSubject" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update class_schedule set subject =#{param4} where subject =#{param1} and studio =#{param2} and duration =#{param3} and class_number =#{param5} and campus =#{param6}
+    update sign_up_record set subject =#{param4} where subject =#{param1} and studio =#{param2} and duration =#{param3} and class_number =#{param5} and campus =#{param6}
   </select>
 
   <!-- 获取详情 -->
