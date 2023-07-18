@@ -3074,6 +3074,7 @@ public class LoginController {
 						if(0==j){
 							subject = cell.getContents();
 							lesson.setSubject(subject);
+							lessonPackage.setSubject(subject);
 						}else if(1==j){
 							student_name = cell.getContents();
 							lesson.setStudent_name(student_name);
