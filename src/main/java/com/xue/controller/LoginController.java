@@ -4227,6 +4227,9 @@ public class LoginController {
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get)){
 				left_amount = Float.parseFloat(left_amount_get);
+				if(left_amount < 0.0f){
+					dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
+				}
 			}else if ("0".equals(left_amount_get) && "left_modify".equals(modify_type)){
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
