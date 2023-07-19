@@ -4154,7 +4154,13 @@ public class LoginController {
 			}
 			String mark = request.getParameter("mark");
 			String start_date = request.getParameter("start_date");
+			if(start_date == null || start_date.isEmpty() || "undefined".equals(start_date)){
+				start_date = create_time;
+			}
 			String end_date = request.getParameter("end_date");
+			if(end_date == null || end_date.isEmpty() || "undefined".equals(end_date)){
+				end_date = create_time;
+			}
 
 			//获取原价
 			String total_money = request.getParameter("total_money");
