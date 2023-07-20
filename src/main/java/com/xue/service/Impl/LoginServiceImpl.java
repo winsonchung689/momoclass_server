@@ -4595,10 +4595,12 @@ public class LoginServiceImpl implements LoginService {
 
             Integer new_student = 0;
             Float new_money = 0.0f;
+            Float new_lesson = 0.0f;
             try {
                 AllCount allcount = dao.getLessonPackageAllCount(studio,campus,month_date);
                 new_student = allcount.getStudent_count();
-                new_money = allcount.getTotal_price();
+                new_money = allcount.getTotal_price() - allcount.getLeft_price();
+                new_lesson = allcount.getTotal_amount()  + allcount.getLeft_price();
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
@@ -4613,6 +4615,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("subject_list", subject_list);
             jsonObject.put("new_student", new_student);
             jsonObject.put("new_money", new_money);
+            jsonObject.put("new_lesson", new_lesson);
 
             resul_list.add(jsonObject);
         } catch (Exception e) {
