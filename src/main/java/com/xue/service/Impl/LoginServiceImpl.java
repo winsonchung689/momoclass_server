@@ -3497,8 +3497,7 @@ public class LoginServiceImpl implements LoginService {
 
 
             DecimalFormat df = new DecimalFormat("0.00");
-            JSONObject queryJson = new JSONObject();;
-            queryJson = JSONObject.parseObject(tample1);
+            JSONObject queryJson = JSONObject.parseObject(tample1);
             queryJson.put("touser",openid);
             queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
             queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
