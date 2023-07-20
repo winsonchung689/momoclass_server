@@ -3400,6 +3400,7 @@ public class LoginServiceImpl implements LoginService {
                 Float total_money = 0.0f;
                 Float discount_money = 0.0f;
                 Float price = 0.0f;
+                Float sign_price = 0.0f;
 
                 try {
                     List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
@@ -3425,6 +3426,8 @@ public class LoginServiceImpl implements LoginService {
                         price = re_price;
                     }
 
+                    sign_price = count * price;
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -3440,6 +3443,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
                 jsonObject.put("price", df.format(price));
+                jsonObject.put("sign_price", df.format(sign_price));
                 resul_list.add(jsonObject);
             }
 
