@@ -4499,8 +4499,11 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         DecimalFormat df = new DecimalFormat("0.00");
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
+        String month_date = df1.format(new Date());
 
         try {
+
             if(subject.equals("全科目")){
                 AllCount allCount =dao.getLessonAllCount(studio,campus);
                 total_student = allCount.getStudent_count();
@@ -4591,8 +4594,6 @@ public class LoginServiceImpl implements LoginService {
                 left_price_all = left_money;
             }
 
-
-
             jsonObject.put("total_student", total_student);
             jsonObject.put("total_amount_all", df.format(total_amount_all));
             jsonObject.put("left_amount_all", df.format(left_amount_all));
@@ -4603,7 +4604,6 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("subject_list", subject_list);
 
             resul_list.add(jsonObject);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
