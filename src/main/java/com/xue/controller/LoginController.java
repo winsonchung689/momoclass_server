@@ -1378,7 +1378,7 @@ public class LoginController {
 	public List getAllUserByStudioByPage(String studio,Integer page){
 		List list = null;
 		try {
-			list = loginService.getAllUserByStudio(studio,page);
+			list = loginService.getAllUserByStudioByPage(studio,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
