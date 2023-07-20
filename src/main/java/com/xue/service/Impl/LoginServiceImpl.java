@@ -3476,6 +3476,44 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String renewLessonRemind(String student_name, String studio, String campus, String subject, Float lesson_amount) {
+        String result = null;
+        Float total_amount = 0.0f;
+        Float left_amount = 0.0f;
+        String token = getToken("MOMO");
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
+        String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"LbJ2VBZ7f3qz_i3nBRzynL79DVOmRqIN_61reo5m4p4\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"AA\"},\"thing1\":{\"value\": \"1\"}}}}";
+
+        try {
+            List<User> list = dao.getUserByStudent(student_name,studio);
+            String openid = list.get(0).getOpenid();
+
+            List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+            total_amount = lessons_get.get(0).getTotal_amount();
+            left_amount = lessons_get.get(0).getLeft_amount();
+
+            Float total_new = total_amount + lesson_amount;
+            Float left_new = left_amount + lesson_amount;
+
+
+            DecimalFormat df = new DecimalFormat("0.00");
+            JSONObject queryJson = new JSONObject();;
+            queryJson = JSONObject.parseObject(tample1);
+            queryJson.put("touser",openid);
+            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",student_name);
+            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
+            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
+            String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
+            System.out.printf("param:"+param1);
+            result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
+            System.out.printf("res:" + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public List getLessonByName(String student_name, String studio,String campus){
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;

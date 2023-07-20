@@ -214,4 +214,6 @@ public interface LoginService {
 
     public String getOpenid(String code,String app);
 
+    public String renewLessonRemind(String student_name,String studio,String campus,String subject,Float lesson_amount);
+
 }
