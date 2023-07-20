@@ -4593,9 +4593,15 @@ public class LoginServiceImpl implements LoginService {
                 left_price_all = left_money;
             }
 
-            AllCount allcount = dao.getLessonPackageAllCount(studio,campus,month_date);
-            Integer new_student = allcount.getStudent_count();
-            Float new_money = allcount.getTotal_price();
+            Integer new_student = 0;
+            Float new_money = 0.0f;
+            try {
+                AllCount allcount = dao.getLessonPackageAllCount(studio,campus,month_date);
+                new_student = allcount.getStudent_count();
+                new_money = allcount.getTotal_price();
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
+            }
 
             jsonObject.put("total_student", total_student);
             jsonObject.put("total_amount_all", df.format(total_amount_all));
