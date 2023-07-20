@@ -40,6 +40,8 @@ public interface LoginService {
 
     public List  getAllUserByStudio(String studio);
 
+    public List  getAllUserByStudioByPage(String studio,Integer page);
+
     public List  getUserByNickStudio(String nick_name,String studio);
 
     public List  getAnalyzeDetail(String studio,String dimension,String campus,String date_time);

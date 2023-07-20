@@ -367,6 +367,8 @@ public interface UserMapper {
 
     List<User> getAllUserByStudio(String studio);
 
+    List<User> getAllUserByStudioByPage(String studio,Integer page_start,Integer page_length);
+
     List<User> getBossByStudio(String studio);
     List<User> getAllUser();
 

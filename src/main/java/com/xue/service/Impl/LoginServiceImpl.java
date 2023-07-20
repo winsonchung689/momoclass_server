@@ -4745,6 +4745,68 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getAllUserByStudioByPage(String studio, Integer page) {
+        Integer page_start = (page - 1) * 20;
+        Integer page_length = 20;
+        List<User> list = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        list = dao.getAllUserByStudioByPage(studio,page_start,page_length);
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                String role_cn = null;
+                String commentStyle_cn = null;
+                JSONObject jsonObject = new JSONObject();
+                User line = list.get(i);
+                //获取字段
+                studio = line.getStudio();
+                String student_name = line.getStudent_name();
+                String nick_name = line.getNick_name();
+                String role = line.getRole();
+                if("boss".equals(role)){
+                    role_cn = "校长";
+                }else if("teacher".equals(role)){
+                    role_cn = "老师";
+                }else if("client".equals(role)){
+                    role_cn = "家长";
+                }
+                String comment_style = line.getComment_style();
+                if("public".equals(comment_style)){
+                    commentStyle_cn = "公开";
+                }else if("self".equals(comment_style)){
+                    commentStyle_cn = "私人";
+                }
+
+                String campus = line.getCampus();
+                String expired_time = line.getExpired_time();
+                String openid = line.getOpenid();
+                String id = line.getId();
+                String subjects = line.getSubjects();
+                String member = line.getMember();
+
+                //json
+                jsonObject.put("studio", studio);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("role", role);
+                jsonObject.put("role_cn", role_cn);
+                jsonObject.put("comment_style", comment_style);
+                jsonObject.put("commentStyle_cn", commentStyle_cn);
+                jsonObject.put("campus", campus);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("openid", openid);
+                jsonObject.put("id", id);
+                jsonObject.put("subjects", subjects);
+                jsonObject.put("member", member);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getUserByNickStudio(String nick_name,String studio) {
         List<User> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
