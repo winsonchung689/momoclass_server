@@ -4602,7 +4602,7 @@ public class LoginServiceImpl implements LoginService {
                 AllCount allcount = dao.getLessonPackageAllCount(studio,campus,month_date);
                 continue_student = allcount.getStudent_count();
                 new_money = allcount.getTotal_price() - allcount.getLeft_price();
-                new_lesson = allcount.getTotal_amount()  + allcount.getLeft_price();
+                new_lesson = allcount.getTotal_amount()  + allcount.getLeft_amount();
 
                 AllCount allCount1 = dao.getLessonAllCountNewStudent(studio,campus,month_date);
                 new_student = allCount1.getStudent_count();
