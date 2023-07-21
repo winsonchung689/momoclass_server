@@ -432,6 +432,8 @@ public interface UserMapper {
 
     AllCount getLessonAllCountNewStudent(String studio,String campus,String month_date);
 
+    AllCount getLessonAllCountLossStudent(String studio,String campus,String month_date);
+
     AllCount getLessonAllCountBySubject(String studio,String subject,String campus);
 
     Integer getLessonNeedPayCount(String studio,String campus);

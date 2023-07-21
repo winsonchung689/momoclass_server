@@ -4597,13 +4597,18 @@ public class LoginServiceImpl implements LoginService {
             Float new_money = 0.0f;
             Float new_lesson = 0.0f;
             Integer continue_student = 0;
+            Integer loss_student = 0;
             try {
                 AllCount allcount = dao.getLessonPackageAllCount(studio,campus,month_date);
                 continue_student = allcount.getStudent_count();
                 new_money = allcount.getTotal_price() - allcount.getLeft_price();
                 new_lesson = allcount.getTotal_amount()  + allcount.getLeft_price();
+
                 AllCount allCount1 = dao.getLessonAllCountNewStudent(studio,campus,month_date);
                 new_student = allCount1.getStudent_count();
+
+                AllCount allCount2 = dao.getLessonAllCountLossStudent(studio,campus,month_date);
+                loss_student = allCount2.getStudent_count();
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
@@ -4620,6 +4625,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("new_money", new_money);
             jsonObject.put("new_lesson", new_lesson);
             jsonObject.put("new_student", new_student);
+            jsonObject.put("loss_student", loss_student);
 
             resul_list.add(jsonObject);
         } catch (Exception e) {
