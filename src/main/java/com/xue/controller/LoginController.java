@@ -3201,7 +3201,7 @@ public class LoginController {
 					loginService.insertGift(gift);
 				}
 
-				if (lessonPackage.getTotal_money() != 0.0f){
+				if (lessonPackage.getAll_lesson() != 0.0f){
 					dao.insertLessonPackage(lessonPackage);
 				}
 			}
