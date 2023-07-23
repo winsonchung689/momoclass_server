@@ -891,8 +891,6 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         String update_time = null;
-        Float left = 0.0f;
-        Float total = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat fmt_m = new SimpleDateFormat("yyyy-MM");
@@ -997,6 +995,8 @@ public class LoginServiceImpl implements LoginService {
                     //json
                     List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
                     if (lessons.size() > 0) {
+                        Float left = 0.0f;
+                        Float total = 0.0f;
                         Lesson lesson = lessons.get(0);
                         left = lesson.getLeft_amount();
                         total = lesson.getTotal_amount();
@@ -1093,6 +1093,8 @@ public class LoginServiceImpl implements LoginService {
                 //json
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                 if(lessons.size()>0){
+                    Float left = 0.0f;
+                    Float total = 0.0f;
                     Lesson lesson = lessons.get(0);
                     left = lesson.getLeft_amount();
                     total = lesson.getTotal_amount();
