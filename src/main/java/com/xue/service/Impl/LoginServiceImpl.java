@@ -3397,10 +3397,12 @@ public class LoginServiceImpl implements LoginService {
             }else if("近1年".equals(duration_time)) {
                 cal.add(cal.DATE,-365);
                 date_start = df.format(cal.getTime());
+            }else if("全部".equals(duration_time)) {
+                cal.add(cal.DATE,-365*3);
+                date_start = df.format(cal.getTime());
             }
 
             list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
-
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
