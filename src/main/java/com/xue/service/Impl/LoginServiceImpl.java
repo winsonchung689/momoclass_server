@@ -3378,7 +3378,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getStudentByTeacher(String studio,String openid,String duration_time) {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23::59:59");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         String date_time = df.format(new Date());
 
         String date_start = date_time;
