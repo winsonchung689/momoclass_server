@@ -338,8 +338,8 @@ public class LoginController {
 
 		queryJson1.put("touser","o25ly6whIE5oBYdDjc2M4afnxQmU");
 		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value","续费" + days + "天" );
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","已支付" + amount +"元");
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value","支付" + amount +"元,续费" + days + "天" );
+		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","待处理");
 
 		try {
 			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
