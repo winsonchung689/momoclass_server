@@ -1049,12 +1049,12 @@ public class LoginController {
 
 	@RequestMapping("/getAnalyzeDetail")
 	@ResponseBody
-	public List getAnalyzeDetail(String studio,String dimension,String openid,String date_time){
+	public List getAnalyzeDetail(String studio,String dimension,String openid,String date_time,String duration_time){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getAnalyzeDetail(studio,dimension,campus,date_time);
+			list = loginService.getAnalyzeDetail(studio,dimension,campus,date_time,duration_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

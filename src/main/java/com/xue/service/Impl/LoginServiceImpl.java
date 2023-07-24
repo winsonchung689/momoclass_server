@@ -4899,7 +4899,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List getAnalyzeDetail(String studio, String dimension, String campus,String date_time) {
+    public List getAnalyzeDetail(String studio, String dimension, String campus,String date_time,String duration_time) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -4907,7 +4907,16 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             Integer weekDay_INIT = cal.get(Calendar.WEEK_OF_YEAR);
-            for(int weekDay = weekDay_INIT; weekDay >= weekDay_INIT - 8; weekDay--){
+            int duration = 0;
+            if("近1周".equals(duration_time)){
+                duration = 1;
+            }else if("近1月".equals(duration_time)){
+                duration = 4;
+            }else if("近1年".equals(duration_time)){
+                duration = weekDay_INIT -1;
+            }
+
+            for(int weekDay = weekDay_INIT; weekDay >= weekDay_INIT - duration; weekDay--){
                 JSONObject jsonObject = new JSONObject();
                 Float signCount = 0.0f;
                 Float tryCount = 0.0f;
