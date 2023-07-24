@@ -1037,10 +1037,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getStudentByTeacher")
 	@ResponseBody
-	public List getStudentByTeacher(String studio,String openid,String date_start,String date_end){
+	public List getStudentByTeacher(String studio,String openid,String duration_time){
 		List list = null;
 		try {
-			list = loginService.getStudentByTeacher(studio,openid,date_start,date_end);
+			list = loginService.getStudentByTeacher(studio,openid,duration_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

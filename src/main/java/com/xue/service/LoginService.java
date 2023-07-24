@@ -212,7 +212,7 @@ public interface LoginService {
 
     public String getToken(String app);
 
-    public List getStudentByTeacher(String studio,String openid,String date_start,String date_end);
+    public List getStudentByTeacher(String studio,String openid,String duration_time);
 
     public String getOpenid(String code,String app);
 

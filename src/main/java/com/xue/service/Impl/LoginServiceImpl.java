@@ -3376,18 +3376,30 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStudentByTeacher(String studio, String openid, String date_start, String date_end) {
+    public List getStudentByTeacher(String studio,String openid,String duration_time) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String date_time = df.format(new Date());
+        String date_start = date_time;
+        String date_end = date_time;
         List<SignUp> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<User> list_user = dao.getUser(openid);
             String nick_name = list_user.get(0).getNick_name();
             String campus = list_user.get(0).getCampus();
-            if(date_end.equals("undefined")){
-                list = dao.getStudentByTeacher(studio,nick_name);
-            }else {
-                list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
+            if("近1周".equals(duration_time)){
+                cal.add(cal.DATE,-7);
+                date_start = df.format(cal.getTime());
+            }else if("近1月".equals(duration_time)) {
+                cal.add(cal.DATE,-31);
+                date_start = df.format(cal.getTime());
+            }else if("近1年".equals(duration_time)) {
+                cal.add(cal.DATE,-365);
+                date_start = df.format(cal.getTime());
             }
+
+            list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -3434,7 +3446,7 @@ public class LoginServiceImpl implements LoginService {
                     throw new RuntimeException(e);
                 }
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                DecimalFormat df1 = new DecimalFormat("0.00");
 
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
@@ -3444,8 +3456,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
-                jsonObject.put("price", df.format(price));
-                jsonObject.put("sign_price", df.format(sign_price));
+                jsonObject.put("price", df1.format(price));
+                jsonObject.put("sign_price", df1.format(sign_price));
                 resul_list.add(jsonObject);
             }
 
