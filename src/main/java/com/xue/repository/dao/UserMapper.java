@@ -400,6 +400,8 @@ public interface UserMapper {
 
     List<Lesson> getLesson(String studio,String campus);
 
+    List<LessonPackage> getLessonPackageById(Integer id);
+
     List<LessonPackage> getLessonPackage(String student_name,String studio,String campus,String subject);
 
     List<LessonPackage> getLessonPackageByStudent(String student_name,String studio,String campus);

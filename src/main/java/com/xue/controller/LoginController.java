@@ -2766,9 +2766,8 @@ public class LoginController {
 	@ResponseBody
 	public int deleteLessonPackage(Integer id){
 		try {
-			dao.deleteLessonPackage(id);
+			loginService.deleteLessonPackage(id);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		}
 		return 1;

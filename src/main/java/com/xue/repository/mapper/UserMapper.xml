@@ -978,6 +978,10 @@
     insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus,price,total_money,discount_money) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus},#{price},#{total_money},#{discount_money})
   </insert>
 
+  <select id="getLessonPackageById" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getLessonPackage" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
     select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
   </select>

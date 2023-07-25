@@ -3531,6 +3531,48 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int deleteLessonPackage(Integer id) {
+        try {
+            List<LessonPackage> lessonPackages = dao.getLessonPackageById(id);
+            LessonPackage lessonPackage = lessonPackages.get(0);
+            String studio = lessonPackage.getStudio();
+            String campus = lessonPackage.getCampus();
+            String student_name = lessonPackage.getStudent_name();
+            String subject = lessonPackage.getSubject();
+            Float all_lesson = lessonPackage.getAll_lesson();
+            Float given_lesson = lessonPackage.getGive_lesson();
+
+            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+            Lesson lesson_get = lessons.get(0);
+            Float total_amount = lesson_get.getTotal_amount();
+            Float left_amount = lesson_get.getLeft_amount();
+            Float coins = lesson_get.getCoins();
+            Float minus = lesson_get.getMinus();
+
+            Float total_new = total_amount -(all_lesson + given_lesson);
+            Float left_new = left_amount  - (all_lesson+ given_lesson);
+
+            Lesson lesson = new Lesson();
+            lesson.setStudent_name(student_name);
+            lesson.setStudio(studio);
+            lesson.setSubject(subject);
+            lesson.setCampus(campus);
+            lesson.setLeft_amount(left_new);
+            lesson.setTotal_amount(total_new);
+            lesson.setCoins(coins);
+            lesson.setMinus(minus);
+            int res = dao.updateLesson(lesson);
+            if(res == 1){
+                dao.deleteLessonPackage(id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public List getLessonByName(String student_name, String studio,String campus){
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
