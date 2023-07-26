@@ -3387,7 +3387,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             String[] duration_time_list =duration_time.split("_");
-
             List<User> list_user = dao.getUser(openid);
             String nick_name = list_user.get(0).getNick_name();
             String campus = list_user.get(0).getCampus();
