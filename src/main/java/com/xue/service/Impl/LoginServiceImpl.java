@@ -3386,6 +3386,8 @@ public class LoginServiceImpl implements LoginService {
         List<SignUp> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            String[] duration_time_list =duration_time.split("_");
+
             List<User> list_user = dao.getUser(openid);
             String nick_name = list_user.get(0).getNick_name();
             String campus = list_user.get(0).getCampus();
@@ -3398,7 +3400,11 @@ public class LoginServiceImpl implements LoginService {
             }else if("近1年".equals(duration_time)) {
                 cal.add(cal.DATE,-365);
                 date_start = df.format(cal.getTime());
+            }else if("自定义".equals(duration_time_list[0])){
+                date_start = duration_time_list[1];
+                date_end = duration_time_list[2];
             }
+
 
             list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
             for (int i = 0; i < list.size(); i++) {
