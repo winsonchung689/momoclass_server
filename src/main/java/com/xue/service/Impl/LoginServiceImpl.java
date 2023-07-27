@@ -3232,9 +3232,9 @@ public class LoginServiceImpl implements LoginService {
 
                         //公众号通知
                         queryJson1.put("touser",openid);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",class_number + "("+ student_name + ")");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
 
                         try {
                             result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
