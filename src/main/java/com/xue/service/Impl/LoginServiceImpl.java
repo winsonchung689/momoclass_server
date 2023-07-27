@@ -3083,7 +3083,7 @@ public class LoginServiceImpl implements LoginService {
     public void sendClassRemind() {
         // 获取 token
         String token = getToken("MOMO2B");
-        String token1 = getToken("MOMO2B");
+        String token1 = getToken("MOMO");
 
         // 获取用户信息
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
