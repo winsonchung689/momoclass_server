@@ -841,7 +841,7 @@
   </select>
 
   <select id="getUserByStudent" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,subscription,campus from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 and role = 'client' order by create_time desc
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,subscription,campus from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByNickStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
