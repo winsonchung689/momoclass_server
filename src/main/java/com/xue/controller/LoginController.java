@@ -117,7 +117,7 @@ public class LoginController {
 		JSONObject queryJson1 = JSONObject.parseObject(tample16);
 
 
-		List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
+		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		int left_amount = 0;
 		if(lessons.size()>0){
 			Float left_amount_get = lessons.get(0).getLeft_amount();
