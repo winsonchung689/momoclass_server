@@ -781,23 +781,23 @@
 
   <!-- 更新名字 -->
   <update id="updateScheduleName" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4}
+    update class_schedule set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
   <update id="updateCommentName" parameterType="com.xue.entity.model.Message">
-    update class_comment set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4}
+    update class_comment set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
   <update id="updateGiftRecordName" parameterType="com.xue.entity.model.Gift">
-    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
+    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
   <update id="updateLessonName" parameterType="com.xue.entity.model.Lesson">
-    update lesson set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
+    update lesson set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
   <update id="updateSignUpRecordName" parameterType="com.xue.entity.model.SignUp">
-    update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
+    update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
   <!-- 更新课评 -->
@@ -1381,7 +1381,7 @@
 
   <!-- 更新学生名字 -->
   <update id="updateUserStudent" parameterType="com.xue.entity.model.User">
-    update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3}
+    update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3} and subject = #{param4}
   </update>
 
   <update id="updateUserStudentByOpenid" parameterType="com.xue.entity.model.User">

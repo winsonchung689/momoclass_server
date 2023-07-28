@@ -567,19 +567,19 @@ public interface UserMapper {
 
     int updateCoins(User user);
 
-    int updateScheduleName(String student_name_new,String student_name,String studio,String campus);
+    int updateScheduleName(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateRemind(Integer remind,String subject,String studio,String duration,String class_number,String dayofweek,String campus);
 
-    int updateCommentName(String student_name_new,String student_name,String studio,String campus);
+    int updateCommentName(String student_name_new,String student_name,String studio,String campus,String subject);
 
-    int updateGiftRecordName(String student_name_new,String student_name,String studio,String campus);
+    int updateGiftRecordName(String student_name_new,String student_name,String studio,String campus,String subject);
 
-    int updateLessonName(String student_name_new,String student_name,String studio,String campus);
+    int updateLessonName(String student_name_new,String student_name,String studio,String campus,String subject);
 
-    int updateSignUpRecordName(String student_name_new,String student_name,String studio,String campus);
+    int updateSignUpRecordName(String student_name_new,String student_name,String studio,String campus,String subject);
 
-    int updateUserStudent(String student_name_new,String student_name,String studio,String campus);
+    int updateUserStudent(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateUserStudentByOpenid(String student_name,String openid,String id);
 

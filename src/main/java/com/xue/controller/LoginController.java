@@ -4374,12 +4374,12 @@ public class LoginController {
 
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			if(!student_name_new.isEmpty()){
-				dao.updateScheduleName(student_name_new,student_name,studio,campus);
-				dao.updateCommentName(student_name_new,student_name,studio,campus);
-				dao.updateGiftRecordName(student_name_new,student_name,studio,campus);
-				dao.updateLessonName(student_name_new,student_name,studio,campus);
-				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus);
-				dao.updateUserStudent(student_name_new,student_name,studio,campus);
+				dao.updateScheduleName(student_name_new,student_name,studio,campus,subject);
+				dao.updateCommentName(student_name_new,student_name,studio,campus,subject);
+				dao.updateGiftRecordName(student_name_new,student_name,studio,campus,subject);
+				dao.updateLessonName(student_name_new,student_name,studio,campus,subject);
+				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus,subject);
+				dao.updateUserStudent(student_name_new,student_name,studio,campus,subject);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					if("积分".equals(m_type)){
@@ -4622,15 +4622,16 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
 		String openid = request.getParameter("openid");
+		String subject = request.getParameter("subject");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 
 		try {
-			dao.updateScheduleName(student_name_new,student_name,studio,campus);
-			dao.updateCommentName(student_name_new,student_name,studio,campus);
-			dao.updateGiftRecordName(student_name_new,student_name,studio,campus);
-			dao.updateLessonName(student_name_new,student_name,studio,campus);
-			dao.updateSignUpRecordName(student_name_new,student_name,studio,campus);
+			dao.updateScheduleName(student_name_new,student_name,studio,campus,subject);
+			dao.updateCommentName(student_name_new,student_name,studio,campus,subject);
+			dao.updateGiftRecordName(student_name_new,student_name,studio,campus,subject);
+			dao.updateLessonName(student_name_new,student_name,studio,campus,subject);
+			dao.updateSignUpRecordName(student_name_new,student_name,studio,campus,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
