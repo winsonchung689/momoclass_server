@@ -4375,11 +4375,11 @@ public class LoginController {
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			if(!student_name_new.isEmpty()){
 				dao.updateScheduleName(student_name_new,student_name,studio,campus,subject);
-				dao.updateCommentName(student_name_new,student_name,studio,campus,subject);
-				dao.updateGiftRecordName(student_name_new,student_name,studio,campus,subject);
+//				dao.updateCommentName(student_name_new,student_name,studio,campus,subject);
+//				dao.updateGiftRecordName(student_name_new,student_name,studio,campus,subject);
 				dao.updateLessonName(student_name_new,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus,subject);
-				dao.updateUserStudent(student_name_new,student_name,studio,campus,subject);
+//				dao.updateUserStudent(student_name_new,student_name,studio,campus,subject);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					if("积分".equals(m_type)){
