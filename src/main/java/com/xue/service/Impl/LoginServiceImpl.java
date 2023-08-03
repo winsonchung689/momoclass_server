@@ -824,6 +824,37 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getClassStudent(String studio, String campus, String type, String subject) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Lesson> lessons = dao.getLessonBySubject(studio,subject,campus);
+        for (int i = 0; i < lessons.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Lesson lesson = lessons.get(0);
+            String student_name = lesson.getStudent_name();
+            Float total_amount = lesson.getTotal_amount();
+            Float left_amount = lesson.getLeft_amount();
+            List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
+            if("已排课".equals(type) && schedules.size()>0){
+                jsonObject.put("student_name",student_name);
+                jsonObject.put("subject", subject);
+                jsonObject.put("campus", campus);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                resul_list.add(jsonObject);
+
+            }else if("未排课".equals(type) && schedules.size()==0){
+                jsonObject.put("student_name",student_name);
+                jsonObject.put("subject", subject);
+                jsonObject.put("campus", campus);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                resul_list.add(jsonObject);
+            }
+        }
+        return resul_list;
+    }
+
+    @Override
     public int insertSchedule(Schedule schedule) {
         int result = 0;
         FileInputStream in = null;
