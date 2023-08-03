@@ -826,10 +826,16 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getClassStudent(String studio, String campus, String type, String subject) {
         List<JSONObject> resul_list = new ArrayList<>();
-        List<Lesson> lessons = dao.getLessonBySubject(studio,subject,campus);
+        List<Lesson> lessons = null;
+        if("全科目".equals(subject)){
+            lessons = dao.getLesson(studio,campus);
+        }else{
+            lessons = dao.getLessonBySubject(studio,subject,campus);
+        }
+
         for (int i = 0; i < lessons.size(); i++) {
             JSONObject jsonObject = new JSONObject();
-            Lesson lesson = lessons.get(0);
+            Lesson lesson = lessons.get(i);
             String student_name = lesson.getStudent_name();
             Float total_amount = lesson.getTotal_amount();
             Float left_amount = lesson.getLeft_amount();
