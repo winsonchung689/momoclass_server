@@ -837,6 +837,8 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = new JSONObject();
             Lesson lesson = lessons.get(i);
             String student_name = lesson.getStudent_name();
+            subject = lesson.getSubject();
+            studio = lesson.getStudio();
             Float total_amount = lesson.getTotal_amount();
             Float left_amount = lesson.getLeft_amount();
             List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
