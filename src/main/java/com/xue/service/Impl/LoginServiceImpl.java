@@ -775,7 +775,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("sign_count",sign_count);
                         jsonObject.put("subject",subject);
                         jsonObject.put("classes_count_all",classes_count_all);
-                        jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
+                        jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
                         jsonObject.put("uncomfirmed_count",uncomfirmed_count);
                         jsonObject.put("student_string",student_string);
                         jsonObject.put("remind",remind);
@@ -805,7 +805,7 @@ public class LoginServiceImpl implements LoginService {
                             jsonObject.put("sign_count",sign_count);
                             jsonObject.put("subject",subject);
                             jsonObject.put("classes_count_all",classes_count_all);
-                            jsonObject.put("classes_count_all_lesson",classes_count_all_lesson);
+                            jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
                             jsonObject.put("uncomfirmed_count",uncomfirmed_count);
                             jsonObject.put("student_string",student_string);
                             jsonObject.put("remind",remind);
