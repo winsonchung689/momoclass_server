@@ -3507,6 +3507,7 @@ public class LoginServiceImpl implements LoginService {
         String result = null;
         String openid = null;
         String param = null;
+        String unionid = null;
         String appid = Constants.appid;
         String secret = Constants.secret;
         String appid_2b = Constants.appid_2b;
@@ -3522,6 +3523,10 @@ public class LoginServiceImpl implements LoginService {
             result = HttpUtil.sendPost(url	,param);
             JSONObject jsonObject = JSON.parseObject(result);
             openid = jsonObject.getString("openid");
+            unionid = jsonObject.getString("unionid");
+            if(unionid != null){
+                dao.updateUserUnionid(openid,unionid);
+            }
         } catch (Exception e) {
 //			e.printStackTrace();
         }

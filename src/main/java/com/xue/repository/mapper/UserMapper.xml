@@ -1252,6 +1252,10 @@
     update user set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
+  <update id="updateUserUnionid" parameterType="com.xue.entity.model.User">
+    update user set unionid=#{param2} where openid=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateLessonStudio" parameterType="com.xue.entity.model.Lesson">
     update lesson set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
