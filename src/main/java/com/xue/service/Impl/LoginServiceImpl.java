@@ -3120,9 +3120,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void sendClassRemind() {
-
-        getOpenidOfficial();
-
         // 获取 token
         String token = getToken("MOMO2B");
         String token1 = getToken("MOMO");
@@ -3300,6 +3297,8 @@ public class LoginServiceImpl implements LoginService {
             }
 
         }
+
+        getOpenidOfficial();
     }
 
     @Override
