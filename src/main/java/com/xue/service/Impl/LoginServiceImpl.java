@@ -3154,6 +3154,7 @@ public class LoginServiceImpl implements LoginService {
         String tample13 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}}}}";
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
         String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token1;
+        String url_official = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token1;
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
         String campus = null;
@@ -3218,7 +3219,7 @@ public class LoginServiceImpl implements LoginService {
                     queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
 
                     System.out.println("json:" + queryJson2.toJSONString());
-                    result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                    result = HttpUtil.sendPostJson(url_official,queryJson2.toJSONString());
                     System.out.printf("res:" + result);
                 }
             }
@@ -3259,7 +3260,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
                             System.out.println("json:" + queryJson2.toJSONString());
-                            result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                            result = HttpUtil.sendPostJson(url_official,queryJson2.toJSONString());
                             System.out.printf("res:" + result);
                         }
 
@@ -3336,7 +3337,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
 
                             System.out.println("json:" + queryJson2.toJSONString());
-                            result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                            result = HttpUtil.sendPostJson(url_official,queryJson2.toJSONString());
                             System.out.printf("res:" + result);
                         }
                     }
