@@ -3200,7 +3200,7 @@ public class LoginServiceImpl implements LoginService {
                         if(official_openid != null){
                             String[] official_list = official_openid.split(",");
                             for(int j=0;j<official_list.length;j++){
-                                String official_openid_get = official_list[i];
+                                String official_openid_get = official_list[j];
                                 JSONObject queryJson2 = JSONObject.parseObject(tample13);
                                 queryJson2.put("touser",official_openid_get);
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
