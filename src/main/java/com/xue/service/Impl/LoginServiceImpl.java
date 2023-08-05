@@ -3124,7 +3124,6 @@ public class LoginServiceImpl implements LoginService {
         apps.add("MOMO2B");
         apps.add("MOMO");
         apps.add("MOMO_OFFICIAL");
-        String url_send = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal   =   Calendar.getInstance();
@@ -3172,6 +3171,7 @@ public class LoginServiceImpl implements LoginService {
 
             if(role.equals("boss") && compare <= 5L && send_time.equals(now_time)){
                 for(int a=0;a<apps.size();a++){
+                    String url_send = null;
                     String app = apps.get(a);
                     String token = getToken(app);
                     if ("MOMO2B".equals(app)){
@@ -3214,12 +3214,12 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-
             if("boss".equals(role) || "teacher".equals(role) ){
                 if(send_time.equals(now_time)){
                     list_schedule = dao.getScheduleAll(weekDay,studio,campus);
                     if(list_schedule.size()>0){
                         for(int a=0;a<apps.size();a++){
+                            String url_send = null;
                             String app = apps.get(a);
                             String token = getToken(app);
                             if ("MOMO2B".equals(app)){
@@ -3266,8 +3266,6 @@ public class LoginServiceImpl implements LoginService {
                                 }
                             }
                         }
-
-
                     }
                 }
             }
@@ -3301,6 +3299,7 @@ public class LoginServiceImpl implements LoginService {
 
                     if(remind == 1 && choose == 1){
                         for(int a=0;a<apps.size();a++){
+                            String url_send = null;
                             String app=apps.get(a);
                             String token = getToken(app);
                             if ("MOMO2B".equals(app)){
@@ -3359,11 +3358,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
-
         }
-
-
-
     }
 
     @Override
