@@ -208,7 +208,7 @@ public interface LoginService {
 
     public int updateGift(String id);
 
-    public void sendClassRemind();
+    public void sendClassRemind(String app);
 
     public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
 

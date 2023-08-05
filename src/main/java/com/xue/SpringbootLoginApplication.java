@@ -43,18 +43,24 @@ public class SpringbootLoginApplication {
 
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendClassRemind(){
-		loginService.sendClassRemind();
+		List<String> apps = new ArrayList<>();
+		apps.add("MOMO2B");
+		apps.add("MOMO");
+		apps.add("MOMO_OFFICIAL");
+		for(int i=0;i<apps.size();i++){
+			String app = apps.get(i);
+			loginService.sendClassRemind(app);
+		}
 	}
 
 	@Scheduled(cron = "0 0 * * * ?")
 	public void getOpenidOfficial(){
-		List<String> tempList = new ArrayList<>();
-		tempList.add("MOMO_OFFICIAL");
-		for(int i=0;i<tempList.size();i++){
-			String app = tempList.get(i);
+		List<String> apps = new ArrayList<>();
+		apps.add("MOMO_OFFICIAL");
+		for(int i=0;i<apps.size();i++){
+			String app = apps.get(i);
 			loginService.getOpenidOfficial(app);
 		}
-
 	}
 
 	@Bean
