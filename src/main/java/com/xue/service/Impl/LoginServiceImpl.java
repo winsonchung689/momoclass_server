@@ -3561,6 +3561,7 @@ public class LoginServiceImpl implements LoginService {
                 String param2 = "access_token="+ token + "&openid=" + openid  + "&lang=zh_CN";
                 String result2 = HttpUtil.sendPost(url1	,param2);
                 JSONObject jsonObject2 = JSON.parseObject(result2);
+                System.out.println(result2);
                 String unionid = jsonObject2.getString("unionid");
                 String official_openid = jsonObject2.getString("openid");
                 List<User> users = dao.getUserByUnionid(unionid);
