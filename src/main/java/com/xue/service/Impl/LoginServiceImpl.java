@@ -3550,7 +3550,6 @@ public class LoginServiceImpl implements LoginService {
 
             String url1 = "https://api.weixin.qq.com/cgi-bin/user/info";
 
-
             result = HttpUtil.sendPost(url	,param);
             JSONObject jsonObject = JSON.parseObject(result);
             String data = jsonObject.getString("data");
@@ -3568,6 +3567,10 @@ public class LoginServiceImpl implements LoginService {
                 for(int j =0;j<users.size();j++){
                     String official_openid_get = users.get(j).getOfficial_openid();
 
+                    if(!official_openid_get.contains(official_openid)){
+                        official_openid = official_openid + "," + official_openid_get;
+                    }
+                    dao.updateUserOfficialOpenid(unionid,official_openid);
                 }
             }
             System.out.println(list);
