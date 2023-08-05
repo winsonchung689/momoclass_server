@@ -3297,8 +3297,6 @@ public class LoginServiceImpl implements LoginService {
             }
 
         }
-
-        getOpenidOfficial();
     }
 
     @Override
@@ -3541,10 +3539,10 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String getOpenidOfficial() {
+    public String getOpenidOfficial(String app) {
         try {
             String result = null;
-            String token = getToken("MOMO_OFFICIAL");
+            String token = getToken(app);
             String url = "https://api.weixin.qq.com/cgi-bin/user/get";
             String param = "access_token="+ token;
 

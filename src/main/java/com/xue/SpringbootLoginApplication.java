@@ -21,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +44,17 @@ public class SpringbootLoginApplication {
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendClassRemind(){
 		loginService.sendClassRemind();
+	}
+
+	@Scheduled(cron = "0 */1 * * * ?")
+	public void getOpenidOfficial(){
+		List<String> tempList = new ArrayList<>();
+		tempList.add("MOMO_OFFICIAL");
+		for(int i=0;i<tempList.size();i++){
+			String app = tempList.get(i);
+			loginService.getOpenidOfficial(app);
+		}
+
 	}
 
 	@Bean
