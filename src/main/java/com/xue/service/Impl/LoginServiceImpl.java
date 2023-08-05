@@ -3220,7 +3220,7 @@ public class LoginServiceImpl implements LoginService {
                     list_schedule = dao.getScheduleAll(weekDay,studio,campus);
                     if(list_schedule.size()>0){
                         for(int a=0;a<apps.size();a++){
-                            String app = apps.get(i);
+                            String app = apps.get(a);
                             String token = getToken(app);
                             if ("MOMO2B".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
@@ -3301,7 +3301,7 @@ public class LoginServiceImpl implements LoginService {
 
                     if(remind == 1 && choose == 1){
                         for(int a=0;a<apps.size();a++){
-                            String app=apps.get(i);
+                            String app=apps.get(a);
                             String token = getToken(app);
                             if ("MOMO2B".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
