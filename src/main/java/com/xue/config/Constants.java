@@ -7,4 +7,7 @@ public class Constants {
     public static final String appid_2b = "wxc61d8f694d20f083";
     public static final String secret_2b = "8e23d28264b79b9d45f0c46d12d3f166";
 
+    public static final String official_appid = "wxc79a69144e4fd233";
+    public static final String official_secret = "3a0e2c3067c1df58bd92e4788371baeb";
+
 }

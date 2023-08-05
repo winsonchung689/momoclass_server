@@ -3120,6 +3120,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void sendClassRemind() {
+
+        getOpenidOfficial();
+
         // 获取 token
         String token = getToken("MOMO2B");
         String token1 = getToken("MOMO");
@@ -3384,13 +3387,18 @@ public class LoginServiceImpl implements LoginService {
         String secret = Constants.secret;
         String appid_2b = Constants.appid_2b;
         String secret_2b = Constants.secret_2b;
+        String official_appid = Constants.official_appid;
+        String official_secret = Constants.official_secret;
         String url = "https://api.weixin.qq.com/cgi-bin/token";
 
         if ("MOMO2B".equals(app)){
             param = "appid=" + appid_2b + "&secret=" + secret_2b + "&grant_type=client_credential";
         }else if ("MOMO".equals(app)){
-            param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";;
+            param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";
+        }else if("MOMO_OFFICIAL".equals(app)){
+            param = "appid=" + official_appid + "&secret=" + official_secret + "&grant_type=client_credential";
         }
+
         try {
             token = TokenCache.get(app);
             if(token == null){
@@ -3515,7 +3523,7 @@ public class LoginServiceImpl implements LoginService {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
 
         if ("MOMO2B".equals(app)){
-            param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";;
+            param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";
         }else if("MOMO".equals(app)){
             param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
         }
@@ -3531,6 +3539,23 @@ public class LoginServiceImpl implements LoginService {
 //			e.printStackTrace();
         }
         return openid;
+    }
+
+    @Override
+    public String getOpenidOfficial() {
+        String result = null;
+        String token = getToken("MOMO_OFFICIAL");
+        String url = "https://api.weixin.qq.com/cgi-bin/user/get";
+        String param = "access_token="+ token;
+        result = HttpUtil.sendPost(url	,param);
+        JSONObject jsonObject = JSON.parseObject(result);
+        String data = jsonObject.getString("data");
+        JSONObject jsonObject1 = JSON.parseObject(data);
+        String list = jsonObject1.getString("openid");
+        System.out.println(list);
+
+
+        return null;
     }
 
     @Override
