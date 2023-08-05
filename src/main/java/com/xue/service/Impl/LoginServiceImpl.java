@@ -3575,7 +3575,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
-            System.out.println(list);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
