@@ -3403,6 +3403,7 @@ public class LoginServiceImpl implements LoginService {
             if(token == null){
                 result = HttpUtil.sendPost(url,param);
                 JSONObject jsonObject = JSON.parseObject(result);
+                System.out.println(jsonObject);
                 token = jsonObject.getString("access_token");
                 TokenCache.put(app,token);
             }
