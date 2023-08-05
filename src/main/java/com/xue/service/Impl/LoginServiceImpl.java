@@ -3175,42 +3175,42 @@ public class LoginServiceImpl implements LoginService {
                     String app = apps.get(a);
                     String token = getToken(app);
                     if ("MOMO2B".equals(app)){
-                    url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-                    JSONObject queryJson = JSONObject.parseObject(tample4);
-                    queryJson.put("touser",openid);
-                    queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
-                    queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
-                    queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
-                    queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
-                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                    System.out.printf("res:" + result);
-                }else if ("MOMO".equals(app)){
-                    url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-                    //公众号通知
-                    JSONObject queryJson1 = JSONObject.parseObject(tample13);
-                    queryJson1.put("touser",openid);
-                    queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
-                    queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value",compare +"天后到期,至"+expried_time);
-                    queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
-                    result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
-                    System.out.printf("res:" + result);
-                }else if("MOMO_OFFICIAL".equals(app)){
-                    url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    //绑定公众号通知
-                    if(official_openid != null){
-                        String[] official_list = official_openid.split(",");
-                        for(int j=0;j<official_list.length;j++){
-                            String official_openid_get = official_list[i];
-                            JSONObject queryJson2 = JSONObject.parseObject(tample13);
-                            queryJson2.put("touser",official_openid_get);
-                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
-                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value",compare +"天后到期,至"+expried_time);
-                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
-                            result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                            System.out.printf("res:" + result);
+                        url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+                        JSONObject queryJson = JSONObject.parseObject(tample4);
+                        queryJson.put("touser",openid);
+                        queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
+                        queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                        queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
+                        queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
+                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                        System.out.printf("res:" + result);
+                    }else if ("MOMO".equals(app)){
+                        url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
+                        //公众号通知
+                        JSONObject queryJson1 = JSONObject.parseObject(tample13);
+                        queryJson1.put("touser",openid);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value",compare +"天后到期,至"+expried_time);
+                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
+                        result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
+                        System.out.printf("res:" + result);
+                    }else if("MOMO_OFFICIAL".equals(app)){
+                        url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                        //绑定公众号通知
+                        if(official_openid != null){
+                            String[] official_list = official_openid.split(",");
+                            for(int j=0;j<official_list.length;j++){
+                                String official_openid_get = official_list[i];
+                                JSONObject queryJson2 = JSONObject.parseObject(tample13);
+                                queryJson2.put("touser",official_openid_get);
+                                queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
+                                queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value",compare +"天后到期,至"+expried_time);
+                                queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
+                                result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                                System.out.printf("res:" + result);
+                            }
                         }
                     }
-                }
                 }
             }
 
@@ -3234,18 +3234,6 @@ public class LoginServiceImpl implements LoginService {
                                 System.out.printf("param:" + queryJson.toJSONString());
                                 result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                                 System.out.printf("res:" + result);
-                            }else if ("MOMO".equals(app)){
-                                url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-                                //公众号通知
-                                JSONObject queryJson1 = JSONObject.parseObject(tample5);
-                                queryJson1.put("touser",openid);
-                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
-                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
-                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
-
-                                System.out.printf("param1:" + queryJson1.toJSONString());
-                                result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
-                                System.out.printf("res1:" + result);
                             }else if("MOMO_OFFICIAL".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                 //绑定公众号通知
@@ -3264,6 +3252,18 @@ public class LoginServiceImpl implements LoginService {
                                         System.out.printf("res2:" + result);
                                     }
                                 }
+                            }else if ("MOMO".equals(app)){
+                                url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
+                                //公众号通知
+                                JSONObject queryJson1 = JSONObject.parseObject(tample5);
+                                queryJson1.put("touser",openid);
+                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
+                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
+                                queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+
+                                System.out.printf("param1:" + queryJson1.toJSONString());
+                                result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
+                                System.out.printf("res1:" + result);
                             }
                         }
                     }
