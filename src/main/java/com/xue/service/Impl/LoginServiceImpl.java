@@ -3558,20 +3558,19 @@ public class LoginServiceImpl implements LoginService {
             String[] openid_list = list.split(",");
             for(int i=0;i<openid_list.length;i++){
                 String openid = openid_list[i];
-                System.out.println(openid);
                 String param2 = "access_token="+ token + "&openid=" + openid  + "&lang=zh_CN";
                 String result2 = HttpUtil.sendPost(url1	,param2);
                 JSONObject jsonObject2 = JSON.parseObject(result2);
-                System.out.println(result2);
                 String unionid = jsonObject2.getString("unionid");
                 String official_openid = jsonObject2.getString("openid");
                 List<User> users = dao.getUserByUnionid(unionid);
                 if(users.size()>0){
                     for(int j =0;j<users.size();j++){
                         String official_openid_get = users.get(j).getOfficial_openid();
-
-                        if(!official_openid_get.contains(official_openid)){
-                            official_openid = official_openid + "," + official_openid_get;
+                        if(official_openid_get != null){
+                            if(!official_openid_get.contains(official_openid)){
+                                official_openid = official_openid + "," + official_openid_get;
+                            }
                         }
                         dao.updateUserOfficialOpenid(unionid,official_openid);
                     }
