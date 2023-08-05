@@ -3206,6 +3206,21 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                //绑定公众号通知
+                String[] official_list = official_openid.split(",");
+                for(int j=0;j<official_list.length;j++){
+                    String official_openid_get = official_list[i];
+                    JSONObject queryJson2 = JSONObject.parseObject(tample13);
+                    queryJson2.put("touser",official_openid_get);
+                    queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio);
+                    queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value",compare +"天后到期,至"+expried_time);
+                    queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
+
+                    System.out.println("json:" + queryJson2.toJSONString());
+                    result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                    System.out.printf("res:" + result);
+                }
             }
 
             if("boss".equals(role) || "teacher".equals(role) ){
@@ -3234,15 +3249,20 @@ public class LoginServiceImpl implements LoginService {
                         System.out.printf("res:" + result);
 
                         //绑定公众号通知
-                        JSONObject queryJson2 = JSONObject.parseObject(tample5);
-                        queryJson1.put("touser",official_openid);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
-                        queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                        String[] official_list = official_openid.split(",");
+                        for(int j=0;j<official_list.length;j++){
+                            String official_openid_get = official_list[i];
+                            JSONObject queryJson2 = JSONObject.parseObject(tample5);
+                            queryJson1.put("touser",official_openid_get);
+                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
+                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
+                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
-                        System.out.println("json:" + queryJson2.toJSONString());
-                        result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
-                        System.out.printf("res:" + result);
+                            System.out.println("json:" + queryJson2.toJSONString());
+                            result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                            System.out.printf("res:" + result);
+                        }
+
                     }
                 }
             }
@@ -3303,6 +3323,21 @@ public class LoginServiceImpl implements LoginService {
                             System.out.printf("status:" + status);
                         } catch (Exception e) {
                             e.printStackTrace();
+                        }
+
+                        //绑定公众号通知
+                        String[] official_list = official_openid.split(",");
+                        for(int k=0;k<official_list.length;k++){
+                            String official_openid_get = official_list[k];
+                            JSONObject queryJson2 = JSONObject.parseObject(tample5);
+                            queryJson2.put("touser",official_openid_get);
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+
+                            System.out.println("json:" + queryJson2.toJSONString());
+                            result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
+                            System.out.printf("res:" + result);
                         }
                     }
                 }
