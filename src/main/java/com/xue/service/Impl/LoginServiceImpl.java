@@ -3558,6 +3558,7 @@ public class LoginServiceImpl implements LoginService {
             String[] openid_list = list.split(",");
             for(int i=0;i<openid_list.length;i++){
                 String openid = openid_list[i];
+                System.out.println(openid);
                 String param2 = "access_token="+ token + "&openid=" + openid  + "&lang=zh_CN";
                 String result2 = HttpUtil.sendPost(url1	,param2);
                 JSONObject jsonObject2 = JSON.parseObject(result2);
