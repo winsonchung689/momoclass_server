@@ -3554,7 +3554,7 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = JSON.parseObject(result);
             String data = jsonObject.getString("data");
             JSONObject jsonObject1 = JSON.parseObject(data);
-            String list = jsonObject1.getString("openid").replace("[","").replace("]","");
+            String list = jsonObject1.getString("openid").replace("[","").replace("]","").replace("\"","");
             String[] openid_list = list.split(",");
             for(int i=0;i<openid_list.length;i++){
                 String openid = openid_list[i];
