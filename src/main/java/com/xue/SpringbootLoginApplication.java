@@ -46,7 +46,7 @@ public class SpringbootLoginApplication {
 		loginService.sendClassRemind();
 	}
 
-	@Scheduled(cron = "0 * * * * ?")
+	@Scheduled(cron = "0 */1 * * *")
 	public void getOpenidOfficial(){
 		List<String> tempList = new ArrayList<>();
 		tempList.add("MOMO_OFFICIAL");
