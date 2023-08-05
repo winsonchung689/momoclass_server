@@ -3158,14 +3158,13 @@ public class LoginServiceImpl implements LoginService {
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
         String campus = null;
-        String official_openid = null;
 
         list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
             User user = list.get(i);
             role = user.getRole();
             openid = user.getOpenid();
-            official_openid = user.getOfficial_openid();
+            String official_openid = user.getOfficial_openid();
             studio = user.getStudio();
             student_name = user.getStudent_name();
             send_time = user.getSend_time();
@@ -3255,7 +3254,7 @@ public class LoginServiceImpl implements LoginService {
                         if(official_openid != null){
                             String[] official_list = official_openid.split(",");
                             for(int j=0;j<official_list.length;j++){
-                                String official_openid_get = official_list[i];
+                                String official_openid_get = official_list[j];
                                 JSONObject queryJson2 = JSONObject.parseObject(tample5);
                                 queryJson2.put("touser",official_openid_get);
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
