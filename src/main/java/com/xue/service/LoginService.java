@@ -208,7 +208,7 @@ public interface LoginService {
 
     public int updateGift(String id);
 
-    public void sendClassRemind(String app);
+    public void sendClassRemind();
 
     public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
 
@@ -218,7 +218,7 @@ public interface LoginService {
 
     public String getOpenid(String code,String app);
 
-    public String getOpenidOfficial(String app);
+    public String getOpenidOfficial();
 
     public String renewLessonRemind(String student_name,String studio,String campus,String subject,Float lesson_amount);
 
