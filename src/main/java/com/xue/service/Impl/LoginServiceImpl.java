@@ -3547,12 +3547,17 @@ public class LoginServiceImpl implements LoginService {
         String token = getToken("MOMO_OFFICIAL");
         String url = "https://api.weixin.qq.com/cgi-bin/user/get";
         String param = "access_token="+ token;
-        result = HttpUtil.sendPost(url	,param);
-        JSONObject jsonObject = JSON.parseObject(result);
-        String data = jsonObject.getString("data");
-        JSONObject jsonObject1 = JSON.parseObject(data);
-        String list = jsonObject1.getString("openid");
-        System.out.println(list);
+        try {
+            result = HttpUtil.sendPost(url	,param);
+            System.out.printf(result);
+            JSONObject jsonObject = JSON.parseObject(result);
+            String data = jsonObject.getString("data");
+            JSONObject jsonObject1 = JSON.parseObject(data);
+            String list = jsonObject1.getString("openid");
+            System.out.println(list);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
 
         return null;
