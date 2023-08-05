@@ -3545,6 +3545,7 @@ public class LoginServiceImpl implements LoginService {
     public String getOpenidOfficial() {
         String result = null;
         String token = getToken("MOMO_OFFICIAL");
+        System.out.println(token);
         String url = "https://api.weixin.qq.com/cgi-bin/user/get";
         String param = "access_token="+ token;
         try {
