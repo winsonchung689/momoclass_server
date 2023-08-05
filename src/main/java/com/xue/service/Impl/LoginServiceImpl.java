@@ -3542,12 +3542,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String getOpenidOfficial() {
-        String result = null;
-        String token = getToken("MOMO_OFFICIAL");
-        System.out.println(token);
-        String url = "https://api.weixin.qq.com/cgi-bin/user/get";
-        String param = "access_token="+ token;
         try {
+            String result = null;
+            String token = getToken("MOMO_OFFICIAL");
+            System.out.println(token);
+            String url = "https://api.weixin.qq.com/cgi-bin/user/get";
+            String param = "access_token="+ token;
+
             result = HttpUtil.sendPost(url	,param);
             System.out.printf(result);
             JSONObject jsonObject = JSON.parseObject(result);
