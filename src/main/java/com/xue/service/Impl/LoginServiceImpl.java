@@ -3127,6 +3127,7 @@ public class LoginServiceImpl implements LoginService {
 
         for(int a=0;a<apps.size();a++){
             String app = apps.get(a);
+            System.out.println(app);
             // 获取 token
             String token = getToken(app);
             String url_send = null;
