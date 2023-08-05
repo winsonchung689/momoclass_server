@@ -49,6 +49,7 @@ public class SpringbootLoginApplication {
 		apps.add("MOMO_OFFICIAL");
 		for(int i=0;i<apps.size();i++){
 			String app = apps.get(i);
+			System.out.printf(app);
 			loginService.sendClassRemind(app);
 		}
 	}
