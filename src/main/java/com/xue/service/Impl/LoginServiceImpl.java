@@ -3235,7 +3235,7 @@ public class LoginServiceImpl implements LoginService {
                                 result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
                                 System.out.printf("res:" + result);
                             }else if("MOMO_OFFICIAL".equals(app)){
-                                url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                                url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
                                 //绑定公众号通知
                                 if(official_openid != null){
                                     String[] official_list = official_openid.split(",");
