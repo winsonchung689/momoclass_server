@@ -3247,24 +3247,25 @@ public class LoginServiceImpl implements LoginService {
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
-                        System.out.println("json:" + queryJson1.toJSONString());
+                        System.out.println("json1:" + queryJson1.toJSONString());
                         result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
-                        System.out.printf("res:" + result);
+                        System.out.printf("res1:" + result);
 
                         //绑定公众号通知
                         if(official_openid != null){
                             String[] official_list = official_openid.split(",");
                             for(int j=0;j<official_list.length;j++){
                                 String official_openid_get = official_list[i];
+                                System.out.println(official_openid_get);
                                 JSONObject queryJson2 = JSONObject.parseObject(tample5);
                                 queryJson2.put("touser",official_openid_get);
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
-                                System.out.println("json:" + queryJson2.toJSONString());
+                                System.out.println("json2:" + queryJson2.toJSONString());
                                 result = HttpUtil.sendPostJson(url_official,queryJson2.toJSONString());
-                                System.out.printf("res:" + result);
+                                System.out.printf("res2:" + result);
                             }
                         }
                     }
@@ -3334,6 +3335,7 @@ public class LoginServiceImpl implements LoginService {
                             String[] official_list = official_openid.split(",");
                             for(int k=0;k<official_list.length;k++){
                                 String official_openid_get = official_list[k];
+                                System.out.println(official_openid_get);
                                 JSONObject queryJson2 = JSONObject.parseObject(tample5);
                                 queryJson2.put("touser",official_openid_get);
                                 queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",student_name);
