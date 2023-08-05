@@ -3253,10 +3253,10 @@ public class LoginServiceImpl implements LoginService {
                         for(int j=0;j<official_list.length;j++){
                             String official_openid_get = official_list[i];
                             JSONObject queryJson2 = JSONObject.parseObject(tample5);
-                            queryJson1.put("touser",official_openid_get);
-                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
-                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
-                            queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                            queryJson2.put("touser",official_openid_get);
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time);
+                            queryJson2.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
 
                             System.out.println("json:" + queryJson2.toJSONString());
                             result = HttpUtil.sendPostJson(url_union,queryJson2.toJSONString());
