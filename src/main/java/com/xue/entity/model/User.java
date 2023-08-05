@@ -52,6 +52,26 @@ public class User {
 
     private String back_uuid;
 
+    private String unionid;
+
+    private String official_openid;
+
+    public String getOfficial_openid() {
+        return official_openid;
+    }
+
+    public void setOfficial_openid(String official_openid) {
+        this.official_openid = official_openid;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
     public String getBack_uuid() {
         return back_uuid;
     }

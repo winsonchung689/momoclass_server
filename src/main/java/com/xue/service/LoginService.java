@@ -80,7 +80,7 @@ public interface LoginService {
 
     public List  getGift(String student_name,String studio);
 
-    public List  getLeaveRecord(String student_name,String studio,String leave_type,String subject);
+    public List  getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
     public List  getArrangement(String studio,Integer dayofweek,String date,String subject,String openid,String student_name);
 

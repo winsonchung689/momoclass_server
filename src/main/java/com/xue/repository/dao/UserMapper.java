@@ -353,6 +353,8 @@ public interface UserMapper {
 
     List<User> getUserByOpenid(String openid);
 
+    List<User> getUserByUnionid(String unionid);
+
     List<User> getUserByChooseLesson(String chooseLesson);
 
     List<User> getUserByOpenidIgnore(String openid);
@@ -541,9 +543,9 @@ public interface UserMapper {
 
     List<Gift> getGift(String student_name,String studio);
 
-    List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject);
+    List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
-    List<Leave> getLeaveRecordAll(String student_name,String studio,String leave_type,String subject);
+    List<Leave> getLeaveRecordAll(String student_name,String studio,String leave_type,String subject,String campus);
 
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration);
 

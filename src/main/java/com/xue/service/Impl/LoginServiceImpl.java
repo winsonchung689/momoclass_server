@@ -507,7 +507,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLeaveRecord(String student_name, String studio,String leave_type,String subject) {
+    public List getLeaveRecord(String student_name, String studio,String leave_type,String subject,String campus) {
         String create_time = null;
         String date_time = null;
         String duration=null;
@@ -518,9 +518,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Leave> list = dao.getLeaveRecord(student_name, studio,leave_type,subject);
+            List<Leave> list = dao.getLeaveRecord(student_name, studio,leave_type,subject,campus);
             if("all".equals(student_name)){
-                list = dao.getLeaveRecordAll(student_name, studio,leave_type,subject);
+                list = dao.getLeaveRecordAll(student_name, studio,leave_type,subject,campus);
             }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -3403,7 +3403,6 @@ public class LoginServiceImpl implements LoginService {
             if(token == null){
                 result = HttpUtil.sendPost(url,param);
                 JSONObject jsonObject = JSON.parseObject(result);
-                System.out.println(jsonObject);
                 token = jsonObject.getString("access_token");
                 TokenCache.put(app,token);
             }
@@ -3546,16 +3545,31 @@ public class LoginServiceImpl implements LoginService {
         try {
             String result = null;
             String token = getToken("MOMO_OFFICIAL");
-            System.out.println(token);
             String url = "https://api.weixin.qq.com/cgi-bin/user/get";
             String param = "access_token="+ token;
 
+            String url1 = "https://api.weixin.qq.com/cgi-bin/user/info";
+
+
             result = HttpUtil.sendPost(url	,param);
-            System.out.printf(result);
             JSONObject jsonObject = JSON.parseObject(result);
             String data = jsonObject.getString("data");
             JSONObject jsonObject1 = JSON.parseObject(data);
-            String list = jsonObject1.getString("openid");
+            String list = jsonObject1.getString("openid").replace("[","").replace("]","");
+            String[] openid_list = list.split(",");
+            for(int i=0;i<openid_list.length;i++){
+                String openid = openid_list[i];
+                String param2 = "access_token="+ token + "&openid=" + openid  + "&lang=zh_CN";
+                String result2 = HttpUtil.sendPost(url1	,param2);
+                JSONObject jsonObject2 = JSON.parseObject(result2);
+                String unionid = jsonObject2.getString("unionid");
+                String official_openid = jsonObject2.getString("openid");
+                List<User> users = dao.getUserByUnionid(unionid);
+                for(int j =0;j<users.size();j++){
+                    String official_openid_get = users.get(j).getOfficial_openid();
+
+                }
+            }
             System.out.println(list);
         } catch (Exception e) {
             throw new RuntimeException(e);

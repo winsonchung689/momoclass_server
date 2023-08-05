@@ -1142,10 +1142,12 @@ public class LoginController {
 	//	获取请假记录
 	@RequestMapping("/getLeaveRecord")
 	@ResponseBody
-	public List getLeaveRecord(String student_name,String studio,String leave_type,String subject){
+	public List getLeaveRecord(String student_name,String studio,String leave_type,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getLeaveRecord(student_name,studio,leave_type,subject);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getLeaveRecord(student_name,studio,leave_type,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
