@@ -3594,7 +3594,7 @@ public class LoginServiceImpl implements LoginService {
             openid = jsonObject.getString("openid");
             unionid = jsonObject.getString("unionid");
             if(unionid != null){
-                dao.updateUserUnionid(openid,unionid);
+                dao.updateUserUnionid(openid,unionid,app);
             }
         } catch (Exception e) {
 //			e.printStackTrace();

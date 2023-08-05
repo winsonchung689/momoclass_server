@@ -825,7 +825,7 @@
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member,campus from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member,campus,app from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -1257,7 +1257,7 @@
   </update>
 
   <update id="updateUserUnionid" parameterType="com.xue.entity.model.User">
-    update user set unionid=#{param2} where openid=#{param1} and delete_status = 0
+    update user set unionid=#{param2},app=#{param3} where openid=#{param1} and delete_status = 0
   </update>
 
   <update id="updateUserOfficialOpenid" parameterType="com.xue.entity.model.User">
