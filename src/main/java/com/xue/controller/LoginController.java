@@ -2794,9 +2794,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteLessonPackage")
 	@ResponseBody
-	public int deleteLessonPackage(Integer id){
+	public int deleteLessonPackage(Integer id,String type){
 		try {
-			loginService.deleteLessonPackage(id);
+			loginService.deleteLessonPackage(id,type);
 		} catch (Exception e) {
 			return 0;
 		}

@@ -222,6 +222,6 @@ public interface LoginService {
 
     public String renewLessonRemind(String student_name,String studio,String campus,String subject,Float lesson_amount);
 
-    public int deleteLessonPackage(Integer id);
+    public int deleteLessonPackage(Integer id,String type);
 
 }
