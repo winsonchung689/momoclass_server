@@ -4013,6 +4013,11 @@ public class LoginController {
 				String openid = openid_get.split("@")[0];
 				String id = openid_get.split("@")[1];
 				dao.updateUserStudentByOpenid(campus,openid,id);
+			}else if("工作室".equals(type)){
+				User user =new User();
+				user.setOpenid(openid_get);
+				user.setStudio(campus);
+				dao.updateUserCampus(user);
 			}
 
 		} catch (Exception e) {

@@ -1251,6 +1251,10 @@
     update user set campus=#{campus} where openid=#{openid}
   </update>
 
+  <update id="updateUserStudioByOpenid" parameterType="com.xue.entity.model.User">
+    update user set studio=#{studio} where openid=#{openid}
+  </update>
+
   <!-- 更改工作室名 -->
   <update id="updateUserStudio" parameterType="com.xue.entity.model.User">
     update user set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
