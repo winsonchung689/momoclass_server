@@ -4017,7 +4017,7 @@ public class LoginController {
 				User user =new User();
 				user.setOpenid(openid_get);
 				user.setStudio(campus);
-				dao.updateUserCampus(user);
+				dao.updateUserStudioByOpenid(user);
 			}
 
 		} catch (Exception e) {
