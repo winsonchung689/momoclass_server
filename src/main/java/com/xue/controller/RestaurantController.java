@@ -79,9 +79,9 @@ public class RestaurantController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/getUser")
+	@RequestMapping("/getRestaurantUser")
 	@ResponseBody
-	public List getUser(String openid){
+	public List getRestaurantUser(String openid){
 		List list = null;
 		try {
 			list = loginService.getRestaurantUser(openid);
