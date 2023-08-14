@@ -150,6 +150,8 @@ public interface LoginService {
 
     public List getUser(String openid);
 
+    public List getRestaurantUser(String openid);
+
     public List getUserByNickName(String nickName);
 
     public List getUserByStudio(String Studio,String campus);

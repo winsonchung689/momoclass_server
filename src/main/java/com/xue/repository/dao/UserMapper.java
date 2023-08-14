@@ -354,6 +354,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<RestaurantUser> getRestaurantUser(String openid);
+
     List<User> getUserSendTime(String studio);
 
     List<User> getUserByOpenid(String openid);
