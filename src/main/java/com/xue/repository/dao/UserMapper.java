@@ -274,6 +274,8 @@ public interface UserMapper {
 
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 
+    int updateRestaurantNickName(RestaurantUser restaurantUser);
+
     int updateUserDelete(User user);
 
     int updateUserBackUrl(User user);

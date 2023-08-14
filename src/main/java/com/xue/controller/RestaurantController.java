@@ -108,6 +108,11 @@ public class RestaurantController {
 				restaurantUser.setAvatarurl(content);
 				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantAvatar(restaurantUser);
+			}else if("nickName".equals(type)){
+				RestaurantUser restaurantUser =new RestaurantUser();
+				restaurantUser.setNick_name(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantNickName(restaurantUser);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
