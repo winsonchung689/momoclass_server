@@ -1814,7 +1814,8 @@ public class LoginServiceImpl implements LoginService {
         try {
             result = dao.insertRestaurantUser(restaurantUser);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+
         }
         return result;
     }
