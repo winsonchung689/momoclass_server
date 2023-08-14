@@ -915,6 +915,10 @@
     update user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
 
+  <update id="updateRestaurantAvatar" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set avatarurl=#{avatarurl} where openid = #{openid}
+  </update>
+
   <!-- 恢复已删除用户 -->
   <update id="updateUserDelete" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}
