@@ -829,7 +829,7 @@
   </insert>
 
   <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
-    insert user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time})
+    insert restaurant(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
