@@ -263,6 +263,7 @@ public interface UserMapper {
     //插入
     int insertUser(User user);
 
+    int insertRestaurantUser(RestaurantUser restaurantUser);
     int updateUser(User user);
 
     int updateOpenid(User user);
@@ -541,9 +542,9 @@ public interface UserMapper {
 
     List<Message> getCommentByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
 
-    List<SignUp> getSignUpByDate(String student_name,String studio,String date_time,String campus);
+    List<SignUp> getSignUpByDate(String student_name,String studio,String date_time,String campus,String subject);
 
-    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
+    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 
     List<Gift> getGift(String student_name,String studio);
 

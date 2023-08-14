@@ -76,7 +76,7 @@ public interface LoginService {
 
     public List  getSignUp(String student_name,String studio,String subject);
 
-    public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus);
+    public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 
     public List  getGift(String student_name,String studio);
 
@@ -131,6 +131,8 @@ public interface LoginService {
     public int  deleteLesson(Integer id,String role,String studio,String openid,String student_name);
 
     public int insertUser(User user);
+
+    public int insertRestaurantUser(RestaurantUser restaurantUser);
 
     public int updateUser(User user);
 

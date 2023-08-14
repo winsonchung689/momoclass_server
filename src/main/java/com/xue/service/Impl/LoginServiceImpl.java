@@ -414,14 +414,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus) {
+    public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject) {
         String id = null;
         String openid = null;
         String subscription = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<SignUp> list = dao.getSignUpByDateDuration(student_name,studio,date_time,duration,campus);
+            List<SignUp> list = dao.getSignUpByDateDuration(student_name,studio,date_time,duration,campus,subject);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
@@ -1054,7 +1054,7 @@ public class LoginServiceImpl implements LoginService {
 
                         jsonObject.put("sign_up", "签到");
                         jsonObject.put("mark", "备注");
-                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
+                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus,subject);
                         if (signUps.size() >= 1) {
                             if (signUps.get(0).getDuration().equals("00:00-00:00")) {
                                 jsonObject.put("sign_up", "已签到");
@@ -1063,7 +1063,7 @@ public class LoginServiceImpl implements LoginService {
                                 jsonObject.put("mark", mark);
 
                             } else {
-                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
+                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus,subject);
                                 if (signUpsDuration.size() == 1) {
                                     jsonObject.put("sign_up", "已签到");
                                     jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -1151,7 +1151,7 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00",campus);
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00",campus,subject);
                     if(signUps.size()>=1){
                         if(signUps.get(0).getDuration().equals("00:00-00:00")){
                             jsonObject.put("sign_up", "已签到");
@@ -1160,7 +1160,7 @@ public class LoginServiceImpl implements LoginService {
                             jsonObject.put("mark", mark);
 
                         }else {
-                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration,campus);
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration,campus,subject);
                             if(signUpsDuration.size()==1){
                                 jsonObject.put("sign_up", "已签到");
                                 jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -1408,7 +1408,7 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus);
+                    List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus,subject);
                     if (signUps.size() >= 1) {
                         if (signUps.get(0).getDuration().equals("00:00-00:00")) {
                             jsonObject.put("sign_up", "已签到");
@@ -1417,7 +1417,7 @@ public class LoginServiceImpl implements LoginService {
                             jsonObject.put("mark", mark);
 
                         } else {
-                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus);
+                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus,subject);
                             if (signUpsDuration.size() == 1) {
                                 jsonObject.put("sign_up", "已签到");
                                 jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
@@ -1802,6 +1802,17 @@ public class LoginServiceImpl implements LoginService {
         int result = 0;
         try {
             result = dao.insertUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int insertRestaurantUser(RestaurantUser restaurantUser) {
+        int result = 0;
+        try {
+            result = dao.insertRestaurantUser(restaurantUser);
         } catch (Exception e) {
             e.printStackTrace();
         }

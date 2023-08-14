@@ -16,6 +16,10 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+  <resultMap id="BaseRestaurantUser" type="com.xue.entity.model.RestaurantUser">
+    <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
   <resultMap id="BaseLesson" type="com.xue.entity.model.Lesson">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
@@ -745,12 +749,12 @@
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDate" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3} and campus =#{param4}  order by create_time
+    select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3} and campus =#{param4} and subject =#{param5} order by create_time
   </select>
 
   <!-- 查找签到记录 -->
   <select id="getSignUpByDateDuration" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,class_number,teacher from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} and campus =#{param5} order by create_time desc
+    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,class_number,teacher from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} and campus =#{param5} and subject =#{param6} order by create_time desc
   </select>
 
   <!-- 查找请假记录 -->
@@ -822,6 +826,10 @@
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
     insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location})
+  </insert>
+
+  <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
+    insert user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time})
   </insert>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
