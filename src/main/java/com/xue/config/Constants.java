@@ -10,4 +10,7 @@ public class Constants {
     public static final String official_appid = "wxc79a69144e4fd233";
     public static final String official_secret = "3a0e2c3067c1df58bd92e4788371baeb";
 
+    public static final String order_appid = "wx15de5c44c0852c73";
+    public static final String order_secret = "b8b1667091355afa184ca37eafbdb14f";
+
 }

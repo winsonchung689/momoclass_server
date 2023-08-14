@@ -3596,13 +3596,18 @@ public class LoginServiceImpl implements LoginService {
         String secret = Constants.secret;
         String appid_2b = Constants.appid_2b;
         String secret_2b = Constants.secret_2b;
+        String order_appid = Constants.order_appid;
+        String order_secret = Constants.order_secret;
         String url = "https://api.weixin.qq.com/sns/jscode2session";
 
         if ("MOMO2B".equals(app)){
             param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";
         }else if("MOMO".equals(app)){
             param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
+        }else if("ORDER".equals(app)){
+            param = "appid="+ order_appid + "&secret=" + order_secret + "&js_code="+ code +"&grant_type=authorization_code";
         }
+
         try {
             result = HttpUtil.sendPost(url	,param);
             JSONObject jsonObject = JSON.parseObject(result);
