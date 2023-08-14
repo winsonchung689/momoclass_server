@@ -91,6 +91,32 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/updateRestaurantUser")
+	@ResponseBody
+	public int updateRestaurantUser(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String content = request.getParameter("avatarurl");
+
+		String openid = request.getParameter("openid");
+
+		String type = request.getParameter("type");
+
+		try {
+			if("avatarurl".equals(type)){
+				RestaurantUser restaurantUser =new RestaurantUser();
+				restaurantUser.setAvatarurl(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantAvatar(restaurantUser);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 
 
 }

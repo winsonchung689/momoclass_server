@@ -2599,28 +2599,6 @@ public class LoginController {
 
 	}
 
-	@RequestMapping("/updateRestaurantAvatar")
-	@ResponseBody
-	public int updateRestaurantAvatar(HttpServletRequest request, HttpServletResponse response){
-
-		//获取文字
-		String avatarurl = request.getParameter("avatarurl");
-
-		String openid = request.getParameter("openid");
-
-		try {
-			RestaurantUser restaurantUser =new RestaurantUser();
-			restaurantUser.setAvatarurl(avatarurl);
-			restaurantUser.setOpenid(openid);
-			dao.updateRestaurantAvatar(restaurantUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return 1;
-
-	}
-
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
