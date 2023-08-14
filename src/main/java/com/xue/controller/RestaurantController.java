@@ -96,7 +96,7 @@ public class RestaurantController {
 	public int updateRestaurantUser(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
-		String content = request.getParameter("avatarurl");
+		String content = request.getParameter("content");
 
 		String openid = request.getParameter("openid");
 
