@@ -837,7 +837,7 @@
   </select>
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
-    select * from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+    select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
