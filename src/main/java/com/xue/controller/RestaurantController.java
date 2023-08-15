@@ -135,6 +135,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantMenu")
+	@ResponseBody
+	public List getRestaurantMenu(String restaurant){
+		List list = null;
+		try {
+			list = loginService.getRestaurantMenu(restaurant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateRestaurantUser")
 	@ResponseBody
 	public int updateRestaurantUser(HttpServletRequest request, HttpServletResponse response){

@@ -847,6 +847,10 @@
     select distinct category from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
   </select>
 
+  <select id="getRestaurantMenu" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
+    select * from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
+  </select>
+
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,campus from user where studio =#{param1} and role ='boss' and delete_status = 0 order by id desc limit 1
   </select>

@@ -2208,6 +2208,36 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getRestaurantMenu(String restaurant) {
+        List<Menu> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getRestaurantMenu(restaurant);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Menu line = list.get(i);
+                //获取字段
+                String category = line.getCategory();
+                String food_name = line.getFood_name();
+                String food_image = line.getFood_image();
+                String introduce = line.getIntroduce();
+                Float price = line.getPrice();
+
+                //json
+                jsonObject.put("category", category);
+                jsonObject.put("food_name", food_name);
+                jsonObject.put("food_image", food_image);
+                jsonObject.put("introduce", introduce);
+                jsonObject.put("price", price);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getUserByStudio(String studio,String campus) {
         String role = null;
         String student_name = null;
