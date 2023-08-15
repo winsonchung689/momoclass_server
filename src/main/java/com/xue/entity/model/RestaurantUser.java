@@ -26,6 +26,17 @@ public class RestaurantUser {
 
     private String official_openid;
 
+    private String logo;
+
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     public String getOfficial_openid() {
         return official_openid;
     }
