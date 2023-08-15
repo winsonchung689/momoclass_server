@@ -2222,6 +2222,7 @@ public class LoginServiceImpl implements LoginService {
                 String food_image = line.getFood_image();
                 String introduce = line.getIntroduce();
                 Float price = line.getPrice();
+                String id = line.getId();
 
                 //json
                 jsonObject.put("category", category);
@@ -2229,6 +2230,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("food_image", food_image);
                 jsonObject.put("introduce", introduce);
                 jsonObject.put("price", price);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
