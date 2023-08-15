@@ -2146,8 +2146,7 @@ public class LoginServiceImpl implements LoginService {
         String subjects = null;
         List<RestaurantUser> list= null;
         String id = null;
-        String member = null;
-        String campus = null;
+        String logo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getRestaurantUser(openid);
@@ -2163,6 +2162,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 expired_time = line.getExpired_time();
                 openid = line.getOpenid();
+                logo = line.getLogo();
                 id = line.getId();
 
                 //json
@@ -2175,6 +2175,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("openid",openid);
+                jsonObject.put("logo",logo);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
