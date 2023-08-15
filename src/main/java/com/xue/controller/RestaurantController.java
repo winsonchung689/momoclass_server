@@ -123,12 +123,12 @@ public class RestaurantController {
 		return list;
 	}
 
-	@RequestMapping("/getRestaurantClassify")
+	@RequestMapping("/getRestaurantCategory")
 	@ResponseBody
-	public List getRestaurantClassify(String restaurant){
+	public List getRestaurantCategory(String restaurant){
 		List list = null;
 		try {
-			list = loginService.getRestaurantClassify(restaurant);
+			list = loginService.getRestaurantCategory(restaurant);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

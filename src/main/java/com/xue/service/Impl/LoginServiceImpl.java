@@ -2185,7 +2185,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRestaurantClassify(String restaurant) {
+    public List getRestaurantCategory(String restaurant) {
         List<Menu> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
