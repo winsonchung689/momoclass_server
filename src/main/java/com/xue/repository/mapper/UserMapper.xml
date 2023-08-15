@@ -20,6 +20,9 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+  <resultMap id="BaseRestaurantMenu" type="com.xue.entity.model.Menu">
+    <result column="category" jdbcType="VARCHAR" property="category" />
+  </resultMap>
   <resultMap id="BaseLesson" type="com.xue.entity.model.Lesson">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
@@ -838,6 +841,10 @@
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getRestaurantCategory" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
+    select distinct category from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

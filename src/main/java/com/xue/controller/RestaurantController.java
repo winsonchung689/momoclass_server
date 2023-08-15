@@ -123,6 +123,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantClassify")
+	@ResponseBody
+	public List getRestaurantClassify(String restaurant){
+		List list = null;
+		try {
+			list = loginService.getRestaurantClassify(restaurant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateRestaurantUser")
 	@ResponseBody
 	public int updateRestaurantUser(HttpServletRequest request, HttpServletResponse response){
