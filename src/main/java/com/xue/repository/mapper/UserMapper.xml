@@ -1000,7 +1000,7 @@
     insert class_note(subject,student_name,studio,create_time,note_content,campus) values(#{subject},#{student_name},#{studio},#{create_time},#{note_content},#{campus})
   </insert>
 
-  <insert id="insertRestaurantMenu;" parameterType="com.xue.entity.model.Menu">
+  <insert id="insertRestaurantMenu" parameterType="com.xue.entity.model.Menu">
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time})
   </insert>
 
