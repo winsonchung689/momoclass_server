@@ -510,6 +510,8 @@ public interface UserMapper {
 
     int insertNote(Note note);
 
+    int insertRestaurantMenu(Menu menu);
+
     int insertLessonPackage(LessonPackage lessonPackage);
 
     int insertLesson(Lesson lesson);
