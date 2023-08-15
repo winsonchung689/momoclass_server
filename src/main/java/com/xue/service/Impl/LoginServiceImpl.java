@@ -2231,6 +2231,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("introduce", introduce);
                 jsonObject.put("price", price);
                 jsonObject.put("id", id);
+                jsonObject.put("num", 0);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
