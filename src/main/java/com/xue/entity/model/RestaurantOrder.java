@@ -17,10 +17,19 @@ public class RestaurantOrder {
 
     private String create_time;
 
+    private String openid;
+
     private int delete_status;
 
     private int status;
 
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.restaurant = openid;
+    }
 
     public int getNum() {
         return num;
