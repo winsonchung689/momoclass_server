@@ -11,7 +11,6 @@ public class Constants {
     public static final String official_secret = "3a0e2c3067c1df58bd92e4788371baeb";
 
     public static final String order_appid = "wx15de5c44c0852c73";
-    public static final String order_secret = "U2FsdGVkX18ybWwxA/pSDAiWYj3CEvhQ8urnmHk7q35fzHVDwsKRomqy85pEAg4o\n" +
-            "IsPhlLOSnFBwHQrUVxk1Eg==";
+    public static final String order_secret = "60e10a8b68b50ac268442d25c7e0ccf6";
 
 }
