@@ -3776,13 +3776,7 @@ public class LoginServiceImpl implements LoginService {
             Cipher cipher = Cipher.getInstance("AES");
             byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
             order_secret = new String(decryptedBytes);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
