@@ -2210,7 +2210,11 @@ public class LoginServiceImpl implements LoginService {
                 int mum = line.getNum();
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
-                int status = line.getStatus();
+                int status_get = line.getStatus();
+                String status = "未完成";
+                if(status_get==1){
+                    status = "已完成";
+                }
 
                 //json
                 jsonObject.put("food_name", food_name);
