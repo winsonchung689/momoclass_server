@@ -2211,7 +2211,7 @@ public class LoginServiceImpl implements LoginService {
                 String food_name = line.getFood_name();
                 restaurant = line.getRestaurant();
                 String category = line.getCategory();
-                int mum = line.getNum();
+                int num = line.getNum();
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
                 int status_get = line.getStatus();
@@ -2223,17 +2223,19 @@ public class LoginServiceImpl implements LoginService {
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
                 String nick_name = restaurantUser_get.get(0).getNick_name();
                 String id = line.getId();
+                Float total_price = num * price ;
 
                 //json
                 jsonObject.put("food_name", food_name);
                 jsonObject.put("restaurant", restaurant);
                 jsonObject.put("category", category);
-                jsonObject.put("mum", mum);
+                jsonObject.put("num", num);
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("id", id);
+                jsonObject.put("total_price", total_price);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
