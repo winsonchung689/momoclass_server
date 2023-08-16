@@ -19,9 +19,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -3765,6 +3770,21 @@ public class LoginServiceImpl implements LoginService {
         String order_appid = Constants.order_appid;
         String order_secret = Constants.order_secret;
         String url = "https://api.weixin.qq.com/sns/jscode2session";
+
+        try {
+            byte[] encryptedBytes = Base64.getDecoder().decode(order_secret);
+            Cipher cipher = Cipher.getInstance("AES");
+            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+            order_secret = new String(decryptedBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        }
 
         if ("MOMO2B".equals(app)){
             param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";
