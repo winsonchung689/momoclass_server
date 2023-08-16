@@ -28,7 +28,7 @@ public class RestaurantOrder {
     }
 
     public void setOpenid(String openid) {
-        this.restaurant = openid;
+        this.openid = openid;
     }
 
     public int getNum() {
