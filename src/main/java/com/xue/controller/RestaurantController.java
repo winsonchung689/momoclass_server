@@ -239,7 +239,7 @@ public class RestaurantController {
 		String id = request.getParameter("id");
 		String status_get = request.getParameter("status");
 		int status = 1;
-		if("1".equals(status_get)){
+		if("已完成".equals(status_get)){
 			status =0;
 		}
 
