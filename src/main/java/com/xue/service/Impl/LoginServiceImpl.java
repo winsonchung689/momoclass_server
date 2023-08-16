@@ -2216,8 +2216,8 @@ public class LoginServiceImpl implements LoginService {
                     status = "已完成";
                 }
                 String openid_get = line.getOpenid();
-                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid);
-                String nick_name = restaurantUser.get(0).getNick_name();
+                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
+                String nick_name = restaurantUser_get.get(0).getNick_name();
 
                 //json
                 jsonObject.put("food_name", food_name);
