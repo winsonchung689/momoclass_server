@@ -1016,7 +1016,7 @@
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
-    insert restaurant_menu(restaurant,food_name,category,num,price,create_time) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time})
+    insert restaurant_order(restaurant,food_name,category,num,price,create_time) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time})
   </insert>
 
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
