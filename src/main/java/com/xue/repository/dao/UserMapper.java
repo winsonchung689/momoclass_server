@@ -278,7 +278,7 @@ public interface UserMapper {
 
     int updateRestaurantLogo(RestaurantUser restaurantUser);
 
-    int updateRestaurantOrderStatus(String id,String status);
+    int updateRestaurantOrderStatus(String id,int status);
 
     int updateRestaurantName(RestaurantUser restaurantUser);
 

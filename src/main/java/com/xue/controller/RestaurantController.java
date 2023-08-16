@@ -231,7 +231,27 @@ public class RestaurantController {
 
 	}
 
+	@RequestMapping("/updateRestaurantOrderStatus")
+	@ResponseBody
+	public int updateRestaurantOrderStatus(HttpServletRequest request, HttpServletResponse response){
 
+		//获取文字
+		String id = request.getParameter("id");
+		String status_get = request.getParameter("status");
+		int status = 1;
+		if("1".equals(status_get)){
+			status =0;
+		}
+
+		try {
+			dao.updateRestaurantOrderStatus(id,status);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+	}
 
 }
 	
