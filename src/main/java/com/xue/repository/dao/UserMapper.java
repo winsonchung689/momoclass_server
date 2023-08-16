@@ -365,6 +365,10 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUser(String openid);
 
+    List<RestaurantOrder> getRestaurantOrderByOpenid(String openid);
+
+    List<RestaurantOrder> getRestaurantOrderByShop(String restaurant);
+
     List<Menu> getRestaurantCategory(String restaurant);
 
     List<Menu> getRestaurantMenu(String restaurant);

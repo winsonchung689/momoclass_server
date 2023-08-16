@@ -20,6 +20,12 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+
+  <resultMap id="BaseRestaurantOrder" type="com.xue.entity.model.RestaurantOrder">
+    <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+
   <resultMap id="BaseRestaurantMenu" type="com.xue.entity.model.Menu">
     <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
@@ -841,6 +847,14 @@
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getRestaurantOrderByOpenid" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where openid =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getRestaurantOrderByShop" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where restaurant =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getRestaurantCategory" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">

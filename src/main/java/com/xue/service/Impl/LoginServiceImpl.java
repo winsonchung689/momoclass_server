@@ -2185,6 +2185,51 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getRestaurantOrder(String openid, String type) {
+        List<RestaurantOrder> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<RestaurantUser> restaurantUser = dao.getRestaurantUser(openid);
+            String restaurant = restaurantUser.get(0).getRestaurant();
+
+            if("my".equals(type)){
+                list = dao.getRestaurantOrderByOpenid(openid);
+            } else if ("all".equals(type)) {
+                list = dao.getRestaurantOrderByShop(restaurant);
+
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantOrder line = list.get(i);
+                //获取字段
+                String food_name = line.getFood_name();
+                restaurant = line.getRestaurant();
+                String category = line.getCategory();
+                int mum = line.getNum();
+                Float price = line.getPrice();
+                String create_time = line.getCreate_time();
+                int status = line.getStatus();
+
+                //json
+                jsonObject.put("food_name", food_name);
+                jsonObject.put("restaurant", restaurant);
+                jsonObject.put("category", category);
+                jsonObject.put("mum", mum);
+                jsonObject.put("price", price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("status", status);
+
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getRestaurantCategory(String restaurant) {
         List<Menu> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
