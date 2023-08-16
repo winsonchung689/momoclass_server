@@ -2217,7 +2217,8 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String openid_get = line.getOpenid();
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
-                String nick_name = restaurantUser_get.get(0).getNick_name();
+                String nick_name = restaurantUser.get(0).getNick_name();
+                String id = line.getId();
 
                 //json
                 jsonObject.put("food_name", food_name);
@@ -2228,6 +2229,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

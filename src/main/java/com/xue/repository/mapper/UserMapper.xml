@@ -952,6 +952,10 @@
     update restaurant_user set logo=#{logo} where openid = #{openid}
   </update>
 
+  <update id="updateRestaurantOrderStatus" parameterType="com.xue.entity.model.RestaurantOrder">
+    update restaurant_order set status=#{param2} where id = #{param1}
+  </update>
+
   <update id="updateRestaurantName" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set restaurant=#{restaurant} where openid = #{openid}
   </update>
