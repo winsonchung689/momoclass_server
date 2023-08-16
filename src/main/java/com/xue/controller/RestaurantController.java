@@ -1,6 +1,7 @@
 package com.xue.controller;
 
 import com.xue.entity.model.Menu;
+import com.xue.entity.model.RestaurantOrder;
 import com.xue.entity.model.RestaurantUser;
 import com.xue.entity.model.User;
 import com.xue.repository.dao.UserMapper;
@@ -104,6 +105,34 @@ public class RestaurantController {
 		menu.setCreate_time(create_time);
 		try {
 			dao.insertRestaurantMenu(menu);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/insertRestaurantOrder")
+	@ResponseBody
+	public String insertRestaurantOrder(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String restaurant = request.getParameter("restaurant");
+		String food_name = request.getParameter("food_name");
+		String category = request.getParameter("category");
+		String num = request.getParameter("num");
+		String price = request.getParameter("price");
+
+		RestaurantOrder restaurantOrder =new RestaurantOrder();
+		restaurantOrder.setRestaurant(restaurant);
+		restaurantOrder.setFood_name(food_name);
+		restaurantOrder.setCategory(category);
+		restaurantOrder.setNum(Integer.parseInt(num));
+		restaurantOrder.setPrice(Float.parseFloat(price));
+		restaurantOrder.setCreate_time(create_time);
+		try {
+			dao.insertRestaurantOrder(restaurantOrder);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

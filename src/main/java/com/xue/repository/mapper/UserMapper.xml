@@ -1015,6 +1015,10 @@
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time})
   </insert>
 
+  <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
+    insert restaurant_menu(restaurant,food_name,category,num,price,create_time) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time})
+  </insert>
+
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
     insert lesson_package(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time},#{all_lesson},#{give_lesson},#{subject})
   </insert>
