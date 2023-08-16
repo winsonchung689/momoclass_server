@@ -245,7 +245,6 @@ public class RestaurantController {
 
 		try {
 			dao.updateRestaurantOrderStatus(id,status);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
