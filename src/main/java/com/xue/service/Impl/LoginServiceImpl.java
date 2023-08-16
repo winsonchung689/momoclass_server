@@ -2215,6 +2215,9 @@ public class LoginServiceImpl implements LoginService {
                 if(status_get==1){
                     status = "已完成";
                 }
+                String openid_get = line.getOpenid();
+                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid);
+                String nick_name = restaurantUser.get(0).getNick_name();
 
                 //json
                 jsonObject.put("food_name", food_name);
@@ -2224,7 +2227,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
-
+                jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
