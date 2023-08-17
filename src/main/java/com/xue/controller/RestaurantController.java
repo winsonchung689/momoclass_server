@@ -231,6 +231,32 @@ public class RestaurantController {
 
 	}
 
+	@RequestMapping("/updateRestaurantMenu")
+	@ResponseBody
+	public int updateRestaurantMenu(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String content = request.getParameter("content");
+
+		String id = request.getParameter("id");
+
+		String type = request.getParameter("type");
+
+		try {
+			if("food_image".equals(type)){
+				Menu menu =new Menu();
+				menu.setId(id);
+				menu.setFood_image(content);
+				dao.updateRestaurantMenuImage(menu);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateRestaurantOrderStatus")
 	@ResponseBody
 	public int updateRestaurantOrderStatus(HttpServletRequest request, HttpServletResponse response){
