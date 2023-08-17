@@ -2201,7 +2201,6 @@ public class LoginServiceImpl implements LoginService {
         String user_type = null;
         String create_time = null;
         String expired_time = null;
-        String subjects = null;
         List<RestaurantUser> list= null;
         String id = null;
         String logo = null;

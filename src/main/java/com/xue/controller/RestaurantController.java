@@ -154,6 +154,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantUserAll")
+	@ResponseBody
+	public List getRestaurantUserAll(String restaurant){
+		List list = null;
+		try {
+			list = loginService.getRestaurantUserAll(restaurant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getRestaurantOrder")
 	@ResponseBody
 	public List getRestaurantOrder(String openid,String type){
