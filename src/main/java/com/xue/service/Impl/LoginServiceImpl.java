@@ -3843,7 +3843,12 @@ public class LoginServiceImpl implements LoginService {
             openid = jsonObject.getString("openid");
             unionid = jsonObject.getString("unionid");
             if(unionid != null){
-                dao.updateUserUnionid(openid,unionid,app);
+                if("MOMO".equals(app)){
+                    dao.updateUserUnionid(openid,unionid,app);
+                }else if("ORDER".equals(app)){
+                    dao.updateRestaurantUserUnionid(openid,unionid);
+                }
+
             }
         } catch (Exception e) {
 //			e.printStackTrace();

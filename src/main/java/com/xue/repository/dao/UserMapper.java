@@ -314,6 +314,8 @@ public interface UserMapper {
 
     int updateUserUnionid(String openid,String unionid,String app);
 
+    int updateRestaurantUserUnionid(String openid,String unionid);
+
     int updateUserOfficialOpenid(String unionid,String official_openid);
 
     int updateLessonStudio(String studio,String new_studio);
