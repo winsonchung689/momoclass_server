@@ -3895,6 +3895,19 @@ public class LoginServiceImpl implements LoginService {
                             dao.updateUserOfficialOpenid(unionid,official_openid);
                         }
                     }
+
+                    List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByUnionid(unionid);
+                    if(restaurantUsers.size()>0){
+                        for(int jj =0;jj<restaurantUsers.size();jj++){
+                            String official_openid_get = users.get(jj).getOfficial_openid();
+                            if(official_openid_get != null){
+                                if(!official_openid_get.contains(official_openid)){
+                                    official_openid = official_openid + "," + official_openid_get;
+                                }
+                            }
+                            dao.updateRestaurantUserOfficialOpenid(unionid,official_openid);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
