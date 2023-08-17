@@ -849,6 +849,14 @@
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getRestaurantUserAll" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
+    select * from restaurant_user where delete_status = 0 order by restaurant,role
+  </select>
+
+  <select id="getRestaurantUserByShop" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
+    select * from restaurant_user where restaurant =#{param1} and delete_status = 0 order by restaurant,role
+  </select>
+
   <select id="getRestaurantOrderByOpenid" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
     select * from restaurant_order where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>

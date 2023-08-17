@@ -2194,6 +2194,65 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getRestaurantUserAll(String restaurant) {
+        String role = null;
+        String avatarurl = null;
+        String nick_name = null;
+        String user_type = null;
+        String create_time = null;
+        String expired_time = null;
+        String subjects = null;
+        List<RestaurantUser> list= null;
+        String id = null;
+        String logo = null;
+        String openid = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = null;
+            if("all".equals(restaurant)){
+                list= dao.getRestaurantUserAll();
+            }else {
+                list = dao.getRestaurantUserByShop(restaurant);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantUser line = list.get(i);
+                //获取字段
+                role = line.getRole();
+                avatarurl = line.getAvatarurl();
+                nick_name = line.getNick_name();
+                restaurant = line.getRestaurant();
+                create_time = line.getCreate_time();
+                expired_time = line.getExpired_time();
+                openid = line.getOpenid();
+                logo = line.getLogo();
+                id = line.getId();
+                String role_name = "食家";
+                if("boss".equals(role)){
+                    role_name = "店家";
+                }
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("role", role);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("restaurant", restaurant);
+                jsonObject.put("user_type", user_type);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("openid",openid);
+                jsonObject.put("logo",logo);
+                jsonObject.put("role_name",role_name);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getRestaurantOrder(String openid, String type) {
         List<RestaurantOrder> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
