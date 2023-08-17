@@ -2207,7 +2207,6 @@ public class LoginServiceImpl implements LoginService {
         String openid = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = null;
             if("all".equals(restaurant)){
                 list= dao.getRestaurantUserAll();
             }else {
