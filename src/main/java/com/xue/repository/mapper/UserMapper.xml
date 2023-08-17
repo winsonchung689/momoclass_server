@@ -968,6 +968,10 @@
     update restaurant_user set restaurant=#{restaurant} where openid = #{openid}
   </update>
 
+  <update id="updateRestaurantRole" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set role=#{role} where openid = #{openid}
+  </update>
+
   <update id="updateRestaurantMenuImage" parameterType="com.xue.entity.model.Menu">
     update restaurant_menu set food_image=#{food_image} where id = #{id}
   </update>

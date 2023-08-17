@@ -234,7 +234,18 @@ public class RestaurantController {
 				restaurantUser.setRestaurant(content);
 				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantName(restaurantUser);
+			}else if("role".equals(type)){
+				RestaurantUser restaurantUser =new RestaurantUser();
+				if("boss".equals(content)){
+					content = "client";
+				}else {
+					content = "boss";
+				}
+				restaurantUser.setRole(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantRole(restaurantUser);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
