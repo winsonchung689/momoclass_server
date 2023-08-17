@@ -977,7 +977,7 @@
   </update>
 
   <update id="deleteRestaurantFood" parameterType="com.xue.entity.model.Menu">
-    update restaurant_menu set delete_status = 1 where id = #{id}
+    update restaurant_menu set delete_status = 1 where id = #{param1}
   </update>
 
   <!-- 恢复已删除用户 -->
