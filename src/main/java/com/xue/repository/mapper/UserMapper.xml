@@ -1478,6 +1478,10 @@
     select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,is_combine,price,final_time,leave_times from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
   </select>
 
+  <select id="getLessonByNameSubjectAll" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
+    select * from lesson where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus}
+  </select>
+
   <!-- 更新积分 -->
   <update id="updateLessonPoint" parameterType="com.xue.entity.model.Lesson">
     update lesson set points=#{points} where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0

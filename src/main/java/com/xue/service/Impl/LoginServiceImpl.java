@@ -3764,7 +3764,7 @@ public class LoginServiceImpl implements LoginService {
                 Float sign_price = 0.0f;
 
                 try {
-                    List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                    List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
                     if(lessons.size()>0){
                         Lesson lesson = lessons.get(0);
                         price = lesson.getPrice();

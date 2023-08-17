@@ -642,6 +642,8 @@ public interface UserMapper {
 
     List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
+    List<Lesson> getLessonByNameSubjectAll(String student_name,String studio,String subject,String campus);
+
     int updateLessonPoint(Lesson lesson);
 
 
