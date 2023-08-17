@@ -2150,7 +2150,7 @@ public class LoginServiceImpl implements LoginService {
         String expired_time = null;
         String subjects = null;
         List<RestaurantUser> list= null;
-        String id = null;
+        int id = 0;
         String logo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
