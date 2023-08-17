@@ -976,6 +976,10 @@
     update restaurant_menu set food_image=#{food_image} where id = #{id}
   </update>
 
+  <update id="deleteRestaurantFood" parameterType="com.xue.entity.model.Menu">
+    update restaurant_menu set delete_status = 1 where id = #{id}
+  </update>
+
   <!-- 恢复已删除用户 -->
   <update id="updateUserDelete" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},delete_status=0 where openid = #{openid} and delete_status=1 and student_name = #{student_name}

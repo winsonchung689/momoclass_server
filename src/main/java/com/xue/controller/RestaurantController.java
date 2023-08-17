@@ -286,6 +286,8 @@ public class RestaurantController {
 				menu.setId(id);
 				menu.setFood_image(content);
 				dao.updateRestaurantMenuImage(menu);
+			}else if("delete".equals(type)){
+				dao.deleteRestaurantFood(Integer.parseInt(id));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
