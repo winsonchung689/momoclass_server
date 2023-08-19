@@ -3115,6 +3115,7 @@ public class LoginController {
 			for(int i=1;i<sheet.getRows();i++){
 				LessonPackage lessonPackage = new LessonPackage();
 				lessonPackage.setCreate_time(create_time);
+				lessonPackage.setStart_date(create_time);
 				lessonPackage.setMark("无备注");
 				lessonPackage.setStudio(studio);
 				lessonPackage.setCampus(campus);
