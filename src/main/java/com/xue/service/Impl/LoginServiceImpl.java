@@ -1446,6 +1446,13 @@ public class LoginServiceImpl implements LoginService {
                             jsonObject.put("leave", "已旷课");
                         }
                         jsonObject.put("leave_color", "rgb(218, 144, 84)");
+                    }else if(leaves.size() > 1){
+                        String leave_type = leaves.get(0).getLeave_type();
+                        jsonObject.put("leave", "重复请假");
+                        if (leave_type.equals("旷课")) {
+                            jsonObject.put("leave", "重复旷课");
+                        }
+                        jsonObject.put("leave_color", "rgb(218, 144, 84)");
                     }
 
                 }else{
