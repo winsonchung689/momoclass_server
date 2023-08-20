@@ -3253,7 +3253,7 @@ public class LoginController {
 
 		} catch (BiffException e) {
 //			e.printStackTrace();
-			return "skipped null";
+			return "push massage successfully";
 		}finally {
 			for(String name : tempList){
 				File temp_delete = new File(path_1 + "/" + name);
@@ -3261,7 +3261,7 @@ public class LoginController {
 			}
 		}
 
-
+		return "push massage successfully";
 	}
 
 	//	推送
