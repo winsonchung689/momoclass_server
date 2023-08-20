@@ -3253,7 +3253,7 @@ public class LoginController {
 
 		} catch (BiffException e) {
 //			e.printStackTrace();
-			return "push massage successfully";
+			return "skip null successfully";
 		}finally {
 			for(String name : tempList){
 				File temp_delete = new File(path_1 + "/" + name);
