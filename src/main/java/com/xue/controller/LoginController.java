@@ -3142,91 +3142,95 @@ public class LoginController {
 				lesson.setPoints(0);
 				lesson.setCampus(campus);
 				Cell cell_get=sheet.getCell(0, i);
-				if(!cell_get.getContents().isEmpty()){
-					for(int j=0;j<sheet.getColumns();j++){
-						Cell cell=sheet.getCell(j, i);
-						if(0==j){
-							subject = cell.getContents();
-							lesson.setSubject(subject);
-							lessonPackage.setSubject(subject);
-						}else if(1==j){
-							student_name = cell.getContents();
-							lesson.setStudent_name(student_name);
-							gift.setStudent_name(student_name);
-							lessonPackage.setStudent_name(student_name);
-						}else if(2==j){
-							total_amount =cell.getContents();
-							if(!total_amount.isEmpty()){
-								lesson.setTotal_amount(Float.parseFloat(total_amount));
-							}else{
-								lesson.setTotal_amount(0.0f);
+				try {
+					if(!cell_get.getContents().isEmpty()){
+						for(int j=0;j<sheet.getColumns();j++){
+							Cell cell=sheet.getCell(j, i);
+							if(0==j){
+								subject = cell.getContents();
+								lesson.setSubject(subject);
+								lessonPackage.setSubject(subject);
+							}else if(1==j){
+								student_name = cell.getContents();
+								lesson.setStudent_name(student_name);
+								gift.setStudent_name(student_name);
+								lessonPackage.setStudent_name(student_name);
+							}else if(2==j){
+								total_amount =cell.getContents();
+								if(!total_amount.isEmpty()){
+									lesson.setTotal_amount(Float.parseFloat(total_amount));
+								}else{
+									lesson.setTotal_amount(0.0f);
+								}
+							}else if(3==j){
+								left_amount = cell.getContents();
+								if(!left_amount.isEmpty()){
+									lesson.setLeft_amount(Float.parseFloat(left_amount));
+								}
+							}else if (4==j){
+								gift_name = cell.getContents();
+								gift.setGift_name(gift_name);
+							}else if(5==j){
+								gift_amount =cell.getContents();
+								if(!gift_amount.isEmpty()){
+									gift.setGift_amount(Integer.parseInt(gift_amount));
+								}
+							}else if(6==j){
+								String expired_days = null;
+								expired_days = cell.getContents();
+								if(!expired_days.isEmpty()){
+									Calendar cal_get = Calendar.getInstance();
+									SimpleDateFormat df_get = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+									cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
+									String expired_time = df_get.format(cal_get.getTime());
+									gift.setExpired_time(expired_time);
+								}
+							}else if(7==j){
+								points =cell.getContents();
+								if(!points.isEmpty()){
+									lesson.setPoints(Integer.parseInt(points));
+								}
+							}else if(8==j){
+								String total_money =cell.getContents();
+								if(!total_money.isEmpty()){
+									lessonPackage.setTotal_money(Float.parseFloat(total_money));
+								}
+							}else if(9==j){
+								String discount_money =cell.getContents();
+								if(!discount_money.isEmpty()){
+									lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+								}
+							}else if(10==j){
+								String start_date =cell.getContents();
+								if(!start_date.isEmpty()){
+									lessonPackage.setStart_date(start_date);
+								}
+							}else if(11==j){
+								String end_date =cell.getContents();
+								if(!end_date.isEmpty()){
+									lessonPackage.setEnd_date(end_date);
+								}
+							}else if(12==j){
+								String mark =cell.getContents();
+								if(!mark.isEmpty()){
+									lessonPackage.setMark(mark);
+								}
 							}
-						}else if(3==j){
-							left_amount = cell.getContents();
-							if(!left_amount.isEmpty()){
-								lesson.setLeft_amount(Float.parseFloat(left_amount));
-							}
-						}else if (4==j){
-							gift_name = cell.getContents();
-							gift.setGift_name(gift_name);
-						}else if(5==j){
-							gift_amount =cell.getContents();
-							if(!gift_amount.isEmpty()){
-								gift.setGift_amount(Integer.parseInt(gift_amount));
-							}
-						}else if(6==j){
-							String expired_days = null;
-							expired_days = cell.getContents();
-							if(!expired_days.isEmpty()){
-								Calendar cal_get = Calendar.getInstance();
-								SimpleDateFormat df_get = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-								cal_get.add(cal_get.DATE,Integer.parseInt(expired_days));
-								String expired_time = df_get.format(cal_get.getTime());
-								gift.setExpired_time(expired_time);
-							}
-						}else if(7==j){
-							points =cell.getContents();
-							if(!points.isEmpty()){
-								lesson.setPoints(Integer.parseInt(points));
-							}
-						}else if(8==j){
-							String total_money =cell.getContents();
-							if(!total_money.isEmpty()){
-								lessonPackage.setTotal_money(Float.parseFloat(total_money));
-							}
-						}else if(9==j){
-							String discount_money =cell.getContents();
-							if(!discount_money.isEmpty()){
-								lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
-							}
-						}else if(10==j){
-							String start_date =cell.getContents();
-							if(!start_date.isEmpty()){
-								lessonPackage.setStart_date(start_date);
-							}
-						}else if(11==j){
-							String end_date =cell.getContents();
-							if(!end_date.isEmpty()){
-								lessonPackage.setEnd_date(end_date);
-							}
-						}else if(12==j){
-							String mark =cell.getContents();
-							if(!mark.isEmpty()){
-								lessonPackage.setMark(mark);
-							}
-						}
-						else if(13==j){
-							String all_lesson =cell.getContents();
-							if(!all_lesson.isEmpty()){
-								lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
-							}
-						}else if(14==j){
-							String give_lesson =cell.getContents();
-							if(!give_lesson.isEmpty()){
-								lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+							else if(13==j){
+								String all_lesson =cell.getContents();
+								if(!all_lesson.isEmpty()){
+									lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+								}
+							}else if(14==j){
+								String give_lesson =cell.getContents();
+								if(!give_lesson.isEmpty()){
+									lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+								}
 							}
 						}
 					}
+				} catch (NumberFormatException e) {
+//					throw new RuntimeException(e);
 				}
 
 				if(student_name != null){
