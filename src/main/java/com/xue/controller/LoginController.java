@@ -3229,15 +3229,13 @@ public class LoginController {
 					}
 				}
 
-				try {
+				if(student_name != null){
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 					if(lessons_get.size()==0){
 						loginService.insertLesson(lesson);
 					}else if(lessons_get.size()>0){
 						loginService.updateLesson(lesson,0.0f,0.0f,"全科目",campus);
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 
 				if (!gift.getGift_name().isEmpty()){
