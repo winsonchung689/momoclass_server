@@ -125,7 +125,7 @@ public class LoginServiceImpl implements LoginService {
             lesson.setCoins(coins_amount);
             lesson.setSubject(subject);
             lesson.setCampus(campus);
-            if("全科目".equals(subject_new)){
+            if("全科目".equals(subject_new) && student_name != null){
                 if(is_combine == 0){
                     result = dao.updateLesson(lesson);
                 }else if (is_combine == 1){
