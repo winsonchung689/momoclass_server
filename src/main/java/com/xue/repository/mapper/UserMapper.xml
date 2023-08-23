@@ -623,7 +623,7 @@
   </insert>
 
   <insert id="insertBookDetail" parameterType="com.xue.entity.model.BookDetail">
-    insert  book_detail(type,mark,amount,create_time,item) values(#{type},#{mark},#{amount},#{create_time},#{item})
+    insert  book_detail(type,mark,amount,create_time,item,openid) values(#{type},#{mark},#{amount},#{create_time},#{item},#{openid})
   </insert>
 
   <!-- 插入沟通记录 -->
