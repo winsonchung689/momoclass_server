@@ -968,12 +968,24 @@
     update restaurant_user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
 
+  <update id="updateBookAvatar" parameterType="com.xue.entity.model.BookUser">
+    update book_user set avatarurl=#{avatarurl} where openid = #{openid}
+  </update>
+
   <update id="updateRestaurantNickName" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set nick_name=#{nick_name} where openid = #{openid}
   </update>
 
+  <update id="updateBookNickName" parameterType="com.xue.entity.model.BookUser">
+    update book_user set nick_name=#{nick_name} where openid = #{openid}
+  </update>
+
   <update id="updateRestaurantLogo" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set logo=#{logo} where openid = #{openid}
+  </update>
+
+  <update id="updateBookLogo" parameterType="com.xue.entity.model.BookUser">
+    update book_user set logo=#{logo} where openid = #{openid}
   </update>
 
   <update id="updateRestaurantOrderStatus" parameterType="com.xue.entity.model.RestaurantOrder">

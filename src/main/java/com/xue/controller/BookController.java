@@ -104,6 +104,52 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/updateBookUser")
+	@ResponseBody
+	public int updateBookUser(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String content = request.getParameter("content");
+
+		String openid = request.getParameter("openid");
+
+		String type = request.getParameter("type");
+
+		try {
+			if("avatarurl".equals(type)){
+				BookUser bookUser =new BookUser();
+				bookUser.setAvatarurl(content);
+				bookUser.setOpenid(openid);
+				dao.updateBookAvatar(bookUser);
+			}else if("nickName".equals(type)){
+				BookUser bookUser =new BookUser();
+				bookUser.setNick_name(content);
+				bookUser.setOpenid(openid);
+				dao.updateBookNickName(bookUser);
+			}else if("logo".equals(type)){
+				BookUser bookUser =new BookUser();
+				bookUser.setLogo(content);
+				bookUser.setOpenid(openid);
+				dao.updateBookLogo(bookUser);
+			}else if("role".equals(type)){
+				BookUser bookUser =new BookUser();
+				if("boss".equals(content)){
+					content = "client";
+				}else {
+					content = "boss";
+				}
+				bookUser.setRole(content);
+				bookUser.setOpenid(openid);
+				dao.updateBookRole(bookUser);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
 
 }
 	

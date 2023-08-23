@@ -276,9 +276,15 @@ public interface UserMapper {
 
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 
+    int updateBookAvatar(BookUser bookUser);
+
     int updateRestaurantNickName(RestaurantUser restaurantUser);
 
+    int updateBookNickName(BookUser bookUser);
+
     int updateRestaurantLogo(RestaurantUser restaurantUser);
+
+    int updateBookLogo(BookUser bookUser);
 
     int updateRestaurantOrderStatus(String id,int status);
 
