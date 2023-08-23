@@ -1,9 +1,6 @@
 package com.xue.controller;
 
-import com.xue.entity.model.BookUser;
-import com.xue.entity.model.Menu;
-import com.xue.entity.model.RestaurantOrder;
-import com.xue.entity.model.RestaurantUser;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import org.slf4j.Logger;
@@ -146,9 +143,34 @@ public class BookController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return 1;
+	}
 
+	@RequestMapping("/insertBookDetail")
+	@ResponseBody
+	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String mark = request.getParameter("mark");
+		String type = request.getParameter("type");
+		String item = request.getParameter("item");
+		String amount = request.getParameter("amount");
+
+		BookDetail bookDetail =new BookDetail();
+		bookDetail.setType(type);
+		bookDetail.setMark(mark);
+		bookDetail.setAmount(Float.parseFloat(amount));
+		bookDetail.setCreate_time(create_time);
+		bookDetail.setItem(item);
+
+		try {
+			dao.insertBookDetail(bookDetail);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
 	}
 
 }

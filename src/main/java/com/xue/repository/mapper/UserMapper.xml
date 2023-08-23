@@ -622,6 +622,10 @@
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
+  <insert id="insertBookDetail" parameterType="com.xue.entity.model.BookDetail">
+    insert  book_detail(type,mark,amount,create_time,item) values(#{type},#{mark},#{amount},#{create_time},#{item})
+  </insert>
+
   <!-- 插入沟通记录 -->
   <insert id="insertCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord">
     insert communicate_record(student_name,studio,campus,content,openid,create_time) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time})
