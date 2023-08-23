@@ -194,10 +194,15 @@ public class LoginController {
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
 		System.out.printf("param:"+param1);
 
+
 		try {
 			result = HttpUtil.sendPostJson(url, queryJson.toJSONString());
 			System.out.printf("res:" + result);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
+		try {
 			result = HttpUtil.sendPostJson(url_union, queryJson1.toJSONString());
 			System.out.printf("res:" + result);
 		} catch (Exception e) {
@@ -273,10 +278,15 @@ public class LoginController {
 
 		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
 		System.out.printf("param:"+param1);
+
 		try {
 			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
 			System.out.printf("res:" + result);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
+		try {
 			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
 			System.out.printf("res:" + result);
 
