@@ -3519,17 +3519,7 @@ public class LoginServiceImpl implements LoginService {
                     String url_send = null;
                     String app = apps.get(a);
                     String token = getToken(app);
-                    if ("MOMO2B".equals(app)){
-                        url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-                        JSONObject queryJson = JSONObject.parseObject(tample4);
-                        queryJson.put("touser",openid);
-                        queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
-                        queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
-                        queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
-                        queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
-                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                        System.out.printf("res:" + result);
-                    }else if ("MOMO".equals(app)){
+                    if ("MOMO".equals(app)){
                         url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
                         //公众号通知
                         JSONObject queryJson1 = JSONObject.parseObject(tample13);
@@ -3539,7 +3529,9 @@ public class LoginServiceImpl implements LoginService {
                         queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续费");
                         result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
                         System.out.printf("res:" + result);
-                    }else if("MOMO_OFFICIAL".equals(app)){
+                    }
+
+                    if("MOMO_OFFICIAL".equals(app)){
                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                         //绑定公众号通知
                         if(official_openid != null){
@@ -3555,6 +3547,17 @@ public class LoginServiceImpl implements LoginService {
                                 System.out.printf("res:" + result);
                             }
                         }
+                    }
+                    if ("MOMO2B".equals(app)){
+                        url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+                        JSONObject queryJson = JSONObject.parseObject(tample4);
+                        queryJson.put("touser",openid);
+                        queryJson.getJSONObject("data").getJSONObject("name1").put("value","小桃子助手");
+                        queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                        queryJson.getJSONObject("data").getJSONObject("date3").put("value",expried_time);
+                        queryJson.getJSONObject("data").getJSONObject("thing4").put("value","BOSS还有"+ compare +"天就期啦，记得续费哦");
+                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                        System.out.printf("res:" + result);
                     }
                 }
             }
@@ -3592,22 +3595,7 @@ public class LoginServiceImpl implements LoginService {
                             String url_send = null;
                             String app=apps.get(a);
                             String token = getToken(app);
-                            if ("MOMO2B".equals(app)){
-                                url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-                                //小程序通知
-                                JSONObject queryJson = JSONObject.parseObject(tample3);
-                                queryJson.put("touser",openid);
-                                queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
-                                queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
-                                queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
-
-                                try {
-                                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                                    System.out.printf("res:" + result);
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }else if ("MOMO".equals(app)){
+                            if ("MOMO".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
                                 //公众号通知
                                 JSONObject queryJson1 = JSONObject.parseObject(tample5);
@@ -3622,7 +3610,8 @@ public class LoginServiceImpl implements LoginService {
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
-                            }else if("MOMO_OFFICIAL".equals(app)){
+                            }
+                            if("MOMO_OFFICIAL".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                 //绑定公众号通知
                                 if(official_openid != null){
@@ -3646,6 +3635,22 @@ public class LoginServiceImpl implements LoginService {
                                         }
 
                                     }
+                                }
+                            }
+                            if ("MOMO2B".equals(app)){
+                                url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+                                //小程序通知
+                                JSONObject queryJson = JSONObject.parseObject(tample3);
+                                queryJson.put("touser",openid);
+                                queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time +" " + duration.split("-")[0]);
+                                queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
+                                queryJson.getJSONObject("data").getJSONObject("name3").put("value",student_name);
+
+                                try {
+                                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                                    System.out.printf("res:" + result);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
                                 }
                             }
                         }
@@ -3672,23 +3677,8 @@ public class LoginServiceImpl implements LoginService {
                             String url_send = null;
                             String app = apps.get(a);
                             String token = getToken(app);
-                            if ("MOMO2B".equals(app)){
-                                url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-                                //小程序通知
-                                JSONObject queryJson = JSONObject.parseObject(tample3);
-                                queryJson.put("touser",openid);
-                                queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
-                                queryJson.getJSONObject("data").getJSONObject("thing2").put("value","老师好");
-                                queryJson.getJSONObject("data").getJSONObject("name3").put("value","上课提醒已发送");
 
-                                try {
-                                    System.out.printf("param:" + queryJson.toJSONString());
-                                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                                    System.out.printf("res:" + result);
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }else if ("MOMO".equals(app)){
+                            if ("MOMO".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
                                 //公众号通知
                                 JSONObject queryJson1 = JSONObject.parseObject(tample5);
@@ -3704,7 +3694,8 @@ public class LoginServiceImpl implements LoginService {
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
-                            }else if("MOMO_OFFICIAL".equals(app)){
+                            }
+                            if("MOMO_OFFICIAL".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                 //绑定公众号通知
                                 if(official_openid != null){
@@ -3725,6 +3716,23 @@ public class LoginServiceImpl implements LoginService {
                                             throw new RuntimeException(e);
                                         }
                                     }
+                                }
+                            }
+                            if ("MOMO2B".equals(app)){
+                                url_send = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
+                                //小程序通知
+                                JSONObject queryJson = JSONObject.parseObject(tample3);
+                                queryJson.put("touser",openid);
+                                queryJson.getJSONObject("data").getJSONObject("date1").put("value",date_time);
+                                queryJson.getJSONObject("data").getJSONObject("thing2").put("value","老师好");
+                                queryJson.getJSONObject("data").getJSONObject("name3").put("value","上课提醒已发送");
+
+                                try {
+                                    System.out.printf("param:" + queryJson.toJSONString());
+                                    result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                                    System.out.printf("res:" + result);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
                                 }
                             }
                         }
