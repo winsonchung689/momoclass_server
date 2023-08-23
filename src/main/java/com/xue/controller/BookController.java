@@ -156,6 +156,7 @@ public class BookController {
 		String type = request.getParameter("type");
 		String item = request.getParameter("item");
 		String amount = request.getParameter("amount");
+		String openid = request.getParameter("openid");
 
 		BookDetail bookDetail =new BookDetail();
 		bookDetail.setType(type);
@@ -163,6 +164,7 @@ public class BookController {
 		bookDetail.setAmount(Float.parseFloat(amount));
 		bookDetail.setCreate_time(create_time);
 		bookDetail.setItem(item);
+		bookDetail.setOpenid(openid);
 
 		try {
 			dao.insertBookDetail(bookDetail);

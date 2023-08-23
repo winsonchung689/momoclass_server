@@ -11,10 +11,20 @@ public class BookDetail {
 
     private String mark;
 
+    private String openid;
+
     private Float amount;
 
     private String create_time;
 
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public String getItem() {
         return item;
