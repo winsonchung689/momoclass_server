@@ -20,6 +20,10 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+  <resultMap id="BaseBookUser" type="com.xue.entity.model.BookUser">
+    <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
 
   <resultMap id="BaseRestaurantOrder" type="com.xue.entity.model.RestaurantOrder">
     <result column="nick_name" jdbcType="VARCHAR" property="nick_name" />
@@ -841,12 +845,20 @@
     insert restaurant_user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time})
   </insert>
 
+  <insert id="insertBookUser" parameterType="com.xue.entity.model.BookUser">
+    insert book_user(nick_name,role,openid,create_time,avatarurl,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{expired_time})
+  </insert>
+
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,send_time,subscription,member,campus,app from user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getRestaurantUserAll" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
@@ -974,6 +986,10 @@
 
   <update id="updateRestaurantRole" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set role=#{role} where openid = #{openid}
+  </update>
+
+  <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">
+    update book_user set role=#{role} where openid = #{openid}
   </update>
 
   <update id="updateRestaurantMenuImage" parameterType="com.xue.entity.model.Menu">

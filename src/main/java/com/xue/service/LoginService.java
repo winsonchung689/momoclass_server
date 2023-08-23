@@ -134,6 +134,8 @@ public interface LoginService {
 
     public int insertRestaurantUser(RestaurantUser restaurantUser);
 
+    public int insertBookUser(BookUser bookUser);
+
     public int updateUser(User user);
 
     public int updateBossLessons(User user);
@@ -151,6 +153,8 @@ public interface LoginService {
     public List getUser(String openid);
 
     public List getRestaurantUser(String openid);
+
+    public List getBookUser(String openid);
 
     public List getRestaurantUserAll(String restaurant);
 

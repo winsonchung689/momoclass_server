@@ -1833,6 +1833,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int insertBookUser(BookUser bookUser) {
+        int result = 0;
+        try {
+            result = dao.insertBookUser(bookUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+
+    @Override
     public int updateUser(User user) {
         int result = 0;
 
@@ -2186,6 +2198,58 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("restaurant", restaurant);
+                jsonObject.put("user_type", user_type);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("openid",openid);
+                jsonObject.put("logo",logo);
+                jsonObject.put("role_name",role_name);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getBookUser(String openid) {
+        String role = null;
+        String avatarurl = null;
+        String nick_name = null;
+        String restaurant = null;
+        String user_type = null;
+        String create_time = null;
+        String expired_time = null;
+        String subjects = null;
+        List<BookUser> list= null;
+        int id = 0;
+        String logo = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getBookUser(openid);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                BookUser line = list.get(i);
+                //获取字段
+                role = line.getRole();
+                avatarurl = line.getAvatarurl();
+                nick_name = line.getNick_name();
+                create_time = line.getCreate_time();
+                expired_time = line.getExpired_time();
+                openid = line.getOpenid();
+                logo = line.getLogo();
+                id = line.getId();
+                String role_name = "普通会员";
+                if("boss".equals(role)){
+                    role_name = "永久会员";
+                }
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("role", role);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("nick_name", nick_name);
                 jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
@@ -3833,6 +3897,8 @@ public class LoginServiceImpl implements LoginService {
         String secret_2b = Constants.secret_2b;
         String order_appid = Constants.order_appid;
         String order_secret = Constants.order_secret;
+        String book_appid = Constants.order_appid;
+        String book_secret = Constants.order_secret;
         String url = "https://api.weixin.qq.com/sns/jscode2session";
 
 
@@ -3842,6 +3908,8 @@ public class LoginServiceImpl implements LoginService {
             param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
         }else if("ORDER".equals(app)){
             param = "appid="+ order_appid + "&secret=" + order_secret + "&js_code="+ code +"&grant_type=authorization_code";
+        }else if("BOOK".equals(app)){
+            param = "appid="+ book_appid + "&secret=" + book_secret + "&js_code="+ code +"&grant_type=authorization_code";
         }
 
         try {
@@ -3854,6 +3922,8 @@ public class LoginServiceImpl implements LoginService {
                     dao.updateUserUnionid(openid,unionid,app);
                 }else if("ORDER".equals(app)){
                     dao.updateRestaurantUserUnionid(openid,unionid);
+                }else if("BOOK".equals(app)){
+                    dao.updateBookUserUnionid(openid,unionid);
                 }
 
             }

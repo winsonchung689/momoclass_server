@@ -264,6 +264,8 @@ public interface UserMapper {
     int insertUser(User user);
 
     int insertRestaurantUser(RestaurantUser restaurantUser);
+
+    int insertBookUser(BookUser book);
     int updateUser(User user);
 
     int updateOpenid(User user);
@@ -283,6 +285,8 @@ public interface UserMapper {
     int updateRestaurantName(RestaurantUser restaurantUser);
 
     int updateRestaurantRole(RestaurantUser restaurantUser);
+
+    int updateBookRole(BookUser bookUser);
 
     int updateRestaurantMenuImage(Menu menu);
 
@@ -375,6 +379,8 @@ public interface UserMapper {
     List<User> getUser(String openid);
 
     List<RestaurantUser> getRestaurantUser(String openid);
+
+    List<BookUser> getBookUser(String openid);
 
     List<RestaurantUser> getRestaurantUserAll();
 
