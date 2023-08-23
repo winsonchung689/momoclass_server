@@ -156,6 +156,8 @@ public interface LoginService {
 
     public List getBookUser(String openid);
 
+    public List getBookDetail(String openid);
+
     public List getRestaurantUserAll(String restaurant);
 
     public List getRestaurantOrder(String openid,String type);

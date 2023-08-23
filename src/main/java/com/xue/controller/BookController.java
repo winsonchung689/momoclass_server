@@ -101,6 +101,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getBookDetail")
+	@ResponseBody
+	public List getBookDetail(String openid){
+		List list = null;
+		try {
+			list = loginService.getBookDetail(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateBookUser")
 	@ResponseBody
 	public int updateBookUser(HttpServletRequest request, HttpServletResponse response){
@@ -150,13 +162,14 @@ public class BookController {
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String mark = request.getParameter("mark");
 		String type = request.getParameter("type");
 		String item = request.getParameter("item");
 		String amount = request.getParameter("amount");
 		String openid = request.getParameter("openid");
+		String create_time = request.getParameter("create_time");
 
 		BookDetail bookDetail =new BookDetail();
 		bookDetail.setType(type);
@@ -165,6 +178,7 @@ public class BookController {
 		bookDetail.setCreate_time(create_time);
 		bookDetail.setItem(item);
 		bookDetail.setOpenid(openid);
+		bookDetail.setUpdate_time(update_time);
 
 		try {
 			dao.insertBookDetail(bookDetail);
