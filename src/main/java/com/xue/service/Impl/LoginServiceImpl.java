@@ -3897,8 +3897,8 @@ public class LoginServiceImpl implements LoginService {
         String secret_2b = Constants.secret_2b;
         String order_appid = Constants.order_appid;
         String order_secret = Constants.order_secret;
-        String book_appid = Constants.order_appid;
-        String book_secret = Constants.order_secret;
+        String book_appid = Constants.book_appid;
+        String book_secret = Constants.book_secret;
         String url = "https://api.weixin.qq.com/sns/jscode2session";
 
 
