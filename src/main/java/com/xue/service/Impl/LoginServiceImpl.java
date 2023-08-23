@@ -3627,22 +3627,24 @@ public class LoginServiceImpl implements LoginService {
                                 //绑定公众号通知
                                 if(official_openid != null){
                                     String[] official_list = official_openid.split(",");
+                                    System.out.println(official_list);
                                     for(int k=0;k<official_list.length;k++){
-                                        String official_openid_get = official_list[k];
-                                        System.out.println(official_openid_get);
-                                        JSONObject queryJson2 = JSONObject.parseObject(tample6);
-                                        queryJson2.put("touser",official_openid_get);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
-                                        queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
-
                                         try {
+                                            String official_openid_get = official_list[k];
+                                            System.out.println(official_openid_get);
+                                            JSONObject queryJson2 = JSONObject.parseObject(tample6);
+                                            queryJson2.put("touser",official_openid_get);
+                                            queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                                            queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                                            queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+
                                             System.out.println("json2:" + queryJson2.toJSONString());
                                             result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
                                             System.out.printf("res2:" + result);
                                         } catch (Exception e) {
                                             throw new RuntimeException(e);
                                         }
+
                                     }
                                 }
                             }
