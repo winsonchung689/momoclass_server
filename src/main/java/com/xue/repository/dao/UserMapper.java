@@ -320,6 +320,8 @@ public interface UserMapper {
 
     int updateRestaurantUserUnionid(String openid,String unionid);
 
+    int updateBookUserUnionid(String openid,String unionid);
+
     int updateUserOfficialOpenid(String unionid,String official_openid);
 
     int updateRestaurantUserOfficialOpenid(String unionid,String official_openid);
