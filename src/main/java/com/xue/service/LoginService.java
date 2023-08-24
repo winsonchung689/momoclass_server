@@ -156,7 +156,7 @@ public interface LoginService {
 
     public List getBookUser(String openid);
 
-    public List getBBookDetail(String openid);
+    public List getBBookDetail(String openid,String date_time);
 
     public List getRestaurantUserAll(String restaurant);
 
