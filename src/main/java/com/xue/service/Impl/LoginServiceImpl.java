@@ -3594,6 +3594,7 @@ public class LoginServiceImpl implements LoginService {
                         for(int a=0;a<apps.size();a++){
                             String url_send = null;
                             String app=apps.get(a);
+                            System.out.println(app);
                             String token = getToken(app);
                             if ("MOMO".equals(app)){
                                 url_send = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
@@ -3605,8 +3606,9 @@ public class LoginServiceImpl implements LoginService {
                                 queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
 
                                 try {
+                                    System.out.println("param11:" + queryJson1.toJSONString());
                                     result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
-                                    System.out.printf("res:" + result);
+                                    System.out.printf("res11:" + result);
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
@@ -3629,7 +3631,7 @@ public class LoginServiceImpl implements LoginService {
 
                                             System.out.println("json2:" + queryJson2.toJSONString());
                                             result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                                            System.out.printf("res2:" + result);
+                                            System.out.printf("res22:" + result);
                                         } catch (Exception e) {
                                             throw new RuntimeException(e);
                                         }
@@ -3648,7 +3650,7 @@ public class LoginServiceImpl implements LoginService {
 
                                 try {
                                     result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                                    System.out.printf("res:" + result);
+                                    System.out.printf("res33:" + result);
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
@@ -3663,14 +3665,14 @@ public class LoginServiceImpl implements LoginService {
                             String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
                             System.out.printf("status:" + status);
                         } catch (Exception e) {
-                            e.printStackTrace();
+//                            e.printStackTrace();
                         }
                     }
                 }
             }
 
             if("boss".equals(role) || "teacher".equals(role) ){
-                if(send_time.equals(now_time) && has_send ==1){
+                if(send_time.equals(now_time)){
                     list_schedule = dao.getScheduleAll(weekDay,studio,campus);
                     if(list_schedule.size()>0){
                         for(int a=0;a<apps.size();a++){
