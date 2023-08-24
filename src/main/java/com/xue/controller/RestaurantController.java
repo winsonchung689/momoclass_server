@@ -83,7 +83,7 @@ public class RestaurantController {
 			if(restaurantUsers.size()>0){
 				RestaurantUser restaurantUser1 = restaurantUsers.get(0);
 				int id = restaurantUser1.getId();
-				if(id<100){
+				if(id<1000){
 					RestaurantUser restaurantUser2 = new RestaurantUser();
 					restaurantUser2.setRole("boss");
 					restaurantUser2.setOpenid(openid);

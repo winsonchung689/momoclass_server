@@ -76,7 +76,7 @@ public class BookController {
 			if(bookUsers.size()>0){
 				BookUser bookUser1 = bookUsers.get(0);
 				int id = bookUser1.getId();
-				if(id<100){
+				if(id<1000){
 					BookUser bookUser2 = new BookUser();
 					bookUser2.setRole("boss");
 					bookUser2.setOpenid(openid);
