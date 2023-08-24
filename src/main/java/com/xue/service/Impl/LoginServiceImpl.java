@@ -3465,7 +3465,7 @@ public class LoginServiceImpl implements LoginService {
         List<String> apps = new ArrayList<>();
         apps.add("MOMO2B");
         apps.add("MOMO");
-        apps.add("MOMO_OFFICIAL");
+//        apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal   =   Calendar.getInstance();
