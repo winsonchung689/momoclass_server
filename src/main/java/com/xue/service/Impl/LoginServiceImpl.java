@@ -2279,6 +2279,7 @@ public class LoginServiceImpl implements LoginService {
                 String mark = line.getMark();
                 Float amount = line.getAmount();
                 String create_time = line.getCreate_time();
+                String id = line.getId();
 
                 //json
                 jsonObject.put("type", type);
@@ -2287,6 +2288,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("amount", amount);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("openid", openid);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

@@ -189,6 +189,18 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/deleteBBookeDetail")
+	@ResponseBody
+	public int deleteBBookeDetail(Integer id){
+		try {
+			dao.deleteBBookeDetail(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 }
 	
 	
