@@ -3489,7 +3489,6 @@ public class LoginServiceImpl implements LoginService {
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}}}";
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
-        Integer has_send = 0;
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
@@ -3602,7 +3601,7 @@ public class LoginServiceImpl implements LoginService {
                                     queryJson1.put("touser",openid_boss);
                                     queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
                                     queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                    queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                                    queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
 
                                     try {
                                         System.out.printf("param1:" + queryJson1.toJSONString());
@@ -3623,7 +3622,7 @@ public class LoginServiceImpl implements LoginService {
                                             queryJson2.put("touser",official_openid_get);
                                             queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
                                             queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                                            queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
 
                                             try {
                                                 System.out.printf("param2:" + queryJson2.toJSONString());
