@@ -124,6 +124,8 @@ public class BookController {
 
 		String type = request.getParameter("type");
 
+		String id = request.getParameter("id");
+
 		try {
 			if("avatarurl".equals(type)){
 				BookUser bookUser =new BookUser();
@@ -150,6 +152,16 @@ public class BookController {
 				bookUser.setRole(content);
 				bookUser.setOpenid(openid);
 				dao.updateBookRole(bookUser);
+			}else if("book_name".equals(type)){
+				BookUser bookUser =new BookUser();
+				bookUser.setBook_name(content);
+				bookUser.setId(Integer.parseInt(id));
+				dao.updateBookName(bookUser);
+			}else if("budget".equals(type)){
+				BookUser bookUser =new BookUser();
+				bookUser.setBudget(Float.parseFloat(content));
+				bookUser.setId(Integer.parseInt(id));
+				dao.updateBudget(bookUser);
 			}
 
 		} catch (Exception e) {

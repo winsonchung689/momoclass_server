@@ -1019,6 +1019,14 @@
     update book_user set role=#{role} where openid = #{openid}
   </update>
 
+  <update id="updateBookName" parameterType="com.xue.entity.model.BookUser">
+    update book_user set book_name=#{book_name} where id = #{id}
+  </update>
+
+  <update id="updateBudget" parameterType="com.xue.entity.model.BookUser">
+    update book_user set budget=#{budget} where id = #{id}
+  </update>
+
   <update id="updateRestaurantMenuImage" parameterType="com.xue.entity.model.Menu">
     update restaurant_menu set food_image=#{food_image} where id = #{id}
   </update>

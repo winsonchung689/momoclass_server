@@ -298,6 +298,10 @@ public interface UserMapper {
 
     int updateBookRole(BookUser bookUser);
 
+    int updateBookName(BookUser bookUser);
+
+    int updateBudget(BookUser bookUser);
+
     int updateRestaurantMenuImage(Menu menu);
 
     int deleteRestaurantFood(int id);

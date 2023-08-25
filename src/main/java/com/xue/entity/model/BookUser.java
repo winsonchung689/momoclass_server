@@ -28,14 +28,14 @@ public class BookUser {
 
     private String book_name;
 
-    private String budget;
+    private Float budget;
 
 
-    public String getBudget() {
+    public Float getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
+    public void setBudget(Float budget) {
         this.budget = budget;
     }
 
