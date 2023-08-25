@@ -4076,26 +4076,29 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<User> list = dao.getUserByStudent(student_name,studio);
-            String openid = list.get(0).getOpenid();
+            if(list.size()>0){
+                String openid = list.get(0).getOpenid();
 
-            List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-            total_amount = lessons_get.get(0).getTotal_amount();
-            left_amount = lessons_get.get(0).getLeft_amount();
+                List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                total_amount = lessons_get.get(0).getTotal_amount();
+                left_amount = lessons_get.get(0).getLeft_amount();
 
-            Float total_new = total_amount + lesson_amount;
-            Float left_new = left_amount + lesson_amount;
+                Float total_new = total_amount + lesson_amount;
+                Float left_new = left_amount + lesson_amount;
 
 
-            DecimalFormat df = new DecimalFormat("0.00");
-            JSONObject queryJson = JSONObject.parseObject(tample1);
-            queryJson.put("touser",openid);
-            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
-            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
-            queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
-            String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
-            System.out.printf("param:"+param1);
-            result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
-            System.out.printf("res:" + result);
+                DecimalFormat df = new DecimalFormat("0.00");
+                JSONObject queryJson = JSONObject.parseObject(tample1);
+                queryJson.put("touser",openid);
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
+                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
+                String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
+                System.out.printf("param:"+param1);
+                result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
+                System.out.printf("res:" + result);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
