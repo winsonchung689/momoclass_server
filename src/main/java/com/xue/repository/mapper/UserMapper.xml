@@ -630,7 +630,7 @@
   </insert>
 
   <insert id="insertBookDetail" parameterType="com.xue.entity.model.BookDetail">
-    insert book_detail(type,mark,amount,create_time,item,openid,update_time) values(#{type},#{mark},#{amount},#{create_time},#{item},#{openid},#{update_time})
+    insert book_detail(type,mark,amount,create_time,item,openid,update_time,book_name) values(#{type},#{mark},#{amount},#{create_time},#{item},#{openid},#{update_time},#{book_name})
   </insert>
 
   <!-- 插入沟通记录 -->
@@ -873,7 +873,7 @@
   </select>
 
   <select id="getBBookDetail" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
-    select * from book_detail where openid =#{param1} and create_time =#{param2} and delete_status = 0 order by update_time desc
+    select * from book_detail where openid =#{param1} and create_time =#{param2} and book_name =#{param3} and delete_status = 0 order by update_time desc
   </select>
 
   <select id="getRestaurantUserAll" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">

@@ -2271,11 +2271,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getBBookDetail(String openid,String date_time) {
+    public List getBBookDetail(String openid,String date_time,String book_name) {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getBBookDetail(openid,date_time);
+            list = dao.getBBookDetail(openid,date_time,book_name);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 BookDetail line = list.get(i);

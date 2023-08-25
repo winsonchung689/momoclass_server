@@ -398,7 +398,7 @@ public interface UserMapper {
 
     List<BookUser> getBookUser(String openid);
 
-    List<BookDetail> getBBookDetail(String openid,String date_time);
+    List<BookDetail> getBBookDetail(String openid,String date_time,String book_name);
 
     List<RestaurantUser> getRestaurantUserAll();
 
