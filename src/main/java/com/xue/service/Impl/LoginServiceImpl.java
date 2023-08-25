@@ -3862,9 +3862,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getStudentByTeacher(String studio,String openid,String duration_time) {
-
+        Calendar cal = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         String date_time = df.format(new Date());
+        Date date = new Date();
+        cal.setTime(date);
 
         String date_start = date_time;
         String date_end = date_time;
@@ -3876,16 +3878,13 @@ public class LoginServiceImpl implements LoginService {
             String nick_name = list_user.get(0).getNick_name();
             String campus = list_user.get(0).getCampus();
             if("近1周".equals(duration_time)){
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH,-7);
+                cal.add(Calendar.DATE,-7);
                 date_start = df.format(cal.getTime());
             }else if("近1月".equals(duration_time)) {
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH,-31);
+                cal.add(Calendar.DATE,-31);
                 date_start = df.format(cal.getTime());
             }else if("近1年".equals(duration_time)) {
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH,-365);
+                cal.add(Calendar.DATE,-365);
                 date_start = df.format(cal.getTime());
             }else if("自定义".equals(duration_time_list[0])){
                 date_start = duration_time_list[1];
