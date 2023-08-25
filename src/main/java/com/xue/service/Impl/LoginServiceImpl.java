@@ -3876,13 +3876,13 @@ public class LoginServiceImpl implements LoginService {
             String nick_name = list_user.get(0).getNick_name();
             String campus = list_user.get(0).getCampus();
             if("近1周".equals(duration_time)){
-                cal.add(cal.DATE,-7);
+                cal.add(Calendar.DATE,-7);
                 date_start = df.format(cal.getTime());
             }else if("近1月".equals(duration_time)) {
-                cal.add(cal.DATE,-31);
+                cal.add(Calendar.DATE,-31);
                 date_start = df.format(cal.getTime());
             }else if("近1年".equals(duration_time)) {
-                cal.add(cal.DATE,-365);
+                cal.add(Calendar.DATE,-365);
                 date_start = df.format(cal.getTime());
             }else if("自定义".equals(duration_time_list[0])){
                 date_start = duration_time_list[1];
