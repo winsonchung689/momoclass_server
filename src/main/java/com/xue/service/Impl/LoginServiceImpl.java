@@ -2214,17 +2214,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getBookUser(String openid) {
-        String role = null;
-        String avatarurl = null;
-        String nick_name = null;
-        String restaurant = null;
-        String user_type = null;
-        String create_time = null;
-        String expired_time = null;
-        String subjects = null;
         List<BookUser> list= null;
-        int id = 0;
-        String logo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getBookUser(openid);
@@ -2232,14 +2222,16 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 BookUser line = list.get(i);
                 //获取字段
-                role = line.getRole();
-                avatarurl = line.getAvatarurl();
-                nick_name = line.getNick_name();
-                create_time = line.getCreate_time();
-                expired_time = line.getExpired_time();
+                String role = line.getRole();
+                String avatarurl = line.getAvatarurl();
+                String nick_name = line.getNick_name();
+                String create_time = line.getCreate_time();
+                String expired_time = line.getExpired_time();
+                String book_name = line.getBook_name();
+                String budget = line.getBudget();
                 openid = line.getOpenid();
-                logo = line.getLogo();
-                id = line.getId();
+                String logo = line.getLogo();
+                int id = line.getId();
                 String role_name = "普通会员";
                 if("boss".equals(role)){
                     role_name = "永久会员";
@@ -2250,12 +2242,13 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("role", role);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
-                jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("openid",openid);
                 jsonObject.put("logo",logo);
                 jsonObject.put("role_name",role_name);
+                jsonObject.put("book_name",book_name);
+                jsonObject.put("budget",budget);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

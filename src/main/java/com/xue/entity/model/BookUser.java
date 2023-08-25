@@ -26,6 +26,26 @@ public class BookUser {
 
     private String logo;
 
+    private String book_name;
+
+    private String budget;
+
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+
+    public String getBook_name() {
+        return book_name;
+    }
+
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
 
     public String getLogo() {
         return logo;
