@@ -4387,8 +4387,12 @@ public class LoginController {
 				lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 
-				dao.insertLessonPackage(lessonPackage);
-				loginService.renewLessonRemind(student_name,studio,campus,subject,lessons_amount);
+				try {
+					dao.insertLessonPackage(lessonPackage);
+					loginService.renewLessonRemind(student_name,studio,campus,subject,lessons_amount);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 			}
 
 			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
