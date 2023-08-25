@@ -2260,6 +2260,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("book_name",book_name);
                 jsonObject.put("budget",budget);
                 jsonObject.put("consume",consume);
+                jsonObject.put("balance",budget - consume);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
