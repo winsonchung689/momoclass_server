@@ -124,7 +124,6 @@ public class BookController {
 
 		String type = request.getParameter("type");
 
-		String id = request.getParameter("id");
 
 		try {
 			if("avatarurl".equals(type)){
@@ -153,11 +152,13 @@ public class BookController {
 				bookUser.setOpenid(openid);
 				dao.updateBookRole(bookUser);
 			}else if("book_name".equals(type)){
+				String id = request.getParameter("id");
 				BookUser bookUser =new BookUser();
 				bookUser.setBook_name(content);
 				bookUser.setId(Integer.parseInt(id));
 				dao.updateBookName(bookUser);
 			}else if("budget".equals(type)){
+				String id = request.getParameter("id");
 				BookUser bookUser =new BookUser();
 				bookUser.setBudget(Float.parseFloat(content));
 				bookUser.setId(Integer.parseInt(id));
