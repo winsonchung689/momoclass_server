@@ -3880,7 +3880,7 @@ public class LoginServiceImpl implements LoginService {
             if("近1周".equals(duration_time)){
                 cal.add(Calendar.DATE,-7);
                 date_start = df.format(cal.getTime());
-            }else if("近1月".equals(duration_time)) {
+            } else if("近1月".equals(duration_time)) {
                 cal.add(Calendar.DATE,-31);
                 date_start = df.format(cal.getTime());
             }else if("近1年".equals(duration_time)) {
