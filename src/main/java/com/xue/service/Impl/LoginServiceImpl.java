@@ -2222,6 +2222,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             list = dao.getBookUser(openid);
             for (int i = 0; i < list.size(); i++) {
+                Float budget = 0.0f;
                 JSONObject jsonObject = new JSONObject();
                 BookUser line = list.get(i);
                 //获取字段
@@ -2231,7 +2232,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
                 String book_name = line.getBook_name();
-                Float budget = line.getBudget();
+                budget = line.getBudget();
                 openid = line.getOpenid();
                 String logo = line.getLogo();
                 int id = line.getId();
@@ -2243,6 +2244,7 @@ public class LoginServiceImpl implements LoginService {
                 Integer consume = 0;
                 try {
                     consume = dao.getBookDetailByMonth(openid,book_name,date_time);
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -2260,7 +2262,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("book_name",book_name);
                 jsonObject.put("budget",budget);
                 jsonObject.put("consume",consume);
-                jsonObject.put("balance",budget - consume);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
