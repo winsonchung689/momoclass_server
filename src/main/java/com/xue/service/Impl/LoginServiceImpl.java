@@ -2214,6 +2214,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getBookUser(String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
+        String date_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
         List<BookUser> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -2237,6 +2240,13 @@ public class LoginServiceImpl implements LoginService {
                     role_name = "永久会员";
                 }
 
+                Integer consume = 0;
+                try {
+                    consume = dao.getBookDetailByMonth(openid,book_name,date_time);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
@@ -2249,6 +2259,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("role_name",role_name);
                 jsonObject.put("book_name",book_name);
                 jsonObject.put("budget",budget);
+                jsonObject.put("consume",consume);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
