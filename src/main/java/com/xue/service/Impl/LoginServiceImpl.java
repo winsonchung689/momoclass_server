@@ -2228,7 +2228,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
                 String book_name = line.getBook_name();
-                String budget = line.getBudget();
+                Float budget = line.getBudget();
                 openid = line.getOpenid();
                 String logo = line.getLogo();
                 int id = line.getId();
