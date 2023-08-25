@@ -672,7 +672,12 @@ public interface UserMapper {
 
     int updateLessonPoint(Lesson lesson);
 
+    int updateLessonPackageTotalMoney(String id,String total_money);
+
+    int updateLessonPackageDiscountMoney(String id,String discount_money);
 
 
- 
+
+
+
 }

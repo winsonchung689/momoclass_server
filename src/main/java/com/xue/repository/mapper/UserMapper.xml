@@ -1546,6 +1546,14 @@
     update lesson set points=#{points} where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
   </update>
 
+  <update id="updateLessonPackageTotalMoney" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set total_money=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonPackageDiscountMoney" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set discount_money=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
   <!-- 更新用户金币 -->
   <update id="updateCoins" parameterType="com.xue.entity.model.User">
     update user set coins=#{coins} where openid=#{openid}

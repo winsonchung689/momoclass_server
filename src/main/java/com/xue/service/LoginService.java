@@ -220,6 +220,8 @@ public interface LoginService {
 
     public int updateAddPoints(String student_name,String studio,Integer points,String subject,String campus);
 
+    public int updateLessonPackage(String id,String content,String type);
+
     public int deletePoints(String student_name,String studio,Integer points,String subject,String campus);
 
     public int updateCoins(String openid,String type);

@@ -4542,6 +4542,23 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateLessonPackage")
+	@ResponseBody
+	public String updateLessonPackage(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String id = request.getParameter("id");
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+
+		try {
+			loginService.updateLessonPackage(id,content,type);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateSubscription")
 	@ResponseBody
 	public String updateSubscription(HttpServletRequest request, HttpServletResponse response){

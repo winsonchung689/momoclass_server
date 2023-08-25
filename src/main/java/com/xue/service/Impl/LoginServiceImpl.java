@@ -3402,6 +3402,21 @@ public class LoginServiceImpl implements LoginService {
         return result;
     }
 
+    @Override
+    public int updateLessonPackage(String id, String content,String type) {
+        int result = 0;
+        try {
+            if("课包原价".equals(type)){
+                result = dao.updateLessonPackageTotalMoney(id,content);
+            }else if("优惠金额".equals(type)){
+                result = dao.updateLessonPackageDiscountMoney(id,content);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
 
     @Override
     public int deletePoints(String student_name, String studio,Integer points,String subject,String campus) {
