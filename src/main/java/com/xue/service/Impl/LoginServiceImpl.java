@@ -1649,22 +1649,23 @@ public class LoginServiceImpl implements LoginService {
             String duration = arrangement.getDuration();
             String old_class_number = arrangement.getClass_number();
             String old_subject = arrangement.getSubject();
+            String dayofweek = arrangement.getDayofweek();
 
 
             if ( studio_get.equals(studio)) {
                 if(change_title.equals("班号")){
                     dao.changeClassName(id1,studio,class_number);
-                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject,campus);
+                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject,campus,dayofweek);
                     dao.changeSignUpClassName(old_class_number,studio,duration,class_number,old_subject,campus);
                 }else if(change_title.equals("科目")){
                     dao.changeSubjectName(id1,studio,class_number);
-                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number,campus);
+                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number,campus,dayofweek);
                     dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number,campus);
                 }else if(change_title.equals("上限")){
                     dao.changeLimit(id1,studio,limit_number);
                 }else if(change_title.equals("时间")){
                     dao.changeDuration(id1,studio,limit_number);
-                    dao.changeScheduleDuration(old_class_number,studio,duration,limit_number,old_subject,campus);
+                    dao.changeScheduleDuration(old_class_number,studio,duration,limit_number,old_subject,campus,dayofweek);
                 }
 
             }else {
