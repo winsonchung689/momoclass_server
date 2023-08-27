@@ -1649,7 +1649,12 @@ public class LoginServiceImpl implements LoginService {
             String duration = arrangement.getDuration();
             String old_class_number = arrangement.getClass_number();
             String old_subject = arrangement.getSubject();
-            String dayofweek = arrangement.getDayofweek();
+            Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
+            if(dayofweek==7){
+                dayofweek=1;
+            }else {
+                dayofweek = dayofweek + 1;
+            }
 
 
             if ( studio_get.equals(studio)) {
