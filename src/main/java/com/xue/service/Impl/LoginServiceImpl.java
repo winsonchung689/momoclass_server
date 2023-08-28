@@ -3644,7 +3644,7 @@ public class LoginServiceImpl implements LoginService {
                                     //绑定公众号通知
                                     if(official_openid_boss != null){
                                         String[] official_list_boss = official_openid_boss.split(",");
-                                        for(int k=0;k<=official_list_boss.length-1;k++){
+                                        for(int k=0;k<official_list_boss.length;k++){
                                             try {
                                                 String official_openid_get = official_list_boss[k];
                                                 JSONObject queryJson2 = JSONObject.parseObject(tample6);
@@ -3712,7 +3712,7 @@ public class LoginServiceImpl implements LoginService {
                                 //绑定公众号通知
                                 if(official_openid != null){
                                     String[] official_list = official_openid.split(",");
-                                    for(int k=0;k<=official_list.length-1;k++){
+                                    for(int k=0;k<official_list.length;k++){
                                         try {
                                             String official_openid_get = official_list[k];
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
