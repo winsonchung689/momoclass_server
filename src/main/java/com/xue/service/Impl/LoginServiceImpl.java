@@ -3646,14 +3646,14 @@ public class LoginServiceImpl implements LoginService {
                                     if(official_openid_boss != null){
                                         String[] official_list_boss = official_openid_boss.split(",");
                                         for(int k=0;k<=official_list_boss.length-1;k++){
-                                            String official_openid_get = official_list_boss[k];
-                                            JSONObject queryJson2 = JSONObject.parseObject(tample6);
-                                            queryJson2.put("touser",official_openid_get);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
-                                            queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
-
                                             try {
+                                                String official_openid_get = official_list_boss[k];
+                                                JSONObject queryJson2 = JSONObject.parseObject(tample6);
+                                                queryJson2.put("touser",official_openid_get);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
+                                                queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
+    `
                                                 System.out.printf("param2:" + queryJson2.toJSONString());
                                                 result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
                                                 System.out.printf("res2:" + result);
