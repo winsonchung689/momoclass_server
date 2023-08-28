@@ -3559,7 +3559,6 @@ public class LoginServiceImpl implements LoginService {
                         result = HttpUtil.sendPostJson(url_send,queryJson1.toJSONString());
                         System.out.printf("res:" + result);
                     }
-
                     if("MOMO_OFFICIAL".equals(app)){
                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                         //绑定公众号通知
@@ -3643,10 +3642,11 @@ public class LoginServiceImpl implements LoginService {
                                 if("MOMO_OFFICIAL".equals(app)){
                                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                     //绑定公众号通知
-                                    if(official_openid != null){
+                                    if(official_openid_boss != null){
                                         String[] official_list = official_openid_boss.split(",");
                                         for(int k=0;k<official_list.length;k++){
                                             String official_openid_get = official_list[k];
+                                            System.out.println(official_openid_get);
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
                                             queryJson2.put("touser",official_openid_get);
                                             queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
@@ -3717,7 +3717,6 @@ public class LoginServiceImpl implements LoginService {
                                     for(int k=0;k<official_list.length;k++){
                                         try {
                                             String official_openid_get = official_list[k];
-                                            System.out.println(official_openid_get);
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
                                             queryJson2.put("touser",official_openid_get);
                                             queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
