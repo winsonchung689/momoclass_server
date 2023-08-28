@@ -3644,9 +3644,8 @@ public class LoginServiceImpl implements LoginService {
                                     //绑定公众号通知
                                     if(official_openid_boss != null){
                                         String[] official_list = official_openid_boss.split(",");
-                                        for(int k=0;k<official_list.length-1;k++){
+                                        for(int k=0;k<=official_list.length-1;k++){
                                             String official_openid_get = official_list[k];
-                                            System.out.println(official_openid_get);
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
                                             queryJson2.put("touser",official_openid_get);
                                             queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
@@ -3713,8 +3712,7 @@ public class LoginServiceImpl implements LoginService {
                                 //绑定公众号通知
                                 if(official_openid != null){
                                     String[] official_list = official_openid.split(",");
-                                    System.out.println(official_list);
-                                    for(int k=0;k<official_list.length;k++){
+                                    for(int k=0;k<=official_list.length-1;k++){
                                         try {
                                             String official_openid_get = official_list[k];
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
