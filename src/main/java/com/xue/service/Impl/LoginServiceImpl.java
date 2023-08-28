@@ -3493,7 +3493,7 @@ public class LoginServiceImpl implements LoginService {
     public void sendClassRemind() {
         List<String> apps = new ArrayList<>();
         apps.add("MOMO2B");
-        apps.add("MOMO");
+//        apps.add("MOMO");
         apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -3515,7 +3515,7 @@ public class LoginServiceImpl implements LoginService {
         String tample5 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}}}}";
         String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String tample13 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}}}}";
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}}}";
+        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
 
