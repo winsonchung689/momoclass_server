@@ -3611,7 +3611,7 @@ public class LoginServiceImpl implements LoginService {
                     //选课老师上课通知
                     String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
                     List<User> users = null;
-                    users = dao.getUserByChooseLesson(chooseLesson);
+                    users = dao.getUserByChooseLesson(chooseLesson,studio);
                     if(users.size()>0 && remind == 1){
                         choose = 1;
                         for(int ui=0;ui<users.size();ui++){

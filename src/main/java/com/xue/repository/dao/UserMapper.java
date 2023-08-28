@@ -420,7 +420,7 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUserByUnionid(String unionid);
 
-    List<User> getUserByChooseLesson(String chooseLesson);
+    List<User> getUserByChooseLesson(String chooseLesson,String studio);
 
     List<User> getUserByOpenidIgnore(String openid);
 
