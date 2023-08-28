@@ -3616,8 +3616,7 @@ public class LoginServiceImpl implements LoginService {
                         choose = 1;
                         for(int ui=0;ui<users.size();ui++){
                             String openid_boss = users.get(ui).getOpenid();
-                            String official_openid_boss = user.getOfficial_openid();
-                            System.out.println(official_openid_boss);
+                            String official_openid_boss = users.get(ui).getOfficial_openid();
                             for(int a=0;a<apps.size();a++){
                                 String url_send = null;
                                 String app = apps.get(a);
