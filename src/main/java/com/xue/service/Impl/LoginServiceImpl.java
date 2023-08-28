@@ -3617,6 +3617,7 @@ public class LoginServiceImpl implements LoginService {
                         for(int ui=0;ui<users.size();ui++){
                             String openid_boss = users.get(ui).getOpenid();
                             String official_openid_boss = user.getOfficial_openid();
+                            System.out.println(official_openid_boss);
                             for(int a=0;a<apps.size();a++){
                                 String url_send = null;
                                 String app = apps.get(a);
@@ -3643,9 +3644,9 @@ public class LoginServiceImpl implements LoginService {
                                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                     //绑定公众号通知
                                     if(official_openid_boss != null){
-                                        String[] official_list = official_openid_boss.split(",");
-                                        for(int k=0;k<=official_list.length-1;k++){
-                                            String official_openid_get = official_list[k];
+                                        String[] official_list_boss = official_openid_boss.split(",");
+                                        for(int k=0;k<=official_list_boss.length-1;k++){
+                                            String official_openid_get = official_list_boss[k];
                                             JSONObject queryJson2 = JSONObject.parseObject(tample6);
                                             queryJson2.put("touser",official_openid_get);
                                             queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
