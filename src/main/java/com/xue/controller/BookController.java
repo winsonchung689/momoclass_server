@@ -156,7 +156,12 @@ public class BookController {
 				BookUser bookUser =new BookUser();
 				bookUser.setBook_name(content);
 				bookUser.setId(Integer.parseInt(id));
-				dao.updateBookName(bookUser);
+				List<BookUser> bookUsers =dao.getBookUserById(id);
+				String book_name_get = bookUsers.get(0).getBook_name();
+				if(!book_name_get.equals(content)){
+					dao.updateBookName(bookUser);
+					dao.updateBookDetailBookName(book_name_get,content);
+				}
 			}else if("budget".equals(type)){
 				String id = request.getParameter("id");
 				BookUser bookUser =new BookUser();

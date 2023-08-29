@@ -872,6 +872,15 @@
     select * from book_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getBookUserByBookName" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where book_name =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getBookUserById" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where id =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+
   <select id="getBBookDetail" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
     select * from book_detail where openid =#{param1} and create_time =#{param2} and book_name =#{param3} and delete_status = 0 order by update_time desc
   </select>
@@ -985,6 +994,10 @@
 
   <update id="updateBookAvatar" parameterType="com.xue.entity.model.BookUser">
     update book_user set avatarurl=#{avatarurl} where openid = #{openid}
+  </update>
+
+  <update id="updateBookDetailBookName" parameterType="com.xue.entity.model.BookDetail">
+    update book_detail set book_name=#{param2} where book_name = #{param1}
   </update>
 
   <update id="updateRestaurantNickName" parameterType="com.xue.entity.model.RestaurantUser">

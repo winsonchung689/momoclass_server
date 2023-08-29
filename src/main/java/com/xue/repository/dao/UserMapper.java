@@ -282,6 +282,8 @@ public interface UserMapper {
 
     int updateBookAvatar(BookUser bookUser);
 
+    int updateBookDetailBookName(String book_name_old,String book_name_new);
+
     int updateRestaurantNickName(RestaurantUser restaurantUser);
 
     int updateBookNickName(BookUser bookUser);
@@ -397,6 +399,10 @@ public interface UserMapper {
     List<RestaurantUser> getRestaurantUser(String openid);
 
     List<BookUser> getBookUser(String openid);
+
+    List<BookUser> getBookUserByBookName(String book_name);
+
+    List<BookUser> getBookUserById(String id);
 
     List<BookDetail> getBBookDetail(String openid,String date_time,String book_name);
 
