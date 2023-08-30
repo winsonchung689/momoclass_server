@@ -2431,8 +2431,11 @@ public class LoginController {
 				if(users1.size()>0){
 					dao.updateUserStudentName(openid,content);
 				}else {
-					user.setStudent_name(content);
-					dao.insertUser(user);
+					List<User> users2 = dao.getUserByStudentOpenid(content,studio,openid);
+					if(users2.size()==0){
+						user.setStudent_name(content);
+						dao.insertUser(user);
+					}
 				}
 			}
 
