@@ -922,7 +922,7 @@
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus,back_uuid from user where openid =#{param1} and delete_status = 0 order by create_time desc
+    select * from user where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByUnionid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
