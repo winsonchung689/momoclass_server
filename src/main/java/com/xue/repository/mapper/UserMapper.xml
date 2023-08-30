@@ -363,7 +363,15 @@
 
   <!-- 更改地址及电话号码 -->
   <select id="updateLocation" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set phone_number =#{param3},location=#{param4} where studio =#{param1} and openid =#{param2}
+    update user set location=#{param2} where openid =#{param1}
+  </select>
+
+  <select id="updatePhoneNumber" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set phone_number =#{param2} where openid =#{param1}
+  </select>
+
+  <select id="updateUserStudentName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set student_name =#{param2} where openid =#{param1}
   </select>
 
   <!-- 更改用户名 -->

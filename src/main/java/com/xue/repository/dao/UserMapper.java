@@ -210,7 +210,11 @@ public interface UserMapper {
 
     void modifyMark(String id,String studio,String mark);
 
-    void updateLocation(String studio,String openid,String phone_number,String location);
+    void updateLocation(String openid,String location);
+
+    void updatePhoneNumber(String openid,String phone_number);
+
+    void updateUserStudentName(String openid,String student_name);
 
     void updateNewName(String openid,String new_name);
 

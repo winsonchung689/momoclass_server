@@ -2412,30 +2412,34 @@ public class LoginController {
 	@ResponseBody
 	public int updateLocation(HttpServletRequest request, HttpServletResponse response){
 
-		//获取电话
-		String phone_number = request.getParameter("phone_number");
-		//获取地址
-		String location = request.getParameter("location");
-
-		String studio = request.getParameter("studio");
-
 		String openid = request.getParameter("openid");
-
-		String new_name = request.getParameter("new_name");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
 
 		try {
-			if(new_name.trim().length() <= 0){
-				dao.updateLocation(studio,openid,phone_number,location);
-			}else {
-				dao.updateNewName(openid,new_name);
+			if("昵称".equals(type)){
+				dao.updateNewName(openid,content);
+			}else if("电话".equals(type)) {
+				dao.updatePhoneNumber(openid,content);
+			}else if("地址".equals(type)) {
+				dao.updateLocation(openid,content);
+			}else if("学生".equals(type)) {
+				List<User> users = dao.getUserByOpenid(openid);
+				User user = users.get(0);
+				String studio =user.getStudio();
+				List<User> users1 = dao.getUserByStudent("no_name",studio);
+				if(users1.size()>0){
+					dao.updatePhoneNumber(openid,content);
+				}else {
+					user.setStudent_name(content);
+					dao.insertUser(user);
+				}
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return 1;
-
 	}
 
 	@RequestMapping("/updateCombine")
