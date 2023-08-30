@@ -2013,6 +2013,19 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 role = line.getRole();
                 student_name = line.getStudent_name();
+                StringBuilder sb = new StringBuilder();
+                sb.append(student_name);
+
+                List<User> users = dao.getUserByOpenid(openid);
+                for(int ii=0;ii< users.size();ii++){
+                    String student_get = users.get(ii).getStudent_name();
+                    if(!"no_name".equals(student_get)){
+                        sb.append(".");
+                        sb.append(student_get);
+                    }
+                }
+
+
                 avatarurl = line.getAvatarurl();
                 nick_name = line.getNick_name();
                 studio = line.getStudio();
@@ -2090,6 +2103,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("name", nick_name);
                 jsonObject.put("search", nick_name);
                 jsonObject.put("pay_days", pay_days);
+                jsonObject.put("sb", sb);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
