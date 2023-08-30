@@ -4616,6 +4616,25 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateUserStudioCampus")
+	@ResponseBody
+	public String updateUserStudioCampus(HttpServletRequest request, HttpServletResponse response){
+		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+
+		try {
+			User user = new User();
+			user.setOpenid(openid);
+			user.setStudio(studio);
+			user.setCampus(studio);
+			dao.updateUserStudioByOpenid(user);
+			dao.updateUserCampus(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateBossLessons")
 	@ResponseBody
 	public String updateBossLessons(HttpServletRequest request, HttpServletResponse response){
