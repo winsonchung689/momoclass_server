@@ -2429,7 +2429,7 @@ public class LoginController {
 				String studio =user.getStudio();
 				List<User> users1 = dao.getUserByStudent("no_name",studio);
 				if(users1.size()>0){
-					dao.updatePhoneNumber(openid,content);
+					dao.updateUserStudentName(openid,content);
 				}else {
 					user.setStudent_name(content);
 					dao.insertUser(user);
