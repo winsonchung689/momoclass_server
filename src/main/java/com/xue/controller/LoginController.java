@@ -2427,7 +2427,7 @@ public class LoginController {
 				List<User> users = dao.getUserByOpenid(openid);
 				User user = users.get(0);
 				String studio =user.getStudio();
-				List<User> users1 = dao.getUserByStudent("no_name",studio);
+				List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid);
 				if(users1.size()>0){
 					dao.updateUserStudentName(openid,content);
 				}else {

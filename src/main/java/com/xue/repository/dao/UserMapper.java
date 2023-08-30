@@ -436,6 +436,8 @@ public interface UserMapper {
 
     List<User> getUserByStudent(String student_name,String studio);
 
+    List<User> getUserByStudentOpenid(String student_name,String studio,String openid);
+
     List<User> getUserByNickStudio(String nick_name,String studio);
 
     List<User> getUserByNickStudioEq(String nick_name,String studio);
