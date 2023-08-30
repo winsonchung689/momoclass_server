@@ -174,9 +174,9 @@ public interface LoginService {
 
     public List getClassNumbers(String studio);
 
-    public List getArrangements(String studio);
+    public List getArrangements(String studio,String campus);
 
-    public List getArrangementsByDate(String studio,String date_time);
+    public List getArrangementsByDate(String studio,String date_time,String campus);
 
     public List getCertificateModel(String class_name);
 

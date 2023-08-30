@@ -457,7 +457,7 @@ public interface UserMapper {
 
     List<Schedule> getClassNumbers(String studio);
 
-    List<Arrangement> getArrangements(String studio);
+    List<Arrangement> getArrangements(String studio,String campus);
 
     List<Order> getMyOrder(String studio,String openid);
 

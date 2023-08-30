@@ -1555,10 +1555,12 @@ public class LoginController {
 	//	获取课程列表
 	@RequestMapping("/getArrangements")
 	@ResponseBody
-	public List getArrangements(String studio){
+	public List getArrangements(String studio,String openid){
 		List list = null;
 		try {
-			list = loginService.getArrangements(studio);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getArrangements(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1569,10 +1571,12 @@ public class LoginController {
 	//	获取课程列表
 	@RequestMapping("/getArrangementsByDate")
 	@ResponseBody
-	public List getArrangementsByDate(String studio,String date_time){
+	public List getArrangementsByDate(String studio,String date_time,String openid){
 		List list = null;
 		try {
-			list = loginService.getArrangementsByDate(studio,date_time);
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getArrangementsByDate(studio,date_time,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

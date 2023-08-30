@@ -2605,14 +2605,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangements(String studio) {
+    public List getArrangements(String studio,String campus) {
         String dayofweek = null;
         String class_number = null;
         String duration = null;
         String subject = null;
         List<String> resul_list = new ArrayList<>();
         try {
-            List<Arrangement> list = dao.getArrangements(studio);
+            List<Arrangement> list = dao.getArrangements(studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 Arrangement line = list.get(i);
                 //获取字段
@@ -2634,7 +2634,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getArrangementsByDate(String studio, String date_time) {
+    public List getArrangementsByDate(String studio, String date_time,String campus) {
         String dayofweek = null;
         String class_number = null;
         String duration = null;
@@ -2656,7 +2656,7 @@ public class LoginServiceImpl implements LoginService {
                 weekofday = weekDay - 1;
             }
 
-            List<Arrangement> list = dao.getArrangements(studio);
+            List<Arrangement> list = dao.getArrangements(studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 Arrangement line = list.get(i);
                 //获取字段
