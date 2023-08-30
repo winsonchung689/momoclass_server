@@ -2016,12 +2016,14 @@ public class LoginServiceImpl implements LoginService {
                 StringBuilder sb = new StringBuilder();
                 sb.append(student_name);
 
-                List<User> users = dao.getUserByOpenid(openid);
-                for(int ii=0;ii< users.size();ii++){
-                    String student_get = users.get(ii).getStudent_name();
-                    if(!"no_name".equals(student_get) && !student_name.equals(student_get)){
-                        sb.append(".");
-                        sb.append(student_get);
+                if(!openid.equals("all")){
+                    List<User> users = dao.getUserByOpenid(openid);
+                    for(int ii=0;ii< users.size();ii++){
+                        String student_get = users.get(ii).getStudent_name();
+                        if(!"no_name".equals(student_get) && !student_name.equals(student_get)){
+                            sb.append(".");
+                            sb.append(student_get);
+                        }
                     }
                 }
 
