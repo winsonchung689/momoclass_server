@@ -4068,6 +4068,8 @@ public class LoginServiceImpl implements LoginService {
                     JSONObject jsonObject2 = JSON.parseObject(result2);
                     String unionid = jsonObject2.getString("unionid");
                     String official_openid = jsonObject2.getString("openid");
+
+                    //更新小桃子助手公众号
                     List<User> users = dao.getUserByUnionid(unionid);
                     if(users.size()>0){
                         for(int j =0;j<users.size();j++){
@@ -4081,6 +4083,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
+                    //更新小桃子点点公众号
                     List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByUnionid(unionid);
                     if(restaurantUsers.size()>0){
                         for(int jj =0;jj<restaurantUsers.size();jj++){
