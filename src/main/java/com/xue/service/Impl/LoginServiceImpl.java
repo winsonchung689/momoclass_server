@@ -4070,31 +4070,39 @@ public class LoginServiceImpl implements LoginService {
                     String official_openid = jsonObject2.getString("openid");
 
                     //更新小桃子助手公众号
-                    List<User> users = dao.getUserByUnionid(unionid);
-                    if(users.size()>0){
-                        for(int j =0;j<users.size();j++){
-                            String official_openid_get = users.get(j).getOfficial_openid();
-                            if(official_openid_get != null){
-                                if(!official_openid_get.contains(official_openid)){
-                                    official_openid = official_openid + "," + official_openid_get;
+                    try {
+                        List<User> users = dao.getUserByUnionid(unionid);
+                        if(users.size()>0){
+                            for(int j =0;j<users.size();j++){
+                                String official_openid_get = users.get(j).getOfficial_openid();
+                                if(official_openid_get != null){
+                                    if(!official_openid_get.contains(official_openid)){
+                                        official_openid = official_openid + "," + official_openid_get;
+                                    }
                                 }
+                                dao.updateUserOfficialOpenid(unionid,official_openid);
                             }
-                            dao.updateUserOfficialOpenid(unionid,official_openid);
                         }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
 
                     //更新小桃子点点公众号
-                    List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByUnionid(unionid);
-                    if(restaurantUsers.size()>0){
-                        for(int jj =0;jj<restaurantUsers.size();jj++){
-                            String official_openid_get = users.get(jj).getOfficial_openid();
-                            if(official_openid_get != null){
-                                if(!official_openid_get.contains(official_openid)){
-                                    official_openid = official_openid + "," + official_openid_get;
+                    try {
+                        List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByUnionid(unionid);
+                        if(restaurantUsers.size()>0){
+                            for(int jj =0;jj<restaurantUsers.size();jj++){
+                                String official_openid_get = restaurantUsers.get(jj).getOfficial_openid();
+                                if(official_openid_get != null){
+                                    if(!official_openid_get.contains(official_openid)){
+                                        official_openid = official_openid + "," + official_openid_get;
+                                    }
                                 }
+                                dao.updateRestaurantUserOfficialOpenid(unionid,official_openid);
                             }
-                            dao.updateRestaurantUserOfficialOpenid(unionid,official_openid);
                         }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
                 }
             } catch (Exception e) {
