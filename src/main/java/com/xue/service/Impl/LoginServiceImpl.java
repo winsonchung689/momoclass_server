@@ -1965,6 +1965,7 @@ public class LoginServiceImpl implements LoginService {
         String send_time = null;
         String subscription = null;
         String campus =null;
+        Integer hours =null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         long pay_days = 0;
@@ -2047,6 +2048,7 @@ public class LoginServiceImpl implements LoginService {
                 subscription = line.getSubscription();
                 member = line.getMember();
                 campus = line.getCampus();
+                hours = line.getHours();
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio,campus);
@@ -2106,6 +2108,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("search", nick_name);
                 jsonObject.put("pay_days", pay_days);
                 jsonObject.put("sb", sb);
+                jsonObject.put("hours", hours);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
