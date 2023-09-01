@@ -398,6 +398,9 @@ public interface UserMapper {
 
     int updateSendTime(User user);
 
+
+    int updateHours(User user);
+
     List<User> getUser(String openid);
 
     List<RestaurantUser> getRestaurantUser(String openid);

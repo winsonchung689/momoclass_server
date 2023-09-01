@@ -4191,14 +4191,23 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
-		String send_time = request.getParameter("send_time");
+		String remind_type = request.getParameter("remind_type");
+
+		String value = request.getParameter("value");
 
 
 		try {
-			User user =new User();
-			user.setSend_time(send_time);
-			user.setStudio(studio);
-			dao.updateSendTime(user);
+			if("统一提醒次日".equals(remind_type)){
+				User user =new User();
+				user.setSend_time(value);
+				user.setStudio(studio);
+				dao.updateSendTime(user);
+			}else if("提前N小时提醒".equals(remind_type)){
+				User user =new User();
+				user.setHours(Integer.parseInt(value));
+				user.setStudio(studio);
+				dao.updateHours(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

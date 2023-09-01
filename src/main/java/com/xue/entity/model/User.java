@@ -56,6 +56,27 @@ public class User {
 
     private String official_openid;
 
+    private String remind_type;
+
+    private Integer hours;
+
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public String getRemind_type() {
+        return remind_type;
+    }
+
+    public void setRemind_type(String remind_type) {
+        this.remind_type = remind_type;
+    }
+
     public String getOfficial_openid() {
         return official_openid;
     }
