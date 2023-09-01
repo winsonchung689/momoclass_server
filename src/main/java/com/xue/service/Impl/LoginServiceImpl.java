@@ -3569,7 +3569,7 @@ public class LoginServiceImpl implements LoginService {
                     hour = cal_today.get(Calendar.HOUR_OF_DAY);
                     minute = cal_today.get(Calendar.MINUTE);
                     duration_st = hour + ":" + minute;
-                    if(hours<10){
+                    if(minute < 10 ){
                         duration_st = hour + ":0" + minute;
                     }
 
