@@ -4201,11 +4201,13 @@ public class LoginController {
 				User user =new User();
 				user.setSend_time(value);
 				user.setStudio(studio);
+				user.setRemind_type(remind_type);
 				dao.updateSendTime(user);
 			}else if("提前N小时提醒".equals(remind_type)){
 				User user =new User();
 				user.setHours(Integer.parseInt(value));
 				user.setStudio(studio);
+				user.setRemind_type(remind_type);
 				dao.updateHours(user);
 			}
 		} catch (Exception e) {

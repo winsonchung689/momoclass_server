@@ -1088,11 +1088,11 @@
 
   <!-- 更新提醒时间 -->
   <update id="updateSendTime" parameterType="com.xue.entity.model.User">
-    update user set send_time=#{send_time} where studio = #{studio}
+    update user set send_time=#{send_time},remind_type=#{remind_type} where studio = #{studio}
   </update>
 
   <update id="updateHours" parameterType="com.xue.entity.model.User">
-    update user set hours=#{hours} where studio = #{studio}
+    update user set hours=#{hours},remind_type=#{remind_type} where studio = #{studio}
   </update>
 
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
