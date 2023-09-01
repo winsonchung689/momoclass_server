@@ -3520,12 +3520,6 @@ public class LoginServiceImpl implements LoginService {
         apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE,+1);
-        Integer weekDay_tomorrow = cal.get(Calendar.DAY_OF_WEEK);
-        String date_time = df.format(cal.getTime());
-        String now_time = df_now.format(new Date()).split(" ")[1];
-        String now_date = df_now.format(new Date()).split(" ")[0];
 
         String result = null;
         String duration = null;
@@ -3564,17 +3558,27 @@ public class LoginServiceImpl implements LoginService {
                 int minute = 0;
                 String duration_st =null;
 
-                try {
-                    Calendar cal_today = Calendar.getInstance();
-                    cal_today.add(Calendar.HOUR_OF_DAY,hours);
-                    weekDay_today = cal.get(Calendar.DAY_OF_WEEK);
-                    hour = cal_today.get(Calendar.HOUR_OF_DAY);
-                    minute = cal_today.get(Calendar.MINUTE);
-                    duration_st = hour + ":" + minute;
-                    if(minute < 10 ){
-                        duration_st = hour + ":0" + minute;
-                    }
+                Calendar cal = Calendar.getInstance();
+                //获取提前时间
+                cal.add(Calendar.HOUR_OF_DAY,hours);
+                weekDay_today = cal.get(Calendar.DAY_OF_WEEK);
+                hour = cal.get(Calendar.HOUR_OF_DAY);
+                minute = cal.get(Calendar.MINUTE);
+                duration_st = hour + ":" + minute;
+                if(minute < 10 ){
+                    duration_st = hour + ":0" + minute;
+                }
 
+                //获取统一时间
+                cal.add(Calendar.DATE,+1);
+                Integer weekDay_tomorrow = cal.get(Calendar.DAY_OF_WEEK);
+                String date_time = df.format(cal.getTime());
+
+                //获取当前时间
+                String now_time = df_now.format(new Date()).split(" ")[1];
+                String now_date = df_now.format(new Date()).split(" ")[0];
+
+                try {
                     Date today_dt = df.parse(now_date.substring(0,10));
                     Date expired_dt = df.parse(expried_time.substring(0,10));
                     Long day2 = expired_dt.getTime();
