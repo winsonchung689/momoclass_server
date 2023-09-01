@@ -2272,7 +2272,9 @@ public class LoginServiceImpl implements LoginService {
                 Integer consume = 0;
                 try {
                     consume = dao.getBookDetailByMonth(openid,book_name,date_time);
-
+                    if(consume == null){
+                        consume = 0;
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
