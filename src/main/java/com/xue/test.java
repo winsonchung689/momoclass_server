@@ -10,7 +10,7 @@ public class test {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Integer weekDay_now = cal.get(Calendar.DAY_OF_WEEK);
-        cal.add(Calendar.HOUR_OF_DAY, 1);
+        cal.add(Calendar.HOUR_OF_DAY, 0);
         Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
