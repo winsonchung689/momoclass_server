@@ -3530,7 +3530,7 @@ public class LoginServiceImpl implements LoginService {
         String class_number = null;
         String subject = null;
         Integer remind = 0;
-        List<Schedule> list_schedule = null;
+        List<Schedule> list_schedule = new ArrayList<>();
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
         String tample5 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}}}}";
@@ -3556,9 +3556,6 @@ public class LoginServiceImpl implements LoginService {
                 Integer hours = user.getHours();
                 Long compare = 10L;
                 String campus = user.getCampus();
-                System.out.println(openid);
-                System.out.println(remindType);
-                System.out.println(hours);
 
                 Integer weekDay_today = 0;
                 int hour = 0;
@@ -3636,16 +3633,13 @@ public class LoginServiceImpl implements LoginService {
                 if(!"no_name".equals(student_name)){
                     if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
                         weekDay = weekDay_tomorrow;
-                        System.out.println(weekDay);
                         list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
                     }else if("提前N小时提醒".equals(remindType)){
                         weekDay = weekDay_today;
-                        System.out.println(weekDay);
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
                     }
 
                     if(list_schedule.size() > 0){
-                        System.out.println(weekDay);
                         for (int j = 0; j < list_schedule.size(); j++) {
                             Schedule schedule = list_schedule.get(j);
                             duration = schedule.getDuration();
