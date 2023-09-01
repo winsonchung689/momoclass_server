@@ -24,11 +24,12 @@ public class test {
         int minute = 0;
         String duration_st =null;
         Calendar cal_today = Calendar.getInstance();
-        cal_today.add(Calendar.HOUR_OF_DAY,hours);
+        cal_today.add(Calendar.HOUR_OF_DAY,23);
         weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
 
-        cal_today.add(Calendar.DATE,+1);
-        int weekDay_ttt = cal_today.get(Calendar.DAY_OF_WEEK);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE,+1);
+        int weekDay_ttt = cal.get(Calendar.DAY_OF_WEEK);
 
         hour = cal_today.get(Calendar.HOUR_OF_DAY);
         minute = cal_today.get(Calendar.MINUTE);

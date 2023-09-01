@@ -3555,20 +3555,21 @@ public class LoginServiceImpl implements LoginService {
 
 
                 //获取提前时间
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.HOUR_OF_DAY,hours);
-                int weekDay_today = cal.get(Calendar.DAY_OF_WEEK);
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int minute = cal.get(Calendar.MINUTE);
+                Calendar cal_today = Calendar.getInstance();
+                cal_today.add(Calendar.HOUR_OF_DAY,hours);
+                int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+                int hour = cal_today.get(Calendar.HOUR_OF_DAY);
+                int minute = cal_today.get(Calendar.MINUTE);
                 String duration_st = hour + ":" + minute;
                 if(minute < 10 ){
                     duration_st = hour + ":0" + minute;
                 }
 
                 //获取统一时间
-                cal.add(Calendar.DATE,+1);
-                Integer weekDay_tomorrow = cal.get(Calendar.DAY_OF_WEEK);
-                String date_time = df.format(cal.getTime());
+                Calendar cal_tomorrow = Calendar.getInstance();
+                cal_tomorrow.add(Calendar.DATE,+1);
+                Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
+
 
                 //获取当前时间
                 String now_time = df_now.format(new Date()).split(" ")[1];
@@ -3633,13 +3634,16 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Integer weekDay = 0;
+                String date_time = null;
                 //上课通知
                 if(!"no_name".equals(student_name)){
                     if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
                         weekDay = weekDay_tomorrow;
+                        date_time = df.format(cal_tomorrow.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
                     }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
+                        date_time = df.format(cal_today.getTime());
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
                     }
 
