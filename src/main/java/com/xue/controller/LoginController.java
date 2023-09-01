@@ -505,7 +505,7 @@ public class LoginController {
 		String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 
 		try {
-			List<User> users  =getUser(openid);
+			List<User> users  = dao.getUser(openid);
 			if(users.size()>0){
 				User user = users.get(0);
 				String official_openid = user.getOfficial_openid();
