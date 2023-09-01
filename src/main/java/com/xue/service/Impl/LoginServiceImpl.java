@@ -3563,13 +3563,15 @@ public class LoginServiceImpl implements LoginService {
                 String duration_st =null;
 
                 try {
-
                     Calendar cal_today = Calendar.getInstance();
                     cal_today.add(Calendar.HOUR_OF_DAY,hours);
                     weekDay_today = cal.get(Calendar.DAY_OF_WEEK);
                     hour = cal_today.get(Calendar.HOUR_OF_DAY);
                     minute = cal_today.get(Calendar.MINUTE);
                     duration_st = hour + ":" + minute;
+                    if(hours<10){
+                        duration_st = hour + ":0" + minute;
+                    }
 
                     Date today_dt = df.parse(now_date.substring(0,10));
                     Date expired_dt = df.parse(expried_time.substring(0,10));
@@ -3634,7 +3636,7 @@ public class LoginServiceImpl implements LoginService {
                     if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
                         weekDay = weekDay_tomorrow;
                         list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
-                    }else if("提前N小时提醒".equals(remindType)){
+                    }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
                     }

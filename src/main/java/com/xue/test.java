@@ -26,10 +26,12 @@ public class test {
         weekDay_today = cal.get(Calendar.DAY_OF_WEEK);
         hour = cal_today.get(Calendar.HOUR_OF_DAY);
         minute = cal_today.get(Calendar.MINUTE);
-        duration_st = hour + ":" + minute;
+        duration_st = hour + ":0" + minute;
+        if(hours<10){
+            duration_st = hour + ":0" + minute;
+        }
 
-        System.out.println(weekDay_today);
-        System.out.println(hour + ":"+ minute);
-        System.out.println(date_time + " " +now_date + " " + now_time);
+
+        System.out.println(duration_st);
     }
 }
