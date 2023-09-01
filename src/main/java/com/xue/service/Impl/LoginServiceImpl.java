@@ -3643,7 +3643,7 @@ public class LoginServiceImpl implements LoginService {
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
                     }
 
-                    if(list_schedule.size() > 0){
+                    if(list_schedule.size() > 0 && weekDay > 0){
                         for (int j = 0; j < list_schedule.size(); j++) {
                             Schedule schedule = list_schedule.get(j);
                             duration = schedule.getDuration();
