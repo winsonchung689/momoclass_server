@@ -3553,7 +3553,6 @@ public class LoginServiceImpl implements LoginService {
                 Long compare = 10L;
                 String campus = user.getCampus();
 
-
                 //获取提前时间
                 Calendar cal_today = Calendar.getInstance();
                 cal_today.add(Calendar.HOUR_OF_DAY,hours);
@@ -3569,7 +3568,6 @@ public class LoginServiceImpl implements LoginService {
                 Calendar cal_tomorrow = Calendar.getInstance();
                 cal_tomorrow.add(Calendar.DATE,+1);
                 Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
-
 
                 //获取当前时间
                 String now_time = df_now.format(new Date()).split(" ")[1];
@@ -3661,7 +3659,6 @@ public class LoginServiceImpl implements LoginService {
                             }else {
                                 weekDayChoose = weekDay -1;
                             }
-
 
                             //选课老师上课通知
                             String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
