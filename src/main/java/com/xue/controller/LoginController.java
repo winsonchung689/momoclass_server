@@ -501,18 +501,31 @@ public class LoginController {
 	@ResponseBody
 	public String sendClassRemind(String token, String openid, String duration, String studentname,String remindDay,String class_number){
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample3);
-		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("date1").put("value",remindDay+" " + duration.split("-")[0]);
-		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
-		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
+		String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
-			System.out.printf("res:" + result);
+			List<User> users  =getUser(openid);
+			if(users.size()>0){
+				User user = users.get(0);
+				String official_openid = user.getOfficial_openid();
+				String studio = user.getStudio();
+				if(official_openid != null){
+					String[] official_list = official_openid.split(",");
+					for(int j=0;j<official_list.length;j++){
+						String official_openid_get = official_list[j];
+						JSONObject queryJson2 = JSONObject.parseObject(tample6);
+						queryJson2.put("touser",official_openid_get);
+						queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",studentname);
+						queryJson2.getJSONObject("data").getJSONObject("time3").put("value",remindDay + " " + duration.split("-")[0]);
+						queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+
+						System.out.println("json2:" + queryJson2.toJSONString());
+						result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+						System.out.printf("res22:" + result);
+					}
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
