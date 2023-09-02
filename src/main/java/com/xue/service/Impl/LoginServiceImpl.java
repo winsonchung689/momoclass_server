@@ -3559,10 +3559,15 @@ public class LoginServiceImpl implements LoginService {
                 int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
                 int hour = cal_today.get(Calendar.HOUR_OF_DAY);
                 int minute = cal_today.get(Calendar.MINUTE);
-                String duration_st = hour + ":" + minute;
-                if(minute < 10 ){
-                    duration_st = hour + ":0" + minute;
+                String hour_st = Integer.toString(hour);
+                String minute_st = Integer.toString(minute);
+                if(hour < 10 ){
+                    hour_st = "0" + hour_st;
                 }
+                if(minute < 10 ){
+                    minute_st = "0" + minute_st;
+                }
+                String duration_st = hour_st + ":" + minute_st;
 
                 //获取统一时间
                 Calendar cal_tomorrow = Calendar.getInstance();
