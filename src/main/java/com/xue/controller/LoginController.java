@@ -4084,6 +4084,8 @@ public class LoginController {
 				user.setOpenid(openid_get);
 				user.setStudio(campus);
 				dao.updateUserStudioByOpenid(user);
+			}else if("电话".equals(type)){
+				dao.updatePhoneNumber(openid_get,campus);
 			}
 
 		} catch (Exception e) {
