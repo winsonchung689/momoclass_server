@@ -5538,6 +5538,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String subjects = line.getSubjects();
                 String member = line.getMember();
+                String phone_number =line.getPhone_number();
 
                 //json
                 jsonObject.put("studio", studio);
@@ -5553,6 +5554,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("subjects", subjects);
                 jsonObject.put("member", member);
+                jsonObject.put("phone_number", phone_number);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
