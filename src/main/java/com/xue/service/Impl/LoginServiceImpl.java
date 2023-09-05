@@ -603,6 +603,7 @@ public class LoginServiceImpl implements LoginService {
 
             for (int i = 0; i < list.size(); i++) {
                 StringBuffer teachers = new StringBuffer();
+                StringBuffer all_teachers = new StringBuffer();
                 String student_string = null;
                 Integer classes_count =0;
                 Integer uncomfirmed_count = 0;
@@ -664,9 +665,15 @@ public class LoginServiceImpl implements LoginService {
                     List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
                     for(int t = 0;t < teacher_user.size(); t++){
                         String nick_name_get = teacher_user.get(t).getNick_name();
-                        String openid_get = teacher_user.get(t).getOpenid();
-                        teachers.append(nick_name_get+"_"+openid_get);
+                        teachers.append(nick_name_get);
 
+                    }
+
+                    List<User> all_teacher_user = dao.getBossByStudio(studio);
+                    for(int tt = 0;tt < all_teacher_user.size(); tt++){
+                        String nick_name_all = all_teacher_user.get(tt).getNick_name();
+                        String openid_all =all_teacher_user.get(tt).getOpenid();
+                        all_teachers.append(nick_name_all + "_" + openid_all);
                     }
 
 
@@ -693,6 +700,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("remind",remind);
                         jsonObject.put("remind_name",remind_name);
                         jsonObject.put("teachers",teachers);
+                        jsonObject.put("all_teachers",all_teachers);
                         resul_list.add(jsonObject);
                     }
                 }else {
@@ -712,6 +720,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("remind",remind);
                     jsonObject.put("remind_name",remind_name);
                     jsonObject.put("teachers",teachers);
+                    jsonObject.put("all_teachers",all_teachers);
                     resul_list.add(jsonObject);
                 }
             }
