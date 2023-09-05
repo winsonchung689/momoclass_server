@@ -676,7 +676,6 @@ public class LoginServiceImpl implements LoginService {
                         all_teachers.append(nick_name_all + "_" + openid_all);
                     }
 
-
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
