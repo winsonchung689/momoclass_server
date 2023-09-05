@@ -587,7 +587,6 @@ public class LoginServiceImpl implements LoginService {
         List<User> user_get= dao.getUser(openid);
         String role = user_get.get(0).getRole();
         Integer user_get_size = user_get.size();
-
         String campus = user_get.get(0).getCampus();
 
         try {
@@ -603,6 +602,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                StringBuffer teachers = new StringBuffer();
                 String student_string = null;
                 Integer classes_count =0;
                 Integer uncomfirmed_count = 0;
@@ -617,6 +617,10 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 id = line.getId();
                 subject = line.getSubject();
+
+                //获取选课老师
+
+
 
                 if("client".equals(role)){
                     for(int j = 0; j < user_get_size;j++){
@@ -656,6 +660,16 @@ public class LoginServiceImpl implements LoginService {
                     if(list_2.contains(lesson_string)){
                         jsonObject.put("chooseLesson","已选");
                     }
+
+                    List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
+                    for(int t = 0;t < teacher_user.size(); t++){
+                        String nick_name_get = teacher_user.get(t).getNick_name();
+                        String openid_get = teacher_user.get(t).getOpenid();
+                        teachers.append(nick_name_get+"_"+openid_get);
+
+                    }
+
+
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
@@ -678,6 +692,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("student_string",student_string);
                         jsonObject.put("remind",remind);
                         jsonObject.put("remind_name",remind_name);
+                        jsonObject.put("teachers",teachers);
                         resul_list.add(jsonObject);
                     }
                 }else {
@@ -696,6 +711,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("student_string",student_string);
                     jsonObject.put("remind",remind);
                     jsonObject.put("remind_name",remind_name);
+                    jsonObject.put("teachers",teachers);
                     resul_list.add(jsonObject);
                 }
             }
