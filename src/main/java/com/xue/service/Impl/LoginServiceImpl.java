@@ -665,8 +665,9 @@ public class LoginServiceImpl implements LoginService {
                     List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
                     for(int t = 0;t < teacher_user.size(); t++){
                         String nick_name_get = teacher_user.get(t).getNick_name();
-                        teachers.append(nick_name_get);
-                        teachers.append("｜");
+                        String openid_get =teacher_user.get(t).getOpenid();
+                        teachers.append(nick_name_get + "_" + openid_get);
+                        teachers.append(",");
                     }
 
                     List<User> all_teacher_user = dao.getBossByStudio(studio);
