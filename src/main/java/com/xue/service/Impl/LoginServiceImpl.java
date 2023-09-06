@@ -5912,9 +5912,10 @@ public class LoginServiceImpl implements LoginService {
         String campus = user_r.getCampus();
         String role = user_r.getRole();
         Integer is_open = user_r.getIs_open();
-        String lessons = user_r.getLessons();
+        String lessons = null;
 
         try {
+            lessons = user_r.getLessons();
             String[] lessons_all =lessons.split("\\|");
             for(int num = 0; num < lessons_all.length; num ++){
                 String lesson_string = lessons_all[num];
