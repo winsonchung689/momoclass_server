@@ -5915,7 +5915,7 @@ public class LoginServiceImpl implements LoginService {
             String[] lessons_all =lessons.split("\\|");
             for(int num = 0; num < lessons_all.length; num ++){
                 String lesson_string = lessons_all[num];
-                String[] lesson_tring_list = lesson_string.split("\\|");
+                String[] lesson_tring_list = lesson_string.split(",");
                 String week_string = lesson_tring_list[0].replace("星期","");
                 Integer week = Integer.parseInt(week_string);
                 if(week==7){
