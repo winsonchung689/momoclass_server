@@ -5581,7 +5581,6 @@ public class LoginServiceImpl implements LoginService {
         list = dao.getAllUserByStudioByPage(studio,page_start,page_length);
         try {
             for (int i = 0; i < list.size(); i++) {
-                String role_cn = null;
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
@@ -5589,9 +5588,8 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String role = line.getRole();
-                if("boss".equals(role)){
-                    role_cn = "校长";
-                }else if("teacher".equals(role)){
+                String role_cn = "校长";
+                if("teacher".equals(role)){
                     role_cn = "老师";
                 }else if("client".equals(role)){
                     role_cn = "家长";
