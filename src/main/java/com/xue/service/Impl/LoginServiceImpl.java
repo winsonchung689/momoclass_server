@@ -653,22 +653,22 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String lessons = user_get.get(0).getLessons();
                     String lesson_string = null;
+                    lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
                     if(lessons != null){
                         String[] list_1 =lessons.split("\\|");
-                        lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
                         List<String> list_2 = Arrays.asList(list_1);
                         if(list_2.contains(lesson_string)){
                             chooseLesson = "已选";
                         }
+                    }
 
-                        List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
-                        if(teacher_user != null){
-                            for(int t = 0;t < teacher_user.size(); t++){
-                                String nick_name_get = teacher_user.get(t).getNick_name();
-                                String openid_get =teacher_user.get(t).getOpenid();
-                                teachers.append(nick_name_get + "_" + openid_get);
-                                teachers.append(",");
-                            }
+                    List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
+                    if(teacher_user != null){
+                        for(int t = 0;t < teacher_user.size(); t++){
+                            String nick_name_get = teacher_user.get(t).getNick_name();
+                            String openid_get =teacher_user.get(t).getOpenid();
+                            teachers.append(nick_name_get + "_" + openid_get);
+                            teachers.append(",");
                         }
                     }
 
