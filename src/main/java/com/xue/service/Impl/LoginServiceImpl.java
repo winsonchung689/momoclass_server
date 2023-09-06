@@ -685,7 +685,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                 } catch (Exception e) {
-//                    e.printStackTrace();
+                    e.printStackTrace();
                 }
 
                 if(is_open == 1 || "boss".equals(role)){
