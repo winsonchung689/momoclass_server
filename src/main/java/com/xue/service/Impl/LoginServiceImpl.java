@@ -5582,7 +5582,6 @@ public class LoginServiceImpl implements LoginService {
         try {
             for (int i = 0; i < list.size(); i++) {
                 String role_cn = null;
-                String commentStyle_cn = null;
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
@@ -5598,9 +5597,8 @@ public class LoginServiceImpl implements LoginService {
                     role_cn = "家长";
                 }
                 String comment_style = line.getComment_style();
-                if("public".equals(comment_style)){
-                    commentStyle_cn = "公开";
-                }else if("self".equals(comment_style)){
+                String commentStyle_cn = "公开";
+                 if("self".equals(comment_style)){
                     commentStyle_cn = "私人";
                 }
 
