@@ -652,28 +652,37 @@ public class LoginServiceImpl implements LoginService {
 
                 try {
                     String lessons = user_get.get(0).getLessons();
-                    String[] list_1 =lessons.split("\\|");
-                    String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
-                    List<String> list_2 = Arrays.asList(list_1);
-                    if(list_2.contains(lesson_string)){
-                        chooseLesson = "已选";
+                    String lesson_string = null;
+                    if(lessons.length()>0){
+                        String[] list_1 =lessons.split("\\|");
+                        lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
+                        List<String> list_2 = Arrays.asList(list_1);
+                        if(list_2.contains(lesson_string)){
+                            chooseLesson = "已选";
+                        }
                     }
 
                     List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
-                    for(int t = 0;t < teacher_user.size(); t++){
-                        String nick_name_get = teacher_user.get(t).getNick_name();
-                        String openid_get =teacher_user.get(t).getOpenid();
-                        teachers.append(nick_name_get + "_" + openid_get);
-                        teachers.append(",");
+                    if(teacher_user.size()>0){
+                        for(int t = 0;t < teacher_user.size(); t++){
+                            String nick_name_get = teacher_user.get(t).getNick_name();
+                            String openid_get =teacher_user.get(t).getOpenid();
+                            teachers.append(nick_name_get + "_" + openid_get);
+                            teachers.append(",");
+                        }
                     }
 
+
                     List<User> all_teacher_user = dao.getBossByStudio(studio);
-                    for(int tt = 0;tt < all_teacher_user.size(); tt++){
-                        String nick_name_all = all_teacher_user.get(tt).getNick_name();
-                        String openid_all =all_teacher_user.get(tt).getOpenid();
-                        all_teachers.append(nick_name_all + "_" + openid_all);
-                        all_teachers.append(",");
+                    if(all_teacher_user.size()>0){
+                        for(int tt = 0;tt < all_teacher_user.size(); tt++){
+                            String nick_name_all = all_teacher_user.get(tt).getNick_name();
+                            String openid_all =all_teacher_user.get(tt).getOpenid();
+                            all_teachers.append(nick_name_all + "_" + openid_all);
+                            all_teachers.append(",");
+                        }
                     }
+
 
                 } catch (Exception e) {
 //                    e.printStackTrace();
