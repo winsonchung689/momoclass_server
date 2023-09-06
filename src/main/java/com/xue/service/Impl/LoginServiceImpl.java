@@ -5611,6 +5611,11 @@ public class LoginServiceImpl implements LoginService {
                 String subjects = line.getSubjects();
                 String member = line.getMember();
                 String phone_number =line.getPhone_number();
+                Integer is_open_get = line.getIs_open();
+                String is_open_name = "全开";
+                if(is_open_get == 0){
+                    is_open_name = "受限";
+                }
 
                 //json
                 jsonObject.put("studio", studio);
@@ -5627,6 +5632,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subjects", subjects);
                 jsonObject.put("member", member);
                 jsonObject.put("phone_number", phone_number);
+                jsonObject.put("is_open_name", is_open_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
