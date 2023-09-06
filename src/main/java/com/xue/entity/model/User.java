@@ -32,6 +32,8 @@ public class User {
 
     private Integer cover;
 
+    private Integer is_open;
+
     private String phone_number;
 
     private String location;
@@ -188,6 +190,14 @@ public class User {
 
     public void setCover(Integer cover) {
         this.cover = cover;
+    }
+
+    public Integer getIs_open() {
+        return is_open;
+    }
+
+    public void setIs_open(Integer is_open) {
+        this.is_open = is_open;
     }
 
     public Integer getDisplay() {
