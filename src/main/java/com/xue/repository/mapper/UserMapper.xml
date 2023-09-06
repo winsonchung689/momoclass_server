@@ -969,7 +969,7 @@
   </select>
 
   <select id="getAllUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,subscription,member,campus from user where studio =#{param1} and delete_status = 0 order by role
+    select * from user where studio =#{param1} and delete_status = 0 order by role
   </select>
 
   <select id="getAllUserByStudioByPage" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
