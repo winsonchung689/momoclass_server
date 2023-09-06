@@ -653,7 +653,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String lessons = user_get.get(0).getLessons();
                     String lesson_string = null;
-                    if(lessons.length()>0){
+                    if(lessons != null){
                         String[] list_1 =lessons.split("\\|");
                         lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
                         List<String> list_2 = Arrays.asList(list_1);
@@ -5925,7 +5925,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             lessons = user_r.getLessons();
-            if(lessons.length()>0){
+            if(lessons != null){
                 String[] lessons_all =lessons.split("\\|");
                 for(int num = 0; num < lessons_all.length; num ++){
                     String lesson_string = lessons_all[num];
@@ -5948,8 +5948,8 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
-        } catch (NumberFormatException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
