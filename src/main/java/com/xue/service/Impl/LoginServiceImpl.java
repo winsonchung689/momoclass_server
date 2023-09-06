@@ -660,15 +660,15 @@ public class LoginServiceImpl implements LoginService {
                         if(list_2.contains(lesson_string)){
                             chooseLesson = "已选";
                         }
-                    }
 
-                    List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
-                    if(teacher_user != null){
-                        for(int t = 0;t < teacher_user.size(); t++){
-                            String nick_name_get = teacher_user.get(t).getNick_name();
-                            String openid_get =teacher_user.get(t).getOpenid();
-                            teachers.append(nick_name_get + "_" + openid_get);
-                            teachers.append(",");
+                        List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
+                        if(teacher_user != null){
+                            for(int t = 0;t < teacher_user.size(); t++){
+                                String nick_name_get = teacher_user.get(t).getNick_name();
+                                String openid_get =teacher_user.get(t).getOpenid();
+                                teachers.append(nick_name_get + "_" + openid_get);
+                                teachers.append(",");
+                            }
                         }
                     }
 
