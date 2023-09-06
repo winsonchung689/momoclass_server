@@ -5925,27 +5925,28 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             lessons = user_r.getLessons();
-            String[] lessons_all =lessons.split("\\|");
-            for(int num = 0; num < lessons_all.length; num ++){
-                String lesson_string = lessons_all[num];
-                String[] lesson_tring_list = lesson_string.split(",");
-                String week_string = lesson_tring_list[0].replace("星期","");
-                Integer week = Integer.parseInt(week_string);
-                if(week==7){
-                    dayofweek_by=1;
-                }else {
-                    dayofweek_by = week + 1;
-                }
+            if(lessons.length()>0){
+                String[] lessons_all =lessons.split("\\|");
+                for(int num = 0; num < lessons_all.length; num ++){
+                    String lesson_string = lessons_all[num];
+                    String[] lesson_tring_list = lesson_string.split(",");
+                    String week_string = lesson_tring_list[0].replace("星期","");
+                    Integer week = Integer.parseInt(week_string);
+                    if(week==7){
+                        dayofweek_by=1;
+                    }else {
+                        dayofweek_by = week + 1;
+                    }
 
-                String subject_t = lesson_tring_list[1];
-                String class_number_t = lesson_tring_list[2];
-                String duration_t = lesson_tring_list[3];
-                List<Schedule> schedules = dao.getScheduleDetail(dayofweek_by,duration_t,studio,class_number_t,subject_t,campus);
-                for(int numm = 0; numm < schedules.size(); numm ++){
-                    String student_get = schedules.get(numm).getStudent_name();
-                    list_choose.add(student_get);
+                    String subject_t = lesson_tring_list[1];
+                    String class_number_t = lesson_tring_list[2];
+                    String duration_t = lesson_tring_list[3];
+                    List<Schedule> schedules = dao.getScheduleDetail(dayofweek_by,duration_t,studio,class_number_t,subject_t,campus);
+                    for(int numm = 0; numm < schedules.size(); numm ++){
+                        String student_get = schedules.get(numm).getStudent_name();
+                        list_choose.add(student_get);
+                    }
                 }
-
             }
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
