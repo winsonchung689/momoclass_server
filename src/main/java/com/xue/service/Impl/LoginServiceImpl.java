@@ -663,7 +663,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
-                    if(teacher_user != null){
+                    if(teacher_user.size()>0){
                         for(int t = 0;t < teacher_user.size(); t++){
                             String nick_name_get = teacher_user.get(t).getNick_name();
                             String openid_get =teacher_user.get(t).getOpenid();
@@ -674,7 +674,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                     List<User> all_teacher_user = dao.getBossByStudio(studio);
-                    if(all_teacher_user != null){
+                    if(all_teacher_user.size()>0){
                         for(int tt = 0;tt < all_teacher_user.size(); tt++){
                             String nick_name_all = all_teacher_user.get(tt).getNick_name();
                             String openid_all =all_teacher_user.get(tt).getOpenid();
