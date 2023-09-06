@@ -5588,11 +5588,11 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String role = line.getRole();
-                String role_cn = "校长";
+                String role_cn = "家长";
                 if("teacher".equals(role)){
                     role_cn = "老师";
-                }else if("client".equals(role)){
-                    role_cn = "家长";
+                }else if("boss".equals(role)){
+                    role_cn = "校长";
                 }
                 String comment_style = line.getComment_style();
                 String commentStyle_cn = "公开";
