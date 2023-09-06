@@ -1954,18 +1954,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateComentStyle(User user) {
-        int result = 0;
-
-        try {
-            result = dao.updateComentStyle(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
     public int updateSchedule(Schedule schedule) {
         int result = 0;
 
@@ -5542,6 +5530,12 @@ public class LoginServiceImpl implements LoginService {
                     commentStyle_cn = "私人";
                 }
 
+                Integer is_open_get = line.getIs_open();
+                String is_open_name = "全开";
+                if(is_open_get == 0){
+                    is_open_name = "受限";
+                }
+
                 String campus = line.getCampus();
                 String expired_time = line.getExpired_time();
                 String openid = line.getOpenid();
@@ -5650,7 +5644,6 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
-                studio = line.getStudio();
                 String student_name = line.getStudent_name();
                 String role = line.getRole();
                 if("boss".equals(role)){
@@ -5660,11 +5653,19 @@ public class LoginServiceImpl implements LoginService {
                 }else if("client".equals(role)){
                     role_cn = "家长";
                 }
+
+                String phone_number =line.getPhone_number();
                 String comment_style = line.getComment_style();
                 if("public".equals(comment_style)){
                     commentStyle_cn = "公开";
                 }else if("self".equals(comment_style)){
                     commentStyle_cn = "私人";
+                }
+
+                Integer is_open_get = line.getIs_open();
+                String is_open_name = "全开";
+                if(is_open_get == 0){
+                    is_open_name = "受限";
                 }
 
                 String campus = line.getCampus();
@@ -5690,6 +5691,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("subjects", subjects);
                 jsonObject.put("member", member);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("is_open_name", is_open_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

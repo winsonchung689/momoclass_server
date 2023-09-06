@@ -4178,21 +4178,33 @@ public class LoginController {
 
 		String studio = request.getParameter("studio");
 
+		String type = request.getParameter("type");
+
 		User user_get= dao.getUser(openid).get(0);
 		String comment_style_get = user_get.getComment_style();
+		Integer is_open_get = user_get.getIs_open();
+		Integer is_open = 0;
+		if(is_open_get == 0){
+			is_open = 1;
+		}
+
 		//定义comment_style
-		String comment_style =null;
+		String comment_style = "public";
 		if (comment_style_get.equals("public")){
 			comment_style = "self";
-		} else {
-			comment_style = "public";
 		}
+
 
 		try {
 			User user =new User();
 			user.setComment_style(comment_style);
 			user.setStudio(studio);
-			loginService.updateComentStyle(user);
+			user.setIs_open(is_open);
+			if("comment".equals(type)){
+				dao.updateComentStyle(user);
+			}else if("open".equals(type)){
+				dao.updateIsOpen(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

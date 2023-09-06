@@ -140,8 +140,6 @@ public interface LoginService {
 
     public int updateBossLessons(User user);
 
-    public int updateComentStyle(User user);
-
     public int updateSchedule(Schedule schedule);
 
     public int updateComment(Message message);

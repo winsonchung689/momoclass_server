@@ -398,6 +398,8 @@ public interface UserMapper {
 
     int updateComentStyle(User user);
 
+    int updateIsOpen(User user);
+
     int updateSendTime(User user);
 
 
