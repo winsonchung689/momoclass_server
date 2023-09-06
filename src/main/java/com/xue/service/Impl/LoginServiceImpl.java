@@ -5568,8 +5568,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getAllUserByStudioByPage(String studio, Integer page) {
-        Integer page_start = (page - 1) * 20;
-        Integer page_length = 20;
+        Integer page_start = (page - 1) * 30;
+        Integer page_length = 30;
         List<User> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         list = dao.getAllUserByStudioByPage(studio,page_start,page_length);
