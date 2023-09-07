@@ -4091,7 +4091,7 @@ public class LoginController {
 				String[] student_list = campus.split(" ");
 				if(student_list.length == 1){
 					dao.updateUserStudentByOpenid(campus,openid,id);
-				}else if(student_list.length >1){
+				}else if(student_list.length > 1){
 					for(int i=0; i < student_list.length;i++){
 						String name = student_list[i];
 						int res = dao.updateUserStudentByOpenid(name,openid,id);
