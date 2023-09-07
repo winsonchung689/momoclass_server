@@ -5533,6 +5533,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";
+                String phone_number = "未录入";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -5540,6 +5541,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     List<User> users = dao.getUserByStudent(student_name,studio);
                     parent = users.get(0).getNick_name();
+                    phone_number = users.get(0).getPhone_number();
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -5554,6 +5556,11 @@ public class LoginServiceImpl implements LoginService {
                 subject_get = line.getSubject();
                 studio = line.getStudio();
                 campus = line.getCampus();
+                Integer is_combine = line.getIs_combine();
+                String combine = "分";
+                if(is_combine == 1){
+                    combine = "合";
+                }
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -5577,6 +5584,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
                 jsonObject.put("parent", parent);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("combine", combine);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
