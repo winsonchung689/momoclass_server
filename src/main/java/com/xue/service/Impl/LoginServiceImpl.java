@@ -6041,7 +6041,7 @@ public class LoginServiceImpl implements LoginService {
         String campus = user_r.getCampus();
         String role = user_r.getRole();
         Integer is_open = user_r.getIs_open();
-        if(is_open == 1){
+        if(is_open == 0 && role == "teacher"){
             page_length = 10000;
         }
         String lessons = null;
