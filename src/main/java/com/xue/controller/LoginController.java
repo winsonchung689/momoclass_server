@@ -1455,9 +1455,11 @@ public class LoginController {
 
 	@RequestMapping("/getLessonByStudioCampus")
 	@ResponseBody
-	public List getLessonByStudioCampus(String studio,String campus){
+	public List getLessonByStudioCampus(String studio,String openid){
 		List list = null;
 		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
 			list = loginService.getLessonByStudioCampus(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
