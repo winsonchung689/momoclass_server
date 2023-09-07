@@ -757,9 +757,7 @@ public class LoginController {
 	public List getRating(String studio,String student_name,Integer page,String subject,String openid){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getRating(studio,student_name,page,subject,campus);
+			list = loginService.getRating(studio,student_name,page,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

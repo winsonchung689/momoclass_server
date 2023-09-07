@@ -60,7 +60,7 @@ public interface LoginService {
 
     public List  getGroupBuy(String studio,String goods_id);
 
-    public List  getRating(String studio,String student_name,Integer page,String subject,String campus);
+    public List  getRating(String studio,String student_name,Integer page,String subject,String openid);
 
     public int push(Message message);
 

@@ -6529,7 +6529,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRating(String studio,String student_name,Integer page,String subject,String campus) {
+    public List getRating(String studio,String student_name,Integer page,String subject,String openid) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -6542,28 +6542,93 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list_student = null;
         List<JSONObject> resul_list = new ArrayList<>();
         String subject_get = null;
-        if(student_name.equals("all")){
-            try {
+        Integer dayofweek_by = 0;
+        List<String> list_choose = new ArrayList<>();
+
+        List<User> list_user = dao.getUser(openid);
+        User user_r = list_user.get(0);
+        String campus = user_r.getCampus();
+        String role = user_r.getRole();
+        Integer is_open = user_r.getIs_open();
+        if(is_open == 0 && "teacher".equals(role)){
+            page_start = (page - 1) * 10000;
+            page_length = 10000;
+        }
+
+
+        String lessons = null;
+        try {
+            lessons = user_r.getLessons();
+            if(lessons != null){
+                String[] lessons_all =lessons.split("\\|");
+                for(int num = 0; num < lessons_all.length; num ++){
+                    String lesson_string = lessons_all[num];
+                    String[] lesson_tring_list = lesson_string.split(",");
+                    String week_string = lesson_tring_list[0].replace("星期","");
+                    Integer week = Integer.parseInt(week_string);
+                    if(week==7){
+                        dayofweek_by=1;
+                    }else {
+                        dayofweek_by = week + 1;
+                    }
+
+                    String subject_t = lesson_tring_list[1];
+                    String class_number_t = lesson_tring_list[2];
+                    String duration_t = lesson_tring_list[3];
+                    List<Schedule> schedules = dao.getScheduleDetail(dayofweek_by,duration_t,studio,class_number_t,subject_t,campus);
+                    for(int numm = 0; numm < schedules.size(); numm ++){
+                        String student_get = schedules.get(numm).getStudent_name();
+                        list_choose.add(student_get);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if(student_name.equals("all")){
                 if(subject.equals("全科目")){
                     list = dao.getRating(studio,page_start,page_length,campus);
                 }else {
                     list = dao.getRatingBySubject(studio,page_start,page_length,subject,campus);
                 }
+            }else {
+                if(subject.equals("全科目")){
+                    list = dao.getRatingByName(studio,student_name,page_start,page_length);
+                }else {
+                    list = dao.getRatingByNameBySubject(studio,student_name,page_start,page_length,subject);
+                }
+            }
 
-                for (int i = 0; i < list.size(); i++) {
-                    JSONObject jsonObject = new JSONObject();
-                    Lesson line = list.get(i);
-                    //获取字段
-                    student_name = line.getStudent_name();
-                    byte[] photo = null;
-                    total_amount = line.getTotal_amount();
-                    left_amount = line.getLeft_amount();
-                    percent = (float) Math.round(left_amount * 100 / total_amount);
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    points = line.getPoints();
-                    subject_get = line.getSubject();
-                    //json
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Lesson line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                byte[] photo = null;
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                percent = (float) Math.round(left_amount * 100 / total_amount);
+                id = line.getId();
+                create_time = line.getCreate_time();
+                points = line.getPoints();
+                subject_get = line.getSubject();
+                //json
+                if("boss".equals(role) || is_open == 1){
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    jsonObject.put("id", id);
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("percent", percent);
+                    jsonObject.put("points", points);
+                    jsonObject.put("rank", i + page_start + 1);
+                    jsonObject.put("photo", photo);
+                    jsonObject.put("subject_get", subject_get);
+                    resul_list.add(jsonObject);
+                }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name)){
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("total_amount", total_amount);
                     jsonObject.put("left_amount", left_amount);
@@ -6577,45 +6642,10 @@ public class LoginServiceImpl implements LoginService {
                     resul_list.add(jsonObject);
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        } else {
-            try {
-                if(subject.equals("全科目")){
-                    list = dao.getRatingByName(studio,student_name,page_start,page_length);
-                }else {
-                    list = dao.getRatingByNameBySubject(studio,student_name,page_start,page_length,subject);
-                }
 
-                for (int i = 0; i < list.size(); i++) {
-                    JSONObject jsonObject = new JSONObject();
-                    Lesson line = list.get(i);
-                    //获取字段
-                    student_name = line.getStudent_name();
-                    byte[] photo = null;
-                    total_amount = line.getTotal_amount();
-                    left_amount = line.getLeft_amount();
-                    percent = (float) Math.round(left_amount * 100 / total_amount);
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    points = line.getPoints();
-                    //json
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + 1);
-                    jsonObject.put("photo", photo);
-                    resul_list.add(jsonObject);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
