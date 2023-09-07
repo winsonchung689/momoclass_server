@@ -5528,12 +5528,12 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         String student_name = null;
-        Float price = 0.0f;
 
         list = dao.getLessonByStudioCampus(studio,campus);
 
         try {
             for (int i = 0; i < list.size(); i++) {
+                Float price = 0.0f;
                 String parent = "未绑定";
                 String phone_number = "未录入";
                 Float total_money = 0.0f ;
@@ -6021,7 +6021,6 @@ public class LoginServiceImpl implements LoginService {
         Float percent = 0.0f;
         Float minus = 0.0f;
         Float coins = 0.0f;
-        Float price = 0.0f;
         List<Lesson> list = null;
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
@@ -6124,6 +6123,7 @@ public class LoginServiceImpl implements LoginService {
                 String parent = "未绑定";
                 String avatarurl = "未绑定";
                 String phone_number = "未录入";
+                Float price = 0.0f;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
 
