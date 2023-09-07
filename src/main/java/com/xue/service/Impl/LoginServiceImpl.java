@@ -5539,7 +5539,7 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 try {
                     List<User> users = dao.getUserByStudent(student_name,studio);
-                    nick_name = users.get(0).getNick_name();
+                    parent = users.get(0).getNick_name();
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
