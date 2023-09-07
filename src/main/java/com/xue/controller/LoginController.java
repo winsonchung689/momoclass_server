@@ -4094,14 +4094,14 @@ public class LoginController {
 				}else if(student_list.length > 1){
 					for(int i=0; i < student_list.length;i++){
 						String name = student_list[i];
-						int res = dao.updateUserStudentByOpenid(name,openid,id);
-						if(res == 0){
+						if(i == 1){
+							dao.updateUserStudentByOpenid(name,openid,id);
+						}else{
 							List<User> users = dao.getUser(openid);
 							User user = users.get(0);
 							user.setStudent_name(name);
 							dao.insertUser(user);
 						}
-
 					}
 				}
 
