@@ -5532,7 +5532,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             for (int i = 0; i < list.size(); i++) {
-                String nick_name = "未绑定";
+                String parent = "未绑定";
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -5576,7 +5576,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
-                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("parent", parent);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
