@@ -4100,7 +4100,10 @@ public class LoginController {
 							List<User> users = dao.getUser(openid);
 							User user = users.get(0);
 							user.setStudent_name(name);
-							dao.insertUser(user);
+							int update_res = dao.updateUserDelete(user);
+							if(update_res==0){
+								dao.insertUser(user);
+							}
 						}
 					}
 				}
