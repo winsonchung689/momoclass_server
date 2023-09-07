@@ -38,6 +38,8 @@ public interface LoginService {
 
     public List  getLessonByStudio(String studio);
 
+    public List  getLessonByStudioCampus(String studio,String campus);
+
     public List  getAllUserByStudio(String studio);
 
     public List  getAllUserByStudioByPage(String studio,Integer page);

@@ -1453,6 +1453,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getLessonByStudioCampus")
+	@ResponseBody
+	public List getLessonByStudioCampus(String studio,String campus){
+		List list = null;
+		try {
+			list = loginService.getLessonByStudioCampus(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取校区
 	@RequestMapping("/getCampusByStudio")
 	@ResponseBody

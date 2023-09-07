@@ -512,6 +512,8 @@ public interface UserMapper {
 
     List<Lesson> getLessonByStudio(String studio);
 
+    List<Lesson> getLessonByStudioCampus(String studio,String campus);
+
     List<Lesson> getLessonBySubjectByPage(String studio,String subject,String campus,Integer page_start,Integer page_length);
 
     List<Lesson> getTipsDataUrl(String studio,Integer left_amount,String subject,String campus);
