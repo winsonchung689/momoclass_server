@@ -5528,12 +5528,16 @@ public class LoginServiceImpl implements LoginService {
         Integer need_pay = 0;
         Integer owe = 0;
         String student_name = null;
+        Float price = 0.0f;
+
         list = dao.getLessonByStudioCampus(studio,campus);
 
         try {
             for (int i = 0; i < list.size(); i++) {
                 String parent = "未绑定";
                 String phone_number = "未录入";
+                Float total_money = 0.0f ;
+                Float discount_money = 0.0f ;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -5561,6 +5565,32 @@ public class LoginServiceImpl implements LoginService {
                 if(is_combine == 1){
                     combine = "合";
                 }
+
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/total_amount;
+                if(re_price>0){
+                    price = re_price;
+                }
+                Float left_money = price * left_amount;
+                if(total_money == 0.0f){
+                    left_money = 0.0f;
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -5586,6 +5616,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("parent", parent);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("combine", combine);
+                jsonObject.put("price",df.format(price));
+                jsonObject.put("total_money", df.format(total_money));
+                jsonObject.put("discount_money", df.format(discount_money));
+                jsonObject.put("receipts", df.format(receipts));
+                jsonObject.put("left_money", df.format(left_money));
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
