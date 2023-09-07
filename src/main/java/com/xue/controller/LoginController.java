@@ -4088,7 +4088,23 @@ public class LoginController {
 			}else if("学生名".equals(type)){
 				String openid = openid_get.split("@")[0];
 				String id = openid_get.split("@")[1];
-				dao.updateUserStudentByOpenid(campus,openid,id);
+				String[] student_list = campus.split(" ");
+				if(student_list.length == 1){
+					dao.updateUserStudentByOpenid(campus,openid,id);
+				}else if(student_list.length >1){
+					for(int i=0; i < student_list.length;i++){
+						String name = student_list[i];
+						int res = dao.updateUserStudentByOpenid(name,openid,id);
+						if(res == 1){
+							List<User> users = dao.getUser(openid);
+							User user = users.get(0);
+							user.setStudent_name(name);
+							dao.insertUser(user);
+						}
+
+					}
+				}
+
 			}else if("工作室".equals(type)){
 				User user =new User();
 				user.setOpenid(openid_get);
