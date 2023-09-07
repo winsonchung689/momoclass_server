@@ -2460,7 +2460,10 @@ public class LoginController {
 					List<User> users2 = dao.getUserByStudentOpenid(content,studio,openid);
 					if(users2.size()==0){
 						user.setStudent_name(content);
-						dao.insertUser(user);
+						int update_res = dao.updateUserDelete(user);
+						if(update_res==0){
+							dao.insertUser(user);
+						}
 					}
 				}
 			}
