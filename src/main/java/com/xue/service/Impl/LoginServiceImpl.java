@@ -3591,10 +3591,6 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String result = null;
-        String duration = null;
-        String class_number = null;
-        String subject = null;
-        Integer remind = 0;
         List<Schedule> list_schedule = new ArrayList<>();
         String tample3 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"3BPMQuajTekT04oI8rCTKMB2iNO4XWdlDiMqR987TQk\",\"data\":{\"date1\":{\"value\": \"2022-11-01 10:30-11:30\"},\"thing2\":{\"value\": \"A1\"},\"name3\":{\"value\": \"小明\"},\"thing5\":{\"value\": \"记得来上课哦\"}}}";
         String tample4 = "{\"page\": \"pages/index/index\",\"touser\":\"openid\",\"template_id\":\"eJHpjkk4NqP6Y4qCMqGY1V5w4eeMVvRAkubflv25oh0\",\"data\":{\"name1\":{\"value\": \"name1\"},\"thing2\":{\"value\": \"thing2\"},\"date3\":{\"value\": \"date3\"},\"thing4\":{\"value\": \"thing4\"}}}";
@@ -3607,6 +3603,10 @@ public class LoginServiceImpl implements LoginService {
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
+            String duration = null;
+            String class_number = null;
+            String subject = null;
+            Integer remind = 0;
             try {
                 User user = list.get(i);
                 String role = user.getRole();
