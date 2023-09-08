@@ -3606,7 +3606,6 @@ public class LoginServiceImpl implements LoginService {
             String duration = null;
             String class_number = null;
             String subject = null;
-            Integer remind = 0;
             try {
                 User user = list.get(i);
                 String role = user.getRole();
@@ -3721,6 +3720,7 @@ public class LoginServiceImpl implements LoginService {
 
                     if(list_schedule.size() > 0 && weekDay > 0){
                         for (int j = 0; j < list_schedule.size(); j++) {
+                            Integer remind = 0;
                             Schedule schedule = list_schedule.get(j);
                             duration = schedule.getDuration();
                             class_number = schedule.getClass_number();
@@ -3736,8 +3736,7 @@ public class LoginServiceImpl implements LoginService {
 
                             //选课老师上课通知
                             String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                            List<User> users = null;
-                            users = dao.getUserByChooseLesson(chooseLesson,studio);
+                            List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
                             if(users.size()>0 && remind == 1){
                                 choose = 1;
                                 for(int ui=0;ui<users.size();ui++){
