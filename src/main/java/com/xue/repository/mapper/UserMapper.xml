@@ -1108,11 +1108,11 @@
   </select>
 
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct studio from user where delete_status = 0
+    select distinct studio from user where delete_status = 0 order by studio
   </select>
 
   <select id="getStudioBoss" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct studio from user where delete_status = 0 and (role = #{param1} or member = #{param1})
+    select distinct studio from user where delete_status = 0 and (role = #{param1} or member = #{param1}) order by studio
   </select>
 
   <select id="getSubjectByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
