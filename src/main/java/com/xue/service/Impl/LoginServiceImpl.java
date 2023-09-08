@@ -3616,6 +3616,7 @@ public class LoginServiceImpl implements LoginService {
             Integer hours = user.getHours();
             Long compare = 10L;
             String campus = user.getCampus();
+            System.out.printf(student_name);
 
             //获取提前时间
             Calendar cal_today = Calendar.getInstance();
