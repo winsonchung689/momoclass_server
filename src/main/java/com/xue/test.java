@@ -7,7 +7,7 @@ import java.util.Date;
 public class test {
     public static void main(String[] args) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
 //        Calendar cal = Calendar.getInstance();
 //        cal.add(Calendar.DATE,+1);
@@ -38,8 +38,8 @@ public class test {
             duration_st = hour + ":0" + minute;
         }
 
-
-        System.out.println(weekDay_today);
-        System.out.println(weekDay_ttt);
+        String now_time = df_now.format(new Date()).split(" ")[1];
+        System.out.println(now_time);
+//        System.out.println(weekDay_ttt);
     }
 }

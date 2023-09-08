@@ -3588,7 +3588,7 @@ public class LoginServiceImpl implements LoginService {
 //        apps.add("MOMO");
         apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
         String result = null;
         List<Schedule> list_schedule = new ArrayList<>();
@@ -3616,7 +3616,6 @@ public class LoginServiceImpl implements LoginService {
             Integer hours = user.getHours();
             Long compare = 10L;
             String campus = user.getCampus();
-            System.out.printf(student_name);
 
             //获取提前时间
             Calendar cal_today = Calendar.getInstance();
@@ -3707,6 +3706,7 @@ public class LoginServiceImpl implements LoginService {
             //上课通知
             if(!"no_name".equals(student_name)){
                 if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
+                    System.out.printf(student_name);
                     weekDay = weekDay_tomorrow;
                     date_time = df.format(cal_tomorrow.getTime());
                     list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
