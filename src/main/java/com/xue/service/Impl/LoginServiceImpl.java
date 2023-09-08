@@ -3603,9 +3603,6 @@ public class LoginServiceImpl implements LoginService {
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
-            String duration = null;
-            String class_number = null;
-            String subject = null;
             try {
                 User user = list.get(i);
                 String role = user.getRole();
@@ -3720,6 +3717,9 @@ public class LoginServiceImpl implements LoginService {
 
                     if(list_schedule.size() > 0 && weekDay > 0){
                         for (int j = 0; j < list_schedule.size(); j++) {
+                            String duration = null;
+                            String class_number = null;
+                            String subject = null;
                             Integer remind = 0;
                             Schedule schedule = list_schedule.get(j);
                             duration = schedule.getDuration();
