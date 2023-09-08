@@ -949,23 +949,23 @@
   </select>
 
   <select id="getUserByStudentOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,subscription,campus from user where student_name =#{param1} and studio =#{param2} and openid =#{param3} and delete_status = 0 order by create_time desc
+    select * from user where student_name =#{param1} and studio =#{param2} and openid =#{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByNickStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus from user where (nick_name like "%"#{param1}"%" or campus like "%"#{param1}"%") and studio =#{param2} and delete_status = 0 order by role
+    select * from user where (nick_name like "%"#{param1}"%" or campus like "%"#{param1}"%") and studio =#{param2} and delete_status = 0 order by role
   </select>
 
   <select id="getUserByNickStudioEq" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus from user where nick_name = #{param1} and studio =#{param2} and delete_status = 0 order by create_time desc limit 1
+    select * from user where nick_name = #{param1} and studio =#{param2} and delete_status = 0 order by create_time desc limit 1
   </select>
 
   <select id="getUserByNickName" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,member,campus from user where (nick_name like "%"#{nick_name}"%" or student_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") and delete_status = 0 order by role
+    select * from user where (nick_name like "%"#{nick_name}"%" or student_name like "%"#{nick_name}"%" or studio like "%"#{nick_name}"%") and delete_status = 0 order by role
   </select>
 
   <select id="getUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,subscription,member,campus from user where studio =#{param1} and campus =#{param2} and delete_status = 0 order by role
+    select * from user where studio =#{param1} and campus =#{param2} and delete_status = 0 order by role
   </select>
 
   <select id="getAllUserByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
