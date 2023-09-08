@@ -3706,7 +3706,6 @@ public class LoginServiceImpl implements LoginService {
             //上课通知
             if(!"no_name".equals(student_name)){
                 if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
-                    System.out.printf(student_name);
                     weekDay = weekDay_tomorrow;
                     date_time = df.format(cal_tomorrow.getTime());
                     list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
