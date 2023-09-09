@@ -46,7 +46,7 @@ public class SpringbootLoginApplication {
 		loginService.sendClassRemind();
 	}
 
-	@Scheduled(cron = "0 0 4 * * ?")
+	@Scheduled(cron = "0 0 */1 * * ?")
 	public void getOpenidOfficial(){
 		loginService.getOpenidOfficial();
 	}
