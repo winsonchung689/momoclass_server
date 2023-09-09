@@ -3958,20 +3958,18 @@ public class LoginController {
 		String send_time = "12:00:00";
 		Integer display = 1;
 		Integer cover = 1;
+		String remind_type = "统一提醒次日";
+		Integer hours = 0;
+		String comment_style = "public";
 
 		if(list_send.size()>0){
 			send_time = list_send.get(0).getSend_time();
 			display = list_send.get(0).getDisplay();
 			cover = list_send.get(0).getCover();
+			remind_type = list_send.get(0).getRemind_type();
+			hours = list_send.get(0).getHours();
+			comment_style = list_send.get(0).getComment_style();
 		}
-
-        //获取 comment_style
-		String comment_style = "public";
-		List<User> list_u = dao.getComentStyle(studio);
-		if(list_u.size()>0){
-			comment_style = list_u.get(0).getComment_style();
-		}
-
 
 		User user =new User();
 		user.setNick_name(nick_name);
@@ -3986,6 +3984,8 @@ public class LoginController {
 		user.setSend_time(send_time);
 		user.setDisplay(display);
 		user.setCover(cover);
+		user.setRemind_type(remind_type);
+		user.setHours(hours);
 		int res = loginService.updateUser(user);
 		if(0==res){
 			user.setUser_type("新用户");
