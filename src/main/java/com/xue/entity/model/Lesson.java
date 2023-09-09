@@ -32,10 +32,20 @@ public class Lesson {
 
     private Integer is_combine;
 
+    private Integer delete_status;
+
     private String final_time;
 
     private Float leave_times;
 
+
+    public Integer getDelete_status() {
+        return delete_status;
+    }
+
+    public void setDelete_status(Integer delete_status) {
+        this.delete_status = delete_status;
+    }
 
     public Float getLeave_times() {
         return leave_times;

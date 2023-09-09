@@ -6145,6 +6145,7 @@ public class LoginServiceImpl implements LoginService {
                 price = line.getPrice();
                 String final_time = line.getFinal_time();
                 Float leave_times = line.getLeave_times();
+                Integer delete_status = line.getDelete_status();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -6209,6 +6210,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("left_money", df.format(left_money));
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("leave_times", leave_times);
+                    jsonObject.put("delete_status", delete_status);
                     resul_list.add(jsonObject);
                 }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name) ){
                     jsonObject.put("student_name", student_name);
@@ -6242,7 +6244,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("receipts", df.format(receipts));
                     jsonObject.put("left_money", df.format(left_money));
                     jsonObject.put("final_time", final_time);
-                    jsonObject.put("leave_times", leave_times);
+                    jsonObject.put("delete_status", delete_status);
                     resul_list.add(jsonObject);
                 };
 
