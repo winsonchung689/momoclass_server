@@ -1337,7 +1337,7 @@ public class LoginServiceImpl implements LoginService {
                     Integer contains = 0;
 
                     try {
-                        if(openid != null){
+                        if(lessons_string != null){
                             String[] list_1 =lessons_string.split("\\|");
                             if(weekDay == 1){
                                 weekofday = 7 ;
