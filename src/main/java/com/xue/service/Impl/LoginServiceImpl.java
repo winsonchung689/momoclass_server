@@ -6256,18 +6256,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in) {
-        Float total_amount = 0.0f;
-        String create_time = null;
-        String id = null;
-        Integer points = 0;
-        Float percent = 0.0f;
-        Float minus = 0.0f;
-        Float coins = 0.0f;
-        Float left_amount = 0.0f;
         List<Lesson> list = null;
-        String student_name =null;
-        String campus =null;
-        Integer is_combine = 0;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             if("全科目".equals(subject)){
@@ -6276,7 +6265,23 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
             }
             for (int i = 0; i < list.size(); i++) {
+                String student_name =null;
+                String campus =null;
+                Integer is_combine = 0;
+                Float total_amount = 0.0f;
+                String create_time = null;
+                String id = null;
+                Integer points = 0;
+                Float percent = 0.0f;
+                Float minus = 0.0f;
+                Float coins = 0.0f;
+                Float left_amount = 0.0f;
+                Float total_money = 0.0f ;
+                Float discount_money = 0.0f ;
                 String parent = "未绑定";
+                String avatarurl = "未绑定";
+                String phone_number = "未录入";
+                Float price = 0.0f;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -6285,6 +6290,8 @@ public class LoginServiceImpl implements LoginService {
                     List<User> user = dao.getUserByStudent(student_name,studio);
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
+                        avatarurl = user.get(0).getAvatarurl();
+                        phone_number = user.get(0).getPhone_number();
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -6305,6 +6312,31 @@ public class LoginServiceImpl implements LoginService {
                     combine = "合";
                 }
 
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/total_amount;
+                if(re_price>0){
+                    price = re_price;
+                }
+                Float left_money = price * left_amount;
+                if(total_money == 0.0f){
+                    left_money = 0.0f;
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -6323,6 +6355,124 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("parent", parent);
                 jsonObject.put("campus", campus);
                 jsonObject.put("is_combine", combine);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("total_money", df.format(total_money));
+                jsonObject.put("discount_money", df.format(discount_money));
+                jsonObject.put("receipts", df.format(receipts));
+                jsonObject.put("left_money", df.format(left_money));
+                jsonObject.put("avatarurl", avatarurl);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
+    public List getGoneStudent(String studio,String campus) {
+        List<Lesson> list = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getGoneStudent(studio,campus);
+            for (int i = 0; i < list.size(); i++) {
+                String student_name =null;
+                Integer is_combine = 0;
+                Float total_amount = 0.0f;
+                String create_time = null;
+                String id = null;
+                Integer points = 0;
+                Float percent = 0.0f;
+                Float minus = 0.0f;
+                Float coins = 0.0f;
+                Float left_amount = 0.0f;
+                Float total_money = 0.0f ;
+                Float discount_money = 0.0f ;
+                String parent = "未绑定";
+                String avatarurl = "未绑定";
+                String phone_number = "未录入";
+                Float price = 0.0f;
+                String subject = null;
+                JSONObject jsonObject = new JSONObject();
+                Lesson line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                try {
+                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    if(user.size()>0){
+                        parent = user.get(0).getNick_name();
+                        avatarurl = user.get(0).getAvatarurl();
+                        phone_number = user.get(0).getPhone_number();
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                percent = (float) Math.round(left_amount * 100 / total_amount);
+                id = line.getId();
+                create_time = line.getCreate_time();
+                points = line.getPoints();
+                minus = line.getMinus();
+                coins = line.getCoins();
+                subject = line.getSubject();
+                campus =line.getCampus();
+                is_combine = line.getIs_combine();
+                String combine = "分";
+                if(is_combine == 1){
+                    combine = "合";
+                }
+
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/total_amount;
+                if(re_price>0){
+                    price = re_price;
+                }
+                Float left_money = price * left_amount;
+                if(total_money == 0.0f){
+                    left_money = 0.0f;
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("percent", percent);
+                jsonObject.put("points", points);
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("show", false);
+                jsonObject.put("name", student_name);
+                jsonObject.put("search", student_name);
+                jsonObject.put("minus", minus);
+                jsonObject.put("coins", coins);
+                jsonObject.put("subject", subject);
+                jsonObject.put("parent", parent);
+                jsonObject.put("campus", campus);
+                jsonObject.put("is_combine", combine);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("total_money", df.format(total_money));
+                jsonObject.put("discount_money", df.format(discount_money));
+                jsonObject.put("receipts", df.format(receipts));
+                jsonObject.put("left_money", df.format(left_money));
+                jsonObject.put("avatarurl", avatarurl);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

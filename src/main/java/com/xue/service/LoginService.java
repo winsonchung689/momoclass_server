@@ -54,6 +54,8 @@ public interface LoginService {
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject,String campus);
 
+    public List  getGoneStudent(String studio,String campus);
+
     public List  getLessonInName(String studio,String student_name,Integer page,String subject,String campus);
 
     public List  getGoodsList(String studio,Integer page,String campus);

@@ -708,6 +708,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getGoneStudent")
+	@ResponseBody
+	public List getGoneStudent(String studio,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getGoneStudent(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody

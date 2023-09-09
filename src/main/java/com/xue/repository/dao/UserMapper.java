@@ -520,6 +520,9 @@ public interface UserMapper {
 
     List<Lesson> getTipsDataUrlAll(String studio,Integer left_amount,String campus);
 
+
+    List<Lesson> getGoneStudent(String studio,String campus);
+
     AllCount getLessonAllCount(String studio,String campus);
 
     AllCount getLessonPackageAllCount(String studio,String campus,String month_date);
