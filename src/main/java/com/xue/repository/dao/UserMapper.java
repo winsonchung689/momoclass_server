@@ -268,6 +268,8 @@ public interface UserMapper {
 
     void deleteLesson(Integer id,String studio);
 
+    void recoverLesson(Integer id,String studio);
+
     void deleteLessonPackage(Integer id);
 
     //插入

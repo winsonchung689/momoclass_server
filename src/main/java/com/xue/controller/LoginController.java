@@ -2877,6 +2877,22 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/recoverLesson")
+	@ResponseBody
+	public int recoverLesson(Integer id,String studio,String openid){
+		try {
+			List<User> list = dao.getUser(openid);
+			String role = list.get(0).getRole();
+			if("boss".equals(role) || "teacher".equals(role)) {
+				dao.recoverLesson(id,studio);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteLessonPackage")
 	@ResponseBody
 	public int deleteLessonPackage(Integer id,String type){
