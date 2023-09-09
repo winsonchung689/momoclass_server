@@ -1,5 +1,6 @@
 package com.xue;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,8 +39,27 @@ public class test {
             duration_st = hour + ":0" + minute;
         }
 
+        String now_time_end = df_now.format(new Date(new Date().getTime() + 5 * 60000)).split(" ")[1];
         String now_time = df_now.format(new Date()).split(" ")[1];
-        System.out.println(now_time);
+        String send_time = "17:00:00";
+        try {
+            Date timestamp1 = df_now.parse( "2023-01-01 " + now_time);
+            Date timestamp2 = df_now.parse( "2023-01-01 " + now_time_end);
+            Date timestamp3 = df_now.parse( "2023-01-01 " + send_time);
+            long now_time_timestamp = timestamp1.getTime();
+            long now_time_end_timestamp = timestamp2.getTime();
+            long send_time_timestamp = timestamp3.getTime();
+
+            System.out.println(now_time_timestamp);
+            System.out.println(now_time_end_timestamp);
+            System.out.println(send_time_timestamp);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+//        if(time < now_time_end){
+//            System.out.printf("tt");
+//        }
+        System.out.println(now_time_end);
 //        System.out.println(weekDay_ttt);
     }
 }

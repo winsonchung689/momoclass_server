@@ -3619,10 +3619,22 @@ public class LoginServiceImpl implements LoginService {
             Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
 
             //获取当前时间
-            String now_time = df_now.format(new Date()).split(" ")[1];
             String now_date = df_now.format(new Date()).split(" ")[0];
 
+            String now_time = df_now.format(new Date()).split(" ")[1];
+            String now_time_end = df_now.format(new Date(new Date().getTime() + 5 * 60000)).split(" ")[1];
+
+            long now_time_timestamp;
+            long now_time_end_timestamp;
+            long send_time_timestamp;
             try {
+                Date timestamp1 = df_now.parse( "2023-01-01 " + now_time);
+                Date timestamp2 = df_now.parse( "2023-01-01 " + now_time_end);
+                Date timestamp3 = df_now.parse( "2023-01-01 " + send_time);
+                now_time_timestamp = timestamp1.getTime();
+                now_time_end_timestamp = timestamp2.getTime();
+                send_time_timestamp = timestamp3.getTime();
+
                 Date today_dt = df.parse(now_date.substring(0,10));
                 Date expired_dt = df.parse(expried_time.substring(0,10));
                 Long day2 = expired_dt.getTime();
