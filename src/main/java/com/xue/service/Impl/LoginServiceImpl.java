@@ -6396,6 +6396,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = "未录入";
                 Float price = 0.0f;
                 String subject = null;
+                Integer delete_status = 0;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
@@ -6421,6 +6422,7 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 campus =line.getCampus();
                 is_combine = line.getIs_combine();
+                delete_status = line.getDelete_status();
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
@@ -6475,6 +6477,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("receipts", df.format(receipts));
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("delete_status", delete_status);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
