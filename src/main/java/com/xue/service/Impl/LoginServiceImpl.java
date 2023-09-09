@@ -1351,7 +1351,7 @@ public class LoginServiceImpl implements LoginService {
                             }
                         }
                     } catch (Exception e) {
-//                        e.printStackTrace();
+                        e.printStackTrace();
                     }
                     if(contains == 1 || "1".equals(test)){
                         jsonObject.put("studio", studio);
