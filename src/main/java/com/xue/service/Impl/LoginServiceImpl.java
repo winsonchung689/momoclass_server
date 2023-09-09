@@ -565,15 +565,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getArrangement(String studio,Integer dayofweek,String date,String subject,String openid,String student_name_in) {
-        String class_number = null;
-        String duration = null;
-        String limits = "0";
-        byte[] photo = null;
-        String id = null;
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer class_res =0;
-        Integer sign_count =0;
         Integer classes_count_all =0;
         Integer classes_count_all_lesson =0;
         Integer search_res = 0;
@@ -587,7 +580,6 @@ public class LoginServiceImpl implements LoginService {
         List<User> user_get= dao.getUser(openid);
         String role = user_get.get(0).getRole();
         Integer is_open = user_get.get(0).getIs_open();
-        Integer user_get_size = user_get.size();
         String campus = user_get.get(0).getCampus();
 
         try {
@@ -603,6 +595,12 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                String class_number = null;
+                String duration = null;
+                String limits = "0";
+                byte[] photo = null;
+                String id = null;
+                Integer sign_count =0;
                 StringBuffer teachers = new StringBuffer();
                 StringBuffer all_teachers = new StringBuffer();
                 String student_string = null;
@@ -621,34 +619,16 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 subject = line.getSubject();
 
-                if("client".equals(role)){
-                    for(int j = 0; j < user_get_size;j++){
-                        String student_name = user_get.get(j).getStudent_name();
-                        student_string = student_string + "," + student_name;
-                        class_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name,campus);
-                        uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
-                        if(class_res > 0){
-                             classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
-                            if(date != null){
-                                sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
-                            }
-                        }
-                    }
 
-                }else {
-                    remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
-                    if(remind == null){
-                        remind = 0;
-                    }
-                    if(remind == 1 ){
-                        remind_name = "是";
-                    }
-                    classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
-                    uncomfirmed_count = dao.getLessonAllCountByDayUnconfirmed(studio,dayofweek_by,duration,class_number,subject,campus);
-                    if(date != null){
-                        sign_count = dao.getSignUpCountByDay(studio,date+" 00:00:00",duration,class_number,campus);
-                    }
+                remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
+                if(remind == null){
+                    remind = 0;
                 }
+                if(remind == 1 ){
+                    remind_name = "是";
+                }
+
+                classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
                 try {
                     String lessons = user_get.get(0).getLessons();
