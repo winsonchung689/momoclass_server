@@ -6022,7 +6022,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             lessons = user_r.getLessons();
-            if(lessons != null){
+            if(lessons != null && "teacher".equals(role) && is_open == 0){
                 String[] lessons_all =lessons.split("\\|");
                 for(int num = 0; num < lessons_all.length; num ++){
                     String lesson_string = lessons_all[num];
