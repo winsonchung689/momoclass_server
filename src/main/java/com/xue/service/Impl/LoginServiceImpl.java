@@ -1285,11 +1285,13 @@ public class LoginServiceImpl implements LoginService {
         Integer sign_counts_get=0;
         Integer remind=0;
         String campus = null;
+        String lessons_string = null;
         JSONObject jsonObject_1 = new JSONObject();
         try {
             List<User> list_user = dao.getUser(openid);
             if(list_user.size()>0){
                 campus = list_user.get(0).getCampus();
+                lessons_string = list_user.get(0).getLessons();
             }
 
             if(subject.equals("全科目")){
@@ -1336,8 +1338,6 @@ public class LoginServiceImpl implements LoginService {
 
                     try {
                         if(openid != null){
-                            User user_get= dao.getUser(openid).get(0);
-                            String lessons_string = user_get.getLessons();
                             String[] list_1 =lessons_string.split("\\|");
                             if(weekDay == 1){
                                 weekofday = 7 ;
