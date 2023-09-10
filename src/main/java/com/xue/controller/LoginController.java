@@ -2860,16 +2860,7 @@ public class LoginController {
 	@ResponseBody
 	public int deleteLesson(Integer id,String role,String studio,String openid,String student_name){
 		try {
-			List<User> list = dao.getUser(openid);
-			String studio_get = list.get(0).getStudio();
-
-			if ( studio_get.equals(studio)) {
-				loginService.deleteLesson(id,role,studio,openid,student_name);
-			}else {
-				logger.error("it's not your studio, could not delete!");
-			}
-
-
+			loginService.deleteLesson(id,role,studio,openid,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

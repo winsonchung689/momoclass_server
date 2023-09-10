@@ -262,7 +262,7 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id,String studio);
 
-    void deleteScheduleByLesson(String student_name,String studio);
+    void deleteScheduleBySubject(String student_name,String studio,String subject);
 
     void confirmSchedule(Integer id,String studio);
 
@@ -548,6 +548,8 @@ public interface UserMapper {
     Integer getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
 
     List<Lesson> getCampusByStudio(String studio);
+
+    List<Lesson> getLessonById(Integer id);
 
     Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject,String campus);
 

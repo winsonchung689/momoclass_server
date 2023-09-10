@@ -1862,10 +1862,13 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
+            List<Lesson> lessons = dao.getLessonById(id);
+            Lesson lesson = lessons.get(0);
+            String subject = lesson.getSubject();
 
             if ( studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio);
-                dao.deleteScheduleByLesson(student_name,studio);
+                dao.deleteScheduleBySubject(student_name,studio,subject);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }

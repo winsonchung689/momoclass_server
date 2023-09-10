@@ -455,8 +455,8 @@
   </select>
 
   <!-- 刪除课程表 -->
-  <select id="deleteScheduleByLesson" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
-    update class_schedule set delete_status = 1 where student_name =#{param1} and studio =#{param2}
+  <select id="deleteScheduleBySubject" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
+    update class_schedule set delete_status = 1 where student_name =#{param1} and studio =#{param2} and subject =#{param3};
   </select>
 
   <!-- 确认课程 -->
@@ -1299,6 +1299,10 @@
   <!-- 获取提醒状态 -->
   <select id="getCampusByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select distinct campus from lesson where studio =#{param1} and delete_status = 0
+  </select>
+
+  <select id="getLessonById" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
+    select * from lesson where id =#{param1};
   </select>
 
   <!-- 获取总人数 -->
