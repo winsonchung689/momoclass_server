@@ -50,7 +50,7 @@ public class test {
             long now_time_end_timestamp = timestamp2.getTime();
             long send_time_timestamp = timestamp3.getTime();
 
-            System.out.println(now_time_timestamp);
+            System.out.println("2023-01-01".substring(0,7));
             System.out.println(now_time_end_timestamp);
             System.out.println(send_time_timestamp);
         } catch (ParseException e) {
