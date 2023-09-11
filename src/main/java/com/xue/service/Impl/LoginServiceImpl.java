@@ -3708,6 +3708,14 @@ public class LoginServiceImpl implements LoginService {
                     weekDay = weekDay_today;
                     date_time = df.format(cal_today.getTime());
                     list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
+
+                    // 暂停3秒
+                    System.out.println("暂停0.5秒");
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if(list_schedule.size() > 0 && weekDay > 0){
