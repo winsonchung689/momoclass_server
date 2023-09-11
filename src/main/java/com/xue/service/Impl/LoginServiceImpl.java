@@ -2354,6 +2354,7 @@ public class LoginServiceImpl implements LoginService {
             if(consume == null){
                 consume = 0;
             }
+            JSONObject jsonObject = new JSONObject();
             jsonObject.put("consume", consume);
             resul_list.add(jsonObject);
         } catch (Exception e) {
