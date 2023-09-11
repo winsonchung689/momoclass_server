@@ -2320,16 +2320,7 @@ public class LoginServiceImpl implements LoginService {
                 if("boss".equals(role)){
                     role_name = "永久会员";
                 }
-
                 Integer consume = 0;
-                try {
-                    consume = dao.getBookDetailByMonth(openid,book_name,date_time);
-                    if(consume == null){
-                        consume = 0;
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
 
                 //json
                 jsonObject.put("id", id);
@@ -2356,6 +2347,16 @@ public class LoginServiceImpl implements LoginService {
     public List getBBookDetail(String openid,String date_time,String book_name) {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer consume = 0;
+
+        try {
+            consume = dao.getBookDetailByMonth(openid,book_name,date_time);
+            if(consume == null){
+                consume = 0;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         try {
             list = dao.getBBookDetail(openid,date_time,book_name);
             for (int i = 0; i < list.size(); i++) {
@@ -2377,6 +2378,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("openid", openid);
                 jsonObject.put("id", id);
+                jsonObject.put("consume", consume);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
