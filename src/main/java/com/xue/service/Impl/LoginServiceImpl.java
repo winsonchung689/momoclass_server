@@ -3710,7 +3710,7 @@ public class LoginServiceImpl implements LoginService {
                     list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
 
                     // 暂停3秒
-                    System.out.println("暂停0.5秒");
+                    logger.info("暂停0.5秒");
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
