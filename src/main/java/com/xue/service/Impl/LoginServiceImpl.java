@@ -2354,6 +2354,8 @@ public class LoginServiceImpl implements LoginService {
             if(consume == null){
                 consume = 0;
             }
+            jsonObject.put("consume", consume);
+            resul_list.add(jsonObject);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -2378,7 +2380,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("openid", openid);
                 jsonObject.put("id", id);
-                jsonObject.put("consume", consume);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
