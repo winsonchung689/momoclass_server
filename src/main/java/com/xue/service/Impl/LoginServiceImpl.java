@@ -2350,7 +2350,7 @@ public class LoginServiceImpl implements LoginService {
         Integer consume = 0;
 
         try {
-            consume = dao.getBookDetailByMonth(openid,book_name,date_time);
+            consume = dao.getBookDetailByMonth(openid,book_name,date_time.substring(0,7));
             if(consume == null){
                 consume = 0;
             }
