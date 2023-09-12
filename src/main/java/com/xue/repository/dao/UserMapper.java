@@ -567,7 +567,12 @@ public interface UserMapper {
 
     Integer getSignUpByMonthStudent(String studio,String subject,String create_time,String campus,String student_name);
 
-    Integer getBookDetailByMonth(String openid,String book_name,String create_time);
+
+    Integer getBookSumByMonth(String openid,String book_name,String create_time);
+
+
+    List<BookDetail> getBookDetailByMonth(String openid,String book_name,String create_time);
+
 
     Integer getClassesCountBySubjectLesson(String studio,String subject,String campus);
 

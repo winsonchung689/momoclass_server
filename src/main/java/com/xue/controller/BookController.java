@@ -113,6 +113,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getBookDetailByMonth")
+	@ResponseBody
+	public List getBookDetailByMonth(String openid,String book_name,String date_time){
+		List list = null;
+		try {
+			list = loginService.getBookDetailByMonth(openid,book_name,date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateBookUser")
 	@ResponseBody
 	public int updateBookUser(HttpServletRequest request, HttpServletResponse response){
