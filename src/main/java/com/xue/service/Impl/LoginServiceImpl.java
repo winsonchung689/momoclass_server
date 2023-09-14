@@ -4233,14 +4233,15 @@ public class LoginServiceImpl implements LoginService {
         String result = null;
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
-        String token = getToken("MOMO");
-        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-        String tample1 ="{\"touser\":\"openid\",\"mp_template_msg\":{\"appid\":\"wxc79a69144e4fd233\",\"template_id\":\"LbJ2VBZ7f3qz_i3nBRzynL79DVOmRqIN_61reo5m4p4\",\"url\":\"http://weixin.qq.com/download\", \"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"},\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"AA\"},\"thing1\":{\"value\": \"1\"}}}}";
+        String url_send = null;
+        String model ="{\"touser\":\"openid\",\"template_id\":\"LbJ2VBZ7f3qz_i3nBRzynL79DVOmRqIN_61reo5m4p4\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         try {
-            List<User> list = dao.getUserByStudent(student_name,studio);
-            if(list.size()>0){
-                String openid = list.get(0).getOpenid();
+            List<User> users = dao.getUserByStudent(student_name,studio);
+            if(users.size()>0){
+                User user = users.get(0);
+                String openid = user.getOpenid();
+                String official_openid = user.getOfficial_openid();
 
                 List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                 total_amount = lessons_get.get(0).getTotal_amount();
@@ -4249,17 +4250,30 @@ public class LoginServiceImpl implements LoginService {
                 Float total_new = total_amount + lesson_amount;
                 Float left_new = left_amount + lesson_amount;
 
+                try {
+                    String token = getToken("MOMO_OFFICIAL");
+                    url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                    if(official_openid != null){
+                        String[] official_list = official_openid.split(",");
+                        for(int j=0;j<official_list.length;j++){
+                            String official_openid_get = official_list[j];
+                            JSONObject queryJson = JSONObject.parseObject(model);
+                            queryJson.put("touser",official_openid_get);
+                            queryJson.getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
+                            queryJson.getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
+                            queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
 
-                DecimalFormat df = new DecimalFormat("0.00");
-                JSONObject queryJson = JSONObject.parseObject(tample1);
-                queryJson.put("touser",openid);
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
-                queryJson.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
-                String param1="access_token="+ token +"&data=" + queryJson.toJSONString();
-                System.out.printf("param:"+param1);
-                result = HttpUtil.sendPostJson(url,queryJson.toJSONString());
-                System.out.printf("res:" + result);
+                            System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+                            result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                            System.out.printf("MOMO_OFFICIAL_RES:" + result);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
         } catch (Exception e) {
