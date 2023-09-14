@@ -109,13 +109,14 @@ public class LoginController {
 	@ResponseBody
 	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark,String subject){
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample5);
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
-		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-		JSONObject queryJson1 = JSONObject.parseObject(tample16);
+		String url_send = null;
+		String consume_model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4D6MI0A6Vc7eV33zAdq1Kew\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String campus = user.getCampus();
+		studio = user.getStudio();
+		String official_openid = user.getOfficial_openid();
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		int left_amount = 0;
@@ -124,41 +125,31 @@ public class LoginController {
 			left_amount = Math.round(left_amount_get);
 		}
 
-		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",subject+"_"+student_name);
-		queryJson.getJSONObject("data").getJSONObject("short_thing2").put("value",consume_lesson_amount+"课时");
-		queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",left_amount+"课时");
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",mark);
-		queryJson.getJSONObject("data").getJSONObject("time4").put("value",mytime);
-
-		queryJson.put("page","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
-
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
-
-		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",subject+"_"+student_name);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing3").put("value",consume_lesson_amount+"课时");
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing4").put("value",left_amount+"课时");
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing1").put("value",studio);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
-
-		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
-		System.out.printf("param:"+param1);
-
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
-			System.out.printf("res:" + result);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			if(official_openid != null){
+			String[] official_list = official_openid.split(",");
+			for(int j=0;j<official_list.length;j++){
+				String official_openid_get = official_list[j];
+				JSONObject queryJson = JSONObject.parseObject(consume_model);
+				queryJson.put("touser",official_openid_get);
+				queryJson.getJSONObject("data").getJSONObject("thing2").put("value",subject+"_"+student_name);
+				queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",consume_lesson_amount+"课时");
+				queryJson.getJSONObject("data").getJSONObject("short_thing4").put("value",left_amount+"课时");
+				queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio);
+				queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
+
+				System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+				result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+				System.out.printf("MOMO_OFFICIAL_RES:" + result);
+			}
 		}
 
-		try {
-			result = HttpUtil.sendPostJson(url_union, queryJson1.toJSONString());
-			System.out.printf("res:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return result;
 	}
 
