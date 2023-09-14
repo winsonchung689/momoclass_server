@@ -194,8 +194,6 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
 		return result;
 	}
 
@@ -280,43 +278,37 @@ public class LoginController {
 	@ResponseBody
 	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample4);
-		JSONObject queryJson1 = JSONObject.parseObject(tample13);
+		String url_send = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		studio = user.getStudio();
+		String official_openid = user.getOfficial_openid();
+
 		String content_head = null;
 		if(content.length() > 10){
 			content_head = content.substring(0, 10) + "...";
 		}
 
-		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",title);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value",content_head);
-		queryJson.getJSONObject("data").getJSONObject("thing4").put("value",studio);
-		queryJson.getJSONObject("data").getJSONObject("time3").put("value",mytime);
-		queryJson.put("page","/pages/event/event?share_studio=" + studio);
-
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
-
-		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",title);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
-
-		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
-		System.out.printf("param:"+param1);
-
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
-			System.out.printf("res:" + result);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			if(official_openid != null){
+				String[] official_list = official_openid.split(",");
+				for(int j=0;j<official_list.length;j++){
+					String official_openid_get = official_list[j];
+					JSONObject queryJson = JSONObject.parseObject(model);
+					queryJson.put("touser",official_openid_get);
+					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",title);
+					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
 
-		try {
-			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
-			System.out.printf("res:" + result);
+					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+					System.out.printf("MOMO_OFFICIAL_RES:" + result);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -329,39 +321,26 @@ public class LoginController {
 	@ResponseBody
 	public String sendPaymentNotice(String token, String openid, String studio, String amount,String days){
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample6);
-		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-		JSONObject queryJson1 = JSONObject.parseObject(tample15);
+		String url_send = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"AA\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-		List<User> list = dao.getUser(openid);
-		String nick_name = list.get(0).getNick_name();
-
-		queryJson.put("touser","oRRfU5TCmjXtbw9WsxnekwJAa72M");
-		queryJson.getJSONObject("data").getJSONObject("thing12").put("value",studio);
-		queryJson.getJSONObject("data").getJSONObject("thing16").put("value",nick_name);
-		queryJson.getJSONObject("data").getJSONObject("amount13").put("value",amount);
-		queryJson.getJSONObject("data").getJSONObject("thing20").put("value","续费"+ days +"天");
-
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
-
-		queryJson1.put("touser","o25ly6whIE5oBYdDjc2M4afnxQmU");
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing17").put("value","支付" + amount +"元,续费" + days + "天" );
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("short_thing5").put("value","待处理");
-
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		studio = user.getStudio();
+		String nick_name = user.getNick_name();
 
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
-			System.out.printf("res:" + result);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			JSONObject queryJson = JSONObject.parseObject(model);
+			queryJson.put("touser","oFTmu6Z3Wg2hiAXMe13yGsz35opY");
+			queryJson.getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
+			queryJson.getJSONObject("data").getJSONObject("thing17").put("value","支付" + amount +"元,续费" + days + "天" );
+			queryJson.getJSONObject("data").getJSONObject("short_thing5").put("value","待处理");
 
-		try {
-			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
-			System.out.printf("res:" + result);
+			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+			System.out.printf("MOMO_OFFICIAL_RES:" + result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -376,41 +355,34 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample7);
+		String url_send = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-		JSONObject queryJson1 = JSONObject.parseObject(tample14);
-
-		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio);
-		queryJson.getJSONObject("data").getJSONObject("thing2").put("value",days);
-		queryJson.getJSONObject("data").getJSONObject("time3").put("value",expired_time);
-		queryJson.getJSONObject("data").getJSONObject("thing5").put("value","续费成功，请刷新状态即可！");
-
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
-
-		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing2").put("value",studio);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("thing4").put("value","续费" + days + "天" );
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("character_string3").put("value","TO"+expired_time );
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("time6").put("value",create_time);
-
-
-		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
-		System.out.printf("param:"+param1);
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		studio = user.getStudio();
+		String official_openid = user.getOfficial_openid();
 
 		try {
-			result = HttpUtil.sendPostJson(url	,queryJson.toJSONString());
-			System.out.printf("res:" + result);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			if(official_openid != null){
+				String[] official_list = official_openid.split(",");
+				for(int j=0;j<official_list.length;j++){
+					String official_openid_get = official_list[j];
+					JSONObject queryJson = JSONObject.parseObject(model);
+					queryJson.put("touser",official_openid_get);
+					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+					queryJson.getJSONObject("data").getJSONObject("thing4").put("value","续费" + days + "天" );
+					queryJson.getJSONObject("data").getJSONObject("character_string3").put("value","TO"+expired_time );
+					queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
 
-		try {
-			result = HttpUtil.sendPostJson(url_union,queryJson1.toJSONString());
-			System.out.printf("res:" + result);
+					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+					System.out.printf("MOMO_OFFICIAL_RES:" + result);
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
