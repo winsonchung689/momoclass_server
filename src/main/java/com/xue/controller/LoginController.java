@@ -110,7 +110,7 @@ public class LoginController {
 	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark,String subject){
 		String result = null;
 		String url_send = null;
-		String consume_model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4D6MI0A6Vc7eV33zAdq1Kew\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4D6MI0A6Vc7eV33zAdq1Kew\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
@@ -132,7 +132,7 @@ public class LoginController {
 			String[] official_list = official_openid.split(",");
 			for(int j=0;j<official_list.length;j++){
 				String official_openid_get = official_list[j];
-				JSONObject queryJson = JSONObject.parseObject(consume_model);
+				JSONObject queryJson = JSONObject.parseObject(model);
 				queryJson.put("touser",official_openid_get);
 				queryJson.getJSONObject("data").getJSONObject("thing2").put("value",subject+"_"+student_name);
 				queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",consume_lesson_amount+"课时");
@@ -159,51 +159,43 @@ public class LoginController {
 	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime,String class_number,String duration){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
 		String result = null;
-		String url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=" + token;
-		String url_union = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=" + token;
-		JSONObject queryJson = JSONObject.parseObject(tample1);
-		JSONObject queryJson1 = JSONObject.parseObject(tample12);
+		String url_send = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"kYl_eizTO2EZWIgfSw1ZAUMoS7NF4hTNAhaFBGY-_JA\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-		queryJson.put("touser",openid);
-		queryJson.getJSONObject("data").getJSONObject("thing6").put("value",classname);
-		queryJson.getJSONObject("data").getJSONObject("name3").put("value",studentname);
-		queryJson.getJSONObject("data").getJSONObject("date5").put("value",mytime);
-
-		List<User> list_user = dao.getUser(openid);
-		String studio = list_user.get(0).getStudio();
-		String comment_style = list_user.get(0).getComment_style();
-		String role = list_user.get(0).getRole();
-		queryJson.put("page","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
-
-		String param="access_token="+ token +"&data=" + queryJson.toJSONString();
-		System.out.printf("param:"+param);
-
-		queryJson1.put("touser",openid);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword1").put("value",class_number);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword2").put("value",studentname + "_" + classname);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword3").put("value",duration);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("data").getJSONObject("keyword4").put("value",create_time);
-		queryJson1.getJSONObject("mp_template_msg").getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
-
-		String param1="access_token="+ token +"&data=" + queryJson1.toJSONString();
-		System.out.printf("param:"+param1);
-
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String studio = user.getStudio();
+		String comment_style = user.getComment_style();
+		String role = user.getRole();
+		String official_openid = user.getOfficial_openid();
 
 		try {
-			result = HttpUtil.sendPostJson(url, queryJson.toJSONString());
-			System.out.printf("res:" + result);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			if(official_openid != null){
+				String[] official_list = official_openid.split(",");
+				for(int j=0;j<official_list.length;j++){
+					String official_openid_get = official_list[j];
+					JSONObject queryJson = JSONObject.parseObject(model);
+					queryJson.put("touser",official_openid_get);
+					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",class_number);
+					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",studentname + "_" + classname);
+					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",duration);
+					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",create_time);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + "课评");
 
-		try {
-			result = HttpUtil.sendPostJson(url_union, queryJson1.toJSONString());
-			System.out.printf("res:" + result);
+					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+					System.out.printf("MOMO_OFFICIAL_RES:" + result);
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+
 		return result;
 	}
 
@@ -236,7 +228,7 @@ public class LoginController {
 	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject,String class_number){
 		String result = null;
 		String url_send = null;
-		String sign_up_model ="{\"touser\":\"openid\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model ="{\"touser\":\"openid\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String campus = user.getCampus();
@@ -262,7 +254,7 @@ public class LoginController {
 				String[] official_list = official_openid.split(",");
 				for(int j=0;j<official_list.length;j++){
 					String official_openid_get = official_list[j];
-					JSONObject queryJson = JSONObject.parseObject(sign_up_model);
+					JSONObject queryJson = JSONObject.parseObject(model);
 					queryJson.put("touser",official_openid_get);
 					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",date_time);
 					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
