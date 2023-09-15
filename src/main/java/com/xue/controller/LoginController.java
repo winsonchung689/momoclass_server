@@ -4245,6 +4245,39 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/consumeLesson")
+	@ResponseBody
+	public String consumeLesson(HttpServletRequest request, HttpServletResponse response){
+		//获取openid
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+		String studio = request.getParameter("studio");
+		String subject = request.getParameter("subject");
+		String student_name = request.getParameter("student_name");
+		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
+
+		List<Lesson> lessons = dao.getLessonInNameBySubject(studio,student_name,0,100,subject,campus);
+		if(lessons.size()>0){
+			Lesson lesson = lessons.get(0);
+			Float left_amount = lesson.getLeft_amount();
+			if(consume_lesson_amount != null){
+				left_amount = left_amount - Integer.parseInt(consume_lesson_amount);
+			}
+
+			Lesson lesson_in = new Lesson();
+			lesson_in.setStudent_name(student_name);
+			lesson_in.setStudio(studio);
+			lesson_in.setSubject(subject);
+			lesson_in.setCampus(campus);
+			lesson_in.setLeft_amount(left_amount);
+			dao.consumeLesson(lesson_in);
+		}
+
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){

@@ -655,6 +655,8 @@ public interface UserMapper {
 
     int updateLesson(Lesson lesson);
 
+    int consumeLesson(Lesson lesson);
+
     int updateSignUpTeacher(String teacher,String id);
 
     int updateLessonBoth(Lesson lesson);
