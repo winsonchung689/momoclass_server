@@ -4307,7 +4307,8 @@ public class LoginController {
 			String modify_type = request.getParameter("modify_type");
 
 			if("subject_modify".equals(modify_type)) {
-				dao.updateLessonSubject(subject_new,student_name,studio,subject,campus);
+				String id = request.getParameter("id");
+				dao.updateLessonSubject(subject_new,id,studio,subject,campus);
 				return "push massage successfully";
 			}
 
