@@ -4262,7 +4262,7 @@ public class LoginController {
 			Lesson lesson = lessons.get(0);
 			Float left_amount = lesson.getLeft_amount();
 			if(consume_lesson_amount != null){
-				left_amount = left_amount - Integer.parseInt(consume_lesson_amount);
+				left_amount = left_amount - Float.parseFloat(consume_lesson_amount);
 			}
 
 			Lesson lesson_in = new Lesson();
