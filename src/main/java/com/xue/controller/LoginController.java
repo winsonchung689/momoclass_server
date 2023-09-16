@@ -2840,13 +2840,14 @@ public class LoginController {
 
 	@RequestMapping("/recoverLesson")
 	@ResponseBody
-	public int recoverLesson(Integer id,String studio,String openid){
+	public int recoverLesson(Integer id,String studio,String openid,String type){
 		try {
-			List<User> list = dao.getUser(openid);
-			String role = list.get(0).getRole();
-			if("boss".equals(role) || "teacher".equals(role)) {
+			if("恢复".equals(type)){
 				dao.recoverLesson(id,studio);
+			}else if("永久删除".equals(type)){
+				dao.deleteLessonForever(id,studio);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

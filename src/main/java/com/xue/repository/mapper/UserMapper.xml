@@ -477,6 +477,10 @@
     update lesson set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
+  <select id="deleteLessonForever" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
+    delete from lesson where id =#{param1} and studio =#{param2}
+  </select>
+
   <!-- 恢复学生 -->
   <select id="recoverLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
     update lesson set delete_status = 0 where id =#{param1} and studio =#{param2}
