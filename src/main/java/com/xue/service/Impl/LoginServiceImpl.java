@@ -3297,7 +3297,7 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
             }
             String[] uuids_list = uuids.split(",");
-            for(int j =0 ; j < uuids_list.length; j++){
+            for(int j=0;j<uuids_list.length;j++){
                 String uuids_get = uuids_list[j];
                 jsonObject.put("uuids",uuids_get);
                 jsonObject.put("id",id);
