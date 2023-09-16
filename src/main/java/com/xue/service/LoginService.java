@@ -208,6 +208,8 @@ public interface LoginService {
 
     public List getAlbum(String studio, String student_name);
 
+    public List getExhibition(String studio, String type);
+
     public List getCourseList(String studio,Integer page);
 
     public List getCourseDetail(String studio,String class_name,Integer page);

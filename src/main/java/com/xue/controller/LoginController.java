@@ -831,6 +831,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getExhibition")
+	@ResponseBody
+	public List getExhibition(String studio,String type){
+		List list = null;
+		try {
+			list = loginService.getExhibition(studio,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody

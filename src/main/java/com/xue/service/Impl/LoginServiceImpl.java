@@ -3282,6 +3282,35 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getExhibition(String studio, String type) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> messages = null;
+
+        if("图汇展".equals(type)){
+            messages = dao.getExhibitionPic(studio);
+        }
+
+        for (int i = 0; i < messages.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Message line = messages.get(i);
+            String uuids = line.getUuids();
+            try {
+                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+//                    throw new RuntimeException(e);
+            }
+            String[] uuids_list = uuids.split(",");
+            for(int j =0 ; j < uuids_list.length; j ++){
+                String uuids_get = uuids_list[j];
+                jsonObject.put("uuids",uuids_get);
+                resul_list.add(jsonObject);
+            }
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getCourseList(String studio, Integer page) {
         byte[] photo = null;
         InputStream inputStream_photo = null;

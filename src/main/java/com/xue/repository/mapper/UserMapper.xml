@@ -107,6 +107,10 @@
     select uuids from class_comment where class_target_bak ='课评' and studio = #{param1} and campus =#{param2} and student_name=#{param3} and delete_status = 0 order by create_time desc limit 10;
   </select>
 
+  <select id="getExhibitionPic" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select uuids from class_comment where class_target_bak ='图汇展' and studio = #{param1} and delete_status = 0 order by create_time desc limit 20;
+  </select>
+
   <!-- 获取全量发帖 -->
   <select id="getPostPublic" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
     select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and is_private = 0 order by create_time desc limit #{param1},#{param2};

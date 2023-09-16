@@ -14,6 +14,8 @@ public interface UserMapper {
 
     List<Message> getAlbum(String studio,String campus,String student_name);
 
+    List<Message> getExhibitionPic(String studio);
+
     List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
 
     //获取
