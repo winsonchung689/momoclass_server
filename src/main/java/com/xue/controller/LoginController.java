@@ -2916,11 +2916,11 @@ public class LoginController {
 			boolean dr = file.mkdirs(); //创建目录
 		}
 
-		String[] content = file.list();//取得当前目录下所有文件和文件夹
-		for(String name : content){
-			File temp = new File(d_path, name);
-			temp.delete();
-		}
+//		String[] content = file.list();//取得当前目录下所有文件和文件夹
+//		for(String name : content){
+//			File temp = new File(d_path, name);
+//			temp.delete();
+//		}
 
 		//获取类路径
 		String p_path = null;
