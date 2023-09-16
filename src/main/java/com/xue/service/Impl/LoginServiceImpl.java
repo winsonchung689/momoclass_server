@@ -3287,7 +3287,7 @@ public class LoginServiceImpl implements LoginService {
         List<Message> messages = dao.getExhibitionByType(studio,type);
 
         for (int i = 0; i < messages.size(); i++) {
-            JSONObject jsonObject = new JSONObject();
+
             Message line = messages.get(i);
             String uuids = line.getUuids();
             String id = line.getId();
@@ -3298,6 +3298,7 @@ public class LoginServiceImpl implements LoginService {
             }
             String[] uuids_list = uuids.split(",");
             for(int j=0;j<uuids_list.length;j++){
+                JSONObject jsonObject = new JSONObject();
                 String uuids_get = uuids_list[j];
                 jsonObject.put("uuids",uuids_get);
                 jsonObject.put("id",id);
