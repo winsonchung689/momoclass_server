@@ -14,6 +14,8 @@ public interface LoginService {
 
     public List  getPostComment(String post_id);
 
+    public List  getLeaveMessage(String studio,String type);
+
     public String  changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject,String campus);
 
     public List  getGrowthRecord(String studio,Integer page,String student_name);

@@ -4720,6 +4720,44 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getLeaveMessage(String studio, String type) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        String openid = null;
+        String content =null;
+        String create_time = null;
+        String id = null;
+
+        try {
+            List<PostComment> postComments = dao.getLeaveMessage(studio,type);
+            for (int i = 0; i < postComments.size(); i++) {
+                String nick_name = "游客";
+                String avatar = null;
+                JSONObject jsonObject = new JSONObject();
+                PostComment line = postComments.get(i);
+                //获取字段
+                openid = line.getOpenid();
+                studio = line.getStudio();
+                content = line.getContent();
+                create_time = line.getCreate_time();
+                id = line.getId();
+
+                jsonObject.put("openid", openid);
+                jsonObject.put("studio_get", studio);
+                jsonObject.put("content", content);
+                jsonObject.put("avatar", avatar);
+                jsonObject.put("nick_name",nick_name);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("id", id);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject,String campus) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();

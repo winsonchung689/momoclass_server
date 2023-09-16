@@ -146,6 +146,8 @@ public interface UserMapper {
 
     List<Post> getPostPrivate(Integer page_start,Integer page_length,String studio);
 
+    List<PostComment> getLeaveMessage(String studio,String type);
+
     List<PostComment> getPostComment(String post_id);
 
     List<PostLike> getPostLike(String post_id);

@@ -123,7 +123,11 @@
 
   <!-- 获取回帖 -->
   <select id="getPostComment" parameterType="com.xue.entity.model.PostComment" resultMap="BasePostComment">
-    select id,openid,post_id,content,studio,create_time from post_comment where delete_status = 0 and post_id =#{param1} order by create_time desc limit 100;
+    select * from post_comment where delete_status = 0 and post_id =#{param1} order by create_time desc limit 100;
+  </select>
+
+  <select id="getLeaveMessage" parameterType="com.xue.entity.model.PostComment" resultMap="BasePostComment">
+    select * from post_comment where delete_status = 0 and studio =#{param1} and type =#{param2} order by create_time desc limit 30;
   </select>
 
   <!-- 获取点赞 -->
@@ -671,7 +675,7 @@
 
   <!-- 插入回帖 -->
   <insert id="insertPostComment" parameterType="com.xue.entity.model.PostComment">
-    insert post_comment(openid,post_id,content,studio,create_time) values(#{openid},#{post_id},#{content},#{studio},#{create_time})
+    insert post_comment(openid,post_id,content,studio,create_time,type) values(#{openid},#{post_id},#{content},#{studio},#{create_time},#{type})
   </insert>
 
   <!-- 插入点赞 -->

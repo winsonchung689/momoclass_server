@@ -1220,6 +1220,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getLeaveMessage")
+	@ResponseBody
+	public List getLeaveMessage(String studio,String type){
+		List list = null;
+		try {
+			list = loginService.getLeaveMessage(studio,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getPostLikeByOpenid")
 	@ResponseBody
 	public List getPostLike(String post_id,String openid){
@@ -3532,6 +3544,7 @@ public class LoginController {
 		String post_id = request.getParameter("post_id");
 		String content = request.getParameter("content");
 		String studio = request.getParameter("studio");
+		String type = request.getParameter("type");
 
 		PostComment postComment = new PostComment();
 		postComment.setOpenid(openid);
@@ -3539,6 +3552,7 @@ public class LoginController {
 		postComment.setContent(content);
 		postComment.setStudio(studio);
 		postComment.setCreate_time(create_time);
+		postComment.setType(type);
 
 		try {
 			dao.insertPostComment(postComment);
