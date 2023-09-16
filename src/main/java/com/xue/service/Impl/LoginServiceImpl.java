@@ -3290,6 +3290,7 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = new JSONObject();
             Message line = messages.get(i);
             String uuids = line.getUuids();
+            String id = line.getId();
             try {
                 uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
             } catch (Exception e) {
@@ -3299,8 +3300,10 @@ public class LoginServiceImpl implements LoginService {
             for(int j =0 ; j < uuids_list.length; j ++){
                 String uuids_get = uuids_list[j];
                 jsonObject.put("uuids",uuids_get);
+                jsonObject.put("id",id);
                 resul_list.add(jsonObject);
             }
+
         }
 
         return resul_list;
