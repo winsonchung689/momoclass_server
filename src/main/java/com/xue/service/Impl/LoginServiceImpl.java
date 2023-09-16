@@ -3284,11 +3284,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getExhibition(String studio, String type) {
         List<JSONObject> resul_list = new ArrayList<>();
-        List<Message> messages = null;
-
-        if("图汇展".equals(type)){
-            messages = dao.getExhibitionPic(studio);
-        }
+        List<Message> messages = dao.getExhibitionByType(studio,type);
 
         for (int i = 0; i < messages.size(); i++) {
             JSONObject jsonObject = new JSONObject();
