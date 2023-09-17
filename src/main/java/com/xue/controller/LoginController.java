@@ -360,7 +360,6 @@ public class LoginController {
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
-		studio = user.getStudio();
 		String official_openid = user.getOfficial_openid();
 
 		try {
