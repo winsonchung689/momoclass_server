@@ -5600,29 +5600,29 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getLessonByStudioCampus(String studio, String campus) {
-        Float total_amount = 0.0f;
-        Float left_amount = 0.0f;
-        String create_time = null;
-        String id = null;
-        String subject_get = null;
-        Integer points = 0;
-        Float percent = 0.0f;
-        Float minus = 0.0f;
-        Float coins = 0.0f;
+
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer total_student =0;
-        Float total_amount_all = 0.0f ;
-        Float left_amount_all = 0.0f ;
-        Integer need_pay = 0;
-        Integer owe = 0;
-        Integer delete_status = 0;
-        String student_name = null;
-        String official_openid = null;
         list = dao.getLessonByStudioCampus(studio,campus);
-
         try {
             for (int i = 0; i < list.size(); i++) {
+                Integer total_student =0;
+                Float total_amount_all = 0.0f ;
+                Float left_amount_all = 0.0f ;
+                Integer need_pay = 0;
+                Integer owe = 0;
+                Integer delete_status = 0;
+                String student_name = null;
+                String official_openid = null;
+                Float total_amount = 0.0f;
+                Float left_amount = 0.0f;
+                String create_time = null;
+                String id = null;
+                String subject_get = null;
+                Integer points = 0;
+                Float percent = 0.0f;
+                Float minus = 0.0f;
+                Float coins = 0.0f;
                 Float price = 0.0f;
                 String parent = "未绑定";
                 String phone_number = "未录入";
