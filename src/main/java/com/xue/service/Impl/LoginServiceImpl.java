@@ -2019,6 +2019,7 @@ public class LoginServiceImpl implements LoginService {
         String campus =null;
         Integer hours =null;
         String remind_type =null;
+        String official_openid = null;
         List<Lesson> list_lesson= new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         long pay_days = 0;
@@ -2103,6 +2104,11 @@ public class LoginServiceImpl implements LoginService {
                 campus = line.getCampus();
                 hours = line.getHours();
                 remind_type = line.getRemind_type();
+                official_openid = line.getOfficial_openid();
+                jsonObject.put("official_status", "未关注");
+                if(official_openid != null){
+                    jsonObject.put("official_status", "已关注");
+                }
 
                 if(!openid.equals("all")){
                     list_lesson = dao.getLessonByName(student_name,studio,campus);
