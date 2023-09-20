@@ -6209,6 +6209,7 @@ public class LoginServiceImpl implements LoginService {
                 Float discount_money = 0.0f ;
                 String parent = "未绑定";
                 String avatarurl = "未绑定";
+                String official_openid = null;
                 String phone_number = "未录入";
                 Float price = 0.0f;
                 JSONObject jsonObject = new JSONObject();
@@ -6223,6 +6224,7 @@ public class LoginServiceImpl implements LoginService {
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
                         phone_number = user.get(0).getPhone_number();
+                        official_openid = user.get(0).getOfficial_openid();
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -6309,6 +6311,11 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("leave_times", leave_times);
                     jsonObject.put("delete_status", delete_status);
+                    jsonObject.put("official_status", "未关注");
+                    if(official_openid != null){
+                        jsonObject.put("official_status", "已关注");
+                    }
+
                     resul_list.add(jsonObject);
                 }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name) ){
                     jsonObject.put("student_name", student_name);
@@ -6343,6 +6350,11 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("left_money", df.format(left_money));
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("delete_status", delete_status);
+                    jsonObject.put("official_status", "未关注");
+                    if(official_openid != null){
+                        jsonObject.put("official_status", "已关注");
+                    }
+
                     resul_list.add(jsonObject);
                 };
 
