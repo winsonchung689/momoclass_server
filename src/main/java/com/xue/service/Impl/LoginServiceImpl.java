@@ -5616,8 +5616,9 @@ public class LoginServiceImpl implements LoginService {
         Float left_amount_all = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
+        Integer delete_status = 0;
         String student_name = null;
-
+        String official_openid = null;
         list = dao.getLessonByStudioCampus(studio,campus);
 
         try {
@@ -5635,6 +5636,7 @@ public class LoginServiceImpl implements LoginService {
                     List<User> users = dao.getUserByStudent(student_name,studio);
                     parent = users.get(0).getNick_name();
                     phone_number = users.get(0).getPhone_number();
+                    official_openid = users.get(0).getOfficial_openid();
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -5649,6 +5651,7 @@ public class LoginServiceImpl implements LoginService {
                 subject_get = line.getSubject();
                 studio = line.getStudio();
                 campus = line.getCampus();
+                delete_status = line.getDelete_status();
                 Integer is_combine = line.getIs_combine();
                 String combine = "分";
                 if(is_combine == 1){
@@ -5710,6 +5713,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("discount_money", df.format(discount_money));
                 jsonObject.put("receipts", df.format(receipts));
                 jsonObject.put("left_money", df.format(left_money));
+                jsonObject.put("delete_status", delete_status);
+                jsonObject.put("official_status", "未关注");
+                if(official_openid != null){
+                    jsonObject.put("official_status", "已关注");
+                }
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
