@@ -6381,15 +6381,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in) {
+    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in,String type) {
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            if("全科目".equals(subject)){
-                list = dao.getTipsDataUrlAll(studio,left_amount_get,campus_in);
-            }else{
-                list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
+            if("needOwe".equals(type)){
+                if("全科目".equals(subject)){
+                    list = dao.getTipsDataUrlAll(studio,left_amount_get,campus_in);
+                }else{
+                    list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
+                }
             }
+
             for (int i = 0; i < list.size(); i++) {
                 String student_name =null;
                 String campus =null;
@@ -6407,6 +6410,7 @@ public class LoginServiceImpl implements LoginService {
                 String parent = "未绑定";
                 String avatarurl = "未绑定";
                 String phone_number = "未录入";
+                String official_openid = null;
                 Float price = 0.0f;
                 Integer delete_status = 0;
                 JSONObject jsonObject = new JSONObject();
@@ -6419,6 +6423,7 @@ public class LoginServiceImpl implements LoginService {
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
                         phone_number = user.get(0).getPhone_number();
+                        official_openid = user.get(0).getOfficial_openid();
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -6490,6 +6495,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("delete_status", delete_status);
+                jsonObject.put("official_status", "未关注");
+                if(official_openid != null){
+                    jsonObject.put("official_status", "已关注");
+                }
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
