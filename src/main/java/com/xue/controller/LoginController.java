@@ -2840,9 +2840,11 @@ public class LoginController {
 	@RequestMapping("/recoverLesson")
 	@ResponseBody
 	public int recoverLesson(Integer id,String studio,String openid,String type){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String today_time = df.format(new Date());
 		try {
 			if("恢复".equals(type)){
-				dao.recoverLesson(id,studio);
+				dao.recoverLesson(id,studio,today_time);
 			}else if("永久删除".equals(type)){
 				dao.deleteLessonForever(id,studio);
 			}

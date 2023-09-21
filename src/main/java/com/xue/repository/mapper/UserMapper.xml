@@ -483,7 +483,7 @@
 
   <!-- 恢复学生 -->
   <select id="recoverLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
-    update lesson set delete_status = 0 where id =#{param1} and studio =#{param2}
+    update lesson set delete_status = 0,create_time=#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
   <select id="deleteLessonPackage" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseResultMap">

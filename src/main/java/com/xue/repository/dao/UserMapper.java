@@ -274,7 +274,7 @@ public interface UserMapper {
 
     void deleteLessonForever(Integer id,String studio);
 
-    void recoverLesson(Integer id,String studio);
+    void recoverLesson(Integer id,String studio,String create_time);
 
     void deleteLessonPackage(Integer id);
 
