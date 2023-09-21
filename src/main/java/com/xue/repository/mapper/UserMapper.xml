@@ -474,7 +474,7 @@
 
   <!-- 获取删除学生 -->
   <select id="deleteLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">
-    update lesson set delete_status = 1 where id =#{param1} and studio =#{param2}
+    update lesson set delete_status = 1,create_time=#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
   <select id="deleteLessonForever" parameterType="com.xue.entity.model.Lesson" resultMap="BaseResultMap">

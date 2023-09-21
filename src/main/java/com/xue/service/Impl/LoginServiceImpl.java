@@ -1859,6 +1859,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public int deleteLesson(Integer id, String role,String studio,String openid,String student_name) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String today_time = df.format(new Date());
         try {
             List<User> list = dao.getUser(openid);
             String studio_get = list.get(0).getStudio();
@@ -1867,7 +1869,7 @@ public class LoginServiceImpl implements LoginService {
             String subject = lesson.getSubject();
 
             if ( studio_get.equals(studio)) {
-                dao.deleteLesson(id,studio);
+                dao.deleteLesson(id,studio,today_time);
                 dao.deleteScheduleBySubject(student_name,studio,subject);
             }else {
                 logger.error("it's not your studio, could not delete!");
