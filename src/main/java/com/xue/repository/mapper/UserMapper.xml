@@ -1192,6 +1192,10 @@
     select count(distinct student_name) student_count,sum(total_money) total_price,sum(discount_money) left_price,sum(all_lesson) total_amount,sum(give_lesson) left_amount from lesson_package where studio =#{param1} and campus =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0
   </select>
 
+  <select id="getLessonPackageRenew" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select * from lesson_package where studio =#{param1} and campus =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0
+  </select>
+
   <select id="getLessonAllCountNewStudent" parameterType="com.xue.entity.model.Lesson" resultMap="BaseAllCount">
     select count(distinct student_name) student_count from lesson where studio =#{param1} and campus =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0
   </select>

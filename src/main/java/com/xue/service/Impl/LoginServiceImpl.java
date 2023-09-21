@@ -6383,14 +6383,27 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in,String type) {
         List<Lesson> list = null;
+        List<String> renew_students = new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
+        String month_date = df1.format(new Date());
+
         try {
-            if("needOwe".equals(type)){
+            if("needOwe".equals(type) || "needPay".equals(type) || "renew".equals(type)){
                 if("全科目".equals(subject)){
                     list = dao.getTipsDataUrlAll(studio,left_amount_get,campus_in);
                 }else{
                     list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
                 }
+
+                if( "renew".equals(type)){
+                    List<LessonPackage> lessonPackages = dao.getLessonPackageRenew(studio,campus_in,month_date);
+                    for(int ii = 0;ii < lessonPackages.size();ii++){
+                        String student_name = lessonPackages.get(ii).getStudent_name();
+                        renew_students.add(student_name);
+                    }
+                }
+
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -6499,7 +6512,13 @@ public class LoginServiceImpl implements LoginService {
                 if(official_openid != null){
                     jsonObject.put("official_status", "已关注");
                 }
-                resul_list.add(jsonObject);
+
+                if("renew".equals(type) && renew_students.contains(student_name)){
+                    resul_list.add(jsonObject);
+                }else if("needOwe".equals(type) || "needPay".equals(type)){
+                    resul_list.add(jsonObject);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
