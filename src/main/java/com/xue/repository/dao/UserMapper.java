@@ -514,6 +514,10 @@ public interface UserMapper {
 
     List<Lesson> getLessonByPage(String studio,String campus,Integer page_start,Integer page_length);
 
+    List<Lesson> getLessonNew(String studio,String campus,String create_time);
+
+    List<Lesson> getLessonLoss(String studio,String campus,String create_time);
+
     List<Lesson> getClassNote(String subject,String studio,String student_name);
 
     List<Announcement> getAnnouncement(String studio);

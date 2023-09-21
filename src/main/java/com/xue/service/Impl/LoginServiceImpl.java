@@ -6396,7 +6396,7 @@ public class LoginServiceImpl implements LoginService {
                     list = dao.getTipsDataUrl(studio,left_amount_get,subject,campus_in);
                 }
 
-                if( "renew".equals(type)){
+                if("renew".equals(type)){
                     List<LessonPackage> lessonPackages = dao.getLessonPackageRenew(studio,campus_in,month_date);
                     for(int ii = 0;ii < lessonPackages.size();ii++){
                         String student_name = lessonPackages.get(ii).getStudent_name();
@@ -6404,6 +6404,10 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+            }else if("new".equals(type)){
+                list = dao.getLessonNew(studio,campus_in,month_date);
+            }else if("loss".equals(type)){
+                list = dao.getLessonLoss(studio,campus_in,month_date);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -6515,7 +6519,7 @@ public class LoginServiceImpl implements LoginService {
 
                 if("renew".equals(type) && renew_students.contains(student_name)){
                     resul_list.add(jsonObject);
-                }else if("needOwe".equals(type) || "needPay".equals(type)){
+                }else if("needOwe".equals(type) || "needPay".equals(type) || "new".equals(type) || "loss".equals(type)){
                     resul_list.add(jsonObject);
                 }
 
