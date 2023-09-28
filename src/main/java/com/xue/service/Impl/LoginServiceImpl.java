@@ -6224,7 +6224,7 @@ public class LoginServiceImpl implements LoginService {
                 Float total_money = 0.0f ;
                 Float discount_money = 0.0f ;
                 String parent = "未绑定";
-                String avatarurl = "未绑定";
+                String avatarurl ="https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
                 String official_openid = null;
                 String phone_number = "未录入";
                 Float price = 0.0f;
