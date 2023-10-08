@@ -105,6 +105,12 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/getOpenidOfficial")
+	@ResponseBody
+	public void getOpenidOfficial(){
+		loginService.getOpenidOfficial();
+	}
+
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
 	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark,String subject){
