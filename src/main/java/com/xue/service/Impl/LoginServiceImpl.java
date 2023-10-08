@@ -3751,9 +3751,9 @@ public class LoginServiceImpl implements LoginService {
                     list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
 
                     // 暂停3秒
-                    logger.info("暂停0.5秒");
+                    logger.info("暂停0.1秒");
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
