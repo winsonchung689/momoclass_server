@@ -180,7 +180,7 @@ public class LoginController {
 					JSONObject queryJson = JSONObject.parseObject(model);
 					queryJson.put("touser",official_openid_get);
 					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",class_number);
-					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",studentname + "_" + classname);
+					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",classname + "_" + studentname);
 					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",duration);
 					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",create_time);
 					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_number.split("_")[1]);
