@@ -2038,7 +2038,7 @@ public class LoginController {
 		try {
 			List<User> list = dao.getUser(openid);
 			String campus = list.get(0).getCampus();
-			dao.cancelBook(add_date,duration,studio,class_number,subject,campus);
+			dao.cancelBook(add_date,duration,studio,class_number,subject,campus,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
