@@ -2474,6 +2474,8 @@ public class LoginController {
 				List<User> users = dao.getUserByOpenid(openid);
 				User user = users.get(0);
 				String studio =user.getStudio();
+				String unionid = user.getUnionid();
+				String official_openid = user.getOfficial_openid();
 				List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid);
 				if(users1.size()>0){
 					dao.updateUserStudentName(openid,content);
@@ -2481,6 +2483,8 @@ public class LoginController {
 					List<User> users2 = dao.getUserByStudentOpenid(content,studio,openid);
 					if(users2.size()==0){
 						user.setStudent_name(content);
+						user.setUnionid(unionid);
+						user.setOfficial_openid(official_openid);
 						int update_res = dao.updateUserDelete(user);
 						if(update_res==0){
 							dao.insertUser(user);
