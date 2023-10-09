@@ -887,7 +887,7 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location,remind_type,hours,unionid,official_openid) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location},#{remind_type},#{hours},#{unionid},#{official_openid})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location,remind_type,hours,unionid,official_openid,subscription) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location},#{remind_type},#{hours},#{unionid},#{official_openid},#{subscription})
   </insert>
 
   <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
