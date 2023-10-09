@@ -1286,8 +1286,14 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            Integer weekofday=0;
+            if(weekDay==1){
+                weekofday=7;
+            }else {
+                weekofday = weekDay - 1;
+            }
 
-            List<Arrangement> list = dao.getArrangementByDay(studio,weekDay,campus);
+            List<Arrangement> list = dao.getArrangementByDay(studio,weekofday,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
