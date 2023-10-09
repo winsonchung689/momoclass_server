@@ -108,6 +108,8 @@ public interface LoginService {
 
     public List  getSchedule(String date_time,String studio,String subject,String openid,String test);
 
+    public List  getTodayClasses(String date_time,String studio,String openid);
+
     public List  getClassByDate(String date_time,String studio,String subject,String openid,String test);
 
     public List  getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid);

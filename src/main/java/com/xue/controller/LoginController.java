@@ -890,6 +890,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getTodayClasses")
+	@ResponseBody
+	public List getTodayClasses(String date_time, String studio, String openid){
+		List list = null;
+		try {
+			list = loginService.getTodayClasses(date_time,studio,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getClassByDate")
 	@ResponseBody
 	public List getClassByDate(String date_time,String studio,String subject,String openid,String test){

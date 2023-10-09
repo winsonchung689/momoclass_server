@@ -1273,6 +1273,43 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getTodayClasses(String date_time, String studio, String openid) {
+        Date d = null;
+        Integer weekDay=0;
+
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+            d = fmt.parse(date_time);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            weekDay = cal.get(Calendar.DAY_OF_WEEK);
+
+            List<Arrangement> list = dao.getArrangementByDay(studio,weekDay,campus);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Arrangement line = list.get(i);
+                //获取字段
+                String dayofweek = line.getDayofweek();
+                String class_number = line.getClass_number();
+                String duration = line.getDuration();
+                String subject = line.getSubject();
+
+                jsonObject.put("dayofweek", dayofweek);
+                jsonObject.put("duration", duration);
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getClassByDate(String date_time, String studio, String subject, String openid, String test) {
         String duration = null;
         List<JSONObject> resul_list = new ArrayList<>();

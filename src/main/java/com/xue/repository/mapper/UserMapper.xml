@@ -738,6 +738,10 @@
     select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3} and campus =#{param4} and delete_status = 0 order by duration
   </select>
 
+  <select id="getArrangementByDay" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
+  </select>
+
   <!-- 查找订单 -->
   <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
     select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
