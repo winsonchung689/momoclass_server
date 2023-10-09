@@ -1312,8 +1312,9 @@ public class LoginServiceImpl implements LoginService {
                         student_names = student_names.append(student_name).append(",");
                     }
                 }
-                student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
-
+                if(student_names.length()>0){
+                    student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
+                }
 
                 jsonObject.put("dayofweek", dayofweek);
                 jsonObject.put("duration", duration);
