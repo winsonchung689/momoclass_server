@@ -1277,7 +1277,7 @@ public class LoginServiceImpl implements LoginService {
         Date d = null;
         Integer weekDay=0;
 
-        List<User> list_user = dao.getUser(openid);
+        List<User> list_user = dao.getUserByOpenid(openid);
         String campus = list_user.get(0).getCampus();
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -1303,10 +1303,23 @@ public class LoginServiceImpl implements LoginService {
                 String duration = line.getDuration();
                 String subject = line.getSubject();
 
+                StringBuilder student_names = new StringBuilder();
+                for (int j = 0; j < list_user.size(); j++) {
+                    User user = list_user.get(j);
+                    String student_name = user.getStudent_name();
+                    List<Schedule> check_schedule = dao.getScheduleCheck(date_time,duration,class_number,subject,studio,campus,student_name);
+                    if(check_schedule.size() >= 1){
+                        student_names = student_names.append(student_name).append(",");
+                    }
+                }
+                student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
+
+
                 jsonObject.put("dayofweek", dayofweek);
                 jsonObject.put("duration", duration);
                 jsonObject.put("class_number", class_number);
                 jsonObject.put("subject", subject);
+                jsonObject.put("student_names", student_names);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
