@@ -561,6 +561,11 @@
     update class_schedule set delete_status = 1 where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and student_type ='ordinary' order by duration
   </select>
 
+  <!-- 取消约课 -->
+  <select id="cancelBook" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    update class_schedule set delete_status = 1 where add_date=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and  campus =#{param6} and student_type ='transferred' order by duration
+  </select>
+
   <select id="deleteBBookeDetail" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
     update book_detail set delete_status = 1 where id = #{param1}
   </select>

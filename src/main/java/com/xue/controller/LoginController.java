@@ -2032,6 +2032,20 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/cancelBook")
+	@ResponseBody
+	public int cancelBook(String studio,String student_name,String duration,String class_number,String subject,String openid,String add_date){
+		try {
+			List<User> list = dao.getUser(openid);
+			String campus = list.get(0).getCampus();
+			dao.cancelBook(add_date,duration,studio,class_number,subject,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/confirmSchedule")
 	@ResponseBody
 	public int confirmSchedule(Integer id,String role,String studio,String openid){

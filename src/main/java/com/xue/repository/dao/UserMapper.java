@@ -200,6 +200,8 @@ public interface UserMapper {
 
     void deleteScheduleByDate(Integer weekDay,String duration,String studio,String class_number,String subject);
 
+    void cancelBook(String add_date,String duration,String studio,String class_number,String subject,String campus);
+
     void deleteArrangement(Integer id,String studio);
 
     void deleteBBookeDetail(Integer id);
