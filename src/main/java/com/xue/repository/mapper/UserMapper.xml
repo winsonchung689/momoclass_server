@@ -1180,7 +1180,7 @@
 
   <!-- 插入通知 -->
   <insert id="insertAnnouncement" parameterType="com.xue.entity.model.Announcement">
-    insert announcement(studio,create_time,content,campus) values(#{studio},#{create_time},#{content},#{campus})
+    insert announcement(studio,create_time,content,campus,title) values(#{studio},#{create_time},#{content},#{campus},#{title})
   </insert>
 
   <!-- 插入课时 -->
@@ -1252,7 +1252,7 @@
   </select>
 
   <select id="getAnnouncement" parameterType="com.xue.entity.model.Announcement" resultMap="BaseAnnouncement">
-    select id,studio,create_time,content from announcement where studio =#{param1} order by create_time desc limit 30
+    select * from announcement where studio =#{param1} order by create_time desc limit 30
   </select>
 
   <!-- 获取课时 -->

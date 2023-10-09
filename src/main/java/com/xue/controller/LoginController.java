@@ -2098,7 +2098,7 @@ public class LoginController {
 
 	@RequestMapping("/insertAnnouncement")
 	@ResponseBody
-	public int insertAnnouncement(String studio,String content){
+	public int insertAnnouncement(String studio,String content,String title){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
@@ -2106,6 +2106,7 @@ public class LoginController {
 		announcement.setCreate_time(create_time);
 		announcement.setStudio(studio);
 		announcement.setContent(content);
+		announcement.setTitle(title);
 
 		try {
 			dao.insertAnnouncement(announcement);
