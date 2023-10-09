@@ -3754,12 +3754,57 @@ public class LoginController {
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
 					loginService.insertSchedule(schedule);
+					if("星期8".equals(weekofday)){
+						List<User> users = dao.getBossByStudio(studio);
+						for(int j=0;j<users.size();j++){
+							User user = users.get(j);
+							String openid_get = user.getOpenid();
+							sendBookSuccess(openid_get,duration,student_name,add_date,class_number);
+						}
+					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "push massage successfully";
+	}
+
+	public String sendBookSuccess(String openid, String duration, String student_name,String remindDay,String class_number){
+		String result = null;
+		String url_send = null;
+		String token = null;
+		String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MQMjxZmSoXPg2esFC0nJjL2D4wAmiZkF1mrdf76sDe4\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing3\":{\"value\": \"AA\"},\"time5\":{\"value\": \"time\"},\"thing7\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+		try {
+			token = loginService.getToken("MOMO_OFFICIAL");
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			List<User> users  = dao.getUser(openid);
+			if(users.size()>0){
+				User user = users.get(0);
+				String official_openid = user.getOfficial_openid();
+				String studio = user.getStudio();
+				if(official_openid != null){
+					String[] official_list = official_openid.split(",");
+					for(int j=0;j<official_list.length;j++){
+						String official_openid_get = official_list[j];
+						JSONObject queryJson2 = JSONObject.parseObject(tample6);
+						queryJson2.put("touser",official_openid_get);
+						queryJson2.getJSONObject("data").getJSONObject("thing3").put("value",class_number);
+						queryJson2.getJSONObject("data").getJSONObject("time5").put("value",remindDay + " " + duration.split("-")[0]);
+						queryJson2.getJSONObject("data").getJSONObject("thing7").put("value", student_name);
+
+						System.out.println("json2:" + queryJson2.toJSONString());
+						result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+						System.out.printf("res22:" + result);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	//	推送
