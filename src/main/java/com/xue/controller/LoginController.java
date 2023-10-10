@@ -3380,24 +3380,24 @@ public class LoginController {
 		//获取积极度
 		String positive_get = request.getParameter("positive");
 		if(positive_get == null || positive_get.isEmpty() || "undefined".equals(positive_get)){
-			positive_get = "1";
+			positive_get = "积极性_1";
 		}
-		Integer positive = Integer.parseInt(positive_get);
+//		Integer positive = Integer.parseInt(positive_get);
 
 
 		//获取纪律性
 		String discipline_get = request.getParameter("discipline");
 		if(discipline_get == null || discipline_get.isEmpty() || "undefined".equals(discipline_get)){
-			discipline_get = "1";
+			discipline_get = "纪律性_1";
 		}
-		Integer discipline = Integer.parseInt(discipline_get);
+//		Integer discipline = Integer.parseInt(discipline_get);
 
 		//获取开心值
 		String happiness_get = request.getParameter("happiness");
 		if(happiness_get == null || happiness_get.isEmpty() || "undefined".equals(happiness_get)){
-			happiness_get = "1";
+			happiness_get = "开心值_1";
 		}
-		Integer happiness = Integer.parseInt(happiness_get);
+//		Integer happiness = Integer.parseInt(happiness_get);
 
 
 		//获取音频路径
@@ -3478,9 +3478,9 @@ public class LoginController {
 		message.setClass_target_bak(class_target_bak);
 		message.setStudio(studio);
 		message.setDuration(duration);
-		message.setPositive(positive);
-		message.setDiscipline(discipline);
-		message.setHappiness(happiness);
+		message.setPositive(positive_get);
+		message.setDiscipline(discipline_get);
+		message.setHappiness(happiness_get);
 		message.setMp3_url(mp3_url);
 		message.setUuids(uuids);
 		message.setCampus(campus);

@@ -148,9 +148,9 @@ public class LoginServiceImpl implements LoginService {
         String class_target = null;
 		String studio = null;
 		String duration = null;
-		Integer positive = 0 ;
-        Integer discipline = 0;
-        Integer happiness = 0;
+        String positive = null ;
+        String discipline = null;
+        String happiness = null;
         String mp3_url=null;
         String uuids=null;
         String uuids_c=null;
@@ -229,9 +229,9 @@ public class LoginServiceImpl implements LoginService {
         String class_name = null;
         String class_target = null;
         String id = null;
-        Integer positive = 0 ;
-        Integer discipline = 0;
-        Integer happiness = 0;
+        String positive = null ;
+        String discipline = null;
+        String happiness = null;
         String mp3_url = null;
         String uuids = null;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -4543,9 +4543,9 @@ public class LoginServiceImpl implements LoginService {
         List<Message> list=new ArrayList<>();;
         List<User> users=null;
         String duration = null;
-        Integer positive = 0;
-        Integer discipline = 0;
-        Integer happiness = 0;
+        String positive = null;
+        String discipline = null;
+        String happiness = null;
         String mp3_url = null;
         StringBuilder student_names = new StringBuilder();
 

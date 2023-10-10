@@ -26,11 +26,11 @@ public class Message {
 
     private String duration;
 
-    private Integer positive;
+    private String positive;
 
-    private Integer discipline;
+    private String discipline;
 
-    private Integer happiness;
+    private String happiness;
 
     private String uuids;
 
@@ -70,27 +70,27 @@ public class Message {
         this.mp3_url = mp3_url;
     }
 
-    public Integer getPositive() {
+    public String getPositive() {
         return positive;
     }
 
-    public void setPositive(Integer positive) {
+    public void setPositive(String positive) {
         this.positive = positive;
     }
 
-    public Integer getDiscipline() {
+    public String getDiscipline() {
         return discipline;
     }
 
-    public void setDiscipline(Integer discipline) {
+    public void setDiscipline(String discipline) {
         this.discipline = discipline;
     }
 
-    public Integer getHappiness() {
+    public String getHappiness() {
         return happiness;
     }
 
-    public void setHappiness(Integer happiness) {
+    public void setHappiness(String happiness) {
         this.happiness = happiness;
     }
 
