@@ -187,7 +187,7 @@ public class LoginServiceImpl implements LoginService {
 
                 happiness = line.getHappiness();
                 String happiness_item = "开心值";
-                String[] happiness_list = discipline.split("_");
+                String[] happiness_list = happiness.split("_");
                 if(happiness_list.length>1){
                     happiness_item = happiness_list[0];
                     happiness = happiness_list[1];
@@ -294,7 +294,7 @@ public class LoginServiceImpl implements LoginService {
 
                 happiness = line.getHappiness();
                 String happiness_item = "开心值";
-                String[] happiness_list = discipline.split("_");
+                String[] happiness_list = happiness.split("_");
                 if(happiness_list.length>1){
                     happiness_item = happiness_list[0];
                     happiness = happiness_list[1];
