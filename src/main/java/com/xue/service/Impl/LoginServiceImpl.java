@@ -168,9 +168,31 @@ public class LoginServiceImpl implements LoginService {
                 class_target = line.getClass_target();
 				studio = line.getStudio();
                 duration = line.getDuration();
+
                 positive = line.getPositive();
+                String positve_item = "积极性";
+                String[] positive_list = positive.split("_");
+                if(positive_list.length>1){
+                    positve_item = positive_list[0];
+                    positive = positive_list[1];
+                }
+
                 discipline = line.getDiscipline();
+                String discipline_item = "纪律性";
+                String[] discipline_list = discipline.split("_");
+                if(discipline_list.length>1){
+                    discipline_item = discipline_list[0];
+                    discipline = discipline_list[1];
+                }
+
                 happiness = line.getHappiness();
+                String happiness_item = "开心值";
+                String[] happiness_list = discipline.split("_");
+                if(happiness_list.length>1){
+                    happiness_item = happiness_list[0];
+                    happiness = happiness_list[1];
+                }
+
                 mp3_url=line.getMp3_url();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
@@ -207,8 +229,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("duration", duration);
                 jsonObject.put("positive", positive);
+                jsonObject.put("positve_item", positve_item);
                 jsonObject.put("discipline", discipline);
+                jsonObject.put("discipline_item", discipline_item);
                 jsonObject.put("happiness", happiness);
+                jsonObject.put("happiness_item", happiness_item);
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("uuids_c", uuids_c);
@@ -247,13 +272,34 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 class_name = line.getClass_name();
                 comment = line.getComment();
-                photo = line.getPhoto();
                 class_target = line.getClass_target();
                 studio = line.getStudio();
                 duration = line.getDuration();
+
                 positive = line.getPositive();
+                String positve_item = "积极性";
+                String[] positive_list = positive.split("_");
+                if(positive_list.length>1){
+                    positve_item = positive_list[0];
+                    positive = positive_list[1];
+                }
+
                 discipline = line.getDiscipline();
+                String discipline_item = "纪律性";
+                String[] discipline_list = discipline.split("_");
+                if(discipline_list.length>1){
+                    discipline_item = discipline_list[0];
+                    discipline = discipline_list[1];
+                }
+
                 happiness = line.getHappiness();
+                String happiness_item = "开心值";
+                String[] happiness_list = discipline.split("_");
+                if(happiness_list.length>1){
+                    happiness_item = happiness_list[0];
+                    happiness = happiness_list[1];
+                }
+
                 id = line.getId();
                 mp3_url=line.getMp3_url();
                 try {
@@ -286,8 +332,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("duration", duration);
                 jsonObject.put("positive", positive);
+                jsonObject.put("positve_item", positve_item);
                 jsonObject.put("discipline", discipline);
+                jsonObject.put("discipline_item", discipline_item);
                 jsonObject.put("happiness", happiness);
+                jsonObject.put("happiness_item", happiness_item);
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
