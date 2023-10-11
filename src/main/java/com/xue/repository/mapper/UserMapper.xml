@@ -464,7 +464,7 @@
 
   <!-- 刪除课程表 -->
   <select id="deleteScheduleBySubject" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
-    update class_schedule set delete_status = 1 where student_name =#{param1} and studio =#{param2} and subject =#{param3};
+    update class_schedule set delete_status = 1 where student_name =#{param1} and studio =#{param2} and subject =#{param3} and campus =#{param4}
   </select>
 
   <!-- 确认课程 -->
@@ -488,6 +488,10 @@
 
   <select id="deleteLessonPackage" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseResultMap">
     update lesson_package set delete_status = 1 where id =#{param1}
+  </select>
+
+  <select id="deleteLessonPackageByName" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseResultMap">
+    update lesson_package set delete_status = 1 where student_name =#{param1} and studio =#{param2} and subject =#{param3} and campus =#{param4}
   </select>
 
   <!-- 获取课程表 -->

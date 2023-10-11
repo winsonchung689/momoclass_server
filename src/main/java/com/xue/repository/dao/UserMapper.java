@@ -268,7 +268,7 @@ public interface UserMapper {
 
     void deleteSchedule(Integer id,String studio);
 
-    void deleteScheduleBySubject(String student_name,String studio,String subject);
+    void deleteScheduleBySubject(String student_name,String studio,String subject,String campus);
 
     void confirmSchedule(Integer id,String studio);
 
@@ -279,6 +279,8 @@ public interface UserMapper {
     void recoverLesson(Integer id,String studio,String create_time);
 
     void deleteLessonPackage(Integer id);
+
+    void deleteLessonPackageByName(String student_name,String studio,String subject,String campus);
 
     //插入
     int insertUser(User user);

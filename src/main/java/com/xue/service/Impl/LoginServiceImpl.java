@@ -1973,10 +1973,12 @@ public class LoginServiceImpl implements LoginService {
             List<Lesson> lessons = dao.getLessonById(id);
             Lesson lesson = lessons.get(0);
             String subject = lesson.getSubject();
+            String campus = lesson.getCampus();
 
             if ( studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio,today_time);
-                dao.deleteScheduleBySubject(student_name,studio,subject);
+                dao.deleteScheduleBySubject(student_name,studio,subject,campus);
+                dao.deleteLessonPackageByName(student_name,studio,subject,campus);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }
