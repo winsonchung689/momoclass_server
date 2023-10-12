@@ -6767,6 +6767,7 @@ public class LoginServiceImpl implements LoginService {
                 DecimalFormat df = new DecimalFormat("0.00");
 
                 //json
+                jsonObject.put("price", price);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
