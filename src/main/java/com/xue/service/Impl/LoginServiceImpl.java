@@ -2035,7 +2035,7 @@ public class LoginServiceImpl implements LoginService {
             String studio = user.getStudio();
             String md5 = DigestUtils.md5Hex(nick_name + studio);
             if(result == 0 && !openid.equals(md5)){
-                result = dao.updateOpenid(user);
+//                result = dao.updateOpenid(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
