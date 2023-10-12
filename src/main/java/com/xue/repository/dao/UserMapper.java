@@ -282,6 +282,8 @@ public interface UserMapper {
 
     void deleteLessonPackageByName(String student_name,String studio,String subject,String campus);
 
+    void recoverLessonPackageByName(String student_name,String studio,String subject,String campus);
+
     //插入
     int insertUser(User user);
 

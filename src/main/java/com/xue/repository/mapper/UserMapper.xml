@@ -494,6 +494,10 @@
     update lesson_package set delete_status = 1 where student_name =#{param1} and studio =#{param2} and subject =#{param3} and campus =#{param4}
   </select>
 
+  <select id="recoverLessonPackageByName" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseResultMap">
+    update lesson_package set delete_status = 0 where student_name =#{param1} and studio =#{param2} and subject =#{param3} and campus =#{param4}
+  </select>
+
   <!-- 获取课程表 -->
   <select id="getClassNumber" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select id,dayofweek,class_number,duration,limits,photo,studio from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and duration =#{param3} and delete_status = 0 order by class_number

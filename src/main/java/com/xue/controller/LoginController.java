@@ -2882,8 +2882,15 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String today_time = df.format(new Date());
 		try {
+			List<Lesson> lessons = dao.getLessonById(id);
+			Lesson lesson = lessons.get(0);
+			String subject = lesson.getSubject();
+			String campus = lesson.getCampus();
+			String student_name = lesson.getStudent_name();
+
 			if("恢复".equals(type)){
 				dao.recoverLesson(id,studio,today_time);
+				dao.recoverLessonPackageByName(student_name,studio,subject,campus);
 			}else if("永久删除".equals(type)){
 				dao.deleteLessonForever(id,studio);
 			}
