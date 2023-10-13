@@ -113,7 +113,7 @@ public class LoginController {
 
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
-	public String sendConsumeLesson(String token, String openid,String studio, String consume_lesson_amount,String student_name, String mytime,String mark,String subject){
+	public String sendConsumeLesson(String openid,String consume_lesson_amount,String student_name,String subject){
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4D6MI0A6Vc7eV33zAdq1Kew\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
@@ -121,7 +121,7 @@ public class LoginController {
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String campus = user.getCampus();
-		studio = user.getStudio();
+		String studio = user.getStudio();
 		String official_openid = user.getOfficial_openid();
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
@@ -132,7 +132,7 @@ public class LoginController {
 		}
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
+			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			if(official_openid != null){
 			String[] official_list = official_openid.split(",");
