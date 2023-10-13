@@ -3787,9 +3787,7 @@ public class LoginServiceImpl implements LoginService {
 
             //获取当前时间
             String now_date = df_now.format(new Date()).split(" ")[0];
-
             String now_time = df_now.format(new Date()).split(" ")[1];
-            String now_time_end = df_now.format(new Date(new Date().getTime() + 5 * 60000)).split(" ")[1];
 
             try {
                 Date today_dt = df.parse(now_date.substring(0,10));
@@ -3851,7 +3849,6 @@ public class LoginServiceImpl implements LoginService {
 
             Integer weekDay = 0;
             String date_time = null;
-
             //上课通知
             if(!"no_name".equals(student_name)){
                 if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
