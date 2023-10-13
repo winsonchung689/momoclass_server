@@ -1037,15 +1037,15 @@
     update user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
 
-  <update id="updateLessonAge" parameterType="com.xue.entity.model.Lesson">
+  <update id="updateLessonAgeById" parameterType="com.xue.entity.model.Lesson">
     update lesson set age=#{param2} where id = #{param1}
   </update>
 
-  <update id="updateLessonSubject" parameterType="com.xue.entity.model.Lesson">
+  <update id="updateLessonSubjectById" parameterType="com.xue.entity.model.Lesson">
     update lesson set subject=#{param2} where id = #{param1}
   </update>
 
-  <update id="updateLessonCampus" parameterType="com.xue.entity.model.Lesson">
+  <update id="updateLessonCampusById" parameterType="com.xue.entity.model.Lesson">
     update lesson set campus=#{param2} where id = #{param1}
   </update>
 

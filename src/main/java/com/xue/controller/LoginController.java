@@ -2704,11 +2704,11 @@ public class LoginController {
 
 		try {
 			if("阶段".equals(modifyHead)){
-				dao.updateLessonAge(id,content);
+				dao.updateLessonAgeById(id,content);
 			}else if("科目".equals(modifyHead)){
-				dao.updateLessonSubject(id,content);
+				dao.updateLessonSubjectById(id,content);
 			}else if("校区".equals(modifyHead)){
-				dao.updateLessonCampus(id,content);
+				dao.updateLessonCampusById(id,content);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
