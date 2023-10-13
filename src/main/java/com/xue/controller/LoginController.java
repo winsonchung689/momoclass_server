@@ -4537,12 +4537,6 @@ public class LoginController {
 			// 获取type
 			String modify_type = request.getParameter("modify_type");
 
-			if("subject_modify".equals(modify_type)) {
-				String id = request.getParameter("id");
-				dao.updateLessonSubject(subject_new,id,studio,subject,campus);
-				return "push massage successfully";
-			}
-
 			String all_lesson = request.getParameter("all_lesson");
 			if(all_lesson == null || all_lesson.isEmpty() || "undefined".equals(all_lesson)){
 				all_lesson = "0";
@@ -4602,10 +4596,6 @@ public class LoginController {
 				dao.updateLessonMinus(minus,studio,student_name,campus,subject);
 			}
 
-			// 获取新名字
-			String student_name_new = request.getParameter("student_name_new");
-
-			String campus_new = request.getParameter("campus_new");
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 
@@ -4638,15 +4628,6 @@ public class LoginController {
 			}else if ("0".equals(left_amount_get) && "left_modify".equals(modify_type)){
 				left_amount = 0.0f;
 				dao.updateLessonLeft(left_amount,studio,student_name,campus,subject);
-			}
-
-			if("campus_modify".equals(modify_type)){
-				dao.updateLessonCampus(studio,student_name,campus_new);
-				dao.updateSignUpCampus(studio,student_name,campus_new);
-				dao.updateGiftCampus(studio,student_name,campus_new);
-				dao.updateNoteCampus(studio,student_name,campus_new);
-				dao.updateLeaveCampus(studio,student_name,campus_new);
-				return "campus changed" ;
 			}
 
 			String m_type = request.getParameter("m_type");
@@ -4717,12 +4698,8 @@ public class LoginController {
 			lesson.setTotal_money(Float.parseFloat(total_money));
 			lesson.setDiscount_money(Float.parseFloat(discount_money));
 
-			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
-			if(!student_name_new.isEmpty()){
-				dao.updateScheduleName(student_name_new,student_name,studio,campus,subject);
-				dao.updateLessonName(student_name_new,student_name,studio,campus,subject);
-				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus,subject);
-			}else if(lessons.size()>0){
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+			if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					if("积分".equals(m_type)){
 						dao.updateCoinsAll(coins_amount,studio,campus);
