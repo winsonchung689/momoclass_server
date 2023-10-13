@@ -258,6 +258,7 @@ public class LoginServiceImpl implements LoginService {
         String happiness = null;
         String mp3_url = null;
         String uuids = null;
+        String uuids_c=null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -306,6 +307,13 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
+
+                try {
+                    uuids_c = line.getUuids_c().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
                 photo = line.getPhoto();
                 if(uuids != null){
                     photo = null;
