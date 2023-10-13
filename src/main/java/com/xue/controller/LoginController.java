@@ -1362,10 +1362,10 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/getDetailsUrlByDate")
 	@ResponseBody
-	public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid){
+	public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid,String class_target){
 		List list = null;
 		try {
-			list = loginService.getDetailsUrlByDate(studio,duration,student_name,date_time,openid);
+			list = loginService.getDetailsUrlByDate(studio,duration,student_name,date_time,openid,class_target);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

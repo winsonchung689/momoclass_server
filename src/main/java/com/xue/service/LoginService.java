@@ -78,7 +78,7 @@ public interface LoginService {
 
     public List  getDetails(Integer id);
 
-    public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid);
+    public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid,String class_target);
 
     public List  getSearch(String student_name,String studio,Integer page,String class_target,String campus);
 

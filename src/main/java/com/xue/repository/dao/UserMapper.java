@@ -154,7 +154,7 @@ public interface UserMapper {
 
     List<PostLike> getPostLikeByOpenid(String post_id,String openid);
 
-    List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus);
+    List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus,String class_target_bak);
 
     //插入
     int insertBook(Book book);
