@@ -6379,6 +6379,7 @@ public class LoginServiceImpl implements LoginService {
                 String final_time = line.getFinal_time();
                 Float leave_times = line.getLeave_times();
                 Integer delete_status = line.getDelete_status();
+                String age = line.getAge();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -6444,6 +6445,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("leave_times", leave_times);
                     jsonObject.put("delete_status", delete_status);
+                    jsonObject.put("age", age);
                     jsonObject.put("official_status", "未关注");
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
@@ -6483,6 +6485,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("left_money", df.format(left_money));
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("delete_status", delete_status);
+                    jsonObject.put("age", age);
                     jsonObject.put("official_status", "未关注");
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
@@ -6576,6 +6579,7 @@ public class LoginServiceImpl implements LoginService {
                 campus =line.getCampus();
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
+                String age = line.getAge();
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
@@ -6632,6 +6636,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("delete_status", delete_status);
+                jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
                 if(official_openid != null){
                     jsonObject.put("official_status", "已关注");
@@ -6737,6 +6742,7 @@ public class LoginServiceImpl implements LoginService {
                 campus =line.getCampus();
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
+                String age = line.getAge();
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
@@ -6793,6 +6799,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("delete_status", delete_status);
+                jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
                 if(official_openid != null){
                     jsonObject.put("official_status", "已关注");

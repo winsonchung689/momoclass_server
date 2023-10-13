@@ -38,6 +38,18 @@ public class Lesson {
 
     private Float leave_times;
 
+    private String age;
+
+
+
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public Integer getDelete_status() {
         return delete_status;
