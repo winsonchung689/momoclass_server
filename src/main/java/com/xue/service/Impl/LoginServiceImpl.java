@@ -1132,13 +1132,13 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("comment_status", "课评");
                     jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus);
+                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus,"课评");
                     if (messages.size() >= 1) {
                         if (messages.get(0).getDuration().equals("00:00-00:00")) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                         } else {
-                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
+                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
                             if (messagesDuration.size() == 1) {
                                 jsonObject.put("comment_status", "已课评");
                                 jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
@@ -1230,13 +1230,13 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time,campus);
+                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time,campus,"课评");
                 if (messages.size()>=1){
                     if(messages.get(0).getDuration().equals("00:00-00:00")){
                         jsonObject.put("comment_status", "已课评");
                         jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     }else {
-                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
+                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
@@ -1524,10 +1524,6 @@ public class LoginServiceImpl implements LoginService {
                 student_type = line.getStudent_type();
                 subject = line.getSubject();
                 remind = line.getRemind();
-                String role = "visit";
-                String lesson_string = null;
-                List<String> list_2 = null;
-                Integer contains = 0;
 
                 jsonObject.put("student_type", student_type);
                 jsonObject.put("subject", subject);
@@ -1538,17 +1534,28 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus);
+                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus,"课评");
                 if (messages.size() >= 1) {
                     if (messages.get(0).getDuration().equals("00:00-00:00")) {
                         jsonObject.put("comment_status", "已课评");
                         jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                     } else {
-                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus);
+                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
                         if (messagesDuration.size() == 1) {
                             jsonObject.put("comment_status", "已课评");
                             jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
                         }
+                    }
+                }
+
+                jsonObject.put("homework_status", "作业");
+                jsonObject.put("homework_color", "rgb(157, 162, 165)");
+                List<Message> homeworks = dao.getCommentByDate(student_name, studio, date_time,campus,"课后作业");
+                if (homeworks.size() >= 1) {
+                    List<Message> homeworksDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课后作业");
+                    if (homeworksDuration.size() == 1) {
+                        jsonObject.put("homework_status", "已发");
+                        jsonObject.put("homework_color", "rgba(162, 106, 214, 0.849)");
                     }
                 }
 

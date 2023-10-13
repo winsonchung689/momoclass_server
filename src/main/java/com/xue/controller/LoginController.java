@@ -1218,7 +1218,7 @@ public class LoginController {
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = dao.getCommentByDateDuration(student_name,studio,date_time,duration,campus);
+			list = dao.getCommentByDateDuration(student_name,studio,date_time,duration,campus,"课评");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
