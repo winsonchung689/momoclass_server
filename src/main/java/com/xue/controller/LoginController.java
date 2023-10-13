@@ -3384,7 +3384,13 @@ public class LoginController {
 								if(!give_lesson.isEmpty()){
 									lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 								}
+							}else if(15==j){
+								String age =cell.getContents();
+								if(!age.isEmpty()){
+									lesson.setAge(age);
+								}
 							}
+
 						}
 					}
 				} catch (NumberFormatException e) {
