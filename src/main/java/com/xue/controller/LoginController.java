@@ -162,7 +162,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPostRemind")
 	@ResponseBody
-	public String sendPostRemind(String openid, String classname,String studentname,String class_number,String duration){
+	public String sendPostRemind(String openid, String class_name,String student_name,String class_number,String duration){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		String result = null;
@@ -186,7 +186,7 @@ public class LoginController {
 					JSONObject queryJson = JSONObject.parseObject(model);
 					queryJson.put("touser",official_openid_get);
 					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",class_number);
-					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",classname + "_" + studentname);
+					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_name + "_" + student_name);
 					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",duration);
 					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",create_time);
 					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_number.split("_")[1]);
