@@ -3791,17 +3791,7 @@ public class LoginServiceImpl implements LoginService {
             String now_time = df_now.format(new Date()).split(" ")[1];
             String now_time_end = df_now.format(new Date(new Date().getTime() + 5 * 60000)).split(" ")[1];
 
-            long now_time_timestamp;
-            long now_time_end_timestamp;
-            long send_time_timestamp;
             try {
-                Date timestamp1 = df_now.parse( "2023-01-01 " + now_time);
-                Date timestamp2 = df_now.parse( "2023-01-01 " + now_time_end);
-                Date timestamp3 = df_now.parse( "2023-01-01 " + send_time);
-                now_time_timestamp = timestamp1.getTime();
-                now_time_end_timestamp = timestamp2.getTime();
-                send_time_timestamp = timestamp3.getTime();
-
                 Date today_dt = df.parse(now_date.substring(0,10));
                 Date expired_dt = df.parse(expried_time.substring(0,10));
                 Long day2 = expired_dt.getTime();
@@ -4053,8 +4043,38 @@ public class LoginServiceImpl implements LoginService {
 
                     }
                 }
+            }
+
+            //续课通知
+            List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
+            if(lessons.size()>0){
+                for(int ii = 0;ii < lessons.size(); ii ++){
+                    Lesson lesson = lessons.get(ii);
+                    Float left_amount = lesson.getLeft_amount();
+                    String subject = lesson.getSubject();
+                    String student_lesson = lesson.getStudent_name();
+                    String student_split = student_lesson.split("_")[0];
+                    if(student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)){
+                        String token = getToken("MOMO_OFFICIAL");
+                        String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                        if(official_openid != null){
+                            String[] official_list = official_openid.split(",");
+                            for(int j=0;j<official_list.length;j++){
+                                String official_openid_get = official_list[j];
+                                JSONObject queryJson2 = JSONObject.parseObject(tample14);
+                                queryJson2.put("touser",official_openid_get);
+                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value",studio + "_" + subject);
+                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value",student_lesson + "剩下"+ left_amount +"课时");
+                                queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value","请及时续课");
+                                result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                                System.out.printf("res:" + result);
+                            }
+                        }
+
+                    }
 
 
+                }
             }
         }
     }
