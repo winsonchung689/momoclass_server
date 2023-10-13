@@ -162,7 +162,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPostRemind")
 	@ResponseBody
-	public String sendPostRemind(String token, String openid, String classname,String studentname, String mytime,String class_number,String duration){
+	public String sendPostRemind(String openid, String classname,String studentname,String class_number,String duration){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		String result = null;
@@ -177,7 +177,7 @@ public class LoginController {
 		String official_openid = user.getOfficial_openid();
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
+			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			if(official_openid != null){
 				String[] official_list = official_openid.split(",");
@@ -229,7 +229,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendSignUpRemind(String token, String openid, String total, String left,String student_name,String date_time,String class_count,String studio,String subject,String class_number){
+	public String sendSignUpRemind(String openid,String student_name,String date_time,String class_count,String subject,String class_number){
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
@@ -237,12 +237,16 @@ public class LoginController {
 		User user = users.get(0);
 		String campus = user.getCampus();
 		String official_openid = user.getOfficial_openid();
-		studio = user.getStudio();
+		String studio = user.getStudio();
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		Float count = 0.0f;
+		Float left = 0.0f;
+		Float total = 0.0f;
 		if(lessons.size()>0){
 			count = lessons.get(0).getMinus();
+			left = lessons.get(0).getLeft_amount();
+			total = lessons.get(0).getTotal_amount();
 		}
 
 		if(Float.parseFloat(class_count) != 100){
@@ -252,7 +256,7 @@ public class LoginController {
 		String thing8 = "本次扣课" + count + "课时，总课时" + total + "课时";
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
+			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			if(official_openid != null){
 				String[] official_list = official_openid.split(",");
