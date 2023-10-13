@@ -2709,6 +2709,8 @@ public class LoginController {
 				dao.updateLessonSubjectById(id,content);
 			}else if("校区".equals(modifyHead)){
 				dao.updateLessonCampusById(id,content);
+			}else if("学生名".equals(modifyHead)){
+				dao.updateLessonStudentNameById(id,content);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

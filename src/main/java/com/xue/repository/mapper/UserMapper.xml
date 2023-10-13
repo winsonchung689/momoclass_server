@@ -1041,6 +1041,10 @@
     update lesson set age=#{param2} where id = #{param1}
   </update>
 
+  <update id="updateLessonStudentNameById" parameterType="com.xue.entity.model.Lesson">
+    update lesson set student_name=#{param2} where id = #{param1}
+  </update>
+
   <update id="updateLessonSubjectById" parameterType="com.xue.entity.model.Lesson">
     update lesson set subject=#{param2} where id = #{param1}
   </update>

@@ -302,6 +302,8 @@ public interface UserMapper {
 
     int updateLessonSubjectById(String id,String subject);
 
+    int updateLessonStudentNameById(String id,String student_name);
+
     int updateLessonCampusById(String id,String subject);
 
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
