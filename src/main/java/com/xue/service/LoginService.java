@@ -60,7 +60,7 @@ public interface LoginService {
 
     public List  getGoneStudent(String studio,String campus);
 
-    public List  getLessonInName(String studio,String student_name,Integer page,String subject,String campus);
+    public List  getLessonInName(String studio,String student_name,Integer page,String subject,String openid);
 
     public List  getGoodsList(String studio,Integer page,String campus);
 

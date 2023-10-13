@@ -4621,7 +4621,18 @@ public class LoginServiceImpl implements LoginService {
                 for (int i = 0; i < users.size(); i++) {
                     User line = users.get(i);
                     student_name_get = line.getStudent_name();
-                    student_names = student_names.append(student_name_get).append(",");
+                    List<Lesson> lessons = dao.getLessonLikeName(studio,student_name_get,campus);
+                    if(lessons.size()>0){
+                        for(int ii = 0;ii < lessons.size(); ii ++){
+                            Lesson lesson = lessons.get(ii);
+                            String student_lesson = lesson.getStudent_name();
+                            String student_split = student_lesson.split("_")[0];
+                            if(student_split.equals(student_name_get)){
+                                student_names = student_names.append(student_lesson).append(",");
+                            }
+
+                        }
+                    }
                 }
                 student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
@@ -6829,7 +6840,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonInName(String studio, String student_name,Integer page,String subject,String campus) {
+    public List getLessonInName(String studio, String student_name,Integer page,String subject,String openid) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
         String create_time = null;
@@ -6840,16 +6851,41 @@ public class LoginServiceImpl implements LoginService {
         Integer page_length = 10;
         List<Lesson> list = null;
         List<Message> list_student = null;
-        List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
+        List<JSONObject> resul_list = new ArrayList<>();
         String subject_get = null;
+        StringBuilder student_names = new StringBuilder();
+        String student_name_get = null;
+
+        List<User> users = dao.getUserByOpenid(openid);
+        String campus = users.get(0).getCampus();
+        if(users.size()>0){
+            for (int i = 0; i < users.size(); i++) {
+                User line = users.get(i);
+                student_name_get = line.getStudent_name();
+                List<Lesson> lessons = dao.getLessonLikeName(studio,student_name_get,campus);
+                if(lessons.size()>0){
+                    for(int ii = 0;ii < lessons.size(); ii ++){
+                        Lesson lesson = lessons.get(ii);
+                        String student_lesson = lesson.getStudent_name();
+                        String student_split = student_lesson.split("_")[0];
+                        if(student_split.equals(student_name_get)){
+                            student_names = student_names.append(student_lesson).append(",");
+                        }
+
+                    }
+                }
+            }
+            student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
+        }
+
 
         try {
             if (length>1) {
                 if("全科目".equals(subject)){
-                    list = dao.getLessonInName(studio,student_name,page_start,page_length,campus);
+                    list = dao.getLessonInName(studio,student_names.toString(),page_start,page_length,campus);
                 }else {
-                    list = dao.getLessonInNameBySubject(studio,student_name,page_start,page_length,subject,campus);
+                    list = dao.getLessonInNameBySubject(studio,student_names.toString(),page_start,page_length,subject,campus);
                 }
 
             }else {
