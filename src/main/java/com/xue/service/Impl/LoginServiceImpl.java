@@ -346,6 +346,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("happiness_item", happiness_item);
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("uuids_c", uuids_c);
                 resul_list.add(jsonObject);
             }
 
