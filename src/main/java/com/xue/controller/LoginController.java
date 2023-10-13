@@ -2691,6 +2691,29 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/modifyLesson")
+	@ResponseBody
+	public int modifyLesson(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String id = request.getParameter("id");
+
+		String content = request.getParameter("content");
+
+		String modifyHead = request.getParameter("modifyHead");
+
+		try {
+			if("阶段".equals(modifyHead)){
+				dao.updateLessonAge(id,content);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody

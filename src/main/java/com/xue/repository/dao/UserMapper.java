@@ -298,6 +298,8 @@ public interface UserMapper {
 
     int updateAvatar(User user);
 
+    int updateLessonAge(String id,String age);
+
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 
     int updateBookAvatar(BookUser bookUser);

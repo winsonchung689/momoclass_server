@@ -1037,6 +1037,10 @@
     update user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
 
+  <update id="updateLessonAge" parameterType="com.xue.entity.model.Lesson">
+    update lesson set age=#{param2} where id = #{param1}
+  </update>
+
   <update id="updateRestaurantAvatar" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set avatarurl=#{avatarurl} where openid = #{openid}
   </update>
