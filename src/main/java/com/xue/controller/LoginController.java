@@ -2702,6 +2702,13 @@ public class LoginController {
 
 		String modifyHead = request.getParameter("modifyHead");
 
+		List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id));
+		Lesson lesson = lessons.get(0);
+		String studio = lesson.getStudio();
+		String student_name = lesson.getStudent_name();
+		String campus = lesson.getCampus();
+		String subject = lesson.getSubject();
+
 		try {
 			if("阶段".equals(modifyHead)){
 				dao.updateLessonAgeById(id,content);
@@ -2709,8 +2716,15 @@ public class LoginController {
 				dao.updateLessonSubjectById(id,content);
 			}else if("校区".equals(modifyHead)){
 				dao.updateLessonCampusById(id,content);
+				dao.updateSignUpCampus(studio,student_name,content);
+				dao.updateGiftCampus(studio,student_name,content);
+				dao.updateNoteCampus(studio,student_name,content);
+				dao.updateLeaveCampus(studio,student_name,content);
 			}else if("学生名".equals(modifyHead)){
 				dao.updateLessonStudentNameById(id,content);
+				dao.updateScheduleName(content,student_name,studio,campus,subject);
+				dao.updateLessonName(content,student_name,studio,campus,subject);
+				dao.updateSignUpRecordName(content,student_name,studio,campus,subject);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4706,11 +4720,8 @@ public class LoginController {
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			if(!student_name_new.isEmpty()){
 				dao.updateScheduleName(student_name_new,student_name,studio,campus,subject);
-//				dao.updateCommentName(student_name_new,student_name,studio,campus,subject);
-//				dao.updateGiftRecordName(student_name_new,student_name,studio,campus,subject);
 				dao.updateLessonName(student_name_new,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(student_name_new,student_name,studio,campus,subject);
-//				dao.updateUserStudent(student_name_new,student_name,studio,campus,subject);
 			}else if(lessons.size()>0){
 				if("coins_modify_all".equals(modify_type)){
 					if("积分".equals(m_type)){
