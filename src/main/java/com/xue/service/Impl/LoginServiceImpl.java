@@ -247,7 +247,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid,String class_target) {
+    public List getDetailsUrlByDate(String studio, String duration, String student_name, String date_time,String openid,String class_target_bak) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
         String comment = null;
@@ -263,7 +263,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list_user = dao.getUser(openid);
             String campus = list_user.get(0).getCampus();
-            List<Message> list = dao.getDetailsUrlByDate(studio,duration,student_name,date_time,campus,class_target);
+            List<Message> list = dao.getDetailsUrlByDate(studio,duration,student_name,date_time,campus,class_target_bak);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
@@ -271,7 +271,7 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 class_name = line.getClass_name();
                 comment = line.getComment();
-                class_target = line.getClass_target();
+                String class_target = line.getClass_target();
                 studio = line.getStudio();
                 duration = line.getDuration();
 
