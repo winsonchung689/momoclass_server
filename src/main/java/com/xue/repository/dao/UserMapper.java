@@ -300,6 +300,10 @@ public interface UserMapper {
 
     int updateLessonAge(String id,String age);
 
+    int updateLessonSubject(String id,String subject);
+
+    int updateLessonCampus(String id,String subject);
+
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 
     int updateBookAvatar(BookUser bookUser);

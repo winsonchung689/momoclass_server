@@ -2705,6 +2705,10 @@ public class LoginController {
 		try {
 			if("阶段".equals(modifyHead)){
 				dao.updateLessonAge(id,content);
+			}else if("科目".equals(modifyHead)){
+				dao.updateLessonSubject(id,content);
+			}else if("校区".equals(modifyHead)){
+				dao.updateLessonCampus(id,content);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
