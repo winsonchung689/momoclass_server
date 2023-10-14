@@ -677,7 +677,7 @@
 
   <!-- 插入沟通记录 -->
   <insert id="insertCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord">
-    insert communicate_record(student_name,studio,campus,content,openid,create_time) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time})
+    insert communicate_record(student_name,studio,campus,content,openid,create_time,uuids) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time},#{uuids})
   </insert>
 
   <!-- 插入课评 -->

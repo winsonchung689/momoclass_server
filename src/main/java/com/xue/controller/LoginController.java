@@ -3702,6 +3702,7 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String content = request.getParameter("content");
 		String class_target = request.getParameter("class_target");
+		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 		String nick_name = list_user.get(0).getNick_name();
@@ -3728,6 +3729,7 @@ public class LoginController {
 			communicateRecord.setContent(content);
 			communicateRecord.setOpenid(nick_name);
 			communicateRecord.setCreate_time(create_time);
+			communicateRecord.setUuids(uuids);
 			try {
 				dao.insertCommunicateRecord(communicateRecord);
 			} catch (Exception e) {
