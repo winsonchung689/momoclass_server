@@ -4649,9 +4649,9 @@ public class LoginServiceImpl implements LoginService {
                             }
 
                         }
+                        student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
                     }
                 }
-                student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
 
             if(comment_style.equals("self")&&role.equals("client")){
