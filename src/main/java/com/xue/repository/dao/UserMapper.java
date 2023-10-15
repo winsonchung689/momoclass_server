@@ -400,6 +400,8 @@ public interface UserMapper {
 
     int updateSignUpCampus(String studio,String student_name,String campus);
 
+    int updateSignUpSubject(String studio,String student_name,String campus,String subject,String new_subject);
+
     int updateGiftCampus(String studio,String student_name,String campus);
 
     int updateNoteCampus(String studio,String student_name,String campus);
