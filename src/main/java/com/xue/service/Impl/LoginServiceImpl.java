@@ -6889,11 +6889,10 @@ public class LoginServiceImpl implements LoginService {
                         if(student_split.equals(student_name_get)){
                             student_names = student_names.append(student_lesson).append(",");
                         }
-
                     }
+                    student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
                 }
             }
-            student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
         }
 
 
