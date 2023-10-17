@@ -835,7 +835,7 @@ public class LoginServiceImpl implements LoginService {
 
         Calendar cal = Calendar.getInstance();
         String end_time = df.format(cal.getTime());
-        cal.add(Calendar.DATE,-7);
+        cal.add(Calendar.DATE,-6);
         String start_time = df.format(cal.getTime());
 
 
