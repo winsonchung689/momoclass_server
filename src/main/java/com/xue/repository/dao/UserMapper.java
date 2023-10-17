@@ -612,7 +612,7 @@ public interface UserMapper {
 
     Integer getClassesCountByStudent(String studio,String subject,String campus,String student_name);
 
-    Integer getSignUpCountByDay(String studio,String date,String duration,String class_number,String campus);
+    Integer getSignUpCountByDay(String studio,String date,String duration,String class_number,String campus,String subject);
 
     List<Lesson> getRating(String studio,Integer page_start,Integer page_end,String campus);
 

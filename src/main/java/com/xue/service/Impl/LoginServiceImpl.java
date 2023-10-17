@@ -857,9 +857,10 @@ public class LoginServiceImpl implements LoginService {
                     Schedule schedule = schedules.get(i);
                     String duration = schedule.getDuration();
                     String class_number = schedule.getClass_number();
+                    subject = schedule.getSubject();
 
                     int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
-                    int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus);
+                    int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
                     String result = class_number + "_" + classes_count + "_" + sign_count;
 
                     if(sign_count< classes_count){
