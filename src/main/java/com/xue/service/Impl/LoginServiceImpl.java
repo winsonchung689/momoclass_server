@@ -4541,15 +4541,32 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonPackage(String student_name, String studio,String campus,String subject) {
+    public List getLessonPackage(String student_name, String studio,String campus,String subject,String search_type,String duration_time) {
         Float total_money = 0.0f;
         Float discount_money = 0.0f;
         Float all_lesson = 0.0f;
         Float give_lesson = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
+        List<LessonPackage> list = null;
+        String start_time = duration_time.split("_")[0];
+        String end_time = duration_time.split("_")[1];
         try {
 
-            List<LessonPackage> list = dao.getLessonPackage(student_name,studio,campus,subject);
+            if("个人".equals(search_type)){
+                if("无".equals(start_time)){
+                    list = dao.getLessonPackage(student_name,studio,campus,subject);
+                }else {
+                    list = dao.getLessonPackageByDuration(student_name,studio,campus,subject,start_time,end_time);
+                }
+            } else if ("全部".equals(search_type)) {
+                if("无".equals(start_time)){
+                    list = dao.getLessonPackageAll(studio,campus,subject);
+                }else {
+                    list = dao.getLessonPackageByDurationAll(studio,campus,subject,start_time,end_time);
+                }
+            }
+
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);

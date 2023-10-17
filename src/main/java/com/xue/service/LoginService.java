@@ -224,7 +224,7 @@ public interface LoginService {
 
     public List  getLessonByName(String student_name,String studio,String campus);
 
-    public List  getLessonPackage(String student_name,String studio,String campus,String subject);
+    public List  getLessonPackage(String student_name,String studio,String campus,String subject,String search_type,String duration_time);
 
     public List  getLessonByNameSubject(String student_name,String studio,String subject,String campus);
 
