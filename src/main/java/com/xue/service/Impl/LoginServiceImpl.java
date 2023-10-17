@@ -4542,10 +4542,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getLessonPackage(String student_name, String studio,String campus,String subject,String search_type,String duration_time) {
-        Float total_money = 0.0f;
-        Float discount_money = 0.0f;
-        Float all_lesson = 0.0f;
-        Float give_lesson = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
         List<LessonPackage> list = null;
         String start_time = duration_time.split("_")[0];
@@ -4566,19 +4562,19 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);
                 //获取字段
-                total_money = line.getTotal_money();
-                discount_money = line.getDiscount_money();
+                Float total_money = line.getTotal_money();
+                Float discount_money = line.getDiscount_money();
                 String mark = line.getMark();
                 String start_date = line.getStart_date();
                 String end_date = line.getEnd_date();
                 String id = line.getId();
-                all_lesson = line.getAll_lesson();
-                give_lesson = line.getGive_lesson();
+                Float all_lesson = line.getAll_lesson();
+                Float give_lesson = line.getGive_lesson();
+                student_name  = line.getStudent_name();
 
                 //json
                 jsonObject.put("student_name", student_name);
