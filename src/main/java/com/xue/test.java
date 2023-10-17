@@ -10,56 +10,37 @@ public class test {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
-//        Calendar cal = Calendar.getInstance();
-//        cal.add(Calendar.DATE,+1);
-//        Integer weekDay_tomorrow = cal.get(Calendar.DAY_OF_WEEK);
-//        String date_time = df.format(cal.getTime());
-//        String now_time = df_now.format(new Date()).split(" ")[1];
-//        String now_date = df_now.format(new Date()).split(" ")[0];
-//
-//        System.out.println(weekDay_tomorrow);
-
-        Integer weekDay_today = 0;
-        int hour = 0;
-        int hours = 0;
-        int minute = 0;
-        String duration_st =null;
-        Calendar cal_today = Calendar.getInstance();
-        cal_today.add(Calendar.HOUR_OF_DAY,23);
-        weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
-
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE,+1);
-        int weekDay_ttt = cal.get(Calendar.DAY_OF_WEEK);
+        String end_time = df.format(cal.getTime());
+        cal.add(Calendar.DATE,-7);
+        String start_time = df.format(cal.getTime());
 
-        hour = cal_today.get(Calendar.HOUR_OF_DAY);
-        minute = cal_today.get(Calendar.MINUTE);
-        duration_st = hour + ":" + minute;
-        if(minute<10){
-            duration_st = hour + ":0" + minute;
-        }
+        System.out.println(start_time);
+        System.out.println(end_time);
 
-        String now_time_end = df_now.format(new Date(new Date().getTime() + 5 * 60000)).split(" ")[1];
-        String now_time = df_now.format(new Date()).split(" ")[1];
-        String send_time = "17:00:00";
+        Integer start_week = 0;
+        Integer end_week = 0;
         try {
-            Date timestamp1 = df_now.parse( "2023-01-01 " + now_time);
-            Date timestamp2 = df_now.parse( "2023-01-01 " + now_time_end);
-            Date timestamp3 = df_now.parse( "2023-01-01 " + send_time);
-            long now_time_timestamp = timestamp1.getTime();
-            long now_time_end_timestamp = timestamp2.getTime();
-            long send_time_timestamp = timestamp3.getTime();
+            long timestamp_start = df.parse(start_time).getTime();
+            long timestamp_end = df.parse(end_time).getTime();
+            while(timestamp_start <= timestamp_end){
+                System.out.println(timestamp_start);
+                Date date = new Date(timestamp_start);
+                String dateString = df.format(date);
+                System.out.println(dateString);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timestamp_start);
 
-            System.out.println("2023-01-01".substring(0,7));
-            System.out.println(now_time_end_timestamp);
-            System.out.println(send_time_timestamp);
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                System.out.println(dayOfWeek);
+
+                timestamp_start = timestamp_start + 60*60*24*1000;
+            }
+
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-//        if(time < now_time_end){
-//            System.out.printf("tt");
-//        }
-        System.out.println(now_time_end);
-//        System.out.println(weekDay_ttt);
+
     }
+
 }
