@@ -871,6 +871,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("dateString", dateString);
                 jsonObject.put("schedule_status", schedule_status);
+                resul_list.add(jsonObject);
 
                 timestamp_start = timestamp_start + 60*60*24*1000;
             }
