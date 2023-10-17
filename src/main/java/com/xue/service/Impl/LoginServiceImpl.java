@@ -870,7 +870,9 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                schedule_status = schedule_status.deleteCharAt(schedule_status.lastIndexOf(","));
+                if(schedule_status.length()>0) {
+                    schedule_status = schedule_status.deleteCharAt(schedule_status.lastIndexOf(","));
+                }
 
                 jsonObject.put("dateString", dateString);
                 jsonObject.put("schedule_status", schedule_status);
