@@ -842,7 +842,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             long timestamp_start = df.parse(start_time).getTime();
             long timestamp_end = df.parse(end_time).getTime();
-            while(timestamp_start <= timestamp_end){
+            while(timestamp_end >= timestamp_start){
                 JSONObject jsonObject = new JSONObject();
                 Date date = new Date(timestamp_start);
                 String dateString = df.format(date);
@@ -878,7 +878,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("schedule_status", schedule_status);
                 resul_list.add(jsonObject);
 
-                timestamp_start = timestamp_start + 60*60*24*1000;
+                timestamp_start = timestamp_start - 60*60*24*1000;
             }
 
         } catch (Exception e) {
