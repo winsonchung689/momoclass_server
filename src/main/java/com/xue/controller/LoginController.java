@@ -4746,6 +4746,10 @@ public class LoginController {
 				lessonPackage.setSubject(subject);
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setAll_lesson(total_amount);
+				lessonPackage.setTotal_money(Float.parseFloat(total_money));
+				lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+				lessonPackage.setMark("初次录入");
+				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 				dao.insertLessonPackage(lessonPackage);
 			}
 		} catch (Exception e) {
