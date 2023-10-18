@@ -844,11 +844,11 @@ public class LoginServiceImpl implements LoginService {
             long timestamp_end = df.parse(end_time).getTime();
             while(timestamp_end >= timestamp_start){
                 JSONObject jsonObject = new JSONObject();
-                Date date = new Date(timestamp_start);
+                Date date = new Date(timestamp_end);
                 String dateString = df.format(date);
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(timestamp_start);
+                calendar.setTimeInMillis(timestamp_end);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
                 List<Schedule> schedules = dao.getScheduleAllDistinct(dayOfWeek,studio,campus);
