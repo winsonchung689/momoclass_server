@@ -859,14 +859,29 @@ public class LoginServiceImpl implements LoginService {
                     String class_number = schedule.getClass_number();
                     subject = schedule.getSubject();
 
-                    int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
-                    int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
-                    int loss = classes_count - sign_count;
-                    String result = class_number + ":" + loss + "人未签" ;
+                    int weekDayChoose = 0;
+                    if(dayOfWeek == 1){
+                        weekDayChoose = 7;
+                    }else {
+                        weekDayChoose = dayOfWeek -1;
+                    }
 
-                    if(sign_count< classes_count){
-                        schedule_status.append(result);
-                        schedule_status.append(",");
+                    String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                    List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                    for(int j=0;j<users.size();j++){
+                        User user = users.get(j);
+                        String openid_get = user.getOpenid();
+                        if(openid_get.equals(openid)){
+                            int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
+                            int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
+                            int loss = classes_count - sign_count;
+                            String result = class_number + ":" + loss + "人未签" ;
+
+                            if(sign_count< classes_count){
+                                schedule_status.append(result);
+                                schedule_status.append(",");
+                            }
+                        }
                     }
                 }
 
