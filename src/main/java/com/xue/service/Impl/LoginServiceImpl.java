@@ -866,7 +866,7 @@ public class LoginServiceImpl implements LoginService {
 
                     if(sign_count< classes_count){
                         schedule_status.append(result);
-                        schedule_status.append("，");
+                        schedule_status.append(",");
                     }
                 }
 
