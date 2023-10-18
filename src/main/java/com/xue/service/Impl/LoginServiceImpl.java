@@ -862,7 +862,7 @@ public class LoginServiceImpl implements LoginService {
                     int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
                     int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
                     int loss = classes_count - sign_count;
-                    String result = class_number + ":" + loss + "(未签到)" ;
+                    String result = class_number + ":" + loss + "人未签" ;
 
                     if(sign_count< classes_count){
                         schedule_status.append(result);
