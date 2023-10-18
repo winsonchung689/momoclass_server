@@ -4493,13 +4493,13 @@ public class LoginServiceImpl implements LoginService {
                 if("无".equals(start_time)){
                     list = dao.getLessonPackage(student_name,studio,campus,subject);
                 }else {
-                    list = dao.getLessonPackageByDuration(student_name,studio,campus,subject,start_time,end_time);
+                    list = dao.getLessonPackageByDuration(student_name,studio,campus,subject,start_time,end_time + " 23:59:59");
                 }
             } else if ("全部".equals(search_type)) {
                 if("无".equals(start_time)){
                     list = dao.getLessonPackageAll(studio,campus,subject);
                 }else {
-                    list = dao.getLessonPackageByDurationAll(studio,campus,subject,start_time,end_time);
+                    list = dao.getLessonPackageByDurationAll(studio,campus,subject,start_time,end_time + " 23:59:59");
                 }
             }
 
