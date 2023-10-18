@@ -4736,6 +4736,17 @@ public class LoginController {
 				lesson.setCoins(coins_amount_t);
 				lesson.setPrice(price);
 				loginService.insertLesson(lesson);
+
+				LessonPackage lessonPackage = new LessonPackage();
+				lessonPackage.setStudent_name(student_name);
+				lessonPackage.setStart_date(start_date);
+				lessonPackage.setEnd_date(end_date);
+				lessonPackage.setCampus(campus);
+				lessonPackage.setStudio(studio);
+				lessonPackage.setSubject(subject);
+				lessonPackage.setCreate_time(create_time);
+				lessonPackage.setAll_lesson(total_amount);
+				dao.insertLessonPackage(lessonPackage);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
