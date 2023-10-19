@@ -4439,7 +4439,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson.put("touser",official_openid_get);
                             queryJson.getJSONObject("data").getJSONObject("thing8").put("value",student_name);
                             queryJson.getJSONObject("data").getJSONObject("thing3").put("value",studio+"_"+subject);
-                            queryJson.getJSONObject("data").getJSONObject("thing2").put("value",date_time +" "+duration);
+                            queryJson.getJSONObject("data").getJSONObject("thing2").put("value",date_time +" "+duration.split("-")[0]);
                             queryJson.getJSONObject("data").getJSONObject("thing4").put("value",mark);
                             queryJson.getJSONObject("miniprogram").put("pagepath","/pages/leaverecord/leaverecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&leave_type=" + "请假" + "&openid=" + openid);
 
