@@ -2285,6 +2285,7 @@ public class LoginController {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
 			String teacher = list_user.get(0).getNick_name();
+			String official_openid = list_user.get(0).getOfficial_openid();
 			Leave leave =new Leave();
 			leave.setStudent_name(student_name);
 			leave.setStudio(studio);
@@ -2303,7 +2304,10 @@ public class LoginController {
 			}
 			leave.setLeave_type(leave_type);
 			int result = dao.insertLeave(leave);
+
+			// 判断满几次抠课时
 			if(result>0){
+				loginService.leaveRemind(official_openid,student_name,studio,subject,duration,date_time,mark_leave);
 				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 				Float leave_times = lessons.get(0).getLeave_times();
 				List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject,campus);
@@ -2313,7 +2317,6 @@ public class LoginController {
 						leave_counts = leave_counts + 1.0f;
 					}
 				}
-
 				if(leave_counts.equals(leave_times) && leave_times != 0.0f){
 					SignUp signUp = new SignUp();
 					signUp.setStudent_name(student_name);
@@ -2333,9 +2336,6 @@ public class LoginController {
 						dao.updateLeaveAllRecord(student_name,studio,campus);
 					}
 				}
-
-
-
 			}
 
 		} catch (Exception e) {

@@ -252,6 +252,8 @@ public interface LoginService {
 
     public String renewLessonRemind(String student_name,String studio,String campus,String subject,Float lesson_amount);
 
+    public String leaveRemind(String official_openid_boss,String student_name, String studio, String subject, String duration,String date_time,String mark);
+
     public int deleteLessonPackage(Integer id,String type);
 
 }

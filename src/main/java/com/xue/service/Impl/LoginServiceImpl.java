@@ -4416,6 +4416,53 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String leaveRemind(String official_openid_boss,String student_name, String studio, String subject, String duration,String date_time,String mark) {
+        String result = null;
+        String url_send = null;
+        String model ="{\"touser\":\"openid\",\"template_id\":\"Ij01JEH2uo4fQDUiYypBEoByO6iO4w_thleeFsj51eg\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing8\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"},\"thing4\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+        try {
+            List<User> users = dao.getUserByStudent(student_name,studio);
+            if(users.size()>0){
+                User user = users.get(0);
+                String openid = user.getOpenid();
+                String official_openid_client = user.getOfficial_openid();
+                String official_openid = official_openid_boss + "," + official_openid_client;
+                try {
+                    String token = getToken("MOMO_OFFICIAL");
+                    url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                    if(official_openid != null){
+                        String[] official_list = official_openid.split(",");
+                        for(int j=0;j<official_list.length;j++){
+                            String official_openid_get = official_list[j];
+                            JSONObject queryJson = JSONObject.parseObject(model);
+                            queryJson.put("touser",official_openid_get);
+                            queryJson.getJSONObject("data").getJSONObject("thing8").put("value",student_name);
+                            queryJson.getJSONObject("data").getJSONObject("thing3").put("value",studio+"_"+subject);
+                            queryJson.getJSONObject("data").getJSONObject("thing2").put("value",date_time +" "+duration);
+                            queryJson.getJSONObject("data").getJSONObject("thing4").put("value",mark);
+                            queryJson.getJSONObject("miniprogram").put("pagepath","/pages/leaverecord/leaverecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&leave_type=" + "请假" + "&openid=" + openid);
+
+                            System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+                            result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                            System.out.printf("MOMO_OFFICIAL_RES:" + result);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public int deleteLessonPackage(Integer id,String type) {
         try {
             if("delete".equals(type)){
