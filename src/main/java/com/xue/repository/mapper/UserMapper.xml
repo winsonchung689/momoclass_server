@@ -379,7 +379,7 @@
   </select>
 
   <select id="updateUserStudentName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set student_name =#{param2} where openid =#{param1}
+    update user set student_name =#{param2} where openid =#{param1} and student_name ='no_name'
   </select>
 
   <!-- 更改用户名 -->
