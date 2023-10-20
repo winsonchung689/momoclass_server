@@ -140,8 +140,6 @@ public interface LoginService {
 
     public int  deleteLesson(Integer id,String role,String studio,String openid,String student_name);
 
-    public int insertUser(User user);
-
     public int insertRestaurantUser(RestaurantUser restaurantUser);
 
     public int insertBookUser(BookUser bookUser);

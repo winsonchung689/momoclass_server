@@ -2485,7 +2485,7 @@ public class LoginController {
 					if(users2.size()==0){
 						user.setStudent_name(content);
 						int update_res = dao.updateUserDelete(user);
-						if(update_res==0){
+						if(update_res==0 && openid.length() == 28){
 							dao.insertUser(user);
 						}
 					}
@@ -4167,8 +4167,8 @@ public class LoginController {
 			user.setRole("client");
 			try {
 				int update_res = dao.updateUserDelete(user);
-				if(update_res==0){
-					loginService.insertUser(user);
+				if(update_res==0 && openid.length() == 28){
+					dao.insertUser(user);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -4186,8 +4186,8 @@ public class LoginController {
 			try {
 				if("client".equals(role_get)){
 					int update_res = dao.updateUserDelete(user);
-					if(update_res==0 ){
-						loginService.insertUser(user);
+					if(update_res==0 && openid.length() == 28){
+						dao.insertUser(user);
 					}
 				}
 			} catch (Exception e) {
@@ -4279,7 +4279,7 @@ public class LoginController {
 							User user = users.get(0);
 							user.setStudent_name(name);
 							int update_res = dao.updateUserDelete(user);
-							if(update_res==0){
+							if(update_res==0 && openid.length() == 28){
 								dao.insertUser(user);
 							}
 						}

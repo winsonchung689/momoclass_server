@@ -1961,17 +1961,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int insertUser(User user) {
-        int result = 0;
-        try {
-            result = dao.insertUser(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
     public int insertRestaurantUser(RestaurantUser restaurantUser) {
         int result = 0;
         try {
