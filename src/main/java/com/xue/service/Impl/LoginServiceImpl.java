@@ -3676,7 +3676,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void sendClassRemind() {
         List<String> apps = new ArrayList<>();
-        apps.add("MOMO2B");
+//        apps.add("MOMO2B");
 //        apps.add("MOMO");
         apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -3799,19 +3799,19 @@ public class LoginServiceImpl implements LoginService {
                 if("统一提醒次日".equals(remindType) && send_time.equals(now_time)){
                     weekDay = weekDay_tomorrow;
                     date_time = df.format(cal_tomorrow.getTime());
-                    list_schedule = dao.getScheduleByUser(weekDay,studio,student_name,campus);
+                    list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
                 }else if("提前N小时提醒".equals(remindType) && hours > 0){
                     weekDay = weekDay_today;
                     date_time = df.format(cal_today.getTime());
-                    list_schedule = dao.getScheduleByUserDurationSt(weekDay,studio,student_name,campus,duration_st);
+                    list_schedule = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
 
                     // 暂停3秒
-                    logger.info("暂停0.1秒");
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    logger.info("暂停0.1秒");
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }
 
                 if(list_schedule.size() > 0 && weekDay > 0){
