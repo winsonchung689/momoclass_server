@@ -15,31 +15,17 @@ public class test {
         cal.add(Calendar.DATE,-7);
         String start_time = df.format(cal.getTime());
 
-        System.out.println(start_time);
-        System.out.println(end_time);
+        Calendar cal_today = Calendar.getInstance();
+        cal_today.add(Calendar.HOUR_OF_DAY,2);
+        int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
 
-        Integer start_week = 0;
-        Integer end_week = 0;
-        try {
-            long timestamp_start = df.parse(start_time).getTime();
-            long timestamp_end = df.parse(end_time).getTime();
-            while(timestamp_start <= timestamp_end){
-                System.out.println(timestamp_start);
-                Date date = new Date(timestamp_start);
-                String dateString = df.format(date);
-                System.out.println(dateString);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(timestamp_start);
+        System.out.println(weekDay_today);
 
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                System.out.println(dayOfWeek);
+        Calendar cal_tomorrow = Calendar.getInstance();
+        cal_tomorrow.add(Calendar.DATE,+1);
+        Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
 
-                timestamp_start = timestamp_start + 60*60*24*1000;
-            }
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        System.out.println(weekDay_tomorrow);
 
     }
 
