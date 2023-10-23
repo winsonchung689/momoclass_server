@@ -1027,18 +1027,6 @@ public class LoginController {
 		return list;
 	}
 
-	//	获取PPT名字
-	@RequestMapping("/getPpt")
-	@ResponseBody
-	public List getPpt(Integer page){
-		List list = null;
-		try {
-			list = loginService.getPpt(page);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 
 	//	获取教程列表
 	@RequestMapping("/getCourseList")

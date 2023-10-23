@@ -234,12 +234,12 @@
 
   <!-- 获取付款码 -->
   <select id="getPaycode" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='付款码' and delete_status = 0 and student_name = #{param1} order by create_time desc limit 1
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target='付款码' and delete_status = 0 and student_name = #{param1} order by create_time desc limit 1
   </select>
 
   <!-- 获取个人奖状 -->
   <select id="getCertificateByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} and delete_status = 0 and student_name = #{param2} order by create_time desc
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target='奖状' and studio = #{param1} and delete_status = 0 and student_name = #{param2} order by create_time desc
   </select>
 
   <!-- 获取全部 -->
@@ -249,17 +249,12 @@
 
   <!-- 获取详情 -->
   <select id="getDetails" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where id = #{param1} and delete_status = 0
+    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio,duration,positive,discipline,happiness,mp3_url,uuids,uuids_c from class_comment where id = #{param1} and delete_status = 0
   </select>
 
   <!-- 获取详情 -->
   <select id="getDetailsUrlByDate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select * from class_comment where studio= #{param1} and cast(replace(replace(duration,':',''),'-','') as signed)=cast(replace(replace(#{param2},':',''),'-','') as signed) and student_name= #{param3} and date_format(create_time, '%Y-%m-%d')= #{param4} and campus =#{param5} and class_target_bak =#{param6} and delete_status = 0
-  </select>
-
-  <!-- 获取详情 -->
-  <select id="getPpt" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '课件' and delete_status = 0 order by id desc limit #{param1},#{param2};
   </select>
 
   <!-- 获取学生照片 -->
