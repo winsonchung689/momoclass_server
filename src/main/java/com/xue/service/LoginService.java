@@ -32,8 +32,6 @@ public interface LoginService {
 
     public List  getMamaShare(Integer page);
 
-    public List  getPpt(Integer page);
-
     public List  getLesson(String studio,String student_name,String subject,String campus);
 
     public List  getLessonHead(String studio,String student_name,String subject,String campus);
