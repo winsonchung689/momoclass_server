@@ -6526,7 +6526,7 @@ public class LoginServiceImpl implements LoginService {
         String month_date = df1.format(new Date());
 
         try {
-            if("needOwe".equals(type) || "needPay".equals(type) || "renew".equals(type)){
+            if("owePay".equals(type) || "needPay".equals(type) || "renew".equals(type)){
                 if("全科目".equals(subject)){
                     list = dao.getTipsDataUrlAll(studio,left_amount_get,campus_in);
                 }else{
@@ -6659,7 +6659,9 @@ public class LoginServiceImpl implements LoginService {
 
                 if("renew".equals(type) && renew_students.contains(student_name)){
                     resul_list.add(jsonObject);
-                }else if("needOwe".equals(type) || "needPay".equals(type) || "new".equals(type) || "loss".equals(type)){
+                }else if("owePay".equals(type) && left_amount < 0){
+                    resul_list.add(jsonObject);
+                }else if("needPay".equals(type) || "new".equals(type) || "loss".equals(type)){
                     resul_list.add(jsonObject);
                 }
 
