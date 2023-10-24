@@ -5520,9 +5520,13 @@ public class LoginServiceImpl implements LoginService {
                     Float total_amount = lesson.getTotal_amount();
                     Float left_amount = lesson.getLeft_amount();
                     String subject_get = lesson.getSubject();
-                    Float consume_lesson = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
-                    if((total_amount-left_amount) != consume_lesson){
-                        unnoforaml = unnoforaml + 1;
+                    try {
+                        Float consume_lesson = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        if((total_amount-left_amount) != consume_lesson){
+                            unnoforaml = unnoforaml + 1;
+                        }
+                    } catch (Exception e) {
+//                        throw new RuntimeException(e);
                     }
 
                     Float total = 0.0f;
