@@ -6920,10 +6920,10 @@ public class LoginServiceImpl implements LoginService {
                         consume_lesson = consume_lesson_get;
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
-                if(consume_lesson - lesson_gap != 0.0f){
+                if(consume_lesson - lesson_gap != 0){
                     DecimalFormat df = new DecimalFormat("0.00");
                     jsonObject.put("price", price);
                     jsonObject.put("student_name", student_name);
