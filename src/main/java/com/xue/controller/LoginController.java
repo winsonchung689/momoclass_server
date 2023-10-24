@@ -677,6 +677,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUnNoforamlStudent")
+	@ResponseBody
+	public List getUnNoforamlStudent(String studio,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getUnNoforamlStudent(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getLessonInName")
 	@ResponseBody
