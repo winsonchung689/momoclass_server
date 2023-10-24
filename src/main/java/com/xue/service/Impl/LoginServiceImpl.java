@@ -6916,7 +6916,7 @@ public class LoginServiceImpl implements LoginService {
                 Float lesson_gap = total_amount - left_amount;
                 try {
                     Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                    if(consume_lesson_get != null){
+                    if(consume_lesson_get > 0){
                         consume_lesson = consume_lesson_get;
                     }
                 } catch (Exception e) {
