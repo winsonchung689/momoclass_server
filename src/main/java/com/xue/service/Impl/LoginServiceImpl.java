@@ -6912,51 +6912,47 @@ public class LoginServiceImpl implements LoginService {
                     left_money = 0.0f;
                 }
 
-                Float consume_lesson = 0.0f;
-                Float lesson_gap = total_amount - left_amount;
                 try {
-                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                    if(consume_lesson_get > 0){
-                        consume_lesson = consume_lesson_get;
+                    Float consume_lesson = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                    if((total_amount-left_amount) != consume_lesson){
+                        DecimalFormat df = new DecimalFormat("0.00");
+                        jsonObject.put("price", price);
+                        jsonObject.put("student_name", student_name);
+                        jsonObject.put("total_amount", total_amount);
+                        jsonObject.put("left_amount", left_amount);
+                        jsonObject.put("id", id);
+                        jsonObject.put("create_time", create_time);
+                        jsonObject.put("percent", percent);
+                        jsonObject.put("points", points);
+                        jsonObject.put("rank", i + 1);
+                        jsonObject.put("show", false);
+                        jsonObject.put("name", student_name);
+                        jsonObject.put("search", student_name);
+                        jsonObject.put("minus", minus);
+                        jsonObject.put("coins", coins);
+                        jsonObject.put("subject", subject);
+                        jsonObject.put("parent", parent);
+                        jsonObject.put("campus", campus);
+                        jsonObject.put("is_combine", combine);
+                        jsonObject.put("phone_number", phone_number);
+                        jsonObject.put("total_money", df.format(total_money));
+                        jsonObject.put("discount_money", df.format(discount_money));
+                        jsonObject.put("receipts", df.format(receipts));
+                        jsonObject.put("left_money", df.format(left_money));
+                        jsonObject.put("avatarurl", avatarurl);
+                        jsonObject.put("delete_status", delete_status);
+                        jsonObject.put("age", age);
+                        jsonObject.put("official_status", "未关注");
+                        if(official_openid != null){
+                            jsonObject.put("official_status", "已关注");
+                        }
+                        resul_list.add(jsonObject);
                     }
                 } catch (Exception e) {
-//                    throw new RuntimeException(e);
+//                        throw new RuntimeException(e);
                 }
 
-                if(consume_lesson - lesson_gap != 0){
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("price", price);
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + 1);
-                    jsonObject.put("show", false);
-                    jsonObject.put("name", student_name);
-                    jsonObject.put("search", student_name);
-                    jsonObject.put("minus", minus);
-                    jsonObject.put("coins", coins);
-                    jsonObject.put("subject", subject);
-                    jsonObject.put("parent", parent);
-                    jsonObject.put("campus", campus);
-                    jsonObject.put("is_combine", combine);
-                    jsonObject.put("phone_number", phone_number);
-                    jsonObject.put("total_money", df.format(total_money));
-                    jsonObject.put("discount_money", df.format(discount_money));
-                    jsonObject.put("receipts", df.format(receipts));
-                    jsonObject.put("left_money", df.format(left_money));
-                    jsonObject.put("avatarurl", avatarurl);
-                    jsonObject.put("delete_status", delete_status);
-                    jsonObject.put("age", age);
-                    jsonObject.put("official_status", "未关注");
-                    if(official_openid != null){
-                        jsonObject.put("official_status", "已关注");
-                    }
-                    resul_list.add(jsonObject);
-                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
