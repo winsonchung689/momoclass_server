@@ -5497,6 +5497,7 @@ public class LoginServiceImpl implements LoginService {
         Float left_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
+        Integer unnoforaml = 0;
         DecimalFormat df = new DecimalFormat("0.00");
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
         String month_date = df1.format(new Date());
@@ -5518,6 +5519,12 @@ public class LoginServiceImpl implements LoginService {
                     String student_name_all = lesson.getStudent_name();
                     Float total_amount = lesson.getTotal_amount();
                     Float left_amount = lesson.getLeft_amount();
+                    String subject_get = lesson.getSubject();
+                    Float consume_lesson = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                    if((total_amount-left_amount) != consume_lesson){
+                        unnoforaml = unnoforaml + 1;
+                    }
+
                     Float total = 0.0f;
                     Float disc = 0.0f;
                     List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudent(student_name_all,studio,campus);
@@ -5634,6 +5641,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("new_lesson", new_lesson);
             jsonObject.put("new_student", new_student);
             jsonObject.put("loss_student", loss_student);
+            jsonObject.put("unnoforaml", unnoforaml);
 
             resul_list.add(jsonObject);
         } catch (Exception e) {
