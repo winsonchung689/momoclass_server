@@ -3384,6 +3384,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("comment",comment);
                     resul_list.add(jsonObject);
                 }
+            }else{
+                dao.deleteComment(Integer.parseInt(id),studio);
             }
         }
 

@@ -295,7 +295,7 @@
 
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-     update class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
+     delete from class_comment set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 删除帖子 -->
