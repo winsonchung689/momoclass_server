@@ -284,7 +284,7 @@ public class LoginController {
 	}
 
 	//	获取token
-	@RequestMapping(value = "/sendNotice")
+	@RequestMapping("/sendNotice")
 	@ResponseBody
 	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
 		String result = null;
@@ -323,45 +323,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		return result;
-	}
-
-	//	获取token
-	@RequestMapping(value = "/sendNewNotice")
-	@ResponseBody
-	public String sendNewNotice(String comment){
-		String result = null;
-		String url_send = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-
-		List<User> users = dao.getAllUser();
-		for(int i = 0;i < users.size();i++){
-			User user = users.get(i);
-			String official_openid = user.getOfficial_openid();
-			String content_head = comment.split("来源")[0];
-
-			try {
-				String token = loginService.getToken("MOMO_OFFICIAL");
-				url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-				if(official_openid != null){
-					String[] official_list = official_openid.split(",");
-					for(int j=0;j<official_list.length;j++){
-						String official_openid_get = official_list[j];
-						JSONObject queryJson = JSONObject.parseObject(model);
-						queryJson.put("touser",official_openid_get);
-						queryJson.getJSONObject("data").getJSONObject("keyword1").put("value","新闻快报更新");
-						queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
-						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/album/album?type=" + "新闻" + "&studio=" + "大雄工作室" );
-
-						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
-						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-						System.out.printf("MOMO_OFFICIAL_RES:" + result);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		return result;
 	}
 
@@ -3618,6 +3579,41 @@ public class LoginController {
 					dao.deleteHome(studio);
 				}
 				loginService.push(message);
+				if("新闻".equals(class_target)){
+					String result = null;
+					String url_send = null;
+					String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+					List<User> users = dao.getUserByStudio(studio,campus);
+					for(int i = 0;i < users.size();i++){
+						User user = users.get(i);
+						String official_openid = user.getOfficial_openid();
+						String content_head = comment.split("来源")[0];
+
+						try {
+							String token = loginService.getToken("MOMO_OFFICIAL");
+							url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+							if(official_openid != null){
+								String[] official_list = official_openid.split(",");
+								for(int j=0;j<official_list.length;j++){
+									String official_openid_get = official_list[j];
+									JSONObject queryJson = JSONObject.parseObject(model);
+									queryJson.put("touser",official_openid_get);
+									queryJson.getJSONObject("data").getJSONObject("keyword1").put("value","新闻快报更新");
+									queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
+									queryJson.getJSONObject("miniprogram").put("pagepath","/pages/album/album?type=" + "新闻" + "&studio=" + "大雄工作室" );
+
+									System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+									result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+									System.out.printf("MOMO_OFFICIAL_RES:" + result);
+								}
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+				};
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
