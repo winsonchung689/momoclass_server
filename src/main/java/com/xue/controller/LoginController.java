@@ -3587,7 +3587,6 @@ public class LoginController {
 					List<User> users = dao.getUserByStudio(studio,campus);
 					for(int i = 0;i < users.size();i++){
 						User user = users.get(i);
-						studio = user.getStudio();
 						String official_openid = user.getOfficial_openid();
 						String content_head = comment.split("来源")[0];
 
