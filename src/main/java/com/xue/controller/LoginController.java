@@ -3584,7 +3584,7 @@ public class LoginController {
 					String url_send = null;
 					String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-					List<User> users = dao.getUserByStudio(studio,campus);
+					List<User> users = dao.getAllUser();
 					for(int i = 0;i < users.size();i++){
 						User user = users.get(i);
 						String official_openid = user.getOfficial_openid();
