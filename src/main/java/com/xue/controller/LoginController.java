@@ -3572,27 +3572,49 @@ public class LoginController {
 			}
 		}else{
 			try {
-				if(!"奖状".equals(class_target)){
-//					in = Imageutil.readImage(photo);
-//					message.setPhoto(FileCopyUtils.copyToByteArray(in));
-					if("礼品乐园".equals(class_target)){
-						dao.deleteStudentPhoto(student_name,studio);
-					}
-					if("主页".equals(class_target)){
-						dao.deleteHome(studio);
-					}
-					loginService.push(message);
+				if("礼品乐园".equals(class_target)){
+					dao.deleteStudentPhoto(student_name,studio);
 				}
-
-				if("奖状".equals(class_target)){
-					String path = System.getProperty("user.dir");
-					String p_path = path +"/uploadimages/"+ photo + ".png";
-
-					FileInputStream file = Imageutil.readImage(p_path );
-
-					message.setPhoto(FileCopyUtils.copyToByteArray(file));
-					loginService.push(message);
+				if("主页".equals(class_target)){
+					dao.deleteHome(studio);
 				}
+				loginService.push(message);
+				if("新闻".equals(class_target)){
+					String result = null;
+					String url_send = null;
+					String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+					List<User> users = dao.getUserByStudio(studio,campus);
+					for(int i = 0;i < users.size();i++){
+						User user = users.get(i);
+						studio = user.getStudio();
+						String official_openid = user.getOfficial_openid();
+						String content_head = comment.split("来源")[0];
+
+						try {
+							String token = loginService.getToken("MOMO_OFFICIAL");
+							url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+							if(official_openid != null){
+								String[] official_list = official_openid.split(",");
+								for(int j=0;j<official_list.length;j++){
+									String official_openid_get = official_list[j];
+									JSONObject queryJson = JSONObject.parseObject(model);
+									queryJson.put("touser",official_openid_get);
+									queryJson.getJSONObject("data").getJSONObject("keyword1").put("value","新闻快报更新");
+									queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
+									queryJson.getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
+
+									System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+									result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+									System.out.printf("MOMO_OFFICIAL_RES:" + result);
+								}
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+				};
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
