@@ -4997,8 +4997,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-
-
 		return "push massage successfully";
 	}
 
