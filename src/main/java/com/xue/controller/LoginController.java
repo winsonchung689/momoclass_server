@@ -5003,14 +5003,19 @@ public class LoginController {
 	}
 
 
-	@RequestMapping("/updateCoins")
+	@RequestMapping("/updateCoinsByStudio")
 	@ResponseBody
-	public String updateCoins(HttpServletRequest request, HttpServletResponse response){
+	public String updateCoinsByStudio(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String member = list_user.get(0).getMember();
 
 		try {
-			loginService.updateCoinsByStudio(studio);
+			if("永恒会员".equals(member)){
+				loginService.updateCoinsByStudio(studio);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
