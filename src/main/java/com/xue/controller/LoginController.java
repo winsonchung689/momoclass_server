@@ -5007,11 +5007,10 @@ public class LoginController {
 	@ResponseBody
 	public String updateCoins(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
-		String type = request.getParameter("type");
-		String openid = request.getParameter("openid");
+		String studio = request.getParameter("studio");
 
 		try {
-			loginService.updateCoins(openid,type);
+			loginService.updateCoinsByStudio(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

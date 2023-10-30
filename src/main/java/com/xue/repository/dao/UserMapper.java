@@ -713,7 +713,7 @@ public interface UserMapper {
 
     int updateGift(String id);
 
-    int updateCoins(User user);
+    int updateCoinsByStudio(User user);
 
     int updateScheduleName(String student_name_new,String student_name,String studio,String campus,String subject);
 

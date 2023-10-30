@@ -1006,7 +1006,7 @@
   </select>
 
   <select id="getBossByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,days,campus from user where  studio =#{param1} and role in('boss','teacher') and delete_status = 0 order by role
+    select * from user where  studio =#{param1} and role in('boss','teacher') and delete_status = 0 order by role
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -1688,8 +1688,8 @@
   </update>
 
   <!-- 更新用户金币 -->
-  <update id="updateCoins" parameterType="com.xue.entity.model.User">
-    update user set coins=#{coins} where openid=#{openid}
+  <update id="updateCoinsByStudio" parameterType="com.xue.entity.model.User">
+    update user set coins=#{coins},expired_time=#{expired_time} where studio=#{studio} and delete_status = 0
   </update>
 
   <update id="updateFinalTime" parameterType="com.xue.entity.model.Lesson">

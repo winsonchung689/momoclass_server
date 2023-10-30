@@ -22,7 +22,7 @@ public class User {
 
     private String comment_style;
 
-    private Integer coins;
+    private Float coins;
 
     private String theme;
 
@@ -224,11 +224,11 @@ public class User {
         this.comment_style = comment_style;
     }
 
-    public Integer getCoins() {
+    public Float getCoins() {
         return coins;
     }
 
-    public void setCoins(Integer coins) {
+    public void setCoins(Float coins) {
         this.coins = coins;
     }
 

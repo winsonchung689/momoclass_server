@@ -2075,7 +2075,7 @@ public class LoginServiceImpl implements LoginService {
         String user_type = null;
         String create_time = null;
         String expired_time = null;
-        Integer coins = 0;
+        Float coins = 0.0f;
         String comment_style = null;
         String openid_get = null;
         String theme = null;
@@ -2260,7 +2260,7 @@ public class LoginServiceImpl implements LoginService {
         String user_type = null;
         String create_time = null;
         String expired_time = null;
-        Integer coins = 0;
+        Float coins = 0.0f;
         String comment_style = null;
         String openid = null;
         String subjects = null;
@@ -2645,7 +2645,7 @@ public class LoginServiceImpl implements LoginService {
         String user_type = null;
         String create_time = null;
         String expired_time = null;
-        Integer coins = 0;
+        Float coins = 0.0f;
         String comment_style = null;
         String openid = null;
         String subjects = null;
@@ -3638,33 +3638,46 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateCoins(String openid, String type) {
+    public int updateCoinsByStudio(String studio) {
         int result = 0;
-        Integer coins = 0;
-        Integer new_coins = 0;
+        Float new_coins = 0.0f;
 
-        List<User> list = dao.getUser(openid);
-        try {
-            for (int i = 0; i < list.size(); i++) {
-                User line = list.get(i);
-                coins = line.getCoins();
-                if (coins == null) {
-                    coins = 0;
-                }
-                if ("add".equals(type)) {
-                    new_coins = coins + 1;
-                } else if ("minus".equals(type)) {
-                    new_coins = coins - 1;
-                }
+        List<User> list = dao.getBossByStudio(studio);
+        User line = list.get(0);
+        Float coins = line.getCoins();
+        String expired_time = line.getExpired_time();
 
-                User user = new User();
-                user.setCoins(new_coins);
-                user.setOpenid(openid);
-                result = dao.updateCoins(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (coins == null) {
+            coins = 0.0f;
         }
+        new_coins = coins + 0.5f;
+
+        if(new_coins<24){
+            User user = new User();
+            user.setCoins(new_coins);
+            user.setStudio(studio);
+            user.setExpired_time(expired_time);
+            result = dao.updateCoinsByStudio(user);
+        }else if(new_coins>=24){
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
+            try {
+                cal.setTime(df.parse(expired_time));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cal.add(cal.DATE,1);
+            String expired_time_new = df.format(cal.getTime());
+
+
+            User user = new User();
+            user.setCoins(0.0f);
+            user.setStudio(studio);
+            user.setExpired_time(expired_time_new);
+            result = dao.updateCoinsByStudio(user);
+        }
+
         return result;
     }
 
@@ -5101,7 +5114,7 @@ public class LoginServiceImpl implements LoginService {
         String user_type = null;
         String create_time = null;
         String expired_time = null;
-        Integer coins = 0;
+        Float coins = 0.0f;
         String comment_style = null;
         String theme = null;
         String subjects = null;
