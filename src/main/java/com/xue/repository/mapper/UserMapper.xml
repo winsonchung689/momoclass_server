@@ -1006,7 +1006,11 @@
   </select>
 
   <select id="getBossByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where  studio =#{param1} and role in('boss','teacher') and delete_status = 0 order by role
+    select * from user where  studio =#{param1} and role in ('boss','teacher') and delete_status = 0 order by role
+  </select>
+
+  <select id="getBossByStudioOnly" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where  studio =#{param1} and role in ('boss') and delete_status = 0 order by create_time
   </select>
 
   <select id="getAllUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

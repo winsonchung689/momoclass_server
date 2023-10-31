@@ -484,6 +484,8 @@ public interface UserMapper {
     List<User> getAllUserByStudioByPage(String studio,Integer page_start,Integer page_length);
 
     List<User> getBossByStudio(String studio);
+
+    List<User> getBossByStudioOnly(String studio);
     List<User> getAllUser();
 
     List<User> getStudio();

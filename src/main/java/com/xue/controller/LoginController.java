@@ -5006,14 +5006,9 @@ public class LoginController {
 	public String updateCoinsByStudio(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String studio = request.getParameter("studio");
-		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String member = list_user.get(0).getMember();
 
 		try {
-			if("永恒会员".equals(member)){
-				loginService.updateCoinsByStudio(studio);
-			}
+			loginService.updateCoinsByStudio(studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
