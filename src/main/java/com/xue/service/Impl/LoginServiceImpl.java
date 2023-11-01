@@ -3638,7 +3638,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateCoinsByStudio(String studio) {
+    public int updateCoinsByStudio(String studio,String openid) {
         int result = 0;
         Float new_coins = 0.0f;
         List<User> list = dao.getBossByStudioOnly(studio);
@@ -3647,12 +3647,24 @@ public class LoginServiceImpl implements LoginService {
         String expired_time = line.getExpired_time();
         String member = line.getMember();
 
+        try {
+            List<User> users = dao.getUserByOpenid(openid);
+            Float  read_times = users.get(0).getRead_times();
+            if (read_times == null) {
+                read_times = 0.0f;
+            }
+
+            Float new_read_times = read_times + 1.0f;
+            dao.updateReadTimesByOpenid(openid,new_read_times);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         if("永恒会员".equals(member)){
             if (coins == null) {
                 coins = 0.0f;
             }
             new_coins = coins + 0.5f;
-
             if(new_coins<24){
                 User user = new User();
                 user.setCoins(new_coins);

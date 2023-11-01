@@ -717,6 +717,8 @@ public interface UserMapper {
 
     int updateCoinsByStudio(User user);
 
+    int updateReadTimesByOpenid(String openid,Float read_times);
+
     int updateScheduleName(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateRemind(Integer remind,String subject,String studio,String duration,String class_number,String dayofweek,String campus);

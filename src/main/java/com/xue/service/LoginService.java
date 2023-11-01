@@ -232,7 +232,7 @@ public interface LoginService {
 
     public int deletePoints(String student_name,String studio,Integer points,String subject,String campus);
 
-    public int updateCoinsByStudio(String studio);
+    public int updateCoinsByStudio(String studio,String openid);
 
     public int updateGift(String id);
 

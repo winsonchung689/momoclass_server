@@ -24,6 +24,8 @@ public class User {
 
     private Float coins;
 
+    private Float read_times;
+
     private String theme;
 
     private Integer display;
@@ -230,6 +232,14 @@ public class User {
 
     public void setCoins(Float coins) {
         this.coins = coins;
+    }
+
+    public Float getRead_times() {
+        return read_times;
+    }
+
+    public void setRead_times(Float read_times) {
+        this.read_times = read_times;
     }
 
     public String getExpired_time() {

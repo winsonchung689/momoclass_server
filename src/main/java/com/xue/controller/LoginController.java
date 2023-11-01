@@ -5008,8 +5008,31 @@ public class LoginController {
 		//获取用户名
 		String studio = request.getParameter("studio");
 
+		String openid = request.getParameter("openid");
+
 		try {
-			loginService.updateCoinsByStudio(studio);
+			loginService.updateCoinsByStudio(studio,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/minusReadTimesByOpenid")
+	@ResponseBody
+	public String minusReadTimesByOpenid(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String openid = request.getParameter("openid");
+
+		try {
+			List<User> users = dao.getUserByOpenid(openid);
+			Float  read_times = users.get(0).getRead_times();
+			if (read_times == null) {
+				read_times = 0.0f;
+			}
+
+			Float new_read_times = read_times - 1.0f;
+			dao.updateReadTimesByOpenid(openid,new_read_times);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
