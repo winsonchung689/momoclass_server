@@ -2177,6 +2177,7 @@ public class LoginServiceImpl implements LoginService {
                 hours = line.getHours();
                 remind_type = line.getRemind_type();
                 official_openid = line.getOfficial_openid();
+                Float read_times = line.getRead_times();
                 jsonObject.put("official_status", "未关注");
                 if(official_openid != null){
                     jsonObject.put("official_status", "已关注");
@@ -2242,6 +2243,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("sb", sb);
                 jsonObject.put("hours", hours);
                 jsonObject.put("remind_type", remind_type);
+                jsonObject.put("read_times", read_times);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
