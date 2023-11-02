@@ -18,12 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
@@ -1702,7 +1704,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Message> list = dao.getUuidById(studio,id);
             String class_target_bak = list.get(0).getClass_target_bak();
-            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak) || "新闻".equals(class_target_bak)){
+            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
@@ -1715,6 +1717,13 @@ public class LoginServiceImpl implements LoginService {
 
                 if (studio_get.equals(studio)) {
                     dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
+                    try {
+                        String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
+                        File temp = new File(d_path, uuid);
+                        temp.delete();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }else {
                     logger.error("it's not your studio, could not delete!");
                 }
