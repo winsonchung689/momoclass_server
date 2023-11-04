@@ -2163,7 +2163,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-
+                String id = line.getId();
                 avatarurl = line.getAvatarurl();
                 nick_name = line.getNick_name();
                 studio = line.getStudio();
@@ -2253,6 +2253,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("hours", hours);
                 jsonObject.put("remind_type", remind_type);
                 jsonObject.put("read_times", read_times);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

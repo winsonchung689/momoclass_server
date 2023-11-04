@@ -2467,6 +2467,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		String type = request.getParameter("type");
 		String content = request.getParameter("content");
+		String id = request.getParameter("id");
 
 		try {
 			if("昵称".equals(type)){
@@ -2475,7 +2476,9 @@ public class LoginController {
 				dao.updatePhoneNumber(openid,content);
 			}else if("地址".equals(type)) {
 				dao.updateLocation(openid,content);
-			}else if("学生".equals(type)) {
+			}else if("更新学生".equals(type)){
+				dao.updateUserStudentByOpenid(content,openid,id);
+			} else if("学生".equals(type)) {
 				List<User> users = dao.getUserByOpenid(openid);
 				User user = users.get(0);
 				String studio =user.getStudio();
