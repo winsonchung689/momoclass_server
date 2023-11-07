@@ -3552,8 +3552,6 @@ public class LoginController {
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
 				try {
-//					in = Imageutil.readImage(photo);
-//					message.setPhoto(FileCopyUtils.copyToByteArray(in));
 					loginService.push(message);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
