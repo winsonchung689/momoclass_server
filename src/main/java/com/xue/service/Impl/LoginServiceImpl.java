@@ -156,6 +156,7 @@ public class LoginServiceImpl implements LoginService {
         String mp3_url=null;
         String uuids=null;
         String uuids_c=null;
+        String vuuid=null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -202,6 +203,11 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
                 try {
+                    vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                try {
                     uuids_c = line.getUuids_c().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -239,6 +245,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("uuids_c", uuids_c);
+                jsonObject.put("vuuid", vuuid);
                 resul_list.add(jsonObject);
             }
 
@@ -261,6 +268,7 @@ public class LoginServiceImpl implements LoginService {
         String mp3_url = null;
         String uuids = null;
         String uuids_c=null;
+        String vuuid=null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -311,6 +319,12 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 try {
+                    vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
+                try {
                     uuids_c = line.getUuids_c().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -349,6 +363,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("uuids_c", uuids_c);
+                jsonObject.put("vuuid", vuuid);
                 resul_list.add(jsonObject);
             }
 
