@@ -3501,6 +3501,11 @@ public class LoginController {
 			uuids = "no_uuids";
 		}
 
+		String vuuid = request.getParameter("vuuid");
+		if(vuuid == null || vuuid.isEmpty() || "undefined".equals(vuuid)){
+			vuuid = "no_vuuids";
+		}
+
 		//获取课堂时间
 		String duration = request.getParameter("duration");
 		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
@@ -3547,6 +3552,7 @@ public class LoginController {
 		message.setMp3_url(mp3_url);
 		message.setUuids(uuids);
 		message.setCampus(campus);
+		message.setVuuid(vuuid);
 
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){

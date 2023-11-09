@@ -34,9 +34,19 @@ public class Message {
 
     private String uuids;
 
+    private String vuuid;
+
     private String uuids_c;
 
     private String campus;
+
+    public String getVuuid() {
+        return vuuid;
+    }
+
+    public void setVuuid(String vuuid) {
+        this.vuuid = vuuid;
+    }
 
     public String getCampus() {
         return campus;
