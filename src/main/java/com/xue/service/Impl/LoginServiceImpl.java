@@ -4728,11 +4728,19 @@ public class LoginServiceImpl implements LoginService {
                     happiness = line.getHappiness();
                     mp3_url = line.getMp3_url();
                     String uuids = null;
+                    String vuuid = null;
                     try {
                         uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                     } catch (Exception e) {
 //                    throw new RuntimeException(e);
                     }
+
+                    try {
+                        vuuid = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
+
                     if(uuids != null){
                         photo = null;
                     }
@@ -4768,6 +4776,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("happiness", happiness);
                     jsonObject.put("uuids", uuids);
                     jsonObject.put("mp3_url", mp3_url);
+                    jsonObject.put("vuuid", vuuid);
                     resul_list.add(jsonObject);
                 }
             }
@@ -5247,6 +5256,7 @@ public class LoginServiceImpl implements LoginService {
             List<Message> list = dao.getModel(studio, page_start, page_length,campus);
             for (int i = 0; i < list.size(); i++) {
                 String uuids = null;
+                String vuuid = null;
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
@@ -5259,6 +5269,11 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                try {
+                    vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -5275,6 +5290,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("uuids",uuids);
+                jsonObject.put("vuuid",vuuid);
                 resul_list.add(jsonObject);
             }
 
