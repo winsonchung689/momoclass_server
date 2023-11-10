@@ -32,6 +32,17 @@ public class Schedule {
 
     private Integer is_try;
 
+    private String send_status;
+
+
+
+    public String getSend_status() {
+        return send_status;
+    }
+
+    public void setSend_status(String send_status) {
+        this.send_status = send_status;
+    }
 
     public Integer getIs_try() {
         return is_try;

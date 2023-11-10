@@ -529,11 +529,11 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleByUser" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
   </select>
 
   <select id="getScheduleByUserDurationSt" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and SUBSTRING(duration, 1, 5)= #{param5} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and SUBSTRING(duration, 1, 5)= #{param5} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
   </select>
 
   <!-- 获取课程表 -->
@@ -1123,6 +1123,10 @@
 
   <update id="updateUserBackUrl" parameterType="com.xue.entity.model.User">
     update user set back_uuid=#{back_uuid} where openid = #{openid} and delete_status=0
+  </update>
+
+  <update id="updateClassSendStatus" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set send_status=#{param3} where id = #{param1} and delete_status=0
   </update>
 
   <update id="updateCommunicateContent" parameterType="com.xue.entity.model.CommunicateRecord">

@@ -64,6 +64,17 @@ public class User {
 
     private Integer hours;
 
+    private String send_status;
+
+
+
+    public String getSend_status() {
+        return send_status;
+    }
+
+    public void setSend_status(String send_status) {
+        this.send_status = send_status;
+    }
 
     public Integer getHours() {
         return hours;

@@ -340,6 +340,8 @@ public interface UserMapper {
 
     int updateUserBackUrl(User user);
 
+    int updateClassSendStatus(String id,String send_status);
+
     int updateCommunicateContent(String id,String content);
 
     int updateCommunicateUuids(String id,String uuids);
