@@ -488,6 +488,8 @@ public interface UserMapper {
     List<User> getBossByStudioOnly(String studio);
     List<User> getAllUser();
 
+    List<User> getAllBoss();
+
     List<User> getStudio();
 
     List<User> getStudioBoss(String role);

@@ -1017,6 +1017,10 @@
     select * from user where delete_status = 0 order by remind_type desc
   </select>
 
+  <select id="getAllBoss" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where role in ('boss') and delete_status = 0 order by remind_type desc
+  </select>
+
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},comment_style=#{comment_style} where openid = #{openid} and delete_status = 0
