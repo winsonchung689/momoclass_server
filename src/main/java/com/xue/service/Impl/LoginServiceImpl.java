@@ -933,11 +933,12 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = new JSONObject();
             Lesson lesson = lessons.get(i);
             String student_name = lesson.getStudent_name();
-            subject = lesson.getSubject();
-            studio = lesson.getStudio();
+            String subject_get = lesson.getSubject();
+            String studio_get = lesson.getStudio();
+            String campus_get = lesson.getCampus();
             Float total_amount = lesson.getTotal_amount();
             Float left_amount = lesson.getLeft_amount();
-            List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
+            List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
             if("已排课".equals(type) && schedules.size()>0){
                 jsonObject.put("student_name",student_name);
                 jsonObject.put("subject", subject);
@@ -946,7 +947,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_amount", left_amount);
                 resul_list.add(jsonObject);
 
-            }else if("未排课".equals(type) && schedules.size()==0){
+            }else if("未排课".equals(type) && schedules.size() == 0){
                 jsonObject.put("student_name",student_name);
                 jsonObject.put("subject", subject);
                 jsonObject.put("campus", campus);
@@ -3862,13 +3863,6 @@ public class LoginServiceImpl implements LoginService {
                     date_time = df.format(cal_today.getTime());
                     list_schedule = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
 
-                    // 暂停3秒
-//                    logger.info("暂停0.1秒");
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
                 }
 
                 if(list_schedule.size() > 0 && weekDay > 0){
@@ -3930,7 +3924,7 @@ public class LoginServiceImpl implements LoginService {
                                                     String official_openid_get = official_list_boss[k];
                                                     JSONObject queryJson2 = JSONObject.parseObject(tample6);
                                                     queryJson2.put("touser",official_openid_get);
-                                                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送");
+                                                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送" +"(" + student_name + ")");
                                                     queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
                                                     queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
 
