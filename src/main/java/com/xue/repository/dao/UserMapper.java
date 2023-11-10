@@ -342,6 +342,8 @@ public interface UserMapper {
 
     int updateClassSendStatus(String id,String send_status);
 
+    int updateClassSendStatusByStudio(String studio,String send_status);
+
     int updateCommunicateContent(String id,String content);
 
     int updateCommunicateUuids(String id,String uuids);

@@ -4443,6 +4443,7 @@ public class LoginController {
 				user.setRemind_type(remind_type);
 				dao.updateHours(user);
 			}
+			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

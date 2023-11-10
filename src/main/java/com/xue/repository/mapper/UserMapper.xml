@@ -1129,6 +1129,10 @@
     update class_schedule set send_status=#{param3} where id = #{param1} and delete_status=0
   </update>
 
+  <update id="updateClassSendStatusByStudio" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set send_status=#{param3} where studio = #{param1} and delete_status=0
+  </update>
+
   <update id="updateCommunicateContent" parameterType="com.xue.entity.model.CommunicateRecord">
     update communicate_record set content=#{param2} where id =#{param1} and delete_status=0
   </update>
