@@ -1721,7 +1721,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Message> list = dao.getUuidById(studio,id);
             String class_target_bak = list.get(0).getClass_target_bak();
-            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak)){
+            if("健康".equals(class_target_bak) || "讲坛".equals(class_target_bak) || "课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
