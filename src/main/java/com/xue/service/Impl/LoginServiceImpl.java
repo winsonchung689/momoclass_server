@@ -3792,7 +3792,7 @@ public class LoginServiceImpl implements LoginService {
             try {
                 Date date_now = df_now.parse(now_date + " " + send_time);
                 timestamp_start = date_now.getTime();
-                timestamp_end = timestamp_start + 10*60*1000;
+                timestamp_end = timestamp_start + 3*60*1000;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
