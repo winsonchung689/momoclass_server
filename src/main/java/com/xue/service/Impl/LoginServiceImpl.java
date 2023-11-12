@@ -3861,6 +3861,7 @@ public class LoginServiceImpl implements LoginService {
 
                                                         System.out.printf("param2:" + queryJson2.toJSONString());
                                                         result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                                                        dao.updateClassSendStatus(id,now_date);
                                                         System.out.printf("res2:" + result);
                                                     } catch (Exception e) {
                                                         throw new RuntimeException(e);
