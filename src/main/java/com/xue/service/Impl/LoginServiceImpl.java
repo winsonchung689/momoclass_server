@@ -3422,6 +3422,37 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getUpdateNews() {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> messages = dao.getUpdateNews();
+
+        for (int i = 0; i < messages.size(); i++) {
+            Message line = messages.get(i);
+            String uuids = line.getUuids();
+            String comment = line.getComment();
+            String id = line.getId();
+            try {
+                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+//                    throw new RuntimeException(e);
+            }
+            String[] uuids_list = uuids.split(",");
+            if(uuids.length()>2){
+                for(int j=0;j<uuids_list.length;j++){
+                    JSONObject jsonObject = new JSONObject();
+                    String uuids_get = uuids_list[j];
+                    jsonObject.put("uuids",uuids_get);
+                    jsonObject.put("id",id);
+                    jsonObject.put("comment",comment);
+                    resul_list.add(jsonObject);
+                }
+            }
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getCourseList(String studio, Integer page) {
         byte[] photo = null;
         InputStream inputStream_photo = null;

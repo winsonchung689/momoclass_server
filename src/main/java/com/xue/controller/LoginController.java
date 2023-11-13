@@ -864,6 +864,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUpdateNews")
+	@ResponseBody
+	public List getUpdateNews(){
+		List list = null;
+		try {
+			list = loginService.getUpdateNews();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody
