@@ -253,7 +253,7 @@ public class LoginController {
 			count = Float.parseFloat(class_count);
 		}
 
-		String thing8 = "本次扣课" + count + "课时，总课时" + total + "课时";
+		String thing8 = "本次扣课" + count + "课时";
 
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");
