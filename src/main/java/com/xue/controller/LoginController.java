@@ -5011,6 +5011,7 @@ public class LoginController {
 	public String minusReadTimesByOpenid(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String openid = request.getParameter("openid");
+		String video_id = request.getParameter("video_id");
 
 		try {
 			List<User> users = dao.getUserByOpenid(openid);
@@ -5021,6 +5022,11 @@ public class LoginController {
 
 			Float new_read_times = read_times - 1.0f;
 			dao.updateReadTimesByOpenid(openid,new_read_times);
+
+			List<Message> messages = dao.getDetails(Integer.parseInt(video_id));
+			Integer views = messages.get(0).getViews() + 15;
+			dao.updateVideoViewsById(video_id,views);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

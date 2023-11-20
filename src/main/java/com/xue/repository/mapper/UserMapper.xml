@@ -1717,6 +1717,11 @@
     update user set read_times=#{param2} where openid=#{param1} and delete_status = 0
   </update>
 
+  <!-- 更新用可观看次数 -->
+  <update id="updateVideoViewsById" parameterType="com.xue.entity.model.User">
+    update class_comment set views=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateFinalTime" parameterType="com.xue.entity.model.Lesson">
     update lesson set final_time=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
