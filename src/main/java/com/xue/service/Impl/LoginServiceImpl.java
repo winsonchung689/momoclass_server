@@ -3397,6 +3397,7 @@ public class LoginServiceImpl implements LoginService {
             Message line = messages.get(i);
             String uuids = line.getUuids();
             String comment = line.getComment();
+            Integer views = line.getViews();
             String id = line.getId();
             try {
                 uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
@@ -3411,6 +3412,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("uuids",uuids_get);
                     jsonObject.put("id",id);
                     jsonObject.put("comment",comment);
+                    jsonObject.put("views",views);
                     resul_list.add(jsonObject);
                 }
             }else{
