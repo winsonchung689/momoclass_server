@@ -3430,6 +3430,7 @@ public class LoginServiceImpl implements LoginService {
             Message line = messages.get(i);
             String uuids = line.getUuids();
             String comment = line.getComment();
+            Integer views = line.getViews();
             String class_target_bak = line.getClass_target_bak();
             String id = line.getId();
             try {
@@ -3446,6 +3447,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id",id);
                     jsonObject.put("comment",comment);
                     jsonObject.put("class_target_bak",class_target_bak);
+                    jsonObject.put("views",views);
                     resul_list.add(jsonObject);
                 }
             }

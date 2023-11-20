@@ -40,6 +40,17 @@ public class Message {
 
     private String campus;
 
+    private Integer views;
+
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
     public String getVuuid() {
         return vuuid;
     }
