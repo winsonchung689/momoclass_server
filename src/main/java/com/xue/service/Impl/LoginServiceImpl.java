@@ -3425,32 +3425,43 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUpdateNews() {
+
+        Set<Integer> randomNumbers = new HashSet<>();
+        Random random = new Random();
+
+        while (randomNumbers.size() < 3) {
+            int randomNumber = random.nextInt(11); // 生成0到10之间的随机数
+            randomNumbers.add(randomNumber);
+        }
+
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> messages = dao.getUpdateNews();
 
         for (int i = 0; i < messages.size(); i++) {
-            Message line = messages.get(i);
-            String uuids = line.getUuids();
-            String comment = line.getComment();
-            Integer views = line.getViews();
-            String class_target_bak = line.getClass_target_bak();
-            String id = line.getId();
-            try {
-                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
-            } catch (Exception e) {
-//                    throw new RuntimeException(e);
-            }
-            String[] uuids_list = uuids.split(",");
-            if(uuids.length()>2){
-                for(int j=0;j<uuids_list.length;j++){
-                    JSONObject jsonObject = new JSONObject();
-                    String uuids_get = uuids_list[j];
-                    jsonObject.put("uuids",uuids_get);
-                    jsonObject.put("id",id);
-                    jsonObject.put("comment",comment);
-                    jsonObject.put("class_target_bak",class_target_bak);
-                    jsonObject.put("views",views);
-                    resul_list.add(jsonObject);
+            if (randomNumbers.contains(i)) {
+                Message line = messages.get(i);
+                String uuids = line.getUuids();
+                String comment = line.getComment();
+                Integer views = line.getViews();
+                String class_target_bak = line.getClass_target_bak();
+                String id = line.getId();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+    //                    throw new RuntimeException(e);
+                }
+                String[] uuids_list = uuids.split(",");
+                if(uuids.length()>2){
+                    for(int j=0;j<uuids_list.length;j++){
+                        JSONObject jsonObject = new JSONObject();
+                        String uuids_get = uuids_list[j];
+                        jsonObject.put("uuids",uuids_get);
+                        jsonObject.put("id",id);
+                        jsonObject.put("comment",comment);
+                        jsonObject.put("class_target_bak",class_target_bak);
+                        jsonObject.put("views",views);
+                        resul_list.add(jsonObject);
+                    }
                 }
             }
         }

@@ -112,7 +112,7 @@
   </select>
 
   <select id="getUpdateNews" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak in ('新闻','英语','育儿','绘本','升学','讲坛','健康','妈妈') and studio ='大雄工作室' and delete_status = 0 order by create_time desc limit 3;
+    select * from class_comment where class_target_bak in ('新闻','英语','育儿','绘本','升学','讲坛','健康','妈妈') and studio ='大雄工作室' and delete_status = 0 order by create_time desc limit 10;
   </select>
 
   <!-- 获取全量发帖 -->
