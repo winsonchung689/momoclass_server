@@ -3453,6 +3453,7 @@ public class LoginServiceImpl implements LoginService {
             if (randomNumbers.contains(i)) {
                 Message line = messages.get(i);
                 String uuids = line.getUuids();
+                String vuuid = line.getVuuid();
                 String comment = line.getComment();
                 Integer views = line.getViews();
                 String class_target_bak = line.getClass_target_bak();
@@ -3462,12 +3463,19 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
     //                    throw new RuntimeException(e);
                 }
+
+                try {
+                    vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+                    //                    throw new RuntimeException(e);
+                }
                 String[] uuids_list = uuids.split(",");
                 if(uuids.length()>2){
                     for(int j=0;j<uuids_list.length;j++){
                         JSONObject jsonObject = new JSONObject();
                         String uuids_get = uuids_list[j];
                         jsonObject.put("uuids",uuids_get);
+                        jsonObject.put("vuuid",vuuid);
                         jsonObject.put("id",id);
                         jsonObject.put("comment",comment);
                         jsonObject.put("class_target_bak",class_target_bak);
