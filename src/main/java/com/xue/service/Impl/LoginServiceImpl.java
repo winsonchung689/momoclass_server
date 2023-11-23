@@ -3396,11 +3396,18 @@ public class LoginServiceImpl implements LoginService {
         for (int i = 0; i < messages.size(); i++) {
             Message line = messages.get(i);
             String uuids = line.getUuids();
+            String vuuid = line.getVuuid();
             String comment = line.getComment();
             Integer views = line.getViews();
             String id = line.getId();
             try {
                 uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+//                    throw new RuntimeException(e);
+            }
+
+            try {
+                vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
             } catch (Exception e) {
 //                    throw new RuntimeException(e);
             }
@@ -3410,6 +3417,7 @@ public class LoginServiceImpl implements LoginService {
                     JSONObject jsonObject = new JSONObject();
                     String uuids_get = uuids_list[j];
                     jsonObject.put("uuids",uuids_get);
+                    jsonObject.put("vuuid",vuuid);
                     jsonObject.put("id",id);
                     jsonObject.put("comment",comment);
                     jsonObject.put("views",views);
