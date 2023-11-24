@@ -2900,6 +2900,7 @@ public class LoginController {
 		String openid =  request.getParameter("openid");
 		List<User> list = dao.getUser(openid);
 		String campus = list.get(0).getCampus();
+		String nick_name = list.get(0).getNick_name();
 		String total_money =  request.getParameter("total_money");
 		String discount_money =  request.getParameter("discount_money");
 		String start_date =  request.getParameter("start_date");
@@ -2922,6 +2923,7 @@ public class LoginController {
 			lessonPackage.setCreate_time(create_time);
 			lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 			lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+			lessonPackage.setNick_name(nick_name);
 
 			dao.insertLessonPackage(lessonPackage);
 		} catch (Exception e) {
@@ -4765,6 +4767,7 @@ public class LoginController {
 				lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
 				lessonPackage.setMark("初次录入");
 				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+				lessonPackage.setNick_name(nick_name);
 				dao.insertLessonPackage(lessonPackage);
 			}
 		} catch (Exception e) {
