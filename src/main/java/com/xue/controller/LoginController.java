@@ -4518,6 +4518,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		String nick_name = list_user.get(0).getNick_name();
 
 		//获取用户名
 		String student_name = request.getParameter("student_name");
@@ -4677,6 +4678,7 @@ public class LoginController {
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+				lessonPackage.setNick_name(nick_name);
 
 				try {
 					dao.insertLessonPackage(lessonPackage);

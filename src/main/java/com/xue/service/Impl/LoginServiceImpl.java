@@ -4632,6 +4632,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 Float all_lesson = line.getAll_lesson();
                 Float give_lesson = line.getGive_lesson();
+                String nick_name = line.getNick_name();
                 student_name  = line.getStudent_name();
 
                 //json
@@ -4644,6 +4645,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("all_lesson", all_lesson);
                 jsonObject.put("give_lesson", give_lesson);
+                jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

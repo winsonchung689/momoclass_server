@@ -1214,7 +1214,7 @@
   </insert>
 
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
-    insert lesson_package(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time},#{all_lesson},#{give_lesson},#{subject})
+    insert lesson_package(student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject,nick_name) values(#{student_name},#{total_money},#{discount_money},#{mark},#{start_date},#{end_date},#{campus},#{studio},#{create_time},#{all_lesson},#{give_lesson},#{subject},#{nick_name})
   </insert>
 
   <!-- 插入通知 -->
