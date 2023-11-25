@@ -6026,8 +6026,14 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = (page - 1) * 30;
         Integer page_length = 30;
         List<User> list = null;
+        List<User> all_user = null;
+        Integer all_user_count = 0;
         List<JSONObject> resul_list = new ArrayList<>();
         list = dao.getAllUserByStudioByPage(studio,page_start,page_length);
+        if(page ==1 ){
+            all_user = dao.getAllUserByStudio(studio);
+            all_user_count = all_user.size();
+        }
         try {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -6078,6 +6084,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("member", member);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("is_open_name", is_open_name);
+                jsonObject.put("all_user_count", all_user_count);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
