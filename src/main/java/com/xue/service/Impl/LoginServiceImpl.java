@@ -4288,7 +4288,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("count", count);
                 jsonObject.put("price", df1.format(price));
                 jsonObject.put("sign_price", df1.format(sign_price));
-                resul_list.add(jsonObject);
+                if(student_name.length() >0){
+                    resul_list.add(jsonObject);
+                }
             }
 
         } catch (Exception e) {
