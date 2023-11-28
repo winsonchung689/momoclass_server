@@ -4032,9 +4032,9 @@ public class LoginServiceImpl implements LoginService {
         String result = null;
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-        String title = "无";
-        String type = "无";
-        String comment = "无";
+        String title = null;
+        String type = null;
+        String comment = null;
         try {
             List<Message> messages = dao.getUpdateNews();
             title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
@@ -4046,9 +4046,6 @@ public class LoginServiceImpl implements LoginService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println(title);
-        System.out.println(comment);
-        System.out.println(type);
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
@@ -4093,7 +4090,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","小桃子官方");
                             queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", title);
                             queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
+                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "视频更新，请点击查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
 
