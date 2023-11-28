@@ -1134,7 +1134,7 @@
   </update>
 
   <update id="updateClassSendStatusByOpenid" parameterType="com.xue.entity.model.User">
-    update User set send_status=#{param2} where openid = #{param1} and delete_status=0
+    update user set send_status=#{param2} where openid = #{param1} and delete_status=0
   </update>
 
   <update id="updateClassSendStatusByStudio" parameterType="com.xue.entity.model.Schedule">
