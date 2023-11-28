@@ -4050,6 +4050,7 @@ public class LoginServiceImpl implements LoginService {
             String studio = user.getStudio();
             String send_time = user.getSend_time();
             String openid = user.getOpenid();
+            Float read_times = user.getRead_times();
 
             //获取当前时间
             String now_date = df_now.format(new Date()).split(" ")[0];
@@ -4070,7 +4071,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
                             queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
