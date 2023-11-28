@@ -4030,7 +4030,7 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
         String result = null;
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"short_thing5\":{\"time48\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         String title = "无";
         String type = "无";
