@@ -4037,15 +4037,18 @@ public class LoginServiceImpl implements LoginService {
         String comment = "无";
         try {
             List<Message> messages = dao.getUpdateNews();
-            title = messages.get(0).getComment().split("简介")[0];
-            comment = messages.get(0).getComment().split("简介")[1];
-            if(comment.length() > 10){
-                comment = comment.substring(0, 10) + "...";
-            }
+            title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
             type = messages.get(0).getClass_target_bak();
+            comment = messages.get(0).getComment().split("简介")[1].replace("：","");
+            if(comment.length() > 10){
+                comment = comment.substring(0, 15) + "...";
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        System.out.println(title);
+        System.out.println(comment);
+        System.out.println(type);
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
