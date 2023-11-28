@@ -4030,13 +4030,16 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
         String result = null;
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"short_thing5\":{\"time48\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         String title = null;
         String type = null;
+        String comment = null;
         try {
             List<Message> messages = dao.getUpdateNews();
-            title = messages.get(0).getComment().split("简介")[0];
+            String message = messages.get(0).getComment();
+            title = message.split("简介")[0];
+            comment = message.split("简介")[1].substring(0,10)+"...";
             type = messages.get(0).getClass_target_bak();
         } catch (Exception e) {
 //            throw new RuntimeException(e);
@@ -4082,9 +4085,11 @@ public class LoginServiceImpl implements LoginService {
                             String official_openid_get = official_list[k];
                             JSONObject queryJson2 = JSONObject.parseObject(tample14);
                             queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
-                            queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
+                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","小桃子官方");
+                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", title);
+                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", comment);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
+                            queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
