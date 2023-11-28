@@ -3980,26 +3980,6 @@ public class LoginServiceImpl implements LoginService {
                                                     throw new RuntimeException(e);
                                                 }
                                             }
-
-                                            // 发送广场通知
-                                            if("client".equals(role)){
-                                                for(int k=0;k<official_list.length;k++){
-                                                    try {
-                                                        String official_openid_get = official_list[j];
-                                                        JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                                                        queryJson2.put("touser", official_openid_get);
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
-                                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
-                                                        queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
-
-                                                        result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                                                        System.out.printf("res:" + result);
-                                                    } catch (Exception e) {
-                                                        throw new RuntimeException(e);
-                                                    }
-                                                }
-                                            }
                                         }
                                     }
                                 }
@@ -4045,6 +4025,31 @@ public class LoginServiceImpl implements LoginService {
                                 }
                             }
 
+                        }
+                    }
+                }
+            }
+
+            //广场通知
+            if("client".equals(role)) {
+                String token = getToken("MOMO_OFFICIAL");
+                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                if (official_openid != null) {
+                    String[] official_list = official_openid.split(",");
+                    for(int k=0;k<official_list.length;k++){
+                        try {
+                            String official_openid_get = official_list[k];
+                            JSONObject queryJson2 = JSONObject.parseObject(tample14);
+                            queryJson2.put("touser", official_openid_get);
+                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
+                            queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
+                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
+
+                            result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                            System.out.printf("res:" + result);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }
