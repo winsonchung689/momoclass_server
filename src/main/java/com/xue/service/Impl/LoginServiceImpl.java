@@ -3814,6 +3814,10 @@ public class LoginServiceImpl implements LoginService {
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
 
+        List<Message> messages = dao.getUpdateNews();
+        String title = messages.get(0).getComment().split("简介")[0];
+        String type = messages.get(0).getClass_target_bak();
+
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
             User user = list.get(i);
@@ -3826,6 +3830,7 @@ public class LoginServiceImpl implements LoginService {
             Integer hours = user.getHours();
             String campus = user.getCampus();
             String openid = user.getOpenid();
+            String role = user.getRole();
 
             //获取提前时间
             Calendar cal_today = Calendar.getInstance();
@@ -3967,6 +3972,26 @@ public class LoginServiceImpl implements LoginService {
                                                     System.out.printf("res22:" + result);
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
+                                                }
+                                            }
+
+                                            // 发送广场通知
+                                            if("client".equals(role)){
+                                                for(int k=0;k<official_list.length;k++){
+                                                    try {
+                                                        String official_openid_get = official_list[j];
+                                                        JSONObject queryJson2 = JSONObject.parseObject(tample14);
+                                                        queryJson2.put("touser", official_openid_get);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子广场");
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", title);
+                                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "点击查看");
+                                                        queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
+
+                                                        result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                                        System.out.printf("res:" + result);
+                                                    } catch (Exception e) {
+                                                        throw new RuntimeException(e);
+                                                    }
                                                 }
                                             }
                                         }
