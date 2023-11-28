@@ -4051,14 +4051,28 @@ public class LoginServiceImpl implements LoginService {
             String send_time = user.getSend_time();
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
+            String send_status = user.getSend_status();
 
             //获取当前时间
-            String now_date = df_now.format(new Date()).split(" ")[0];
-            String now_time = df_now.format(new Date()).split(" ")[1];
+            Date date =new Date();
+            long timestamp = date.getTime();
+            String now_date = df_now.format(date).split(" ")[0];
+            String now_time = df_now.format(date).split(" ")[1];
 
+            //获取发送时间戳
+            long timestamp_start = 0l;
+            long timestamp_end = 0l;
+            try {
+                Date date_now = df_now.parse(now_date + " " + send_time);
+                timestamp_start = date_now.getTime();
+                timestamp_end = timestamp_start + 10*60*1000;
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             //广场通知
-            if("client".equals(role) && send_time.equals(now_time)){
+            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(now_date)){
+                dao.updateClassSendStatusByOpenid(openid,now_date);
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                 if (official_openid != null) {
