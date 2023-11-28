@@ -4032,17 +4032,19 @@ public class LoginServiceImpl implements LoginService {
         String result = null;
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"short_thing5\":{\"time48\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-        String title = null;
-        String type = null;
-        String comment = null;
+        String title = "无";
+        String type = "无";
+        String comment = "无";
         try {
             List<Message> messages = dao.getUpdateNews();
-            String message = messages.get(0).getComment();
-            title = message.split("简介")[0];
-            comment = message.split("简介")[1].substring(0,5);
+            title = messages.get(0).getComment().split("简介")[0];
+            comment = messages.get(0).getComment().split("简介")[1];
+            if(comment.length() > 10){
+                comment = comment.substring(0, 10) + "...";
+            }
             type = messages.get(0).getClass_target_bak();
         } catch (Exception e) {
-//            throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
         List<User> list = dao.getAllUser();
