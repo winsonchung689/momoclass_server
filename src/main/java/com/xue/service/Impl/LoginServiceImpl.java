@@ -4090,7 +4090,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","小桃子官方");
                             queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", title);
                             queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "视频更新，请点击查看");
+                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "视频更新请点击查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
 
