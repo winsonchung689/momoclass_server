@@ -4060,6 +4060,7 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
+            System.out.println(openid);
 
             //获取当前时间
             Date date =new Date();
