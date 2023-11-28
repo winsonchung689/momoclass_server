@@ -4040,7 +4040,7 @@ public class LoginServiceImpl implements LoginService {
             title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
             type = messages.get(0).getClass_target_bak();
             comment = messages.get(0).getComment().split("简介")[1].replace("：","");
-            if(comment.length() > 10){
+            if(comment.length() > 15){
                 comment = comment.substring(0, 15) + "...";
             }
         } catch (Exception e) {
