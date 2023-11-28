@@ -3814,9 +3814,15 @@ public class LoginServiceImpl implements LoginService {
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
 
-        List<Message> messages = dao.getUpdateNews();
-        String title = messages.get(0).getComment().split("简介")[0];
-        String type = messages.get(0).getClass_target_bak();
+        String title = null;
+        String type = null;
+        try {
+            List<Message> messages = dao.getUpdateNews();
+            title = messages.get(0).getComment().split("简介")[0];
+            type = messages.get(0).getClass_target_bak();
+        } catch (Exception e) {
+//            throw new RuntimeException(e);
+        }
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
