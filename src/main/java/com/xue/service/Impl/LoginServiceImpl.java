@@ -3737,13 +3737,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int updateCoinsByStudio(String studio,String openid) {
         int result = 0;
-        Float new_coins = 0.0f;
-        List<User> list = dao.getBossByStudioOnly(studio);
-        User line = list.get(0);
-        Float coins = line.getCoins();
-        String expired_time = line.getExpired_time();
-        String member = line.getMember();
-
         try {
             List<User> users = dao.getUserByOpenid(openid);
             Float  read_times = users.get(0).getRead_times();
@@ -3757,34 +3750,44 @@ public class LoginServiceImpl implements LoginService {
             throw new RuntimeException(e);
         }
 
-        if("永恒会员".equals(member)){
-            if (coins == null) {
-                coins = 0.0f;
-            }
-            new_coins = coins + 0.5f;
-            if(new_coins<24){
-                User user = new User();
-                user.setCoins(new_coins);
-                user.setStudio(studio);
-                user.setExpired_time(expired_time);
-                result = dao.updateCoinsByStudio(user);
-            }else if(new_coins>=24){
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-                try {
-                    cal.setTime(df.parse(expired_time));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+        Float new_coins = 0.0f;
+        List<User> list = dao.getBossByStudioOnly(studio);
+        if(list.size()>0){
+            User line = list.get(0);
+            Float coins = line.getCoins();
+            String expired_time = line.getExpired_time();
+            String member = line.getMember();
+
+            if("永恒会员".equals(member)){
+                if (coins == null) {
+                    coins = 0.0f;
                 }
-                cal.add(cal.DATE,1);
-                String expired_time_new = df.format(cal.getTime());
-                User user = new User();
-                user.setCoins(0.0f);
-                user.setStudio(studio);
-                user.setExpired_time(expired_time_new);
-                result = dao.updateCoinsByStudio(user);
+                new_coins = coins + 0.5f;
+                if(new_coins<24){
+                    User user = new User();
+                    user.setCoins(new_coins);
+                    user.setStudio(studio);
+                    user.setExpired_time(expired_time);
+                    result = dao.updateCoinsByStudio(user);
+                }else if(new_coins>=24){
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                    try {
+                        cal.setTime(df.parse(expired_time));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    cal.add(cal.DATE,1);
+                    String expired_time_new = df.format(cal.getTime());
+                    User user = new User();
+                    user.setCoins(0.0f);
+                    user.setStudio(studio);
+                    user.setExpired_time(expired_time_new);
+                    result = dao.updateCoinsByStudio(user);
+                }
             }
         }
+
 
         return result;
     }
