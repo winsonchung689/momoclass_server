@@ -4056,7 +4056,7 @@ public class LoginServiceImpl implements LoginService {
             String role = user.getRole();
             String official_openid = user.getOfficial_openid();
             String studio = user.getStudio();
-            String send_time = user.getSend_time();
+            String send_time = "17:30:00";
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
