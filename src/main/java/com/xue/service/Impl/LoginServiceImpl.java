@@ -3814,16 +3814,6 @@ public class LoginServiceImpl implements LoginService {
         String publickey = "BGVksyYnr7LQ2tjLt8Y6IELBlBS7W8IrOvVszRVuE0F97qvcV6qB_41BJ-pXPaDf6Ktqdg6AogGK_UUc3zf8Snw";
         String privatekey = "oc5e7TovuZB8WVXqQoma-I14sYjoeBp0VJTjqOWL7mE";
 
-        String title = null;
-        String type = null;
-        try {
-            List<Message> messages = dao.getUpdateNews();
-            title = messages.get(0).getComment().split("简介")[0];
-            type = messages.get(0).getClass_target_bak();
-        } catch (Exception e) {
-//            throw new RuntimeException(e);
-        }
-
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
             User user = list.get(i);
@@ -4029,9 +4019,45 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void sendSquareRemind() {
+        List<String> apps = new ArrayList<>();
+        apps.add("MOMO_OFFICIAL");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+
+        String result = null;
+        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+        String title = null;
+        String type = null;
+        try {
+            List<Message> messages = dao.getUpdateNews();
+            title = messages.get(0).getComment().split("简介")[0];
+            type = messages.get(0).getClass_target_bak();
+        } catch (Exception e) {
+//            throw new RuntimeException(e);
+        }
+
+        List<User> list = dao.getAllUser();
+        for (int i = 0; i < list.size(); i++) {
+            User user = list.get(i);
+            String role = user.getRole();
+            String official_openid = user.getOfficial_openid();
+            String studio = user.getStudio();
+            String send_time = user.getSend_time();
+            String openid = user.getOpenid();
+
+            //获取当前时间
+            String now_date = df_now.format(new Date()).split(" ")[0];
+            String now_time = df_now.format(new Date()).split(" ")[1];
+
 
             //广场通知
-            if("client".equals(role)) {
+            if("client".equals(role) && send_time.equals(now_time)){
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                 if (official_openid != null) {
@@ -4041,7 +4067,7 @@ public class LoginServiceImpl implements LoginService {
                             String official_openid_get = official_list[k];
                             JSONObject queryJson2 = JSONObject.parseObject(tample14);
                             queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
+                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子");
                             queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
@@ -4053,6 +4079,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
+
             }
         }
     }
