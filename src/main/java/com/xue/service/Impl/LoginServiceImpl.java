@@ -4067,7 +4067,7 @@ public class LoginServiceImpl implements LoginService {
                             String official_openid_get = official_list[k];
                             JSONObject queryJson2 = JSONObject.parseObject(tample14);
                             queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子");
+                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value","小桃子官方");
                             queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "今日头条:" + title);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type);
