@@ -4039,7 +4039,7 @@ public class LoginServiceImpl implements LoginService {
             List<Message> messages = dao.getUpdateNews();
             String message = messages.get(0).getComment();
             title = message.split("简介")[0];
-            comment = message.split("简介")[1].substring(0,10)+"...";
+            comment = message.split("简介")[1].replace("：","").substring(0,10) + "...";
             type = messages.get(0).getClass_target_bak();
         } catch (Exception e) {
 //            throw new RuntimeException(e);
