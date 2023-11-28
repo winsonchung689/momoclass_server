@@ -4056,17 +4056,19 @@ public class LoginServiceImpl implements LoginService {
             String role = user.getRole();
             String official_openid = user.getOfficial_openid();
             String studio = user.getStudio();
-            String send_time = "17:30:00";
+            String send_time = "18:00:00";
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
-            System.out.println(openid);
 
             //获取当前时间
             Date date =new Date();
             long timestamp = date.getTime();
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
+            if(send_status == null){
+                send_status = now_date;
+            }
 
             //获取发送时间戳
             long timestamp_start = 0l;
@@ -4075,6 +4077,7 @@ public class LoginServiceImpl implements LoginService {
                 Date date_now = df_now.parse(now_date + " " + send_time);
                 timestamp_start = date_now.getTime();
                 timestamp_end = timestamp_start + 10*60*1000;
+
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
