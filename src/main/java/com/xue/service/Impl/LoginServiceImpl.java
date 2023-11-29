@@ -4043,8 +4043,8 @@ public class LoginServiceImpl implements LoginService {
             title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
             type = messages.get(0).getClass_target_bak();
             comment = messages.get(0).getComment().split("简介")[1].replace("：","");
-            if(comment.length() > 15){
-                comment = comment.substring(0, 15) + "...";
+            if(comment.length() > 14){
+                comment = comment.substring(0, 14) + "...";
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -4099,10 +4099,10 @@ public class LoginServiceImpl implements LoginService {
                             String official_openid_get = official_list[k];
                             JSONObject queryJson2 = JSONObject.parseObject(tample14);
                             queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","小桃子官方");
-                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "视频更新："+title);
-                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请点击查看");
+                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","小桃子系统管理员");
+                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "本次推送视频："+title);
+                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
+                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "需要请查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
                             queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
 
