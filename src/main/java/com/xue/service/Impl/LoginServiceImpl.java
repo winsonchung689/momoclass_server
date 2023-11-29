@@ -4056,19 +4056,24 @@ public class LoginServiceImpl implements LoginService {
             String role = user.getRole();
             String official_openid = user.getOfficial_openid();
             String studio = user.getStudio();
-            String send_time = "18:00:00";
+            String send_time = "10:00:00";
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
 
             //获取当前时间
             Date date =new Date();
+            int hour = date.getHours();
             long timestamp = date.getTime();
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
             if(send_status == null){
                 send_status = now_date;
             }
+            if(hour > 12){
+                send_time = "15:00:00";
+            }
+
 
             //获取发送时间戳
             long timestamp_start = 0l;
