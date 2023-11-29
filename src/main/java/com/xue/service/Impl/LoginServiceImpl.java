@@ -4067,13 +4067,13 @@ public class LoginServiceImpl implements LoginService {
             long timestamp = date.getTime();
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
-            if(send_status == null){
-                send_status = now_date;
-            }
             if(hour > 12){
                 send_time = "15:00:00";
             }
 
+            if(send_status == null){
+                send_status = now_date + " " + send_time;
+            }
 
             //获取发送时间戳
             long timestamp_start = 0l;
