@@ -344,8 +344,7 @@ public interface UserMapper {
 
     int updateClassSendStatus(String id,String send_status);
 
-
-    int updateClassSendStatusByOpenid(String id,String openid);
+    int updateClassSendStatusByOpenid(String openid,String send_status);
 
     int updateClassSendStatusByStudio(String studio,String send_status);
 

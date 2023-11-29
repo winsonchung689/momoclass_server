@@ -4087,9 +4087,11 @@ public class LoginServiceImpl implements LoginService {
                 throw new RuntimeException(e);
             }
 
+            String send_status_new = now_date + " " + send_time;
+
             //广场通知
-            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(now_date)){
-                dao.updateClassSendStatusByOpenid(openid,now_date);
+            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
+                dao.updateClassSendStatusByOpenid(openid,send_status_new);
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                 if (official_openid != null) {
