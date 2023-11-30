@@ -182,6 +182,8 @@ public interface UserMapper {
 
     void deleteComment(Integer id,String studio);
 
+    void updateVideoTop(Integer id,String create_time);
+
     void deletePost(Integer id);
 
     void deleteBookDetail(Integer id,String studio);

@@ -1706,6 +1706,21 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateVideoTop")
+	@ResponseBody
+	public int updateVideoTop(Integer id){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			dao.updateVideoTop(id,update_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteBookDetail")
 	@ResponseBody
