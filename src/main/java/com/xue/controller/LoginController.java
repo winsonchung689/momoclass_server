@@ -858,10 +858,10 @@ public class LoginController {
 
 	@RequestMapping("/getExhibition")
 	@ResponseBody
-	public List getExhibition(String studio,String type){
+	public List getExhibition(String studio,String type,Integer page){
 		List list = null;
 		try {
-			list = loginService.getExhibition(studio,type);
+			list = loginService.getExhibition(studio,type,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

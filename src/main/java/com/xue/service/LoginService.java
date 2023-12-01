@@ -210,7 +210,7 @@ public interface LoginService {
 
     public List getAlbum(String studio, String student_name);
 
-    public List getExhibition(String studio, String type);
+    public List getExhibition(String studio, String type,Integer page);
 
     public List getUpdateNews();
 
