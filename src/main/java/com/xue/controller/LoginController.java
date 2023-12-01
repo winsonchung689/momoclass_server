@@ -860,7 +860,6 @@ public class LoginController {
 	@ResponseBody
 	public List getExhibition(String studio,String type,Integer page){
 		List list = null;
-		page = 1;
 		try {
 			list = loginService.getExhibition(studio,type,page);
 		} catch (Exception e) {
