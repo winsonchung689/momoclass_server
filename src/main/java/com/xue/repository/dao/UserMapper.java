@@ -751,6 +751,8 @@ public interface UserMapper {
 
     int updateUserExpired(String role,String studio,String role_old,String campus);
 
+    int updateUserExpiredTimeAd(String openid,String expired_time_ad);
+
     int updateUserMember(String member,String studio);
 
     List<Lesson> getLessonByName(String student_name,String studio,String campus);

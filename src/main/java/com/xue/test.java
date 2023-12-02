@@ -9,14 +9,18 @@ public class test {
     public static void main(String[] args) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+        Calendar calendar = Calendar.getInstance();
 
         try {
             Date date =new Date();
-            long timestamp = date.getTime();
-            int hour = date.getHours();
-            Date date1 = df.parse("2023-10-01");
+
+            Date date1 = df.parse("2023-01-01");
             long timestamp1 = date1.getTime();
-            System.out.println(hour);
+            calendar.setTimeInMillis(timestamp1);
+            calendar.add(calendar.DATE,30);
+
+            String expired_time = df.format(calendar.getTime());
+            System.out.println(expired_time);
 
             Date date_now = df_now.parse("2023-10-01 16:00:00");
             long timestamp2 = date_now.getTime();

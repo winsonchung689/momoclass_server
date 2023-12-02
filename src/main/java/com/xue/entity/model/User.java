@@ -14,6 +14,8 @@ public class User {
 
     private String expired_time;
 
+    private String expired_time_ad;
+
     private String avatarurl;
 
     private String studio;
@@ -259,6 +261,14 @@ public class User {
 
     public void setExpired_time(String expired_time) {
         this.expired_time = expired_time;
+    }
+
+    public String getExpired_time_ad() {
+        return expired_time_ad;
+    }
+
+    public void setExpired_time_ad(String expired_time_ad) {
+        this.expired_time_ad = expired_time_ad;
     }
 
     public String getUser_type() {
