@@ -5025,7 +5025,7 @@ public class LoginController {
 		Float number_in = Float.parseFloat(number);
 
 		try {
-			if("增加".equals(type)){
+			if("获取".equals(type)){
 				loginService.updateCoinsByStudio(studio,openid,number_in);
 			}else if("禁止".equals(type)){
 				loginService.updateCoinsByStudio(studio,openid,-number_in);

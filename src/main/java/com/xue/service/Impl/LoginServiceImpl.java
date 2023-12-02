@@ -2097,6 +2097,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUser(String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String role = null;
         String student_name = null;
         String avatarurl = null;
@@ -2134,7 +2135,7 @@ public class LoginServiceImpl implements LoginService {
                         String expird_time_get = list.get(i).getExpired_time();
                         String studio_get = list.get(i).getStudio();
                         String campus_get = list.get(i).getCampus();
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
                         String today_time = df.format(new Date());
                         Date today_dt = df.parse(today_time.substring(0,10));
                         Date expired_dt = df.parse(expird_time_get.substring(0,10));
@@ -2151,7 +2152,7 @@ public class LoginServiceImpl implements LoginService {
                     String expird_time_get = list.get(0).getExpired_time();
                     String studio_get = list.get(0).getStudio();
                     String campus_get = list.get(0).getCampus();
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
                     String today_time = df.format(new Date());
                     Date today_dt = df.parse(today_time.substring(0,10));
                     Date expired_dt = df.parse(expird_time_get.substring(0,10));
@@ -2209,6 +2210,15 @@ public class LoginServiceImpl implements LoginService {
                 official_openid = line.getOfficial_openid();
                 Float read_times = line.getRead_times();
                 String expired_time_ad = line.getExpired_time_ad();
+
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date expired_time_ad_dt = df.parse(expired_time_ad.substring(0,10));
+                int compare = today_dt.compareTo(expired_time_ad_dt);
+                jsonObject.put("is_show_ad", "0");
+                if(compare>0){
+                    jsonObject.put("is_show_ad", "1");
+                }
 
                 jsonObject.put("official_status", "未关注");
                 if(official_openid != null){
