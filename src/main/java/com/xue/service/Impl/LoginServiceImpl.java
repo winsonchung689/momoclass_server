@@ -2215,9 +2215,9 @@ public class LoginServiceImpl implements LoginService {
                 Date today_dt = df.parse(today_time.substring(0,10));
                 Date expired_time_ad_dt = df.parse(expired_time_ad.substring(0,10));
                 int compare = today_dt.compareTo(expired_time_ad_dt);
-                jsonObject.put("is_show_ad", "0");
+                jsonObject.put("is_show_ad", "false");
                 if(compare>0){
-                    jsonObject.put("is_show_ad", "1");
+                    jsonObject.put("is_show_ad", "true");
                 }
 
                 jsonObject.put("official_status", "未关注");
