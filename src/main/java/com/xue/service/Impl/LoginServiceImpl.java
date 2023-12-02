@@ -5317,6 +5317,17 @@ public class LoginServiceImpl implements LoginService {
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
                 subjects = line.getSubjects();
+                String expired_time_ad = line.getExpired_time_ad();
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date expired_time_ad_dt = df.parse(expired_time_ad.substring(0,10));
+                int compare = today_dt.compareTo(expired_time_ad_dt);
+                jsonObject.put("is_show_ad", "false");
+                if(compare>0){
+                    jsonObject.put("is_show_ad", "true");
+                }
 
                 //json
                 jsonObject.put("role", role);
