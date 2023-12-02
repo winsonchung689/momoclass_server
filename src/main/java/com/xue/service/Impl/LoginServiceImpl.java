@@ -3737,7 +3737,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateCoinsByStudio(String studio,String openid) {
+    public int updateCoinsByStudio(String studio,String openid,Float number) {
         int result = 0;
         try {
             List<User> users = dao.getUserByOpenid(openid);
@@ -3746,7 +3746,7 @@ public class LoginServiceImpl implements LoginService {
                 read_times = 0.0f;
             }
 
-            Float new_read_times = read_times + 5.0f;
+            Float new_read_times = read_times + number;
             dao.updateReadTimesByOpenid(openid,new_read_times);
         } catch (Exception e) {
             throw new RuntimeException(e);

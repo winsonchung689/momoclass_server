@@ -5015,14 +5015,21 @@ public class LoginController {
 	public String updateCoinsByStudio(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String studio = request.getParameter("studio");
-
 		String openid = request.getParameter("openid");
+		String number = request.getParameter("number");
+		String type = request.getParameter("type");
+		Float number_in = Float.parseFloat(number);
 
 		try {
-			loginService.updateCoinsByStudio(studio,openid);
+			if("增加".equals(type)){
+				loginService.updateCoinsByStudio(studio,openid,number_in);
+			}else if("减少".equals(type)){
+				loginService.updateCoinsByStudio(studio,openid,-number_in);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return "push massage successfully";
 	}
 
