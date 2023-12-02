@@ -5035,7 +5035,7 @@ public class LoginController {
                 long expired_time_timestamp = expired_time_ad_get_date.getTime();
                 Date now_time_date = df.parse(now_time);
                 long now_time_date_timestamp = now_time_date.getTime();
-                if(expired_time_timestamp > expired_time_timestamp){
+                if(expired_time_timestamp > now_time_date_timestamp){
                     now_time_date_timestamp = expired_time_timestamp;
                 }
 				cal.setTimeInMillis(now_time_date_timestamp);
