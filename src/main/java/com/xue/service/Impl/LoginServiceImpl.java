@@ -4082,7 +4082,6 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
-            String nick_name = user.getNick_name();
 
             //获取当前时间
             Date date =new Date();
@@ -4135,7 +4134,7 @@ public class LoginServiceImpl implements LoginService {
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
-                            if("Winson".equals(nick_name)){
+                            if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid)){
                                 dao.updateVideoTop(Integer.parseInt(id),update_time);
                             }
                         } catch (Exception e) {
