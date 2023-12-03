@@ -4053,8 +4053,12 @@ public class LoginServiceImpl implements LoginService {
         String title = null;
         String type = null;
         String comment = null;
+        String id = null;
         try {
+            Random random = new Random();
+            int randomNumber = random.nextInt(18); // 生成0到10之间的随机数
             List<Message> messages = dao.getUpdateNews();
+            id = messages.get(randomNumber).getId();
             title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
             type = messages.get(0).getClass_target_bak();
             comment = messages.get(0).getComment().split("简介")[1].replace("：","");
@@ -4078,11 +4082,13 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
+            String nick_name = user.getNick_name();
 
             //获取当前时间
             Date date =new Date();
             int hour = date.getHours();
             long timestamp = date.getTime();
+            String update_time = df_now.format(date);
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
             if(hour > 12 && hour < 16){
@@ -4129,6 +4135,9 @@ public class LoginServiceImpl implements LoginService {
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
+                            if(nick_name == "Winson"){
+                                dao.updateVideoTop(Integer.parseInt(id),update_time);
+                            }
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
