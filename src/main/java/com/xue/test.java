@@ -22,7 +22,7 @@ public class test {
             String expired_time = df.format(calendar.getTime());
             System.out.println(expired_time);
 
-            Date date_now = df_now.parse("2023-10-01 16:00:00");
+            Date date_now = df_now.parse("2023-10-01 08:00:00");
             long timestamp2 = date_now.getTime();
             int hour1 = date_now.getHours();
             System.out.println(hour1);
