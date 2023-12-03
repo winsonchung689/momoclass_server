@@ -4094,7 +4094,6 @@ public class LoginServiceImpl implements LoginService {
                 send_time = "13:30:00";
             }
 
-
             if(send_status == null){
                 send_status = now_date + " " + send_time;
             }
