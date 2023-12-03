@@ -4135,7 +4135,7 @@ public class LoginServiceImpl implements LoginService {
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
-                            if(nick_name == "Winson"){
+                            if("Winson".equals(nick_name)){
                                 dao.updateVideoTop(Integer.parseInt(id),update_time);
                             }
                         } catch (Exception e) {
