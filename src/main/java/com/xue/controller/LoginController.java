@@ -5077,6 +5077,23 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateVideoViewsById")
+	@ResponseBody
+	public String updateVideoViewsById(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String video_id = request.getParameter("video_id");
+
+		try {
+			List<Message> messages = dao.getDetails(Integer.parseInt(video_id));
+			Integer views = messages.get(0).getViews() + 5;
+			dao.updateVideoViewsById(video_id,views);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateStudentName")
 	@ResponseBody
 	public String updateStudentName(HttpServletRequest request, HttpServletResponse response){
