@@ -4090,7 +4090,7 @@ public class LoginServiceImpl implements LoginService {
             String update_time = df_now.format(date);
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
-            if(hour > 12 && hour < 16){
+            if(hour >= 12 && hour < 16){
                 send_time = "12:05:00";
             }
 
