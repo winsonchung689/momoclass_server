@@ -3472,6 +3472,7 @@ public class LoginServiceImpl implements LoginService {
                 String comment = line.getComment();
                 Integer views = line.getViews();
                 String class_target_bak = line.getClass_target_bak();
+                String update_type = messages.get(0).getClass_target_bak();
                 String id = line.getId();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
@@ -3495,6 +3496,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("comment",comment);
                         jsonObject.put("class_target_bak",class_target_bak);
                         jsonObject.put("views",views);
+                        jsonObject.put("update_type",update_type);
                         resul_list.add(jsonObject);
                     }
                 }
