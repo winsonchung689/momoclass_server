@@ -112,7 +112,7 @@
   </select>
 
   <select id="getUpdateNews" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak in ('英语','育儿','绘本','升学','讲坛','健康','妈妈') and studio ='大雄工作室' and delete_status = 0 order by create_time desc limit 20;
+    select * from class_comment where class_target_bak in ('新闻','英语','育儿','绘本','升学','讲坛','健康','妈妈') and studio ='大雄工作室' and delete_status = 0 order by create_time desc limit 20;
   </select>
 
   <!-- 获取全量发帖 -->
@@ -304,7 +304,7 @@
 
   <!-- 获取详情 -->
   <select id="updateVideoTop" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    update class_comment set create_time =#{param2} where id =#{param1} and delete_status = 0
+    update class_comment set create_time =#{param2} where id =#{param1} and delete_status = 0 and class_target_bak != '新闻'
   </select>
 
   <!-- 删除帖子 -->
