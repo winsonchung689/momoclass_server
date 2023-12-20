@@ -2989,7 +2989,7 @@ public class LoginServiceImpl implements LoginService {
                 Message line = list.get(i);
                 //获取字段
                 id = line.getId();
-                photo = line.getPhoto();
+//                photo = line.getPhoto();
                 class_name =line.getClass_name();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
@@ -2999,7 +2999,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("id", id);
-                jsonObject.put("photo", photo);
+//                jsonObject.put("photo", photo);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("uuids", uuids);
                 resul_list.add(jsonObject);
