@@ -2019,15 +2019,13 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int updateUser(User user) {
         int result = 0;
-
         try {
-            result = dao.updateUser(user);
             String openid = user.getOpenid();
             String nick_name = user.getNick_name();
             String studio = user.getStudio();
-            String md5 = DigestUtils.md5Hex(nick_name + studio);
-            if(result == 0 && !openid.equals(md5)){
-//                result = dao.updateOpenid(user);
+//            String md5 = DigestUtils.md5Hex(nick_name + studio);
+            if(!"请录入工作室".equals(studio)){
+//                result = dao.updateUser(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
