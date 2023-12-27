@@ -4189,34 +4189,36 @@ public class LoginController {
 		user.setCover(cover);
 		user.setRemind_type(remind_type);
 		user.setHours(hours);
-		int res = loginService.updateUser(user);
-		if(0==res){
+		List<User> list= dao.getUser(openid);
+		if(list.size()>0){
+			int res = loginService.updateUser(user);
+			if(res > 0 && !student_name.equals("no_name")){
+				String user_type_get = list.get(0).getUser_type();
+				String role_get = list.get(0).getRole();
+				String phone_number = list.get(0).getPhone_number();
+				String location = list.get(0).getLocation();
+				user.setUser_type(user_type_get);
+				user.setRole(role_get);
+				user.setPhone_number(phone_number);
+				user.setLocation(location);
+				try {
+					if("client".equals(role_get)){
+						int update_res = dao.updateUserDelete(user);
+						if(update_res==0 && openid.length() == 28 && studio.length() > 0){
+							dao.insertUser(user);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}else{
 			user.setUser_type("新用户");
 			user.setRole("client");
 			try {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
 					dao.insertUser(user);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(res>0 && !student_name.equals("no_name")){
-			List<User> list= dao.getUser(openid);
-			String user_type_get = list.get(0).getUser_type();
-			String role_get = list.get(0).getRole();
-			String phone_number = list.get(0).getPhone_number();
-			String location = list.get(0).getLocation();
-			user.setUser_type(user_type_get);
-			user.setRole(role_get);
-			user.setPhone_number(phone_number);
-			user.setLocation(location);
-			try {
-				if("client".equals(role_get)){
-					int update_res = dao.updateUserDelete(user);
-					if(update_res==0 && openid.length() == 28 && studio.length() > 0){
-						dao.insertUser(user);
-					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
