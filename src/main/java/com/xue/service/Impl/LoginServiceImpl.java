@@ -1722,11 +1722,24 @@ public class LoginServiceImpl implements LoginService {
             List<Message> list = dao.getUuidById(id);
             String class_target_bak = list.get(0).getClass_target_bak();
             String studio_get = list.get(0).getStudio();
-            if("妈妈".equals(class_target_bak) || "健康".equals(class_target_bak) || "讲坛".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak)){
+            if("妈妈".equals(class_target_bak) || "健康".equals(class_target_bak) || "讲坛".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak) || "视频站".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
+
+                // 删除视频
+                if (studio_get.equals(studio)) {
+                    try {
+                        String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
+                        File temp = new File(d_path, uuid);
+                        temp.delete();
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
+                }else {
+                    logger.error("it's not your studio, could not delete!");
+                }
             }
 
-            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak)){
+            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
@@ -1736,6 +1749,19 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
                 dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
+
+                // 删除图片
+                if (studio_get.equals(studio)) {
+                    try {
+                        String d_path = "/data/uploadimages/" ;
+                        File temp = new File(d_path, uuid);
+                        temp.delete();
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
+                }else {
+                    logger.error("it's not your studio, could not delete!");
+                }
 
             }else if ("课后作业".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
@@ -1754,18 +1780,6 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-            // 删除视频
-            if (studio_get.equals(studio)) {
-                try {
-                    String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
-                    File temp = new File(d_path, uuid);
-                    temp.delete();
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                }
-            }else {
-                logger.error("it's not your studio, could not delete!");
-            }
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
