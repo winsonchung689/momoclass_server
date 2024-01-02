@@ -1739,7 +1739,6 @@ public class LoginServiceImpl implements LoginService {
 
             }else if ("课后作业".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
-                String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
                 for(int i =0;i<result.length;i++){
