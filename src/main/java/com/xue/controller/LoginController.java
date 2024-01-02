@@ -2591,7 +2591,7 @@ public class LoginController {
 		String uuids_c_get =null;
 		String uuids_add =null;
 		try {
-			List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
+			List<Message> list = dao.getUuidById(Integer.parseInt(id));
 			if(list.size()>0){
 				uuids_get = list.get(0).getUuids();
 				uuids_c_get = list.get(0).getUuids_c();
