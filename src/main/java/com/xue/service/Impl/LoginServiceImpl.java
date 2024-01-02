@@ -1761,7 +1761,7 @@ public class LoginServiceImpl implements LoginService {
                     File temp = new File(d_path, uuid);
                     temp.delete();
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
             }else {
                 logger.error("it's not your studio, could not delete!");
