@@ -1726,16 +1726,12 @@ public class LoginServiceImpl implements LoginService {
                 dao.deleteComment(id,studio);
 
                 // 删除视频
-                if (studio_get.equals(studio)) {
-                    try {
-                        String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
-                        File temp = new File(d_path, uuid);
-                        temp.delete();
-                    } catch (Exception e) {
+                try {
+                    String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
+                    File temp = new File(d_path, uuid);
+                    temp.delete();
+                } catch (Exception e) {
 //                    throw new RuntimeException(e);
-                    }
-                }else {
-                    logger.error("it's not your studio, could not delete!");
                 }
             }
 
@@ -1751,16 +1747,12 @@ public class LoginServiceImpl implements LoginService {
                 dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
 
                 // 删除图片
-                if (studio_get.equals(studio)) {
-                    try {
-                        String d_path = "/data/uploadimages/" ;
-                        File temp = new File(d_path, uuid);
-                        temp.delete();
-                    } catch (Exception e) {
+                try {
+                    String d_path = "/data/uploadimages/" ;
+                    File temp = new File(d_path, uuid);
+                    temp.delete();
+                } catch (Exception e) {
 //                    throw new RuntimeException(e);
-                    }
-                }else {
-                    logger.error("it's not your studio, could not delete!");
                 }
 
             }else if ("课后作业".equals(class_target_bak)){
