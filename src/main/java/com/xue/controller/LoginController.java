@@ -3596,7 +3596,7 @@ public class LoginController {
 					throw new RuntimeException(e);
 				}
 			}else{
-				List<Message> list = dao.getUuidById(studio,Integer.parseInt(id));
+				List<Message> list = dao.getUuidById(Integer.parseInt(id));
 				String uuids_get = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
 				String uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
 				String[] result1 = uuids_get.split(",");
