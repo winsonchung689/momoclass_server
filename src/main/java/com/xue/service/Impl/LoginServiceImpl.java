@@ -1719,15 +1719,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int deleteUuids(Integer id, String role,String studio,String openid,String uuid) {
         try {
-            List<Message> list = dao.getUuidById(studio,id);
+            List<Message> list = dao.getUuidById(id);
             String class_target_bak = list.get(0).getClass_target_bak();
+            String studio_get = list.get(0).getStudio();
             if("妈妈".equals(class_target_bak) || "健康".equals(class_target_bak) || "讲坛".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
             }
 
             if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak) || "视频站".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
-                String studio_get = list.get(0).getStudio();
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
                 for(int i =0;i<result.length;i++){
@@ -1735,19 +1735,8 @@ public class LoginServiceImpl implements LoginService {
                         list_new.add(result[i]);
                     }
                 }
+                dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
 
-                if (studio_get.equals(studio)) {
-                    dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
-                    try {
-                        String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
-                        File temp = new File(d_path, uuid);
-                        temp.delete();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }else {
-                    logger.error("it's not your studio, could not delete!");
-                }
             }else if ("课后作业".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
                 String studio_get = list.get(0).getStudio();
@@ -1766,6 +1755,18 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            // 删除视频
+            if (studio_get.equals(studio)) {
+                try {
+                    String d_path = "/data/uploadVideo/592796c45de54f5c5ba4/" ;
+                    File temp = new File(d_path, uuid);
+                    temp.delete();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }else {
+                logger.error("it's not your studio, could not delete!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

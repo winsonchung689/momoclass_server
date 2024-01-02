@@ -41,7 +41,7 @@ public interface UserMapper {
     //获取
     List<Message> getClassSys(String class_target,String studio,Integer page_start, Integer page_length,String campus);
 
-    List<Message> getUuidById(String studio,Integer id);
+    List<Message> getUuidById(Integer id);
 
     //获取
     List<Message> getCourseList(String studio,Integer page_start, Integer page_length);
