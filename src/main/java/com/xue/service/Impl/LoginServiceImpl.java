@@ -4062,7 +4062,7 @@ public class LoginServiceImpl implements LoginService {
         String id = null;
         try {
             Random random = new Random();
-            int randomNumber = random.nextInt(18); // 生成0到10之间的随机数
+            int randomNumber = random.nextInt(2); // 生成0到10之间的随机数
             List<Message> messages = dao.getUpdateNews();
             id = messages.get(randomNumber).getId();
             title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
