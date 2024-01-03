@@ -3461,7 +3461,7 @@ public class LoginServiceImpl implements LoginService {
         Random random = new Random();
 
         while (randomNumbers.size() < 3) {
-            int randomNumber = random.nextInt(3); // 生成0到10之间的随机数
+            int randomNumber = random.nextInt(2); // 生成0到10之间的随机数
             randomNumbers.add(randomNumber);
         }
 
