@@ -3490,19 +3490,17 @@ public class LoginServiceImpl implements LoginService {
                     //                    throw new RuntimeException(e);
                 }
                 String[] uuids_list = uuids.split(",");
-                if(uuids.length()>2){
-                    for(int j=0;j<uuids_list.length;j++){
-                        JSONObject jsonObject = new JSONObject();
-                        String uuids_get = uuids_list[j];
-                        jsonObject.put("uuids",uuids_get);
-                        jsonObject.put("vuuid",vuuid);
-                        jsonObject.put("id",id);
-                        jsonObject.put("comment",comment);
-                        jsonObject.put("class_target_bak",class_target_bak);
-                        jsonObject.put("views",views);
-                        jsonObject.put("update_type",update_type);
-                        resul_list.add(jsonObject);
-                    }
+                for(int j=0;j<uuids_list.length;j++){
+                    JSONObject jsonObject = new JSONObject();
+                    String uuids_get = uuids_list[j];
+                    jsonObject.put("uuids",uuids_get);
+                    jsonObject.put("vuuid",vuuid);
+                    jsonObject.put("id",id);
+                    jsonObject.put("comment",comment);
+                    jsonObject.put("class_target_bak",class_target_bak);
+                    jsonObject.put("views",views);
+                    jsonObject.put("update_type",update_type);
+                    resul_list.add(jsonObject);
                 }
             }
         }
