@@ -2323,10 +2323,18 @@ public class LoginServiceImpl implements LoginService {
             list = dao.getUserByNickName(nickName);
 
             for (int i = 0; i < list.size(); i++) {
+                String role_cn = null;
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
                 role = line.getRole();
+                if("boss".equals(role)){
+                    role_cn = "校长";
+                }else if("teacher".equals(role)){
+                    role_cn = "老师";
+                }else if("client".equals(role)){
+                    role_cn = "家长";
+                }
                 student_name = line.getStudent_name();
                 avatarurl = line.getAvatarurl();
                 nick_name = line.getNick_name();
@@ -2345,6 +2353,7 @@ public class LoginServiceImpl implements LoginService {
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
+                jsonObject.put("role_cn", role_cn);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
