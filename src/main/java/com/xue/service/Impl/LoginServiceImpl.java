@@ -2784,13 +2784,14 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 studio = line.getStudio();
-
-                //json
-                jsonObject.put("studio", studio);
-                jsonObject.put("show", false);
-                jsonObject.put("name", studio);
-                jsonObject.put("search", studio);
-                resul_list.add(jsonObject);
+                if(studio != null){
+                    //json
+                    jsonObject.put("studio", studio);
+                    jsonObject.put("show", false);
+                    jsonObject.put("name", studio);
+                    jsonObject.put("search", studio);
+                    resul_list.add(jsonObject);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
