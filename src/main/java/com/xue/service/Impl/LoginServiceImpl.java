@@ -2784,7 +2784,7 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 studio = line.getStudio();
-                if(studio != null){
+                if(studio.length() > 0){
                     //json
                     jsonObject.put("studio", studio);
                     jsonObject.put("show", false);
