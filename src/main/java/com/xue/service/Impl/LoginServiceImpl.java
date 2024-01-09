@@ -6434,7 +6434,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonth(studio,campus,start_date,end_date);
-                for(int i=0;i<= list.size();i++){
+                for(int i=0;i< list.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
@@ -6447,7 +6447,7 @@ public class LoginServiceImpl implements LoginService {
                     lessonCount = list.get(i).getLesson_count();
                     List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,create_time);
                     if(signUps.size() > 0){
-                        for (int j = 0; j <= signUps.size(); j++) {
+                        for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
@@ -6461,7 +6461,7 @@ public class LoginServiceImpl implements LoginService {
                                     Float dis_money = 0.0f;
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
-                                        for (int k = 0; k <= lessonPackages.size(); k++) {
+                                        for (int k = 0; k < lessonPackages.size(); k++) {
                                             Float total_money_get = lessonPackages.get(k).getTotal_money();
                                             Float dis_money_get = lessonPackages.get(k).getDiscount_money();
                                             total_money = total_money + total_money_get;
