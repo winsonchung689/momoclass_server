@@ -6507,7 +6507,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("create_time", create_time.substring(0,7));
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
