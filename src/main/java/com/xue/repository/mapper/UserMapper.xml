@@ -60,6 +60,9 @@
   <resultMap id="BaseBookCount" type="com.xue.entity.model.BookCount">
     <result column="amount" jdbcType="FLOAT" property="amount" />
   </resultMap>
+  <resultMap id="BaseAnalyzeCount" type="com.xue.entity.model.AnalyzeCount">
+    <result column="sign_count" jdbcType="FLOAT" property="sign_count" />
+  </resultMap>
   <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
     <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
   </resultMap>
@@ -630,12 +633,16 @@
     select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
-  <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%V') create_time,count(1) income,sum(count) expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time, '%V')=#{param3}  group by date_format(create_time, '%V') order by date_format(create_time, '%V') desc
+  <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and create_time>=#{param3} and create_time<=#{param4} group by create_time desc
+  </select>
+
+  <select id="getAnalyzeSignUpByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select MONTH(create_time) create_time,count(1) income,sum(count) expenditure from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and MONTH(create_time)=#{param3} group by MONTH(create_time)
   </select>
 
   <select id="getAnalyzeSignUpDetail" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select create_time,student_name,subject,count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%V')=#{param3}  order by create_time desc
+    select create_time,student_name,subject,count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3}  order by create_time desc
   </select>
 
   <select id="getAnalyzeTryDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
@@ -650,12 +657,12 @@
     select date_time,student_name,subject from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(create_time, '%V')=#{param3}  order by create_time desc
   </select>
 
-  <select id="getAnalyzeTry" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(create_time, '%V') create_time,count(1) income,'' expenditure from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and date_format(create_time, '%V')=#{param3}  group by date_format(create_time, '%V') order by date_format(create_time, '%V') desc
+  <select id="getAnalyzeTry" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select create_time,count(1) try_count from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and create_time=#{param3}  group by create_time order by create_time desc
   </select>
 
-  <select id="getAnalyzeLeave" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(date_time, '%V') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time, '%V')=#{param3}  group by date_format(date_time, '%V') order by date_format(date_time, '%V') desc
+  <select id="getAnalyzeLeave" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select date_time create_time,count(1) leave_count from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_time=#{param3}  group by date_time order by date_time desc
   </select>
 
   <select id="getAnalyzeAbsent" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
@@ -1400,7 +1407,7 @@
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDayUnconfirmed" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and status = 0 and delete_status = 0
+    select count(student_name) from class_schedule where studio =#{param1} and student_type ='ordinary' and dayofweek(add_date)=dayofweek(#{param2}) and delete_status = 0
   </select>
 
   <!-- 获取总人数 -->

@@ -106,9 +106,9 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio,String campus);
 
-    List<BookCount> getAnalyzeSignUp(String studio,String campus,Integer weekDay);
+    List<AnalyzeCount> getAnalyzeSignUp(String studio,String campus,String start_date,String end_date);
 
-    List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,Integer weekDay);
+    List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
     List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
 
@@ -116,9 +116,9 @@ public interface UserMapper {
 
     List<Leave> getAnalyzeAbsentDetail(String studio,String campus,Integer weekDay);
 
-    List<BookCount> getAnalyzeTry(String studio,String campus,Integer weekDay);
+    List<AnalyzeCount> getAnalyzeTry(String studio,String campus,String create_time);
 
-    List<BookCount> getAnalyzeLeave(String studio,String campus,Integer weekDay);
+    List<AnalyzeCount> getAnalyzeLeave(String studio,String campus,String create_time);
 
     List<BookCount> getAnalyzeAbsent(String studio,String campus,Integer weekDay);
 
@@ -598,7 +598,7 @@ public interface UserMapper {
 
     List<Lesson> getLessonById(Integer id);
 
-    Integer getLessonAllCountByDayUnconfirmed(String studio,Integer day,String duration,String class_number,String subject,String campus);
+    Integer getLessonAllCountByDayUnconfirmed(String studio,String create_time);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 
