@@ -6347,11 +6347,10 @@ public class LoginServiceImpl implements LoginService {
                     if(signUps.size() > 0){
                         for (int j = 0; j<=signUps.size(); j++) {
                             JSONObject jsonObject = new JSONObject();
-                            SignUp signUp = signUps.get(i);
+                            SignUp signUp = signUps.get(j);
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
-                            jsonObject.put("create_time", create_time);
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
@@ -6361,9 +6360,9 @@ public class LoginServiceImpl implements LoginService {
                                     Float dis_money = 0.0f;
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
-                                        for (int k = 0; k < lessonPackages.size(); k++) {
-                                            Float total_money_get = lessonPackages.get(j).getTotal_money();
-                                            Float dis_money_get = lessonPackages.get(j).getDiscount_money();
+                                        for (int k = 0; k <= lessonPackages.size(); k++) {
+                                            Float total_money_get = lessonPackages.get(k).getTotal_money();
+                                            Float dis_money_get = lessonPackages.get(k).getDiscount_money();
                                             total_money = total_money + total_money_get;
                                             dis_money = dis_money + dis_money_get;
                                         }
@@ -6397,6 +6396,7 @@ public class LoginServiceImpl implements LoginService {
                             Integer all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,create_time);
 
                             DecimalFormat df = new DecimalFormat("0.00");
+                            jsonObject.put("create_time", create_time);
                             jsonObject.put("tryCount", tryCount);
                             jsonObject.put("leaveCount", leaveCount);
                             jsonObject.put("signCount", signCount);
