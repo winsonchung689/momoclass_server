@@ -6474,7 +6474,7 @@ public class LoginServiceImpl implements LoginService {
                                     weekPrice = weekPrice + price*count;
                                 }
                             } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                                throw new RuntimeException(e);
                             }
                         }
                     }
