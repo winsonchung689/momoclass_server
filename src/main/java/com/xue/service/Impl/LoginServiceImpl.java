@@ -6400,7 +6400,7 @@ public class LoginServiceImpl implements LoginService {
                     try {
                         all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
                     } catch (Exception e) {
-//                                throw new RuntimeException(e);
+                                throw new RuntimeException(e);
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
