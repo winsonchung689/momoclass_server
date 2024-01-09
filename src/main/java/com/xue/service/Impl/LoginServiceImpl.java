@@ -6331,8 +6331,8 @@ public class LoginServiceImpl implements LoginService {
             int duration = 0;
             if("日".equals(dimension)){
                 cal.add(Calendar.DATE,-7);
-                end_date = fmt.format(cal.getTime());
-                start_date = date_time;
+                start_date = fmt.format(cal.getTime());
+                end_date = date_time;
                 List<AnalyzeCount> list = dao.getAnalyzeSignUp(studio,campus,start_date,end_date);
                 for(int i=0;i<= list.size();i++){
                     Float signCount = 0.0f;
