@@ -6345,7 +6345,7 @@ public class LoginServiceImpl implements LoginService {
                     lessonCount = list.get(i).getLesson_count();
                     List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,create_time);
                     if(signUps.size() > 0){
-                        for (int j = 0; j < signUps.size(); j++) {
+                        for (int j = 0; j<=signUps.size(); j++) {
                             JSONObject jsonObject = new JSONObject();
                             SignUp signUp = signUps.get(i);
                             String student_name = signUp.getStudent_name();
