@@ -6445,7 +6445,7 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = list.get(i).getCreate_time();
                     signCount = list.get(i).getSign_count();
                     lessonCount = list.get(i).getLesson_count();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,create_time);
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,create_time);
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
@@ -6480,7 +6480,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     try {
-                        List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,create_time.substring(0,7));
+                        List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,create_time);
                         if(list1.size() > 0){
                             tryCount = list1.get(0).getTry_count();
                         }
@@ -6489,7 +6489,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     try {
-                        List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,create_time.substring(0,7));
+                        List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,create_time);
                         if(list2.size() > 0){
                             leaveCount = list2.get(0).getLeave_count();
                         }
@@ -6498,7 +6498,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     try {
-                        List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time.substring(0,7));
+                        List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time);
                         if(list3.size() > 0){
                             all_lesson_count = list3.get(0).getLesson_count()*4;
                         }

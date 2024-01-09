@@ -112,6 +112,9 @@ public interface UserMapper {
 
     List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
+
+    List<SignUp> getAnalyzeSignUpDetailByMonth(String studio,String campus,String create_time);
+
     List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
 
     List<Leave> getAnalyzeLeaveDetail(String studio,String campus,Integer weekDay);
