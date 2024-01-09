@@ -6425,8 +6425,8 @@ public class LoginServiceImpl implements LoginService {
                 }
             }else if("月".equals(dimension)){
                 cal.add(Calendar.DATE,-31);
-                end_date = fmt.format(cal.getTime()).substring(0,7);
-                start_date = date_time.substring(0,7);
+                start_date = fmt.format(cal.getTime()).substring(0,7);
+                end_date = date_time.substring(0,7);
 
                 if(!"无_无".equals(duration_time)){
                     start_date = duration_time.split("_")[0].substring(0,7);
@@ -6500,7 +6500,7 @@ public class LoginServiceImpl implements LoginService {
                     try {
                         List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time.substring(0,7));
                         if(list3.size() > 0){
-                            all_lesson_count = list3.get(0).getLesson_count();
+                            all_lesson_count = list3.get(0).getLesson_count()*4;
                         }
                     } catch (Exception e) {
                         throw new RuntimeException(e);
