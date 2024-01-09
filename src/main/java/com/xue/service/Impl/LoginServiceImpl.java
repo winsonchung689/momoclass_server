@@ -6412,7 +6412,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", lessonCount);
-                    jsonObject.put("all_lesson_week", all_lesson_count);
+                    jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count));
                     resul_list.add(jsonObject);
