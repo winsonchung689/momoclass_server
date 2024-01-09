@@ -1402,7 +1402,7 @@
   </select>
 
   <!-- 获取总人数 -->
-  <select id="getLessonAllCountByDayUnconfirmed" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+  <select id="getLessonAllCountByDayUnconfirmed" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Float">
     select count(student_name) from class_schedule where studio =#{param1} and student_type ='ordinary' and dayofweek(add_date)=dayofweek(#{param2}) and campus =#{param3} and delete_status = 0
   </select>
 

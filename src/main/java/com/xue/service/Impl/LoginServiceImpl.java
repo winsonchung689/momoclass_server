@@ -6341,7 +6341,7 @@ public class LoginServiceImpl implements LoginService {
                     Float leaveCount = 0.0f;
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
-                    Integer all_lesson_week = 0;
+                    Float all_lesson_week = 0.0f;
                     String create_time = list.get(i).getCreate_time();
                     signCount = list.get(i).getSign_count();
                     lessonCount = list.get(i).getLesson_count();
@@ -6376,39 +6376,42 @@ public class LoginServiceImpl implements LoginService {
                             } catch (Exception e) {
 //                            throw new RuntimeException(e);
                             }
-                            try {
-                                List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
-                                if(list1.size() > 0){
-                                    tryCount = list1.get(0).getTry_count();
-                                }
-                            } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                            }
-
-                            try {
-                                List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
-                                if(list2.size() > 0){
-                                    leaveCount = list2.get(0).getLeave_count();
-                                }
-                            } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                            }
-
-                            try {
-                                all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
-                            } catch (Exception e) {
-//                                throw new RuntimeException(e);
-                            }
                         }
                     }
+
+                    try {
+                        List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
+                        if(list1.size() > 0){
+                            tryCount = list1.get(0).getTry_count();
+                        }
+                    } catch (Exception e) {
+//                            throw new RuntimeException(e);
+                    }
+
+                    try {
+                        List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
+                        if(list2.size() > 0){
+                            leaveCount = list2.get(0).getLeave_count();
+                        }
+                    } catch (Exception e) {
+//                            throw new RuntimeException(e);
+                    }
+
+                    try {
+                        all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
+                    } catch (Exception e) {
+//                                throw new RuntimeException(e);
+                    }
+
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("create_time", create_time.substring(0,10));
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", lessonCount);
                     jsonObject.put("all_lesson_week", all_lesson_week);
                     jsonObject.put("weekPrice", df.format(weekPrice));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_week));
                     resul_list.add(jsonObject);
                 }
             }else if("月".equals(dimension)){
