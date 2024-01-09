@@ -6393,7 +6393,12 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                             }
 
-                            Integer all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,create_time);
+                            Integer all_lesson_week = null;
+                            try {
+                                all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
+                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
+                            }
 
                             DecimalFormat df = new DecimalFormat("0.00");
                             jsonObject.put("create_time", create_time);
