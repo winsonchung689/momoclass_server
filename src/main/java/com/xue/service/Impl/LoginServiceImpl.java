@@ -6328,11 +6328,18 @@ public class LoginServiceImpl implements LoginService {
             Integer weekDay_INIT = cal.get(Calendar.WEEK_OF_YEAR);
             String start_date = null;
             String end_date = null;
-            int duration = 0;
+
+
             if("日".equals(dimension)){
                 cal.add(Calendar.DATE,-7);
                 start_date = fmt.format(cal.getTime());
                 end_date = date_time;
+
+                if(!"无_无".equals(duration_time)){
+                    start_date = duration_time.split("_")[0];
+                    end_date = duration_time.split("_")[1];
+                }
+
                 List<AnalyzeCount> list = dao.getAnalyzeSignUp(studio,campus,start_date,end_date);
                 for(int i=0;i< list.size();i++){
                     JSONObject jsonObject = new JSONObject();
