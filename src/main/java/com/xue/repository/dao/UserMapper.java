@@ -598,7 +598,7 @@ public interface UserMapper {
 
     List<Lesson> getLessonById(Integer id);
 
-    Float getLessonAllCountByDayUnconfirmed(String studio,String campus,String create_time);
+    List<AnalyzeCount> getLessonAllCountByDayUnconfirmed(String studio,String campus,String create_time);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 

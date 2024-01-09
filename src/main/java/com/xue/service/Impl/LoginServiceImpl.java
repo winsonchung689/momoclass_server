@@ -6341,7 +6341,7 @@ public class LoginServiceImpl implements LoginService {
                     Float leaveCount = 0.0f;
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
-                    Float all_lesson_week = 0.0f;
+                    Float all_lesson_count = 0.0f;
                     String create_time = list.get(i).getCreate_time();
                     signCount = list.get(i).getSign_count();
                     lessonCount = list.get(i).getLesson_count();
@@ -6398,9 +6398,12 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     try {
-                        all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
+                        List<AnalyzeCount> list3 = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
+                        if(list3.size() > 0){
+                            all_lesson_count = list3.get(0).getLesson_count();
+                        }
                     } catch (Exception e) {
-                                throw new RuntimeException(e);
+                        throw new RuntimeException(e);
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
@@ -6409,9 +6412,9 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", lessonCount);
-                    jsonObject.put("all_lesson_week", all_lesson_week);
+                    jsonObject.put("all_lesson_week", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
-                    jsonObject.put("rate", df.format(signCount/all_lesson_week));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_count));
                     resul_list.add(jsonObject);
                 }
             }else if("月".equals(dimension)){
