@@ -6334,19 +6334,20 @@ public class LoginServiceImpl implements LoginService {
                 start_date = fmt.format(cal.getTime());
                 end_date = date_time;
                 List<AnalyzeCount> list = dao.getAnalyzeSignUp(studio,campus,start_date,end_date);
-                for(int i=0;i<= list.size();i++){
+                for(int i=0;i< list.size();i++){
+                    JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
                     Float leaveCount = 0.0f;
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
+                    Integer all_lesson_week = 0;
                     String create_time = list.get(i).getCreate_time();
                     signCount = list.get(i).getSign_count();
                     lessonCount = list.get(i).getLesson_count();
                     List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,create_time);
                     if(signUps.size() > 0){
-                        for (int j = 0; j<=signUps.size(); j++) {
-                            JSONObject jsonObject = new JSONObject();
+                        for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
@@ -6393,24 +6394,22 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                             }
 
-                            Integer all_lesson_week = null;
                             try {
                                 all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,campus,create_time);
                             } catch (Exception e) {
 //                                throw new RuntimeException(e);
                             }
-
-                            DecimalFormat df = new DecimalFormat("0.00");
-                            jsonObject.put("create_time", create_time);
-                            jsonObject.put("tryCount", tryCount);
-                            jsonObject.put("leaveCount", leaveCount);
-                            jsonObject.put("signCount", signCount);
-                            jsonObject.put("lessonCount", lessonCount);
-                            jsonObject.put("all_lesson_week", all_lesson_week);
-                            jsonObject.put("weekPrice", df.format(weekPrice));
-                            resul_list.add(jsonObject);
                         }
                     }
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("tryCount", tryCount);
+                    jsonObject.put("leaveCount", leaveCount);
+                    jsonObject.put("signCount", signCount);
+                    jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("all_lesson_week", all_lesson_week);
+                    jsonObject.put("weekPrice", df.format(weekPrice));
+                    resul_list.add(jsonObject);
                 }
             }else if("月".equals(dimension)){
                 cal.add(Calendar.DATE,-31);
