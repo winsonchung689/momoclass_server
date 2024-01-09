@@ -6373,20 +6373,24 @@ public class LoginServiceImpl implements LoginService {
                                 weekPrice = weekPrice + price*count;
                             }
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+//                            throw new RuntimeException(e);
                         }
                         try {
                             List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
-                            tryCount = list1.get(0).getTry_count();
+                            if(list1.size() > 0){
+                                tryCount = list1.get(0).getTry_count();
+                            }
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+//                            throw new RuntimeException(e);
                         }
 
                         try {
                             List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
-                            leaveCount = list2.get(0).getLeave_count();
+                            if(list2.size() > 0){
+                                leaveCount = list2.get(0).getLeave_count();
+                            }
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+//                            throw new RuntimeException(e);
                         }
 
                         Integer all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,create_time);
