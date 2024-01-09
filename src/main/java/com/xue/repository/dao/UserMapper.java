@@ -108,6 +108,8 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeSignUp(String studio,String campus,String start_date,String end_date);
 
+    List<AnalyzeCount> getAnalyzeSignUpByMonth(String studio,String campus,String start_date,String end_date);
+
     List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
     List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
@@ -118,7 +120,11 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeTry(String studio,String campus,String create_time);
 
+    List<AnalyzeCount> getAnalyzeTryByMonth(String studio,String campus,String create_time);
+
     List<AnalyzeCount> getAnalyzeLeave(String studio,String campus,String create_time);
+
+    List<AnalyzeCount> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
 
     List<BookCount> getAnalyzeAbsent(String studio,String campus,Integer weekDay);
 
@@ -598,7 +604,9 @@ public interface UserMapper {
 
     List<Lesson> getLessonById(Integer id);
 
-    List<AnalyzeCount> getLessonAllCountByDayUnconfirmed(String studio,String campus,String create_time);
+    List<AnalyzeCount> getLessonAllCountBySumUp(String studio,String campus,String create_time);
+
+    List<AnalyzeCount> getLessonAllCountBySumUpMonth(String studio,String campus,String create_time);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 
