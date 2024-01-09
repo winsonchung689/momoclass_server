@@ -6384,11 +6384,19 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
-                    tryCount = list1.get(0).getTry_count();
+                    try {
+                        List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
+                        tryCount = list1.get(0).getTry_count();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
-                    leaveCount = list2.get(0).getLeave_count();
+                    try {
+                        List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
+                        leaveCount = list2.get(0).getLeave_count();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
                     Integer all_lesson_week = dao.getLessonAllCountByDayUnconfirmed(studio,create_time);
 
