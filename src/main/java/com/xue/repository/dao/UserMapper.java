@@ -616,10 +616,11 @@ public interface UserMapper {
 
     List<AnalyzeCount> getLessonAllCountBySumUp(String studio,String campus,String create_time);
 
+    List<AnalyzeCount> getLessonAllCountBySumUpByStudent(String studio,String campus,String create_time,String student_name);
+
     List<AnalyzeCount> getLessonAllCountBySumUpMonth(String studio,String campus,String create_time);
 
-
-    List<AnalyzeCount> getLessonAllCountBySumUpMonthByStudent(String studio,String campus,String create_time,String student_name);
+    List<AnalyzeCount> getLessonAllCountBySumUpMonthByStudent(String studio,String campus,String student_name);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 

@@ -1438,6 +1438,10 @@
     select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and dayofweek(add_date)=dayofweek(#{param3}) and delete_status = 0
   </select>
 
+  <select id="getLessonAllCountBySumUpByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and dayofweek(add_date)=dayofweek(#{param3}) and student_name =#{param4} and delete_status = 0
+  </select>
+
   <select id="getLessonAllCountBySumUpMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and dayofweek(add_date) between 0 and 7 and delete_status = 0
   </select>
