@@ -6518,69 +6518,139 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAnalyzeDetailWeek(String studio, String type, Integer weekday,String campus) {
+    public List getAnalyzeDetailWeek(String studio, String type, String weekday,String campus) {
 
         List<JSONObject> resul_list = new ArrayList<>();
-        if("签到".equals(type)){
-            List<SignUp> list = dao.getAnalyzeSignUpDetail(studio,campus,weekday.toString());
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                SignUp line = list.get(i);
-                //获取字段
-                String create_time = line.getCreate_time();
-                String student_name = line.getStudent_name();
-                String subject = line.getSubject();
-                Float count = line.getCount();
-                //json
-                jsonObject.put("create_time", create_time.split(" ")[0]);
-                jsonObject.put("student_name", student_name+"(课时:"+count+")");
-                jsonObject.put("subject", subject);
-                resul_list.add(jsonObject);
+
+        if(weekday.length() == 7){
+            if("出勤数".equals(type)){
+                String start_date = weekday + "-01";
+                String end_date = weekday + "-31";
+                List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonthByStudent(studio,campus,start_date,end_date);
+                for(int i=0;i< list.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Float weekPrice = 0.0f;
+                    Float all_lesson_count = 0.0f;
+                    String student_name = list.get(i).getStudent_name();
+                    Float signCount = list.get(i).getSign_count();
+                    Float lessonCount = list.get(i).getLesson_count();
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonthByStudent(studio,campus,weekday,student_name);
+                    if(signUps.size() > 0){
+                        for (int j = 0; j < signUps.size(); j++) {
+                            SignUp signUp = signUps.get(j);
+                            String subject = signUp.getSubject();
+                            Float count = signUp.getCount();
+                            try {
+                                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                                if(lessons.size()>0){
+                                    Float total_amount = lessons.get(0).getTotal_amount();
+                                    Float price = lessons.get(0).getPrice();
+                                    Float total_money = 0.0f;
+                                    Float dis_money = 0.0f;
+                                    Float all_lesson = 0.0f;
+                                    Float give_lesson = 0.0f;
+                                    List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                                    if(lessonPackages.size()>0){
+                                        for (int k = 0; k < lessonPackages.size(); k++) {
+                                            Float total_money_get = lessonPackages.get(k).getTotal_money();
+                                            Float dis_money_get = lessonPackages.get(k).getDiscount_money();
+                                            Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
+                                            Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
+                                            total_money = total_money + total_money_get;
+                                            dis_money = dis_money + dis_money_get;
+                                            all_lesson = all_lesson + all_lesson_get;
+                                            give_lesson = give_lesson + give_lesson_get;
+                                        }
+                                        if(total_money>0){
+                                            price = (total_money - dis_money)/total_amount;
+                                        }
+                                        weekPrice = weekPrice + price*count;
+                                    }
+
+                                }
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,weekday);
+                    if(list3.size() > 0){
+                        all_lesson_count = list3.get(0).getLesson_count()*4;
+                    }
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    jsonObject.put("create_time", weekday);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("signCount", signCount);
+                    jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("weekPrice", df.format(weekPrice));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
+                    resul_list.add(jsonObject);
+                }
             }
-        }else if("试听".equals(type)){
-            List<Schedule> list = dao.getAnalyzeTryDetail(studio,campus,weekday);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Schedule line = list.get(i);
-                //获取字段
-                String create_time = line.getAdd_date();
-                String student_name = line.getStudent_name();
-                String subject = line.getSubject();
-                //json
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("subject", subject);
-                resul_list.add(jsonObject);
-            }
-        }else if("请假".equals(type)){
-            List<Leave> list = dao.getAnalyzeLeaveDetail(studio,campus,weekday);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Leave line = list.get(i);
-                //获取字段
-                String create_time = line.getDate_time();
-                String student_name = line.getStudent_name();
-                String subject = line.getSubject();
-                //json
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("subject", subject);
-                resul_list.add(jsonObject);
-            }
-        }else if("旷课".equals(type)){
-            List<Leave> list = dao.getAnalyzeAbsentDetail(studio,campus,weekday);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Leave line = list.get(i);
-                //获取字段
-                String create_time = line.getDate_time();
-                String student_name = line.getStudent_name();
-                String subject = line.getSubject();
-                //json
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("subject", subject);
-                resul_list.add(jsonObject);
+        }else if(weekday.length() == 10){
+            if("出勤数".equals(type)){
+                List<AnalyzeCount> list = dao.getAnalyzeSignUpByStudent(studio,campus,weekday,weekday);
+                for(int i=0;i< list.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Float weekPrice = 0.0f;
+                    Float all_lesson_count = 0.0f;
+                    String student_name = list.get(i).getStudent_name();
+                    Float signCount = list.get(i).getSign_count();
+                    Float lessonCount = list.get(i).getLesson_count();
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,student_name);
+                    if(signUps.size() > 0){
+                        for (int j = 0; j < signUps.size(); j++) {
+                            SignUp signUp = signUps.get(j);
+                            String subject = signUp.getSubject();
+                            Float count = signUp.getCount();
+                            try {
+                                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                                if(lessons.size()>0){
+                                    Float total_amount = lessons.get(0).getTotal_amount();
+                                    Float price = lessons.get(0).getPrice();
+                                    Float total_money = 0.0f;
+                                    Float dis_money = 0.0f;
+                                    Float all_lesson = 0.0f;
+                                    Float give_lesson = 0.0f;
+                                    List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                                    if(lessonPackages.size()>0){
+                                        for (int k = 0; k < lessonPackages.size(); k++) {
+                                            Float total_money_get = lessonPackages.get(k).getTotal_money();
+                                            Float dis_money_get = lessonPackages.get(k).getDiscount_money();
+                                            Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
+                                            Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
+                                            total_money = total_money + total_money_get;
+                                            dis_money = dis_money + dis_money_get;
+                                            all_lesson = all_lesson + all_lesson_get;
+                                            give_lesson = give_lesson + give_lesson_get;
+                                        }
+                                        if(total_money>0){
+                                            price = (total_money - dis_money)/total_amount;
+                                        }
+                                        weekPrice = weekPrice + price*count;
+                                    }
+
+                                }
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,weekday);
+                    if(list3.size() > 0){
+                        all_lesson_count = list3.get(0).getLesson_count();
+                    }
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    jsonObject.put("create_time", weekday);
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("signCount", signCount);
+                    jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("weekPrice", df.format(weekPrice));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
+                    resul_list.add(jsonObject);
+                }
             }
         }
 

@@ -108,12 +108,19 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeSignUp(String studio,String campus,String start_date,String end_date);
 
+    List<AnalyzeCount> getAnalyzeSignUpByStudent(String studio,String campus,String start_date,String end_date);
+
     List<AnalyzeCount> getAnalyzeSignUpByMonth(String studio,String campus,String start_date,String end_date);
+
+    List<AnalyzeCount> getAnalyzeSignUpByMonthByStudent(String studio,String campus,String start_date,String end_date);
 
     List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
+    List<SignUp> getAnalyzeSignUpDetailByStudent(String studio,String campus,String create_time,String student_name);
 
     List<SignUp> getAnalyzeSignUpDetailByMonth(String studio,String campus,String create_time);
+
+    List<SignUp> getAnalyzeSignUpDetailByMonthByStudent(String studio,String campus,String create_time,String student_name);
 
     List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
 

@@ -1142,7 +1142,7 @@ public class LoginController {
 
 	@RequestMapping("/getAnalyzeDetailWeek")
 	@ResponseBody
-	public List getAnalyzeDetailWeek(String studio,String type,Integer weekday,String campus){
+	public List getAnalyzeDetailWeek(String studio,String type,String weekday,String campus){
 		List list = null;
 		try {
 			list = loginService.getAnalyzeDetailWeek(studio,type,weekday,campus);
