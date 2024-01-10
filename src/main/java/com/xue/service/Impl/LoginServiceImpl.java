@@ -6478,6 +6478,8 @@ public class LoginServiceImpl implements LoginService {
                                         price = (total_money - dis_money)/total_amount;
                                     }
                                     weekPrice = weekPrice + price*count;
+                                    System.out.println("weekPrice:");
+                                    System.out.println(weekPrice);
                                 }
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
@@ -6520,7 +6522,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("lessonCount", lessonCount);
                     jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
-                    jsonObject.put("rate", df.format(signCount/all_lesson_count));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
                     resul_list.add(jsonObject);
                 }
             }
