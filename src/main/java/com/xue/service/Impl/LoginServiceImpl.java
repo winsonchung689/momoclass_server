@@ -6365,17 +6365,23 @@ public class LoginServiceImpl implements LoginService {
                                     Float price = lessons.get(0).getPrice();
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
+                                    Float all_lesson = 0.0f;
+                                    Float give_lesson = 0.0f;
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
                                         for (int k = 0; k <= lessonPackages.size(); k++) {
                                             Float total_money_get = lessonPackages.get(k).getTotal_money();
                                             Float dis_money_get = lessonPackages.get(k).getDiscount_money();
+                                            Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
+                                            Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
                                             total_money = total_money + total_money_get;
                                             dis_money = dis_money + dis_money_get;
+                                            all_lesson = all_lesson + all_lesson_get;
+                                            give_lesson = give_lesson + give_lesson_get;
                                         }
                                     }
                                     if(total_money>0){
-                                        price = (total_money - dis_money)/total_amount;
+                                        price = (total_money - dis_money)/(all_lesson - give_lesson);
                                     }
                                     weekPrice = weekPrice + price*count;
                                 }
