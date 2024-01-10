@@ -6524,9 +6524,7 @@ public class LoginServiceImpl implements LoginService {
 
         if(weekday.length() == 7){
             if("出勤数".equals(type)){
-                String start_date = weekday + "-01";
-                String end_date = weekday + "-31";
-                List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonthByStudent(studio,campus,start_date,end_date);
+                List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonthByStudent(studio,campus,weekday,weekday);
                 for(int i=0;i< list.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Float weekPrice = 0.0f;
