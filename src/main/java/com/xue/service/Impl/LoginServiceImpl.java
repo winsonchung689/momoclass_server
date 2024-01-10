@@ -6383,8 +6383,6 @@ public class LoginServiceImpl implements LoginService {
                                             price = (total_money - dis_money)/(all_lesson - give_lesson);
                                         }
                                         weekPrice = weekPrice + price*count;
-                                        System.out.println("weekPrice:");
-                                        System.out.println(weekPrice);
                                     }
                                 }
                             } catch (Exception e) {
@@ -6428,7 +6426,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("lessonCount", lessonCount);
                     jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
-                    jsonObject.put("rate", df.format(signCount/all_lesson_count));
+                    jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
                     resul_list.add(jsonObject);
                 }
             }else if("月".equals(dimension)){
@@ -6467,21 +6465,26 @@ public class LoginServiceImpl implements LoginService {
                                     Float price = lessons.get(0).getPrice();
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
+                                    Float all_lesson = 0.0f;
+                                    Float give_lesson = 0.0f;
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
                                         for (int k = 0; k < lessonPackages.size(); k++) {
                                             Float total_money_get = lessonPackages.get(k).getTotal_money();
                                             Float dis_money_get = lessonPackages.get(k).getDiscount_money();
+                                            Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
+                                            Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
                                             total_money = total_money + total_money_get;
                                             dis_money = dis_money + dis_money_get;
+                                            all_lesson = all_lesson + all_lesson_get;
+                                            give_lesson = give_lesson + give_lesson_get;
                                         }
+                                        if(total_money>0){
+                                            price = (total_money - dis_money)/total_amount;
+                                        }
+                                        weekPrice = weekPrice + price*count;
                                     }
-                                    if(total_money>0){
-                                        price = (total_money - dis_money)/total_amount;
-                                    }
-                                    weekPrice = weekPrice + price*count;
-                                    System.out.println("weekPrice:");
-                                    System.out.println(weekPrice);
+
                                 }
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
