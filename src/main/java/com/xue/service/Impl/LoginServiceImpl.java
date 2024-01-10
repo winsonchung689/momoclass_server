@@ -6583,6 +6583,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
                     resul_list.add(jsonObject);
@@ -6647,6 +6648,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
                     resul_list.add(jsonObject);
