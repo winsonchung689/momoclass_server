@@ -1442,6 +1442,10 @@
     select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and dayofweek(add_date) between 0 and 7 and delete_status = 0
   </select>
 
+  <select id="getLessonAllCountBySumUpMonthByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and student_name =#{param3} and dayofweek(add_date) between 0 and 7 and delete_status = 0
+  </select>
+
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDayByName" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
     select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_name =#{param6} and campus =#{param7} and student_type ='ordinary' and delete_status = 0 and is_try = 0

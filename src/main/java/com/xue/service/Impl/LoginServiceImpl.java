@@ -6572,7 +6572,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,weekday);
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonthByStudent(studio,campus,weekday,student_name);
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count()*4;
                     }
@@ -6637,7 +6637,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,weekday);
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonthByStudent(studio,campus,weekday,student_name);
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count();
                     }
