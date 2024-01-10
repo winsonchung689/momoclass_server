@@ -6391,31 +6391,19 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    try {
-                        List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
-                        if(list1.size() > 0){
-                            tryCount = list1.get(0).getTry_count();
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
+                    if(list1.size() > 0){
+                        tryCount = list1.get(0).getTry_count();
                     }
 
-                    try {
-                        List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
-                        if(list2.size() > 0){
-                            leaveCount = list2.get(0).getLeave_count();
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
+                    if(list2.size() > 0){
+                        leaveCount = list2.get(0).getLeave_count();
                     }
 
-                    try {
-                        List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,create_time);
-                        if(list3.size() > 0){
-                            all_lesson_count = list3.get(0).getLesson_count();
-                        }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,create_time);
+                    if(list3.size() > 0){
+                        all_lesson_count = list3.get(0).getLesson_count();
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
@@ -6492,31 +6480,19 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    try {
-                        List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,create_time);
-                        if(list1.size() > 0){
-                            tryCount = list1.get(0).getTry_count();
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,create_time);
+                    if(list1.size() > 0){
+                        tryCount = list1.get(0).getTry_count();
                     }
 
-                    try {
-                        List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,create_time);
-                        if(list2.size() > 0){
-                            leaveCount = list2.get(0).getLeave_count();
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,create_time);
+                    if(list2.size() > 0){
+                        leaveCount = list2.get(0).getLeave_count();
                     }
 
-                    try {
-                        List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time);
-                        if(list3.size() > 0){
-                            all_lesson_count = list3.get(0).getLesson_count()*4;
-                        }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time);
+                    if(list3.size() > 0){
+                        all_lesson_count = list3.get(0).getLesson_count()*4;
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
