@@ -6384,6 +6384,8 @@ public class LoginServiceImpl implements LoginService {
                                         price = (total_money - dis_money)/(all_lesson - give_lesson);
                                     }
                                     weekPrice = weekPrice + price*count;
+                                    System.out.println("weekPrice:");
+                                    System.out.println(weekPrice);
                                 }
                             } catch (Exception e) {
 //                            throw new RuntimeException(e);
