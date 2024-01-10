@@ -46,10 +46,10 @@ public class SpringbootLoginApplication {
 		loginService.sendClassRemind();
 	}
 
-	@Scheduled(cron = "0 */1 * * * ?")
-	public void sendSquareRemind(){
-		loginService.sendSquareRemind();
-	}
+//	@Scheduled(cron = "0 */1 * * * ?")
+//	public void sendSquareRemind(){
+//		loginService.sendSquareRemind();
+//	}
 
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendBossPayRemind(){
