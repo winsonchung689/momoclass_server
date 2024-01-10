@@ -6369,7 +6369,7 @@ public class LoginServiceImpl implements LoginService {
                                     Float give_lesson = 0.0f;
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
-                                        for (int k = 0; k <= lessonPackages.size(); k++) {
+                                        for (int k = 0; k < lessonPackages.size(); k++) {
                                             Float total_money_get = lessonPackages.get(k).getTotal_money();
                                             Float dis_money_get = lessonPackages.get(k).getDiscount_money();
                                             Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
@@ -6379,16 +6379,16 @@ public class LoginServiceImpl implements LoginService {
                                             all_lesson = all_lesson + all_lesson_get;
                                             give_lesson = give_lesson + give_lesson_get;
                                         }
+                                        if(total_money>0){
+                                            price = (total_money - dis_money)/(all_lesson - give_lesson);
+                                        }
+                                        weekPrice = weekPrice + price*count;
+                                        System.out.println("weekPrice:");
+                                        System.out.println(weekPrice);
                                     }
-                                    if(total_money>0){
-                                        price = (total_money - dis_money)/(all_lesson - give_lesson);
-                                    }
-                                    weekPrice = weekPrice + price*count;
-                                    System.out.println("weekPrice:");
-                                    System.out.println(weekPrice);
                                 }
                             } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                            throw new RuntimeException(e);
                             }
                         }
                     }
