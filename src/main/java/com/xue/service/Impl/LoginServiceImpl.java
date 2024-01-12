@@ -1722,7 +1722,7 @@ public class LoginServiceImpl implements LoginService {
             List<Message> list = dao.getUuidById(id);
             String class_target_bak = list.get(0).getClass_target_bak();
             String studio_get = list.get(0).getStudio();
-            if("妈妈".equals(class_target_bak) || "健康".equals(class_target_bak) || "讲坛".equals(class_target_bak) || "新闻".equals(class_target_bak) || "育儿".equals(class_target_bak) || "英语".equals(class_target_bak) || "绘本".equals(class_target_bak) || "升学".equals(class_target_bak) || "视频站".equals(class_target_bak)){
+            if("数学".equals(class_target_bak) || "英语".equals(class_target_bak) || "语文".equals(class_target_bak) || "视频站".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
 
                 // 删除视频
@@ -1735,7 +1735,7 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak) || "兼职".equals(class_target_bak) || "图汇展".equals(class_target_bak)){
+            if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak)){
                 String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
