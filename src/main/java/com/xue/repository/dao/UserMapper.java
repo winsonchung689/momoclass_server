@@ -146,6 +146,8 @@ public interface UserMapper {
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end,String campus);
 
+    List<Message> getOnlineTeacher(String type,Integer page_start,Integer page_end);
+
     List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
 
     List<CommunicateRecord> getCommunicateLike(String studio,String item,String campus);

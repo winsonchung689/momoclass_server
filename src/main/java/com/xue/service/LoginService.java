@@ -26,6 +26,8 @@ public interface LoginService {
 
     public List  getModel(String studio,Integer page,String campus);
 
+    public List  getOnlineTeacher(String type,Integer page);
+
     public List  getCommunicateRecord(String studio,Integer page,String campus);
 
     public List  getCommunicateLike(String studio,String item,String campus);

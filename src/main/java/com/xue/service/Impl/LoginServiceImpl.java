@@ -5479,6 +5479,68 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getOnlineTeacher(String type, Integer page) {
+        byte[] photo = null;
+        InputStream inputStream_photo = null;
+        String comment = null;
+        String student_name = null;
+        String class_name = null;
+        String class_target = null;
+        String id = null;
+        String create_time = null;
+        Integer page_start = (page - 1) * 3;
+        Integer page_length = 3;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Message> list = dao.getOnlineTeacher(type, page_start, page_length);
+            for (int i = 0; i < list.size(); i++) {
+                String uuids = null;
+                String vuuid = null;
+                JSONObject jsonObject = new JSONObject();
+                Message line = list.get(i);
+                //获取字段
+                student_name = line.getStudent_name();
+                class_name = line.getClass_name();
+                comment = line.getComment();
+                photo = line.getPhoto();
+                class_target = line.getClass_target();
+                id = line.getId();
+                create_time = line.getCreate_time();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                try {
+                    vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                if(uuids != null){
+                    photo = null;
+
+                }
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("class_name", class_name);
+                jsonObject.put("comment", comment);
+                jsonObject.put("photo", photo);
+                jsonObject.put("class_target", class_target);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("uuids",uuids);
+                jsonObject.put("vuuid",vuuid);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCommunicateRecord(String studio, Integer page,String campus) {
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;

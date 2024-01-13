@@ -1016,6 +1016,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getModel")
+	@ResponseBody
+	public List getModel(String type,Integer page){
+		List list = null;
+		try {
+			list = loginService.getOnlineTeacher(type,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getCommunicateRecord")
 	@ResponseBody
 	public List getCommunicateRecord(String studio,Integer page,String openid){
