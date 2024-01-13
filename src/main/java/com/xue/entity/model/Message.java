@@ -40,8 +40,18 @@ public class Message {
 
     private String campus;
 
+    private String openid;
+
     private Integer views;
 
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public Integer getViews() {
         return views;

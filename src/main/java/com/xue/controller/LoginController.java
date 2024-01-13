@@ -3610,6 +3610,7 @@ public class LoginController {
 		message.setUuids(uuids);
 		message.setCampus(campus);
 		message.setVuuid(vuuid);
+		message.setOpenid(openid);
 
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
