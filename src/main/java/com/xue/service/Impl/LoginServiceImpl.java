@@ -5517,10 +5517,16 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                String openid_get = line.getOpenid();
-                List<User> users = dao.getUser(openid_get);
-                String nick_name = users.get(0).getNick_name();
-                String studio = line.getStudio();
+                String nick_name = null;
+                String studio = null;
+                try {
+                    String openid_get = line.getOpenid();
+                    List<User> users = dao.getUser(openid_get);
+                    nick_name = users.get(0).getNick_name();
+                    studio = line.getStudio();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
