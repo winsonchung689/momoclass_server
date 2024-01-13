@@ -5479,10 +5479,15 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getOnlineTeacher(String type, Integer page) {
+    public List getOnlineTeacher(String type, Integer page,String openid) {
         Integer page_start = (page - 1) * 3;
         Integer page_length = 3;
         List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> messages =dao.getOnlineTeacherByOpenid(openid);
+        int hasSend = 0;
+        if(messages.size() > 0){
+            hasSend = 1;
+        }
 
         try {
             List<Message> list = dao.getOnlineTeacher(type, page_start, page_length);
@@ -5507,8 +5512,8 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                String openid = line.getOpenid();
-                List<User> users = dao.getUser(openid);
+                String openid_get = line.getOpenid();
+                List<User> users = dao.getUser(openid_get);
                 String nick_name = users.get(0).getNick_name();
                 String studio = line.getStudio();
 
@@ -5522,6 +5527,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("uuids",uuids);
                 jsonObject.put("vuuid",vuuid);
                 jsonObject.put("studio",studio);
+                jsonObject.put("hasSend",hasSend);
                 resul_list.add(jsonObject);
             }
 
