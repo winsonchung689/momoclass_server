@@ -1511,7 +1511,7 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getAllClient")
+	@RequestMapping("/getUserByRole")
 	@ResponseBody
 	public List getUserByRole(String role){
 		List list = null;
