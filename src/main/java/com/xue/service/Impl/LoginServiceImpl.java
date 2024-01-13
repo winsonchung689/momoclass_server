@@ -5488,6 +5488,11 @@ public class LoginServiceImpl implements LoginService {
         if(messages.size() > 0){
             hasSend = 1;
         }
+        List<User> messages1 = dao.getUserByRole("boss");
+        int boss_count = messages1.size();
+        List<User> messages2 = dao.getUserByRole("client");
+        int client_count = messages2.size();
+
 
         try {
             List<Message> list = dao.getOnlineTeacher(type, page_start, page_length);
@@ -5528,6 +5533,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("vuuid",vuuid);
                 jsonObject.put("studio",studio);
                 jsonObject.put("hasSend",hasSend);
+                jsonObject.put("boss_count",boss_count);
+                jsonObject.put("client_count",client_count);
                 resul_list.add(jsonObject);
             }
 
