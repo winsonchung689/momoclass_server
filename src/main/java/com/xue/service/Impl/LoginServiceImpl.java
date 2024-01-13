@@ -5519,8 +5519,9 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String nick_name = null;
                 String studio = null;
+                String openid_get = null;
                 try {
-                    String openid_get = line.getOpenid();
+                    openid_get = line.getOpenid();
                     List<User> users = dao.getUser(openid_get);
                     nick_name = users.get(0).getNick_name();
                     studio = line.getStudio();
@@ -5541,6 +5542,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("hasSend",hasSend);
                 jsonObject.put("boss_count",boss_count);
                 jsonObject.put("client_count",client_count);
+                jsonObject.put("openid_get",openid_get);
                 resul_list.add(jsonObject);
             }
 
