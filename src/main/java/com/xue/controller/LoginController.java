@@ -1016,9 +1016,9 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getModel")
+	@RequestMapping("/getOnlineTeacher")
 	@ResponseBody
-	public List getModel(String type,Integer page){
+	public List getOnlineTeacher(String type,Integer page){
 		List list = null;
 		try {
 			list = loginService.getOnlineTeacher(type,page);
