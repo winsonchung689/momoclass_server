@@ -1511,6 +1511,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getAllClient")
+	@ResponseBody
+	public List getUserByRole(String role){
+		List list = null;
+		try {
+			list = loginService.getUserByRole(role);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getAllUserByStudioByPage")
 	@ResponseBody
 	public List getAllUserByStudioByPage(String studio,Integer page){

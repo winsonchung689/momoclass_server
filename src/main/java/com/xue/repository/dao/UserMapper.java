@@ -516,6 +516,8 @@ public interface UserMapper {
 
     List<User> getAllBoss();
 
+    List<User> getUserByRole(String role);
+
     List<User> getStudio();
 
     List<User> getStudioBoss(String role);
