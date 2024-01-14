@@ -5473,11 +5473,12 @@ public class LoginServiceImpl implements LoginService {
     public List getOnlineTeacher(String type, Integer page,String openid) {
 
         Random random = new Random();
-        int randomNumber = random.nextInt(100);
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
         Date date =new Date();
         String update_time = df_now.format(date);
         List<Message> messages_all = dao.getAllOnlineTeacher();
+        int max = messages_all.size();
+        int randomNumber = random.nextInt(max-1);
         String random_id = messages_all.get(randomNumber).getId();
         dao.updateVideoTop(Integer.parseInt(random_id),update_time);
 
