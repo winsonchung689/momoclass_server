@@ -5479,7 +5479,7 @@ public class LoginServiceImpl implements LoginService {
             String update_time = df_now.format(date);
             List<Message> messages_all = dao.getAllOnlineTeacher();
             int max = messages_all.size();
-            if(max>2){
+            if(max>1){
                 int randomNumber = random.nextInt(max-1);
                 String random_id = messages_all.get(randomNumber).getId();
                 dao.updateVideoTop(Integer.parseInt(random_id),update_time);
