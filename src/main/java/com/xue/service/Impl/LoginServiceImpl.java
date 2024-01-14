@@ -3466,15 +3466,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUpdateNews() {
-
-//        Set<Integer> randomNumbers = new HashSet<>();
-//        Random random = new Random();
-
-//        while (randomNumbers.size() < 3) {
-//            int randomNumber = random.nextInt(2); // 生成0到10之间的随机数
-//            randomNumbers.add(randomNumber);
-//        }
-
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> messages = dao.getUpdateNews();
 
@@ -5480,6 +5471,17 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getOnlineTeacher(String type, Integer page,String openid) {
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(100);
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+        Date date =new Date();
+        String update_time = df_now.format(date);
+        List<Message> messages_all = dao.getAllOnlineTeacher();
+        String random_id = messages_all.get(randomNumber).getId();
+        dao.updateVideoTop(Integer.parseInt(random_id),update_time);
+
+
         Integer page_start = (page - 1) * 3;
         Integer page_length = 3;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -5492,6 +5494,8 @@ public class LoginServiceImpl implements LoginService {
         int boss_count = messages1.size();
         List<User> messages2 = dao.getUserByRole("client");
         int client_count = messages2.size();
+
+
 
 
         try {
