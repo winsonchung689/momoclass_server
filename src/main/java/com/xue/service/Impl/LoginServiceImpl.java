@@ -5472,31 +5472,44 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getOnlineTeacher(String type, Integer page,String openid) {
 
-        Random random = new Random();
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-        Date date =new Date();
-        String update_time = df_now.format(date);
-        List<Message> messages_all = dao.getAllOnlineTeacher();
-        int max = messages_all.size();
-        int randomNumber = random.nextInt(max-1);
-        String random_id = messages_all.get(randomNumber).getId();
-        dao.updateVideoTop(Integer.parseInt(random_id),update_time);
+        try {
+            Random random = new Random();
+            SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+            Date date =new Date();
+            String update_time = df_now.format(date);
+            List<Message> messages_all = dao.getAllOnlineTeacher();
+            int max = messages_all.size();
+            if(max>2){
+                int randomNumber = random.nextInt(max-1);
+                String random_id = messages_all.get(randomNumber).getId();
+                dao.updateVideoTop(Integer.parseInt(random_id),update_time);
+            }
+
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
 
 
         Integer page_start = (page - 1) * 3;
         Integer page_length = 3;
         List<JSONObject> resul_list = new ArrayList<>();
-        List<Message> messages =dao.getOnlineTeacherByOpenid(openid);
+
         int hasSend = 0;
-        if(messages.size() > 0){
-            hasSend = 1;
+        int boss_count = 0;
+        int client_count = 0;
+        try {
+            List<Message> messages =dao.getOnlineTeacherByOpenid(openid);
+            hasSend = 0;
+            if(messages.size() > 0){
+                hasSend = 1;
+            }
+            List<User> messages1 = dao.getUserByRole("boss");
+            boss_count = messages1.size();
+            List<User> messages2 = dao.getUserByRole("client");
+            client_count = messages2.size();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        List<User> messages1 = dao.getUserByRole("boss");
-        int boss_count = messages1.size();
-        List<User> messages2 = dao.getUserByRole("client");
-        int client_count = messages2.size();
-
-
 
 
         try {
