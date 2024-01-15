@@ -4145,16 +4145,15 @@ public class LoginServiceImpl implements LoginService {
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         String nick_name = null;
-        String type = null;
         String comment = null;
-        String id = null;
+        String teacher_studio = null;
         try {
-            Random random = new Random();
             List<Message> messages =dao.getOnlineTeacher("网课",0,1);
             String openid = messages.get(0).getOpenid();
             List<User> users = dao.getUserByOpenid(openid);
             nick_name = users.get(0).getNick_name();
             comment = messages.get(0).getComment();
+            teacher_studio = messages.get(0).getStudio();
             if(comment.length() > 14){
                 comment = comment.substring(0, 14) + "...";
             }
@@ -4203,7 +4202,7 @@ public class LoginServiceImpl implements LoginService {
             String send_status_new = now_date + " " + send_time;
 
             //广场通知
-            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
+            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new) && !teacher_studio.equals(studio)){
                 dao.updateClassSendStatusByOpenid(openid,send_status_new);
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
