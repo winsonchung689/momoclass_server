@@ -5605,6 +5605,7 @@ public class LoginServiceImpl implements LoginService {
                 String class_target = line.getClass_target();
                 String id = line.getId();
                 String create_time = line.getCreate_time();
+                String studio = line.getStudio();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
@@ -5616,32 +5617,34 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
                 String nick_name = null;
-                String studio = null;
                 String openid_get = null;
+                String role = null;
                 try {
                     openid_get = line.getOpenid();
                     List<User> users = dao.getUser(openid_get);
                     nick_name = users.get(0).getNick_name();
-                    studio = line.getStudio();
+                    role = users.get(0).getRole();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
 
                 //json
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("comment", comment);
-                jsonObject.put("nick_name", nick_name);
-                jsonObject.put("class_target", class_target);
-                jsonObject.put("id", id);
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("uuids",uuids);
-                jsonObject.put("vuuid",vuuid);
-                jsonObject.put("studio",studio);
-                jsonObject.put("hasSend",hasSend);
-                jsonObject.put("boss_count",boss_count);
-                jsonObject.put("client_count",client_count);
-                jsonObject.put("openid_get",openid_get);
-                resul_list.add(jsonObject);
+                if("boss".equals(role) || "teacher".equals(role)){
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("comment", comment);
+                    jsonObject.put("nick_name", nick_name);
+                    jsonObject.put("class_target", class_target);
+                    jsonObject.put("id", id);
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("uuids",uuids);
+                    jsonObject.put("vuuid",vuuid);
+                    jsonObject.put("studio",studio);
+                    jsonObject.put("hasSend",hasSend);
+                    jsonObject.put("boss_count",boss_count);
+                    jsonObject.put("client_count",client_count);
+                    jsonObject.put("openid_get",openid_get);
+                    resul_list.add(jsonObject);
+                }
             }
 
         } catch (Exception e) {
