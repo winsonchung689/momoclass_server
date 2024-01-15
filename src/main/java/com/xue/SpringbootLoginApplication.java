@@ -52,6 +52,12 @@ public class SpringbootLoginApplication {
 	}
 
 	@Scheduled(cron = "0 */1 * * * ?")
+	public void sendTeacherRemind(){
+		loginService.sendTeacherRemind();
+	}
+
+
+	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendBossPayRemind(){
 		loginService.sendBossPayRemind();
 	}

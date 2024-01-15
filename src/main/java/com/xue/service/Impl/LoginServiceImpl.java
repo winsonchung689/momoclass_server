@@ -1,9 +1,7 @@
 package com.xue.service.Impl;
 
-import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -11,24 +9,14 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
-import nl.martijndwars.webpush.Subscription;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.hibernate.type.IntegerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -4093,13 +4081,6 @@ public class LoginServiceImpl implements LoginService {
             String update_time = df_now.format(date);
             String now_date = df_now.format(date).split(" ")[0];
             String now_time = df_now.format(date).split(" ")[1];
-            if(hour >= 12 && hour < 16){
-                send_time = "15:00:00";
-            }
-
-            if(hour > 16){
-                send_time = "18:30:00";
-            }
 
             if(send_status == null){
                 send_status = now_date + " " + send_time;
@@ -4143,6 +4124,105 @@ public class LoginServiceImpl implements LoginService {
                             if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid)){
                                 dao.updateVideoTop(Integer.parseInt(id),update_time);
                             }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    @Override
+    public void sendTeacherRemind() {
+        List<String> apps = new ArrayList<>();
+        apps.add("MOMO_OFFICIAL");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+
+        String result = null;
+        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+        String nick_name = null;
+        String type = null;
+        String comment = null;
+        String id = null;
+        try {
+            Random random = new Random();
+            List<Message> messages =dao.getOnlineTeacher("网课",0,1);
+            String openid = messages.get(0).getOpenid();
+            List<User> users = dao.getUserByOpenid(openid);
+            nick_name = users.get(0).getNick_name();
+            comment = messages.get(0).getComment();
+            if(comment.length() > 14){
+                comment = comment.substring(0, 14) + "...";
+            }
+            if(nick_name.length() > 12){
+                nick_name = nick_name.substring(0, 12);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        List<User> list = dao.getAllUser();
+        for (int i = 0; i < list.size(); i++) {
+            User user = list.get(i);
+            String role = user.getRole();
+            String official_openid = user.getOfficial_openid();
+            String studio = user.getStudio();
+            String send_time = "15:00:00";
+            String openid = user.getOpenid();
+            Float read_times = user.getRead_times();
+            String send_status = user.getSend_status();
+
+            //获取当前时间
+            Date date =new Date();
+            int hour = date.getHours();
+            long timestamp = date.getTime();
+            String update_time = df_now.format(date);
+            String now_date = df_now.format(date).split(" ")[0];
+            String now_time = df_now.format(date).split(" ")[1];
+
+            if(send_status == null){
+                send_status = now_date + " " + send_time;
+            }
+
+            //获取发送时间戳
+            long timestamp_start = 0l;
+            long timestamp_end = 0l;
+            try {
+                Date date_now = df_now.parse(now_date + " " + send_time);
+                timestamp_start = date_now.getTime();
+                timestamp_end = timestamp_start + 10*60*1000;
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            String send_status_new = now_date + " " + send_time;
+
+            //广场通知
+            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
+                dao.updateClassSendStatusByOpenid(openid,send_status_new);
+                String token = getToken("MOMO_OFFICIAL");
+                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                if (official_openid != null) {
+                    String[] official_list = official_openid.split(",");
+                    for(int k=0;k<official_list.length;k++){
+                        try {
+                            String official_openid_get = official_list[k];
+                            JSONObject queryJson2 = JSONObject.parseObject(tample14);
+                            queryJson2.put("touser", official_openid_get);
+                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","系统管理员");
+                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "网课推荐："+nick_name+"老师");
+                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
+                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
+                            queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher");
+
+                            result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                            System.out.printf("res:" + result);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
