@@ -5474,7 +5474,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             Random random = new Random();
-            SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+            SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date =new Date();
             String update_time = df_now.format(date);
             List<Message> messages_all = dao.getAllOnlineTeacher();
