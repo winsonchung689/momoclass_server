@@ -5594,7 +5594,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<Message> list = dao.getOnlineTeacher(type, page_start, page_length);
-            if(page == 1){
+            if(page == 1 && !"noid".equals(id)){
                 List<Message> list_init = dao.getUuidById(Integer.parseInt(id));
                 list_init.addAll(list);
                 list = list_init;
