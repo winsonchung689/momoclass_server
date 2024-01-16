@@ -1018,10 +1018,10 @@ public class LoginController {
 
 	@RequestMapping("/getOnlineTeacher")
 	@ResponseBody
-	public List getOnlineTeacher(String type,Integer page,String openid){
+	public List getOnlineTeacher(String type,Integer page,String openid,String id){
 		List list = null;
 		try {
-			list = loginService.getOnlineTeacher(type,page,openid);
+			list = loginService.getOnlineTeacher(type,page,openid,id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

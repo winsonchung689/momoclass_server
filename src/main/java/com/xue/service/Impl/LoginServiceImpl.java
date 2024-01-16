@@ -5551,7 +5551,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getOnlineTeacher(String type, Integer page,String openid) {
+    public List getOnlineTeacher(String type, Integer page,String openid,String id) {
 
         try {
             Random random = new Random();
@@ -5592,9 +5592,13 @@ public class LoginServiceImpl implements LoginService {
             throw new RuntimeException(e);
         }
 
-
         try {
             List<Message> list = dao.getOnlineTeacher(type, page_start, page_length);
+            if(page == 1){
+                List<Message> list_init = dao.getUuidById(Integer.parseInt(id));
+                list_init.addAll(list);
+                list = list_init;
+            }
             for (int i = 0; i < list.size(); i++) {
                 String uuids = null;
                 String vuuid = null;
@@ -5604,7 +5608,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String comment = line.getComment();
                 String class_target = line.getClass_target();
-                String id = line.getId();
+                String id_get = line.getId();
                 String create_time = line.getCreate_time();
                 String studio = line.getStudio();
                 try {
@@ -5635,7 +5639,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("comment", comment);
                     jsonObject.put("nick_name", nick_name);
                     jsonObject.put("class_target", class_target);
-                    jsonObject.put("id", id);
+                    jsonObject.put("id", id_get);
                     jsonObject.put("create_time", create_time);
                     jsonObject.put("uuids",uuids);
                     jsonObject.put("vuuid",vuuid);
