@@ -4147,6 +4147,7 @@ public class LoginServiceImpl implements LoginService {
         String nick_name = null;
         String comment = null;
         String teacher_studio = null;
+        String id = null;
         try {
             List<Message> messages =dao.getOnlineTeacher("网课",0,1);
             String openid = messages.get(0).getOpenid();
@@ -4154,6 +4155,7 @@ public class LoginServiceImpl implements LoginService {
             nick_name = users.get(0).getNick_name();
             comment = messages.get(0).getComment();
             teacher_studio = messages.get(0).getStudio();
+            id  =  messages.get(0).getId();
             if(comment.length() > 14){
                 comment = comment.substring(0, 14) + "...";
             }
@@ -4218,7 +4220,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher");
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id);
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
