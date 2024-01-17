@@ -1333,7 +1333,7 @@ public class LoginServiceImpl implements LoginService {
                         student_names = student_names.append(student_name).append(",");
                     }
 
-                    List<Schedule> check_arrange = dao.getScheduleCheckArrangement(weekofday,duration,class_number,subject,studio,campus,student_name);
+                    List<Schedule> check_arrange = dao.getScheduleCheckArrangement(weekDay,duration,class_number,subject,studio,campus,student_name);
                     if(check_arrange.size() >= 1){
                         student_arranges = student_arranges.append(student_name).append(",");
                     }
