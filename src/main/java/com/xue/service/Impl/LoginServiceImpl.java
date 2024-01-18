@@ -4427,10 +4427,12 @@ public class LoginServiceImpl implements LoginService {
         Date date = new Date();
         cal.setTime(date);
 
+        DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
         List<SignUp> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
+        JSONObject jsonObject_all = new JSONObject();
         try {
             String[] duration_time_list =duration_time.split("_");
             List<User> list_user = dao.getUser(openid);
@@ -4498,11 +4500,10 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+
                 count_sum = count_sum + count;
                 price_sum = price_sum + sign_price;
                 sign_sum = sign_sum + 1;
-
-                DecimalFormat df1 = new DecimalFormat("0.00");
 
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
@@ -4518,9 +4519,14 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("price_sum", df1.format(price_sum));
                 jsonObject.put("sign_sum", sign_sum);
                 if(student_name.length() >0){
-                    resul_list.add(jsonObject);
+//                    resul_list.add(jsonObject);
                 }
             }
+
+            jsonObject_all.put("price_sum", df1.format(price_sum));
+            jsonObject_all.put("sign_sum", sign_sum);
+            jsonObject_all.put("count_sum", count_sum);
+            resul_list.add(jsonObject_all);
 
         } catch (Exception e) {
             e.printStackTrace();
