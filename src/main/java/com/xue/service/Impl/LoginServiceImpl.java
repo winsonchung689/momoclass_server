@@ -4450,7 +4450,9 @@ public class LoginServiceImpl implements LoginService {
                 date_end = duration_time_list[2];
             }
 
-
+            Float count_sum = 0.0f;
+            Float price_sum = 0.0f;
+            Integer sign_sum = 0;
             list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -4496,6 +4498,9 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+                count_sum = count_sum + count;
+                price_sum = price_sum + sign_price;
+                sign_sum = sign_sum + 1;
 
                 DecimalFormat df1 = new DecimalFormat("0.00");
 
@@ -4509,6 +4514,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("count", count);
                 jsonObject.put("price", df1.format(price));
                 jsonObject.put("sign_price", df1.format(sign_price));
+                jsonObject.put("count_sum", count_sum);
+                jsonObject.put("price_sum", df1.format(price_sum));
+                jsonObject.put("sign_sum", sign_sum);
                 if(student_name.length() >0){
                     resul_list.add(jsonObject);
                 }
