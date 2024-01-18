@@ -788,6 +788,10 @@ public interface UserMapper {
 
     int updateUserMember(String member,String studio);
 
+    int updateExchangeByStudio(String studio,Integer is_exchange);
+
+    int updateCityByStudio(String studio,String city);
+
     List<Lesson> getLessonByName(String student_name,String studio,String campus);
 
     List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject,String campus);

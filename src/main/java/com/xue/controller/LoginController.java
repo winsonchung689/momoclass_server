@@ -880,6 +880,30 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/updateExchangeByStudio")
+	@ResponseBody
+	public int updateExchangeByStudio(String studio,String is_exchange) {
+		int result = 0;
+		try {
+			result = dao.updateExchangeByStudio(studio,Integer.parseInt(is_exchange));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@RequestMapping("/updateCityByStudio")
+	@ResponseBody
+	public int updateCityByStudio(String studio,String city) {
+		int result = 0;
+		try {
+			result = dao.updateCityByStudio(studio,city);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody

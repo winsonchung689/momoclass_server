@@ -1834,5 +1834,13 @@
     update user set member=#{param1} where studio=#{param2} and role in ('boss', 'teacher') and delete_status = 0
   </update>
 
+  <update id="updateExchangeByStudio" parameterType="com.xue.entity.model.User">
+    update user set is_exchange=#{param2} where studio=#{param1}
+  </update>
+
+  <update id="updateCityByStudio" parameterType="com.xue.entity.model.User">
+    update user set city=#{param2} where studio=#{param1}
+  </update>
+
 
 </mapper>
