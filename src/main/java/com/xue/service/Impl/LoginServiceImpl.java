@@ -5688,6 +5688,7 @@ public class LoginServiceImpl implements LoginService {
                 String openid_get = null;
                 String role = null;
                 String subject = null;
+                String city = null;
                 try {
                     openid_get = line.getOpenid();
                     List<User> users = dao.getUser(openid_get);
@@ -5695,6 +5696,7 @@ public class LoginServiceImpl implements LoginService {
                     nick_name = user.getNick_name();
                     role = user.getRole();
                     subject = user.getSubject();
+                    city = user.getCity();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -5715,6 +5717,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("client_count",client_count);
                     jsonObject.put("openid_get",openid_get);
                     jsonObject.put("subject",subject);
+                    jsonObject.put("city",city);
                     resul_list.add(jsonObject);
                 }
             }
