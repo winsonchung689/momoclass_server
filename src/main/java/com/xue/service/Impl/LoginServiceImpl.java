@@ -4462,9 +4462,6 @@ public class LoginServiceImpl implements LoginService {
                 SignUp line = list.get(i);
                 String subject = line.getSubject();
                 String student_name = line.getStudent_name();
-                String sign_time =line.getSign_time();
-                String create_time = line.getCreate_time();
-                String mark = line.getMark();
                 Float count = line.getCount();
                 Float total_amount = 0.0f;
                 Float total_money = 0.0f;
@@ -4505,7 +4502,6 @@ public class LoginServiceImpl implements LoginService {
                 count_sum = count_sum + count;
                 price_sum = price_sum + sign_price;
                 sign_sum = sign_sum + 1;
-
             }
 
             jsonObject_all.put("price_sum", df1.format(price_sum));
