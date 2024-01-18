@@ -1842,5 +1842,9 @@
     update user set city=#{param2} where studio=#{param1}
   </update>
 
+  <update id="updateSubjectByStudio" parameterType="com.xue.entity.model.User">
+    update user set subject=#{param2} where studio=#{param1}
+  </update>
+
 
 </mapper>

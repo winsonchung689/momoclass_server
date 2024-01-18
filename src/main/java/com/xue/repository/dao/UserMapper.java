@@ -792,6 +792,9 @@ public interface UserMapper {
 
     int updateCityByStudio(String studio,String city);
 
+
+    int updateSubjectByStudio(String studio,String subject);
+
     List<Lesson> getLessonByName(String student_name,String studio,String campus);
 
     List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject,String campus);

@@ -904,6 +904,18 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/updateSubjectByStudio")
+	@ResponseBody
+	public int updateSubjectByStudio(String studio,String subject) {
+		int result = 0;
+		try {
+			result = dao.updateSubjectByStudio(studio,subject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	//	获取主页
 	@RequestMapping("/getHome")
 	@ResponseBody
