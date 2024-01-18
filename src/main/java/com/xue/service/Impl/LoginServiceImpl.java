@@ -2214,6 +2214,7 @@ public class LoginServiceImpl implements LoginService {
                 String expired_time_ad = line.getExpired_time_ad();
                 String city = line.getCity();
                 Integer is_exchange = line.getIs_exchange();
+                String subject = line.getSubject();
 
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
@@ -2294,6 +2295,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("expired_time_ad", expired_time_ad);
                 jsonObject.put("city", city);
                 jsonObject.put("is_exchange", is_exchange);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

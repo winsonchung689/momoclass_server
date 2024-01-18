@@ -72,7 +72,17 @@ public class User {
 
     private Integer is_exchange;
 
+    private String subject;
 
+
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     public Integer getIs_exchange() {
         return is_exchange;
