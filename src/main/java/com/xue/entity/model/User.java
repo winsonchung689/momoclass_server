@@ -68,7 +68,27 @@ public class User {
 
     private String send_status;
 
+    private String city;
 
+    private Integer is_exchange;
+
+
+
+    public Integer getIs_exchange() {
+        return is_exchange;
+    }
+
+    public void setIs_exchange(Integer is_exchange) {
+        this.is_exchange = is_exchange;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getSend_status() {
         return send_status;

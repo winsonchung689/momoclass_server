@@ -2212,6 +2212,8 @@ public class LoginServiceImpl implements LoginService {
                 official_openid = line.getOfficial_openid();
                 Float read_times = line.getRead_times();
                 String expired_time_ad = line.getExpired_time_ad();
+                String city = line.getCity();
+                Integer is_exchange = line.getIs_exchange();
 
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
@@ -2290,6 +2292,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("read_times", read_times);
                 jsonObject.put("id", id);
                 jsonObject.put("expired_time_ad", expired_time_ad);
+                jsonObject.put("city", city);
+                jsonObject.put("is_exchange", is_exchange);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
