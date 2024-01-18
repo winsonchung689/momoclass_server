@@ -4523,6 +4523,34 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String mark = line.getMark();
                 Float count = line.getCount();
+                Float price = 0.0f;
+                Float total_amount = 0.0f;
+                Float total_money = 0.0f;
+                Float discount_money = 0.0f;
+
+                List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
+                if(lessons.size()>0){
+                    Lesson lesson = lessons.get(0);
+                    price = lesson.getPrice();
+                    total_amount = lesson.getTotal_amount();
+                }
+
+
+                List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                if(lessonPackages.size()>0){
+                    for(int k = 0; k < lessonPackages.size(); k++){
+                        LessonPackage lessonPackage = lessonPackages.get(k);
+                        total_money = total_money + lessonPackage.getTotal_money();
+                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                    }
+                }
+
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/total_amount;
+                if(re_price>0){
+                    price = re_price;
+                }
+
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
                 jsonObject.put("campus", campus);
@@ -4531,6 +4559,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
+                jsonObject.put("price", df1.format(price));
                 if(student_name.length() >0){
                     resul_list.add(jsonObject);
                 }
