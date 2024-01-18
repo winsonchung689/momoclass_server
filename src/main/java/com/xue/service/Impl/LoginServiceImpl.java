@@ -4427,6 +4427,8 @@ public class LoginServiceImpl implements LoginService {
         Date date = new Date();
         cal.setTime(date);
 
+        Integer page_start = (1 - 1) * 300;
+        Integer page_length = 300;
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
@@ -4457,7 +4459,6 @@ public class LoginServiceImpl implements LoginService {
             Integer sign_sum = 0;
             list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
             for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
                 String subject = line.getSubject();
                 String student_name = line.getStudent_name();
@@ -4505,6 +4506,23 @@ public class LoginServiceImpl implements LoginService {
                 price_sum = price_sum + sign_price;
                 sign_sum = sign_sum + 1;
 
+            }
+
+            jsonObject_all.put("price_sum", df1.format(price_sum));
+            jsonObject_all.put("sign_sum", sign_sum);
+            jsonObject_all.put("count_sum", count_sum);
+            resul_list.add(jsonObject_all);
+
+            List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
+            for (int j = 0; j < list_detail.size(); j++) {
+                JSONObject jsonObject = new JSONObject();
+                SignUp line = list.get(j);
+                String subject = line.getSubject();
+                String student_name = line.getStudent_name();
+                String sign_time =line.getSign_time();
+                String create_time = line.getCreate_time();
+                String mark = line.getMark();
+                Float count = line.getCount();
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
                 jsonObject.put("campus", campus);
@@ -4513,20 +4531,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
-                jsonObject.put("price", df1.format(price));
-                jsonObject.put("sign_price", df1.format(sign_price));
-                jsonObject.put("count_sum", count_sum);
-                jsonObject.put("price_sum", df1.format(price_sum));
-                jsonObject.put("sign_sum", sign_sum);
                 if(student_name.length() >0){
-//                    resul_list.add(jsonObject);
+                    resul_list.add(jsonObject);
                 }
             }
-
-            jsonObject_all.put("price_sum", df1.format(price_sum));
-            jsonObject_all.put("sign_sum", sign_sum);
-            jsonObject_all.put("count_sum", count_sum);
-            resul_list.add(jsonObject_all);
 
         } catch (Exception e) {
             e.printStackTrace();

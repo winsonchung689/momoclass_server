@@ -714,10 +714,11 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
-
     List<SignUp> getStudentByTeacherAll();
 
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
+
+    List<SignUp> getStudentByTeacherByDurationByPage(String studio,String teacher,String date_start,String date_end,Integer page_start,Integer page_length);
 
     List<Message> getCommentByDate(String student_name,String studio,String date_time,String campus,String class_target);
 
