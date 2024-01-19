@@ -1850,6 +1850,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deletePostComment")
+	@ResponseBody
+	public int deletePostComment(Integer id){
+		try {
+			dao.deletePostComment(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteUuids")
 	@ResponseBody

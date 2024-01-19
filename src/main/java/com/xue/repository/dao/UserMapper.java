@@ -210,6 +210,8 @@ public interface UserMapper {
 
     void deletePost(Integer id);
 
+    void deletePostComment(Integer id);
+
     void deleteBookDetail(Integer id,String studio);
 
     void deleteCommunicateRecord(Integer id,String studio);

@@ -327,6 +327,10 @@
     update post set delete_status = 1 where id =#{param1}
   </select>
 
+  <select id="deletePostComment" parameterType="com.xue.entity.model.PostComment" resultMap="BaseResultMap">
+    update post_comment set delete_status = 1 where id =#{param1}
+  </select>
+
 
   <!-- 删除账单 -->
   <select id="deleteBookDetail" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
