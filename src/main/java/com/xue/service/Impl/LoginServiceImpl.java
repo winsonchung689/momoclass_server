@@ -1720,7 +1720,7 @@ public class LoginServiceImpl implements LoginService {
             List<Message> list = dao.getUuidById(id);
             String class_target_bak = list.get(0).getClass_target_bak();
             String studio_get = list.get(0).getStudio();
-            if("网课".equals(class_target_bak) ||"数学".equals(class_target_bak) || "英语".equals(class_target_bak) || "语文".equals(class_target_bak) || "视频站".equals(class_target_bak)){
+            if("网课".equals(class_target_bak) || "同城".equals(class_target_bak) ||"数学".equals(class_target_bak) || "英语".equals(class_target_bak) || "语文".equals(class_target_bak) || "视频站".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
 
                 // 删除视频
