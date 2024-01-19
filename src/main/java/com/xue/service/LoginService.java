@@ -246,6 +246,8 @@ public interface LoginService {
 
     public void sendTeacherRemind();
 
+    public void sendExchangeRemind();
+
     public void sendBossPayRemind();
 
     public void sendSquareRemind();
