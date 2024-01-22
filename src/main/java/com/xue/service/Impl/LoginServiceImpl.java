@@ -5331,6 +5331,7 @@ public class LoginServiceImpl implements LoginService {
                 content = line.getContent();
                 create_time = line.getCreate_time();
                 id = line.getId();
+                String mp3_url = line.getMp3_url();
 
                 jsonObject.put("openid", openid);
                 jsonObject.put("studio_get", studio);
@@ -5339,6 +5340,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("id", id);
+                jsonObject.put("mp3_url", mp3_url);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
