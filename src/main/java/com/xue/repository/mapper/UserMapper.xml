@@ -752,7 +752,7 @@
 
   <!-- 插入回帖 -->
   <insert id="insertPostComment" parameterType="com.xue.entity.model.PostComment">
-    insert post_comment(openid,post_id,content,studio,create_time,type) values(#{openid},#{post_id},#{content},#{studio},#{create_time},#{type})
+    insert post_comment(openid,post_id,content,studio,create_time,type,mp3_url) values(#{openid},#{post_id},#{content},#{studio},#{create_time},#{type},#{mp3_url})
   </insert>
 
   <!-- 插入点赞 -->

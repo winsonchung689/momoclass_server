@@ -18,6 +18,16 @@ public class PostComment {
 
     private String type;
 
+    private String mp3_url;
+
+
+    public String getMp3_url() {
+        return mp3_url;
+    }
+
+    public void setMp3_url(String mp3_url) {
+        this.mp3_url = mp3_url;
+    }
 
     public String getType() {
         return type;

@@ -3743,6 +3743,7 @@ public class LoginController {
 		String post_id = request.getParameter("post_id");
 		String content = request.getParameter("content");
 		String studio = request.getParameter("studio");
+		String mp3_url = request.getParameter("mp3_url");
 		String type = request.getParameter("type");
 
 		PostComment postComment = new PostComment();
@@ -3752,6 +3753,7 @@ public class LoginController {
 		postComment.setStudio(studio);
 		postComment.setCreate_time(create_time);
 		postComment.setType(type);
+		postComment.setMp3_url(mp3_url);
 
 		try {
 			dao.insertPostComment(postComment);
