@@ -5704,8 +5704,10 @@ public class LoginServiceImpl implements LoginService {
                 }
                 if(uuids != null){
                     photo = null;
-
                 }
+                List<PostComment> postComments = dao.getPostComment(id);
+
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
@@ -5716,6 +5718,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("uuids",uuids);
                 jsonObject.put("vuuid",vuuid);
+                jsonObject.put("postcomments",postComments);
                 resul_list.add(jsonObject);
             }
 
