@@ -5315,6 +5315,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < postComments.size(); i++) {
                 String nick_name = "游客";
                 String avatar = null;
+                String student_name = null;
                 JSONObject jsonObject = new JSONObject();
                 PostComment line = postComments.get(i);
                 //获取字段
@@ -5323,6 +5324,7 @@ public class LoginServiceImpl implements LoginService {
                     List<User> list_user = dao.getUser(openid);
                     avatar = list_user.get(0).getAvatarurl();
                     nick_name = list_user.get(0).getNick_name();
+                    student_name = list_user.get(0).getStudent_name();
                 } catch (Exception e) {
                     // throw new RuntimeException(e);
                 }
@@ -5342,6 +5344,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("mp3_url", mp3_url);
                 jsonObject.put("post_id", post_id);
+                jsonObject.put("student_name", student_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
