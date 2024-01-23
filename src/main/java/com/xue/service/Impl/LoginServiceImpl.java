@@ -5747,7 +5747,12 @@ public class LoginServiceImpl implements LoginService {
             if(max>1){
                 int randomNumber = random.nextInt(max-1);
                 String random_id = messages_all.get(randomNumber).getId();
-                dao.updateVideoTop(Integer.parseInt(random_id),update_time);
+                String openid_get = messages_all.get(randomNumber).getOpenid();
+                List<User> users = dao.getUserByOpenid(openid_get);
+                String role = users.get(0).getRole();
+                if(!"client".equals(role)){
+                    dao.updateVideoTop(Integer.parseInt(random_id),update_time);
+                }
             }
 
         } catch (NumberFormatException e) {
