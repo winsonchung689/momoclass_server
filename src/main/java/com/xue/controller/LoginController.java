@@ -415,7 +415,7 @@ public class LoginController {
 						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name + "_" + class_name);
 						queryJson.getJSONObject("data").getJSONObject("thing1").put("value",nick_name);
 						queryJson.getJSONObject("data").getJSONObject("time2").put("value",create_time);
-						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id);
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id + "&class_target=" + "课评");
 
 						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
