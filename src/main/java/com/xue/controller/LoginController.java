@@ -354,6 +354,7 @@ public class LoginController {
 			for (int i = 0; i < list.size(); i++) {
 				User user_get = list.get(i);
 				String official_openid = user_get.getOfficial_openid();
+				String openid_get = user_get.getOpenid();
 				url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 				if(official_openid != null){
 					String[] official_list = official_openid.split(",");
@@ -364,7 +365,7 @@ public class LoginController {
 						queryJson.getJSONObject("data").getJSONObject("thing7").put("value",title);
 						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name);
 						queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
-						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/gallery/gallery?studio=" + studio);
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/gallery/gallery?studio=" + studio + "&openid=" + openid_get);
 
 						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
