@@ -410,7 +410,7 @@ public class LoginController {
 				String official_openid = user_get.getOfficial_openid();
 				String openid_get = user_get.getOpenid();
 				url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-				if(official_openid != null){
+				if(official_openid != null && openid != openid_get){
 					String[] official_list = official_openid.split(",");
 					for(int j=0;j<official_list.length;j++){
 						String official_openid_get = official_list[j];
