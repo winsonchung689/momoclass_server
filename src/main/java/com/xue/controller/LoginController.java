@@ -412,9 +412,9 @@ public class LoginController {
 						String official_openid_get = official_list[j];
 						JSONObject queryJson = JSONObject.parseObject(model);
 						queryJson.put("touser",official_openid_get);
-						queryJson.getJSONObject("data").getJSONObject("thing7").put("value",student_name + "_" + class_name);
-						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",nick_name);
-						queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
+						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name + "_" + class_name);
+						queryJson.getJSONObject("data").getJSONObject("thing1").put("value",nick_name);
+						queryJson.getJSONObject("data").getJSONObject("time2").put("value",create_time);
 						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id);
 
 						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
@@ -423,9 +423,6 @@ public class LoginController {
 					}
 				}
 			}
-
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
