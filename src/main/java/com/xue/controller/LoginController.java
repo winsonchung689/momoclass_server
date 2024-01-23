@@ -382,6 +382,57 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/sendComment")
+	@ResponseBody
+	public String sendComment(String openid,String student_name,String class_name,String id){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());
+		String result = null;
+		String url_send = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"r4UhyPAsqJwh8uUghKcxzSqM5_XNIxZzjn2zFZlhST0\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing5\":{\"value\": \"AA\"},\"thing1\":{\"value\": \"A1\"},\"time2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String token = loginService.getToken("MOMO_OFFICIAL");
+
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String studio = user.getStudio();
+		String nick_name = user.getNick_name();
+		if(class_name.length() > 10){
+			class_name = class_name.substring(0, 10);
+		}
+
+		try {
+			List<User> list = dao.getUserByStudent(student_name,studio);
+			for (int i = 0; i < list.size(); i++) {
+				User user_get = list.get(i);
+				String official_openid = user_get.getOfficial_openid();
+				url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+				if(official_openid != null){
+					String[] official_list = official_openid.split(",");
+					for(int j=0;j<official_list.length;j++){
+						String official_openid_get = official_list[j];
+						JSONObject queryJson = JSONObject.parseObject(model);
+						queryJson.put("touser",official_openid_get);
+						queryJson.getJSONObject("data").getJSONObject("thing7").put("value",student_name + "_" + class_name);
+						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",nick_name);
+						queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id);
+
+						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+						System.out.printf("MOMO_OFFICIAL_RES:" + result);
+					}
+				}
+			}
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	//	获取token
 	@RequestMapping("/sendPaymentNotice")
 	@ResponseBody
