@@ -403,6 +403,8 @@ public class LoginController {
 
 		try {
 			List<User> list = dao.getUserByStudent(student_name,studio);
+			List<User> list1 = dao.getBossByStudio(studio);
+			list.addAll(list1);
 			for (int i = 0; i < list.size(); i++) {
 				User user_get = list.get(i);
 				String official_openid = user_get.getOfficial_openid();
