@@ -384,7 +384,7 @@ public class LoginController {
 
 	@RequestMapping("/sendComment")
 	@ResponseBody
-	public String sendComment(String openid,String student_name,String class_name,String id){
+	public String sendComment(String openid,String student_name,String class_name,String id,String class_target){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
@@ -415,7 +415,7 @@ public class LoginController {
 						queryJson.getJSONObject("data").getJSONObject("thing5").put("value",student_name + "_" + class_name);
 						queryJson.getJSONObject("data").getJSONObject("thing1").put("value",nick_name);
 						queryJson.getJSONObject("data").getJSONObject("time2").put("value",create_time);
-						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id + "&class_target=" + "课评");
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?id=" + id + "&class_target=" + class_target);
 
 						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
