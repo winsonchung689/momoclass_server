@@ -5745,7 +5745,7 @@ public class LoginServiceImpl implements LoginService {
             List<Message> messages_all = dao.getAllOnlineTeacher();
             int max = messages_all.size();
             if(max>1){
-                int randomNumber = random.nextInt(max-1);
+                int randomNumber = random.nextInt(max);
                 String random_id = messages_all.get(randomNumber).getId();
                 String openid_get = messages_all.get(randomNumber).getOpenid();
                 List<User> users = dao.getUserByOpenid(openid_get);
