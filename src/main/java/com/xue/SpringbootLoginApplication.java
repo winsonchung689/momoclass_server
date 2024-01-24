@@ -47,6 +47,11 @@ public class SpringbootLoginApplication {
 	}
 
 	@Scheduled(cron = "0 */1 * * * ?")
+	public void sendSquareRemind(){
+		loginService.sendSquareRemind();
+	}
+
+	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendExchangeRemind(){
 		loginService.sendExchangeRemind();
 	}
