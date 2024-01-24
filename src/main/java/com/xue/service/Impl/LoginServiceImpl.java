@@ -1663,6 +1663,7 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 id = line.getId();
                 status = line.getStatus();
+
                 if(status == 1){
                     status_str = "已确认";
                 }else {
@@ -1677,9 +1678,12 @@ public class LoginServiceImpl implements LoginService {
                     student_count = 0;
                 }
 
+                Float left_amount = 0.0f;
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                Lesson lesson = lessons.get(0);
-                Float left_amount = lesson.getLeft_amount();
+                if(lessons.size()>0){
+                    Lesson lesson = lessons.get(0);
+                    left_amount = lesson.getLeft_amount();
+                }
 
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
