@@ -4245,7 +4245,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id);
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id + "&openid=" + openid + "&type=" + "网课");
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
@@ -4356,7 +4356,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
                             queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id);
+                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id + "&openid=" + openid + "&type=" + "同城");
 
                             result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                             System.out.printf("res:" + result);
