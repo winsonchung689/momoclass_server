@@ -78,21 +78,21 @@ public class RestaurantController {
 		restaurantUser.setExpired_time(expired_time);
 
 		loginService.insertRestaurantUser(restaurantUser);
-		try {
-			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
-			if(restaurantUsers.size()>0){
-				RestaurantUser restaurantUser1 = restaurantUsers.get(0);
-				int id = restaurantUser1.getId();
-				if(id<1000){
-					RestaurantUser restaurantUser2 = new RestaurantUser();
-					restaurantUser2.setRole("boss");
-					restaurantUser2.setOpenid(openid);
-					dao.updateRestaurantRole(restaurantUser2);
-				}
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+//			if(restaurantUsers.size()>0){
+//				RestaurantUser restaurantUser1 = restaurantUsers.get(0);
+//				int id = restaurantUser1.getId();
+//				if(id<1000){
+//					RestaurantUser restaurantUser2 = new RestaurantUser();
+//					restaurantUser2.setRole("boss");
+//					restaurantUser2.setOpenid(openid);
+//					dao.updateRestaurantRole(restaurantUser2);
+//				}
+//			}
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
 		return "push massage successfully";
 	}
 
