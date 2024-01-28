@@ -2417,9 +2417,9 @@ public class LoginServiceImpl implements LoginService {
                 openid = line.getOpenid();
                 logo = line.getLogo();
                 id = line.getId();
-                String role_name = "顾客";
+                String role_name = "普通";
                 if("boss".equals(role)){
-                    role_name = "老板";
+                    role_name = "群主";
                 }
 
                 //json
