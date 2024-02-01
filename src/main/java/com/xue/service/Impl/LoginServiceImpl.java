@@ -4094,7 +4094,7 @@ public class LoginServiceImpl implements LoginService {
             String role = user.getRole();
             String official_openid = user.getOfficial_openid();
             String studio = user.getStudio();
-            String send_time = "10:30:00";
+            String send_time = "12:00:00";
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
@@ -4305,7 +4305,7 @@ public class LoginServiceImpl implements LoginService {
             String role = user.getRole();
             String official_openid = user.getOfficial_openid();
             String studio = user.getStudio();
-            String send_time = "10:30:00";
+            String send_time = "11:00:00";
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
@@ -4322,7 +4322,7 @@ public class LoginServiceImpl implements LoginService {
             String now_time = df_now.format(date).split(" ")[1];
 
             if(hour>12){
-                send_time = "15:30:00";
+                send_time = "16:00:00";
             }
 
             if(send_status == null){
