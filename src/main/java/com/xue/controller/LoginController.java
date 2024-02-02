@@ -4885,11 +4885,11 @@ public class LoginController {
 				}
 			}
 
-			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
+//			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
 			Float consume_lesson_amount = 0.0f;
-			if (!consume_lesson_amount_1.isEmpty()){
-				consume_lesson_amount = Float.valueOf(consume_lesson_amount_1);
-			}
+//			if (!consume_lesson_amount_1.isEmpty()){
+//				consume_lesson_amount = Float.valueOf(consume_lesson_amount_1);
+//			}
 
 			Float minus_amount=0.0f;
 			Float coins_amount=0.0f;
