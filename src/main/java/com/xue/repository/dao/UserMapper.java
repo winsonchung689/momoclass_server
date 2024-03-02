@@ -792,8 +792,11 @@ public interface UserMapper {
 
     int updateExchangeByStudio(String studio,Integer is_exchange);
 
-    int updateCityByStudio(String studio,String city);
+    int updateTeacherByStudio(String studio,Integer is_teacher);
 
+    int updateSquareByStudio(String studio,Integer is_square);
+
+    int updateCityByStudio(String studio,String city);
 
     int updateSubjectByStudio(String studio,String subject);
 

@@ -72,9 +72,29 @@ public class User {
 
     private Integer is_exchange;
 
+    private Integer is_teacher;
+
+    private Integer is_square;
+
     private String subject;
 
 
+
+    public Integer getIs_teacher() {
+        return is_teacher;
+    }
+
+    public void setIs_teacher(Integer is_teacher) {
+        this.is_teacher = is_teacher;
+    }
+
+    public Integer getIs_square() {
+        return is_square;
+    }
+
+    public void setIs_square(Integer is_square) {
+        this.is_square = is_square;
+    }
 
     public String getSubject() {
         return subject;

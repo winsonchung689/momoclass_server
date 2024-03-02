@@ -996,6 +996,30 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/updateTeacherByStudio")
+	@ResponseBody
+	public int updateTeacherByStudio(String studio,String is_teacher) {
+		int result = 0;
+		try {
+			result = dao.updateTeacherByStudio(studio,Integer.parseInt(is_teacher));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@RequestMapping("/updateSquareByStudio")
+	@ResponseBody
+	public int updateSquareByStudio(String studio,String is_square) {
+		int result = 0;
+		try {
+			result = dao.updateSquareByStudio(studio,Integer.parseInt(is_square));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	@RequestMapping("/updateCityByStudio")
 	@ResponseBody
 	public int updateCityByStudio(String studio,String city) {
