@@ -4102,6 +4102,7 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
+            Integer is_square = user.getIs_square();
 
             //获取当前时间
             Date date =new Date();
@@ -4130,7 +4131,7 @@ public class LoginServiceImpl implements LoginService {
             String send_status_new = now_date + " " + send_time;
 
             //广场通知
-            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
+            if("client".equals(role) && is_square == 1 && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
                 dao.updateClassSendStatusByOpenid(openid,send_status_new);
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
@@ -4205,6 +4206,7 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             Float read_times = user.getRead_times();
             String send_status = user.getSend_status();
+            Integer is_teacher = user.getIs_teacher();
 
             //获取当前时间
             Date date =new Date();
@@ -4237,7 +4239,7 @@ public class LoginServiceImpl implements LoginService {
             String send_status_new = now_date + " " + send_time;
 
             //广场通知
-            if("client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new) && !teacher_studio.equals(studio)){
+            if("client".equals(role) && is_teacher == 1 && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new) && !teacher_studio.equals(studio)){
                 dao.updateClassSendStatusByOpenid(openid,send_status_new);
                 String token = getToken("MOMO_OFFICIAL");
                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
