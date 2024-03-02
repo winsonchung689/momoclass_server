@@ -986,34 +986,17 @@ public class LoginController {
 
 	@RequestMapping("/updateExchangeByStudio")
 	@ResponseBody
-	public int updateExchangeByStudio(String studio,String is_exchange) {
+	public int updateExchangeByStudio(String studio,String value_num,String type) {
 		int result = 0;
 		try {
-			result = dao.updateExchangeByStudio(studio,Integer.parseInt(is_exchange));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+			if("同城".equals(type)){
+				result = dao.updateExchangeByStudio(studio,Integer.parseInt(value_num));
+			}else if ("网课".equals(type)){
+				result = dao.updateTeacherByStudio(studio,Integer.parseInt(value_num));
+			}else if("知识".equals(type)){
+				result = dao.updateSquareByStudio(studio,Integer.parseInt(value_num));
+			}
 
-	@RequestMapping("/updateTeacherByStudio")
-	@ResponseBody
-	public int updateTeacherByStudio(String studio,String is_teacher) {
-		int result = 0;
-		try {
-			result = dao.updateTeacherByStudio(studio,Integer.parseInt(is_teacher));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	@RequestMapping("/updateSquareByStudio")
-	@ResponseBody
-	public int updateSquareByStudio(String studio,String is_square) {
-		int result = 0;
-		try {
-			result = dao.updateSquareByStudio(studio,Integer.parseInt(is_square));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
