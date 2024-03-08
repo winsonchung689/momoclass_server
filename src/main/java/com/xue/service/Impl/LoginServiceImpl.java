@@ -6182,15 +6182,9 @@ public class LoginServiceImpl implements LoginService {
                     int compareToResult1 = consume_lesson.compareTo(lesson_gap);
                     int compareToResult2 = package_lesson.compareTo(total_amount);
 
-                    System.out.println("package_lesson:" + package_lesson);
-                    System.out.println("total_amount:" + total_amount);
-                    System.out.println("aa:" + compareToResult2);
-
                     if(compareToResult1 != 0 || compareToResult2 != 0){
                         unnoforaml = unnoforaml + 1;
                     }
-
-                    System.out.println("unnoforaml:" + unnoforaml);
 
                     Float price = (total-disc)/total_amount;
                     Float left_single = price * left_amount;
