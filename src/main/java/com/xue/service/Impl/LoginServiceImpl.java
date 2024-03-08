@@ -7738,6 +7738,9 @@ public class LoginServiceImpl implements LoginService {
                     combine = "合";
                 }
 
+                Float all_lesson = 0.0f;
+                Float give_lesson = 0.0f;
+                Float package_lesson = 0.0f;
                 try {
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
                     if(lessonPackages.size()>0){
@@ -7745,7 +7748,10 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
+                        package_lesson = all_lesson + give_lesson;
                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -7772,7 +7778,7 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
-                if(consume_lesson - lesson_gap != 0){
+                if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
                     DecimalFormat df = new DecimalFormat("0.00");
                     jsonObject.put("price", price);
                     jsonObject.put("student_name", student_name);
