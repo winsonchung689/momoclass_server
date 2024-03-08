@@ -6151,22 +6151,15 @@ public class LoginServiceImpl implements LoginService {
                     Float left_amount = lesson.getLeft_amount();
                     String subject_get = lesson.getSubject();
 
+                    Float consume_lesson = 0.0f;
+                    Float lesson_gap = total_amount - left_amount;
                     try {
-                        Float consume_lesson = 0.0f;
-                        Float lesson_gap = total_amount - left_amount;
-                        try {
-                            Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
-                            if(consume_lesson_get > 0){
-                                consume_lesson = consume_lesson_get;
-                            }
-                        } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                        }
-                        if(consume_lesson - lesson_gap != 0){
-                            unnoforaml = unnoforaml + 1;
+                        Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        if(consume_lesson_get > 0){
+                            consume_lesson = consume_lesson_get;
                         }
                     } catch (Exception e) {
-//                        throw new RuntimeException(e);
+//                            throw new RuntimeException(e);
                     }
 
                     Float total = 0.0f;
@@ -6186,7 +6179,7 @@ public class LoginServiceImpl implements LoginService {
                         package_lesson = all_lesson + package_lesson;
                     }
 
-                    if(package_lesson - total_amount != 0){
+                    if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
                         unnoforaml = unnoforaml + 1;
                     }
 
