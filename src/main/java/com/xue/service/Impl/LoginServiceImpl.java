@@ -6179,9 +6179,10 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                     }
 
-                    System.out.println("aa:" + (total_amount - package_lesson));
+                    int compareToResult1 = consume_lesson.compareTo(lesson_gap);
+                    int compareToResult2 = package_lesson.compareTo(total_amount);
 
-                    if(consume_lesson > lesson_gap || consume_lesson < lesson_gap || package_lesson > total_amount || package_lesson < total_amount){
+                    if(compareToResult1 != 0 || compareToResult2 != 0){
                         unnoforaml = unnoforaml + 1;
                     }
 
