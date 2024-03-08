@@ -6151,17 +6151,6 @@ public class LoginServiceImpl implements LoginService {
                     Float left_amount = lesson.getLeft_amount();
                     String subject_get = lesson.getSubject();
 
-                    Float consume_lesson = 0.0f;
-                    Float lesson_gap = total_amount - left_amount;
-                    try {
-                        Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
-                        if(consume_lesson_get > 0){
-                            consume_lesson = consume_lesson_get;
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                    }
-
                     Float total = 0.0f;
                     Float disc = 0.0f;
                     Float all_lesson = 0.0f;
@@ -6177,6 +6166,17 @@ public class LoginServiceImpl implements LoginService {
                             give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
                         package_lesson = all_lesson + give_lesson;
+                    }
+
+                    Float consume_lesson = 0.0f;
+                    Float lesson_gap = total_amount - left_amount;
+                    try {
+                        Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        if(consume_lesson_get > 0){
+                            consume_lesson = consume_lesson_get;
+                        }
+                    } catch (Exception e) {
+//                            throw new RuntimeException(e);
                     }
 
                     if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
