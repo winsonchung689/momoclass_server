@@ -6179,7 +6179,9 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                     }
 
-                    if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
+                    if(consume_lesson - lesson_gap != 0){
+                        unnoforaml = unnoforaml + 1;
+                    }else if(package_lesson != total_amount){
                         unnoforaml = unnoforaml + 1;
                     }
 
