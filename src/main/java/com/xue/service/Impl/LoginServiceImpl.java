@@ -6182,6 +6182,8 @@ public class LoginServiceImpl implements LoginService {
                     int compareToResult1 = consume_lesson.compareTo(lesson_gap);
                     int compareToResult2 = package_lesson.compareTo(total_amount);
 
+                    System.out.println("aa:" + compareToResult2);
+
                     if(compareToResult1 != 0 || compareToResult2 != 0){
                         unnoforaml = unnoforaml + 1;
                     }
