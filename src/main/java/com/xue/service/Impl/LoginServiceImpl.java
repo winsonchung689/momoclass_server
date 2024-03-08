@@ -6176,7 +6176,7 @@ public class LoginServiceImpl implements LoginService {
                             all_lesson = all_lesson + lessonPackage.getAll_lesson();
                             give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
-                        package_lesson = all_lesson + package_lesson;
+                        package_lesson = all_lesson + give_lesson;
                     }
 
                     if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
