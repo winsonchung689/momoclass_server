@@ -6171,13 +6171,23 @@ public class LoginServiceImpl implements LoginService {
 
                     Float total = 0.0f;
                     Float disc = 0.0f;
+                    Float all_lesson = 0.0f;
+                    Float give_lesson = 0.0f;
+                    Float package_lesson = 0.0f;
                     List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudent(student_name_all,studio,campus);
                     if(lessonPackages1.size()>0){
                         for(int j = 0; j < lessonPackages1.size(); j++){
                             LessonPackage lessonPackage = lessonPackages1.get(j);
                             total = total + lessonPackage.getTotal_money();
                             disc = disc + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
+                        package_lesson = all_lesson + package_lesson;
+                    }
+
+                    if(package_lesson - total_amount != 0){
+                        unnoforaml = unnoforaml + 1;
                     }
 
                     Float price = (total-disc)/total_amount;
