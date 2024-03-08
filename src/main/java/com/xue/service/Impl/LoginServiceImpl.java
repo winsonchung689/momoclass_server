@@ -6156,7 +6156,7 @@ public class LoginServiceImpl implements LoginService {
                     Float all_lesson = 0.0f;
                     Float give_lesson = 0.0f;
                     Float package_lesson = 0.0f;
-                    List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudent(student_name_all,studio,campus);
+                    List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject_get);
                     if(lessonPackages1.size()>0){
                         for(int j = 0; j < lessonPackages1.size(); j++){
                             LessonPackage lessonPackage = lessonPackages1.get(j);
