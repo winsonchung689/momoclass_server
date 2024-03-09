@@ -3195,10 +3195,11 @@ public class LoginController {
 
 		//获取类路径
 		String p_path = null;
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
-			 p_path = path +"/uploadimages/"+ class_name + ".png";
+			p_path = path +"/uploadimages/"+ class_name + ".png";
 		}else if("录音文件".equals(class_target)){
 			p_path = path +"/uploadMP3/"+ uuid + ".mp3";
 		}else {
