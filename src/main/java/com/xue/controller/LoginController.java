@@ -3219,8 +3219,8 @@ public class LoginController {
 	@RequestMapping("/push_video")
 	@ResponseBody
 	public String push_video(HttpServletRequest request, HttpServletResponse response){
-		String path = System.getProperty("user.dir");
-
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("video");
@@ -3254,7 +3254,8 @@ public class LoginController {
 	@RequestMapping("/downloadLesson")
 	@ResponseBody
 	public String downloadLesson(String studio,String openid){
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
 		File file = new File(d_path);
 
@@ -3317,7 +3318,8 @@ public class LoginController {
 		String file_name =  request.getParameter("file_name");
 
 		//获取类路径
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/uploadfiles/"+ file_name;
 
 		//保存图片
@@ -3341,7 +3343,8 @@ public class LoginController {
 		String studio =  request.getParameter("studio");
 
 		//获取类路径
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String path_1 = path + "/uploadexcel/" + studio;
 		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
 
@@ -3372,7 +3375,8 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<byte[]> get_file(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/uploadfiles/"+ file_name;
 		File file = new File(p_path);
 		if(file.exists()){
@@ -3391,7 +3395,8 @@ public class LoginController {
 	public ResponseEntity<byte[]> get_download(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String studio =  request.getParameter("studio");
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/downloadLesson/"+ studio+"/" +file_name;
 		File file = new File(p_path);
 		if(file.exists()){
@@ -3410,7 +3415,8 @@ public class LoginController {
 	public String get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name = null;
 		String studio =  request.getParameter("studio");
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/uploadVideo/"+ studio + "/";
 		System.out.printf("path:" + p_path);
 		File file = new File(p_path);
@@ -3427,7 +3433,8 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<byte[]> get_frame(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String class_name =  request.getParameter("class_name");
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/uploadimages/"+ class_name;
 		File file = new File(p_path);
 		if(file.exists()){
@@ -3445,7 +3452,8 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<byte[]> get_MP3(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String p_path = path +"/uploadMP3/"+ file_name;
 		File file = new File(p_path);
 		if(file.exists()){
@@ -3478,7 +3486,8 @@ public class LoginController {
 		String gift_name =null;
 		String gift_amount = "0";
 		String points = "0";
-		String path = System.getProperty("user.dir");
+//		String path = System.getProperty("user.dir");
+		String path = "/data";
 		String path_1 = path +"/uploadexcel/" + studio ;
 		java.io.File myFilePath = new java.io.File(path_1);
 		String[] tempList = myFilePath.list();
