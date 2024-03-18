@@ -7787,12 +7787,14 @@ public class LoginServiceImpl implements LoginService {
                 int compareToResult2 = package_lesson.compareTo(total_amount);
 
                 int is_it = 0;
-                if(compareToResult1 != 0 && type.equals("lesson")){
-                    is_it = 1;
-                }
-
-                if(compareToResult2 != 0 && type.equals("package")){
-                    is_it = 1;
+                if(type.equals("lesson")){
+                    if(compareToResult1 != 0){
+                        is_it = 1;
+                    }
+                }else if(type.equals("package")){
+                    if(compareToResult2 != 0){
+                        is_it = 1;
+                    }
                 }
 
                 if(is_it == 1){
