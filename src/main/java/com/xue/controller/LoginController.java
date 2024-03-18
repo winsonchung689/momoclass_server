@@ -3495,19 +3495,21 @@ public class LoginController {
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
+			String nick_name = list_user.get(0).getNick_name();
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
 			for(int i=1;i<sheet.getRows();i++){
 				LessonPackage lessonPackage = new LessonPackage();
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setStart_date(create_time);
-				lessonPackage.setMark("无备注");
+				lessonPackage.setMark("批量录入");
 				lessonPackage.setStudio(studio);
 				lessonPackage.setCampus(campus);
 				lessonPackage.setTotal_money(0.0f);
 				lessonPackage.setDiscount_money(0.0f);
 				lessonPackage.setAll_lesson(0.0f);
 				lessonPackage.setGive_lesson(0.0f);
+				lessonPackage.setNick_name(nick_name);
 
 				Gift gift = new Gift();
 				gift.setCreate_time(create_time);
