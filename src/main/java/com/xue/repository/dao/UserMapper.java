@@ -710,7 +710,7 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
-    List<SignUp> getSignUp(String student_name,String studio,String subject);
+    List<SignUp> getSignUp(String student_name,String studio,String subject,String campus);
 
     List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
 

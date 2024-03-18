@@ -420,7 +420,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUp(String student_name, String studio,String subject) {
+    public List getSignUp(String student_name, String studio,String subject,String openid) {
         String create_time = null;
         String sign_time = null;
         String id = null;
@@ -431,7 +431,10 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<SignUp> list = dao.getSignUp(student_name, studio,subject);
+            List<User> user_get= dao.getUser(openid);
+            String campus = user_get.get(0).getCampus();
+
+            List<SignUp> list = dao.getSignUp(student_name, studio,subject,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);

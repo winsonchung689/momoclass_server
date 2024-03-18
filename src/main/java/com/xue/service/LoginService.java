@@ -86,7 +86,7 @@ public interface LoginService {
 
     public List  getSearch(String student_name,String studio,Integer page,String class_target,String campus);
 
-    public List  getSignUp(String student_name,String studio,String subject);
+    public List  getSignUp(String student_name,String studio,String subject,String openid);
 
     public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 

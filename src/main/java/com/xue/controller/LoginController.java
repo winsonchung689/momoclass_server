@@ -1262,10 +1262,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getSignUp")
 	@ResponseBody
-	public List getSignUp(String student_name,String studio,String subject){
+	public List getSignUp(String student_name,String studio,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getSignUp(student_name,studio,subject);
+			list = loginService.getSignUp(student_name,studio,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
