@@ -6130,7 +6130,8 @@ public class LoginServiceImpl implements LoginService {
         Float left_money = 0.0f ;
         Integer need_pay = 0;
         Integer owe = 0;
-        Integer unnoforaml = 0;
+        Integer abnormal_lesson = 0;
+        Integer abnormal_package = 0;
         DecimalFormat df = new DecimalFormat("0.00");
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
         String month_date = df1.format(new Date());
@@ -6185,8 +6186,12 @@ public class LoginServiceImpl implements LoginService {
                     int compareToResult1 = consume_lesson.compareTo(lesson_gap);
                     int compareToResult2 = package_lesson.compareTo(total_amount);
 
-                    if(compareToResult1 != 0 || compareToResult2 != 0){
-                        unnoforaml = unnoforaml + 1;
+                    if(compareToResult1 != 0){
+                        abnormal_lesson = abnormal_lesson + 1;
+                    }
+
+                    if(compareToResult2 != 0){
+                        abnormal_package = abnormal_package + 1;
                     }
 
                     Float price = (total-disc)/total_amount;
@@ -6294,7 +6299,8 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("new_lesson", new_lesson);
             jsonObject.put("new_student", new_student);
             jsonObject.put("loss_student", loss_student);
-            jsonObject.put("unnoforaml", unnoforaml);
+            jsonObject.put("abnormal_lesson", abnormal_lesson);
+            jsonObject.put("abnormal_package", abnormal_package);
 
             resul_list.add(jsonObject);
         } catch (Exception e) {
@@ -7679,7 +7685,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getUnNoforamlStudent(String studio, String campus) {
+    public List getAbnormalStudent(String studio, String campus,String type) {
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -7777,7 +7783,19 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
-                if(consume_lesson - lesson_gap != 0 || package_lesson - total_amount != 0){
+                int compareToResult1 = consume_lesson.compareTo(lesson_gap);
+                int compareToResult2 = package_lesson.compareTo(total_amount);
+
+                int is_it = 0;
+                if(compareToResult1 != 0 && type.equals("lesson")){
+                    is_it = 1;
+                }
+
+                if(compareToResult2 != 0 && type.equals("package")){
+                    is_it = 1;
+                }
+
+                if(is_it == 1){
                     DecimalFormat df = new DecimalFormat("0.00");
                     jsonObject.put("price", price);
                     jsonObject.put("student_name", student_name);

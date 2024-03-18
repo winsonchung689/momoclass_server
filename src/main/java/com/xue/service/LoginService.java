@@ -62,7 +62,7 @@ public interface LoginService {
 
     public List  getGoneStudent(String studio,String campus);
 
-    public List  getUnNoforamlStudent(String studio,String campus);
+    public List  getAbnormalStudent(String studio,String campus,String type);
 
     public List  getLessonInName(String studio,String student_name,Integer page,String subject,String openid);
 

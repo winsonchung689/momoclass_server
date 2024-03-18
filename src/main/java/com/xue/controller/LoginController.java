@@ -785,14 +785,14 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getUnNoforamlStudent")
+	@RequestMapping("/getAbnormalStudent")
 	@ResponseBody
-	public List getUnNoforamlStudent(String studio,String openid){
+	public List getAbnormalStudent(String studio,String openid,String type){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getUnNoforamlStudent(studio,campus);
+			list = loginService.getAbnormalStudent(studio,campus,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
