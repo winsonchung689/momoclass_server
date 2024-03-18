@@ -7829,6 +7829,10 @@ public class LoginServiceImpl implements LoginService {
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
                     }
+
+                    jsonObject.put("consume_lesson", consume_lesson);
+                    jsonObject.put("lesson_gap", lesson_gap);
+                    jsonObject.put("package_lesson", package_lesson);
                     resul_list.add(jsonObject);
                 }
 
