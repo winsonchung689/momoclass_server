@@ -2749,6 +2749,32 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateMinusByType")
+	@ResponseBody
+	public int updateMinusByType(HttpServletRequest request, HttpServletResponse response) {
+		String studio = request.getParameter("studio");
+		String class_number = request.getParameter("class_number");
+		String duration = request.getParameter("duration");
+		String subject = request.getParameter("subject");
+		String minus = request.getParameter("minus");
+		String minus_type = request.getParameter("minus_type");
+		String minus_student = request.getParameter("minus_student");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
+		if (minus_type.equals("single")) {
+			dao.updateLessonMinus(Float.parseFloat(minus), studio, minus_student, campus, subject);
+		} else if (minus_type.equals("class")) {
+			String[] student_list = minus_student.split(",");
+			for (int i = 0; i < student_list.length; i++) {
+				String student_name = student_list[i];
+				dao.updateLessonMinus(Float.parseFloat(minus), studio, student_name, campus, subject);
+			}
+		}
+		return 1;
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){
