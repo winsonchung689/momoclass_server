@@ -1682,11 +1682,14 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float left_amount = 0.0f;
+                Float minus = 0.0f;
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                 if(lessons.size()>0){
                     Lesson lesson = lessons.get(0);
                     left_amount = lesson.getLeft_amount();
+                    minus = lesson.getMinus();
                 }
+
 
                 jsonObject.put("age", age);
                 jsonObject.put("student_name", student_name);
@@ -1697,6 +1700,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("student_count", student_count);
                 jsonObject.put("student_classes", student_classes*4);
                 jsonObject.put("left_amount", left_amount);
+                jsonObject.put("minus", minus);
                 resul_list.add(jsonObject);
             }
 
