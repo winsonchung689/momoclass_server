@@ -7239,16 +7239,6 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
-                Float consume_amount = 0.0f;
-                try {
-                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                    if(consume_lesson_get > 0){
-                        consume_amount = consume_lesson_get;
-                    }
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                }
-
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -7283,6 +7273,16 @@ public class LoginServiceImpl implements LoginService {
                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
+                }
+
+                Float consume_amount = 0.0f;
+                try {
+                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                    if(consume_lesson_get > 0){
+                        consume_amount = consume_lesson_get;
+                    }
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
 
                 Float receipts = total_money - discount_money;
