@@ -7226,6 +7226,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取字段
                 student_name = line.getStudent_name();
+                Float consume_amount = 0.0f;
 
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
@@ -7235,6 +7236,7 @@ public class LoginServiceImpl implements LoginService {
                         phone_number = user.get(0).getPhone_number();
                         official_openid = user.get(0).getOfficial_openid();
                     }
+                    consume_amount = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -7322,6 +7324,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("leave_times", leave_times);
                     jsonObject.put("delete_status", delete_status);
                     jsonObject.put("age", age);
+                    jsonObject.put("consume_amount", consume_amount);
                     jsonObject.put("official_status", "未关注");
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
@@ -7362,6 +7365,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("final_time", final_time);
                     jsonObject.put("delete_status", delete_status);
                     jsonObject.put("age", age);
+                    jsonObject.put("consume_amount", consume_amount);
                     jsonObject.put("official_status", "未关注");
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
