@@ -7226,7 +7226,6 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取字段
                 student_name = line.getStudent_name();
-                Float consume_amount = 0.0f;
 
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
@@ -7236,7 +7235,16 @@ public class LoginServiceImpl implements LoginService {
                         phone_number = user.get(0).getPhone_number();
                         official_openid = user.get(0).getOfficial_openid();
                     }
-                    consume_amount = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
+                Float consume_amount = 0.0f;
+                try {
+                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                    if(consume_lesson_get > 0){
+                        consume_amount = consume_lesson_get;
+                    }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
