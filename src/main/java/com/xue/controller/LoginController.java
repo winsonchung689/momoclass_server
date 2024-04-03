@@ -4492,7 +4492,6 @@ public class LoginController {
 			user.setOpenid(openid);
 			user.setRole(role);
 			user.setUser_type(user_type);
-			user.setCreate_time(create_time);
 			user.setExpired_time(expired_time);
 			loginService.updateUsertype(user);
 		} catch (Exception e) {
