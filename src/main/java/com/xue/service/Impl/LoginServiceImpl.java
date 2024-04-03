@@ -6589,7 +6589,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_style", comment_style);
                 jsonObject.put("commentStyle_cn", commentStyle_cn);
                 jsonObject.put("campus", campus);
-                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("expired_time", expired_time.substring(0,10));
+                jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("openid", openid);
                 jsonObject.put("id", id);
                 jsonObject.put("subjects", subjects);
