@@ -6525,6 +6525,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getAllUserByStudio(String studio) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         List<User> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
         list = dao.getAllUserByStudio(studio);
@@ -6561,6 +6562,19 @@ public class LoginServiceImpl implements LoginService {
 
                 String campus = line.getCampus();
                 String expired_time = line.getExpired_time();
+                String create_time = line.getCreate_time();
+
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date create_time_dt = df.parse(create_time.substring(0,10));
+                Date expired_time_dt = df.parse(expired_time.substring(0,10));
+
+                long user_diff = today_dt.getTime() - create_time_dt.getTime();
+                long use_days = user_diff / (24*60*60*1000);
+
+                long pay_diff = expired_time_dt.getTime()-today_dt.getTime();
+                long pay_days = pay_diff / (24*60*60*1000);
+
                 String openid = line.getOpenid();
                 String id = line.getId();
                 String subjects = line.getSubjects();
@@ -6580,6 +6594,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("subjects", subjects);
                 jsonObject.put("member", member);
+                jsonObject.put("pay_days", pay_days);
+                jsonObject.put("use_days", use_days);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
