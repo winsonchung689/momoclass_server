@@ -6477,9 +6477,20 @@ public class LoginServiceImpl implements LoginService {
                     left_money = 0.0f;
                 }
 
+                Float consume_amount = 0.0f;
+                try {
+                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                    if(consume_lesson_get > 0){
+                        consume_amount = consume_lesson_get;
+                    }
+                } catch (Exception e) {
+//                            throw new RuntimeException(e);
+                }
+
                 DecimalFormat df = new DecimalFormat("0.00");
 
                 //json
+                jsonObject.put("consume_amount", consume_amount);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
