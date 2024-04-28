@@ -27,6 +27,7 @@ import org.jose4j.lang.BouncyCastleProviderHelp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -77,6 +78,8 @@ public class LoginController {
 
 	@Autowired
 	private UserMapper dao;
+	@Autowired
+	private SimpleJpaRepository simpleJpaRepository;
 
 	@RequestMapping("/sendLeaveRemind")
 	@ResponseBody
@@ -3544,6 +3547,17 @@ public class LoginController {
 				gift.setCampus(campus);
 				gift.setExpired_time(create_time);
 
+				SignUp signUp = new SignUp();
+				signUp.setStudio(studio);
+				signUp.setSign_time(create_time);
+				signUp.setMark("录前消课");
+				signUp.setCount(0.0f);
+				signUp.setTeacher(nick_name);
+				signUp.setCreate_time(create_time);
+				signUp.setDuration("00:00:00");
+				signUp.setClass_number("无班号");
+				signUp.setCampus(campus);
+
 				Lesson lesson =new Lesson();
 				lesson.setCreate_time(create_time);
 				lesson.setStudio(studio);
@@ -3563,11 +3577,13 @@ public class LoginController {
 								subject = cell.getContents();
 								lesson.setSubject(subject);
 								lessonPackage.setSubject(subject);
+								signUp.setSubject(subject);
 							}else if(1==j){
 								student_name = cell.getContents();
 								lesson.setStudent_name(student_name);
 								gift.setStudent_name(student_name);
 								lessonPackage.setStudent_name(student_name);
+								signUp.setStudent_name(student_name);
 							}else if(2==j){
 								total_amount =cell.getContents();
 								if(!total_amount.isEmpty()){
@@ -3671,6 +3687,11 @@ public class LoginController {
 
 				if (lessonPackage.getAll_lesson() != 0.0f){
 					dao.insertLessonPackage(lessonPackage);
+				}
+
+				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
+					signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+					loginService.insertSignUp(signUp);
 				}
 			}
 
