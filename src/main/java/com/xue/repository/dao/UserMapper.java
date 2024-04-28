@@ -572,6 +572,8 @@ public interface UserMapper {
 
     List<LessonPackage> getLessonPackageByStudentSubject(String student_name,String studio,String campus,String subject);
 
+    List<LessonPackage> getLessonPackageByStudentSubjectBatch(String student_name,String studio,String campus,String subject);
+
     List<LessonPackage> getLessonPackageByCampus(String studio,String campus);
 
     List<LessonPackage> getLessonPackageBySubject(String studio,String campus,String subject);
@@ -711,6 +713,8 @@ public interface UserMapper {
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
     List<SignUp> getSignUp(String student_name,String studio,String subject,String campus);
+
+    List<SignUp> getSignUpByBacth(String student_name,String studio,String subject,String campus);
 
     List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
 

@@ -859,6 +859,10 @@
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4}  order by create_time desc
   </select>
 
+  <select id="getSignUpByBacth" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4} and mark = '录前消课' order by create_time desc
+  </select>
+
   <!-- 查找签到记录 -->
   <select id="getStudentByTeacher" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2}  order by create_time desc
@@ -1346,19 +1350,23 @@
   </select>
 
   <select id="getLessonPackageByStudent" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and delete_status = 0 order by create_time desc
+    select * from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getLessonPackageByStudentSubject" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
+    select * from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getLessonPackageByStudentSubjectBatch" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select * from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and mark = '批量录入' and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getLessonPackageByCampus" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc
+    select * from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getLessonPackageBySubject" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select id,student_name,total_money,discount_money,mark,start_date,end_date,campus,studio,create_time,all_lesson,give_lesson,subject from lesson_package where studio =#{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 order by create_time desc
+    select * from lesson_package where studio =#{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 获取课时 -->
@@ -1767,7 +1775,7 @@
 
   <!-- 获取学生名课时 -->
   <select id="getLessonByName" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,final_time,leave_times from lesson where student_name=#{student_name} and studio = #{studio} and campus =#{campus} and delete_status = 0
+    select * from lesson where student_name=#{student_name} and studio = #{studio} and campus =#{campus} and delete_status = 0
   </select>
 
   <!-- 获取学生名课时 -->

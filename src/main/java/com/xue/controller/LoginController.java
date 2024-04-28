@@ -3686,12 +3686,18 @@ public class LoginController {
 				}
 
 				if (lessonPackage.getAll_lesson() != 0.0f){
-					dao.insertLessonPackage(lessonPackage);
+					List<LessonPackage> lessonPackages_list = dao.getLessonPackageByStudentSubjectBatch(student_name,studio,campus,subject);
+					if(lessonPackages_list.size()==0){
+						dao.insertLessonPackage(lessonPackage);
+					}
 				}
 
 				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
-					signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
-					loginService.insertSignUp(signUp);
+					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
+					if(signUps_list.size()==0){
+						signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+						loginService.insertSignUp(signUp);
+					}
 				}
 			}
 
@@ -5029,6 +5035,26 @@ public class LoginController {
 				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 				lessonPackage.setNick_name(nick_name);
 				dao.insertLessonPackage(lessonPackage);
+
+				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
+					SignUp signUp = new SignUp();
+					signUp.setStudio(studio);
+					signUp.setSign_time(create_time);
+					signUp.setMark("录前消课");
+					signUp.setCount(0.0f);
+					signUp.setTeacher(nick_name);
+					signUp.setCreate_time(create_time);
+					signUp.setDuration("00:00:00");
+					signUp.setClass_number("无班号");
+					signUp.setCampus(campus);
+					signUp.setStudent_name(student_name);
+					signUp.setSubject(subject);
+					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
+					if(signUps_list.size()==0){
+						signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+						loginService.insertSignUp(signUp);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
