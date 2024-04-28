@@ -946,6 +946,10 @@
     update sign_up_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
+  <update id="updateLessonPackageName" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
+  </update>
+
   <!-- 更新课评 -->
   <update id="updateComment" parameterType="com.xue.entity.model.Message">
     update class_comment set class_target=#{class_target},comment=#{comment} where id=#{id} and studio = #{studio}

@@ -2959,6 +2959,7 @@ public class LoginController {
 				dao.updateLessonStudentNameById(id,content);
 				dao.updateScheduleName(content,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(content,student_name,studio,campus,subject);
+				dao.updateLessonPackageName(content,student_name,studio,campus,subject);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

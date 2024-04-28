@@ -784,6 +784,8 @@ public interface UserMapper {
 
     int updateSignUpRecordName(String student_name_new,String student_name,String studio,String campus,String subject);
 
+    int updateLessonPackageName(String student_name_new,String student_name,String studio,String campus,String subject);
+
     int updateUserStudent(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateUserStudentByOpenid(String student_name,String openid,String id);
