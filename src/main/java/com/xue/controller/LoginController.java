@@ -1,51 +1,37 @@
 package com.xue.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
-import com.google.gson.Gson;
 import com.xue.JsonUtils.JsonUtils;
-import com.xue.config.Constants;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
-import com.xue.util.Imageutil;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import nl.martijndwars.webpush.Notification;
-import nl.martijndwars.webpush.PushService;
-import nl.martijndwars.webpush.Subscription;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpResponse;
-import org.aspectj.weaver.ast.Or;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.jose4j.lang.BouncyCastleProviderHelp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.security.Security;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import org.apache.commons.codec.digest.DigestUtils;
-import nl.martijndwars.webpush.*;
 
 @Controller
 public class LoginController {
@@ -78,8 +64,6 @@ public class LoginController {
 
 	@Autowired
 	private UserMapper dao;
-	@Autowired
-	private SimpleJpaRepository simpleJpaRepository;
 
 	@RequestMapping("/sendLeaveRemind")
 	@ResponseBody
