@@ -36,7 +36,7 @@ public interface LoginService {
 
     public List  getLesson(String studio,String student_name,String subject,String campus);
 
-    public List  getLessonHead(String studio,String student_name,String subject,String campus);
+    public List  getLessonHead(String studio,String student_name,String subject,String campus,String month_date);
 
     public List  getLessonByStudio(String studio);
 

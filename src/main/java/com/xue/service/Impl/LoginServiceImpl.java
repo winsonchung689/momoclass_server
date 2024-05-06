@@ -6125,7 +6125,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonHead(String studio, String student_name, String subject, String campus) {
+    public List getLessonHead(String studio, String student_name, String subject, String campus,String month_date) {
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
         Integer total_student =0;
@@ -6141,7 +6141,7 @@ public class LoginServiceImpl implements LoginService {
         Integer abnormal_package = 0;
         DecimalFormat df = new DecimalFormat("0.00");
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
-        String month_date = df1.format(new Date());
+//        String month_date = df1.format(new Date());
 
         try {
             if(subject.equals("全科目")){
