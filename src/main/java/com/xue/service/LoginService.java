@@ -56,7 +56,7 @@ public interface LoginService {
 
     public List  getLessonByPage(String studio,String student_name,String subject,String openid,Integer page);
 
-    public List  getTipsDataUrl(String studio,Integer left_amount,String subject,String campus,String type);
+    public List  getTipsDataUrl(String studio,Integer left_amount,String subject,String campus,String type,String month_date);
 
     public List  getBookDetailByMonth(String openid,String book_name,String date_time);
 

@@ -746,12 +746,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getTipsDataUrl")
 	@ResponseBody
-	public List getTipsDataUrl(String studio,Integer left_amount,String subject,String openid,String type){
+	public List getTipsDataUrl(String studio,Integer left_amount,String subject,String openid,String type,String month_date){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getTipsDataUrl(studio,left_amount,subject,campus,type);
+			list = loginService.getTipsDataUrl(studio,left_amount,subject,campus,type,month_date);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

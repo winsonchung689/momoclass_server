@@ -7419,12 +7419,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in,String type) {
+    public List getTipsDataUrl(String studio,Integer left_amount_get,String subject,String campus_in,String type,String month_date) {
         List<Lesson> list = null;
         List<String> renew_students = new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
-        String month_date = df1.format(new Date());
+//        String month_date = df1.format(new Date());
 
         try {
             if("owePay".equals(type) || "needPay".equals(type) || "renew".equals(type)){
