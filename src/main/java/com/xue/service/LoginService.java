@@ -66,7 +66,7 @@ public interface LoginService {
 
     public List  getLessonInName(String studio,String student_name,Integer page,String subject,String openid);
 
-    public List  getGoodsList(String studio,Integer page,String campus);
+    public List  getGoodsList(String studio,Integer page,String campus,String content,String type);
 
     public List  getGroupBuy(String studio,String goods_id);
 

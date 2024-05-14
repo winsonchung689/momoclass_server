@@ -702,7 +702,9 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDay(String studio,Integer dayofweek,String campus);
 
-    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String campus);
+    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
+
+    List<GoodsList> getGoodsListSearch(String studio,Integer page_start,Integer page_end,String content);
 
     List<GroupBuy> getGroupBuy(String studio, String goods_id);
 
