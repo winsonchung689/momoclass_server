@@ -559,30 +559,28 @@ public class LoginController {
 
 		try {
 			List<User> list = dao.getUser(openid);
-			for (int i = 0; i < list.size(); i++) {
-				User user_get = list.get(i);
-				String official_openid = user_get.getOfficial_openid();
-				String studio = user_get.getStudio();
-				String nick_name = user_get.getNick_name();
-				String location = user_get.getLocation();
-				String role = user_get.getRole();
-				url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-				if(official_openid != null){
-					String[] official_list = official_openid.split(",");
-					for(int j=0;j<official_list.length;j++){
-						String official_openid_get = official_list[j];
-						JSONObject queryJson = JSONObject.parseObject(model);
-						queryJson.put("touser",official_openid_get);
-						queryJson.getJSONObject("data").getJSONObject("thing17").put("value",goods_name);
-						queryJson.getJSONObject("data").getJSONObject("thing2").put("value",nick_name);
-						queryJson.getJSONObject("data").getJSONObject("thing29").put("value",location);
-						queryJson.getJSONObject("data").getJSONObject("time2").put("value",create_time);
-						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/my_order/my_order?studio=" + studio + "&openid=" + openid + "&role=" + role);
+			User user_get = list.get(0);
+			String official_openid = user_get.getOfficial_openid();
+			String studio = user_get.getStudio();
+			String nick_name = user_get.getNick_name();
+			String location = user_get.getLocation();
+			String role = user_get.getRole();
+			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			if(official_openid != null){
+				String[] official_list = official_openid.split(",");
+				for(int j=0;j<official_list.length;j++){
+					String official_openid_get = official_list[j];
+					JSONObject queryJson = JSONObject.parseObject(model);
+					queryJson.put("touser",official_openid_get);
+					queryJson.getJSONObject("data").getJSONObject("thing17").put("value",goods_name);
+					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",nick_name);
+					queryJson.getJSONObject("data").getJSONObject("thing29").put("value",location);
+					queryJson.getJSONObject("data").getJSONObject("time4").put("value",create_time);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/my_order/my_order?studio=" + studio + "&openid=" + openid + "&role=" + role);
 
-						System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
-						result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-						System.out.printf("MOMO_OFFICIAL_RES:" + result);
-					}
+					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+					System.out.printf("MOMO_OFFICIAL_RES:" + result);
 				}
 			}
 
