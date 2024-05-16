@@ -501,14 +501,13 @@ public class LoginController {
 		String create_time = df.format(new Date());
 		String result = null;
 		String url_send = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"4Pkp58wCQy0cR5N-cTQuATysehBBvxwuyczrdsjHD2A\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing7\":{\"value\": \"AA\"},\"thing5\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model ="{\"touser\":\"openid\",\"template_id\":\"4Pkp58wCQy0cR5N-cTQuATysehBBvxwuyczrdsjHD2A\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing3\":{\"value\": \"AA\"},\"thing5\":{\"value\": \"A1\"},\"time2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 		String token = loginService.getToken("MOMO_OFFICIAL");
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String studio = user.getStudio();
 		String nick_name = user.getNick_name();
-
 
 		try {
 			List<User> list = dao.getBossByStudio(studio);
