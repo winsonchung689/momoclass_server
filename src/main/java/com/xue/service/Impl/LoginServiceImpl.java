@@ -5623,6 +5623,8 @@ public class LoginServiceImpl implements LoginService {
                 theme = line.getTheme();
                 subjects = line.getSubjects();
                 String expired_time_ad = line.getExpired_time_ad();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 String today_time = df.format(new Date());
@@ -5648,6 +5650,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("comment_style",comment_style);
                 jsonObject.put("theme",theme);
                 jsonObject.put("subjects",subjects);
+                jsonObject.put("phone_number",phone_number);
+                jsonObject.put("location",location);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
