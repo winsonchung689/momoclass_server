@@ -4782,10 +4782,15 @@ public class LoginController {
 		List<Lesson> lessons = dao.getLessonInNameBySubject(studio,student_name,0,100,subject,campus);
 		if(lessons.size()>0){
 			Lesson lesson = lessons.get(0);
+			Float total_amount = lesson.getTotal_amount();
 			Float left_amount = lesson.getLeft_amount();
 			if(consume_lesson_amount != null){
 				left_amount = left_amount - Float.parseFloat(consume_lesson_amount);
 			}
+			Float minus = lesson.getMinus();
+			Float coins = lesson.getCoins();
+			Integer is_combine = lesson.getIs_combine();
+
 
 			Lesson lesson_in = new Lesson();
 			lesson_in.setStudent_name(student_name);
@@ -4793,7 +4798,15 @@ public class LoginController {
 			lesson_in.setSubject(subject);
 			lesson_in.setCampus(campus);
 			lesson_in.setLeft_amount(left_amount);
-			dao.consumeLesson(lesson_in);
+			lesson_in.setTotal_money(total_amount);
+			lesson_in.setMinus(minus);
+			lesson_in.setCoins(coins);
+
+			if(is_combine == 0){
+				dao.consumeLesson(lesson_in);
+			}else if (is_combine == 1){
+				dao.updateLessonBoth(lesson_in);
+			}
 		}
 
 
