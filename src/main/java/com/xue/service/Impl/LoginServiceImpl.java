@@ -7321,8 +7321,14 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float consume_amount = 0.0f;
+                Float consume_lesson_get = 0.0f;
                 try {
-                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                    if(is_combine == 0){
+                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                    }else if(is_combine ==1 ){
+                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                    }
+
                     if(consume_lesson_get > 0){
                         consume_amount = consume_lesson_get;
                     }
