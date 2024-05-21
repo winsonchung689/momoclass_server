@@ -4779,7 +4779,7 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
 
-		List<Lesson> lessons = dao.getLessonInNameBySubject(studio,student_name,0,100,subject,campus);
+		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		if(lessons.size()>0){
 			Lesson lesson = lessons.get(0);
 			Float total_amount = lesson.getTotal_amount();
@@ -4798,7 +4798,7 @@ public class LoginController {
 			lesson_in.setSubject(subject);
 			lesson_in.setCampus(campus);
 			lesson_in.setLeft_amount(left_amount);
-			lesson_in.setTotal_money(total_amount);
+			lesson_in.setTotal_amount(total_amount);
 			lesson_in.setMinus(minus);
 			lesson_in.setCoins(coins);
 
