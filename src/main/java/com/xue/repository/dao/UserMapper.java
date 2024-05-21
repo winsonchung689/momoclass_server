@@ -572,6 +572,8 @@ public interface UserMapper {
 
     List<LessonPackage> getLessonPackageByStudentSubject(String student_name,String studio,String campus,String subject);
 
+    List<LessonPackage> getLessonPackageByStudentCombine(String student_name,String studio,String campus);
+
     List<LessonPackage> getLessonPackageByStudentSubjectBatch(String student_name,String studio,String campus,String subject);
 
     List<LessonPackage> getLessonPackageByCampus(String studio,String campus);
@@ -652,11 +654,11 @@ public interface UserMapper {
 
     Float getAllSignUpByStudent(String studio,String subject,String campus,String student_name);
 
+    Float getAllSignUpByStudentCombine(String studio,String campus,String student_name);
+
     Integer getBookSumByMonth(String openid,String book_name,String create_time);
 
-
     List<BookDetail> getBookDetailByMonth(String openid,String book_name,String create_time);
-
 
     Integer getClassesCountBySubjectLesson(String studio,String subject,String campus);
 

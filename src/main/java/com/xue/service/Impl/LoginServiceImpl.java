@@ -6165,13 +6165,20 @@ public class LoginServiceImpl implements LoginService {
                     Float total_amount = lesson.getTotal_amount();
                     Float left_amount = lesson.getLeft_amount();
                     String subject_get = lesson.getSubject();
+                    Integer is_combine = lesson.getIs_combine();
 
                     Float total = 0.0f;
                     Float disc = 0.0f;
                     Float all_lesson = 0.0f;
                     Float give_lesson = 0.0f;
                     Float package_lesson = 0.0f;
-                    List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject_get);
+                    List<LessonPackage> lessonPackages1 = null;
+                    if(is_combine == 0){
+                        lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject_get);
+                    }else if (is_combine == 1){
+                        lessonPackages1 = dao.getLessonPackageByStudentCombine(student_name_all,studio,campus);
+                    }
+
                     if(lessonPackages1.size()>0){
                         for(int j = 0; j < lessonPackages1.size(); j++){
                             LessonPackage lessonPackage = lessonPackages1.get(j);
@@ -6184,9 +6191,15 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     Float consume_lesson = 0.0f;
+                    Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
                     try {
-                        Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        if(is_combine == 0){
+                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        }else if (is_combine == 1){
+                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
+                        }
+
                         if(consume_lesson_get > 0){
                             consume_lesson = consume_lesson_get;
                         }
@@ -7810,7 +7823,12 @@ public class LoginServiceImpl implements LoginService {
                 Float give_lesson = 0.0f;
                 Float package_lesson = 0.0f;
                 try {
-                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                    List<LessonPackage> lessonPackages = null;
+                    if(is_combine == 0){
+                        lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                    }else if (is_combine == 1){
+                        lessonPackages = dao.getLessonPackageByStudentCombine(student_name,studio,campus);
+                    }
                     if(lessonPackages.size()>0){
                         for(int j = 0; j < lessonPackages.size(); j++){
                             LessonPackage lessonPackage = lessonPackages.get(j);
@@ -7836,9 +7854,16 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float consume_lesson = 0.0f;
+                Float consume_lesson_get = 0.0f;
                 Float lesson_gap = total_amount - left_amount;
                 try {
-                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                    if(is_combine == 0){
+                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                    }else if(is_combine == 1){
+                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                    }
+
+
                     if(consume_lesson_get > 0){
                         consume_lesson = consume_lesson_get;
                     }
