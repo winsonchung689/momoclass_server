@@ -7855,6 +7855,7 @@ public class LoginServiceImpl implements LoginService {
 
                 Float consume_lesson = 0.0f;
                 Float consume_lesson_get = 0.0f;
+                Float consume_amount = 0.0f;
                 Float lesson_gap = total_amount - left_amount;
                 try {
                     if(is_combine == 0){
@@ -7866,6 +7867,7 @@ public class LoginServiceImpl implements LoginService {
 
                     if(consume_lesson_get > 0){
                         consume_lesson = consume_lesson_get;
+                        consume_amount = consume_lesson_get;
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -7885,15 +7887,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                Float consume_amount = 0.0f;
-                try {
-                    Float consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                    if(consume_lesson_get > 0){
-                        consume_amount = consume_lesson_get;
-                    }
-                } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                }
 
                 if(is_it == 1){
                     DecimalFormat df = new DecimalFormat("0.00");
