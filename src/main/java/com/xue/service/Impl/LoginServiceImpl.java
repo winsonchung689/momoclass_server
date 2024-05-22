@@ -2043,8 +2043,9 @@ public class LoginServiceImpl implements LoginService {
             String openid = user.getOpenid();
             String nick_name = user.getNick_name();
             String studio = user.getStudio();
+            String role = user.getRole();
 //            String md5 = DigestUtils.md5Hex(nick_name + studio);
-            if(!"请录入工作室".equals(studio)){
+            if(!"请录入工作室".equals(studio) && !"boss".equals(role) && !"teacher".equals(role)){
                 result = dao.updateUser(user);
             }
         } catch (Exception e) {

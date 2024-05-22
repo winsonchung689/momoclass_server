@@ -4473,15 +4473,15 @@ public class LoginController {
 		user.setRemind_type(remind_type);
 		user.setHours(hours);
 		List<User> list= dao.getUser(openid);
+		String role_get = list.get(0).getRole();
+		user.setRole(role_get);
 		if(list.size()>0){
 			int res = loginService.updateUser(user);
 			if(res > 0 && !student_name.equals("no_name")){
 				String user_type_get = list.get(0).getUser_type();
-				String role_get = list.get(0).getRole();
 				String phone_number = list.get(0).getPhone_number();
 				String location = list.get(0).getLocation();
 				user.setUser_type(user_type_get);
-				user.setRole(role_get);
 				user.setPhone_number(phone_number);
 				user.setLocation(location);
 				try {
