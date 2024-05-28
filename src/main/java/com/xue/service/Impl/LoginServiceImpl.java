@@ -4612,6 +4612,8 @@ public class LoginServiceImpl implements LoginService {
                 Float discount_money = 0.0f;
                 Float price = 0.0f;
                 Float sign_price = 0.0f;
+                Float all_lesson = 0.0f;
+                Float given_lesson = 0.0f;
 
                 try {
                     List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
@@ -4628,11 +4630,13 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            given_lesson = given_lesson + lessonPackage.getGive_lesson();
                         }
                     }
 
                     Float receipts = total_money - discount_money;
-                    Float re_price = receipts/total_amount;
+                    Float re_price = receipts/(all_lesson+given_lesson);
                     if(re_price>0){
                         price = re_price;
                     }
@@ -4667,6 +4671,8 @@ public class LoginServiceImpl implements LoginService {
                 Float total_amount = 0.0f;
                 Float total_money = 0.0f;
                 Float discount_money = 0.0f;
+                Float all_lesson = 0.0f;
+                Float given_lesson = 0.0f;
 
                 List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
                 if(lessons.size()>0){
@@ -4682,11 +4688,13 @@ public class LoginServiceImpl implements LoginService {
                         LessonPackage lessonPackage = lessonPackages.get(k);
                         total_money = total_money + lessonPackage.getTotal_money();
                         discount_money = discount_money + lessonPackage.getDiscount_money();
+                        all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                        given_lesson = given_lesson + lessonPackage.getGive_lesson();
                     }
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson+given_lesson);
                 if(re_price>0){
                     price = re_price;
                 }
