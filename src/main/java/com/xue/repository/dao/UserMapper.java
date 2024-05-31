@@ -648,7 +648,15 @@ public interface UserMapper {
 
     Integer getSignUpByMonthAll(String studio,String create_time,String campus);
 
+    Integer getTryByMonthAll(String studio,String create_time,String campus);
+
+    Integer getLeaveByMonthAll(String studio,String create_time,String campus);
+
     Integer getSignUpByMonth(String studio,String subject,String create_time,String campus);
+
+    Integer getTryByMonth(String studio,String subject,String create_time,String campus);
+
+    Integer getLeaveByMonth(String studio,String subject,String create_time,String campus);
 
     Integer getSignUpByMonthStudent(String studio,String subject,String create_time,String campus,String student_name);
 

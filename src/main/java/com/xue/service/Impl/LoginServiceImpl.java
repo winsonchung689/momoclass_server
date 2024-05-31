@@ -1372,7 +1372,11 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
         Integer weekofday=0;
         Integer sign_counts=0;
+        Integer try_counts=0;
+        Integer leave_counts=0;
         Integer sign_counts_get=0;
+        Integer try_counts_get=0;
+        Integer leave_counts_get=0;
         Integer remind=0;
         String campus = null;
         String lessons_string = null;
@@ -1386,14 +1390,26 @@ public class LoginServiceImpl implements LoginService {
 
             if(subject.equals("全科目")){
                 sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
+                try_counts_get = dao.getTryByMonthAll(studio, date_time.substring(0,7),campus);
+                leave_counts_get = dao.getLeaveByMonthAll(studio, date_time.substring(0,7),campus);
             }else {
                 sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
+                try_counts_get = dao.getTryByMonth(studio,subject, date_time.substring(0,7),campus);
+                leave_counts_get = dao.getLeaveByMonth(studio,subject, date_time.substring(0,7),campus);
             }
 
             if(sign_counts_get!=null){
                 sign_counts = sign_counts_get;
             }
+            if(try_counts_get!=null){
+                try_counts = try_counts_get;
+            }
+            if(sign_counts_get!=null){
+                leave_counts = leave_counts_get;
+            }
             jsonObject_1.put("sign_counts", sign_counts);
+            jsonObject_1.put("try_counts", try_counts);
+            jsonObject_1.put("leave_counts", leave_counts);
             resul_list.add(jsonObject_1);
 
             d = fmt.parse(date_time);

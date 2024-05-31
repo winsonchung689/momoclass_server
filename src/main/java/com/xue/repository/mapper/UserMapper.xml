@@ -1530,9 +1530,29 @@
     select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus=#{param3} and delete_status = 0
   </select>
 
+  <!-- 获取单月试听人数 -->
+  <select id="getTryByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(1) from class_schedule where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus=#{param3} and is_try = 1 and delete_status = 0
+  </select>
+
   <!-- 获取单月课数 -->
+  <select id="getLeaveByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(1) from leave_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus=#{param3} and leave_type = '请假' and delete_status = 0
+  </select>
+
+  <!-- 获取单月课数科目 -->
   <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
     select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus=#{param4} and delete_status = 0
+  </select>
+
+  <!-- 获取单月试听人数科目 -->
+  <select id="getTryByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(1) from class_schedule where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus=#{param4} and is_try = 1 and delete_status = 0
+  </select>
+
+  <!-- 获取单月课数科目 -->
+  <select id="getLeaveByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(1) from leave_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus=#{param4} and leave_type = '请假' and delete_status = 0
   </select>
 
   <!-- 获取单月学生课数 -->
