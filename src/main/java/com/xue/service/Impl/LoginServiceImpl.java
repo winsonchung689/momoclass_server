@@ -971,8 +971,14 @@ public class LoginServiceImpl implements LoginService {
                 }else if("月耗课".equals(type)){
                     List<SignUp> signs = dao.getSignUpDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject_get);
                     if(signs.size()>0){
+                        Float counts = 0.0f;
+                        for (int j = 0; j < signs.size(); j++) {
+                            Float count = signs.get(j).getCount();
+                            counts = counts + count;
+                        }
+
                         jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get);
+                        jsonObject.put("subject", subject_get+"("+ counts +")");
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
@@ -981,8 +987,12 @@ public class LoginServiceImpl implements LoginService {
                 }else if("月请假".equals(type)){
                     List<Leave> leaves = dao.getLeaveDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject_get);
                     if(leaves.size()>0){
+                        Float counts = 0.0f;
+                        for (int j = 0; j < leaves.size(); j++) {
+                            counts = counts + 1;
+                        }
                         jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get);
+                        jsonObject.put("subject", subject_get+"("+ counts +")");
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
