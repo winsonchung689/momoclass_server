@@ -967,6 +967,10 @@
     update lesson_package set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>
 
+  <update id="updateLessonPackageByStudent" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set total_money=#{param1},discount_money=#{param2},all_lesson=#{param3},give_lesson=#{param4} where student_name=#{param5} and studio = #{param6} and campus =#{param7} and subject =#{param8}
+  </update>
+
   <!-- 更新课评 -->
   <update id="updateComment" parameterType="com.xue.entity.model.Message">
     update class_comment set class_target=#{class_target},comment=#{comment} where id=#{id} and studio = #{studio}

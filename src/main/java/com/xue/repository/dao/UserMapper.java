@@ -804,6 +804,8 @@ public interface UserMapper {
 
     int updateLessonPackageName(String student_name_new,String student_name,String studio,String campus,String subject);
 
+    int updateLessonPackageByStudent(Float total_money,Float discount_money,Float all_lesson,Float give_lesson,String student_name,String studio,String campus,String subject);
+
     int updateUserStudent(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateUserStudentByOpenid(String student_name,String openid,String id);

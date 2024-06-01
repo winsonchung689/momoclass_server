@@ -3722,6 +3722,8 @@ public class LoginController {
 					List<LessonPackage> lessonPackages_list = dao.getLessonPackageByStudentSubjectBatch(student_name,studio,campus,subject);
 					if(lessonPackages_list.size()==0){
 						dao.insertLessonPackage(lessonPackage);
+					}else if (lessonPackages_list.size()>=0){
+						dao.updateLessonPackageByStudent(lessonPackage.getTotal_money(),lessonPackage.getDiscount_money(),lessonPackage.getAll_lesson(),lessonPackage.getGive_lesson(),student_name,studio,campus,subject);
 					}
 				}
 
