@@ -895,6 +895,18 @@
     select id,student_name,create_time,studio,sign_time,mark,duration from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and create_time=#{param3} and campus =#{param4} and subject =#{param5} order by create_time
   </select>
 
+  <select id="getSignUpDetailByMonthStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
+  </select>
+
+  <select id="getTryDetailByMonthStudent" parameterType="com.xue.entity.model.Schedule" resultType="BaseSchedule">
+    select * from class_schedule where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} and is_try = 1 order by create_time
+  </select>
+
+  <select id="getLeaveDetailByMonthStudent" parameterType="com.xue.entity.model.Leave" resultType="BaseLeave">
+    select * from leave_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
+  </select>
+
   <!-- 查找签到记录 -->
   <select id="getSignUpByDateDuration" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,class_number,teacher from sign_up_record where student_name =#{param1} and studio = #{param2} and create_time=#{param3} and delete_status = 0 and duration=#{param4} and campus =#{param5} and subject =#{param6} order by create_time desc

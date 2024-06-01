@@ -98,7 +98,7 @@ public interface LoginService {
 
     public List  getTodaySchedule(String studio,Integer dayofweek,String date,String subject,String openid);
 
-    public List  getClassStudent(String studio,String campus,String type,String subject);
+    public List  getClassStudent(String studio,String campus,String type,String subject,String date_time);
 
     public int insertSchedule(Schedule schedule);
 

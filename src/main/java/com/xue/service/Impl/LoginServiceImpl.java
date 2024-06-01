@@ -911,7 +911,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getClassStudent(String studio, String campus, String type, String subject) {
+    public List getClassStudent(String studio, String campus, String type, String subject,String date_time) {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Lesson> lessons = null;
         if("全科目".equals(subject)){
@@ -921,7 +921,6 @@ public class LoginServiceImpl implements LoginService {
         }
 
         for (int i = 0; i < lessons.size(); i++) {
-            List<Schedule> schedules = new ArrayList<>();
             JSONObject jsonObject = new JSONObject();
             Lesson lesson = lessons.get(i);
             String student_name = lesson.getStudent_name();
@@ -930,23 +929,56 @@ public class LoginServiceImpl implements LoginService {
             String campus_get = lesson.getCampus();
             Float total_amount = lesson.getTotal_amount();
             Float left_amount = lesson.getLeft_amount();
-            schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
-            if("已排课".equals(type) && schedules.size()>0){
-                jsonObject.put("student_name",student_name);
-                jsonObject.put("subject", subject_get);
-                jsonObject.put("campus", campus_get);
-                jsonObject.put("total_amount", total_amount);
-                jsonObject.put("left_amount", left_amount);
-                resul_list.add(jsonObject);
+            if("已排课".equals(type) || "未排课".equals(type)){
+                List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
+                if("已排课".equals(type) && schedules.size()>0){
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    resul_list.add(jsonObject);
 
-            }else if("未排课".equals(type) && schedules.size() == 0){
-                jsonObject.put("student_name",student_name);
-                jsonObject.put("subject", subject_get);
-                jsonObject.put("campus", campus_get);
-                jsonObject.put("total_amount", total_amount);
-                jsonObject.put("left_amount", left_amount);
-                resul_list.add(jsonObject);
+                }else if("未排课".equals(type) && schedules.size() == 0){
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    resul_list.add(jsonObject);
+                }
+            }else if("月耗课".equals(type)){
+                List<SignUp> signs = dao.getSignUpDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject);
+                if(signs.size()>0){
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    resul_list.add(jsonObject);
+                }
+            }else if("月试听".equals(type)){
+                List<Schedule> schedules = dao.getTryDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject);
+                if(schedules.size()>0){
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    resul_list.add(jsonObject);
+                }
+            }else if("月请假".equals(type)){
+                List<Leave> leaves = dao.getLeaveDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject);
+                if(leaves.size()>0){
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    resul_list.add(jsonObject);
+                }
             }
+
         }
         return resul_list;
     }

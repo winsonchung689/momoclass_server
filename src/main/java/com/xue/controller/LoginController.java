@@ -1490,10 +1490,10 @@ public class LoginController {
 
 	@RequestMapping("/getClassStudent")
 	@ResponseBody
-	public List getClassStudent(String studio,String campus,String type,String subject){
+	public List getClassStudent(String studio,String campus,String type,String subject,String date_time){
 		List list = null;
 		try {
-			list = loginService.getClassStudent(studio,campus,type,subject);
+			list = loginService.getClassStudent(studio,campus,type,subject,date_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
