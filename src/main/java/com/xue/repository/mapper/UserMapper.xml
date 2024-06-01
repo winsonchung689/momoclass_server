@@ -904,7 +904,7 @@
   </select>
 
   <select id="getLeaveDetailByMonthStudent" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select * from leave_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
+    select * from leave_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(date_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
   </select>
 
   <!-- 查找签到记录 -->
