@@ -746,7 +746,7 @@ public interface UserMapper {
 
     List<SignUp> getSignUpDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 
-    List<Schedule> getTryDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
+    List<Schedule> getTryDetailByMonthStudent(String studio,String date_time,String campus);
 
     List<Leave> getLeaveDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 

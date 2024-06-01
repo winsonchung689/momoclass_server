@@ -900,7 +900,7 @@
   </select>
 
   <select id="getTryDetailByMonthStudent" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} and is_try = 1 order by create_time
+    select * from class_schedule where delete_status = 0 and studio = #{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus =#{param3} and is_try = 1 order by create_time
   </select>
 
   <select id="getLeaveDetailByMonthStudent" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
