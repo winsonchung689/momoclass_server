@@ -711,7 +711,7 @@
   </select>
 
   <select id="getAnalyzeLeaveByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_time create_time,count(1) leave_count from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time,'%Y-%m')=#{param3}  group by date_time order by date_time desc
+    select date_format(date_time,'%Y-%m') create_time,count(1) leave_count from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time,'%Y-%m')=#{param3}  group by date_format(date_time,'%Y-%m')
   </select>
 
   <select id="getAnalyzeAbsent" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
