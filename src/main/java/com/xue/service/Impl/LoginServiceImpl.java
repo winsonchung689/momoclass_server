@@ -1083,8 +1083,8 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
         Integer weekofday=0;
         String mark = null;
-        Integer sign_counts=0;
-        Integer sign_counts_get=0;
+        Float sign_counts=0.0f;
+        Float sign_counts_get=0.0f;
         List<Schedule> list_tra=null;
         Integer remind=0;
         List<User> list_user = dao.getUser(openid);
@@ -1427,10 +1427,10 @@ public class LoginServiceImpl implements LoginService {
         String class_number = null;
         Integer weekDay=0;
         Integer weekofday=0;
-        Integer sign_counts=0;
+        Float sign_counts=0.0f;
         Integer try_counts=0;
         Integer leave_counts=0;
-        Integer sign_counts_get=0;
+        Float sign_counts_get=0.0f;
         Integer try_counts_get=0;
         Integer leave_counts_get=0;
         Integer remind=0;

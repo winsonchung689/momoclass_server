@@ -1538,7 +1538,7 @@
   </select>
 
   <!-- 获取单月课数 -->
-  <select id="getSignUpByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+  <select id="getSignUpByMonthAll" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Float">
     select sum(count) from sign_up_record where studio =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus=#{param3} and delete_status = 0
   </select>
 
@@ -1553,7 +1553,7 @@
   </select>
 
   <!-- 获取单月课数科目 -->
-  <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+  <select id="getSignUpByMonth" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Float">
     select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus=#{param4} and delete_status = 0
   </select>
 

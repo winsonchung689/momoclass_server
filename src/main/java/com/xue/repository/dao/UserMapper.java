@@ -646,13 +646,13 @@ public interface UserMapper {
 
     Integer getClassesCountBySubject(String studio,String subject,String campus);
 
-    Integer getSignUpByMonthAll(String studio,String create_time,String campus);
+    Float getSignUpByMonthAll(String studio,String create_time,String campus);
 
     Integer getTryByMonthAll(String studio,String create_time,String campus);
 
     Integer getLeaveByMonthAll(String studio,String create_time,String campus);
 
-    Integer getSignUpByMonth(String studio,String subject,String create_time,String campus);
+    Float getSignUpByMonth(String studio,String subject,String create_time,String campus);
 
     Integer getTryByMonth(String studio,String subject,String create_time,String campus);
 
