@@ -436,6 +436,8 @@ public interface UserMapper {
 
     int updateSignUpCampus(String studio,String student_name,String campus);
 
+    int updateSignUpByBacth(Float count,String studio,String student_name,String subject,String campus);
+
     int updateSignUpSubject(String studio,String student_name,String campus,String subject,String new_subject);
 
     int updateGiftCampus(String studio,String student_name,String campus);

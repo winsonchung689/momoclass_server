@@ -3709,7 +3709,7 @@ public class LoginController {
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 					if(lessons_get.size()==0){
 						loginService.insertLesson(lesson);
-					}else if(lessons_get.size()>0){
+					}else{
 						loginService.updateLesson(lesson,0.0f,0.0f,"全科目",campus);
 					}
 				}
@@ -3722,16 +3722,19 @@ public class LoginController {
 					List<LessonPackage> lessonPackages_list = dao.getLessonPackageByStudentSubjectBatch(student_name,studio,campus,subject);
 					if(lessonPackages_list.size()==0){
 						dao.insertLessonPackage(lessonPackage);
-					}else if (lessonPackages_list.size()>=0){
+					}else{
 						dao.updateLessonPackageByStudent(lessonPackage.getTotal_money(),lessonPackage.getDiscount_money(),lessonPackage.getAll_lesson(),lessonPackage.getGive_lesson(),student_name,studio,campus,subject);
 					}
 				}
 
 				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
 					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
+					Float count = lesson.getTotal_amount() - lesson.getLeft_amount();
 					if(signUps_list.size()==0){
-						signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+						signUp.setCount(count);
 						loginService.insertSignUp(signUp);
+					}else {
+						dao.updateSignUpByBacth(count,studio,student_name,subject,campus);
 					}
 				}
 			}
