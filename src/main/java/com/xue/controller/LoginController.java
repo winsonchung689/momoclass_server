@@ -4611,7 +4611,24 @@ public class LoginController {
 				dao.updateUserStudioByOpenid(user);
 			}else if("电话".equals(type)){
 				dao.updatePhoneNumber(openid_get,campus);
-			}
+			}else if("新孩".equals(type)){
+                List<User> users = dao.getUserByOpenid(openid_get);
+                User user = users.get(0);
+                String studio =user.getStudio();
+                List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid_get);
+                if(users1.size()>0){
+                    dao.updateUserStudentName(openid_get,campus);
+                }else {
+                    List<User> users2 = dao.getUserByStudentOpenid(campus,studio,openid_get);
+                    if(users2.size()==0){
+                        user.setStudent_name(campus);
+                        int update_res = dao.updateUserDelete(user);
+                        if(update_res==0 && openid_get.length() == 28 && studio.length() > 0){
+                            dao.insertUser(user);
+                        }
+                    }
+                }
+            }
 
 		} catch (Exception e) {
 			e.printStackTrace();
