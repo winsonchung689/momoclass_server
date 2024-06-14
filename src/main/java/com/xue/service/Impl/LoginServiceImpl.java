@@ -4728,6 +4728,8 @@ public class LoginServiceImpl implements LoginService {
             jsonObject_all.put("count_sum", count_sum);
             resul_list.add(jsonObject_all);
 
+            String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
+            List<String> data_list = null;
             List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
             for (int j = 0; j < list_detail.size(); j++) {
                 JSONObject jsonObject = new JSONObject();
@@ -4779,10 +4781,13 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
                 jsonObject.put("price", df1.format(price));
+                String data_line = subject + "," + student_name + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
                 if(student_name.length() >0){
                     resul_list.add(jsonObject);
+                    data_list.add(data_line);
                 }
             }
+            downloadByOpenid(studio,openid,data_list,title);
 
         } catch (Exception e) {
             e.printStackTrace();
