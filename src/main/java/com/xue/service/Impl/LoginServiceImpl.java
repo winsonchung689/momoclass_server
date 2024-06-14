@@ -2,6 +2,7 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -14,9 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8358,6 +8357,53 @@ public class LoginServiceImpl implements LoginService {
 
 
         return resul_list;
+    }
+
+    @Override
+    public String downloadByOpenid(String studio,String openid,List<String> result_list,String title){
+        String path = "/data";
+        String d_path = path +"/downloadData/"+ studio + "/"+ openid + "/" ;
+        File file = new File(d_path);
+
+        if (!file.exists()){ //如果不存在
+            file.mkdirs(); //创建目录
+        }
+
+        String[] content = file.list();//取得当前目录下所有文件和文件夹
+        for(String name : content){
+            File temp = new File(d_path, name);
+            temp.delete();
+        }
+
+        //获取类路径
+        String p_path = null;
+        p_path = path +"/downloadData/"+ studio + "/" + openid + "/"  + "form.xls";
+        BufferedWriter bw = null;
+
+        //保存csv
+        try {
+            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
+            bw.write(title);
+            bw.newLine();
+            for(int i=0; i<result_list.size(); i++){
+                String line= result_list.get(i);
+                bw.write(line);
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(bw != null){
+                    bw.flush();
+                    bw.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return p_path;
     }
 
 

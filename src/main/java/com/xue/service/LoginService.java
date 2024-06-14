@@ -268,4 +268,6 @@ public interface LoginService {
 
     public int deleteLessonPackage(Integer id,String type);
 
+    public String downloadByOpenid(String studio,String openid,List<String> result_list,String title);
+
 }
