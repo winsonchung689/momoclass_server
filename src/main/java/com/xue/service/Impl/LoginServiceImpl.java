@@ -4642,8 +4642,8 @@ public class LoginServiceImpl implements LoginService {
         Date date = new Date();
         cal.setTime(date);
 
-        Integer page_start = (1 - 1) * 300;
-        Integer page_length = 300;
+        Integer page_start = (1 - 1) * 30000;
+        Integer page_length = 30000;
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
@@ -4787,7 +4787,12 @@ public class LoginServiceImpl implements LoginService {
                     data_list.add(data_line);
                 }
             }
-            downloadByOpenid(studio,openid,data_list,title);
+
+            try {
+                downloadByOpenid(studio,openid,data_list,title);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
