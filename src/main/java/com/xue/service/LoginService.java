@@ -256,7 +256,7 @@ public interface LoginService {
 
     public String getToken(String app);
 
-    public List getStudentByTeacher(String studio,String openid,String duration_time);
+    public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page);
 
     public String getOpenid(String code,String app);
 

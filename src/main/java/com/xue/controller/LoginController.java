@@ -1310,10 +1310,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getStudentByTeacher")
 	@ResponseBody
-	public List getStudentByTeacher(String studio,String openid,String duration_time){
+	public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page){
 		List list = null;
 		try {
-			list = loginService.getStudentByTeacher(studio,openid,duration_time);
+			list = loginService.getStudentByTeacher(studio,openid,duration_time,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3475,7 +3475,7 @@ public class LoginController {
 	public ResponseEntity<byte[]> getDownloadByOpenid(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String openid =  request.getParameter("openid");
 		String studio =  request.getParameter("studio");
-		String path = "/data/downloadData/"+ studio + "/"+ openid + "/" ;
+		String path = "/data/downloadData/"+ studio + "/"+ openid + "/form.xls" ;
 		File file = new File(path);
 		if(file.exists()){
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();

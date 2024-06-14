@@ -4635,15 +4635,15 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStudentByTeacher(String studio,String openid,String duration_time) {
+    public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         String date_time = df.format(new Date());
         Date date = new Date();
         cal.setTime(date);
 
-        Integer page_start = (1 - 1) * 30000;
-        Integer page_length = 30000;
+        Integer page_start = (page - 1) * 500;
+        Integer page_length = 500;
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
@@ -4672,64 +4672,73 @@ public class LoginServiceImpl implements LoginService {
             Float count_sum = 0.0f;
             Float price_sum = 0.0f;
             Integer sign_sum = 0;
-            list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
-            for (int i = 0; i < list.size(); i++) {
-                SignUp line = list.get(i);
-                String subject = line.getSubject();
-                String student_name = line.getStudent_name();
-                Float count = line.getCount();
-                Float total_amount = 0.0f;
-                Float total_money = 0.0f;
-                Float discount_money = 0.0f;
-                Float price = 0.0f;
-                Float sign_price = 0.0f;
-                Float all_lesson = 0.0f;
-                Float given_lesson = 0.0f;
+            String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
+            List<String> data_list = new ArrayList<>();
+            if(page == 1){
+                list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
+                for (int i = 0; i < list.size(); i++) {
+                    SignUp line = list.get(i);
+                    String subject = line.getSubject();
+                    String student_name = line.getStudent_name();
+                    Float count = line.getCount();
+                    String create_time = line.getCreate_time();
+                    String sign_time = line.getSign_time();
+                    String mark = line.getMark();
 
-                try {
-                    List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
-                    if(lessons.size()>0){
-                        Lesson lesson = lessons.get(0);
-                        price = lesson.getPrice();
-                        total_amount = lesson.getTotal_amount();
-                    }
+                    Float total_amount = 0.0f;
+                    Float total_money = 0.0f;
+                    Float discount_money = 0.0f;
+                    Float price = 0.0f;
+                    Float sign_price = 0.0f;
+                    Float all_lesson = 0.0f;
+                    Float given_lesson = 0.0f;
 
-
-                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
-                    if(lessonPackages.size()>0){
-                        for(int j = 0; j < lessonPackages.size(); j++){
-                            LessonPackage lessonPackage = lessonPackages.get(j);
-                            total_money = total_money + lessonPackage.getTotal_money();
-                            discount_money = discount_money + lessonPackage.getDiscount_money();
-                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
-                            given_lesson = given_lesson + lessonPackage.getGive_lesson();
+                    try {
+                        List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
+                        if(lessons.size()>0){
+                            Lesson lesson = lessons.get(0);
+                            price = lesson.getPrice();
+                            total_amount = lesson.getTotal_amount();
                         }
+
+
+                        List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                        if(lessonPackages.size()>0){
+                            for(int j = 0; j < lessonPackages.size(); j++){
+                                LessonPackage lessonPackage = lessonPackages.get(j);
+                                total_money = total_money + lessonPackage.getTotal_money();
+                                discount_money = discount_money + lessonPackage.getDiscount_money();
+                                all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                                given_lesson = given_lesson + lessonPackage.getGive_lesson();
+                            }
+                        }
+
+                        Float receipts = total_money - discount_money;
+                        Float re_price = receipts/(all_lesson+given_lesson);
+                        if(re_price>0){
+                            price = re_price;
+                        }
+
+                        sign_price = count * price;
+
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
 
-                    Float receipts = total_money - discount_money;
-                    Float re_price = receipts/(all_lesson+given_lesson);
-                    if(re_price>0){
-                        price = re_price;
-                    }
-
-                    sign_price = count * price;
-
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    count_sum = count_sum + count;
+                    price_sum = price_sum + sign_price;
+                    sign_sum = sign_sum + 1;
+                    String data_line = subject + "," + student_name + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
+                    data_list.add(data_line);
                 }
 
-                count_sum = count_sum + count;
-                price_sum = price_sum + sign_price;
-                sign_sum = sign_sum + 1;
+                jsonObject_all.put("price_sum", df1.format(price_sum));
+                jsonObject_all.put("sign_sum", sign_sum);
+                jsonObject_all.put("count_sum", count_sum);
+                resul_list.add(jsonObject_all);
             }
 
-            jsonObject_all.put("price_sum", df1.format(price_sum));
-            jsonObject_all.put("sign_sum", sign_sum);
-            jsonObject_all.put("count_sum", count_sum);
-            resul_list.add(jsonObject_all);
 
-            String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
-            List<String> data_list = new ArrayList<>();;
             List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
             for (int j = 0; j < list_detail.size(); j++) {
                 JSONObject jsonObject = new JSONObject();
@@ -4781,10 +4790,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("mark", mark);
                 jsonObject.put("count", count);
                 jsonObject.put("price", df1.format(price));
-                String data_line = subject + "," + student_name + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
                 if(student_name.length() >0){
                     resul_list.add(jsonObject);
-                    data_list.add(data_line);
                 }
             }
 
