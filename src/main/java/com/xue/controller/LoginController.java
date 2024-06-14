@@ -3316,7 +3316,6 @@ public class LoginController {
 	@RequestMapping("/downloadLesson")
 	@ResponseBody
 	public String downloadLesson(String studio,String openid){
-//		String path = System.getProperty("user.dir");
 		String path = "/data";
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
 		File file = new File(d_path);
