@@ -4647,8 +4647,6 @@ public class LoginServiceImpl implements LoginService {
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
-        List<SignUp> list = new ArrayList<>();
-        List<SignUp> list_detail = new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject_all = new JSONObject();
         try {
@@ -4676,7 +4674,7 @@ public class LoginServiceImpl implements LoginService {
             String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
             List<String> data_list = new ArrayList<>();
             if(page == 1){
-                list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
+                List<SignUp> list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
                 for (int i = 0; i < list.size(); i++) {
                     SignUp line = list.get(i);
                     String subject = line.getSubject();
@@ -4739,10 +4737,10 @@ public class LoginServiceImpl implements LoginService {
             }
 
 
-            list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
+            List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
             for (int j = 0; j < list_detail.size(); j++) {
                 JSONObject jsonObject = new JSONObject();
-                SignUp line = list.get(j);
+                SignUp line = list_detail.get(j);
                 String subject = line.getSubject();
                 String student_name = line.getStudent_name();
                 String sign_time =line.getSign_time();
