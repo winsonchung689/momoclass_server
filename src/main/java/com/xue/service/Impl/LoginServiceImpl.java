@@ -4736,6 +4736,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject_all.put("sign_sum", sign_sum);
                 jsonObject_all.put("count_sum", count_sum);
                 resul_list.add(jsonObject_all);
+                downloadByOpenid(studio,openid,data_list,title);
             }
 
 
@@ -4793,12 +4794,6 @@ public class LoginServiceImpl implements LoginService {
                 if(student_name.length() >0){
                     resul_list.add(jsonObject);
                 }
-            }
-
-            try {
-                downloadByOpenid(studio,openid,data_list,title);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
 
         } catch (Exception e) {
