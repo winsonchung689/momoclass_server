@@ -3456,7 +3456,6 @@ public class LoginController {
 	public ResponseEntity<byte[]> get_download(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String studio =  request.getParameter("studio");
-//		String path = System.getProperty("user.dir");
 		String path = "/data";
 		String p_path = path +"/downloadLesson/"+ studio+"/" +file_name;
 		File file = new File(p_path);
@@ -3464,6 +3463,24 @@ public class LoginController {
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
+	}
+
+	@RequestMapping("/getDownloadByOpenid")
+	@ResponseBody
+	public ResponseEntity<byte[]> getDownloadByOpenid(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String openid =  request.getParameter("openid");
+		String studio =  request.getParameter("studio");
+		String path = "/data/downloadData/"+ studio + "/"+ openid + "/" ;
+		File file = new File(path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("form", file.getName());
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
 		}else{
 			System.out.println("文件不存在,请重试...");
