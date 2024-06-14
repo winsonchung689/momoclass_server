@@ -4647,7 +4647,7 @@ public class LoginServiceImpl implements LoginService {
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
-        List<SignUp> list = null;
+        List<SignUp> list = new ArrayList<>();
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject_all = new JSONObject();
         try {
@@ -4685,7 +4685,6 @@ public class LoginServiceImpl implements LoginService {
                     String sign_time = line.getSign_time();
                     String mark = line.getMark();
 
-                    Float total_amount = 0.0f;
                     Float total_money = 0.0f;
                     Float discount_money = 0.0f;
                     Float price = 0.0f;
@@ -4698,7 +4697,6 @@ public class LoginServiceImpl implements LoginService {
                         if(lessons.size()>0){
                             Lesson lesson = lessons.get(0);
                             price = lesson.getPrice();
-                            total_amount = lesson.getTotal_amount();
                         }
 
 
@@ -4750,22 +4748,21 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String mark = line.getMark();
                 Float count = line.getCount();
+                String campus_get = line.getCampus();
                 Float price = 0.0f;
-                Float total_amount = 0.0f;
                 Float total_money = 0.0f;
                 Float discount_money = 0.0f;
                 Float all_lesson = 0.0f;
                 Float given_lesson = 0.0f;
 
-                List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
+                List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus_get);
                 if(lessons.size()>0){
                     Lesson lesson = lessons.get(0);
                     price = lesson.getPrice();
-                    total_amount = lesson.getTotal_amount();
                 }
 
 
-                List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus_get,subject);
                 if(lessonPackages.size()>0){
                     for(int k = 0; k < lessonPackages.size(); k++){
                         LessonPackage lessonPackage = lessonPackages.get(k);
