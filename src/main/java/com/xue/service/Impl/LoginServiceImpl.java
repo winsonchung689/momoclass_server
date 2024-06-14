@@ -4729,7 +4729,7 @@ public class LoginServiceImpl implements LoginService {
             resul_list.add(jsonObject_all);
 
             String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
-            List<String> data_list = null;
+            List<String> data_list = new ArrayList<>();;
             List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
             for (int j = 0; j < list_detail.size(); j++) {
                 JSONObject jsonObject = new JSONObject();
