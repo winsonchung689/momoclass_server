@@ -4642,8 +4642,8 @@ public class LoginServiceImpl implements LoginService {
         Date date = new Date();
         cal.setTime(date);
 
-        Integer page_start = (page - 1) * 500;
-        Integer page_length = 500;
+        Integer page_start = (page - 1) * 100;
+        Integer page_length = 100;
         DecimalFormat df1 = new DecimalFormat("0.00");
         String date_start = date_time;
         String date_end = date_time;
