@@ -4772,14 +4772,10 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                try {
-                    Float receipts = total_money - discount_money;
-                    Float re_price = receipts/(all_lesson+given_lesson);
-                    if(re_price>0){
-                        price = re_price;
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/(all_lesson+given_lesson);
+                if(re_price>0){
+                    price = re_price;
                 }
 
                 jsonObject.put("studio", studio);
