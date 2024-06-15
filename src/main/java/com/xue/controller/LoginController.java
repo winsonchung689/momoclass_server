@@ -724,9 +724,7 @@ public class LoginController {
 	public List getLessonPackage(String student_name,String studio,String openid,String subject,String search_type,String duration_time){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getLessonPackage(student_name,studio,campus,subject,search_type,duration_time);
+			list = loginService.getLessonPackage(student_name,studio,subject,search_type,duration_time,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

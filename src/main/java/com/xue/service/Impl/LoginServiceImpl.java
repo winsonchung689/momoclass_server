@@ -426,13 +426,14 @@ public class LoginServiceImpl implements LoginService {
         String mark = null;
         String duration = null;
         Float count = 0.0f;
-        Integer ending_status = 0;
+        Integer ending_status_get = 0;
         List<JSONObject> resul_list = new ArrayList<>();
+        String title = "序号,学生名,科目,上课日,时间段,签到日,备注,课时,状态,结课";
+        List<String> data_list = new ArrayList<>();
 
         try {
             List<User> user_get= dao.getUser(openid);
             String campus = user_get.get(0).getCampus();
-
             List<SignUp> list = dao.getSignUp(student_name, studio,subject,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -444,38 +445,41 @@ public class LoginServiceImpl implements LoginService {
                 mark = line.getMark();
                 duration = line.getDuration();
                 count = line.getCount();
-                ending_status = line.getEnding_status();
-                if (ending_status == 0) {
-                    jsonObject.put("ending_status", "未结");
-                } else if(ending_status == 1){
-                    jsonObject.put("ending_status", "已结");
+                ending_status_get = line.getEnding_status();
+                String ending_status = "未结";
+                if(ending_status_get == 1){
+                    ending_status = "已结";
                 }
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 Date create_time_dt = df1.parse(create_time.substring(0,10));
                 Date sign_time_dt = df1.parse(sign_time.substring(0,10));
                 int compare = sign_time_dt.compareTo(create_time_dt);
-                if (compare == 0) {
-                    jsonObject.put("status", "正常签");
-                } else if(compare > 0){
-                    jsonObject.put("status", "补签");
+                String status = "正常签";
+                if(compare > 0){
+                    status = "补签";
                 } else if(compare < 0){
-                    jsonObject.put("status", "提前签");
+                    status = "提前签";
                 }
-
+                int rank = i+1;
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("sign_time", sign_time.substring(0,10));
-                jsonObject.put("rank", i + 1);
+                jsonObject.put("rank", rank);
                 jsonObject.put("mark", mark);
                 jsonObject.put("duration", duration);
                 jsonObject.put("count", count);
                 jsonObject.put("subject", subject);
+                jsonObject.put("status", status);
+                jsonObject.put("ending_status", ending_status);
                 resul_list.add(jsonObject);
-            }
 
+                String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
+                data_list.add(data_line);
+            }
+            downloadByOpenid(studio,openid,data_list,title);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -5100,12 +5104,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonPackage(String student_name, String studio,String campus,String subject,String search_type,String duration_time) {
+    public List getLessonPackage(String student_name,String studio,String subject,String search_type,String duration_time,String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         List<LessonPackage> list = null;
         String start_time = duration_time.split("_")[0];
         String end_time = duration_time.split("_")[1];
         try {
+            List<User> list_user = dao.getUser(openid);
+            String campus = list_user.get(0).getCampus();
 
             if("个人".equals(search_type)){
                 if("无".equals(start_time)){
@@ -5121,6 +5127,8 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            String title = "学生名,原价,优惠,原课时,赠课时,报课时间,有效期至,备注,操作人";
+            List<String> data_list = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);
@@ -5148,7 +5156,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("give_lesson", give_lesson);
                 jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
+
+                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
+                data_list.add(data_line);
             }
+            downloadByOpenid(studio,openid,data_list,title);
         } catch (Exception e) {
             e.printStackTrace();
         }
