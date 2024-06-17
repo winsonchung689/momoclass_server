@@ -4700,7 +4700,7 @@ public class LoginServiceImpl implements LoginService {
                     Float price = 0.0f;
                     Float sign_price = 0.0f;
                     Float all_lesson = 0.0f;
-                    Float given_lesson = 0.0f;
+                    Float give_lesson = 0.0f;
 
                     try {
                         List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
@@ -4717,12 +4717,12 @@ public class LoginServiceImpl implements LoginService {
                                 total_money = total_money + lessonPackage.getTotal_money();
                                 discount_money = discount_money + lessonPackage.getDiscount_money();
                                 all_lesson = all_lesson + lessonPackage.getAll_lesson();
-                                given_lesson = given_lesson + lessonPackage.getGive_lesson();
+                                give_lesson = give_lesson + lessonPackage.getGive_lesson();
                             }
                         }
 
                         Float receipts = total_money - discount_money;
-                        Float re_price = receipts/(all_lesson+given_lesson);
+                        Float re_price = receipts/(all_lesson+give_lesson);
                         if(re_price>0){
                             price = re_price;
                         }
@@ -6526,6 +6526,8 @@ public class LoginServiceImpl implements LoginService {
         list = dao.getLessonByStudioCampus(studio,campus);
         try {
             for (int i = 0; i < list.size(); i++) {
+                Float all_lesson = 0.0f;
+                Float give_lesson = 0.0f;
                 Integer total_student =0;
                 Float total_amount_all = 0.0f ;
                 Float left_amount_all = 0.0f ;
@@ -6585,6 +6587,8 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
                     }
                 } catch (Exception e) {
@@ -6592,7 +6596,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson+give_lesson);;
                 if(re_price>0){
                     price = re_price;
                 }
@@ -7368,6 +7372,8 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 Float total_money = 0.0f ;
                 Float discount_money = 0.0f ;
+                Float all_lesson = 0.0f ;
+                Float give_lesson = 0.0f ;
                 String parent = "未绑定";
                 String avatarurl ="https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
                 String official_openid = null;
@@ -7421,6 +7427,8 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
                     }
                 } catch (Exception e) {
@@ -7444,7 +7452,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson + give_lesson);
                 if(re_price>0){
                     price = re_price;
                 }
@@ -7579,6 +7587,8 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                Float all_lesson = 0.0f;
+                Float give_lesson = 0.0f;
                 String student_name =null;
                 String campus =null;
                 Integer is_combine = 0;
@@ -7639,6 +7649,8 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
                     }
                 } catch (Exception e) {
@@ -7646,7 +7658,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson+give_lesson);
                 if(re_price>0){
                     price = re_price;
                 }
@@ -7756,6 +7768,8 @@ public class LoginServiceImpl implements LoginService {
         try {
             list = dao.getGoneStudent(studio,campus);
             for (int i = 0; i < list.size(); i++) {
+                Float all_lesson = 0.0f;
+                Float give_lesson = 0.0f;
                 String student_name =null;
                 Integer is_combine = 0;
                 Float total_amount = 0.0f;
@@ -7815,6 +7829,8 @@ public class LoginServiceImpl implements LoginService {
                             LessonPackage lessonPackage = lessonPackages.get(j);
                             total_money = total_money + lessonPackage.getTotal_money();
                             discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
                         }
                     }
                 } catch (Exception e) {
@@ -7822,7 +7838,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson+give_lesson);
                 if(re_price>0){
                     price = re_price;
                 }
@@ -7957,7 +7973,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float receipts = total_money - discount_money;
-                Float re_price = receipts/total_amount;
+                Float re_price = receipts/(all_lesson+give_lesson);
                 if(re_price>0){
                     price = re_price;
                 }
