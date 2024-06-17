@@ -818,6 +818,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getStandings")
+	@ResponseBody
+	public List getStandings(String studio, String openid, String student_name, String subject){
+		List list = null;
+		try {
+			list = loginService.getStandings(studio,openid,student_name,subject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getAbnormalStudent")
 	@ResponseBody
 	public List getAbnormalStudent(String studio,String openid,String type){

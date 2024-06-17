@@ -270,4 +270,6 @@ public interface LoginService {
 
     public String downloadByOpenid(String studio,String openid,List<String> result_list,String title);
 
+    public List getStandings(String studio,String openid,String student_name,String subject);
+
 }
