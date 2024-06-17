@@ -8431,6 +8431,7 @@ public class LoginServiceImpl implements LoginService {
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
         Integer my_points = 0;
+        Integer rank = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
         List<Lesson> list = dao.getRating(studio,0,10000,campus);
@@ -8447,6 +8448,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("student_name", student_name_get);
             jsonObject.put("subject", subject_get);
             jsonObject.put("points", points);
+            jsonObject.put("rank", i+1);
             resul_list.add(jsonObject);
         }
         JSONObject jsonObject = new JSONObject();
