@@ -929,7 +929,11 @@
 
   <!-- 查找礼物记录 -->
   <select id="getGift" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
-    select id,student_name,gift_name,create_time,expired_time,studio,gift_amount,status from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
+    select * from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
+  </select>
+
+  <select id="getGiftById" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
+    select * from gift_record where id =#{param1}
   </select>
 
   <!-- 更新课时 -->
@@ -983,7 +987,7 @@
 
   <!-- 更新课时 -->
   <update id="updateGift" parameterType="com.xue.entity.model.Gift">
-    update gift_record set status=1 where id=#{param1}
+    update gift_record set status=#{param2} where id=#{param1}
   </update>
 
   <!-- 插入客户信息 -->

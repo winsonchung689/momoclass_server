@@ -756,6 +756,8 @@ public interface UserMapper {
 
     List<Gift> getGift(String student_name,String studio);
 
+    List<Gift> getGiftById(String id);
+
     List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
     List<Leave> getLeaveRecordAll(String student_name,String studio,String leave_type,String subject,String campus);
@@ -784,7 +786,7 @@ public interface UserMapper {
 
     int updatePriceByStudent(Float coins,String studio,String campus,String student_name,String subject);
 
-    int updateGift(String id);
+    int updateGift(String id,Integer status);
 
     int updateCoinsByStudio(User user);
 

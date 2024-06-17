@@ -5488,7 +5488,6 @@ public class LoginController {
 	public String updateGift(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String id = request.getParameter("id");
-
 		try {
 			loginService.updateGift(id);
 		} catch (Exception e) {
