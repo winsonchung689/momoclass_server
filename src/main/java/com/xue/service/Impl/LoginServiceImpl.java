@@ -6688,7 +6688,7 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String comment_style = line.getComment_style();
                 if("public".equals(comment_style)){
-                    commentStyle_cn = "公开";
+                    commentStyle_cn = "全部";
                 }else if("self".equals(comment_style)){
                     commentStyle_cn = "个人";
                 }
@@ -6803,7 +6803,7 @@ public class LoginServiceImpl implements LoginService {
                     role_cn = "校长";
                 }
                 String comment_style = line.getComment_style();
-                String commentStyle_cn = "公开";
+                String commentStyle_cn = "全部";
                  if("self".equals(comment_style)){
                     commentStyle_cn = "个人";
                 }
@@ -6872,7 +6872,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number =line.getPhone_number();
                 String comment_style = line.getComment_style();
                 if("public".equals(comment_style)){
-                    commentStyle_cn = "公开";
+                    commentStyle_cn = "全部";
                 }else if("self".equals(comment_style)){
                     commentStyle_cn = "个人";
                 }
