@@ -6690,7 +6690,7 @@ public class LoginServiceImpl implements LoginService {
                 if("public".equals(comment_style)){
                     commentStyle_cn = "公开";
                 }else if("self".equals(comment_style)){
-                    commentStyle_cn = "私人";
+                    commentStyle_cn = "个人";
                 }
 
                 Integer is_open_get = line.getIs_open();
@@ -6805,7 +6805,7 @@ public class LoginServiceImpl implements LoginService {
                 String comment_style = line.getComment_style();
                 String commentStyle_cn = "公开";
                  if("self".equals(comment_style)){
-                    commentStyle_cn = "私人";
+                    commentStyle_cn = "个人";
                 }
 
                 String campus = line.getCampus();
@@ -6874,7 +6874,7 @@ public class LoginServiceImpl implements LoginService {
                 if("public".equals(comment_style)){
                     commentStyle_cn = "公开";
                 }else if("self".equals(comment_style)){
-                    commentStyle_cn = "私人";
+                    commentStyle_cn = "个人";
                 }
 
                 Integer is_open_get = line.getIs_open();
