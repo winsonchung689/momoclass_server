@@ -4623,7 +4623,7 @@ public class LoginController {
 				result = "电话号码已被注册！";
 			}else {
 				int update_res = dao.updateUserDelete(user);
-				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
+				if(update_res==0 && studio.length() > 0){
 					dao.insertUser(user);
 				}
 			}
