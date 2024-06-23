@@ -4572,7 +4572,7 @@ public class LoginController {
 		//获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
-			openid = DigestUtils.md5Hex(nick_name + studio);
+			openid = DigestUtils.md5Hex(nick_name + studio + phone_number);
 		}
 
 		//获取 avatarurl
