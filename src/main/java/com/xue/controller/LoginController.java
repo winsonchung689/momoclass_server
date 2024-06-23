@@ -4542,6 +4542,98 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/webInsertUser")
+	@ResponseBody
+	public String webInsertUser(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,30);
+		String expired_time = df.format(cal.getTime());
+
+		//获取用户名
+		String nick_name = request.getParameter("nick_name");
+
+		String studio = request.getParameter("studio");
+
+		String phone_number = request.getParameter("phone_number");
+
+		String campus = request.getParameter("campus");
+
+		//获取学生名
+		String student_name = request.getParameter("student_name");
+
+		//获取 openid
+		String openid = request.getParameter("openid");
+		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
+			openid = DigestUtils.md5Hex(nick_name + studio);
+		}
+
+		//获取 avatarurl
+		String avatarurl = request.getParameter("avatarurl");
+		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
+			avatarurl = "https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
+		}
+
+		List<User> list_send = dao.getUserSendTime(studio);
+		String send_time = "12:00:00";
+		Integer display = 1;
+		Integer cover = 1;
+		String remind_type = "统一提醒次日";
+		Integer hours = 0;
+		String comment_style = "public";
+
+		if(list_send.size()>0){
+			send_time = list_send.get(0).getSend_time();
+			display = list_send.get(0).getDisplay();
+			cover = list_send.get(0).getCover();
+			remind_type = list_send.get(0).getRemind_type();
+			hours = list_send.get(0).getHours();
+			comment_style = list_send.get(0).getComment_style();
+		}
+
+		User user =new User();
+		user.setNick_name(nick_name);
+		user.setStudent_name(student_name);
+		user.setOpenid(openid);
+		user.setCreate_time(create_time);
+		user.setAvatarurl(avatarurl);
+		user.setStudio(studio);
+		user.setExpired_time(expired_time);
+		user.setCampus(campus);
+		user.setComment_style(comment_style);
+		user.setSend_time(send_time);
+		user.setDisplay(display);
+		user.setCover(cover);
+		user.setRemind_type(remind_type);
+		user.setHours(hours);
+		user.setPhone_number(phone_number);
+		user.setUser_type("新用户");
+		user.setRole("client");
+		String result = "新用户注册成功！";
+		try {
+			List<User> users = dao.getUserByNickStudioEq(phone_number,studio);
+			if(users.size()>0){
+				result = "电话号码已被注册！";
+			}else {
+				int update_res = dao.updateUserDelete(user);
+				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
+					dao.insertUser(user);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	@RequestMapping("/updateRole")
 	@ResponseBody
 	public String updateRole(HttpServletRequest request, HttpServletResponse response){
