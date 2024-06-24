@@ -864,6 +864,11 @@
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4}  order by create_time desc
   </select>
 
+  <!-- 查找全部签到记录 -->
+  <select id="getSignUpByAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where delete_status = 0 and studio = #{param1} and campus = #{param2}  order by student_name
+  </select>
+
   <select id="getSignUpByBacth" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4} and mark = '录前消课' order by create_time desc
   </select>

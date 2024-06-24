@@ -3480,12 +3480,18 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/getDownloadByOpenid")
+	@RequestMapping("/getDownloadSignUpByType")
 	@ResponseBody
-	public ResponseEntity<byte[]> getDownloadByOpenid(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> getDownloadSignUpByType(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String openid =  request.getParameter("openid");
 		String studio =  request.getParameter("studio");
-		String path = "/data/downloadData/"+ studio + "/"+ openid + "/form.xls" ;
+		String type =  request.getParameter("type");
+		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
+
+		if("all".equals(type)){
+			loginService.getSignUpByAll(studio,openid);
+		}
+
 		File file = new File(path);
 		if(file.exists()){
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();

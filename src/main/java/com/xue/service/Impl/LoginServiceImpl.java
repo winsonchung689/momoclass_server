@@ -479,7 +479,77 @@ public class LoginServiceImpl implements LoginService {
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title);
+            downloadByOpenid(studio,openid,data_list,title,"single");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getSignUpByAll(String studio, String openid) {
+        String create_time = null;
+        String sign_time = null;
+        String id = null;
+        String mark = null;
+        String duration = null;
+        Float count = 0.0f;
+        Integer ending_status_get = 0;
+        List<JSONObject> resul_list = new ArrayList<>();
+        String title = "序号,学生名,科目,上课日,时间段,签到日,备注,课时,状态,结课";
+        List<String> data_list = new ArrayList<>();
+
+        try {
+            List<User> user_get= dao.getUser(openid);
+            String campus = user_get.get(0).getCampus();
+            List<SignUp> list = dao.getSignUpByAll(studio,campus);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SignUp line = list.get(i);
+                //获取字段
+                create_time = line.getCreate_time();
+                sign_time = line.getSign_time();
+                id = line.getId();
+                mark = line.getMark();
+                duration = line.getDuration();
+                count = line.getCount();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+                ending_status_get = line.getEnding_status();
+                String ending_status = "未结";
+                if(ending_status_get == 1){
+                    ending_status = "已结";
+                }
+
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                Date create_time_dt = df1.parse(create_time.substring(0,10));
+                Date sign_time_dt = df1.parse(sign_time.substring(0,10));
+                int compare = sign_time_dt.compareTo(create_time_dt);
+                String status = "正常签";
+                if(compare > 0){
+                    status = "补签";
+                } else if(compare < 0){
+                    status = "提前签";
+                }
+                int rank = i+1;
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("create_time", create_time.substring(0,10));
+                jsonObject.put("sign_time", sign_time.substring(0,10));
+                jsonObject.put("rank", rank);
+                jsonObject.put("mark", mark);
+                jsonObject.put("duration", duration);
+                jsonObject.put("count", count);
+                jsonObject.put("subject", subject);
+                jsonObject.put("status", status);
+                jsonObject.put("ending_status", ending_status);
+                resul_list.add(jsonObject);
+
+                String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
+                data_list.add(data_line);
+            }
+            downloadByOpenid(studio,openid,data_list,title,"all");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -4744,7 +4814,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject_all.put("sign_sum", sign_sum);
                 jsonObject_all.put("count_sum", count_sum);
                 resul_list.add(jsonObject_all);
-                downloadByOpenid(studio,openid,data_list,title);
+                downloadByOpenid(studio,openid,data_list,title,"form");
             }
 
 
@@ -5167,7 +5237,7 @@ public class LoginServiceImpl implements LoginService {
                 String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title);
+            downloadByOpenid(studio,openid,data_list,title,"form");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -8403,7 +8473,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String downloadByOpenid(String studio,String openid,List<String> result_list,String title){
+    public String downloadByOpenid(String studio,String openid,List<String> result_list,String title,String file_name){
         String path = "/data";
         String d_path = path +"/downloadData/"+ studio + "/"+ openid + "/" ;
         File file = new File(d_path);
@@ -8420,7 +8490,7 @@ public class LoginServiceImpl implements LoginService {
 
         //获取类路径
         String p_path = null;
-        p_path = path +"/downloadData/"+ studio + "/" + openid + "/"  + "form.xls";
+        p_path = path +"/downloadData/"+ studio + "/" + openid + "/" + file_name + ".xls";
         BufferedWriter bw = null;
 
         //保存csv

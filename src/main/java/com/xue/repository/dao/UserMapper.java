@@ -728,6 +728,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUp(String student_name,String studio,String subject,String campus);
 
+    List<SignUp> getSignUpByAll(String studio,String campus);
+
     List<SignUp> getSignUpByBacth(String student_name,String studio,String subject,String campus);
 
     List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
