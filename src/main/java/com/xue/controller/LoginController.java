@@ -2627,6 +2627,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		String nick_name= list_user.get(0).getNick_name();
 
 		try {
 			Lesson lesson =new Lesson();
@@ -2642,6 +2643,42 @@ public class LoginController {
 			lesson.setMinus(1.00f);
 			lesson.setCampus(campus);
 			dao.insertLesson(lesson);
+
+			LessonPackage lessonPackage = new LessonPackage();
+			lessonPackage.setStudent_name(student_name);
+			lessonPackage.setStart_date(create_time);
+			lessonPackage.setEnd_date(create_time);
+			lessonPackage.setCampus(campus);
+			lessonPackage.setStudio(studio);
+			lessonPackage.setSubject(subject);
+			lessonPackage.setCreate_time(create_time);
+			lessonPackage.setAll_lesson(Float.parseFloat(total_amount));
+			lessonPackage.setTotal_money(0.0f);
+			lessonPackage.setDiscount_money(0.0f);
+			lessonPackage.setMark("初次录入");
+			lessonPackage.setGive_lesson(0.0f);
+			lessonPackage.setNick_name(nick_name);
+			dao.insertLessonPackage(lessonPackage);
+
+			if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
+				SignUp signUp = new SignUp();
+				signUp.setStudio(studio);
+				signUp.setSign_time(create_time);
+				signUp.setMark("录前消课");
+				signUp.setCount(0.0f);
+				signUp.setTeacher(nick_name);
+				signUp.setCreate_time(create_time);
+				signUp.setDuration("00:00:00");
+				signUp.setClass_number("无班号");
+				signUp.setCampus(campus);
+				signUp.setStudent_name(student_name);
+				signUp.setSubject(subject);
+				List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
+				if(signUps_list.size()==0){
+					signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+					loginService.insertSignUp(signUp);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
