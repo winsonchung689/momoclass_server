@@ -5185,12 +5185,6 @@ public class LoginController {
 				}
 			}
 
-//			String consume_lesson_amount_1 = request.getParameter("consume_lesson_amount");
-			Float consume_lesson_amount = 0.0f;
-//			if (!consume_lesson_amount_1.isEmpty()){
-//				consume_lesson_amount = Float.valueOf(consume_lesson_amount_1);
-//			}
-
 			Float minus_amount=0.0f;
 			Float coins_amount=0.0f;
 			List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
@@ -5235,7 +5229,7 @@ public class LoginController {
 						dao.updatePriceByStudent(coins_amount,studio,campus,student_name,subject);
 					}
 				}else {
-					loginService.updateLesson(lesson,lessons_amount,consume_lesson_amount,subject_new,campus);
+					loginService.updateLesson(lesson,lessons_amount,0.0f,subject_new,campus);
 				}
 
 			}else {
