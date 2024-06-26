@@ -8475,6 +8475,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String downloadByOpenid(String studio,String openid,List<String> result_list,String title,String file_name){
         String path = "/data";
+        studio = studio.replace("/","");
         String d_path = path +"/downloadData/"+ studio + "/"+ openid + "/" ;
         File file = new File(d_path);
 

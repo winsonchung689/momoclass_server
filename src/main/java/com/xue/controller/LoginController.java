@@ -3364,6 +3364,7 @@ public class LoginController {
 	@ResponseBody
 	public String downloadLesson(String studio,String openid){
 		String path = "/data";
+		studio = studio.replace("/","");
 		String d_path = path +"/downloadLesson/"+ studio + "/" ;
 		File file = new File(d_path);
 
@@ -3449,9 +3450,9 @@ public class LoginController {
 		MultipartFile multipartFile = req.getFile("file");
 		String file_name =  request.getParameter("file_name");
 		String studio =  request.getParameter("studio");
+		studio = studio.replace("/","");
 
 		//获取类路径
-//		String path = System.getProperty("user.dir");
 		String path = "/data";
 		String path_1 = path + "/uploadexcel/" + studio;
 		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
@@ -3523,6 +3524,7 @@ public class LoginController {
 		String openid =  request.getParameter("openid");
 		String studio =  request.getParameter("studio");
 		String type =  request.getParameter("type");
+		studio = studio.replace("/","");
 		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
 
 		if("all".equals(type)){
@@ -3618,6 +3620,7 @@ public class LoginController {
 		String gift_amount = "0";
 		String points = "0";
 //		String path = System.getProperty("user.dir");
+		studio = studio.replaceAll("/","");
 		String path = "/data";
 		String path_1 = path +"/uploadexcel/" + studio ;
 		java.io.File myFilePath = new java.io.File(path_1);
