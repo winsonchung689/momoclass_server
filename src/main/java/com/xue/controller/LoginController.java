@@ -3619,11 +3619,9 @@ public class LoginController {
 		String left_amount= "0";
 		String gift_name =null;
 		String gift_amount = "0";
-		String points = "0";
-//		String path = System.getProperty("user.dir");
-		studio = studio.replaceAll("/","");
+		String points = "\t\tstudio = studio.replace(\"/\",\"\");\n0";
 		String path = "/data";
-		String path_1 = path +"/uploadexcel/" + studio ;
+		String path_1 = path +"/uploadexcel/" + studio.replace("/","") ;
 		java.io.File myFilePath = new java.io.File(path_1);
 		String[] tempList = myFilePath.list();
 		File temp = new File(path_1 + "/" + tempList[0]);
