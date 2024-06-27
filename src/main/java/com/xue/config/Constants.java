@@ -16,4 +16,8 @@ public class Constants {
     public static final String book_appid = "wxc967c1cdf284df42";
     public static final String book_secret = "a96f11789da0b4450fe6d1758fa9ea4c";
 
+    public static final String publickey = "BNuTcvDy80K11oNHamaMxjG7mQht2r5wDP2ZdR6kL_rLkaizhUDxXFmjlCMS57XaWYgflJlo-_cDF8wVqWIPd2U";
+
+    public static final String privatekey = "q3-gIs92LkUmtLIKJB3bR3_ATFWTkDXJ4Pt9HGB84S8";
+
 }

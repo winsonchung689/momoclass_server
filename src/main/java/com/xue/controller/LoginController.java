@@ -3,6 +3,7 @@ package com.xue.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.xue.JsonUtils.JsonUtils;
+import com.xue.config.Constants;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
@@ -2412,10 +2413,12 @@ public class LoginController {
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			Float count = 0.0f;
 			Integer coins = 0;
+			Float left_amount = 0.0f;
 			if(lessons.size()>0){
 				count = lessons.get(0).getMinus();
 				Float coins_get = lessons.get(0).getCoins();
 				coins = Math.round(coins_get);
+				left_amount = lessons.get(0).getLeft_amount() - count;
 			}
 
 			if(Float.parseFloat(class_count) != 100){
@@ -2443,6 +2446,19 @@ public class LoginController {
 			if(insert_res>0){
 				loginService.updateMinusLesson(student_name,studio,count,subject,campus);
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus);
+
+				List<User> users = dao.getUserByStudent(student_name,studio);
+				for(int i = 0;i < users.size(); i++){
+					User user = users.get(i);
+					String subscription = user.getSubscription();
+					if(subscription != null){
+						JSONObject payload = new JSONObject();
+						payload.put("title","签到成功");
+						payload.put("message","学生名:" + student_name+"\n上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n余课时:" + left_amount );
+						String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
+						System.out.printf("status:" + status);
+					}
+				}
 			}
 
 
