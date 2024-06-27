@@ -2451,13 +2451,19 @@ public class LoginController {
 				for(int i = 0;i < users.size(); i++){
 					User user = users.get(i);
 					String subscription = user.getSubscription();
+					String openid_get = user.getOpenid();
+
+					// pwa
 					if(subscription != null){
 						JSONObject payload = new JSONObject();
 						payload.put("title","签到成功");
-						payload.put("message","学生名:" + student_name+"\n上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n余课时:" + left_amount );
+						payload.put("message","学生名:" + student_name+"\n上课日期:"+ date_time + "\n本次扣课:" + count + "\n剩余课时:" + left_amount );
 						String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
 						System.out.printf("status:" + status);
 					}
+
+					// 小程序
+					sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number);
 				}
 			}
 
