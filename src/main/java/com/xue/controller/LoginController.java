@@ -3542,17 +3542,21 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping("/getDownloadSignUpByType")
+	@RequestMapping("/getDownloadDataByType")
 	@ResponseBody
-	public ResponseEntity<byte[]> getDownloadSignUpByType(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> getDownloadDataByType(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String openid =  request.getParameter("openid");
 		String studio =  request.getParameter("studio");
 		String type =  request.getParameter("type");
 		studio = studio.replace("/","");
 		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
 
-		if("all".equals(type)){
+		if("all_sign".equals(type)){
 			loginService.getSignUpByAll(studio,openid);
+		}
+
+		if("all_lesson".equals(type)){
+			loginService.getLessonPackageByAll(studio,openid);
 		}
 
 		File file = new File(path);

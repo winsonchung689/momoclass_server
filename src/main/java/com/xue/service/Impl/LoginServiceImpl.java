@@ -479,7 +479,7 @@ public class LoginServiceImpl implements LoginService {
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title,"single");
+            downloadByOpenid(studio,openid,data_list,title,"single_sign");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -549,7 +549,7 @@ public class LoginServiceImpl implements LoginService {
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title,"all");
+            downloadByOpenid(studio,openid,data_list,title,"all_sign");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -5237,7 +5237,56 @@ public class LoginServiceImpl implements LoginService {
                 String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title,"form");
+            downloadByOpenid(studio,openid,data_list,title,"single_lesson");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getLessonPackageByAll(String studio,String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<User> list_user = dao.getUser(openid);
+            String campus = list_user.get(0).getCampus();
+
+            List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
+            String title = "学生名,原价,优惠,原课时,赠课时,报课时间,有效期至,备注,操作人";
+            List<String> data_list = new ArrayList<>();
+            for (int i = 0; i < lessonPackages.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                LessonPackage line = lessonPackages.get(i);
+                //获取字段
+                Float total_money = line.getTotal_money();
+                Float discount_money = line.getDiscount_money();
+                String mark = line.getMark();
+                String start_date = line.getStart_date();
+                String end_date = line.getEnd_date();
+                String id = line.getId();
+                Float all_lesson = line.getAll_lesson();
+                Float give_lesson = line.getGive_lesson();
+                String nick_name = line.getNick_name();
+                String student_name  = line.getStudent_name();
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_money", total_money);
+                jsonObject.put("discount_money", discount_money);
+                jsonObject.put("mark", mark);
+                jsonObject.put("start_date", start_date);
+                jsonObject.put("end_date", end_date);
+                jsonObject.put("id", id);
+                jsonObject.put("all_lesson", all_lesson);
+                jsonObject.put("give_lesson", give_lesson);
+                jsonObject.put("nick_name", nick_name);
+                resul_list.add(jsonObject);
+
+                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
+                data_list.add(data_line);
+            }
+            downloadByOpenid(studio,openid,data_list,title,"all_lesson");
         } catch (Exception e) {
             e.printStackTrace();
         }
