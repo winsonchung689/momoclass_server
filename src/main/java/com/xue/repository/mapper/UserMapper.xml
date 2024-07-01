@@ -1134,7 +1134,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio}, create_time=#{create_time},campus=#{campus},comment_style=#{comment_style} where openid = #{openid} and delete_status = 0
+    update user set studio=#{studio},campus=#{campus} where openid = #{openid} and delete_status = 0
   </update>
 
   <!-- 更新工作室 -->
