@@ -4509,6 +4509,8 @@ public class LoginController {
 		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
+		String phone_number = request.getParameter("phone_number");
+
 		String nick_name = request.getParameter("nick_name");
 
 		String studio = request.getParameter("studio");
@@ -4571,6 +4573,7 @@ public class LoginController {
 		user.setCover(cover);
 		user.setRemind_type(remind_type);
 		user.setHours(hours);
+		user.setPhone_number(phone_number);
 		List<User> list= dao.getUser(openid);
 		if(list.size()>0){
 			String role_get = list.get(0).getRole();
@@ -4578,10 +4581,10 @@ public class LoginController {
 			int res = loginService.updateUser(user);
 			if(res > 0 && !student_name.equals("no_name")){
 				String user_type_get = list.get(0).getUser_type();
-				String phone_number = list.get(0).getPhone_number();
+				String phone_number_get = list.get(0).getPhone_number();
 				String location = list.get(0).getLocation();
 				user.setUser_type(user_type_get);
-				user.setPhone_number(phone_number);
+				user.setPhone_number(phone_number_get);
 				user.setLocation(location);
 				try {
 					if("client".equals(role_get)){
