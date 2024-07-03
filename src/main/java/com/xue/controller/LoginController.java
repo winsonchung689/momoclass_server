@@ -3168,9 +3168,22 @@ public class LoginController {
 
 	@RequestMapping("/insertOrder")
 	@ResponseBody
-	public int insertOrder(String nick_name,String openid,String phone_number,String location,String goods_name,String goods_intro ,String goods_price,String studio){
+	public int insertOrder(HttpServletRequest request, HttpServletResponse response){
+
 
 		try {
+			String studio =  request.getParameter("studio");
+			String nick_name =  request.getParameter("nick_name");
+			String openid =  request.getParameter("openid");
+			String phone_number =  request.getParameter("phone_number");
+			String location =  request.getParameter("location");
+			String goods_name =  request.getParameter("goods_name");
+			String goods_intro =  request.getParameter("goods_intro");
+			String goods_price =  request.getParameter("goods_price");
+			String group_role =  request.getParameter("group_role");
+			String goods_id =  request.getParameter("goods_id");
+
+
 
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -3185,6 +3198,7 @@ public class LoginController {
 			order.setGoods_price(Float.parseFloat(goods_price));
 			order.setStudio(studio);
 			order.setCreate_time(create_time);
+			order.setGroup_role(group_role);
 
 			loginService.insertOrder(order);
 		} catch (Exception e) {

@@ -13,8 +13,26 @@ public class Order {
     private String goods_intro;
     private String studio;
     private String create_time;
-
     private String campus;
+    private String group_role;
+    private String goods_id;
+
+
+    public String getGoods_id() {
+        return goods_id;
+    }
+
+    public void setGoods_id(String goods_id) {
+        this.goods_id = goods_id;
+    }
+
+    public String getGroup_role() {
+        return group_role;
+    }
+
+    public void setGroup_role(String group_role) {
+        this.group_role = group_role;
+    }
 
     public String getCampus() {
         return campus;
