@@ -4340,6 +4340,8 @@ public class LoginController {
 
 		String group_price = request.getParameter("group_price");
 
+		String group_num = request.getParameter("group_num");
+
 		String studio = request.getParameter("studio");
 
 		String uuids = request.getParameter("uuids");
@@ -4362,6 +4364,7 @@ public class LoginController {
 			goodsList.setCampus(campus);
 			goodsList.setUuids(uuids);
 			goodsList.setIs_group(Integer.parseInt(is_group));
+			goodsList.setGoods_num(Integer.parseInt(group_num));
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {

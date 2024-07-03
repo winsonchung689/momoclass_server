@@ -19,6 +19,8 @@ public class GoodsList {
 
     private Integer is_group;
 
+    private Integer goods_num;
+
     private String studio;
 
     private byte[] photo;
@@ -27,6 +29,14 @@ public class GoodsList {
 
     private String uuids;
 
+
+    public Integer getGoods_num() {
+        return goods_num;
+    }
+
+    public void setGoods_num(Integer goods_num) {
+        this.goods_num = goods_num;
+    }
 
     public Float getGroup_price() {
         return group_price;
