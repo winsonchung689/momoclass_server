@@ -3180,6 +3180,7 @@ public class LoginServiceImpl implements LoginService {
                 nick_name = line.getNick_name();
                 openid = line.getOpenid();
                 String group_role = line.getGroup_role();
+                String leader_id = line.getLeader_id();
 
                 if(0==status){
                     status_get="未发货";
@@ -3200,6 +3201,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", openid);
                 jsonObject.put("group_role", group_role);
+                jsonObject.put("leader_id", leader_id);
 
                 //json
                 resul_list.add(jsonObject);
