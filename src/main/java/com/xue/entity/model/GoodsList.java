@@ -13,6 +13,8 @@ public class GoodsList {
 
     private Float goods_price;
 
+    private Float group_price;
+
     private Integer delete_status;
 
     private Integer is_group;
@@ -24,6 +26,15 @@ public class GoodsList {
     private String campus;
 
     private String uuids;
+
+
+    public Float getGroup_price() {
+        return group_price;
+    }
+
+    public void setGroup_price(Float group_price) {
+        this.group_price = group_price;
+    }
 
     public Integer getIs_group() {
         return is_group;

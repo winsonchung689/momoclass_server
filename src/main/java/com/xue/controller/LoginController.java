@@ -4338,6 +4338,8 @@ public class LoginController {
 		//获取商品价格
 		String goods_price = request.getParameter("goods_price");
 
+		String group_price = request.getParameter("group_price");
+
 		String studio = request.getParameter("studio");
 
 		String uuids = request.getParameter("uuids");
@@ -4354,6 +4356,7 @@ public class LoginController {
 			goodsList.setGoods_name(goods_name);
 			goodsList.setGoods_intro(goods_intro);
 			goodsList.setGoods_price(Float.parseFloat(goods_price));
+			goodsList.setGroup_price(Float.parseFloat(group_price));
 			goodsList.setStudio(studio);
 			goodsList.setCreate_time(create_time);
 			goodsList.setCampus(campus);

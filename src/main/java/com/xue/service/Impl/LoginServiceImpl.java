@@ -8297,6 +8297,7 @@ public class LoginServiceImpl implements LoginService {
         String create_time = null;
         String id = null;
         Float goods_price = 0.0f;
+        Float group_price = 0.0f;
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
         List<GoodsList> list = null;
@@ -8320,6 +8321,7 @@ public class LoginServiceImpl implements LoginService {
                 goods_name = line.getGoods_name();
                 goods_intro = line.getGoods_intro();
                 goods_price = line.getGoods_price();
+                group_price = line.getGroup_price();
                 photo = line.getPhoto();
                 id = line.getId();
                 is_group = line.getIs_group();
@@ -8352,6 +8354,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group", group);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("is_group", is_group);
+                jsonObject.put("group_price", group_price);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

@@ -788,7 +788,7 @@
 
   <!-- 插入商品列表 -->
   <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
-    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group})
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price})
   </insert>
 
   <!-- 插入团购列表 -->
