@@ -387,9 +387,14 @@
     update goods_list set goods_name =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
-  <!-- 更改商品价格 -->
+  <!-- 更改成团人数 -->
   <select id="modifyGoodsGroupNum" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
     update goods_list set group_num =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
+  </select>
+
+  <!-- 更改团购价 -->
+  <select id="modifyGoodsGroupPrice" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set group_price =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
   <!-- 更改地址及电话号码 -->
