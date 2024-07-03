@@ -8326,7 +8326,7 @@ public class LoginServiceImpl implements LoginService {
 //                photo = line.getPhoto();
                 id = line.getId();
                 is_group = line.getIs_group();
-                group_num = line.getGoods_num();
+                group_num = line.getGroup_num();
                 StringBuilder group = new StringBuilder(10);
                 list_buy = dao.getGroupBuy(studio,id);
                 for (int j = 0; j < list_buy.size(); j++) {

@@ -4364,7 +4364,7 @@ public class LoginController {
 			goodsList.setCampus(campus);
 			goodsList.setUuids(uuids);
 			goodsList.setIs_group(Integer.parseInt(is_group));
-			goodsList.setGoods_num(Integer.parseInt(group_num));
+			goodsList.setGroup_num(Integer.parseInt(group_num));
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {
