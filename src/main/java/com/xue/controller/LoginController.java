@@ -1902,6 +1902,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getOrderById")
+	@ResponseBody
+	public List getOrderById(String goods_id){
+		List list = null;
+		try {
+			list = loginService.getOrderById(goods_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteComment")
@@ -3199,6 +3211,7 @@ public class LoginController {
 			order.setStudio(studio);
 			order.setCreate_time(create_time);
 			order.setGroup_role(group_role);
+			order.setGoods_id(goods_id);
 
 			loginService.insertOrder(order);
 		} catch (Exception e) {

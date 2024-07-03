@@ -3150,6 +3150,67 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getOrderById(String goods_id) {
+        String goods_name = null;
+        String goods_intro = null;
+        Float goods_price = 0.0f;
+        Integer status = 0;
+        String status_get = null;
+        String create_time = null;
+        String phone_number = null;
+        String location = null;
+        String nick_name = null;
+        String openid = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Order> list =dao.getOrderById(goods_id);;
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Order line = list.get(i);
+                //获取字段
+                String id = line.getId();
+                goods_name = line.getGoods_name();
+                goods_intro = line.getGoods_intro();
+                goods_price = line.getGoods_price();
+                status = line.getStatus();
+                phone_number = line.getPhone_number();
+                location = line.getLocation();
+                nick_name = line.getNick_name();
+                openid = line.getOpenid();
+                String group_role = line.getGroup_role();
+
+                if(0==status){
+                    status_get="未发货";
+                }
+                if(1==status){
+                    status_get="已发货";
+                }
+                create_time = line.getCreate_time();
+
+                jsonObject.put("id", id);
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("status", status_get);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("openid", openid);
+                jsonObject.put("group_role", group_role);
+
+                //json
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getFrameModel(String studio,Integer page,String class_target,String campus) {
         byte[] photo = null;
         String class_name = null;

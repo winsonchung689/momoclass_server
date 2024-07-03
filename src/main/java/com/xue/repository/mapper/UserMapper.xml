@@ -822,12 +822,17 @@
 
   <!-- 查找订单 -->
   <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
+    select * from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
+  </select>
+
+  <!-- 查找ID订单 -->
+  <select id="getOrderById" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
+    select * from `order` where goods_id = #{param1} delete_status = 0 order by create_time
   </select>
 
   <!-- 查找全部订单 -->
   <select id="getAllOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select id,nick_name,openid,phone_number,location,goods_name,goods_intro,goods_price,studio,create_time,status from `order` where studio = #{param1} and delete_status = 0 order by status,openid,create_time
+    select * from `order` where studio = #{param1} and delete_status = 0 order by status,openid,create_time
   </select>
 
   <!-- 查找课程表 -->

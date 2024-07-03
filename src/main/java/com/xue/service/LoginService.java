@@ -196,6 +196,8 @@ public interface LoginService {
 
     public List getMyOrder(String studio,String openid);
 
+    public List getOrderById(String goods_id);
+
     public List getFrameModel(String studio,Integer page,String class_target,String campus);
 
     public List getCertificateModelName();
