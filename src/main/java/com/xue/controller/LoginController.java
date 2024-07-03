@@ -3193,9 +3193,9 @@ public class LoginController {
 			String openid =  request.getParameter("openid");
 			String phone_number =  request.getParameter("phone_number");
 			String location =  request.getParameter("location");
-			String goods_name =  request.getParameter("goods_name");
-			String goods_intro =  request.getParameter("goods_intro");
-			String goods_price =  request.getParameter("goods_price");
+//			String goods_name =  request.getParameter("goods_name");
+//			String goods_intro =  request.getParameter("goods_intro");
+//			String goods_price =  request.getParameter("goods_price");
 			String group_role =  request.getParameter("group_role");
 			String goods_id =  request.getParameter("goods_id");
 			String leader_id =  request.getParameter("leader_id");
@@ -3210,9 +3210,6 @@ public class LoginController {
 			order.setOpenid(openid);
 			order.setPhone_number(phone_number);
 			order.setLocation(location);
-			order.setGoods_name(goods_name);
-			order.setGoods_intro(goods_intro);
-			order.setGoods_price(Float.parseFloat(goods_price));
 			order.setStudio(studio);
 			order.setCreate_time(create_time);
 			order.setGroup_role(group_role);
