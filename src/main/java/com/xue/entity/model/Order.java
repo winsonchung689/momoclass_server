@@ -16,7 +16,16 @@ public class Order {
     private String campus;
     private String group_role;
     private String goods_id;
+    private String leader_id;
 
+
+    public String getLeader_id() {
+        return leader_id;
+    }
+
+    public void setLeader_id(String leader_id) {
+        this.leader_id = leader_id;
+    }
 
     public String getGoods_id() {
         return goods_id;

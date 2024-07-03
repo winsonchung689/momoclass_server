@@ -3194,6 +3194,7 @@ public class LoginController {
 			String goods_price =  request.getParameter("goods_price");
 			String group_role =  request.getParameter("group_role");
 			String goods_id =  request.getParameter("goods_id");
+			String leader_id =  request.getParameter("leader_id");
 
 
 
@@ -3212,6 +3213,7 @@ public class LoginController {
 			order.setCreate_time(create_time);
 			order.setGroup_role(group_role);
 			order.setGoods_id(goods_id);
+			order.setLeader_id(leader_id);
 
 			loginService.insertOrder(order);
 		} catch (Exception e) {
