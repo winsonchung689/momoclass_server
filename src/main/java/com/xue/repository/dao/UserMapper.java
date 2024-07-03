@@ -245,6 +245,7 @@ public interface UserMapper {
     void modifyGoodsName(String id,String studio,String campus,String goods_intro);
 
     void modifyGoodsGroupNum(String id,String studio,String campus,String goods_intro);
+    void modifyGoodsGroupPrice(String id,String studio,String campus,String goods_intro);
 
     void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
 

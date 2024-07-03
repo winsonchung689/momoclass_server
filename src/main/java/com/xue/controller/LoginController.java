@@ -1566,7 +1566,7 @@ public class LoginController {
 			}else if("group_num".equals(type)){
 				dao.modifyGoodsGroupNum(goods_id,studio,campus,goods_intro_modify);
 			}else if("group_price".equals(type)){
-				dao.modifyGoodsGroupNum(goods_id,studio,campus,goods_intro_modify);
+				dao.modifyGoodsGroupPrice(goods_id,studio,campus,goods_intro_modify);
 			}
 
 		} catch (Exception e) {
