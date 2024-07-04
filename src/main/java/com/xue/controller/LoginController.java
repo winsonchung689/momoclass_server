@@ -2126,9 +2126,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteGroupBuy")
 	@ResponseBody
-	public int deleteGroupBuy(String goods_id,String leader_id,String studio){
+	public int deleteGroupBuy(String goods_id,String leader_id){
 		try {
-			dao.deleteGroupBuy(goods_id,leader_id,studio);
+			dao.deleteGroupBuy(goods_id,leader_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
