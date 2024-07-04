@@ -3186,7 +3186,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getOrderById(String goods_id) {
+    public List getOrderByGoodsId(String goods_id) {
         String goods_name = null;
         String goods_intro = null;
         Float goods_price = 0.0f;
@@ -3202,7 +3202,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Order> list =dao.getOrderById(goods_id);;
+            List<Order> list =dao.getOrderByGoodsId(goods_id);;
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();

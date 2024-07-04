@@ -1906,12 +1906,12 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getOrderById")
+	@RequestMapping("/getOrderByGoodsId")
 	@ResponseBody
-	public List getOrderById(String goods_id){
+	public List getOrderByGoodsId(String goods_id){
 		List list = null;
 		try {
-			list = loginService.getOrderById(goods_id);
+			list = loginService.getOrderByGoodsId(goods_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
