@@ -3100,6 +3100,7 @@ public class LoginServiceImpl implements LoginService {
         Float group_price = 0.0f;
         Integer group_num = 0;
         String uuids = null;
+        String leader = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3124,7 +3125,14 @@ public class LoginServiceImpl implements LoginService {
                 nick_name = line.getNick_name();
                 open_id = line.getOpenid();
                 String goods_id = line.getGoods_id();
+
                 String leader_id = line.getLeader_id();
+                List<User> users = dao.getUserByOpenid(leader_id);
+                if(users.size()>0){
+                    User user = users.get(0);
+                    leader = user.getNick_name();
+                }
+
                 String group_role = line.getGroup_role();
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
@@ -3159,6 +3167,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_price", group_price);
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("leader_id", leader_id);
+                jsonObject.put("leader", leader);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
 
