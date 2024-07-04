@@ -3097,6 +3097,8 @@ public class LoginServiceImpl implements LoginService {
         String location = null;
         String nick_name = null;
         String open_id = null;
+        Float group_price = 0.0f;
+        Integer group_num = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3120,6 +3122,17 @@ public class LoginServiceImpl implements LoginService {
                 location = line.getLocation();
                 nick_name = line.getNick_name();
                 open_id = line.getOpenid();
+                String goods_id = line.getGoods_id();
+
+                List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+                if(goodsLists.size()>0){
+                    GoodsList goodsList = goodsLists.get(0);
+                    goods_name = goodsList.getGoods_name();
+                    goods_price = goodsList.getGoods_price();
+                    group_price = goodsList.getGroup_price();
+                    group_num = goodsList.getGroup_num();
+                }
+
 
                 if(0==status){
                     status_get="未发货";
@@ -3139,6 +3152,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("location", location);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", open_id);
+                jsonObject.put("group_price", group_price);
+                jsonObject.put("group_num", group_num);
 
                 //json
                 resul_list.add(jsonObject);

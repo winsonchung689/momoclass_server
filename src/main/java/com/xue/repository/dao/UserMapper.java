@@ -721,6 +721,8 @@ public interface UserMapper {
 
     List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
 
+    List<GoodsList> getGoodsListById(String id);
+
     List<GoodsList> getGoodsListSearch(String studio,Integer page_start,Integer page_end,String content);
 
     List<GroupBuy> getGroupBuy(String studio, String goods_id);
