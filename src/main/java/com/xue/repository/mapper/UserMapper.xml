@@ -309,7 +309,7 @@
 
   <!-- 删除详情 -->
   <select id="deliverMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
-    update `order` set status = 1 where id = #{param1};
+    update `order` set status = #{param2} where id = #{param1};
   </select>
 
   <!-- 获取详情 -->

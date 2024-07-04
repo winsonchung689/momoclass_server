@@ -285,7 +285,7 @@ public interface UserMapper {
 
     void deleteUser(Integer id);
 
-    void deliverMyOrder(Integer id);
+    void deliverMyOrder(String id,Integer status);
 
     void deleteSignUpRecord(Integer id,String studio);
 

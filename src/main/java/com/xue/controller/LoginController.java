@@ -2099,9 +2099,15 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deliverMyOrder")
 	@ResponseBody
-	public int deliverMyOrder(Integer id){
+	public int deliverMyOrder(String id){
 		try {
-			dao.deliverMyOrder(id);
+			List<Order> orders = dao.getOrderById(id);
+			Integer status_get = orders.get(0).getStatus();
+			int status = 1;
+			if(status_get == 1){
+				status = 0;
+			}
+			dao.deliverMyOrder(id,status);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
