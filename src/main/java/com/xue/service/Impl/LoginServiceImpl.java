@@ -3142,7 +3142,11 @@ public class LoginServiceImpl implements LoginService {
                     goods_price = goodsList.getGoods_price();
                     group_price = goodsList.getGroup_price();
                     group_num = goodsList.getGroup_num();
-                    uuids = goodsList.getUuids();
+                    try {
+                        uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
+                    } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                    }
                 }
 
 
