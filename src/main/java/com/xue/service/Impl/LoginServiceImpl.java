@@ -3099,6 +3099,7 @@ public class LoginServiceImpl implements LoginService {
         String open_id = null;
         Float group_price = 0.0f;
         Integer group_num = 0;
+        String uuids = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3133,6 +3134,7 @@ public class LoginServiceImpl implements LoginService {
                     goods_price = goodsList.getGoods_price();
                     group_price = goodsList.getGroup_price();
                     group_num = goodsList.getGroup_num();
+                    uuids = goodsList.getUuids();
                 }
 
 
@@ -3158,6 +3160,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("leader_id", leader_id);
                 jsonObject.put("group_role", group_role);
+                jsonObject.put("uuids", uuids);
 
                 //json
                 resul_list.add(jsonObject);
