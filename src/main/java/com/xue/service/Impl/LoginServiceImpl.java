@@ -3161,6 +3161,8 @@ public class LoginServiceImpl implements LoginService {
         String location = null;
         String nick_name = null;
         String openid = null;
+        String studio = null;
+        String campus = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3182,12 +3184,20 @@ public class LoginServiceImpl implements LoginService {
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
 
+
+                List<User> users = dao.getUserByOpenid(leader_id);
+                if(users.size()>0){
+                    studio = users.get(0).getStudio();
+                    campus =  users.get(0).getCampus();
+                }
+
                 if(0==status){
                     status_get="未发货";
                 }
                 if(1==status){
                     status_get="已发货";
                 }
+
                 create_time = line.getCreate_time();
 
                 jsonObject.put("id", id);
@@ -3202,6 +3212,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", openid);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("leader_id", leader_id);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
 
                 //json
                 resul_list.add(jsonObject);
