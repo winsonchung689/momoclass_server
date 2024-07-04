@@ -3123,6 +3123,8 @@ public class LoginServiceImpl implements LoginService {
                 nick_name = line.getNick_name();
                 open_id = line.getOpenid();
                 String goods_id = line.getGoods_id();
+                String leader_id = line.getLeader_id();
+                String group_role = line.getGroup_role();
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -3154,6 +3156,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", open_id);
                 jsonObject.put("group_price", group_price);
                 jsonObject.put("group_num", group_num);
+                jsonObject.put("leader_id", leader_id);
+                jsonObject.put("group_role", group_role);
 
                 //json
                 resul_list.add(jsonObject);
