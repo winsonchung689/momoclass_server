@@ -3086,21 +3086,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getMyOrder(String studio, String openid) {
-        String goods_name = null;
-        String goods_intro = null;
-        Float goods_price = 0.0f;
-        Integer status = 0;
-        String status_get = null;
-        String create_time = null;
-        String id = null;
-        String phone_number = null;
-        String location = null;
-        String nick_name = null;
-        String open_id = null;
-        Float group_price = 0.0f;
-        Integer group_num = 0;
-        String uuids = null;
-        String leader = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -3112,18 +3097,24 @@ public class LoginServiceImpl implements LoginService {
             }
 
             for (int i = 0; i < list.size(); i++) {
+                String create_time = null;
+                Float group_price = 0.0f;
+                Integer group_num = 0;
+                String uuids = null;
+                String leader = null;
+
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
                 //获取字段
-                id = line.getId();
-                goods_name = line.getGoods_name();
-                goods_intro = line.getGoods_intro();
-                goods_price = line.getGoods_price();
-                status = line.getStatus();
-                phone_number = line.getPhone_number();
-                location = line.getLocation();
-                nick_name = line.getNick_name();
-                open_id = line.getOpenid();
+                String id = line.getId();
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                Integer status = line.getStatus();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+                String nick_name = line.getNick_name();
+                String  open_id = line.getOpenid();
                 String goods_id = line.getGoods_id();
 
                 String leader_id = line.getLeader_id();
@@ -3149,7 +3140,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-
+                String status_get = null;
                 if(0==status){
                     status_get="未发货";
                 }
