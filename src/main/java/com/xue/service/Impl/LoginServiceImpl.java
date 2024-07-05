@@ -3178,24 +3178,25 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getOrderByGoodsId(String goods_id) {
-        String goods_name = null;
-        String goods_intro = null;
-        Float goods_price = 0.0f;
-        Integer status = 0;
-        String status_get = null;
-        String create_time = null;
-        String phone_number = null;
-        String location = null;
-        String nick_name = null;
-        String openid = null;
-        String studio = null;
-        String campus = null;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
             List<Order> list =dao.getOrderByGoodsId(goods_id);;
 
             for (int i = 0; i < list.size(); i++) {
+                String goods_name = null;
+                String goods_intro = null;
+                Float goods_price = 0.0f;
+                Integer status = 0;
+                String status_get = null;
+                String create_time = null;
+                String phone_number = null;
+                String location = null;
+                String nick_name = null;
+                String openid = null;
+                String studio = null;
+                String campus = null;
+
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
                 //获取字段
@@ -3210,6 +3211,17 @@ public class LoginServiceImpl implements LoginService {
                 openid = line.getOpenid();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
+
+                String group_status = "未成团";
+                List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+                int group_num = goodsLists.get(0).getGroup_num();
+
+                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+                int group_num_get = orders.size();
+
+                if(group_num_get >= group_num){
+                    group_status = "已成团";
+                }
 
 
                 List<User> users = dao.getUserByOpenid(leader_id);
@@ -3241,6 +3253,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leader_id", leader_id);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
+                jsonObject.put("group_status", group_status);
 
                 //json
                 resul_list.add(jsonObject);

@@ -840,6 +840,10 @@
     select * from `order` where goods_id = #{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getOrderByGoodsLeader" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
+    select * from `order` where goods_id = #{param1} and leader_id = #{param2} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getOrderById" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
     select * from `order` where id = #{param1} and delete_status = 0 order by create_time desc
   </select>
