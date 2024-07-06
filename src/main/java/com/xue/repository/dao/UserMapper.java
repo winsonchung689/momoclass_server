@@ -279,7 +279,7 @@ public interface UserMapper {
 
     void deleteHome(String studio);
 
-    void deleteMyOrder(Integer id);
+    void deleteMyOrder(String id);
 
     void deleteNote(Integer id);
 

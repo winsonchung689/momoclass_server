@@ -2058,8 +2058,18 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/deleteMyOrder")
 	@ResponseBody
-	public int deleteMyOrder(Integer id){
+	public int deleteMyOrder(String id){
 		try {
+			List<Order> orders = dao.getOrderById(id);
+			Order order = orders.get(0);
+			String group_role = order.getGroup_role();
+			String leader_id = order.getLeader_id();
+			String goods_id = order.getGoods_id();
+
+			if("leader".equals(group_role)){
+				dao.deleteGroupBuy(goods_id,leader_id);
+			}
+
 			dao.deleteMyOrder(id);
 		} catch (Exception e) {
 			e.printStackTrace();
