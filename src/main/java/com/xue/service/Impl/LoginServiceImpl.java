@@ -4839,7 +4839,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page) {
+    public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page,String class_number) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         String date_time = df.format(new Date());
@@ -4887,7 +4887,7 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = line.getCreate_time();
                     String sign_time = line.getSign_time();
                     String mark = line.getMark();
-                    String class_number = line.getClass_number();
+                    String class_number_get = line.getClass_number();
 
                     Float total_money = 0.0f;
                     Float discount_money = 0.0f;
@@ -4930,7 +4930,7 @@ public class LoginServiceImpl implements LoginService {
                     count_sum = count_sum + count;
                     price_sum = price_sum + sign_price;
                     sign_sum = sign_sum + 1;
-                    String data_line = subject + "," + student_name + "," + class_number + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
+                    String data_line = subject + "," + student_name + "," + class_number_get + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
                     data_list.add(data_line);
                 }
 
@@ -4953,7 +4953,7 @@ public class LoginServiceImpl implements LoginService {
                 String mark = line.getMark();
                 Float count = line.getCount();
                 String campus_get = line.getCampus();
-                String class_number = line.getClass_number();
+                String class_number_get = line.getClass_number();
                 Float price = 0.0f;
                 Float total_money = 0.0f;
                 Float discount_money = 0.0f;
@@ -4986,7 +4986,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
-                jsonObject.put("class_number", class_number);
+                jsonObject.put("class_number", class_number_get);
                 jsonObject.put("campus", campus);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("sign_time", sign_time);
@@ -4995,7 +4995,12 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("count", count);
                 jsonObject.put("price", df1.format(price));
                 if(student_name.length() >0){
-                    resul_list.add(jsonObject);
+                    if("全部".equals(class_number)){
+                        resul_list.add(jsonObject);
+                    }else if(class_number.equals(class_number_get)){
+                        resul_list.add(jsonObject);
+                    }
+
                 }
             }
 
