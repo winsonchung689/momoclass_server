@@ -3217,9 +3217,9 @@ public class LoginServiceImpl implements LoginService {
                 int group_num = goodsLists.get(0).getGroup_num();
 
                 List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
-                int group_num_get = orders.size();
+                int group_sum = orders.size();
 
-                if(group_num_get >= group_num){
+                if(group_sum >= group_num){
                     group_status = "已成团";
                 }
 
@@ -3254,6 +3254,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
                 jsonObject.put("group_status", group_status);
+                jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
 
                 //json
                 resul_list.add(jsonObject);
