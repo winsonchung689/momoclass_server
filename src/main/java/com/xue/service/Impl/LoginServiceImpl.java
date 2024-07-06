@@ -4875,7 +4875,7 @@ public class LoginServiceImpl implements LoginService {
             Float count_sum = 0.0f;
             Float price_sum = 0.0f;
             Integer sign_sum = 0;
-            String title = "科目,名字,上课日,签到日,备注,课时,课均单价";
+            String title = "科目,名字,班号,上课日,签到日,备注,课时,课均单价";
             List<String> data_list = new ArrayList<>();
             if(page == 1){
                 List<SignUp> list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
@@ -4887,6 +4887,7 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = line.getCreate_time();
                     String sign_time = line.getSign_time();
                     String mark = line.getMark();
+                    String class_number = line.getClass_number();
 
                     Float total_money = 0.0f;
                     Float discount_money = 0.0f;
@@ -4929,7 +4930,7 @@ public class LoginServiceImpl implements LoginService {
                     count_sum = count_sum + count;
                     price_sum = price_sum + sign_price;
                     sign_sum = sign_sum + 1;
-                    String data_line = subject + "," + student_name + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
+                    String data_line = subject + "," + student_name + "," + class_number + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
                     data_list.add(data_line);
                 }
 
@@ -4952,6 +4953,7 @@ public class LoginServiceImpl implements LoginService {
                 String mark = line.getMark();
                 Float count = line.getCount();
                 String campus_get = line.getCampus();
+                String class_number = line.getClass_number();
                 Float price = 0.0f;
                 Float total_money = 0.0f;
                 Float discount_money = 0.0f;
@@ -4984,6 +4986,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("studio", studio);
                 jsonObject.put("subject", subject);
+                jsonObject.put("class_number", class_number);
                 jsonObject.put("campus", campus);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("sign_time", sign_time);
