@@ -1324,7 +1324,7 @@ public class LoginController {
 	public List getStudentByTeacher(String studio,String openid,String duration_time,Integer page,String class_number){
 		List list = null;
 		try {
-			list = loginService.getStudentByTeacher(studio,openid,duration_time,page);
+			list = loginService.getStudentByTeacher(studio,openid,duration_time,page,class_number);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
