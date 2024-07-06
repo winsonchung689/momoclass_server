@@ -3116,15 +3116,19 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 String  open_id = line.getOpenid();
                 String goods_id = line.getGoods_id();
-
+                String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
+
+                String group_status = "未成团";
+                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+                int group_sum = orders.size();
+
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
                     User user = users.get(0);
                     leader = user.getNick_name();
                 }
 
-                String group_role = line.getGroup_role();
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -3140,13 +3144,15 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                String status_get = null;
+                if(group_sum >= group_num){
+                    group_status = "已成团";
+                }
+
+                String status_get="已发货";
                 if(0==status){
                     status_get="未发货";
                 }
-                if(1==status){
-                    status_get="已发货";
-                }
+
                 create_time = line.getCreate_time();
 
                 jsonObject.put("id", id);
@@ -3166,6 +3172,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leader", leader);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("group_status", group_status);
+                jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
 
                 //json
                 resul_list.add(jsonObject);
@@ -3188,7 +3197,6 @@ public class LoginServiceImpl implements LoginService {
                 String goods_intro = null;
                 Float goods_price = 0.0f;
                 Integer status = 0;
-                String status_get = null;
                 String create_time = null;
                 String phone_number = null;
                 String location = null;
@@ -3230,11 +3238,9 @@ public class LoginServiceImpl implements LoginService {
                     campus =  users.get(0).getCampus();
                 }
 
+                String status_get="已发货";
                 if(0==status){
                     status_get="未发货";
-                }
-                if(1==status){
-                    status_get="已发货";
                 }
 
                 create_time = line.getCreate_time();
