@@ -93,6 +93,9 @@
   <resultMap id="BaseCommunicateRecord" type="com.xue.entity.model.CommunicateRecord">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BasePoints" type="com.xue.entity.model.Points">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -730,6 +733,10 @@
   <select id="getBookByAll" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
     select "汇总" create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0
   </select>
+
+  <insert id="insertPointsRecord" parameterType="com.xue.entity.model.Points">
+    insert points_record(student_name,create_time,studio,mark,points,subject,campus) values(#{student_name},#{create_time,#{studio},#{mark},#{points},#{subject},#{campus})
+  </insert>
 
   <!-- 插入账单 -->
   <insert id="insertBook" parameterType="com.xue.entity.model.Book">

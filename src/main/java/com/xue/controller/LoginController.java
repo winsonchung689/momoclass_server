@@ -5705,9 +5705,9 @@ public class LoginController {
 	}
 
 
-	@RequestMapping("/deletePoints")
+	@RequestMapping("/minusPoints")
 	@ResponseBody
-	public String deletePoints(HttpServletRequest request, HttpServletResponse response){
+	public String minusPoints(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String student_name = request.getParameter("student_name");
 		String studio = request.getParameter("studio");
@@ -5719,7 +5719,7 @@ public class LoginController {
 		Integer points = Integer.parseInt(points_get);
 
 		try {
-			loginService.deletePoints(student_name,studio,points,subject,campus);
+			loginService.updateAddPoints(student_name,studio,-points,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

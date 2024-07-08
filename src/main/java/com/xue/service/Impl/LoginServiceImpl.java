@@ -3982,8 +3982,10 @@ public class LoginServiceImpl implements LoginService {
         int result = 0;
         Integer points = 0;
         Integer new_points = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String create_time = df.format(new Date());
 
-        List<Lesson> list = dao.getLessonLikeNameBySubject(studio, student_name,subject,campus);
+        List<Lesson> list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
@@ -3999,6 +4001,23 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setSubject(subject);
                 lesson.setCampus(campus);
                 result = dao.updateLessonPoint(lesson);
+
+                if(points_int>0){
+                    Points points_rd = new Points();
+                    points_rd.setStudent_name(student_name);
+                    points_rd.setCreate_time(create_time);
+                    points_rd.setStudio(studio);
+                    points_rd.setMark("上课积分");
+                    points_rd.setPoints((float)points_int);
+                    points_rd.setSubject(subject);
+                    points_rd.setCampus(campus);
+
+                    dao.insertPointsRecord(points_rd);
+                }
+
+
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -4017,30 +4036,6 @@ public class LoginServiceImpl implements LoginService {
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        return result;
-    }
-
-
-    @Override
-    public int deletePoints(String student_name, String studio,Integer points,String subject,String campus) {
-        int result = 0;
-        try {
-            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-            Lesson lesson_get = lessons.get(0);
-            Integer total_points = lesson_get.getPoints();
-            Integer new_points = total_points-points;
-
-            Lesson lesson = new Lesson();
-            lesson.setStudent_name(student_name);
-            lesson.setPoints(new_points);
-            lesson.setStudio(studio);
-            lesson.setSubject(subject);
-            lesson.setCampus(campus);
-            result = dao.updateLessonPoint(lesson);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return result;
     }

@@ -242,8 +242,6 @@ public interface LoginService {
 
     public int updateLessonPackage(String id,String content,String type);
 
-    public int deletePoints(String student_name,String studio,Integer points,String subject,String campus);
-
     public int updateCoinsByStudio(String studio,String openid,Float number);
 
     public int updateGift(String id);

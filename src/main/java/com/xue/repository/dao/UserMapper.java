@@ -323,6 +323,8 @@ public interface UserMapper {
     int insertRestaurantUser(RestaurantUser restaurantUser);
 
     int insertBookUser(BookUser book);
+
+    int insertPointsRecord(Points points);
     int updateUser(User user);
 
     int updateOpenid(User user);
