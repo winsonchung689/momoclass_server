@@ -8742,5 +8742,33 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
+    @Override
+    public List getPointsRecordByMonth(String studio, String openid, String student_name, String subject, String month) {
+
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        List<Points> list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,month);
+        for (int i = 0; i < list.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Points points = list.get(i);
+            String student_name_get = points.getStudent_name();
+            String subject_get = points.getSubject();
+            Float points_get = points.getPoints();
+            String create_time = points.getCreate_time();
+
+
+            jsonObject.put("student_name", student_name_get);
+            jsonObject.put("subject", subject_get);
+            jsonObject.put("points", points_get);
+            jsonObject.put("create_time", create_time);
+            jsonObject.put("rank", i+1);
+            resul_list.add(jsonObject);
+        }
+
+        return resul_list;
+    }
+
 
 }
