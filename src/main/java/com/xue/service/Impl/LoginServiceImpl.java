@@ -4011,8 +4011,9 @@ public class LoginServiceImpl implements LoginService {
                     points_rd.setPoints((float)points_int);
                     points_rd.setSubject(subject);
                     points_rd.setCampus(campus);
-
-                    dao.insertPointsRecord(points_rd);
+                    if(points_int != 0){
+                        dao.insertPointsRecord(points_rd);
+                    }
                 }
 
             }
