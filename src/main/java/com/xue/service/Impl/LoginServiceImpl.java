@@ -8757,8 +8757,9 @@ public class LoginServiceImpl implements LoginService {
             String subject_get = points.getSubject();
             Float points_get = points.getPoints();
             String create_time = points.getCreate_time();
+            String mark = points.getMark();
 
-
+            jsonObject.put("mark", mark);
             jsonObject.put("student_name", student_name_get);
             jsonObject.put("subject", subject_get);
             jsonObject.put("points", points_get);
