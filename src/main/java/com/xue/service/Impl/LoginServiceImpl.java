@@ -3978,7 +3978,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateAddPoints(String student_name, String studio,Integer points_int,String subject,String campus) {
+    public int updateAddPoints(String student_name, String studio,Integer points_int,String subject,String campus,String mark) {
         int result = 0;
         Integer points = 0;
         Integer new_points = 0;
@@ -4002,22 +4002,16 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setCampus(campus);
                 result = dao.updateLessonPoint(lesson);
 
-                if(points_int>0){
-                    Points points_rd = new Points();
-                    points_rd.setStudent_name(student_name);
-                    points_rd.setCreate_time(create_time);
-                    points_rd.setStudio(studio);
-                    points_rd.setMark("上课积分");
-                    points_rd.setPoints((float)points_int);
-                    points_rd.setSubject(subject);
-                    points_rd.setCampus(campus);
+                Points points_rd = new Points();
+                points_rd.setStudent_name(student_name);
+                points_rd.setCreate_time(create_time);
+                points_rd.setStudio(studio);
+                points_rd.setMark(mark);
+                points_rd.setPoints((float)points_int);
+                points_rd.setSubject(subject);
+                points_rd.setCampus(campus);
 
-                    dao.insertPointsRecord(points_rd);
-                }
-
-
-
-
+                dao.insertPointsRecord(points_rd);
             }
         } catch (Exception e) {
             e.printStackTrace();

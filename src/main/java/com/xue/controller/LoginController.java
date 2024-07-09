@@ -2477,7 +2477,7 @@ public class LoginController {
 			int insert_res = loginService.insertSignUp(signUp);
 			if(insert_res>0){
 				loginService.updateMinusLesson(student_name,studio,count,subject,campus);
-				loginService.updateAddPoints(student_name,studio,coins,subject,campus);
+				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分");
 
 				List<User> users = dao.getUserByStudent(student_name,studio);
 				for(int i = 0;i < users.size(); i++){
@@ -2579,7 +2579,7 @@ public class LoginController {
 				int insert_res = loginService.insertSignUp(signUp);
 				if(insert_res>0){
 					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
-					loginService.updateAddPoints(student_name,studio,coins,subject,campus);
+					loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分");
 				}
 
 			}
@@ -5375,6 +5375,7 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 		String points = request.getParameter("points");
 		String subject = request.getParameter("subject");
+		String mark = request.getParameter("mark");
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -5385,7 +5386,7 @@ public class LoginController {
 		}
 
 		try {
-			loginService.updateAddPoints(student_name,studio,points_int,subject,campus);
+			loginService.updateAddPoints(student_name,studio,points_int,subject,campus,mark);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5704,28 +5705,6 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-
-	@RequestMapping("/minusPoints")
-	@ResponseBody
-	public String minusPoints(HttpServletRequest request, HttpServletResponse response){
-		//获取用户名
-		String student_name = request.getParameter("student_name");
-		String studio = request.getParameter("studio");
-		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
-		String points_get = request.getParameter("points");
-		String subject = request.getParameter("subject");
-		Integer points = Integer.parseInt(points_get);
-
-		try {
-			loginService.updateAddPoints(student_name,studio,-points,subject,campus);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "push massage successfully";
-	}
-
 	@RequestMapping("/cancelSignUp")
 	@ResponseBody
 	public String cancelSignUp(HttpServletRequest request, HttpServletResponse response){
@@ -5751,7 +5730,7 @@ public class LoginController {
 
 				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus);
+				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到");
 
 			} catch (Exception e) {
 				e.printStackTrace();
