@@ -2501,7 +2501,7 @@ public class LoginController {
 			int insert_res = loginService.insertSignUp(signUp);
 			if(insert_res>0){
 				loginService.updateMinusLesson(student_name,studio,count,subject,campus);
-				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分");
+				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
 
 				List<User> users = dao.getUserByStudent(student_name,studio);
 				for(int i = 0;i < users.size(); i++){
@@ -2603,7 +2603,7 @@ public class LoginController {
 				int insert_res = loginService.insertSignUp(signUp);
 				if(insert_res>0){
 					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
-					loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分");
+					loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
 				}
 
 			}
@@ -5415,7 +5415,7 @@ public class LoginController {
 		}
 
 		try {
-			loginService.updateAddPoints(student_name,studio,points_int,subject,campus,mark);
+			loginService.updateAddPoints(student_name,studio,points_int,subject,campus,mark,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5787,7 +5787,7 @@ public class LoginController {
 
 				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到");
+				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","");
 
 			} catch (Exception e) {
 				e.printStackTrace();
