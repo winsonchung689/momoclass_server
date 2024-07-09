@@ -2301,6 +2301,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deletePointsRecordById")
+	@ResponseBody
+	public int deletePointsRecordById(Integer id){
+		try {
+			dao.deletePointsRecordById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteLeaveRecord")
 	@ResponseBody
