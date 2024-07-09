@@ -8724,7 +8724,7 @@ public class LoginServiceImpl implements LoginService {
             for(int j = 0; j < list.size(); j++){
                 Points points_m = points_list.get(j);
                 Float points_get = points_m.getPoints();
-                month_points = month_points + points_get
+                month_points = month_points + points_get;
             }
 
 
