@@ -279,6 +279,11 @@
     select * from class_comment where studio= #{param1} and cast(replace(replace(duration,':',''),'-','') as signed)=cast(replace(replace(#{param2},':',''),'-','') as signed) and student_name= #{param3} and date_format(create_time, '%Y-%m-%d')= #{param4} and campus =#{param5} and class_target_bak =#{param6} and delete_status = 0
   </select>
 
+  <!-- 积分明细 -->
+  <select id="getPointsRecordByStudent" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
+    select * from points_record where delete_status = 0 and student_name = #{param1} and studio = #{param2} and campus = #{param3} and subject = #{param4} and date_format(create_time, '%Y-%m') = #{param5}
+  </select>
+
   <!-- 获取学生照片 -->
   <select id="getStudentPhoto" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target = '礼品乐园' and delete_status = 0 and student_name =#{param1} and studio =#{param2} and campus =#{param3} order by create_time desc limit 1;

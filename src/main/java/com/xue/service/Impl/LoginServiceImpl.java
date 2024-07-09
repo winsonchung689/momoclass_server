@@ -8700,6 +8700,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getStandings(String studio, String openid, String student_name, String subject) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
+        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
         Integer my_points = 0;
@@ -8717,9 +8719,19 @@ public class LoginServiceImpl implements LoginService {
                 my_points = my_points + points;
             }
 
+            Float month_points = 0.0f;
+            List<Points> points_list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,create_time);
+            for(int j = 0; j < list.size(); j++){
+                Points points_m = points_list.get(j);
+                Float points_get = points_m.getPoints();
+                month_points = month_points + points_get
+            }
+
+
             jsonObject.put("student_name", student_name_get);
             jsonObject.put("subject", subject_get);
             jsonObject.put("points", points);
+            jsonObject.put("month_points", month_points);
             jsonObject.put("rank", i+1);
             resul_list.add(jsonObject);
         }
