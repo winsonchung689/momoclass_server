@@ -8705,7 +8705,6 @@ public class LoginServiceImpl implements LoginService {
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
         Integer my_points = 0;
-        Integer rank = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
         List<Lesson> list = dao.getRating(studio,0,10000,campus);
@@ -8722,7 +8721,7 @@ public class LoginServiceImpl implements LoginService {
             Float month_points = 0.0f;
             List<Points> points_list = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,create_time);
             if(points_list.size()>0){
-                for(int j = 0; j < list.size(); j++){
+                for(int j = 0; j < points_list.size(); j++){
                     Points points_m = points_list.get(j);
                     Float points_get = points_m.getPoints();
                     month_points = month_points + points_get;
