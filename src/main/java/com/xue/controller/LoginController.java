@@ -5410,7 +5410,13 @@ public class LoginController {
 		String campus = list_user.get(0).getCampus();
 
 		try {
-			loginService.updateAddPoints(student_name,studio,0,subject,campus,"积分清零");
+			Lesson lesson = new Lesson();
+			lesson.setStudent_name(student_name);
+			lesson.setPoints(0);
+			lesson.setStudio(studio);
+			lesson.setSubject(subject);
+			lesson.setCampus(campus);
+			dao.updateLessonPoint(lesson);
 
 			dao.deletePointsRecordByStudent(student_name,studio,campus,subject);
 
