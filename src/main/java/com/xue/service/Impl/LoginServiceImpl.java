@@ -4002,16 +4002,19 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setCampus(campus);
                 result = dao.updateLessonPoint(lesson);
 
-                Points points_rd = new Points();
-                points_rd.setStudent_name(student_name);
-                points_rd.setCreate_time(create_time);
-                points_rd.setStudio(studio);
-                points_rd.setMark(mark);
-                points_rd.setPoints((float)points_int);
-                points_rd.setSubject(subject);
-                points_rd.setCampus(campus);
+                if("上课积分".equals(mark)){
+                    Points points_rd = new Points();
+                    points_rd.setStudent_name(student_name);
+                    points_rd.setCreate_time(create_time);
+                    points_rd.setStudio(studio);
+                    points_rd.setMark(mark);
+                    points_rd.setPoints((float)points_int);
+                    points_rd.setSubject(subject);
+                    points_rd.setCampus(campus);
 
-                dao.insertPointsRecord(points_rd);
+                    dao.insertPointsRecord(points_rd);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

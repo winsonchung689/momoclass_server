@@ -309,8 +309,12 @@
     update user set delete_status = 1 where id = #{param1};
   </select>
 
-  <select id="deletePointsRecord" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
+  <select id="deletePointsRecordById" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
     update points_record set delete_status = 1 where id = #{param1};
+  </select>
+
+  <select id="deletePointsRecordByStudent" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
+    update points_record set delete_status = 1 where student_name = #{param1} and studio = #{param2} and campus = #{param3} and subject = #{param4}
   </select>
 
   <!-- 删除详情 -->

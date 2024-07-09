@@ -5393,6 +5393,28 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/resetPoints")
+	@ResponseBody
+	public String resetPoints(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		String student_name = request.getParameter("student_name");
+		String studio = request.getParameter("studio");
+		String subject = request.getParameter("subject");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String campus = list_user.get(0).getCampus();
+
+		try {
+			loginService.updateAddPoints(student_name,studio,0,subject,campus,"积分清零");
+
+			dao.deletePointsRecordByStudent(student_name,studio,campus,subject);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateUserPay")
 	@ResponseBody
 	public String updateUserPay(HttpServletRequest request, HttpServletResponse response){
