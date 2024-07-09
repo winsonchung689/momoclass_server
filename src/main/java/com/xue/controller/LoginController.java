@@ -5376,6 +5376,7 @@ public class LoginController {
 		String points = request.getParameter("points");
 		String subject = request.getParameter("subject");
 		String mark = request.getParameter("mark");
+		String type = request.getParameter("type");
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -5383,6 +5384,10 @@ public class LoginController {
 		Integer points_int = Integer.parseInt(points);
 		if(subject==null){
 			subject="美术";
+		}
+
+		if("minus".equals(type)){
+			points_int = -points_int;
 		}
 
 		try {
