@@ -1504,7 +1504,7 @@ public class LoginController {
 	public List getPointsRecordByMonth(String studio, String openid, String student_name, String subject, String month){
 		List list = null;
 		try {
-			list = loginService.getPointsRecordByMonth(student_name,studio,openid,subject,month);
+			list = loginService.getPointsRecordByMonth(studio,openid,student_name,subject,month);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
