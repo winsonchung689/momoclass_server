@@ -280,7 +280,7 @@
   </select>
 
   <!-- 积分明细 -->
-  <select id="getPointsRecordByStudent" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
+  <select id="getPointsRecordByStudent" parameterType="com.xue.entity.model.Points" resultMap="BasePoints">
     select * from points_record where delete_status = 0 and student_name = #{param1} and studio = #{param2} and campus = #{param3} and subject = #{param4} and date_format(create_time, '%Y-%m') = #{param5}
   </select>
 
