@@ -8721,12 +8721,13 @@ public class LoginServiceImpl implements LoginService {
 
             Float month_points = 0.0f;
             List<Points> points_list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,create_time);
-            for(int j = 0; j < list.size(); j++){
-                Points points_m = points_list.get(j);
-                Float points_get = points_m.getPoints();
-                month_points = month_points + points_get;
+            if(points_list.size()>0){
+                for(int j = 0; j < list.size(); j++){
+                    Points points_m = points_list.get(j);
+                    Float points_get = points_m.getPoints();
+                    month_points = month_points + points_get;
+                }
             }
-
 
             jsonObject.put("student_name", student_name_get);
             jsonObject.put("subject", subject_get);
