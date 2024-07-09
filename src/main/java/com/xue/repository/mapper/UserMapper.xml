@@ -742,7 +742,7 @@
   </select>
 
   <insert id="insertPointsRecord" parameterType="com.xue.entity.model.Points">
-    insert points_record(student_name,create_time,studio,mark,points,subject,campus) values(#{student_name},#{create_time,#{studio},#{mark},#{points},#{subject},#{campus})
+    insert points_record(student_name,create_time,studio,mark,points,subject,campus) values(#{student_name},#{create_time},#{studio},#{mark},#{points},#{subject},#{campus})
   </insert>
 
   <!-- 插入账单 -->
