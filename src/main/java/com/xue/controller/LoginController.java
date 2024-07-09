@@ -1499,6 +1499,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getPointsRecordByMonth")
+	@ResponseBody
+	public List getPointsRecordByMonth(String studio, String campus, String student_name, String subject, String month){
+		List list = null;
+		try {
+			list = loginService.getPointsRecordByMonth(student_name,studio,campus,subject,month);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getClassStudent")
 	@ResponseBody
 	public List getClassStudent(String studio,String campus,String type,String subject,String date_time){
