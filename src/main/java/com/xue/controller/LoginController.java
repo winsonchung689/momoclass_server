@@ -1580,7 +1580,7 @@ public class LoginController {
 			}else if("group_price".equals(type)){
 				dao.modifyGoodsGroupPrice(goods_id,studio,campus,goods_intro_modify);
 			}else if("cut_step".equals(type)){
-				dao.modifyGoodsGroupPrice(goods_id,studio,campus,goods_intro_modify);
+				dao.modifyGoodsCutStep(goods_id,studio,campus,goods_intro_modify);
 			}
 
 		} catch (Exception e) {
