@@ -3262,7 +3262,10 @@ public class LoginController {
 			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
 			Float cut_step = goodsLists.get(0).getCut_step();
 			Float group_price = goodsLists.get(0).getGroup_price();
-			order.setCut_price(group_price);
+
+			if("leader".equals(group_role)){
+				order.setCut_price(group_price);
+			}
 
 			loginService.insertOrder(order);
 
