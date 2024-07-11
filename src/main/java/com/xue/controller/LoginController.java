@@ -2084,13 +2084,14 @@ public class LoginController {
 			if("leader".equals(group_role)){
 				dao.deleteGroupBuy(goods_id,leader_id);
 			}
-
 			dao.deleteMyOrder(id);
 
-			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-			Float cut_step = goodsLists.get(0).getCut_step();
-			Float cut_price_new = cut_price + cut_step;
-			dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+			if("follower".equals(group_role)){
+				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+				Float cut_step = goodsLists.get(0).getCut_step();
+				Float cut_price_new = cut_price + cut_step;
+				dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -3233,7 +3234,8 @@ public class LoginController {
 	@RequestMapping("/insertOrder")
 	@ResponseBody
 	public int insertOrder(HttpServletRequest request, HttpServletResponse response){
-
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
 			String studio =  request.getParameter("studio");
@@ -3244,9 +3246,6 @@ public class LoginController {
 			String group_role =  request.getParameter("group_role");
 			String goods_id =  request.getParameter("goods_id");
 			String leader_id =  request.getParameter("leader_id");
-
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 			Order order = new Order();
 			order.setNick_name(nick_name);
@@ -3265,17 +3264,15 @@ public class LoginController {
 
 			if("leader".equals(group_role)){
 				order.setCut_price(group_price-cut_step);
-			}
-
-			loginService.insertOrder(order);
-
-			if("follower".equals(group_role)){
+			}else{
 				List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
 				Float cut_price = orders.get(0).getCut_price();
 				Float cut_price_new = cut_price - cut_step;
+				order.setCut_price(cut_price_new);
 				dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
 			}
 
+			loginService.insertOrder(order);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
