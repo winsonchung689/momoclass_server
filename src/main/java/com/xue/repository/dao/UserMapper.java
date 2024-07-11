@@ -255,6 +255,8 @@ public interface UserMapper {
 
     void modifyMark(String id,String studio,String mark);
 
+    void modifyOrderCutPrice(String goods_id,String leader_id,Float cut_price);
+
     void updateLocation(String openid,String location);
 
     void updatePhoneNumber(String openid,String phone_number);

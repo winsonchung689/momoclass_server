@@ -17,7 +17,17 @@ public class Order {
     private String group_role;
     private String goods_id;
     private String leader_id;
+    private Float cut_price;
 
+
+
+    public Float getCut_price() {
+        return cut_price;
+    }
+
+    public void setCut_price(Float cut_price) {
+        this.cut_price = cut_price;
+    }
 
     public String getLeader_id() {
         return leader_id;

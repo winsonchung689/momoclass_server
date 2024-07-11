@@ -3219,6 +3219,7 @@ public class LoginServiceImpl implements LoginService {
                 openid = line.getOpenid();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
+                Float cut_price = line.getCut_price();
 
                 String group_status = "未成团";
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
@@ -3262,6 +3263,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_status", group_status);
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("group_sum", group_sum);
+                jsonObject.put("cut_price", cut_price);
 
                 //json
                 resul_list.add(jsonObject);
