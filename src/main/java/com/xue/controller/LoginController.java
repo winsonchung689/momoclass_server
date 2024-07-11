@@ -3259,10 +3259,15 @@ public class LoginController {
 			order.setGoods_id(goods_id);
 			order.setLeader_id(leader_id);
 
-			loginService.insertOrder(order);
-
 			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
 			Float cut_step = goodsLists.get(0).getCut_step();
+			Float group_price = goodsLists.get(0).getGroup_price();
+
+			order.setCut_price(group_price);
+
+			loginService.insertOrder(order);
+
+
 			List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
 			Float cut_price = orders.get(0).getCut_price();
 			Float cut_price_new = cut_price + cut_step;
