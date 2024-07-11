@@ -3265,7 +3265,7 @@ public class LoginController {
 			Float cut_step = goodsLists.get(0).getCut_step();
 			List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
 			Float cut_price = orders.get(0).getCut_price();
-			Float cut_price_new = cut_price - cut_step;
+			Float cut_price_new = cut_price + cut_step;
 			dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
 		} catch (Exception e) {
 			e.printStackTrace();
