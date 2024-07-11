@@ -3264,15 +3264,18 @@ public class LoginController {
 			Float group_price = goodsLists.get(0).getGroup_price();
 
 			if("leader".equals(group_role)){
-				order.setCut_price(group_price);
+				order.setCut_price(group_price-cut_step);
 			}
 
 			loginService.insertOrder(order);
 
-			List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
-			Float cut_price = orders.get(0).getCut_price();
-			Float cut_price_new = cut_price - cut_step;
-			dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+			if("follower".equals(group_role)){
+				List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+				Float cut_price = orders.get(0).getCut_price();
+				Float cut_price_new = cut_price - cut_step;
+				dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
