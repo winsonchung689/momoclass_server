@@ -15,6 +15,8 @@ public class GoodsList {
 
     private Float group_price;
 
+    private Float cut_step;
+
     private Integer delete_status;
 
     private Integer is_group;
@@ -44,6 +46,14 @@ public class GoodsList {
 
     public void setGroup_price(Float group_price) {
         this.group_price = group_price;
+    }
+
+    public Float getCut_step() {
+        return cut_step;
+    }
+
+    public void setCut_step(Float cut_step) {
+        this.cut_step = cut_step;
     }
 
     public Integer getIs_group() {

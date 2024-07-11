@@ -8470,7 +8470,10 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
+                Float cut_step = line.getCut_step();
+
                 //json
+                jsonObject.put("cut_step", cut_step);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
