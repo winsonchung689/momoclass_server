@@ -4925,6 +4925,17 @@ public class LoginServiceImpl implements LoginService {
                     count_sum = count_sum + count;
                     price_sum = price_sum + sign_price;
                     sign_sum = sign_sum + 1;
+
+                    if("全部".equals(class_number)){
+                        count_sum = count_sum + count;
+                        price_sum = price_sum + sign_price;
+                        sign_sum = sign_sum + 1;
+                    }else if(class_number.equals(class_number_get)){
+                        count_sum = count_sum + count;
+                        price_sum = price_sum + sign_price;
+                        sign_sum = sign_sum + 1;
+                    }
+
                     String data_line = subject + "," + student_name + "," + class_number_get + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
                     data_list.add(data_line);
                 }
