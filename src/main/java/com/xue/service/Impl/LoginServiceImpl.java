@@ -4922,10 +4922,6 @@ public class LoginServiceImpl implements LoginService {
                         throw new RuntimeException(e);
                     }
 
-                    count_sum = count_sum + count;
-                    price_sum = price_sum + sign_price;
-                    sign_sum = sign_sum + 1;
-
                     if("全部".equals(class_number)){
                         count_sum = count_sum + count;
                         price_sum = price_sum + sign_price;
