@@ -690,7 +690,7 @@
   </select>
 
   <select id="getAnalyzeSignUpByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and create_time between #{param3} and #{param4} group by student_name
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
