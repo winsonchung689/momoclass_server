@@ -214,7 +214,6 @@ public class LoginController {
 		JSONArray stop = new JSONArray();
 		stop.add("<br>");
 		params.put("stop", stop);
-
 		return JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
 	}
 
