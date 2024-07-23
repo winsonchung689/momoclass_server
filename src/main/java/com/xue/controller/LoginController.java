@@ -214,7 +214,9 @@ public class LoginController {
 		JSONArray stop = new JSONArray();
 		stop.add("<br>");
 		params.put("stop", stop);
-		return JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
+		String res = JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
+		System.out.println(res);
+		return res;
 	}
 
 	//	获取token
