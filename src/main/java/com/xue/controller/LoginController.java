@@ -199,9 +199,12 @@ public class LoginController {
 	@RequestMapping("/chat")
 	@ResponseBody
 	public static String chat(String question){
+		String OPENAI_API_KEY = System.getProperty("OPENAI_API_KEY");
 		Map<String, String> header = new HashMap<String, String>();
+		System.out.println(question);
+
 		header.put("Content-Type", "application/json");
-		header.put("Authorization", "Bearer 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");
+		header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 		JSONObject params = new JSONObject();
 		params.put("model", "text-davinci-003");
 		params.put("prompt", question);
