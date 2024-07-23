@@ -233,7 +233,7 @@ public class LoginController {
 		JSONObject params = new JSONObject();
 		params.put("question", question);
 
-		String res = JsonUtils.doPost("http://43.156.34.5/chat", header, params);
+		String res = JsonUtils.doPost("https://43.156.34.5/chat", header, params);
 		System.out.println(res);
 		return res;
 	}
