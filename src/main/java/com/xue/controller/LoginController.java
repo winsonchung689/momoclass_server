@@ -199,14 +199,14 @@ public class LoginController {
 	@RequestMapping("/chat")
 	@ResponseBody
 	public static String chat(String question){
-		String OPENAI_API_KEY = System.getProperty("OPENAI_API_KEY");
-		Map<String, String> header = new HashMap<String, String>();
 		System.out.println(question);
 
+		String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "application/json");
 		header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 		JSONObject params = new JSONObject();
-		params.put("model", "text-davinci-003");
+		params.put("model", "gpt-4o-mini");
 		params.put("prompt", question);
 		params.put("temperature", 0.9);
 		params.put("max_tokens", 2048);
@@ -221,6 +221,23 @@ public class LoginController {
 		System.out.println(res);
 		return res;
 	}
+
+	@RequestMapping("/momoChat")
+	@ResponseBody
+	public static String momoChat(String question){
+		System.out.println(question);
+
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Content-Type", "application/x-www-form-urlencoded");
+		header.put("Accept", "application/json");
+		JSONObject params = new JSONObject();
+		params.put("question", question);
+
+		String res = JsonUtils.doPost("http://43.156.34.5/chat", header, params);
+		System.out.println(res);
+		return res;
+	}
+
 
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
