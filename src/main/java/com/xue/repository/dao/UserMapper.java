@@ -813,7 +813,7 @@ public interface UserMapper {
 
     int updateGift(String id,Integer status);
 
-    int updateCoinsByStudio(User user);
+    int updateCoinsByStudio(String studio,Float coins);
 
     int updateReadTimesByOpenid(String openid,Float read_times);
 

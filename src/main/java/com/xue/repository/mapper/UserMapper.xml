@@ -1922,7 +1922,7 @@
 
   <!-- 更新用户金币 -->
   <update id="updateCoinsByStudio" parameterType="com.xue.entity.model.User">
-    update user set coins=#{coins},expired_time=#{expired_time} where studio=#{studio} and delete_status = 0
+    update user set coins=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <!-- 更新用可观看次数 -->

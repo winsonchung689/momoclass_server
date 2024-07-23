@@ -5688,7 +5688,6 @@ public class LoginController {
 	public String updateCoinsByStudio(HttpServletRequest request, HttpServletResponse response){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-        Calendar cal = Calendar.getInstance();
 
 		//获取用户名
 		String studio = request.getParameter("studio");
@@ -5698,24 +5697,7 @@ public class LoginController {
 		Float number_in = Float.parseFloat(number);
 
 		try {
-			if("获取".equals(type)){
-				loginService.updateCoinsByStudio(studio,openid,number_in);
-			}else if("禁止".equals(type)){
-				loginService.updateCoinsByStudio(studio,openid,-number_in);
-                List<User> users = dao.getUserByOpenid(openid);
-                String expired_time_ad_get = users.get(0).getExpired_time_ad();
-                Date expired_time_ad_get_date = df.parse(expired_time_ad_get);
-                long expired_time_timestamp = expired_time_ad_get_date.getTime();
-                Date now_time_date = df.parse(now_time);
-                long now_time_date_timestamp = now_time_date.getTime();
-                if(expired_time_timestamp > now_time_date_timestamp){
-                    now_time_date_timestamp = expired_time_timestamp;
-                }
-				cal.setTimeInMillis(now_time_date_timestamp);
-				cal.add(cal.DATE,30);
-				String expired_time_ad = df.format(cal.getTime());
-				dao.updateUserExpiredTimeAd(openid,expired_time_ad);
-			}
+			loginService.updateCoinsByStudio(studio,openid,number_in,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

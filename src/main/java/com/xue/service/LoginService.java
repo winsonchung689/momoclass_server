@@ -242,7 +242,7 @@ public interface LoginService {
 
     public int updateLessonPackage(String id,String content,String type);
 
-    public int updateCoinsByStudio(String studio,String openid,Float number);
+    public int updateCoinsByStudio(String studio,String openid,Float number,String type);
 
     public int updateGift(String id);
 

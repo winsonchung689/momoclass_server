@@ -4041,59 +4041,24 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateCoinsByStudio(String studio,String openid,Float number) {
+    public int updateCoinsByStudio(String studio,String openid,Float number,String type) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         int result = 0;
         try {
             List<User> users = dao.getUserByOpenid(openid);
-            Float  read_times = users.get(0).getRead_times();
-            if (read_times == null) {
-                read_times = 0.0f;
+            Float coins = users.get(0).getCoins();
+            if (coins == null) {
+                coins = 0.0f;
+            }
+            if("消耗".equals(type)){
+                coins = coins - number;
             }
 
-            Float new_read_times = read_times + number;
-            dao.updateReadTimesByOpenid(openid,new_read_times);
+            dao.updateCoinsByStudio(studio,coins);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        Float new_coins = 0.0f;
-        List<User> list = dao.getBossByStudioOnly(studio);
-        if(list.size()>0){
-            User line = list.get(0);
-            Float coins = line.getCoins();
-            String expired_time = line.getExpired_time();
-            String member = line.getMember();
-
-            if("永恒会员".equals(member)){
-                if (coins == null) {
-                    coins = 0.0f;
-                }
-                new_coins = coins + 0.5f;
-                if(new_coins<24){
-                    User user = new User();
-                    user.setCoins(new_coins);
-                    user.setStudio(studio);
-                    user.setExpired_time(expired_time);
-                    result = dao.updateCoinsByStudio(user);
-                }else if(new_coins>=24){
-                    Calendar cal = Calendar.getInstance();
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-                    try {
-                        cal.setTime(df.parse(expired_time));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    cal.add(cal.DATE,1);
-                    String expired_time_new = df.format(cal.getTime());
-                    User user = new User();
-                    user.setCoins(0.0f);
-                    user.setStudio(studio);
-                    user.setExpired_time(expired_time_new);
-                    result = dao.updateCoinsByStudio(user);
-                }
-            }
-        }
-
 
         return result;
     }
@@ -5062,6 +5027,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String getOpenidOfficial() {
+
+        // 每天更新公众号绑定状态
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");
         for(int k=0;k<apps.size();k++){
@@ -5071,9 +5038,7 @@ public class LoginServiceImpl implements LoginService {
                 String token = getToken(app);
                 String url = "https://api.weixin.qq.com/cgi-bin/user/get";
                 String param = "access_token="+ token;
-
                 String url1 = "https://api.weixin.qq.com/cgi-bin/user/info";
-
                 result = HttpUtil.sendPost(url	,param);
                 JSONObject jsonObject = JSON.parseObject(result);
                 String data = jsonObject.getString("data");
@@ -5106,28 +5071,19 @@ public class LoginServiceImpl implements LoginService {
                         throw new RuntimeException(e);
                     }
 
-                    //更新小桃子点点公众号
-                    try {
-                        List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByUnionid(unionid);
-                        if(restaurantUsers.size()>0){
-                            for(int jj =0;jj<restaurantUsers.size();jj++){
-                                String official_openid_get = restaurantUsers.get(jj).getOfficial_openid();
-                                if(official_openid_get != null){
-                                    if(!official_openid_get.contains(official_openid)){
-                                        official_openid = official_openid + "," + official_openid_get;
-                                    }
-                                }
-                                dao.updateRestaurantUserOfficialOpenid(unionid,official_openid);
-                            }
-                        }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
+
+        // 每天重置AI课评可用次数 20 次
+        List<User> user = dao.getStudioBoss("boss");
+        for(int i=0;i<user.size();i++){
+            String studio = user.get(i).getStudio();
+            dao.updateCoinsByStudio(studio,20.0f);
+        }
+
         return null;
     }
 
