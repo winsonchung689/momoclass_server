@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -225,16 +226,17 @@ public class LoginController {
 	@RequestMapping("/momoChat")
 	@ResponseBody
 	public static String momoChat(String question){
+		String res = null;
 		System.out.println(question);
+		try {
+			String encodedParam = URLEncoder.encode(question, "UTF-8");
+			String url = "http://43.156.34.5:443/chat?question=" + encodedParam;
 
-		Map<String, String> header = new HashMap<String, String>();
-		header.put("Content-Type", "application/x-www-form-urlencoded");
-		header.put("Accept", "application/json");
-		JSONObject params = new JSONObject();
-		params.put("question", question);
-
-		String res = JsonUtils.doPost("http://43.156.34.5:443/chat?question="+question, header, params);
-		System.out.println(res);
+			res = JsonUtils.doGet(url);
+			System.out.println(res);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 		return res;
 	}
 
