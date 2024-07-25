@@ -133,7 +133,7 @@ public class LoginController {
 				queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",consume_lesson_amount+"课时");
 				queryJson.getJSONObject("data").getJSONObject("short_thing4").put("value",left_amount+"课时");
 				queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio);
-				queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
+				queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid);
 
 				System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 				result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
