@@ -2526,8 +2526,6 @@ public class LoginController {
 				count = Float.parseFloat(class_count);
 			}
 
-
-
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
 			signUp.setSign_time(update_time);
@@ -2574,89 +2572,6 @@ public class LoginController {
 				}
 			}
 
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return 1;
-
-	}
-
-	@RequestMapping("/signUpScheduleClass")
-	@ResponseBody
-	public int signUpScheduleClass(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-		Date d = null;
-		String student_name = null;
-		String mark = "无备注";
-
-		String studio = request.getParameter("studio");
-		String date_time = request.getParameter("date_time");
-		String class_count = request.getParameter("class_count");
-		String duration = request.getParameter("duration");
-		String class_number = request.getParameter("class_number");
-		String subject = request.getParameter("subject");
-		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
-		String nick_name =list_user.get(0).getNick_name();
-
-		try {
-			d = fmt.parse(date_time);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(d);
-			Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
-
-			List<Schedule> schedules = dao.getScheduleDetailAll_O(weekDay,duration,studio,class_number,subject,campus,date_time);
-			List<Schedule> schedules_t = dao.getScheduleDetailAll_T(weekDay,duration,studio,class_number,subject,campus,date_time);
-			schedules.addAll(schedules_t);
-
-			for(int i = 0;i < schedules.size(); i++){
-				student_name = schedules.get(i).getStudent_name();
-				Schedule schedule =new Schedule();
-				SignUp signUp = new SignUp();
-				schedule.setStudent_name(student_name);
-				schedule.setStudio(studio);
-				schedule.setUpdate_time(update_time);
-				schedule.setCampus(campus);
-				loginService.updateSchedule(schedule);
-
-				List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
-				Float count = 0.0f;
-				Integer coins = 0;
-				if(lessons.size()>0){
-					count = lessons.get(0).getMinus();
-					Float coins_get = lessons.get(0).getCoins();
-					coins = Math.round(coins_get);
-				}
-
-
-				signUp.setStudent_name(student_name);
-				signUp.setStudio(studio);
-				signUp.setSign_time(update_time);
-				signUp.setCreate_time(date_time + " 00:00:00");
-				signUp.setMark(mark);
-				signUp.setDuration(duration);
-				signUp.setCount(count);
-				signUp.setSubject(subject);
-				signUp.setTeacher(nick_name);
-				signUp.setCampus(campus);
-				if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
-					class_number = "无班号";
-				}
-				signUp.setClass_number(class_number);
-
-				int insert_res = loginService.insertSignUp(signUp);
-				if(insert_res>0){
-					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
-					loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
-				}
-
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
