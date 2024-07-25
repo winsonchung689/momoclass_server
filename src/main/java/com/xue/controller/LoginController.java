@@ -743,6 +743,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取学生的课包记录
+	@RequestMapping("/getLessonPackageByStudent")
+	@ResponseBody
+	public List getLessonPackageByStudent(String student_name,String openid){
+		List list = null;
+		try {
+			list = loginService.getLessonPackageByStudent(student_name,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getLessonPackage")
 	@ResponseBody
 	public List getLessonPackage(String student_name,String studio,String openid,String subject,String search_type,String duration_time){

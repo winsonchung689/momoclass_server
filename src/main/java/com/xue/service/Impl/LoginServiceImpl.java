@@ -5383,6 +5383,49 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getLessonPackageByStudent(String student_name, String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<User> list_user = dao.getUser(openid);
+            String campus = list_user.get(0).getCampus();
+            String studio = list_user.get(0).getStudio();
+
+            List<LessonPackage> lessonPackages = dao.getLessonPackageByStudent(student_name,studio,campus);
+            for (int i = 0; i < lessonPackages.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                LessonPackage line = lessonPackages.get(i);
+                //获取字段
+                Float total_money = line.getTotal_money();
+                Float discount_money = line.getDiscount_money();
+                String mark = line.getMark();
+                String start_date = line.getStart_date();
+                String end_date = line.getEnd_date();
+                String id = line.getId();
+                Float all_lesson = line.getAll_lesson();
+                Float give_lesson = line.getGive_lesson();
+                String nick_name = line.getNick_name();
+
+                //json
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_money", total_money);
+                jsonObject.put("discount_money", discount_money);
+                jsonObject.put("mark", mark);
+                jsonObject.put("start_date", start_date);
+                jsonObject.put("end_date", end_date);
+                jsonObject.put("id", id);
+                jsonObject.put("all_lesson", all_lesson);
+                jsonObject.put("give_lesson", give_lesson);
+                jsonObject.put("nick_name", nick_name);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getLessonByNameSubject(String student_name, String studio,String subject,String campus) {
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;

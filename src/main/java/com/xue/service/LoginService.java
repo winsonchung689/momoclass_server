@@ -92,6 +92,8 @@ public interface LoginService {
 
     public List  getLessonPackageByAll(String studio,String openid);
 
+    public List  getLessonPackageByStudent(String student_name,String openid);
+
     public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 
     public List  getGift(String student_name,String studio);
