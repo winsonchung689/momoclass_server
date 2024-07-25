@@ -283,7 +283,7 @@ public class LoginController {
 					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
 					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
 					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
-					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid);
 
 					System.out.println("OFFICIAL_PARAM:" + queryJson.toJSONString());
 					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
