@@ -2519,6 +2519,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 member = line.getMember();
                 campus = line.getCampus();
+                String theme = line.getTheme();
 
                 //json
                 jsonObject.put("id", id);
@@ -2537,6 +2538,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subjects",subjects);
                 jsonObject.put("member",member);
                 jsonObject.put("campus",campus);
+                jsonObject.put("theme",theme);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
