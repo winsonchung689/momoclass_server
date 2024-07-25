@@ -5310,6 +5310,16 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 student_name  = line.getStudent_name();
 
+                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
+                Float package_sum = 0.0f;
+                if(signUps.size()>0){
+                    for (int j = 0; j < signUps.size(); j++) {
+                        Float count = signUps.get(j).getCount();
+                        package_sum = package_sum + count;
+                    }
+                }
+                Float lesson_left = all_lesson + give_lesson - package_sum;
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_money", total_money);
@@ -5321,6 +5331,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("all_lesson", all_lesson);
                 jsonObject.put("give_lesson", give_lesson);
                 jsonObject.put("nick_name", nick_name);
+                jsonObject.put("package_sum", package_sum);
+                jsonObject.put("lesson_left", lesson_left);
                 resul_list.add(jsonObject);
 
                 String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
