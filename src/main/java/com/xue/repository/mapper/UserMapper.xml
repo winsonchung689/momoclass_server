@@ -1437,7 +1437,7 @@
   </select>
 
   <select id="getLessonPackageByStudent" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select * from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and delete_status = 0 order by create_time desc
+    select * from lesson_package where student_name =#{param1} and studio =#{param2} and campus =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getLessonPackageByStudentSubject" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">

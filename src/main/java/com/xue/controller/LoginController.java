@@ -746,10 +746,10 @@ public class LoginController {
 	//	获取学生的课包记录
 	@RequestMapping("/getLessonPackageByStudent")
 	@ResponseBody
-	public List getLessonPackageByStudent(String student_name,String openid){
+	public List getLessonPackageByStudent(String student_name,String openid,String subject){
 		List list = null;
 		try {
-			list = loginService.getLessonPackageByStudent(student_name,openid);
+			list = loginService.getLessonPackageByStudent(student_name,openid,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -5383,7 +5383,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonPackageByStudent(String student_name, String openid) {
+    public List getLessonPackageByStudent(String student_name, String openid,String subject) {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -5391,7 +5391,7 @@ public class LoginServiceImpl implements LoginService {
             String campus = list_user.get(0).getCampus();
             String studio = list_user.get(0).getStudio();
 
-            List<LessonPackage> lessonPackages = dao.getLessonPackageByStudent(student_name,studio,campus);
+            List<LessonPackage> lessonPackages = dao.getLessonPackageByStudent(student_name,studio,campus,subject);
             for (int i = 0; i < lessonPackages.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = lessonPackages.get(i);
