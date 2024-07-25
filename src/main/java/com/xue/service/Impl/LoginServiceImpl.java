@@ -2491,7 +2491,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getUserByNickName(nickName);
-
             for (int i = 0; i < list.size(); i++) {
                 String role_cn = null;
                 JSONObject jsonObject = new JSONObject();
