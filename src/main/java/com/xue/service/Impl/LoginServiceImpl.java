@@ -6966,12 +6966,7 @@ public class LoginServiceImpl implements LoginService {
                     commentStyle_cn = "个人";
                 }
 
-                Integer is_open_get = line.getIs_open();
-                String is_open_name = "全开";
-                if(is_open_get == 0){
-                    is_open_name = "受限";
-                }
-
+                String theme = line.getTheme();
                 String campus = line.getCampus();
                 String expired_time = line.getExpired_time();
                 String create_time = line.getCreate_time();
@@ -7009,6 +7004,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("member", member);
                 jsonObject.put("pay_days", pay_days);
                 jsonObject.put("use_days", use_days);
+                jsonObject.put("theme", theme);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
