@@ -2472,6 +2472,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUserByNickName(String nickName) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String role = null;
         String student_name = null;
         String avatarurl = null;
@@ -2520,6 +2521,17 @@ public class LoginServiceImpl implements LoginService {
                 campus = line.getCampus();
                 String theme = line.getTheme();
 
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date create_time_dt = df.parse(create_time.substring(0,10));
+                Date expired_time_dt = df.parse(expired_time.substring(0,10));
+
+                long user_diff = today_dt.getTime() - create_time_dt.getTime();
+                long use_days = user_diff / (24*60*60*1000);
+
+                long pay_diff = expired_time_dt.getTime()-today_dt.getTime();
+                long pay_days = pay_diff / (24*60*60*1000);
+
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
@@ -2538,6 +2550,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("member",member);
                 jsonObject.put("campus",campus);
                 jsonObject.put("theme",theme);
+                jsonObject.put("use_days",use_days);
+                jsonObject.put("pay_days",pay_days);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

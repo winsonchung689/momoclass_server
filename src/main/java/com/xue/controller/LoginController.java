@@ -4890,9 +4890,9 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/UpdateStudio")
+	@RequestMapping("/updateStudio")
 	@ResponseBody
-	public String UpdateStudio(HttpServletRequest request, HttpServletResponse response){
+	public String updateStudio(HttpServletRequest request, HttpServletResponse response){
 		String studio = request.getParameter("studio");
 		String new_studio = request.getParameter("new_studio");
 
@@ -4919,7 +4919,6 @@ public class LoginController {
 		String subjects = request.getParameter("subjects");
 
 		//获取用户类型
-
 		try {
 			User user =new User();
 			user.setOpenid(openid);
@@ -4936,7 +4935,9 @@ public class LoginController {
 	public String updateTheme(String theme, String openid){
 
 		try {
-			dao.updateTheme(theme,openid);
+			List<User> users= dao.getUser(openid);
+			String studio = users.get(0).getStudio();
+			dao.updateTheme(theme,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
