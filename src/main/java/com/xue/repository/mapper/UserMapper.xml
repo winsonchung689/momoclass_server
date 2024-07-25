@@ -808,7 +808,7 @@
 
   <!-- 插入签到记录 -->
   <insert id="insertSignUp" parameterType="com.xue.entity.model.SignUp">
-    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count,class_number,subject,teacher,campus) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count},#{class_number},#{subject},#{teacher},#{campus})
+    insert sign_up_record(student_name,create_time,studio,sign_time,mark,duration,count,class_number,subject,teacher,campus,package_id) values(#{student_name},#{create_time},#{studio},#{sign_time},#{mark},#{duration},#{count},#{class_number},#{subject},#{teacher},#{campus},#{package_id})
   </insert>
 
   <!-- 插入请假记录 -->

@@ -4,6 +4,8 @@ package com.xue.entity.model;
 public class SignUp {
     private String id;
 
+    private String package_id;
+
     private String student_name;
 
     private String create_time;
@@ -27,6 +29,9 @@ public class SignUp {
     private String campus;
 
     private Integer ending_status;
+
+
+
 
     public Integer getEnding_status() {
         return ending_status;
@@ -100,6 +105,13 @@ public class SignUp {
         this.id = id;
     }
 
+    public String getPackage_id() {
+        return package_id;
+    }
+
+    public void setPackage_id(String package_id) {
+        this.package_id = package_id;
+    }
 
     public String getStudio() {
         return studio;

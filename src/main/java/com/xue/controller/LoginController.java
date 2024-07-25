@@ -2418,11 +2418,22 @@ public class LoginController {
 
 	@RequestMapping("/insertSignUp")
 	@ResponseBody
-	public int insertSignUp(String openid,String studio, String consume_lesson_amount,String student_name,String mark,String subject){
+	public int insertSignUp(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
+			String openid = request.getParameter("openid");
+			String studio = request.getParameter("studio");
+			String consume_lesson_amount = request.getParameter("consume_lesson_amount");
+			String student_name = request.getParameter("student_name");
+			String mark = request.getParameter("mark");
+			String subject = request.getParameter("subject");
+			String package_id = request.getParameter("package_id");
+			if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
+				package_id = "0";
+			}
+
 			List<User> users = dao.getUser(openid);
 			String nick_name = users.get(0).getNick_name();
 
@@ -2437,6 +2448,7 @@ public class LoginController {
 			signUp.setCreate_time(update_time);
 			signUp.setDuration("00:00:00");
 			signUp.setClass_number("无班号");
+			signUp.setPackage_id(package_id);
 			List<User> list = dao.getUser(openid);
 			String campus = list.get(0).getCampus();
 			signUp.setCampus(campus);
@@ -2486,6 +2498,7 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
+		String package_id = request.getParameter("package_id");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 		String nick_name = list_user.get(0).getNick_name();
@@ -2525,6 +2538,11 @@ public class LoginController {
 			signUp.setSubject(subject);
 			signUp.setTeacher(nick_name);
 			signUp.setCampus(campus);
+
+			if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
+				package_id = "0";
+			}
+			signUp.setPackage_id(package_id);
 			if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
 				class_number = "无班号";
 			}
