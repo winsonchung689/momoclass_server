@@ -5077,11 +5077,21 @@ public class LoginServiceImpl implements LoginService {
             }
         }
 
-        // 每天重置AI课评可用次数 20 次
+        // 每天重置AI课评可用次数 A级:10次,B级:20次,C级:50次,D级:100次
         List<User> user = dao.getStudioBoss("boss");
         for(int i=0;i<user.size();i++){
             String studio = user.get(i).getStudio();
-            dao.updateCoinsByStudio(studio,20.0f);
+            String theme = user.get(i).getTheme();
+            if("A".equals(theme)){
+                dao.updateCoinsByStudio(studio,10.0f);
+            }else if("B".equals(theme)){
+                dao.updateCoinsByStudio(studio,20.0f);
+            }else if("C".equals(theme)){
+                dao.updateCoinsByStudio(studio,50.0f);
+            }else if("D".equals(theme)){
+                dao.updateCoinsByStudio(studio,100.0f);
+            }
+
         }
 
         return null;
