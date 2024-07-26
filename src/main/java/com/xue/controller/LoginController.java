@@ -4790,28 +4790,28 @@ public class LoginController {
 		String role = request.getParameter("role");
 
 		User user_get= dao.getUser(openid).get(0);
-		String role_get = user_get.getRole();
 		String studio_get = user_get.getStudio();
+		String theme = user_get.getTheme();
 
 		try {
 			User user_get_b = dao.getBossByStudio(studio_get).get(0);
 			if (user_get_b.getExpired_time().length() >0){
 				expired_time = user_get_b.getExpired_time();
 			}
+			theme = user_get_b.getTheme();
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
 
-
         //获取用户类型
 		String user_type = "老用户";
-
 		try {
 			User user =new User();
 			user.setOpenid(openid);
 			user.setRole(role);
 			user.setUser_type(user_type);
 			user.setExpired_time(expired_time);
+			user.setTheme(theme);
 			loginService.updateUsertype(user);
 		} catch (Exception e) {
 			e.printStackTrace();

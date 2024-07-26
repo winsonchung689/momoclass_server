@@ -1750,7 +1750,7 @@
 
   <!-- 更新用户类型 -->
   <update id="updateUsertype" parameterType="com.xue.entity.model.User">
-    update user set role=#{role}, user_type=#{user_type},expired_time=#{expired_time} where openid=#{openid}
+    update user set role=#{role}, user_type=#{user_type},expired_time=#{expired_time},theme=#{theme} where openid=#{openid}
   </update>
 
   <!-- 更新用户校区 -->
