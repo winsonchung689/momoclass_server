@@ -4795,9 +4795,7 @@ public class LoginController {
 
 		try {
 			User user_get_b = dao.getBossByStudio(studio_get).get(0);
-			if (user_get_b.getExpired_time().length() >0){
-				expired_time = user_get_b.getExpired_time();
-			}
+			expired_time = user_get_b.getExpired_time();
 			theme = user_get_b.getTheme();
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
