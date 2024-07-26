@@ -4790,13 +4790,13 @@ public class LoginController {
 		String role = request.getParameter("role");
 
 		User user_get= dao.getUser(openid).get(0);
-		String studio_get = user_get.getStudio();
+		String studio = user_get.getStudio();
 		String theme = user_get.getTheme();
 
 		try {
-			User user_get_b = dao.getBossByStudio(studio_get).get(0);
-			expired_time = user_get_b.getExpired_time();
-			theme = user_get_b.getTheme();
+			User user_boss = dao.getBossByStudio(studio).get(0);
+			expired_time = user_boss.getExpired_time();
+			theme = user_boss.getTheme();
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
