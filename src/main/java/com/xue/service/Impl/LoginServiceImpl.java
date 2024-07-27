@@ -7013,6 +7013,11 @@ public class LoginServiceImpl implements LoginService {
                 String subjects = line.getSubjects();
                 String member = line.getMember();
                 Float coins = line.getCoins();
+                int is_square = line.getIs_square();
+                jsonObject.put("ai_type", "团体");
+                if(is_square==0){
+                    jsonObject.put("ai_type", "个人");
+                }
 
                 //json
                 jsonObject.put("studio", studio);
