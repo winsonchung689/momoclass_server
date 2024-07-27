@@ -203,12 +203,14 @@ public class LoginController {
 		System.out.println(question);
 
 		String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+		System.out.println(OPENAI_API_KEY);
 		Map<String, String> header = new HashMap<String, String>();
 		header.put("Content-Type", "application/json");
 		header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 		JSONObject params = new JSONObject();
 		params.put("model", "gpt-4o-mini");
-		params.put("prompt", question);
+//		params.put("prompt", question);
+		params.put("messages", "[{\"role\": \"user\", \"content\": \""+  question +"\"}]");
 		params.put("temperature", 0.9);
 		params.put("max_tokens", 2048);
 		params.put("top_p", 1);
@@ -218,7 +220,7 @@ public class LoginController {
 		JSONArray stop = new JSONArray();
 		stop.add("<br>");
 		params.put("stop", stop);
-		String res = JsonUtils.doPost("https://api.openai.com/v1/completions", header, params);
+		String res = JsonUtils.doPost("https://api.openai.com/v1/chat/completions", header, params);
 		System.out.println(res);
 		return res;
 	}
