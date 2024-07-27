@@ -2552,6 +2552,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("theme",theme);
                 jsonObject.put("use_days",use_days);
                 jsonObject.put("pay_days",pay_days);
+                jsonObject.put("pay_days",pay_days);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -7001,6 +7002,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String subjects = line.getSubjects();
                 String member = line.getMember();
+                Float coins = line.getCoins();
 
                 //json
                 jsonObject.put("studio", studio);
@@ -7020,6 +7022,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("pay_days", pay_days);
                 jsonObject.put("use_days", use_days);
                 jsonObject.put("theme", theme);
+                jsonObject.put("coins", coins);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

@@ -817,6 +817,8 @@ public interface UserMapper {
 
     int updateCoinsByStudio(String studio,Float coins);
 
+    int updateCoinsByUser(String openid,Float coins);
+
     int updateReadTimesByOpenid(String openid,Float read_times);
 
     int updateVideoViewsById(String id,Integer views);

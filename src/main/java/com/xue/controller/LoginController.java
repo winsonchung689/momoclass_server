@@ -4953,6 +4953,19 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateCoinsByUser")
+	@ResponseBody
+	public String updateCoinsByUser(String coins, String openid){
+
+		try {
+			dao.updateCoinsByUser(openid,Float.parseFloat(coins));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updatVideoDisplay")
 	@ResponseBody
 	public String updatVideoDisplay(String studio,Integer display){
