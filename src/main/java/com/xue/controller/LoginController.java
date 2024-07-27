@@ -1076,25 +1076,6 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/updateExchangeByStudio")
-	@ResponseBody
-	public int updateExchangeByStudio(String studio,String value_num,String type) {
-		int result = 0;
-		try {
-			if("同城".equals(type)){
-				result = dao.updateExchangeByStudio(studio,Integer.parseInt(value_num));
-			}else if ("网课".equals(type)){
-				result = dao.updateTeacherByStudio(studio,Integer.parseInt(value_num));
-			}else if("知识".equals(type)){
-				result = dao.updateSquareByStudio(studio,Integer.parseInt(value_num));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	@RequestMapping("/updateCityByStudio")
 	@ResponseBody
 	public int updateCityByStudio(String studio,String city) {
@@ -4823,6 +4804,25 @@ public class LoginController {
 			loginService.updateUsertype(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateAiType")
+	@ResponseBody
+	public String updateAiType(HttpServletRequest request, HttpServletResponse response){
+		//获取openid
+		String openid = request.getParameter("openid");
+		try {
+			List<User> users = dao.getUser(openid);
+			int is_square_get = users.get(0).getIs_square();
+			int is_square = 0;
+			if(is_square_get == 0){
+				is_square = 1;
+			}
+			dao.updateSquareByUser(openid,is_square);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
 		}
 		return "push massage successfully";
 	}

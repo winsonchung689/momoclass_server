@@ -1984,8 +1984,8 @@
     update user set is_teacher=#{param2} where studio=#{param1}
   </update>
 
-  <update id="updateSquareByStudio" parameterType="com.xue.entity.model.User">
-    update user set is_square=#{param2} where studio=#{param1}
+  <update id="updateSquareByUser" parameterType="com.xue.entity.model.User">
+    update user set is_square=#{param2} where openid=#{param1}
   </update>
 
   <update id="updateCityByStudio" parameterType="com.xue.entity.model.User">

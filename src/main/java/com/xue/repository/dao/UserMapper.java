@@ -853,7 +853,7 @@ public interface UserMapper {
 
     int updateTeacherByStudio(String studio,Integer is_teacher);
 
-    int updateSquareByStudio(String studio,Integer is_square);
+    int updateSquareByUser(String openid,Integer is_square);
 
     int updateCityByStudio(String studio,String city);
 

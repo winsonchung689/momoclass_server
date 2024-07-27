@@ -2378,6 +2378,10 @@ public class LoginServiceImpl implements LoginService {
                 Integer is_exchange = line.getIs_exchange();
                 Integer is_teacher = line.getIs_teacher();
                 Integer is_square = line.getIs_square();
+                jsonObject.put("ai_type", "团体");
+                if(is_square==0){
+                    jsonObject.put("ai_type", "个人");
+                }
                 String subject = line.getSubject();
 
                 String today_time = df.format(new Date());
@@ -2520,6 +2524,11 @@ public class LoginServiceImpl implements LoginService {
                 member = line.getMember();
                 campus = line.getCampus();
                 String theme = line.getTheme();
+                Integer is_square = line.getIs_square();
+                jsonObject.put("ai_type", "团体");
+                if(is_square==0){
+                    jsonObject.put("ai_type", "个人");
+                }
 
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
@@ -2551,7 +2560,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("campus",campus);
                 jsonObject.put("theme",theme);
                 jsonObject.put("use_days",use_days);
-                jsonObject.put("pay_days",pay_days);
                 jsonObject.put("pay_days",pay_days);
                 resul_list.add(jsonObject);
             }
@@ -5098,16 +5106,18 @@ public class LoginServiceImpl implements LoginService {
         for(int i=0;i<user.size();i++){
             String studio = user.get(i).getStudio();
             String theme = user.get(i).getTheme();
-            if("A".equals(theme)){
-                dao.updateCoinsByStudio(studio,10.0f);
-            }else if("B".equals(theme)){
-                dao.updateCoinsByStudio(studio,20.0f);
-            }else if("C".equals(theme)){
-                dao.updateCoinsByStudio(studio,50.0f);
-            }else if("D".equals(theme)){
-                dao.updateCoinsByStudio(studio,100.0f);
+            Integer is_square = user.get(i).getIs_square();
+            if(is_square == 1){
+                if("A".equals(theme)){
+                    dao.updateCoinsByStudio(studio,10.0f);
+                }else if("B".equals(theme)){
+                    dao.updateCoinsByStudio(studio,20.0f);
+                }else if("C".equals(theme)){
+                    dao.updateCoinsByStudio(studio,50.0f);
+                }else if("D".equals(theme)){
+                    dao.updateCoinsByStudio(studio,100.0f);
+                }
             }
-
         }
 
         return null;
