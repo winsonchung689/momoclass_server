@@ -201,27 +201,35 @@ public class LoginController {
 	@ResponseBody
 	public static String chat(String question){
 		System.out.println(question);
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "gpt-4o-mini");
+			List<JSONObject> jsonObjects = new ArrayList<>();
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("role", "user");
+			jsonObject.put("content", question);
+			jsonObjects.add(jsonObject);
+			params.put("messages", jsonObjects);
+			params.put("temperature", 0.9);
+			params.put("max_tokens", 2048);
+			params.put("top_p", 1);
+			params.put("frequency_penalty", 0.0);
+			params.put("presence_penalty", 0.6);
 
-		String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
-		System.out.println(OPENAI_API_KEY);
-		Map<String, String> header = new HashMap<String, String>();
-		header.put("Content-Type", "application/json");
-		header.put("Authorization", "Bearer " + OPENAI_API_KEY);
-		JSONObject params = new JSONObject();
-		params.put("model", "gpt-4o-mini");
-//		params.put("prompt", question);
-		params.put("messages", "[{\"role\": \"user\", \"content\": \""+  question +"\"}]");
-		params.put("temperature", 0.9);
-		params.put("max_tokens", 2048);
-		params.put("top_p", 1);
-		params.put("frequency_penalty", 0.0);
-		params.put("presence_penalty", 0.6);
+			JSONArray stop = new JSONArray();
+			stop.add("<br>");
+			params.put("stop", stop);
+			res = JsonUtils.doPost("https://api.openai.com/v1/chat/completions", header, params);
+			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
-		JSONArray stop = new JSONArray();
-		stop.add("<br>");
-		params.put("stop", stop);
-		String res = JsonUtils.doPost("https://api.openai.com/v1/chat/completions", header, params);
-		System.out.println(res);
 		return res;
 	}
 

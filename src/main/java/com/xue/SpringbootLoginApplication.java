@@ -41,6 +41,7 @@ public class SpringbootLoginApplication {
 		SpringApplication.run(SpringbootLoginApplication.class, args);
 	}
 
+	// 注意：AI发布需要注释掉所有定时任务
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendClassRemind(){
 		loginService.sendClassRemind();

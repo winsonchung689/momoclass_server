@@ -2280,7 +2280,7 @@ public class LoginServiceImpl implements LoginService {
         Integer cover = null;
         String subjects = null;
         String member = null;
-        List<User> list= new ArrayList<>();;
+        List<User> list= new ArrayList<>();
         String send_time = null;
         String subscription = null;
         String campus =null;
