@@ -4072,6 +4072,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> users = dao.getUserByOpenid(openid);
             Float coins = users.get(0).getCoins();
+            Integer is_square = users.get(0).getIs_square();
             if (coins == null) {
                 coins = 0.0f;
             }
@@ -4079,7 +4080,11 @@ public class LoginServiceImpl implements LoginService {
                 coins = coins - number;
             }
 
-            dao.updateCoinsByStudio(studio,coins);
+            if(is_square == 1){
+                dao.updateCoinsByStudio(studio,coins);
+            }else {
+                dao.updateCoinsByUser(openid,coins);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
