@@ -57,6 +57,11 @@ public class SpringbootLoginApplication {
 		loginService.getOpenidOfficial();
 	}
 
+	@Scheduled(cron = "0 0 3 * * ?")
+	public void updateCoinsLevel(){
+		loginService.updateCoinsLevel();
+	}
+
 	@Bean
 	public ConfigurableServletWebServerFactory webServerFactory() {
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();

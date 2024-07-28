@@ -1346,7 +1346,11 @@
   </select>
 
   <select id="getStudioBoss" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select distinct studio,theme from user where delete_status = 0 and (role = #{param1} or member = #{param1}) order by studio
+    select distinct studio from user where delete_status = 0 and (role = #{param1} or member = #{param1}) order by studio
+  </select>
+
+  <select id="getUserIsSquare" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select distinct studio,theme from user where is_square = 1 and delete_status = 0 and (role = #{param1} or member = #{param1}) order by studio
   </select>
 
   <select id="getSubjectByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
@@ -1932,7 +1936,7 @@
 
   <!-- 更新用户金币工作室 -->
   <update id="updateCoinsByStudio" parameterType="com.xue.entity.model.User">
-    update user set coins=#{param2} where studio=#{param1} and delete_status = 0
+    update user set coins=#{param2} where studio=#{param1} and delete_status = 0 and is_square = 1
   </update>
 
   <!-- 更新用可观看次数 -->

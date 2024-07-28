@@ -549,6 +549,8 @@ public interface UserMapper {
 
     List<User> getStudioBoss(String role);
 
+    List<User> getUserIsSquare(String role);
+
     List<Lesson> getSubjectByStudio(String studio,String campus);
 
     List<Schedule> getClassNumbers(String studio);

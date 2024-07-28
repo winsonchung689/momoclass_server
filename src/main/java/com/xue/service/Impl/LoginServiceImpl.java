@@ -5100,26 +5100,27 @@ public class LoginServiceImpl implements LoginService {
                 throw new RuntimeException(e);
             }
         }
+        return null;
+    }
 
+    @Override
+    public String updateCoinsLevel() {
         // 每天重置AI课评可用次数 A级:10次,B级:20次,C级:50次,D级:100次
-        List<User> user = dao.getStudioBoss("boss");
+        List<User> user = dao.getUserIsSquare("boss");
         for(int i=0;i<user.size();i++){
             String studio = user.get(i).getStudio();
             String theme = user.get(i).getTheme();
-            Integer is_square = user.get(i).getIs_square();
-            if(is_square == 1){
-                if("A".equals(theme)){
-                    dao.updateCoinsByStudio(studio,10.0f);
-                }else if("B".equals(theme)){
-                    dao.updateCoinsByStudio(studio,20.0f);
-                }else if("C".equals(theme)){
-                    dao.updateCoinsByStudio(studio,50.0f);
-                }else if("D".equals(theme)){
-                    dao.updateCoinsByStudio(studio,100.0f);
-                }
+            if("A".equals(theme)){
+                dao.updateCoinsByStudio(studio,10.0f);
+            }else if("B".equals(theme)){
+                dao.updateCoinsByStudio(studio,20.0f);
+            }else if("C".equals(theme)){
+                dao.updateCoinsByStudio(studio,50.0f);
+            }else if("D".equals(theme)){
+                dao.updateCoinsByStudio(studio,100.0f);
             }
-        }
 
+        }
         return null;
     }
 
