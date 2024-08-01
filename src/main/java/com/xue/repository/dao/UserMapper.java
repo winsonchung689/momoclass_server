@@ -851,6 +851,8 @@ public interface UserMapper {
 
     int updateUserMember(String member,String studio);
 
+    int updateUserRegion(String region,String studio);
+
     int updateExchangeByStudio(String studio,Integer is_exchange);
 
     int updateTeacherByStudio(String studio,Integer is_teacher);

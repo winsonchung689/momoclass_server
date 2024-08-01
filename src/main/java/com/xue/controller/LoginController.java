@@ -5578,6 +5578,20 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateUserRegion")
+	@ResponseBody
+	public String updateUserRegion(HttpServletRequest request, HttpServletResponse response){
+		String studio = request.getParameter("studio");
+		String region = request.getParameter("region");
+
+		try {
+			dao.updateUserRegion(region,studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateUserStudioCampus")
 	@ResponseBody
 	public String updateUserStudioCampus(HttpServletRequest request, HttpServletResponse response){
