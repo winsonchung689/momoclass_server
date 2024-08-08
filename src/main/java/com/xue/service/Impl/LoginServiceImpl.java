@@ -940,7 +940,6 @@ public class LoginServiceImpl implements LoginService {
                     String duration = schedule.getDuration();
                     String class_number = schedule.getClass_number();
                     subject = schedule.getSubject();
-                    String student_name = schedule.getStudent_name();
 
                     int weekDayChoose = 0;
                     if(dayOfWeek == 1){
@@ -971,8 +970,9 @@ public class LoginServiceImpl implements LoginService {
                         List<User> users = dao.getUserByOpenid(openid);
                         for(int j=0;j<users.size();j++){
                             User user = users.get(j);
-                            String student_get = user.getStudent_name();
-                            if(student_name.equals(student_get)){
+                            String student_name = user.getStudent_name();
+                            List<Schedule> schedules1 = dao.getScheduleByStudentDay(studio,dayOfWeek,duration,class_number,subject,campus,student_name);
+                            if(schedules1.size()>0){
                                 String result = class_number + ":" + student_name + "有课" ;
                                 schedule_status.append(result);
                                 schedule_status.append(",");
