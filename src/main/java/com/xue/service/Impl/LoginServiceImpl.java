@@ -6794,13 +6794,19 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
                 int is_paid = line.getIs_paid();
+                String is_paid_cn = "未返现";
+                if(is_paid == 1){
+                    is_paid_cn = "已返现";
+                }
 
                 //json
+                jsonObject.put("rank", i + 1);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", openid);
                 jsonObject.put("is_paid", is_paid);
+                jsonObject.put("is_paid_cn", is_paid_cn);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
