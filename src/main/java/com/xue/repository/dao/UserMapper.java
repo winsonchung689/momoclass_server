@@ -865,7 +865,7 @@ public interface UserMapper {
 
     int updateUserIsPaid(String openid,Integer is_paid);
 
-    int updateTeacherByStudio(String studio,Integer is_teacher);
+    int updateTeacherByUser(String openid,Integer is_teacher);
 
     int updateSquareByUser(String openid,Integer is_square);
 

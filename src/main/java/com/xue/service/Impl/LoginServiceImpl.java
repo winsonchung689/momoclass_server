@@ -6722,6 +6722,13 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("ai_type", "个人");
                 }
 
+                int is_teacher = line.getIs_teacher();
+                jsonObject.put("is_teacher", "普通");
+                if(is_teacher==1){
+                    jsonObject.put("is_teacher", "代理");
+                }
+
+
                 //json
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);

@@ -4846,14 +4846,26 @@ public class LoginController {
 	public String updateAiType(HttpServletRequest request, HttpServletResponse response){
 		//获取openid
 		String openid = request.getParameter("openid");
+		String type = request.getParameter("type");
 		try {
 			List<User> users = dao.getUser(openid);
 			int is_square_get = users.get(0).getIs_square();
-			int is_square = 0;
-			if(is_square_get == 0){
-				is_square = 1;
+			int is_teacher_get = users.get(0).getIs_teacher();
+			if("AI".equals(type)){
+				int is_square = 0;
+				if(is_square_get == 0){
+					is_square = 1;
+				}
+				dao.updateSquareByUser(openid,is_square);
+			}else if("RC".equals(type)){
+				int is_teacher = 0;
+				if(is_teacher_get == 0){
+					is_teacher = 1;
+				}
+				dao.updateTeacherByUser(openid,is_teacher);
+
 			}
-			dao.updateSquareByUser(openid,is_square);
+
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
