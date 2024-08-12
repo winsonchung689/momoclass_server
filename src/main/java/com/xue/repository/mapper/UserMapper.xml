@@ -1198,6 +1198,14 @@
     select * from user where openid_qr = #{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getUserByOpenidQrAll" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by studio,create_time desc
+  </select>
+
+  <select id="getUserByOpenidQrLike" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where studio like "%"#{param1}"%" and openid_qr &lt;&gt; 'noid' and delete_status = 0 order by studio,create_time desc
+  </select>
+
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio},campus=#{campus} where openid = #{openid} and delete_status = 0

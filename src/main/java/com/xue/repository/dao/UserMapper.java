@@ -549,6 +549,10 @@ public interface UserMapper {
 
     List<User> getUserByOpenidQr(String openid_qr);
 
+    List<User> getUserByOpenidQrAll();
+
+    List<User> getUserByOpenidQrLike(String studio);
+
     List<User> getStudio();
 
     List<User> getStudioBoss(String role);

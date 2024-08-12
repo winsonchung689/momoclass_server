@@ -6781,15 +6781,52 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUserByOpenidQr(String openid_qr) {
-        List<User> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
-        list = dao.getUserByOpenidQr(openid_qr);
+        List<User> list = dao.getUserByOpenidQr(openid_qr);
+        if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
+            list = dao.getUserByOpenidQrAll();
+        }
         try {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
                 //获取字段
                 String studio = line.getStudio();
+                String student_name = line.getStudent_name();
+                String nick_name = line.getNick_name();
+                String openid = line.getOpenid();
+                int is_paid = line.getIs_paid();
+                String is_paid_cn = "未返现";
+                if(is_paid == 1){
+                    is_paid_cn = "已返现";
+                }
+
+                //json
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("studio", studio);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("openid", openid);
+                jsonObject.put("is_paid", is_paid);
+                jsonObject.put("is_paid_cn", is_paid_cn);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
+    public List getUserByOpenidQrLike(String studio) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<User> list = dao.getUserByOpenidQrLike(studio);
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                User line = list.get(i);
+                //获取字段
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();

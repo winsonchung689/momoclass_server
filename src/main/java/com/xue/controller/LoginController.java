@@ -1785,6 +1785,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUserByOpenidQrLike")
+	@ResponseBody
+	public List getUserByOpenidQrLike(String studio){
+		List list = null;
+		try {
+			list = loginService.getUserByOpenidQrLike(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getAllUserByStudioByPage")
 	@ResponseBody
 	public List getAllUserByStudioByPage(String studio,Integer page){
