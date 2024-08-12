@@ -4623,6 +4623,11 @@ public class LoginController {
 		if(openid_qr == null || openid_qr.isEmpty() || "undefined".equals(openid_qr)){
 			openid_qr = "noid";
 		}
+		if(openid_qr != "noid"){
+			studio = "请录入工作室";
+			campus = "请录入工作室";
+		}
+
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
