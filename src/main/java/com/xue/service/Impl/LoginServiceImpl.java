@@ -6830,6 +6830,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
+                String studio_get = line.getStudio();
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现";
                 if(is_paid == 1){
@@ -6838,7 +6839,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("rank", i + 1);
-                jsonObject.put("studio", studio);
+                jsonObject.put("studio", studio_get);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", openid);
