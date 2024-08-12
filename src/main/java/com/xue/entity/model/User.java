@@ -10,6 +10,8 @@ public class User {
 
     private String openid;
 
+    private String openid_qr;
+
     private String create_time;
 
     private String expired_time;
@@ -76,9 +78,18 @@ public class User {
 
     private Integer is_square;
 
+    private Integer is_paid;
+
     private String subject;
 
 
+    public Integer getIs_paid() {
+        return is_paid;
+    }
+
+    public void setIs_paid(Integer is_paid) {
+        this.is_paid = is_paid;
+    }
 
     public Integer getIs_teacher() {
         return is_teacher;
@@ -376,6 +387,14 @@ public class User {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public String getOpenid_qr() {
+        return openid_qr;
+    }
+
+    public void setOpenid_qr(String openid_qr) {
+        this.openid_qr = openid_qr;
     }
 
 

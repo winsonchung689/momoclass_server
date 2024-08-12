@@ -1059,7 +1059,7 @@
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">
-    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location,remind_type,hours,unionid,official_openid,subscription) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location},#{remind_type},#{hours},#{unionid},#{official_openid},#{subscription})
+    insert user(nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,comment_style,send_time,display,cover,campus,phone_number,location,remind_type,hours,unionid,official_openid,subscription,openid_qr) values(#{nick_name},#{student_name},#{role},#{openid},#{create_time},#{avatarurl},#{studio},#{user_type},#{expired_time},#{comment_style},#{send_time},#{display},#{cover},#{campus},#{phone_number},#{location},#{remind_type},#{hours},#{unionid},#{official_openid},#{subscription},#{openid_qr})
   </insert>
 
   <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
@@ -1192,6 +1192,10 @@
 
   <select id="getUserByRole" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select * from user where role in(#{param1}) and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getUserByOpenidQr" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where openid_qr = #{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 更新工作室 -->

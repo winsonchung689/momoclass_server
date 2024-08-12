@@ -547,6 +547,8 @@ public interface UserMapper {
 
     List<User> getUserByRole(String role);
 
+    List<User> getUserByOpenidQr(String openid_qr);
+
     List<User> getStudio();
 
     List<User> getStudioBoss(String role);

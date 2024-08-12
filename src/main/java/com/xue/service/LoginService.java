@@ -46,6 +46,8 @@ public interface LoginService {
 
     public List  getUserByRole(String role);
 
+    public List  getUserByOpenidQr(String openid_qr);
+
     public List  getAllUserByStudioByPage(String studio,Integer page);
 
     public List  getUserByNickStudio(String nick_name,String studio);
@@ -250,13 +252,7 @@ public interface LoginService {
 
     public void sendClassRemind();
 
-    public void sendTeacherRemind();
-
-    public void sendExchangeRemind();
-
     public void sendBossPayRemind();
-
-    public void sendSquareRemind();
 
     public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
 

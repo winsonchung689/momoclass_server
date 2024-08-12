@@ -4594,6 +4594,11 @@ public class LoginController {
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
 			openid = DigestUtils.md5Hex(nick_name + studio);
 		}
+		//获取代理人 openid
+		String openid_qr = request.getParameter("openid_qr");
+		if(openid_qr == null || openid_qr.isEmpty() || "undefined".equals(openid_qr)){
+			openid_qr = "noid";
+		}
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
@@ -4621,6 +4626,7 @@ public class LoginController {
 		user.setNick_name(nick_name);
 		user.setStudent_name(student_name);
 		user.setOpenid(openid);
+		user.setOpenid_qr(openid_qr);
 		user.setCreate_time(create_time);
 		user.setAvatarurl(avatarurl);
 		user.setStudio(studio);

@@ -2392,6 +2392,7 @@ public class LoginServiceImpl implements LoginService {
                 String city = line.getCity();
                 Integer is_exchange = line.getIs_exchange();
                 Integer is_teacher = line.getIs_teacher();
+                String openid_qr = line.getOpenid_qr();
                 Integer is_square = line.getIs_square();
                 jsonObject.put("ai_type", "团体");
                 if(is_square==0){
@@ -2479,6 +2480,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("city", city);
                 jsonObject.put("subject", subject);
                 jsonObject.put("is_teacher", is_teacher);
+                jsonObject.put("openid_qr", openid_qr);
                 jsonObject.put("is_exchange", is_exchange);
                 jsonObject.put("is_square", is_square);
                 resul_list.add(jsonObject);
@@ -4343,326 +4345,6 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    @Override
-    public void sendSquareRemind() {
-        List<String> apps = new ArrayList<>();
-        apps.add("MOMO_OFFICIAL");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-
-        String result = null;
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-
-        String title = null;
-        String type = null;
-        String comment = null;
-        String id = null;
-        try {
-            Random random = new Random();
-            int randomNumber = random.nextInt(2); // 生成0到10之间的随机数
-            List<Message> messages = dao.getUpdateNews();
-            id = messages.get(randomNumber).getId();
-            title = messages.get(0).getComment().split("简介")[0].replaceAll("\n", "");
-            type = messages.get(0).getClass_target_bak();
-            comment = messages.get(0).getComment().split("简介")[1].replace("：","");
-            if(comment.length() > 14){
-                comment = comment.substring(0, 14) + "...";
-            }
-            if(title.length() > 12){
-                title = title.substring(0, 12);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        List<User> list = dao.getAllUser();
-        for (int i = 0; i < list.size(); i++) {
-            User user = list.get(i);
-            String role = user.getRole();
-            String official_openid = user.getOfficial_openid();
-            String studio = user.getStudio();
-            String send_time = "21:00:00";
-            String openid = user.getOpenid();
-            Float read_times = user.getRead_times();
-            String send_status = user.getSend_status();
-            Integer is_square = user.getIs_square();
-
-            //获取当前时间
-            Date date =new Date();
-            int hour = date.getHours();
-            long timestamp = date.getTime();
-            String update_time = df_now.format(date);
-            String now_date = df_now.format(date).split(" ")[0];
-            String now_time = df_now.format(date).split(" ")[1];
-
-            if(send_status == null){
-                send_status = now_date + " " + send_time;
-            }
-
-            //获取发送时间戳
-            long timestamp_start = 0l;
-            long timestamp_end = 0l;
-            try {
-                Date date_now = df_now.parse(now_date + " " + send_time);
-                timestamp_start = date_now.getTime();
-                timestamp_end = timestamp_start + 10*60*1000;
-
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            String send_status_new = now_date + " " + send_time;
-
-            //广场通知
-            if("client".equals(role) && is_square == 1 && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new)){
-                dao.updateClassSendStatusByOpenid(openid,send_status_new);
-                String token = getToken("MOMO_OFFICIAL");
-                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                if (official_openid != null) {
-                    String[] official_list = official_openid.split(",");
-                    for(int k=0;k<official_list.length;k++){
-                        try {
-                            String official_openid_get = official_list[k];
-                            JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                            queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","系统管理员");
-                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "本次推送："+title);
-                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
-                            queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/album/album?studio=" + studio + "&role=" + role + "&openid=" + openid + "&type=" + type + "&read_times=" + read_times);
-
-                            result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                            System.out.printf("res:" + result);
-                            if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid)){
-                                dao.updateVideoTop(Integer.parseInt(id),update_time);
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-
-    @Override
-    public void sendTeacherRemind() {
-        List<String> apps = new ArrayList<>();
-        apps.add("MOMO_OFFICIAL");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-
-        String result = null;
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-
-        String nick_name = null;
-        String comment = null;
-        String teacher_studio = null;
-        String id = null;
-        try {
-            List<Message> messages =dao.getOnlineTeacher("网课",0,1);
-            String openid = messages.get(0).getOpenid();
-            List<User> users = dao.getUserByOpenid(openid);
-            nick_name = users.get(0).getNick_name();
-            comment = messages.get(0).getComment();
-            teacher_studio = messages.get(0).getStudio();
-            id  =  messages.get(0).getId();
-            if(comment.length() > 14){
-                comment = comment.substring(0, 14) + "...";
-            }
-            if(nick_name.length() > 12){
-                nick_name = nick_name.substring(0, 12);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        List<User> list = dao.getAllUser();
-        for (int i = 0; i < list.size(); i++) {
-            User user = list.get(i);
-            String role = user.getRole();
-            String official_openid = user.getOfficial_openid();
-            String studio = user.getStudio();
-            String send_time = "21:00:00";
-            String openid = user.getOpenid();
-            Float read_times = user.getRead_times();
-            String send_status = user.getSend_status();
-            Integer is_teacher = user.getIs_teacher();
-
-            //获取当前时间
-            Date date =new Date();
-            int hour = date.getHours();
-            long timestamp = date.getTime();
-            String update_time = df_now.format(date);
-            String now_date = df_now.format(date).split(" ")[0];
-            String now_time = df_now.format(date).split(" ")[1];
-//
-//            if(hour>12){
-//                send_time = "15:30:00";
-//            }
-
-            if(send_status == null){
-                send_status = now_date + " " + send_time;
-            }
-
-            //获取发送时间戳
-            long timestamp_start = 0l;
-            long timestamp_end = 0l;
-            try {
-                Date date_now = df_now.parse(now_date + " " + send_time);
-                timestamp_start = date_now.getTime();
-                timestamp_end = timestamp_start + 10*60*1000;
-
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            String send_status_new = now_date + " " + send_time;
-
-            //广场通知
-            if("client".equals(role) && is_teacher == 1 && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new) && !teacher_studio.equals(studio)){
-                dao.updateClassSendStatusByOpenid(openid,send_status_new);
-                String token = getToken("MOMO_OFFICIAL");
-                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                if (official_openid != null) {
-                    String[] official_list = official_openid.split(",");
-                    for(int k=0;k<official_list.length;k++){
-                        try {
-                            String official_openid_get = official_list[k];
-                            JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                            queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","系统管理员");
-                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "网课推荐："+nick_name+"老师");
-                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
-                            queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id + "&openid=" + openid + "&type=" + "网课");
-
-                            result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                            System.out.printf("res:" + result);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-
-    @Override
-    public void sendExchangeRemind() {
-        List<String> apps = new ArrayList<>();
-        apps.add("MOMO_OFFICIAL");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-
-        String result = null;
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T6Sqan69VVUx8liFiogg9YM\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing25\":{\"value\": \"time\"},\"thing44\":{\"value\": \"A1\"},\"thing20\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"},\"time48\":{\"value\": \"time\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-
-        String nick_name = null;
-        String comment = null;
-        String teacher_studio = null;
-        String id = null;
-        String city = null;
-        String subject = null;
-        try {
-            List<Message> messages =dao.getOnlineTeacher("同城",0,1);
-            String openid = messages.get(0).getOpenid();
-            List<User> users = dao.getUserByOpenid(openid);
-            nick_name = users.get(0).getNick_name();
-            comment = messages.get(0).getComment();
-            teacher_studio = messages.get(0).getStudio();
-            id  =  messages.get(0).getId();
-            city = users.get(0).getCity();
-            subject = users.get(0).getSubject();
-            if(comment.length() > 14){
-                comment = comment.substring(0, 14) + "...";
-            }
-            if(nick_name.length() > 12){
-                nick_name = nick_name.substring(0, 12);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        List<User> list = dao.getAllUser();
-        for (int i = 0; i < list.size(); i++) {
-            User user = list.get(i);
-            String role = user.getRole();
-            String official_openid = user.getOfficial_openid();
-            String studio = user.getStudio();
-            String send_time = "21:00:00";
-            String openid = user.getOpenid();
-            Float read_times = user.getRead_times();
-            String send_status = user.getSend_status();
-            String city_get = user.getCity();
-            String subject_get = user.getSubject();
-            Integer is_exchange = user.getIs_exchange();
-
-            //获取当前时间
-            Date date =new Date();
-            int hour = date.getHours();
-            long timestamp = date.getTime();
-            String update_time = df_now.format(date);
-            String now_date = df_now.format(date).split(" ")[0];
-            String now_time = df_now.format(date).split(" ")[1];
-
-//            if(hour>12){
-//                send_time = "16:00:00";
-//            }
-
-            if(send_status == null){
-                send_status = now_date + " " + send_time;
-            }
-
-            //获取发送时间戳
-            long timestamp_start = 0l;
-            long timestamp_end = 0l;
-            try {
-                Date date_now = df_now.parse(now_date + " " + send_time);
-                timestamp_start = date_now.getTime();
-                timestamp_end = timestamp_start + 10*60*1000;
-
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            String send_status_new = now_date + " " + send_time;
-
-            //广场通知
-            if(!subject.equals(subject_get) && city.equals(city_get) && is_exchange == 1 && "client".equals(role) && timestamp >= timestamp_start && timestamp <=timestamp_end && !send_status.equals(send_status_new) && !teacher_studio.equals(studio)){
-                dao.updateClassSendStatusByOpenid(openid,send_status_new);
-                String token = getToken("MOMO_OFFICIAL");
-                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                if (official_openid != null) {
-                    String[] official_list = official_openid.split(",");
-                    for(int k=0;k<official_list.length;k++){
-                        try {
-                            String official_openid_get = official_list[k];
-                            JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                            queryJson2.put("touser", official_openid_get);
-                            queryJson2.getJSONObject("data").getJSONObject("thing25").put("value","系统管理员");
-                            queryJson2.getJSONObject("data").getJSONObject("thing44").put("value", "同城推荐："+nick_name+"老师");
-                            queryJson2.getJSONObject("data").getJSONObject("thing20").put("value", "简介：" + comment);
-                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "待查看");
-                            queryJson2.getJSONObject("data").getJSONObject("time48").put("value", now_date+ " " + now_time);
-                            queryJson2.getJSONObject("miniprogram").put("pagepath","/pages/online_teacher/online_teacher?id=" + id + "&openid=" + openid + "&type=" + "同城");
-
-                            result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                            System.out.printf("res:" + result);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-
             }
         }
     }
@@ -7088,6 +6770,37 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
+    public List getUserByOpenidQr(String openid_qr) {
+        List<User> list = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        list = dao.getUserByOpenidQr(openid_qr);
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                User line = list.get(i);
+                //获取字段
+                String studio = line.getStudio();
+                String student_name = line.getStudent_name();
+                String nick_name = line.getNick_name();
+                String openid = line.getOpenid();
+                int is_paid = line.getIs_paid();
+
+                //json
+                jsonObject.put("studio", studio);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("openid", openid);
+                jsonObject.put("is_paid", is_paid);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
