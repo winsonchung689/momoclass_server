@@ -2004,6 +2004,10 @@
     update user set is_exchange=#{param2} where studio=#{param1}
   </update>
 
+  <update id="updateUserIsPaid" parameterType="com.xue.entity.model.User">
+    update user set is_paid=#{param2} where openid=#{param1}
+  </update>
+
   <update id="updateTeacherByStudio" parameterType="com.xue.entity.model.User">
     update user set is_teacher=#{param2} where studio=#{param1}
   </update>

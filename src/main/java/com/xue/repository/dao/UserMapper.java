@@ -863,6 +863,8 @@ public interface UserMapper {
 
     int updateExchangeByStudio(String studio,Integer is_exchange);
 
+    int updateUserIsPaid(String openid,Integer is_paid);
+
     int updateTeacherByStudio(String studio,Integer is_teacher);
 
     int updateSquareByUser(String openid,Integer is_square);

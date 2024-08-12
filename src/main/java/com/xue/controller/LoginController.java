@@ -5597,6 +5597,26 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateUserIsPaid")
+	@ResponseBody
+	public String updateUserIsPaid(HttpServletRequest request, HttpServletResponse response){
+		String openid = request.getParameter("openid");
+
+		try {
+			List<User> users = dao.getUserByOpenid(openid);
+			int is_paid = users.get(0).getIs_paid();
+			if(is_paid == 0){
+				is_paid = 1;
+			}else {
+				is_paid = 0;
+			}
+			dao.updateUserIsPaid(openid,is_paid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateUserMember")
 	@ResponseBody
 	public String updateUserMember(HttpServletRequest request, HttpServletResponse response){
