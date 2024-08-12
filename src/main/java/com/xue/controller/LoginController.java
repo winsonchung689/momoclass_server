@@ -1773,6 +1773,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUserByOpenidQr")
+	@ResponseBody
+	public List getUserByOpenidQr(String openid_qr){
+		List list = null;
+		try {
+			list = loginService.getUserByOpenidQr(openid_qr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getAllUserByStudioByPage")
 	@ResponseBody
 	public List getAllUserByStudioByPage(String studio,Integer page){
