@@ -2547,6 +2547,12 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("ai_type", "个人");
                 }
 
+                int is_teacher = line.getIs_teacher();
+                jsonObject.put("is_teacher", "普通");
+                if(is_teacher==1){
+                    jsonObject.put("is_teacher", "代理");
+                }
+
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
                 Date create_time_dt = df.parse(create_time.substring(0,10));
