@@ -6795,11 +6795,16 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getUserByOpenidQr(String openid_qr) {
         List<JSONObject> resul_list = new ArrayList<>();
-        List<User> list = dao.getUserByOpenidQr(openid_qr);
-        if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
-            list = dao.getUserByOpenidQrAll();
-        }
+
         try {
+            List<User> users = dao.getUser(openid_qr);
+            String nick_name_rc = users.get(0).getNick_name();
+
+            List<User> list = dao.getUserByOpenidQr(openid_qr);
+            if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
+                list = dao.getUserByOpenidQrAll();
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
@@ -6822,6 +6827,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", openid);
                 jsonObject.put("is_paid", is_paid);
                 jsonObject.put("is_paid_cn", is_paid_cn);
+                jsonObject.put("nick_name_rc", nick_name_rc);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -6834,8 +6840,9 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getUserByOpenidQrLike(String studio) {
         List<JSONObject> resul_list = new ArrayList<>();
-        List<User> list = dao.getUserByOpenidQrLike(studio);
+
         try {
+            List<User> list = dao.getUserByOpenidQrLike(studio);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
@@ -6843,6 +6850,10 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
+                String openid_qr = line.getOpenid_qr();
+                List<User> users = dao.getUser(openid_qr);
+                String nick_name_rc = users.get(0).getNick_name();
+
                 String studio_get = line.getStudio();
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现";
@@ -6858,6 +6869,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", openid);
                 jsonObject.put("is_paid", is_paid);
                 jsonObject.put("is_paid_cn", is_paid_cn);
+                jsonObject.put("nick_name_rc", nick_name_rc);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
