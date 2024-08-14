@@ -7564,7 +7564,7 @@ public class LoginServiceImpl implements LoginService {
                         List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
                         String student_name_re = Lessons_re.get(0).getStudent_name();
                         String subject_re = Lessons_re.get(0).getSubject();
-                        String value = student_name_re + "(" + subject + ")";
+                        String value = student_name_re + "(" + subject_re + ")";
                         related_names.append(value);
                         related_names.append(",");
                     }
