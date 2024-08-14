@@ -7556,21 +7556,25 @@ public class LoginServiceImpl implements LoginService {
 
                 // 获取关联名单
                 StringBuffer related_names = new StringBuffer();
-                String related_id = line.getRelated_id();
-                if(!"no_id".equals(related_id)){
-                    String[] related_id_list = related_id.split(",");
-                    for(int index = 0;index < related_id_list.length; index++){
-                        String id_get = related_id_list[i];
-                        List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
-                        String student_name_re = Lessons_re.get(0).getStudent_name();
-                        String subject_re = Lessons_re.get(0).getSubject();
-                        String value = student_name_re + "(" + subject_re + ")";
-                        related_names.append(value);
-                        related_names.append(",");
+                try {
+                    String related_id = line.getRelated_id();
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int index = 0;index < related_id_list.length; index++){
+                            String id_get = related_id_list[i];
+                            List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
+                            String student_name_re = Lessons_re.get(0).getStudent_name();
+                            String subject_re = Lessons_re.get(0).getSubject();
+                            String value = student_name_re + "(" + subject_re + ")";
+                            related_names.append(value);
+                            related_names.append(",");
+                        }
+                        if(related_names.length()>0) {
+                            related_names = related_names.deleteCharAt(related_names.lastIndexOf(","));
+                        }
                     }
-                    if(related_names.length()>0) {
-                        related_names = related_names.deleteCharAt(related_names.lastIndexOf(","));
-                    }
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
                 }
 
                 total_amount = line.getTotal_amount();
