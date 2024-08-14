@@ -176,8 +176,9 @@ public class LoginServiceImpl implements LoginService {
                 String[] array = related_id_get.split(",");
                 List<String> list_get = Arrays.asList(array);
                 List<String> list = new ArrayList<>();
+                // 剔除元素
                 for(int k = 0; k < list_get.size(); k++){
-                    String value = list.get(k);
+                    String value = list_get.get(k);
                     Integer value_int = Integer.parseInt(value);
                     if(value_int != id ){
                         list.add(value);
