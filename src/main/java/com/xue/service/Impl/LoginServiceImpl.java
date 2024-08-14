@@ -139,7 +139,11 @@ public class LoginServiceImpl implements LoginService {
                 StringBuffer related_id_new = new StringBuffer();
                 if(!"no_id".equals(related_id_get)){
                     String[] array = related_id_get.split(",");
-                    List<String> list = Arrays.asList(array);
+                    List<String> list = new ArrayList<>();
+                    for(int index = 0; index < array.length; index++) {
+                        list.add(array[index]);
+                    }
+
                     boolean flag_id = list.contains(id.toString());
                     if(flag_id == false){
                         list.add(id.toString());
