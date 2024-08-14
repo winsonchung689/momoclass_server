@@ -7562,12 +7562,14 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int index = 0;index < related_id_list.length; index++){
                             String id_get = related_id_list[i];
-                            List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
-                            String student_name_re = Lessons_re.get(0).getStudent_name();
-                            String subject_re = Lessons_re.get(0).getSubject();
-                            String value = student_name_re + "(" + subject_re + ")";
-                            related_names.append(value);
-                            related_names.append(",");
+                            if(id_get != ""){
+                                List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
+                                String student_name_re = Lessons_re.get(0).getStudent_name();
+                                String subject_re = Lessons_re.get(0).getSubject();
+                                String value = student_name_re + "(" + subject_re + ")";
+                                related_names.append(value);
+                                related_names.append(",");
+                            }
                         }
                         if(related_names.length()>0) {
                             related_names = related_names.deleteCharAt(related_names.lastIndexOf(","));
