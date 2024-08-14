@@ -141,19 +141,17 @@ public class LoginServiceImpl implements LoginService {
                     String[] array = related_id_get.split(",");
                     List<String> list = Arrays.asList(array);
                     boolean flag_id = list.contains(id.toString());
+                    if(flag_id == false){
+                        list.add(id.toString());
+                    }
                     boolean flag_related_id = list.contains(related_id.toString());
+                    if(flag_related_id == false){
+                        list.add(related_id.toString());
+                    }
 
                     for(int i = 0; i < list.size(); i++){
                         String id_get = list.get(i);
-                        if(flag_id == false){
-                            related_id_new.append(id);
-                            related_id_new.append(",");
-                        }
-                        if(flag_related_id == false){
-                            related_id_new.append(related_id);
-                            related_id_new.append(",");
-                        }
-                        if(id_get != "null" && id_get != null && !id_get.equals(id.toString()) && !id_get.equals(related_id.toString())){
+                        if(id_get != "null" && id_get != null){
                             related_id_new.append(id_get);
                             related_id_new.append(",");
                         }
