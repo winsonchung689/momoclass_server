@@ -7561,7 +7561,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String related_id = line.getRelated_id();
                     if(!"no_id".equals(related_id)){
-                        String[] related_id_list = related_id.replace("null","").split(",");
+                        String[] related_id_list = related_id.split(",");
                         for(int index = 0;index < related_id_list.length; index++){
                             String id_get = related_id_list[i];
                             if(id_get != null && id_get != ""){
