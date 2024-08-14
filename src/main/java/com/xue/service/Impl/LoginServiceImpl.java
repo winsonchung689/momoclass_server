@@ -139,8 +139,8 @@ public class LoginServiceImpl implements LoginService {
             if(!"no_id".equals(related_id_get)){
                 String[] array = related_id_get.split(",");
                 List<String> list = Arrays.asList(array);
-                boolean flag_id = list.contains(id);
-                boolean flag_related_id = list.contains(related_id);
+                boolean flag_id = list.contains(id.toString());
+                boolean flag_related_id = list.contains(related_id.toString());
 
                 for(int i = 0; i < list.size(); i++){
                     String id_get = list.get(i);
@@ -161,9 +161,9 @@ public class LoginServiceImpl implements LoginService {
                 related_id_new.append(related_id);
                 related_id_new.append(",");
             }
-            if(related_id_new.length()>0) {
-                related_id_new = related_id_new.deleteCharAt(related_id_new.lastIndexOf(","));
-            }
+//            if(related_id_new.length()>0) {
+//                related_id_new = related_id_new.deleteCharAt(related_id_new.lastIndexOf(","));
+//            }
 
             // 更新所有关联ID
             String[] related_new_list = related_id_new.toString().split(",");
