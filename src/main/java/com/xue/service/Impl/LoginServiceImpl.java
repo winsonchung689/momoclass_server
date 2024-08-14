@@ -174,8 +174,15 @@ public class LoginServiceImpl implements LoginService {
             }else if ("取关".equals(type)){
                 StringBuffer related_id_new = new StringBuffer();
                 String[] array = related_id_get.split(",");
-                List<String> list = Arrays.asList(array);
-                list.remove(id.toString());
+                List<String> list_get = Arrays.asList(array);
+                List<String> list = new ArrayList<>();
+                for(int k = 0; k < list_get.size(); k++){
+                    String value = list.get(k);
+                    if(!value.equals(id.toString())){
+                        list.add(value);
+                    }
+                }
+
                 if(list.size() == 1){
                     String id_get = list.get(0);
                     dao.updateLessonRelatedById(Integer.valueOf(id_get),"no_id");
