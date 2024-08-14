@@ -136,7 +136,7 @@ public class LoginServiceImpl implements LoginService {
             String related_id_get = lesson.getRelated_id();
 
             StringBuffer related_id_new = new StringBuffer();
-            if("no_id".equals(related_id_get)){
+            if(!"no_id".equals(related_id_get)){
                 String[] array = related_id_get.split(",");
                 List<String> list = Arrays.asList(array);
                 boolean flag_id = list.contains(id);
@@ -7554,6 +7554,25 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
+                // 获取关联名单
+                StringBuffer related_names = new StringBuffer();
+                String related_id = line.getRelated_id();
+                if(!"no_id".equals(related_id)){
+                    String[] related_id_list = related_id.split(",");
+                    for(int index = 0;index < related_id_list.length; index++){
+                        String id_get = related_id_list[i];
+                        List<Lesson> Lessons_re = dao.getLessonById(Integer.valueOf(id_get));
+                        String student_name_re = Lessons_re.get(0).getStudent_name();
+                        String subject_re = Lessons_re.get(0).getSubject();
+                        String value = student_name_re + "(" + subject + ")";
+                        related_names.append(value);
+                        related_names.append(",");
+                    }
+                    if(related_names.length()>0) {
+                        related_names = related_names.deleteCharAt(related_names.lastIndexOf(","));
+                    }
+                }
+
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -7660,6 +7679,7 @@ public class LoginServiceImpl implements LoginService {
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
                     }
+                    jsonObject.put("related_names", related_names.toString());
 
                     resul_list.add(jsonObject);
                 }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name) ){
@@ -7701,6 +7721,7 @@ public class LoginServiceImpl implements LoginService {
                     if(official_openid != null){
                         jsonObject.put("official_status", "已关注");
                     }
+                    jsonObject.put("related_names", related_names.toString());
 
                     resul_list.add(jsonObject);
                 }
