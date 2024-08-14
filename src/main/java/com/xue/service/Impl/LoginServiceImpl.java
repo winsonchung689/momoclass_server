@@ -152,8 +152,10 @@ public class LoginServiceImpl implements LoginService {
                         related_id_new.append(related_id);
                         related_id_new.append(",");
                     }
-                    related_id_new.append(id_get);
-                    related_id_new.append(",");
+                    if(id_get != "null" && id_get != null){
+                        related_id_new.append(id_get);
+                        related_id_new.append(",");
+                    }
                 }
             }else{
                 related_id_new.append(id);
