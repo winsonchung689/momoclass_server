@@ -178,7 +178,8 @@ public class LoginServiceImpl implements LoginService {
                 List<String> list = new ArrayList<>();
                 for(int k = 0; k < list_get.size(); k++){
                     String value = list.get(k);
-                    if(!value.equals(id.toString())){
+                    Integer value_int = Integer.parseInt(value);
+                    if(value_int != id ){
                         list.add(value);
                     }
                 }
