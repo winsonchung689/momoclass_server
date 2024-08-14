@@ -179,8 +179,8 @@ public class LoginServiceImpl implements LoginService {
                 // 剔除元素
                 for(int k = 0; k < list_get.size(); k++){
                     String value = list_get.get(k);
-                    Integer value_int = Integer.parseInt(value);
-                    if(value_int != id ){
+                    String id_str = id.toString();
+                    if(!value.equals(id_str) ){
                         list.add(value);
                     }
                 }
