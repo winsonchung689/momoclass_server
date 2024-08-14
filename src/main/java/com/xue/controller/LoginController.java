@@ -835,6 +835,18 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/updateLessonRelated")
+	@ResponseBody
+	public int updateLessonRelated(Integer id, Integer related_id, String openid){
+		int  result = 0;
+		try {
+			result = loginService.updateLessonRelated(id,related_id,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	//	获取全部
 	@RequestMapping("/getTipsDataUrl")

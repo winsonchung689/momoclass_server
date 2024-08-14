@@ -353,6 +353,8 @@ public interface UserMapper {
 
     int updateLessonCampusById(String id,String subject);
 
+    int updateLessonRelatedById(Integer id,String related_id);
+
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 
     int updateBookAvatar(BookUser bookUser);

@@ -40,8 +40,17 @@ public class Lesson {
 
     private String age;
 
+    private String related_id;
 
 
+
+    public String getRelated_id() {
+        return related_id;
+    }
+
+    public void setRelated_id(String related_id) {
+        this.related_id = related_id;
+    }
 
     public String getAge() {
         return age;

@@ -128,6 +128,58 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public int updateLessonRelated(Integer id, Integer related_id, String openid) {
+        int result = 0;
+        try {
+            List<Lesson> lessons = dao.getLessonById(id);
+            Lesson lesson = lessons.get(0);
+            String related_id_get = lesson.getRelated_id();
+
+            StringBuffer related_id_new = new StringBuffer();
+            if("no_id".equals(related_id_get)){
+                String[] array = related_id_get.split(",");
+                List<String> list = Arrays.asList(array);
+                boolean flag_id = list.contains(id);
+                boolean flag_related_id = list.contains(related_id);
+
+                for(int i = 0; i < list.size(); i++){
+                    String id_get = list.get(i);
+                    if(flag_id == false){
+                        related_id_new.append(id);
+                        related_id_new.append(",");
+                    }
+                    if(flag_related_id == false){
+                        related_id_new.append(related_id);
+                        related_id_new.append(",");
+                    }
+                    related_id_new.append(id_get);
+                    related_id_new.append(",");
+                }
+            }else{
+                related_id_new.append(id);
+                related_id_new.append(",");
+                related_id_new.append(related_id);
+                related_id_new.append(",");
+            }
+            if(related_id_new.length()>0) {
+                related_id_new = related_id_new.deleteCharAt(related_id_new.lastIndexOf(","));
+            }
+
+            // 更新所有关联ID
+            String[] related_new_list = related_id_new.toString().split(",");
+            for(int j = 0;j < related_new_list.length;j++){
+                String value  = related_new_list[j];
+                result = dao.updateLessonRelatedById(Integer.valueOf(value),related_id_new.toString());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return result;
+    }
+
+    @Override
     public List getDetails(Integer id) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
