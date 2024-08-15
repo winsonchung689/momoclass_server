@@ -81,6 +81,7 @@ public class LoginServiceImpl implements LoginService {
             Float left_amount = 0.0f;
             Float coins_amount = 0.0f;
             Integer is_combine = 0;
+            String related_id = null;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
                     if(lessons.size()>0){
@@ -105,6 +106,7 @@ public class LoginServiceImpl implements LoginService {
                         }
 
                         is_combine = lesson_get.getIs_combine();
+                        related_id = lesson_get.getRelated_id();
                     }
             }
             lesson.setStudent_name(student_name);
@@ -120,6 +122,26 @@ public class LoginServiceImpl implements LoginService {
                 }else if (is_combine == 1){
                     result = dao.updateLessonBoth(lesson);
                 }
+
+                try {
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_get = lessons.get(0);
+                            String student_name_get = lesson_get.getStudent_name();
+                            if(!student_name.equals(student_name_get)){
+                                lesson.setStudent_name(student_name_get);
+                                dao.updateLesson(lesson);
+                            }
+                        }
+
+                    }
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
