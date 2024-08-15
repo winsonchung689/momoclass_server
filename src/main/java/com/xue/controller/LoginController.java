@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -34,7 +35,6 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Controller
 public class LoginController {
@@ -2527,7 +2527,6 @@ public class LoginController {
 	@RequestMapping("/signUpSchedule")
 	@ResponseBody
 	public int signUpSchedule(HttpServletRequest request, HttpServletResponse response){
-		final ReentrantLock lock = new ReentrantLock();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 

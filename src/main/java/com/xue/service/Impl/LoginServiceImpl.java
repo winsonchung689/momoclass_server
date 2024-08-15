@@ -2,7 +2,6 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -20,7 +19,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 public class LoginServiceImpl implements LoginService {
