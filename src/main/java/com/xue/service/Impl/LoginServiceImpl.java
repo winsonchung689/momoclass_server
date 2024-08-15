@@ -6424,7 +6424,7 @@ public class LoginServiceImpl implements LoginService {
                         lessonPackages1 = dao.getLessonPackageByStudentCombine(student_name_all,studio,campus);
                     }
                     // 寻找其他关联课包
-                    if("no_id".equals(related_id)){
+                    if(!"no_id".equals(related_id)){
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
@@ -6462,7 +6462,7 @@ public class LoginServiceImpl implements LoginService {
                         }
 
                         // 判断寻找其他关联课时
-                        if("no_id".equals(related_id)){
+                        if(!"no_id".equals(related_id)){
                             String[] related_id_list = related_id.split(",");
                             for(int j=0;j < related_id_list.length; j++){
                                 String id_get = related_id_list[j];
@@ -8260,7 +8260,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     // 寻找其他课包
-                    if("no_id".equals(related_id)){
+                    if(!"no_id".equals(related_id)){
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
@@ -8312,7 +8312,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     // 判断寻找其他关联课时
-                    if("no_id".equals(related_id)){
+                    if(!"no_id".equals(related_id)){
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
