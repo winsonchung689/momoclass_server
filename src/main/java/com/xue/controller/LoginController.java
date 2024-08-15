@@ -5173,6 +5173,7 @@ public class LoginController {
 				String related_id = lesson.getRelated_id();
 				// 判定有关联
 				if(!"no_id".equals(related_id)){
+					related_id = related_id.substring(0, related_id.length() - 1);
 					String[] related_id_list = related_id.split(",");
 					for(int j=0;j < related_id_list.length; j++){
 						String id_get = related_id_list[j];
