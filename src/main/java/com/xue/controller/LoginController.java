@@ -5167,6 +5167,43 @@ public class LoginController {
 			}else if (is_combine == 1){
 				dao.updateLessonBoth(lesson_in);
 			}
+
+			try {
+				// 判断是否关联并更新其他人的课时
+				String related_id = lesson.getRelated_id();
+				// 判定有关联
+				if(!"no_id".equals(related_id)){
+					String[] related_id_list = related_id.split(",");
+					for(int j=0;j < related_id_list.length; j++){
+						String id_get = related_id_list[j];
+						List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
+						Lesson lesson_get = lessons_get.get(0);
+						String student_name_get = lesson_get.getStudent_name();
+						// 判定其他人
+						if(!student_name.equals(student_name_get)){
+							String subject_get = lesson_get.getSubject();
+							Float minus_get = lesson_get.getMinus();
+							Float coins_get = lesson_get.getCoins();
+
+							Lesson lesson_re = new Lesson();
+							lesson.setStudent_name(student_name_get);
+							lesson.setLeft_amount(left_amount);
+							lesson.setTotal_amount(total_amount);
+							lesson.setStudio(studio);
+							lesson.setCampus(campus);
+							lesson.setMinus(minus_get);
+							lesson.setCoins(coins_get);
+							lesson.setSubject(subject_get);
+
+							dao.consumeLesson(lesson_re);
+						}
+					}
+				}
+			} catch (NumberFormatException e) {
+				throw new RuntimeException(e);
+			}
+
+
 		}
 
 
