@@ -4119,26 +4119,28 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id_get));
-                            Lesson lesson_get = lessons.get(0);
-                            String student_name_get = lesson_get.getStudent_name();
-                            // 判定其他人
-                            if(!student_name.equals(student_name_get)){
-                                String subject_get = lesson_get.getSubject();
-                                Float minus_get = lesson_get.getMinus();
-                                Float coins_get = lesson_get.getCoins();
+                            if(id_get != null && id_get != ""){
+                                List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_get = lessons.get(0);
+                                String student_name_get = lesson_get.getStudent_name();
+                                // 判定其他人
+                                if(!student_name.equals(student_name_get)){
+                                    String subject_get = lesson_get.getSubject();
+                                    Float minus_get = lesson_get.getMinus();
+                                    Float coins_get = lesson_get.getCoins();
 
-                                Lesson lesson_re = new Lesson();
-                                lesson.setStudent_name(student_name_get);
-                                lesson.setLeft_amount(new_left);
-                                lesson.setTotal_amount(total_amount);
-                                lesson.setStudio(studio);
-                                lesson.setCampus(campus);
-                                lesson.setMinus(minus_get);
-                                lesson.setCoins(coins_get);
-                                lesson.setSubject(subject_get);
+                                    Lesson lesson_re = new Lesson();
+                                    lesson.setStudent_name(student_name_get);
+                                    lesson.setLeft_amount(new_left);
+                                    lesson.setTotal_amount(total_amount);
+                                    lesson.setStudio(studio);
+                                    lesson.setCampus(campus);
+                                    lesson.setMinus(minus_get);
+                                    lesson.setCoins(coins_get);
+                                    lesson.setSubject(subject_get);
 
-                                dao.updateLesson(lesson_re);
+                                    dao.updateLesson(lesson_re);
+                            }
                             }
                         }
                     }
@@ -6428,13 +6430,15 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                            Lesson lesson_re = lessons_re.get(0);
-                            String student_name_get = lesson_re.getStudent_name();
-                            String subject_re = lesson_re.getSubject();
-                            if(!student_name_all.equals(student_name_get)){
-                                List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get,studio,campus,subject_re);
-                                lessonPackages1.addAll(lessonPackages_re);
+                            if(id_get != null && id_get != "") {
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if (!student_name_all.equals(student_name_get)) {
+                                    List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
+                                    lessonPackages1.addAll(lessonPackages_re);
+                                }
                             }
                         }
                     }
@@ -6466,15 +6470,16 @@ public class LoginServiceImpl implements LoginService {
                             String[] related_id_list = related_id.split(",");
                             for(int j=0;j < related_id_list.length; j++){
                                 String id_get = related_id_list[j];
-                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                                Lesson lesson_re = lessons_re.get(0);
-                                String student_name_get = lesson_re.getStudent_name();
-                                String subject_re = lesson_re.getSubject();
-                                if(!student_name_all.equals(student_name_get)){
-                                    Float consume_lesson_re = dao.getAllSignUpByStudent(studio,subject_re,campus,student_name_get);
-                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                if(id_get != null && id_get != "") {
+                                    List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                    Lesson lesson_re = lessons_re.get(0);
+                                    String student_name_get = lesson_re.getStudent_name();
+                                    String subject_re = lesson_re.getSubject();
+                                    if (!student_name_all.equals(student_name_get)) {
+                                        Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                    }
                                 }
-
                             }
                         }
 
@@ -8264,13 +8269,15 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                            Lesson lesson_re = lessons_re.get(0);
-                            String student_name_get = lesson_re.getStudent_name();
-                            String subject_re = lesson_re.getSubject();
-                            if(!student_name.equals(student_name_get)){
-                                List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get,studio,campus,subject_re);
-                                lessonPackages.addAll(lessonPackages_re);
+                            if(id_get != null && id_get != "") {
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if (!student_name.equals(student_name_get)) {
+                                    List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get, studio, campus, subject_re);
+                                    lessonPackages.addAll(lessonPackages_re);
+                                }
                             }
                         }
                     }
@@ -8316,13 +8323,15 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                            Lesson lesson_re = lessons_re.get(0);
-                            String student_name_get = lesson_re.getStudent_name();
-                            String subject_re = lesson_re.getSubject();
-                            if(!student_name.equals(student_name_get)){
-                                Float consume_lesson_re = dao.getAllSignUpByStudent(studio,subject_re,campus,student_name_get);
-                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                            if(id_get != null && id_get != "") {
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if (!student_name.equals(student_name_get)) {
+                                    Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                }
                             }
                         }
                     }
