@@ -4131,14 +4131,14 @@ public class LoginServiceImpl implements LoginService {
                                     Float coins_get = lesson_get.getCoins();
 
                                     Lesson lesson_re = new Lesson();
-                                    lesson.setStudent_name(student_name_get);
-                                    lesson.setLeft_amount(new_left);
-                                    lesson.setTotal_amount(total_amount);
-                                    lesson.setStudio(studio);
-                                    lesson.setCampus(campus);
-                                    lesson.setMinus(minus_get);
-                                    lesson.setCoins(coins_get);
-                                    lesson.setSubject(subject_get);
+                                    lesson_re.setStudent_name(student_name_get);
+                                    lesson_re.setLeft_amount(new_left);
+                                    lesson_re.setTotal_amount(total_amount);
+                                    lesson_re.setStudio(studio);
+                                    lesson_re.setCampus(campus);
+                                    lesson_re.setMinus(minus_get);
+                                    lesson_re.setCoins(coins_get);
+                                    lesson_re.setSubject(subject_get);
 
                                     dao.updateLesson(lesson_re);
                             }
