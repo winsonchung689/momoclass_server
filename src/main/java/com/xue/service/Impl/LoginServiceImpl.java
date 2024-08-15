@@ -6408,6 +6408,7 @@ public class LoginServiceImpl implements LoginService {
                     Float left_amount = lesson.getLeft_amount();
                     String subject_get = lesson.getSubject();
                     Integer is_combine = lesson.getIs_combine();
+                    String related_id = lesson.getRelated_id();
 
                     Float total = 0.0f;
                     Float disc = 0.0f;
@@ -6415,10 +6416,27 @@ public class LoginServiceImpl implements LoginService {
                     Float give_lesson = 0.0f;
                     Float package_lesson = 0.0f;
                     List<LessonPackage> lessonPackages1 = null;
+
+                    // 判断课包是否合并
                     if(is_combine == 0){
                         lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject_get);
                     }else if (is_combine == 1){
                         lessonPackages1 = dao.getLessonPackageByStudentCombine(student_name_all,studio,campus);
+                    }
+                    // 寻找其他关联课包
+                    if("no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_re = lessons_re.get(0);
+                            String student_name_get = lesson_re.getStudent_name();
+                            String subject_re = lesson_re.getSubject();
+                            if(!student_name_all.equals(student_name_get)){
+                                List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get,studio,campus,subject_re);
+                                lessonPackages1.addAll(lessonPackages_re);
+                            }
+                        }
                     }
 
                     if(lessonPackages1.size()>0){
@@ -6432,6 +6450,7 @@ public class LoginServiceImpl implements LoginService {
                         package_lesson = all_lesson + give_lesson;
                     }
 
+                    // 判断课时是否合并
                     Float consume_lesson = 0.0f;
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
@@ -6440,6 +6459,23 @@ public class LoginServiceImpl implements LoginService {
                             consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
                         }else if (is_combine == 1){
                             consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
+                        }
+
+                        // 判断寻找其他关联课时
+                        if("no_id".equals(related_id)){
+                            String[] related_id_list = related_id.split(",");
+                            for(int j=0;j < related_id_list.length; j++){
+                                String id_get = related_id_list[j];
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if(!student_name_all.equals(student_name_get)){
+                                    Float consume_lesson_re = dao.getAllSignUpByStudent(studio,subject_re,campus,student_name_get);
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                }
+
+                            }
                         }
 
                         if(consume_lesson_get > 0){
@@ -8202,21 +8238,43 @@ public class LoginServiceImpl implements LoginService {
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
                 String age = line.getAge();
+                String related_id = line.getRelated_id();
+
+
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
                 }
 
+
+                // 判断课包
                 Float all_lesson = 0.0f;
                 Float give_lesson = 0.0f;
                 Float package_lesson = 0.0f;
+                List<LessonPackage> lessonPackages = null;
                 try {
-                    List<LessonPackage> lessonPackages = null;
                     if(is_combine == 0){
                         lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
                     }else if (is_combine == 1){
                         lessonPackages = dao.getLessonPackageByStudentCombine(student_name,studio,campus);
                     }
+
+                    // 寻找其他课包
+                    if("no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_re = lessons_re.get(0);
+                            String student_name_get = lesson_re.getStudent_name();
+                            String subject_re = lesson_re.getSubject();
+                            if(!student_name.equals(student_name_get)){
+                                List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get,studio,campus,subject_re);
+                                lessonPackages.addAll(lessonPackages_re);
+                            }
+                        }
+                    }
+
                     if(lessonPackages.size()>0){
                         for(int j = 0; j < lessonPackages.size(); j++){
                             LessonPackage lessonPackage = lessonPackages.get(j);
@@ -8241,6 +8299,7 @@ public class LoginServiceImpl implements LoginService {
                     left_money = 0.0f;
                 }
 
+                // 判断课时
                 Float consume_lesson = 0.0f;
                 Float consume_lesson_get = 0.0f;
                 Float consume_amount = 0.0f;
@@ -8252,6 +8311,21 @@ public class LoginServiceImpl implements LoginService {
                         consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
 
+                    // 判断寻找其他关联课时
+                    if("no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_re = lessons_re.get(0);
+                            String student_name_get = lesson_re.getStudent_name();
+                            String subject_re = lesson_re.getSubject();
+                            if(!student_name.equals(student_name_get)){
+                                Float consume_lesson_re = dao.getAllSignUpByStudent(studio,subject_re,campus,student_name_get);
+                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                            }
+                        }
+                    }
 
                     if(consume_lesson_get > 0){
                         consume_lesson = consume_lesson_get;
