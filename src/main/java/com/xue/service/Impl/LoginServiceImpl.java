@@ -4116,7 +4116,6 @@ public class LoginServiceImpl implements LoginService {
                     String related_id = line.getRelated_id();
                     // 判定有关联
                     if(!"no_id".equals(related_id)){
-                        related_id = related_id.substring(0, related_id.length() - 1);
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
@@ -6428,7 +6427,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                     // 寻找其他关联课包
                     if(!"no_id".equals(related_id)){
-                        related_id = related_id.substring(0, related_id.length() - 1);
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
@@ -6469,7 +6467,6 @@ public class LoginServiceImpl implements LoginService {
 
                         // 判断寻找其他关联课时
                         if(!"no_id".equals(related_id)){
-                            related_id = related_id.substring(0, related_id.length() - 1);
                             String[] related_id_list = related_id.split(",");
                             for(int j=0;j < related_id_list.length; j++){
                                 String id_get = related_id_list[j];
@@ -7678,7 +7675,6 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String related_id = line.getRelated_id();
                     if(!"no_id".equals(related_id)){
-                        related_id = related_id.substring(0, related_id.length() - 1);
                         String[] related_id_list = related_id.split(",");
                         for(int index = 0;index < related_id_list.length; index++){
                             String id_get = related_id_list[index];
@@ -8270,7 +8266,6 @@ public class LoginServiceImpl implements LoginService {
 
                     // 寻找其他课包
                     if(!"no_id".equals(related_id)){
-                        related_id = related_id.substring(0, related_id.length() - 1);
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
@@ -8325,7 +8320,6 @@ public class LoginServiceImpl implements LoginService {
 
                     // 判断寻找其他关联课时
                     if(!"no_id".equals(related_id)){
-                        related_id = related_id.substring(0, related_id.length() - 1);
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
