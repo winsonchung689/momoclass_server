@@ -981,7 +981,7 @@
 
   <!-- 查找请假记录 -->
   <select id="getLeaveByDateDuration" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select * where student_name =#{param1} and studio = #{param2} and date_time=#{param3} and duration=#{param4} and delete_status = 0 order by create_time
+    select * from where student_name =#{param1} and studio = #{param2} and date_time=#{param3} and duration=#{param4} and delete_status = 0 order by create_time
   </select>
 
   <!-- 查找课评记录 -->
