@@ -2624,36 +2624,55 @@ public class LoginController {
 
 	@RequestMapping("/leaveRecord")
 	@ResponseBody
-	public int leaveRecord(String student_name,String studio,String date_time,String duration,String leave_type,String mark_leave,String subject,String makeup_date,String openid){
+	public int leaveRecord(String class_number,String student_name,String studio,String date_time,String duration,String subject,String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(date_time);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			Integer weekDayChoose = 0;
+			int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+			if(weekDay == 1){
+				weekDayChoose = 7;
+			}else {
+				weekDayChoose = weekDay -1;
+			}
+			String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+			List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+			StringBuffer official_openid = new StringBuffer();
+			for(int i=0;0<=users.size();i++){
+				String official_openid_get = users.get(i).getOfficial_openid();
+				official_openid.append(official_openid_get);
+				official_openid.append(",");
+			}
+			if(official_openid.length()>0) {
+				official_openid = official_openid.deleteCharAt(official_openid.lastIndexOf(","));
+			}
+
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
 			String teacher = list_user.get(0).getNick_name();
-			String official_openid = list_user.get(0).getOfficial_openid();
+
+
 			Leave leave =new Leave();
 			leave.setStudent_name(student_name);
 			leave.setStudio(studio);
 			leave.setDate_time(date_time);
 			leave.setDuration(duration);
 			leave.setCreate_time(create_time);
-			leave.setMark_leave(mark_leave);
+			String mark = "家长请假";
+			leave.setMark_leave(mark);
 			leave.setSubject(subject);
-			if(makeup_date == null){
-				makeup_date = "无";
-			}
-			leave.setMakeup_date(makeup_date);
+			leave.setMakeup_date("无");
 			leave.setCampus(campus);
-			if(leave_type == null || leave_type.isEmpty() || "undefined".equals(leave_type)){
-				leave_type = "请假";
-			}
-			leave.setLeave_type(leave_type);
+			leave.setLeave_type("请假");
 			int result = dao.insertLeave(leave);
 
-			// 判断满几次抠课时
+			// 发请假通知
 			if(result>0){
-				loginService.leaveRemind(official_openid,student_name,studio,subject,duration,date_time,mark_leave);
+				loginService.leaveRemind(official_openid.toString(),student_name,studio,subject,duration,date_time,mark);
 				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 				Float leave_times = lessons.get(0).getLeave_times();
 				List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject,campus);
@@ -2663,6 +2682,8 @@ public class LoginController {
 						leave_counts = leave_counts + 1.0f;
 					}
 				}
+
+                // 请假满减更新课时并更新请假记录的状态
 				if(leave_counts.equals(leave_times) && leave_times != 0.0f){
 					SignUp signUp = new SignUp();
 					signUp.setStudent_name(student_name);
