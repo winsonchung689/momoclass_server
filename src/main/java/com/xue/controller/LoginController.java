@@ -2642,7 +2642,7 @@ public class LoginController {
 			String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
 			List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
 			StringBuffer official_openid = new StringBuffer();
-			for(int i=0;0<=users.size();i++){
+			for(int i=0;i < users.size();i++){
 				String official_openid_get = users.get(i).getOfficial_openid();
 				official_openid.append(official_openid_get);
 				official_openid.append(",");
