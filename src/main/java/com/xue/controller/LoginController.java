@@ -2333,6 +2333,25 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateLeaveStatus")
+	@ResponseBody
+	public int updateLeaveStatus(String id,String type){
+		try {
+
+			int status = 0;
+			if("通过".equals(type)){
+				status = 1;
+			}else if("不通过".equals(type)){
+				status = 2;
+			}
+			dao.updateLeaveStatus(id,status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	清空请假记录
 	@RequestMapping("/deleteLeaveAllRecord")
 	@ResponseBody

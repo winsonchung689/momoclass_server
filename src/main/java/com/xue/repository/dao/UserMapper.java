@@ -437,6 +437,8 @@ public interface UserMapper {
 
     int updateLeaveRecordStudio(String studio,String new_studio);
 
+    int updateLeaveStatus(String id,Integer status);
+
     int updateCombine(Lesson lesson);
 
     int updateLessonCampus(String studio,String student_name,String campus);

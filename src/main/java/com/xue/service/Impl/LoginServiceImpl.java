@@ -789,6 +789,14 @@ public class LoginServiceImpl implements LoginService {
                 student_get = line.getStudent_name();
                 makeup_date = line.getMakeup_date();
                 Integer ending_status = line.getEnding_status();
+                Integer status = line.getStatus();
+                jsonObject.put("status","未审核");
+                if(status == 1){
+                    jsonObject.put("status","已通过");
+                }else if(status == 2){
+                    jsonObject.put("status","不通过");
+                }
+
 
                 jsonObject.put("ending_status","未扣");
                 if(ending_status == 1){
