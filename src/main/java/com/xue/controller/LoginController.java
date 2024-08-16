@@ -2337,14 +2337,53 @@ public class LoginController {
 	@ResponseBody
 	public int updateLeaveStatus(String id,String type){
 		try {
+			List<Leave> leaves = dao.getLeaveRecordById(id);
+			Leave leave = leaves.get(0);
+			String student_name = leave.getStudent_name();
+			String studio = leave.getStudio();
+			String duration = leave.getDuration();
+			String date_time = leave.getDate_time();
+			String subject = leave.getSubject();
+			List<User> users = dao.getUserByStudent(student_name,studio);
+			User user = users.get(0);
+			String openid = user.getOpenid();
+			String official_openid = user.getOfficial_openid();
 
 			int status = 0;
 			if("通过".equals(type)){
 				status = 1;
+				dao.updateLeaveStatus(id,status);
+
+				// 向家长发通知
+				try {
+					String model ="{\"touser\":\"openid\",\"template_id\":\"-xjYNqqHMH3bXtlmTc7J8AXJtFilz-2fGuRT_D6SoqI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing14\":{\"value\": \"AA\"},\"time4\":{\"value\": \"A1\"},\"thing9\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+					String token = getToken("MOMO_OFFICIAL");
+					String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+					if(official_openid != null){
+						String[] official_list = official_openid.split(",");
+						for(int j=0;j<official_list.length;j++){
+							String official_openid_get = official_list[j];
+							JSONObject queryJson = JSONObject.parseObject(model);
+							queryJson.put("touser",official_openid_get);
+							queryJson.getJSONObject("data").getJSONObject("thing14").put("value",student_name);
+							queryJson.getJSONObject("data").getJSONObject("time4").put("value",date_time +" "+duration.split("-")[0]);
+							queryJson.getJSONObject("data").getJSONObject("thing9").put("value",studio);
+							queryJson.getJSONObject("miniprogram").put("pagepath","/pages/leaverecord/leaverecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&leave_type=" + "请假" + "&openid=" + openid);
+
+							HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}else if("不通过".equals(type)){
 				status = 2;
+				dao.updateLeaveStatus(id,status);
 			}
-			dao.updateLeaveStatus(id,status);
+
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

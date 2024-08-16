@@ -907,6 +907,11 @@
     select * from leave_record where student_name =#{param1} and studio = #{param2} and leave_type = #{param3} and subject = #{param4} and campus = #{param5} and delete_status = 0 order by student_name,date_time desc
   </select>
 
+  <select id="getLeaveRecordById" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
+    select * from leave_record where id =#{param1} and delete_status = 0
+  </select>
+
+
   <select id="getLeaveRecordByStatus" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
     select * from leave_record where student_name =#{param1} and studio = #{param2} and subject = #{param3} and campus = #{param4} and delete_status = 0 and ending_status = 0 order by date_time desc
   </select>

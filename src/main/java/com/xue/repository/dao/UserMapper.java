@@ -803,6 +803,8 @@ public interface UserMapper {
 
     List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
+    List<Leave> getLeaveRecordById(String id);
+
     List<Leave> getLeaveRecordAll(String student_name,String studio,String leave_type,String subject,String campus);
 
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration);
