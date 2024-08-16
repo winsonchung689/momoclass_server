@@ -311,6 +311,8 @@ public interface UserMapper {
 
     void deleteLeaveRecord(Integer id,String studio);
 
+    void cancelLeave(String student_name,String studio,String subject,String campus,String date_time,String duration);
+
     void deleteSchedule(Integer id,String studio);
 
     void deleteScheduleBySubject(String student_name,String studio,String subject,String campus);

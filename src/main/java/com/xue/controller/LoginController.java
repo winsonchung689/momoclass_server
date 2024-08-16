@@ -2446,16 +2446,36 @@ public class LoginController {
 
 	@RequestMapping("/cancelBook")
 	@ResponseBody
-	public int cancelBook(String studio,String student_name,String duration,String class_number,String subject,String openid,String add_date){
+	public int cancelBook(String studio,String student_name,String duration,String class_number,String subject,String openid,String add_date,String type){
 		try {
 			List<User> list = dao.getUser(openid);
 			String campus = list.get(0).getCampus();
-			dao.cancelBook(add_date,duration,studio,class_number,subject,campus,student_name);
-			List<User> users = dao.getBossByStudio(studio);
+			if("约课".equals(type)){
+				dao.cancelBook(add_date,duration,studio,class_number,subject,campus,student_name);
+			}else if("请假".equals(type)){
+				dao.cancelLeave(student_name,studio,subject,campus,add_date,duration);
+			}
+
+			// 通知选课老师
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(add_date);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			Integer weekDayChoose = 0;
+			int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+			if(weekDay == 1){
+				weekDayChoose = 7;
+			}else {
+				weekDayChoose = weekDay -1;
+			}
+			String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+			List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
 			for(int j=0;j<users.size();j++){
 				User user = users.get(j);
 				String openid_get = user.getOpenid();
-				sendBookCancel(openid_get,duration,student_name,add_date,class_number);
+				if("约课".equals(type)){
+					sendBookCancel(openid_get,duration,student_name,add_date,class_number);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
