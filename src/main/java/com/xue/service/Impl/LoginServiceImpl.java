@@ -7027,6 +7027,8 @@ public class LoginServiceImpl implements LoginService {
                     is_paid_cn = "已返现";
                 }
 
+                String cash_uuid = line.getCash_uuid();
+
                 //json
                 jsonObject.put("rank", i + 1);
                 jsonObject.put("studio", studio);
@@ -7036,6 +7038,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_paid", is_paid);
                 jsonObject.put("is_paid_cn", is_paid_cn);
                 jsonObject.put("nick_name_rc", nick_name_rc);
+                jsonObject.put("cash_uuid", cash_uuid);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

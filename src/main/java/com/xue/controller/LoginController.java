@@ -5769,16 +5769,21 @@ public class LoginController {
 	@ResponseBody
 	public String updateUserIsPaid(HttpServletRequest request, HttpServletResponse response){
 		String openid = request.getParameter("openid");
+		String cash_uuid = request.getParameter("cash_uuid");
 
 		try {
 			List<User> users = dao.getUserByOpenid(openid);
 			int is_paid = users.get(0).getIs_paid();
 			if(is_paid == 0){
 				is_paid = 1;
+				if("no_id".equals(cash_uuid)){
+					cash_uuid = users.get(0).getCash_uuid();
+				}
 			}else {
 				is_paid = 0;
+				cash_uuid = users.get(0).getCash_uuid();
 			}
-			dao.updateUserIsPaid(openid,is_paid);
+			dao.updateUserIsPaid(openid,is_paid,cash_uuid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

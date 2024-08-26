@@ -82,6 +82,17 @@ public class User {
 
     private String subject;
 
+    private String cash_uuid;
+
+
+
+    public String getCash_uuid() {
+        return cash_uuid;
+    }
+
+    public void setCash_uuid(String cash_uuid) {
+        this.cash_uuid = cash_uuid;
+    }
 
     public Integer getIs_paid() {
         return is_paid;
