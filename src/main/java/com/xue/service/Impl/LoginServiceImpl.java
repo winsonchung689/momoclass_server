@@ -7005,9 +7005,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<User> users = dao.getUser(openid_qr);
-            String nick_name_rc = users.get(0).getNick_name();
-
             List<User> list = dao.getUserByOpenidQr(openid_qr);
             if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
                 list = dao.getUserByOpenidQrAll();
@@ -7021,11 +7018,15 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
+                List<User> users = dao.getUser(openid);
+                String nick_name_rc = users.get(0).getNick_name();
+
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现";
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
                 }
+
 
                 String cash_uuid = line.getCash_uuid();
 
