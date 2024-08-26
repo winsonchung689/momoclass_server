@@ -7018,7 +7018,9 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
-                List<User> users = dao.getUser(openid);
+
+                String openid_qr_get = line.getOpenid_qr();
+                List<User> users = dao.getUser(openid_qr_get);
                 String nick_name_rc = users.get(0).getNick_name();
 
                 int is_paid = line.getIs_paid();
@@ -7026,7 +7028,6 @@ public class LoginServiceImpl implements LoginService {
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
                 }
-
 
                 String cash_uuid = line.getCash_uuid();
 
