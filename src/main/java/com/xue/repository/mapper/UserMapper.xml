@@ -98,7 +98,7 @@
   </resultMap>
   <resultMap id="BaseContract" type="com.xue.entity.model.Contract">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
-    <result column="contract" jdbcType="TEXT" property="contract" />
+    <result column="contract" jdbcType="VARCHAR" property="contract" />
   </resultMap>
 
 

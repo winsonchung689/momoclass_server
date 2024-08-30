@@ -2619,7 +2619,7 @@ public class LoginController {
 
 	@RequestMapping("/updateContract")
 	@ResponseBody
-	public int updateContract(Text contract, String openid){
+	public int updateContract(String contract, String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		List<User> users = dao.getUser(openid);

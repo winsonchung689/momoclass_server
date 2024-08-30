@@ -13,7 +13,7 @@ public class Contract {
 
     private String campus;
 
-    private Text contract;
+    private String contract;
 
     private String create_time;
 
@@ -50,11 +50,11 @@ public class Contract {
         this.id = id;
     }
 
-    public Text getContract() {
+    public String getContract() {
         return contract;
     }
 
-    public void setContract(Text contract) {
+    public void setContract(String contract) {
         this.contract = contract;
     }
     

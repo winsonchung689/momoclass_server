@@ -193,7 +193,7 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
-    int insertContract(String studio, String campus, Text contract, String create_time);
+    int insertContract(String studio, String campus, String contract, String create_time);
 
     int insertBookDetail(BookDetail bookDetail);
 
@@ -273,7 +273,7 @@ public interface UserMapper {
 
     void updateNewName(String openid,String new_name);
 
-    void updateContract(String studio, String campus, Text contract);
+    void updateContract(String studio, String campus, String contract);
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
