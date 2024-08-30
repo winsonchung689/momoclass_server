@@ -1810,6 +1810,11 @@
     update user set campus=#{campus} where openid=#{openid}
   </update>
 
+  <!-- 家长签约 -->
+  <update id="updateUserContract" parameterType="com.xue.entity.model.User">
+    update user set contract=#{param2} where openid=#{param1}
+  </update>
+
   <update id="updateUserStudioByOpenid" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio} where openid=#{openid}
   </update>

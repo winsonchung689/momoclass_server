@@ -2549,6 +2549,8 @@ public class LoginServiceImpl implements LoginService {
                     list_lesson = dao.getLessonByName(student_name,studio,campus);
                 }
 
+                Integer contract = line.getContract();
+
                 //json
                 jsonObject.put("role", role);
                 if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client")){
@@ -2582,6 +2584,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+                jsonObject.put("contract", contract);
                 jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
@@ -5936,6 +5939,36 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subjects",subjects);
                 jsonObject.put("phone_number",phone_number);
                 jsonObject.put("location",location);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getContract(String openid) {
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
+        String studio = user.getStudio();
+        Integer contract_status = user.getContract();
+        List<Contract> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            list = dao.getContract(studio,campus);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Contract line = list.get(i);
+                //获取字段
+                String contract = line.getContract();
+                String create_time = line.getCreate_time();
+
+                //json
+                jsonObject.put("contract", contract);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("contract_status", contract_status);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

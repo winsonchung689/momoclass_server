@@ -718,10 +718,7 @@ public class LoginController {
 	public List getContract(String openid){
 		List list = null;
 		try {
-			List<User> users = dao.getUser(openid);
-			String campus = users.get(0).getCampus();
-			String studio = users.get(0).getStudio();
-			list = dao.getContract(studio,campus);
+			list = loginService.getContract(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -733,8 +730,6 @@ public class LoginController {
 	public List getPost(String studio,Integer page,String openid,String type){
 		List list = null;
 		try {
-//			List<User> list_user = dao.getUser(openid);
-//			String campus = list_user.get(0).getCampus();
 			list = loginService.getPost(studio,page,openid,type);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2634,6 +2629,19 @@ public class LoginController {
 				dao.insertContract(studio,campus,contract,create_time);
 			}
 
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
+	@RequestMapping("/updateUserContract")
+	@ResponseBody
+	public int updateUserContract(String openid){
+		try {
+			dao.updateUserContract(openid,1);
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}

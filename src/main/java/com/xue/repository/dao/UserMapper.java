@@ -421,6 +421,8 @@ public interface UserMapper {
 
     int updateUserCampus(User user);
 
+    int updateUserContract(String openid,Integer contract);
+
     int updateUserStudioByOpenid(User user);
 
     int updateUserStudio(String studio,String new_studio);

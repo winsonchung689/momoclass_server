@@ -40,6 +40,8 @@ public class User {
 
     private Integer is_open;
 
+    private Integer contract;
+
     private String phone_number;
 
     private String location;
@@ -285,6 +287,14 @@ public class User {
 
     public void setIs_open(Integer is_open) {
         this.is_open = is_open;
+    }
+
+    public Integer getContract() {
+        return contract;
+    }
+
+    public void setContract(Integer contract) {
+        this.contract = contract;
     }
 
     public Integer getDisplay() {

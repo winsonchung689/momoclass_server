@@ -22,6 +22,8 @@ public interface LoginService {
 
     public List  getUserByOpenid(String openid);
 
+    public List  getContract(String openid);
+
     public List  getMessageClient(String nickName);
 
     public List  getModel(String studio,Integer page,String campus);
