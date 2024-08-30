@@ -3,6 +3,8 @@ package com.xue.entity.model;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.xml.soap.Text;
+
 public class Contract {
 
     private String id;
@@ -11,7 +13,7 @@ public class Contract {
 
     private String campus;
 
-    private JSONObject contract;
+    private Text contract;
 
     private String create_time;
 
@@ -48,11 +50,11 @@ public class Contract {
         this.id = id;
     }
 
-    public JSONObject getContract() {
+    public Text getContract() {
         return contract;
     }
 
-    public void setContract(JSONObject contract) {
+    public void setContract(Text contract) {
         this.contract = contract;
     }
     
