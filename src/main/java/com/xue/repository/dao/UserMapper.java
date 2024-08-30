@@ -14,6 +14,8 @@ public interface UserMapper {
 
     List<Message> getAlbum(String studio,String campus,String student_name);
 
+    List<Contract> getContract(String studio,String campus);
+
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);
 
     List<Message> getUpdateNews();
@@ -189,6 +191,8 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
+    int insertContract(String studio,String campus,String contract,String create_time);
+
     int insertBookDetail(BookDetail bookDetail);
 
     int insertCommunicateRecord(CommunicateRecord communicateRecord);
@@ -266,6 +270,8 @@ public interface UserMapper {
     void updateUserStudentName(String openid,String student_name);
 
     void updateNewName(String openid,String new_name);
+
+    void updateContract(String studio,String campus,String contract);
 
     void changeSubjectName(Integer id,String studio,String class_number);
 

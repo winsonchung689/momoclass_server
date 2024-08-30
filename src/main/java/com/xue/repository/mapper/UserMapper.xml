@@ -96,6 +96,9 @@
   <resultMap id="BasePoints" type="com.xue.entity.model.Points">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseContract" type="com.xue.entity.model.Contract">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -111,6 +114,10 @@
 
   <select id="getAlbum" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select uuids from class_comment where class_target_bak ='课评' and studio = #{param1} and campus =#{param2} and student_name=#{param3} and delete_status = 0 order by create_time desc limit 10;
+  </select>
+
+  <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+    select * from contract where studio = #{param1} and campus =#{param2} and delete_status = 0 order by create_time desc limit 1;
   </select>
 
   <select id="getExhibitionByType" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
@@ -439,6 +446,11 @@
   <!-- 更改用户名 -->
   <select id="updateNewName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set nick_name =#{param2} where openid =#{param1}
+  </select>
+
+  <!-- 更新公约 -->
+  <select id="updateContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+    update contract set contract =#{param3} where studio =#{param1} and campus =#{param2}
   </select>
 
   <!-- 更改课程名 -->
@@ -773,6 +785,11 @@
   <!-- 插入账单 -->
   <insert id="insertBook" parameterType="com.xue.entity.model.Book">
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
+  </insert>
+
+  <!-- 插入公约 -->
+  <insert id="insertContract" parameterType="com.xue.entity.model.Contract">
+    insert contract(studio,campus,contract,create_time) values(#{studio},#{campus},#{contract},#{create_time})
   </insert>
 
   <insert id="insertBookDetail" parameterType="com.xue.entity.model.BookDetail">

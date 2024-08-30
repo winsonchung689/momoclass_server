@@ -712,6 +712,21 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getContract")
+	@ResponseBody
+	public List getContract(String openid){
+		List list = null;
+		try {
+			List<User> users = dao.getUser(openid);
+			String campus = users.get(0).getCampus();
+			String studio = users.get(0).getStudio();
+			list = dao.getContract(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getPost")
 	@ResponseBody
 	public List getPost(String studio,Integer page,String openid,String type){
@@ -2593,6 +2608,34 @@ public class LoginController {
 
 		try {
 			dao.insertAnnouncement(announcement);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
+	@RequestMapping("/updateContract")
+	@ResponseBody
+	public int updateContract(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String contract = request.getParameter("contract");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String studio = users.get(0).getStudio();
+		String campus = users.get(0).getCampus();
+
+		try {
+			List<Contract> contracts = dao.getContract(studio,campus);
+			if(contracts.size()>0){
+				dao.updateContract(studio,campus,contract);
+			}else {
+				dao.insertContract(studio,campus,contract,create_time);
+			}
+
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
