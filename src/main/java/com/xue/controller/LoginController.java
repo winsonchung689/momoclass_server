@@ -2618,12 +2618,9 @@ public class LoginController {
 
 	@RequestMapping("/updateContract")
 	@ResponseBody
-	public int updateContract(HttpServletRequest request, HttpServletResponse response){
+	public int updateContract(String contract,String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-		String contract = request.getParameter("contract");
-		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
 		String studio = users.get(0).getStudio();
 		String campus = users.get(0).getCampus();

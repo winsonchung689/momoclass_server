@@ -116,7 +116,7 @@
     select uuids from class_comment where class_target_bak ='课评' and studio = #{param1} and campus =#{param2} and student_name=#{param3} and delete_status = 0 order by create_time desc limit 10;
   </select>
 
-  <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+  <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseContract">
     select * from contract where studio = #{param1} and campus =#{param2} and delete_status = 0 order by create_time desc limit 1;
   </select>
 
