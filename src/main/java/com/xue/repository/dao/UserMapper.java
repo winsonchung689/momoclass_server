@@ -1,5 +1,6 @@
 package com.xue.repository.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.*;
 
 import java.security.acl.Group;
@@ -191,7 +192,7 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
-    int insertContract(String studio,String campus,String contract,String create_time);
+    int insertContract(String studio, String campus, JSONObject contract, String create_time);
 
     int insertBookDetail(BookDetail bookDetail);
 
@@ -271,7 +272,7 @@ public interface UserMapper {
 
     void updateNewName(String openid,String new_name);
 
-    void updateContract(String studio,String campus,String contract);
+    void updateContract(String studio,String campus,JSONObject contract);
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
