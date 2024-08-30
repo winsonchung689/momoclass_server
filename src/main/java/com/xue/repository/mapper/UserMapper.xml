@@ -98,6 +98,7 @@
   </resultMap>
   <resultMap id="BaseContract" type="com.xue.entity.model.Contract">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
+    <result column="contract" jdbcType="json" property="contract" />
   </resultMap>
 
 
