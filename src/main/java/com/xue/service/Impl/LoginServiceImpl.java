@@ -5954,6 +5954,7 @@ public class LoginServiceImpl implements LoginService {
         String campus = user.getCampus();
         String studio = user.getStudio();
         Integer contract_status = user.getContract();
+        String student_name = user.getStudent_name();
         List<Contract> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -5967,6 +5968,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("contract", contract);
+                jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("contract_status", contract_status);
                 resul_list.add(jsonObject);
