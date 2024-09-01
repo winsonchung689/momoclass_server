@@ -5954,7 +5954,19 @@ public class LoginServiceImpl implements LoginService {
         String campus = user.getCampus();
         String studio = user.getStudio();
         Integer contract_status = user.getContract();
+
         String student_name = user.getStudent_name();
+        StringBuilder sb = new StringBuilder();
+        sb.append(student_name);
+        List<User> users_all = dao.getUserByOpenid(openid);
+        for(int j=0;j< users_all.size();j++){
+            String student_get = users_all.get(j).getStudent_name();
+            if(!"no_name".equals(student_get) && !student_name.equals(student_get)){
+                sb.append(".");
+                sb.append(student_get);
+            }
+        }
+
         List<Contract> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
@@ -5968,7 +5980,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //json
                 jsonObject.put("contract", contract);
-                jsonObject.put("student_name", student_name);
+                jsonObject.put("student_name", sb);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("contract_status", contract_status);
                 resul_list.add(jsonObject);
