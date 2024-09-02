@@ -5227,9 +5227,9 @@ public class LoginServiceImpl implements LoginService {
                 student_name  = line.getStudent_name();
                 String start_date = line.getStart_date();
 
-                String start_date_next = "2024-01-01";
-                if(i < list.size()-1){
-                    LessonPackage line1 = list.get(i+1);
+                String start_date_next = "9999-01-01";
+                if(i > 0){
+                    LessonPackage line1 = list.get(i-1);
                     start_date_next = line1.getStart_date();
                 }
 
@@ -5243,7 +5243,7 @@ public class LoginServiceImpl implements LoginService {
                 }
                 Float lesson_left = all_lesson + give_lesson - package_sum;
 
-                List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date_next,start_date);
+                List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
                 Float package_sum1 = 0.0f;
                 if(signUps.size()>0){
                     for (int j = 0; j < signUps1.size(); j++) {
