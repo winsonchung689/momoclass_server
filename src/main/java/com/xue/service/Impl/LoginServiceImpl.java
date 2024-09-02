@@ -5227,7 +5227,7 @@ public class LoginServiceImpl implements LoginService {
                 student_name  = line.getStudent_name();
                 String start_date = line.getStart_date();
 
-                String start_date_next = null;
+                String start_date_next = "2024-01-01";
                 if(i < list.size()-1){
                     LessonPackage line1 = list.get(i+1);
                     start_date_next = line1.getStart_date();
