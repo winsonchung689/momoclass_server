@@ -5273,6 +5273,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("package_sum", package_sum);
                 jsonObject.put("lesson_left", lesson_left);
+                jsonObject.put("package_sum1", package_sum1);
                 jsonObject.put("lesson_left1", lesson_left1);
                 resul_list.add(jsonObject);
 
