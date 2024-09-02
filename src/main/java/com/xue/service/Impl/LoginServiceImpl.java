@@ -5215,8 +5215,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);
-                LessonPackage line1 = list.get(i+1);
-                //获取字段
+
                 Float total_money = line.getTotal_money();
                 Float discount_money = line.getDiscount_money();
                 String mark = line.getMark();
@@ -5227,7 +5226,12 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 student_name  = line.getStudent_name();
                 String start_date = line.getStart_date();
-                String start_date_next = line1.getStart_date();
+
+                String start_date_next = null;
+                if(i < list.size()-1){
+                    LessonPackage line1 = list.get(i+1);
+                    start_date_next = line1.getStart_date();
+                }
 
                 List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
                 Float package_sum = 0.0f;
