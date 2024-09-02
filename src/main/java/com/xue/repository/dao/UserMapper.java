@@ -905,6 +905,8 @@ public interface UserMapper {
 
     int updateLessonPackageDiscountMoney(String id,String discount_money);
 
+    int updateLessonPackageEndStatus(String id,int end_status);
+
 
 
 

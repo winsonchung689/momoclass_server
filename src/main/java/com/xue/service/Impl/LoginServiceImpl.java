@@ -4252,6 +4252,14 @@ public class LoginServiceImpl implements LoginService {
                 result = dao.updateLessonPackageTotalMoney(id,content);
             }else if("优惠金额".equals(type)){
                 result = dao.updateLessonPackageDiscountMoney(id,content);
+            }else if("结课状态".equals(type)){
+                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(id));
+                int status = 1;
+                int end_status = lessonPackages.get(0).getEnd_status();
+                if(end_status == 1 ){
+                    status = 0;
+                }
+                result = dao.updateLessonPackageEndStatus(id,status);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
