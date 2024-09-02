@@ -30,6 +30,16 @@ public class LessonPackage {
 
     private String nick_name;
 
+    private int end_status;
+
+
+    public int getEnd_status() {
+        return end_status;
+    }
+
+    public void setEnd_status(int end_status) {
+        this.end_status = end_status;
+    }
 
     public String getNick_name() {
         return nick_name;

@@ -5215,17 +5215,19 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 LessonPackage line = list.get(i);
+                LessonPackage line1 = list.get(i+1);
                 //获取字段
                 Float total_money = line.getTotal_money();
                 Float discount_money = line.getDiscount_money();
                 String mark = line.getMark();
-                String start_date = line.getStart_date();
                 String end_date = line.getEnd_date();
                 String id = line.getId();
                 Float all_lesson = line.getAll_lesson();
                 Float give_lesson = line.getGive_lesson();
                 String nick_name = line.getNick_name();
                 student_name  = line.getStudent_name();
+                String start_date = line.getStart_date();
+                String start_date_next = line1.getStart_date();
 
                 List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
                 Float package_sum = 0.0f;
@@ -5236,6 +5238,23 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
                 Float lesson_left = all_lesson + give_lesson - package_sum;
+
+                List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date_next,start_date);
+                Float package_sum1 = 0.0f;
+                if(signUps.size()>0){
+                    for (int j = 0; j < signUps1.size(); j++) {
+                        Float count = signUps1.get(j).getCount();
+                        package_sum1 = package_sum1 + count;
+                    }
+                }
+                Float lesson_left1 = all_lesson + give_lesson - package_sum1;
+
+
+                int end_status = line.getEnd_status();
+                jsonObject.put("end_status", "未结课");
+                if(end_status == 1){
+                    jsonObject.put("end_status", "已结课");
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -5250,6 +5269,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("package_sum", package_sum);
                 jsonObject.put("lesson_left", lesson_left);
+                jsonObject.put("lesson_left1", lesson_left1);
                 resul_list.add(jsonObject);
 
                 String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
