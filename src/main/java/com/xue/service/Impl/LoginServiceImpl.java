@@ -5253,7 +5253,7 @@ public class LoginServiceImpl implements LoginService {
 
                 List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
                 Float package_sum1 = 0.0f;
-                if(signUps.size()>0){
+                if(signUps1.size()>0){
                     for (int j = 0; j < signUps1.size(); j++) {
                         Float count = signUps1.get(j).getCount();
                         package_sum1 = package_sum1 + count;
