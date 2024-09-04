@@ -8470,7 +8470,7 @@ public class LoginServiceImpl implements LoginService {
                         consume_amount = consume_lesson_get;
                     }
                 } catch (Exception e) {
-//                    throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
 
                 int compareToResult1 = consume_lesson.compareTo(lesson_gap);
