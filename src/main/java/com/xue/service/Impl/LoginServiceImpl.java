@@ -6586,10 +6586,14 @@ public class LoginServiceImpl implements LoginService {
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
                     try {
-                        if(is_combine == 0){
-                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
-                        }else if (is_combine == 1){
-                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
+                        try {
+                            if(is_combine == 0){
+                                consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                            }else if (is_combine == 1){
+                                consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
+                            }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
 
                         // 判断寻找其他关联课时
@@ -7874,10 +7878,14 @@ public class LoginServiceImpl implements LoginService {
                 Float consume_amount = 0.0f;
                 Float consume_lesson_get = 0.0f;
                 try {
-                    if(is_combine == 0){
-                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
-                    }else if(is_combine ==1 ){
-                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                    try {
+                        if(is_combine == 0){
+                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                        }else if(is_combine ==1 ){
+                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
 
                     // 判断寻找其他关联课时
@@ -8429,10 +8437,14 @@ public class LoginServiceImpl implements LoginService {
                 Float consume_amount = 0.0f;
                 Float lesson_gap = total_amount - left_amount;
                 try {
-                    if(is_combine == 0){
-                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                    }else if(is_combine == 1){
-                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                    try {
+                        if(is_combine == 0){
+                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                        }else if(is_combine == 1){
+                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
 
                     // 判断寻找其他关联课时
