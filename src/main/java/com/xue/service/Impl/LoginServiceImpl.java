@@ -6609,7 +6609,9 @@ public class LoginServiceImpl implements LoginService {
                                         String subject_re = lesson_re.getSubject();
                                         if (!student_name_all.equals(student_name_get)) {
                                             Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                            consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                            if(consume_lesson_re>0) {
+                                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                            }
                                         }
                                     }
                                 }
@@ -8469,7 +8471,9 @@ public class LoginServiceImpl implements LoginService {
                                     String subject_re = lesson_re.getSubject();
                                     if (!student_name.equals(student_name_get)) {
                                         Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                        if(consume_lesson_re>0) {
+                                            consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                        }
                                     }
                                 }
                             }
