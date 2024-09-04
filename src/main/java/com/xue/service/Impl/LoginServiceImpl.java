@@ -6585,7 +6585,7 @@ public class LoginServiceImpl implements LoginService {
                     Float consume_lesson = 0.0f;
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
-                    List<SignUp> signUps = dao.getSignUp(student_name,studio,subject,campus);
+                    List<SignUp> signUps = dao.getSignUp(student_name_all,studio,subject_get,campus);
                     if(signUps.size() > 0) {
                         if (is_combine == 0) {
                             consume_lesson_get = dao.getAllSignUpByStudent(studio, subject_get, campus, student_name_all);
@@ -6605,7 +6605,7 @@ public class LoginServiceImpl implements LoginService {
                                 String student_name_get = lesson_re.getStudent_name();
                                 String subject_re = lesson_re.getSubject();
                                 if (!student_name_all.equals(student_name_get)) {
-                                    List<SignUp> signUps1 = dao.getSignUp(student_name,studio,subject,campus);
+                                    List<SignUp> signUps1 = dao.getSignUp(student_name_get,studio,subject_re,campus);
                                     if(signUps1.size() > 0) {
                                         Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                         consume_lesson_get = consume_lesson_get + consume_lesson_re;
