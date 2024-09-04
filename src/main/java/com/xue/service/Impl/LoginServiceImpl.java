@@ -6592,7 +6592,7 @@ public class LoginServiceImpl implements LoginService {
                             consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
                         }
                     } catch (Exception e) {
-                            throw new RuntimeException(e);
+//                            throw new RuntimeException(e);
                     }
 
                     // 判断寻找其他关联课时
@@ -6610,7 +6610,7 @@ public class LoginServiceImpl implements LoginService {
                                     try {
                                         consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                     } catch (Exception e) {
-                                        throw new RuntimeException(e);
+//                                        throw new RuntimeException(e);
                                     }
                                     consume_lesson_get = consume_lesson_get + consume_lesson_re;
                                 }
@@ -7886,7 +7886,7 @@ public class LoginServiceImpl implements LoginService {
                         consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
                 // 判断寻找其他关联课时
@@ -7904,7 +7904,7 @@ public class LoginServiceImpl implements LoginService {
                                 try {
                                     consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                 } catch (Exception e) {
-                                        throw new RuntimeException(e);
+//                                        throw new RuntimeException(e);
                                 }
                                 consume_lesson_get = consume_lesson_get + consume_lesson_re;
                             }
@@ -8446,7 +8446,7 @@ public class LoginServiceImpl implements LoginService {
                         consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
                 // 判断寻找其他关联课时
@@ -8464,7 +8464,7 @@ public class LoginServiceImpl implements LoginService {
                                 try {
                                     consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                 } catch (Exception e) {
-                                        throw new RuntimeException(e);
+//                                        throw new RuntimeException(e);
                                 }
                                 consume_lesson_get = consume_lesson_get + consume_lesson_re;
                             }
