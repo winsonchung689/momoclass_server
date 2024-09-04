@@ -1262,6 +1262,18 @@
     update lesson set age=#{param2} where id = #{param1}
   </update>
 
+  <update id="updateLessonSchoolById" parameterType="com.xue.entity.model.Lesson">
+    update lesson set school=#{param2} where id = #{param1}
+  </update>
+
+  <update id="updateLessonLocationById" parameterType="com.xue.entity.model.Lesson">
+    update lesson set location=#{param2} where id = #{param1}
+  </update>
+
+  <update id="updateLessonBirthdateById" parameterType="com.xue.entity.model.Lesson">
+    update lesson set birthdate=#{param2} where id = #{param1}
+  </update>
+
   <update id="updateLessonAvatar" parameterType="com.xue.entity.model.Lesson">
     update lesson set uuid=#{param2} where id = #{param1}
   </update>

@@ -3296,15 +3296,19 @@ public class LoginController {
 			}else if("校区".equals(modifyHead)){
 				dao.updateLessonCampusById(id,content);
 				dao.updateSignUpCampus(studio,student_name,content);
-//				dao.updateGiftCampus(studio,student_name,content);
-//				dao.updateNoteCampus(studio,student_name,content);
-//				dao.updateLeaveCampus(studio,student_name,content);
 			}else if("学生名".equals(modifyHead)){
 				dao.updateLessonStudentNameById(id,content);
 				dao.updateScheduleName(content,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(content,student_name,studio,campus,subject);
 				dao.updateLessonPackageName(content,student_name,studio,campus,subject);
+			}else if("在读学校".equals(modifyHead)){
+				dao.updateLessonSchoolById(id,content);
+			}else if("家庭住址".equals(modifyHead)){
+				dao.updateLessonLocationById(id,content);
+			}else if("生日".equals(modifyHead)){
+				dao.updateLessonBirthdateById(id,content);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

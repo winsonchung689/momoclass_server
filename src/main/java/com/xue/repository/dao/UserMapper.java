@@ -359,6 +359,12 @@ public interface UserMapper {
 
     int updateLessonAgeById(String id,String age);
 
+    int updateLessonSchoolById(String id,String school);
+
+    int updateLessonLocationById(String id,String location);
+
+    int updateLessonBirthdateById(String id,String birthdate);
+
     int updateLessonSubjectById(String id,String subject);
 
     int updateLessonStudentNameById(String id,String student_name);
