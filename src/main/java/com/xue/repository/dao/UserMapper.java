@@ -907,6 +907,12 @@ public interface UserMapper {
 
     int updateLessonPackageEndStatus(String id,int end_status);
 
+    int updateLessonPackageMark(String id,String mark);
+
+    int updateLessonPackageAllLesson(String id,Float all_lesson);
+
+    int updateLessonPackageGiveLesson(String id,Float give_lesson);
+
 
 
 

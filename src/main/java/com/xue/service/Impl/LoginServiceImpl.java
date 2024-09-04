@@ -4260,6 +4260,13 @@ public class LoginServiceImpl implements LoginService {
                     status = 0;
                 }
                 result = dao.updateLessonPackageEndStatus(id,status);
+            }else if("备注".equals(type)){
+                result = dao.updateLessonPackageMark(id,content);
+            }else if("原课时".equals(type)){
+                result = dao.updateLessonPackageAllLesson(id,Float.parseFloat(content));
+            }
+            else if("赠课时".equals(type)){
+                result = dao.updateLessonPackageGiveLesson(id,Float.parseFloat(content));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

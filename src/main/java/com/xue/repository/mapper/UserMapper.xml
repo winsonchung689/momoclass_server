@@ -1993,6 +1993,18 @@
     update lesson_package set end_status=#{param2} where id=#{param1} and delete_status = 0
   </update>
 
+  <update id="updateLessonPackageMark" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set mark=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonPackageAllLesson" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set all_lesson=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonPackageGiveLesson" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set give_lesson=#{param2} where id=#{param1} and delete_status = 0
+  </update>
+
   <!-- 更新用户金币个人 -->
   <update id="updateCoinsByUser" parameterType="com.xue.entity.model.User">
     update user set coins=#{param2} where openid=#{param1} and delete_status = 0
