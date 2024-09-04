@@ -7225,8 +7225,10 @@ public class LoginServiceImpl implements LoginService {
                 if(is_open_get == 0){
                     is_open_name = "受限";
                 }
+                String location = line.getLocation();
 
                 //json
+                jsonObject.put("location", location);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
@@ -7845,6 +7847,9 @@ public class LoginServiceImpl implements LoginService {
                 Integer delete_status = line.getDelete_status();
                 String age = line.getAge();
                 String uuid = line.getUuid();
+                String school = line.getSchool();
+                String location = line.getLocation();
+                String birthdate = line.getBirthdate();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -7894,94 +7899,52 @@ public class LoginServiceImpl implements LoginService {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                if("boss".equals(role) || is_open == 1){
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + page_start + 1);
-                    jsonObject.put("show", false);
-                    jsonObject.put("name", student_name);
-                    jsonObject.put("search", student_name);
-                    jsonObject.put("total_student", total_student);
-                    jsonObject.put("total_amount_all", total_amount_all);
-                    jsonObject.put("left_amount_all", left_amount_all);
-                    jsonObject.put("minus", minus);
-                    jsonObject.put("coins", coins);
-                    jsonObject.put("need_pay", need_pay);
-                    jsonObject.put("owe", owe);
-                    jsonObject.put("subject", subject_get);
-                    jsonObject.put("parent", parent);
-                    jsonObject.put("studio", studio);
-                    jsonObject.put("avatarurl", avatarurl);
-                    jsonObject.put("uuid", uuid);
-                    jsonObject.put("campus", campus_get);
-                    jsonObject.put("is_combine", combine);
-                    jsonObject.put("price",df.format(price));
-                    jsonObject.put("phone_number", phone_number);
-                    jsonObject.put("total_money", df.format(total_money));
-                    jsonObject.put("discount_money", df.format(discount_money));
-                    jsonObject.put("receipts", df.format(receipts));
-                    jsonObject.put("left_money", df.format(left_money));
-                    jsonObject.put("final_time", final_time);
-                    jsonObject.put("leave_times", leave_times);
-                    jsonObject.put("delete_status", delete_status);
-                    jsonObject.put("age", age);
-                    jsonObject.put("consume_amount", consume_amount);
-                    jsonObject.put("official_status", "未关注");
-                    if(official_openid != null){
-                        jsonObject.put("official_status", "已关注");
-                    }
-                    jsonObject.put("related_names", related_names.toString());
-
-                    resul_list.add(jsonObject);
-                }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name) ){
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("total_amount", total_amount);
-                    jsonObject.put("left_amount", left_amount);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time);
-                    jsonObject.put("percent", percent);
-                    jsonObject.put("points", points);
-                    jsonObject.put("rank", i + page_start + 1);
-                    jsonObject.put("show", false);
-                    jsonObject.put("name", student_name);
-                    jsonObject.put("search", student_name);
-                    jsonObject.put("total_student", total_student);
-                    jsonObject.put("total_amount_all", total_amount_all);
-                    jsonObject.put("left_amount_all", left_amount_all);
-                    jsonObject.put("minus", minus);
-                    jsonObject.put("coins", coins);
-                    jsonObject.put("need_pay", need_pay);
-                    jsonObject.put("owe", owe);
-                    jsonObject.put("subject", subject_get);
-                    jsonObject.put("parent", parent);
-                    jsonObject.put("studio", studio);
-                    jsonObject.put("avatarurl", avatarurl);
-                    jsonObject.put("uuid", uuid);
-                    jsonObject.put("campus", campus_get);
-                    jsonObject.put("is_combine", combine);
-                    jsonObject.put("price",df.format(price));
-                    jsonObject.put("phone_number", phone_number);
-                    jsonObject.put("total_money", df.format(total_money));
-                    jsonObject.put("discount_money", df.format(discount_money));
-                    jsonObject.put("receipts", df.format(receipts));
-                    jsonObject.put("left_money", df.format(left_money));
-                    jsonObject.put("final_time", final_time);
-                    jsonObject.put("delete_status", delete_status);
-                    jsonObject.put("age", age);
-                    jsonObject.put("consume_amount", consume_amount);
-                    jsonObject.put("official_status", "未关注");
-                    if(official_openid != null){
-                        jsonObject.put("official_status", "已关注");
-                    }
-                    jsonObject.put("related_names", related_names.toString());
-
-                    resul_list.add(jsonObject);
+                jsonObject.put("school", school);
+                jsonObject.put("location", location);
+                jsonObject.put("birthdate", birthdate);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("total_amount", total_amount);
+                jsonObject.put("left_amount", left_amount);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("percent", percent);
+                jsonObject.put("points", points);
+                jsonObject.put("rank", i + page_start + 1);
+                jsonObject.put("show", false);
+                jsonObject.put("name", student_name);
+                jsonObject.put("search", student_name);
+                jsonObject.put("total_student", total_student);
+                jsonObject.put("total_amount_all", total_amount_all);
+                jsonObject.put("left_amount_all", left_amount_all);
+                jsonObject.put("minus", minus);
+                jsonObject.put("coins", coins);
+                jsonObject.put("need_pay", need_pay);
+                jsonObject.put("owe", owe);
+                jsonObject.put("subject", subject_get);
+                jsonObject.put("parent", parent);
+                jsonObject.put("studio", studio);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("uuid", uuid);
+                jsonObject.put("campus", campus_get);
+                jsonObject.put("is_combine", combine);
+                jsonObject.put("price",df.format(price));
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("total_money", df.format(total_money));
+                jsonObject.put("discount_money", df.format(discount_money));
+                jsonObject.put("receipts", df.format(receipts));
+                jsonObject.put("left_money", df.format(left_money));
+                jsonObject.put("final_time", final_time);
+                jsonObject.put("leave_times", leave_times);
+                jsonObject.put("delete_status", delete_status);
+                jsonObject.put("age", age);
+                jsonObject.put("consume_amount", consume_amount);
+                jsonObject.put("official_status", "未关注");
+                if(official_openid != null){
+                    jsonObject.put("official_status", "已关注");
                 }
+                jsonObject.put("related_names", related_names.toString());
+
+                resul_list.add(jsonObject);
 
             }
         } catch (Exception e) {

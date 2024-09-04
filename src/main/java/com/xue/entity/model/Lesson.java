@@ -44,6 +44,37 @@ public class Lesson {
 
     private String uuid;
 
+    private String school;
+
+    private String location;
+
+    private String birthdate;
+
+
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
 
     public String getUuid() {
         return uuid;
