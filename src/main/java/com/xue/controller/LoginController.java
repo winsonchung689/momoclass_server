@@ -3462,8 +3462,15 @@ public class LoginController {
 		List<User> list = dao.getUser(openid);
 		String campus = list.get(0).getCampus();
 		String nick_name = list.get(0).getNick_name();
+
 		String total_money =  request.getParameter("total_money");
+		if(total_money == null || total_money.isEmpty() || "undefined".equals(total_money)){
+			total_money = "0";
+		}
 		String discount_money =  request.getParameter("discount_money");
+		if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
+			discount_money = "0";
+		}
 
 		String start_date =  request.getParameter("start_date");
 		if(start_date == null || start_date.isEmpty() || "undefined".equals(start_date)){
@@ -3475,7 +3482,13 @@ public class LoginController {
 		}
 
 		String all_lesson =  request.getParameter("all_lesson");
+		if(all_lesson == null || all_lesson.isEmpty() || "undefined".equals(all_lesson)){
+			all_lesson = "0";
+		}
 		String give_lesson =  request.getParameter("give_lesson");
+		if(give_lesson == null || give_lesson.isEmpty() || "undefined".equals(give_lesson)){
+			give_lesson = "0";
+		}
 		String subject =  request.getParameter("subject");
 
 		try {
