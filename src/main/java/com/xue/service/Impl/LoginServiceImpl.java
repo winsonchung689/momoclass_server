@@ -6586,47 +6586,42 @@ public class LoginServiceImpl implements LoginService {
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
                     try {
-                        try {
-                            if(is_combine == 0){
-                                consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
-                            }else if (is_combine == 1){
-                                consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
-                            }
-                        } catch (Exception e) {
-//                            throw new RuntimeException(e);
-                            consume_lesson_get = 0.0f;
+                        if(is_combine == 0){
+                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name_all);
+                        }else if (is_combine == 1){
+                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name_all);
                         }
+                    } catch (Exception e) {
+                            throw new RuntimeException(e);
+                    }
 
-                        // 判断寻找其他关联课时
-                        if(!"no_id".equals(related_id)){
-                            String[] related_id_list = related_id.split(",");
-                            for(int j=0;j < related_id_list.length; j++){
-                                String id_get = related_id_list[j];
-                                if(id_get != null && id_get != "") {
-                                    List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                                    Lesson lesson_re = lessons_re.get(0);
-                                    String student_name_get = lesson_re.getStudent_name();
-                                    String subject_re = lesson_re.getSubject();
-                                    if (!student_name_all.equals(student_name_get)) {
-                                        Float consume_lesson_re = null;
-                                        try {
-                                            consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        } catch (Exception e) {
-//                                            throw new RuntimeException(e);
-                                            consume_lesson_re = 0.0f;
-                                        }
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                    // 判断寻找其他关联课时
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            if(id_get != null && id_get != "") {
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if (!student_name_all.equals(student_name_get)) {
+                                    Float consume_lesson_re = 0.0f;
+                                    try {
+                                        consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
                                     }
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
                                 }
                             }
                         }
-
-                        if(consume_lesson_get > 0){
-                            consume_lesson = consume_lesson_get;
-                        }
-                    } catch (Exception e) {
-//                            throw new RuntimeException(e);
                     }
+
+                    if(consume_lesson_get > 0){
+                        consume_lesson = consume_lesson_get;
+                    }
+
 
                     int compareToResult1 = consume_lesson.compareTo(lesson_gap);
                     int compareToResult2 = package_lesson.compareTo(total_amount);
@@ -7885,52 +7880,42 @@ public class LoginServiceImpl implements LoginService {
                 Float consume_amount = 0.0f;
                 Float consume_lesson_get = 0.0f;
                 try {
-                    try {
-                        if(is_combine == 0){
-                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
-                        }else if(is_combine ==1 ){
-                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
-                        }
-                    } catch (Exception e) {
-//                        throw new RuntimeException(e);
-                        consume_lesson_get = 0.0f;
-                    }
-
-                    // 判断寻找其他关联课时
-                    try {
-                        if(!"no_id".equals(related_id)){
-                            String[] related_id_list = related_id.split(",");
-                            for(int j=0;j < related_id_list.length; j++){
-                                String id_get = related_id_list[j];
-                                if(id_get != null && id_get != "") {
-                                    List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                                    Lesson lesson_re = lessons_re.get(0);
-                                    String student_name_get = lesson_re.getStudent_name();
-                                    String subject_re = lesson_re.getSubject();
-                                    if (!student_name.equals(student_name_get)) {
-                                        Float consume_lesson_re = null;
-                                        try {
-                                            consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        } catch (Exception e) {
-//                                            throw new RuntimeException(e);
-                                            consume_lesson_re = 0.0f;
-                                        }
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
-                                    }
-                                }
-                            }
-                        }
-                    } catch (NumberFormatException e) {
-//                        throw new RuntimeException(e);
-                        consume_lesson_get = 0.0f;
-                    }
-
-                    if(consume_lesson_get > 0){
-                        consume_amount = consume_lesson_get;
+                    if(is_combine == 0){
+                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject_get,campus,student_name);
+                    }else if(is_combine ==1 ){
+                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
                 } catch (Exception e) {
-//                    throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
+
+                // 判断寻找其他关联课时
+                if(!"no_id".equals(related_id)){
+                    String[] related_id_list = related_id.split(",");
+                    for(int j=0;j < related_id_list.length; j++){
+                        String id_get = related_id_list[j];
+                        if(id_get != null && id_get != "") {
+                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_re = lessons_re.get(0);
+                            String student_name_get = lesson_re.getStudent_name();
+                            String subject_re = lesson_re.getSubject();
+                            if (!student_name.equals(student_name_get)) {
+                                Float consume_lesson_re =  0.0f;
+                                try {
+                                    consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                }
+                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                            }
+                        }
+                    }
+                }
+
+                if(consume_lesson_get > 0){
+                    consume_amount = consume_lesson_get;
+                }
+
 
                 Float receipts = total_money - discount_money;
                 Float re_price = receipts/(all_lesson + give_lesson);
@@ -8455,52 +8440,41 @@ public class LoginServiceImpl implements LoginService {
                 Float consume_amount = 0.0f;
                 Float lesson_gap = total_amount - left_amount;
                 try {
-                    try {
-                        if(is_combine == 0){
-                            consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
-                        }else if(is_combine == 1){
-                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
-                        }
-                    } catch (Exception e) {
-//                        throw new RuntimeException(e);
-                        consume_lesson_get = 0.0f;
-                    }
-
-                    // 判断寻找其他关联课时
-                    try {
-                        if(!"no_id".equals(related_id)){
-                            String[] related_id_list = related_id.split(",");
-                            for(int j=0;j < related_id_list.length; j++){
-                                String id_get = related_id_list[j];
-                                if(id_get != null && id_get != "") {
-                                    List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
-                                    Lesson lesson_re = lessons_re.get(0);
-                                    String student_name_get = lesson_re.getStudent_name();
-                                    String subject_re = lesson_re.getSubject();
-                                    if (!student_name.equals(student_name_get)) {
-                                        Float consume_lesson_re = null;
-                                        try {
-                                            consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        } catch (Exception e) {
-//                                            throw new RuntimeException(e);
-                                            consume_lesson_re = 0.0f;
-                                        }
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
-                                    }
-                                }
-                            }
-                        }
-                    } catch (NumberFormatException e) {
-//                        throw new RuntimeException(e);
-                        consume_lesson_get = 0.0f;
-                    }
-
-                    if(consume_lesson_get > 0){
-                        consume_lesson = consume_lesson_get;
-                        consume_amount = consume_lesson_get;
+                    if(is_combine == 0){
+                        consume_lesson_get = dao.getAllSignUpByStudent(studio,subject,campus,student_name);
+                    }else if(is_combine == 1){
+                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
                 } catch (Exception e) {
-//                    throw new RuntimeException(e);
+                    throw new RuntimeException(e);
+                }
+
+                // 判断寻找其他关联课时
+                if(!"no_id".equals(related_id)){
+                    String[] related_id_list = related_id.split(",");
+                    for(int j=0;j < related_id_list.length; j++){
+                        String id_get = related_id_list[j];
+                        if(id_get != null && id_get != "") {
+                            List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                            Lesson lesson_re = lessons_re.get(0);
+                            String student_name_get = lesson_re.getStudent_name();
+                            String subject_re = lesson_re.getSubject();
+                            if (!student_name.equals(student_name_get)) {
+                                Float consume_lesson_re = 0.0f;;
+                                try {
+                                    consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                }
+                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                            }
+                        }
+                    }
+                }
+
+                if(consume_lesson_get > 0){
+                    consume_lesson = consume_lesson_get;
+                    consume_amount = consume_lesson_get;
                 }
 
                 int compareToResult1 = consume_lesson.compareTo(lesson_gap);
