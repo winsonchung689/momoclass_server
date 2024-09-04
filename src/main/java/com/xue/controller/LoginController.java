@@ -3464,8 +3464,16 @@ public class LoginController {
 		String nick_name = list.get(0).getNick_name();
 		String total_money =  request.getParameter("total_money");
 		String discount_money =  request.getParameter("discount_money");
+
 		String start_date =  request.getParameter("start_date");
+		if(start_date == null || start_date.isEmpty() || "undefined".equals(start_date)){
+			start_date = create_time;
+		}
 		String end_date =  request.getParameter("end_date");
+		if(end_date == null || end_date.isEmpty() || "undefined".equals(end_date)){
+			end_date = create_time;
+		}
+
 		String all_lesson =  request.getParameter("all_lesson");
 		String give_lesson =  request.getParameter("give_lesson");
 		String subject =  request.getParameter("subject");
@@ -3893,6 +3901,7 @@ public class LoginController {
 				LessonPackage lessonPackage = new LessonPackage();
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setStart_date(create_time);
+				lessonPackage.setEnd_date(create_time);
 				lessonPackage.setMark("批量录入");
 				lessonPackage.setStudio(studio);
 				lessonPackage.setCampus(campus);
