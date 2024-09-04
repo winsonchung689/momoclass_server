@@ -7844,6 +7844,7 @@ public class LoginServiceImpl implements LoginService {
                 Float leave_times = line.getLeave_times();
                 Integer delete_status = line.getDelete_status();
                 String age = line.getAge();
+                String uuid = line.getUuid();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -7916,6 +7917,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("parent", parent);
                     jsonObject.put("studio", studio);
                     jsonObject.put("avatarurl", avatarurl);
+                    jsonObject.put("uuid", uuid);
                     jsonObject.put("campus", campus_get);
                     jsonObject.put("is_combine", combine);
                     jsonObject.put("price",df.format(price));
@@ -7959,6 +7961,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("parent", parent);
                     jsonObject.put("studio", studio);
                     jsonObject.put("avatarurl", avatarurl);
+                    jsonObject.put("uuid", uuid);
                     jsonObject.put("campus", campus_get);
                     jsonObject.put("is_combine", combine);
                     jsonObject.put("price",df.format(price));

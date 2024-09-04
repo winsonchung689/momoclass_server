@@ -355,6 +355,8 @@ public interface UserMapper {
 
     int updateAvatar(User user);
 
+    int updateLessonAvatar(String id,String uuid);
+
     int updateLessonAgeById(String id,String age);
 
     int updateLessonSubjectById(String id,String subject);

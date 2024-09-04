@@ -3253,6 +3253,22 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateLessonAvatar")
+	@ResponseBody
+	public int updateLessonAvatar(HttpServletRequest request, HttpServletResponse response){
+
+		try {
+			String id = request.getParameter("id");
+			String uuid = request.getParameter("uuid");
+			dao.updateLessonAvatar(id,uuid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/modifyLesson")
 	@ResponseBody
 	public int modifyLesson(HttpServletRequest request, HttpServletResponse response){

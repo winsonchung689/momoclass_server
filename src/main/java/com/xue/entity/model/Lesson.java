@@ -42,7 +42,16 @@ public class Lesson {
 
     private String related_id;
 
+    private String uuid;
 
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getRelated_id() {
         return related_id;
