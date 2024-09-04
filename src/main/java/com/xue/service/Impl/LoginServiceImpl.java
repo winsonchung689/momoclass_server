@@ -7791,6 +7791,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取字段
                 student_name = line.getStudent_name();
+                String related_id = line.getRelated_id();
 
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
@@ -7807,7 +7808,6 @@ public class LoginServiceImpl implements LoginService {
                 // 获取关联名单
                 StringBuffer related_names = new StringBuffer();
                 try {
-                    String related_id = line.getRelated_id();
                     if(!"no_id".equals(related_id)){
                         String[] related_id_list = related_id.split(",");
                         for(int index = 0;index < related_id_list.length; index++){
@@ -7879,6 +7879,25 @@ public class LoginServiceImpl implements LoginService {
                     }else if(is_combine ==1 ){
                         consume_lesson_get = dao.getAllSignUpByStudentCombine(studio,campus,student_name);
                     }
+
+                    // 判断寻找其他关联课时
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            if(id_get != null && id_get != "") {
+                                List<Lesson> lessons_re = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                if (!student_name.equals(student_name_get)) {
+                                    Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                }
+                            }
+                        }
+                    }
+
 
                     if(consume_lesson_get > 0){
                         consume_amount = consume_lesson_get;
