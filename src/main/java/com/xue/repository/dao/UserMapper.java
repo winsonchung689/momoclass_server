@@ -71,6 +71,8 @@ public interface UserMapper {
     //获取
     List<Schedule> getScheduleAll(Integer date_time,String studio,String campus);
 
+    List<Schedule> getScheduleById(Integer id);
+
     List<Schedule> getScheduleByStudent(String studio,String campus,String subject,String student_name);
 
     List<Schedule> getScheduleByStudentDay(String studio,Integer day,String duration,String class_number,String subject,String campus,String student_name);
@@ -422,6 +424,8 @@ public interface UserMapper {
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);
+
+    int updateScheduleById(Integer id);
 
     int updateComment(Message message);
 

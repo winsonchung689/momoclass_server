@@ -582,7 +582,11 @@
 
   <!-- 获取课程表 -->
   <select id="getSchedule" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+  </select>
+
+  <select id="getScheduleById" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select * from class_schedule where id =# {param1}
   </select>
 
 
@@ -602,7 +606,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject,remind from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus =#{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
+    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus =#{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
   </select>
 
   <select id="getScheduleByStudent" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
@@ -629,15 +633,15 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 and is_try = 0 order by duration
+    select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 and is_try = 0 order by duration
   </select>
 
   <select id="getScheduleDetailAll_O" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 order by duration
+    select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 order by duration
   </select>
 
   <select id="getScheduleDetailAll_T" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,subject from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type= 'transferred' and add_date =#{param7} and delete_status = 0 order by duration
+    select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type= 'transferred' and add_date =#{param7} and delete_status = 0 order by duration
   </select>
 
   <!-- 获取课程表 -->
@@ -1044,6 +1048,11 @@
   <!-- 更新课时 -->
   <update id="updateSchedule" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio} and campus = #{campus}
+  </update>
+
+  <!-- 更新课时 -->
+  <update id="updateScheduleById" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set add_date=#{add_date},duration=#{duration},class_number=#{class_number},subject=#{subject},update_time=#{update_time} where id = #{param1}
   </update>
 
   <!-- 更新课时 -->

@@ -4686,7 +4686,64 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	//	推送
+
+	//	调课
+	@RequestMapping("/udpateScheduleSingle")
+	@ResponseBody
+	public String udpateScheduleSingle(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String id = request.getParameter("id");
+
+		String class_select = request.getParameter("class_select");
+		String[] list_get = class_select.split(",");
+		String weekofday = list_get[0];
+
+		String add_date = null;
+		if(weekofday.equals("星期1")){
+			add_date = "2022-05-02";
+		}else if(weekofday.equals("星期2")){
+			add_date = "2022-05-03";
+		}else if(weekofday.equals("星期3")){
+			add_date = "2022-05-04";
+		}else if(weekofday.equals("星期4")){
+			add_date = "2022-05-05";
+		}else if(weekofday.equals("星期5")){
+			add_date = "2022-05-06";
+		}else if(weekofday.equals("星期6")){
+			add_date = "2022-05-07";
+		}else if(weekofday.equals("星期7")){
+			add_date = "2022-05-08";
+		}
+
+		String class_number = list_get[1];
+		String duration = list_get[2];
+		String subject = list_get[3];
+
+		List<Schedule> schedules =dao.getScheduleById(Integer.parseInt(id));
+		Schedule schedule = schedules.get(0);
+		String student_name = schedule.getStudent_name();
+		String studio = schedule.getStudio();
+		String campus = schedule.getCampus();
+
+		schedule.setAdd_date(add_date);
+		schedule.setDuration(duration);
+		schedule.setClass_number(class_number);
+		schedule.setSubject(subject);
+		schedule.setUpdate_time(create_time);
+
+		List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,student_name);
+		if(check_schedule.size()==0){
+			dao.updateScheduleById(Integer.parseInt(id));
+		}else{
+			return "学生已存在！";
+		}
+
+		return "调课成功！";
+	}
+
+	//排课
 	@RequestMapping("/arrangeClass")
 	@ResponseBody
 	public String arrangeClass(HttpServletRequest request, HttpServletResponse response){
