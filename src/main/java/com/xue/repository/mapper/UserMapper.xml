@@ -586,7 +586,7 @@
   </select>
 
   <select id="getScheduleById" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where id =# {param1}
+    select * from class_schedule where id=#{param1}
   </select>
 
 
