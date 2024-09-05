@@ -4686,7 +4686,6 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-
 	//	调课
 	@RequestMapping("/udpateScheduleSingle")
 	@ResponseBody
