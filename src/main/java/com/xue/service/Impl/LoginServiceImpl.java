@@ -2542,7 +2542,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("official_openid", official_openid);
                 jsonObject.put("official_status", "未关注");
-                if("no_id".equals(official_openid)){
+                if(!"no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
 
@@ -4929,7 +4929,7 @@ public class LoginServiceImpl implements LoginService {
             unionid = jsonObject.getString("unionid");
             if(unionid != null) {
                 if ("MOMO".equals(app)) {
-                    dao.updateUserUnionid(openid, unionid, app,"no_id");
+                    dao.updateUserUnionid(openid, unionid, app);
                 } else if ("ORDER".equals(app)) {
                     dao.updateRestaurantUserUnionid(openid, unionid);
                 } else if ("BOOK".equals(app)) {
@@ -4974,12 +4974,12 @@ public class LoginServiceImpl implements LoginService {
                         List<User> users = dao.getUserByUnionid(unionid);
                         if(users.size()>0){
                             for(int j =0;j<users.size();j++){
-                                String official_openid_get = users.get(j).getOfficial_openid();
-                                if(official_openid_get != null){
-                                    if(!official_openid_get.contains(official_openid)){
-                                        official_openid = official_openid + "," + official_openid_get;
-                                    }
-                                }
+//                                String official_openid_get = users.get(j).getOfficial_openid();
+//                                if(official_openid_get != null){
+//                                    if(!official_openid_get.contains(official_openid)){
+//                                        official_openid = official_openid + "," + official_openid_get;
+//                                    }
+//                                }
                                 dao.updateUserOfficialOpenid(unionid,official_openid);
                             }
                         }
@@ -5021,7 +5021,7 @@ public class LoginServiceImpl implements LoginService {
                         JSONObject jsonObject_info = JSON.parseObject(result2);
                         String unionid_get = jsonObject_info.getString("unionid");
                         if(unionid.equals(unionid_get)){
-                            dao.updateUserUnionid(openid,unionid,"MOMO",official_openid_get);
+                            dao.updateUserOfficialOpenid(unionid_get,official_openid_get);
                         }
                     }
                 }

@@ -1864,7 +1864,7 @@
   </update>
 
   <update id="updateUserUnionid" parameterType="com.xue.entity.model.User">
-    update user set unionid=#{param2},app=#{param3},official_openid=#{param4}  where openid=#{param1} and delete_status = 0
+    update user set unionid=#{param2},app=#{param3} where openid=#{param1} and delete_status = 0
   </update>
 
   <update id="updateRestaurantUserUnionid" parameterType="com.xue.entity.model.RestaurantUser">
