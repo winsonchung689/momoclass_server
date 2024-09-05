@@ -4734,7 +4734,7 @@ public class LoginController {
 
 		List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,student_name);
 		if(check_schedule.size()==0){
-			dao.updateScheduleById(Integer.parseInt(id));
+			dao.updateScheduleById(schedule);
 		}else{
 			return "学生已存在！";
 		}

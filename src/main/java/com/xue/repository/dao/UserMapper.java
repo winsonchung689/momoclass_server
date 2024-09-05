@@ -425,7 +425,7 @@ public interface UserMapper {
 
     int updateSchedule(Schedule schedule);
 
-    int updateScheduleById(Integer id);
+    int updateScheduleById(Schedule schedule);
 
     int updateComment(Message message);
 

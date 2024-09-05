@@ -1052,7 +1052,7 @@
 
   <!-- 更新课时 -->
   <update id="updateScheduleById" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set add_date=#{add_date},duration=#{duration},class_number=#{class_number},subject=#{subject},update_time=#{update_time} where id = #{param1}
+    update class_schedule set add_date=#{add_date},duration=#{duration},class_number=#{class_number},subject=#{subject},update_time=#{update_time} where id = #{id}
   </update>
 
   <!-- 更新课时 -->
