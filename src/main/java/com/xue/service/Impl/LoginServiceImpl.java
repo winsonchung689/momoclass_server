@@ -2542,7 +2542,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("official_openid", official_openid);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != "no_id"){
+                if("no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
 
@@ -2551,8 +2551,10 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Integer contract = line.getContract();
+                String unionid = line.getUnionid();
 
                 //json
+                jsonObject.put("unionid", unionid);
                 jsonObject.put("role", role);
                 if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client")){
                     jsonObject.put("role", "visit");
