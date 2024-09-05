@@ -395,9 +395,14 @@
     update schedule_arrangement set class_number =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
-  <!-- 更改课程名 -->
-  <select id="modifyMark" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
+  <!-- 更改签到备注 -->
+  <select id="modifySignUpMark" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
     update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
+  <!-- 更改签到课时 -->
+  <select id="modifySignUpCount" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
+    update sign_up_record set count =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 更改课程名 -->

@@ -261,7 +261,9 @@ public interface UserMapper {
 
     void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
 
-    void modifyMark(String id,String studio,String mark);
+    void modifySignUpMark(String id,String studio,String mark);
+
+    void modifySignUpCount(String id,String studio,Float count);
 
     void modifyOrderCutPrice(String goods_id,String leader_id,Float cut_price);
 

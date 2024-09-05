@@ -1602,11 +1602,15 @@ public class LoginController {
 	}
 
 	//	获取全部
-	@RequestMapping("/modifyMark")
+	@RequestMapping("/modifySignUpRecord")
 	@ResponseBody
-	public String modifyMark(String id,String studio,String mark){
+	public String modifySignUpRecord(String id,String studio,String content,String type){
 		try {
-			dao.modifyMark(id,studio,mark);
+			if("备注".equals(type)) {
+				dao.modifySignUpMark(id, studio, content);
+			}else if("课时".equals(type)){
+				dao.modifySignUpCount(id,studio,Float.parseFloat(content));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
