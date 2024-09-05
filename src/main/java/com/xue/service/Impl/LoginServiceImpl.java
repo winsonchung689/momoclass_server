@@ -8441,7 +8441,6 @@ public class LoginServiceImpl implements LoginService {
                     if(signUps.size() > 0) {
                         consume_lesson_get = dao.getAllSignUpByStudent(studio, subject, campus, student_name);
                     }
-
                 } else if (is_combine == 1) {
                     consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
                 }
