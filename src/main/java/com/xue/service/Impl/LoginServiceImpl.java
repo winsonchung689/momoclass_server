@@ -8001,7 +8001,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("age", age);
                 jsonObject.put("consume_amount", consume_amount);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != "no_id"){
+                if(!"no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
                 jsonObject.put("related_names", related_names.toString());
