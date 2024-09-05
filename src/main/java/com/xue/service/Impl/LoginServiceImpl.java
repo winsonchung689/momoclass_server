@@ -7823,7 +7823,7 @@ public class LoginServiceImpl implements LoginService {
                 Float give_lesson = 0.0f ;
                 String parent = "未绑定";
                 String avatarurl ="https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
-                String official_openid = null;
+                String official_openid = "no_id";
                 String phone_number = "未录入";
                 Float price = 0.0f;
                 JSONObject jsonObject = new JSONObject();
