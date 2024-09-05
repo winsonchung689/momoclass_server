@@ -6585,14 +6585,16 @@ public class LoginServiceImpl implements LoginService {
                     Float consume_lesson = 0.0f;
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
-                    List<SignUp> signUps = dao.getSignUp(student_name_all,studio,subject_get,campus);
-                    if(signUps.size() > 0) {
-                        if (is_combine == 0) {
+
+                    if (is_combine == 0) {
+                        List<SignUp> signUps = dao.getSignUp(student_name_all,studio,subject_get,campus);
+                        if(signUps.size() > 0) {
                             consume_lesson_get = dao.getAllSignUpByStudent(studio, subject_get, campus, student_name_all);
-                        } else if (is_combine == 1) {
-                            consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name_all);
                         }
+                    } else if (is_combine == 1) {
+                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name_all);
                     }
+
 
                     // 判断寻找其他关联课时
                     if(!"no_id".equals(related_id)){
@@ -7876,14 +7878,15 @@ public class LoginServiceImpl implements LoginService {
 
                 Float consume_amount = 0.0f;
                 Float consume_lesson_get = 0.0f;
-                List<SignUp> signUps = dao.getSignUp(student_name,studio,subject_get,campus);
-                if(signUps.size() > 0) {
-                    if (is_combine == 0) {
+                if (is_combine == 0) {
+                    List<SignUp> signUps = dao.getSignUp(student_name,studio,subject_get,campus);
+                    if(signUps.size() > 0) {
                         consume_lesson_get = dao.getAllSignUpByStudent(studio, subject_get, campus, student_name);
-                    } else if (is_combine == 1) {
-                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
                     }
+                } else if (is_combine == 1) {
+                    consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
                 }
+
 
                 // 判断寻找其他关联课时
                 if(!"no_id".equals(related_id)){
@@ -8433,13 +8436,14 @@ public class LoginServiceImpl implements LoginService {
                 Float consume_lesson_get = 0.0f;
                 Float consume_amount = 0.0f;
                 Float lesson_gap = total_amount - left_amount;
-                List<SignUp> signUps = dao.getSignUp(student_name,studio,subject,campus);
-                if(signUps.size() > 0) {
-                    if (is_combine == 0) {
+                if (is_combine == 0) {
+                    List<SignUp> signUps = dao.getSignUp(student_name,studio,subject,campus);
+                    if(signUps.size() > 0) {
                         consume_lesson_get = dao.getAllSignUpByStudent(studio, subject, campus, student_name);
-                    } else if (is_combine == 1) {
-                        consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
                     }
+
+                } else if (is_combine == 1) {
+                    consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
                 }
 
 
