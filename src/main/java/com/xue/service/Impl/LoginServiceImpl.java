@@ -4924,16 +4924,18 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = JSON.parseObject(result);
             openid = jsonObject.getString("openid");
             unionid = jsonObject.getString("unionid");
+            System.out.println(unionid);
 
             // 更新公众号ID
             try {
                 if(unionid != null){
+                    System.out.println(openid);
                     List<User> users = dao.getUserByOpenid(openid);
                     for(int i=0;i<users.size();i++){
                         User user = users.get(i);
                         String openid_get = user.getOpenid();
                         String official_openid = user.getOfficial_openid();
-                        if(official_openid == "no_id" ){
+                        if("no_id".equals(official_openid)){
                             String token = getToken(app);
                             String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
                             String param1 = "access_token="+ token;
@@ -4950,6 +4952,7 @@ public class LoginServiceImpl implements LoginService {
                                 String result2 = HttpUtil.sendPost(url2 ,param2);
                                 JSONObject jsonObject_info = JSON.parseObject(result2);
                                 String unionid_get = jsonObject_info.getString("unionid");
+                                System.out.println(unionid_get);
                                 if(unionid.equals(unionid_get)){
                                     if("MOMO".equals(app)){
                                         dao.updateUserUnionid(openid,unionid,app,official_openid);
