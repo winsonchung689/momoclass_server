@@ -5020,9 +5020,7 @@ public class LoginServiceImpl implements LoginService {
                         String result2 = HttpUtil.sendPost(url2 ,param2);
                         JSONObject jsonObject_info = JSON.parseObject(result2);
                         String unionid_get = jsonObject_info.getString("unionid");
-                        if(unionid.equals(unionid_get)){
-                            dao.updateUserUnionid(openid,unionid,"MOMO",official_openid);
-                        }
+                        dao.updateUserUnionid(openid,unionid_get,"MOMO",official_openid_get);
                     }
                 }
             }
