@@ -4933,7 +4933,7 @@ public class LoginServiceImpl implements LoginService {
                         User user = users.get(0);
                         String openid_get = user.getOpenid();
                         String official_openid = user.getOfficial_openid();
-                        if(official_openid == null){
+                        if(official_openid == "no_id" ){
                             String token = getToken(app);
                             String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
                             String param1 = "access_token="+ token;
