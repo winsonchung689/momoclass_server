@@ -4935,8 +4935,9 @@ public class LoginServiceImpl implements LoginService {
                         User user = users.get(i);
                         String openid_get = user.getOpenid();
                         String official_openid = user.getOfficial_openid();
+                        System.out.println(official_openid);
                         if("no_id".equals(official_openid)){
-                            String token = getToken(app);
+                            String token = getToken("MOMO_OFFICIAL");
                             String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
                             String param1 = "access_token="+ token;
                             String result1 = HttpUtil.sendPost(url1  ,param1);
