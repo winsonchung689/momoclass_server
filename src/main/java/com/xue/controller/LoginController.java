@@ -102,6 +102,12 @@ public class LoginController {
 		loginService.getOpenidOfficial();
 	}
 
+	@RequestMapping("/updateOpenidOfficialByOpenid")
+	@ResponseBody
+	public void updateOpenidOfficialByOpenid(String openid,String unionid){
+		loginService.updateOpenidOfficialByOpenid(openid,unionid);
+	}
+
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
 	public String sendConsumeLesson(String openid,String consume_lesson_amount,String student_name,String subject){

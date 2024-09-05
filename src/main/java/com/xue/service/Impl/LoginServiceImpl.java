@@ -4924,49 +4924,15 @@ public class LoginServiceImpl implements LoginService {
             JSONObject jsonObject = JSON.parseObject(result);
             openid = jsonObject.getString("openid");
             unionid = jsonObject.getString("unionid");
-            System.out.println(unionid);
-
-            // 更新公众号ID
-            try {
-                if(unionid != null){
-                    System.out.println(openid);
-                    List<User> users = dao.getUserByOpenid(openid);
-                    for(int i=0;i<users.size();i++){
-                        User user = users.get(i);
-                        String openid_get = user.getOpenid();
-                        String official_openid = user.getOfficial_openid();
-                        System.out.println(official_openid);
-                        if("no_id".equals(official_openid)){
-                            String token = getToken("MOMO_OFFICIAL");
-                            String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
-                            String param1 = "access_token="+ token;
-                            String result1 = HttpUtil.sendPost(url1  ,param1);
-                            JSONObject jsonObject1 = JSON.parseObject(result1);
-                            String data = jsonObject1.getString("data");
-                            JSONObject jsonObject2 = JSON.parseObject(data);
-                            String list = jsonObject2.getString("openid").replace("[","").replace("]","").replace("\"","");
-                            String[] openid_list = list.split(",");
-                            for(int j=0;j<openid_list.length;j++){
-                                String official_openid_get = openid_list[j];
-                                String url2 = "https://api.weixin.qq.com/cgi-bin/user/info";
-                                String param2 = "access_token="+ token + "&openid=" + official_openid_get  + "&lang=zh_CN";
-                                String result2 = HttpUtil.sendPost(url2 ,param2);
-                                JSONObject jsonObject_info = JSON.parseObject(result2);
-                                String unionid_get = jsonObject_info.getString("unionid");
-                                System.out.println(unionid_get);
-                                if(unionid.equals(unionid_get)){
-                                    if("MOMO".equals(app)){
-                                        dao.updateUserUnionid(openid,unionid,app,official_openid);
-                                    }
-                                }
-                            }
-                        }
-                    }
+            if(unionid != null) {
+                if ("MOMO".equals(app)) {
+                    dao.updateUserUnionid(openid, unionid, app,"no_id");
+                } else if ("ORDER".equals(app)) {
+                    dao.updateRestaurantUserUnionid(openid, unionid);
+                } else if ("BOOK".equals(app)) {
+                    dao.updateBookUserUnionid(openid, unionid);
                 }
-            } catch (Exception e) {
-//                throw new RuntimeException(e);
             }
-
         } catch (Exception e) {
 //			e.printStackTrace();
         }
@@ -4975,7 +4941,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String getOpenidOfficial() {
-
         // 每天更新公众号绑定状态
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");
@@ -5023,6 +4988,46 @@ public class LoginServiceImpl implements LoginService {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+        return null;
+    }
+
+    @Override
+    public String updateOpenidOfficialByOpenid(String openid,String unionid) {
+        // 更新公众号ID
+        try {
+            List<User> users = dao.getUserByOpenid(openid);
+            for(int i=0;i<users.size();i++){
+                User user = users.get(i);
+                String official_openid = user.getOfficial_openid();
+                System.out.println(official_openid);
+                if("no_id".equals(official_openid)){
+                    String token = getToken("MOMO_OFFICIAL");
+                    String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
+                    String param1 = "access_token="+ token;
+                    String result1 = HttpUtil.sendPost(url1  ,param1);
+                    JSONObject jsonObject1 = JSON.parseObject(result1);
+                    String data = jsonObject1.getString("data");
+                    JSONObject jsonObject2 = JSON.parseObject(data);
+                    String list = jsonObject2.getString("openid").replace("[","").replace("]","").replace("\"","");
+                    String[] openid_list = list.split(",");
+                    for(int j=0;j<openid_list.length;j++){
+                        String official_openid_get = openid_list[j];
+                        String url2 = "https://api.weixin.qq.com/cgi-bin/user/info";
+                        String param2 = "access_token="+ token + "&openid=" + official_openid_get  + "&lang=zh_CN";
+                        String result2 = HttpUtil.sendPost(url2 ,param2);
+                        JSONObject jsonObject_info = JSON.parseObject(result2);
+                        String unionid_get = jsonObject_info.getString("unionid");
+                        System.out.println(unionid_get);
+                        if(unionid.equals(unionid_get)){
+                            dao.updateUserUnionid(openid,unionid,"MOMO",official_openid);
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+//                throw new RuntimeException(e);
         }
         return null;
     }
