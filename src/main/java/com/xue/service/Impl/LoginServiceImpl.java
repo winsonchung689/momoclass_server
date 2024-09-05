@@ -4904,8 +4904,6 @@ public class LoginServiceImpl implements LoginService {
         String unionid = null;
         String appid = Constants.appid;
         String secret = Constants.secret;
-        String appid_2b = Constants.appid_2b;
-        String secret_2b = Constants.secret_2b;
         String order_appid = Constants.order_appid;
         String order_secret = Constants.order_secret;
         String book_appid = Constants.book_appid;
@@ -4913,9 +4911,7 @@ public class LoginServiceImpl implements LoginService {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
 
 
-        if ("MOMO2B".equals(app)){
-            param = "appid="+ appid_2b + "&secret=" + secret_2b + "&js_code="+ code +"&grant_type=authorization_code";
-        }else if("MOMO".equals(app)){
+        if("MOMO".equals(app)){
             param = "appid="+ appid + "&secret=" + secret + "&js_code="+ code +"&grant_type=authorization_code";
         }else if("ORDER".equals(app)){
             param = "appid="+ order_appid + "&secret=" + order_secret + "&js_code="+ code +"&grant_type=authorization_code";
@@ -4924,20 +4920,49 @@ public class LoginServiceImpl implements LoginService {
         }
 
         try {
-            result = HttpUtil.sendPost(url	,param);
+            result = HttpUtil.sendPost(url,param);
             JSONObject jsonObject = JSON.parseObject(result);
             openid = jsonObject.getString("openid");
             unionid = jsonObject.getString("unionid");
-            if(unionid != null){
-                if("MOMO".equals(app)){
-                    dao.updateUserUnionid(openid,unionid,app);
-                }else if("ORDER".equals(app)){
-                    dao.updateRestaurantUserUnionid(openid,unionid);
-                }else if("BOOK".equals(app)){
-                    dao.updateBookUserUnionid(openid,unionid);
-                }
 
+            // 更新公众号ID
+            try {
+                if(unionid != null){
+                    List<User> users = dao.getUserByOpenid(openid);
+                    for(int i=0;i<users.size();i++){
+                        User user = users.get(0);
+                        String openid_get = user.getOpenid();
+                        String official_openid = user.getOfficial_openid();
+                        if(official_openid == null){
+                            String token = getToken(app);
+                            String url1 = "https://api.weixin.qq.com/cgi-bin/user/get";
+                            String param1 = "access_token="+ token;
+                            String result1 = HttpUtil.sendPost(url1  ,param1);
+                            JSONObject jsonObject1 = JSON.parseObject(result1);
+                            String data = jsonObject1.getString("data");
+                            JSONObject jsonObject2 = JSON.parseObject(data);
+                            String list = jsonObject2.getString("openid").replace("[","").replace("]","").replace("\"","");
+                            String[] openid_list = list.split(",");
+                            for(int j=0;j<openid_list.length;j++){
+                                String official_openid_get = openid_list[i];
+                                String url2 = "https://api.weixin.qq.com/cgi-bin/user/info";
+                                String param2 = "access_token="+ token + "&openid=" + official_openid_get  + "&lang=zh_CN";
+                                String result2 = HttpUtil.sendPost(url2 ,param2);
+                                JSONObject jsonObject_info = JSON.parseObject(result2);
+                                String unionid_get = jsonObject_info.getString("unionid");
+                                if(unionid.equals(unionid_get)){
+                                    if("MOMO".equals(app)){
+                                        dao.updateUserUnionid(openid,unionid,app,official_openid);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
             }
+
         } catch (Exception e) {
 //			e.printStackTrace();
         }

@@ -441,7 +441,7 @@ public interface UserMapper {
 
     int updateUserStudio(String studio,String new_studio);
 
-    int updateUserUnionid(String openid,String unionid,String app);
+    int updateUserUnionid(String openid,String unionid,String app,String official_openid);
 
     int updateRestaurantUserUnionid(String openid,String unionid);
 
@@ -543,6 +543,8 @@ public interface UserMapper {
     List<User> getUserByOpenid(String openid);
 
     List<User> getUserByUnionid(String unionid);
+
+    List<User> getUserByNoOfficialOpenid();
 
     List<RestaurantUser> getRestaurantUserByUnionid(String unionid);
 
