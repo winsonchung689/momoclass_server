@@ -4930,7 +4930,7 @@ public class LoginServiceImpl implements LoginService {
                 if(unionid != null){
                     List<User> users = dao.getUserByOpenid(openid);
                     for(int i=0;i<users.size();i++){
-                        User user = users.get(0);
+                        User user = users.get(i);
                         String openid_get = user.getOpenid();
                         String official_openid = user.getOfficial_openid();
                         if(official_openid == "no_id" ){
@@ -4944,7 +4944,7 @@ public class LoginServiceImpl implements LoginService {
                             String list = jsonObject2.getString("openid").replace("[","").replace("]","").replace("\"","");
                             String[] openid_list = list.split(",");
                             for(int j=0;j<openid_list.length;j++){
-                                String official_openid_get = openid_list[i];
+                                String official_openid_get = openid_list[j];
                                 String url2 = "https://api.weixin.qq.com/cgi-bin/user/info";
                                 String param2 = "access_token="+ token + "&openid=" + official_openid_get  + "&lang=zh_CN";
                                 String result2 = HttpUtil.sendPost(url2 ,param2);
