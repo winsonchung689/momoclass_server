@@ -8653,6 +8653,11 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 points = line.getPoints();
                 subject_get = line.getSubject();
+                String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -8667,6 +8672,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("search", student_name);
                 jsonObject.put("photo", photo);
                 jsonObject.put("subject_get", subject_get);
+                jsonObject.put("uuid", uuid);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -8879,6 +8885,11 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 points = line.getPoints();
                 subject_get = line.getSubject();
+                String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
+
                 //json
                 if("boss".equals(role) || is_open == 1){
                     jsonObject.put("student_name", student_name);
@@ -8891,6 +8902,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("rank", i + page_start + 1);
                     jsonObject.put("photo", photo);
                     jsonObject.put("subject_get", subject_get);
+                    jsonObject.put("uuid", uuid);
                     resul_list.add(jsonObject);
                 }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name)){
                     jsonObject.put("student_name", student_name);
@@ -8903,6 +8915,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("rank", i + page_start + 1);
                     jsonObject.put("photo", photo);
                     jsonObject.put("subject_get", subject_get);
+                    jsonObject.put("uuid", uuid);
                     resul_list.add(jsonObject);
                 }
 
