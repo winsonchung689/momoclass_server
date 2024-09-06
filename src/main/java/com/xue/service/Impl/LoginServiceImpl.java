@@ -4974,13 +4974,10 @@ public class LoginServiceImpl implements LoginService {
                         List<User> users = dao.getUserByUnionid(unionid);
                         if(users.size()>0){
                             for(int j =0;j<users.size();j++){
-//                                String official_openid_get = users.get(j).getOfficial_openid();
-//                                if(official_openid_get != null){
-//                                    if(!official_openid_get.contains(official_openid)){
-//                                        official_openid = official_openid + "," + official_openid_get;
-//                                    }
-//                                }
-                                dao.updateUserOfficialOpenid(unionid,official_openid);
+                                String official_openid_get = users.get(j).getOfficial_openid();
+                                if("no_id".equals(official_openid_get)){
+                                    dao.updateUserOfficialOpenid(unionid,official_openid);
+                                }
                             }
                         }
                     } catch (Exception e) {
