@@ -7887,6 +7887,9 @@ public class LoginServiceImpl implements LoginService {
                 Integer delete_status = line.getDelete_status();
                 String age = line.getAge();
                 String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
                 String school = line.getSchool();
                 String location = line.getLocation();
                 String birthdate = line.getBirthdate();
