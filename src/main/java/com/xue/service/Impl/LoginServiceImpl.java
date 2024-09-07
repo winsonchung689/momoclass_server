@@ -4475,7 +4475,7 @@ public class LoginServiceImpl implements LoginService {
                                     if("MOMO_OFFICIAL".equals(app)){
                                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                         //绑定公众号通知
-                                        if(official_openid != null){
+                                        if(official_openid != "no_id"){
                                             String[] official_list = official_openid.split(",");
                                             for(int k=0;k<official_list.length;k++){
                                                 try {
@@ -4524,7 +4524,7 @@ public class LoginServiceImpl implements LoginService {
                         if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)) {
                             String token = getToken("MOMO_OFFICIAL");
                             String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                            if (official_openid != null) {
+                            if (official_openid != "no_id") {
                                 String[] official_list = official_openid.split(",");
                                 for (int j = 0; j < official_list.length; j++) {
                                     String official_openid_get = official_list[j];
@@ -4590,7 +4590,7 @@ public class LoginServiceImpl implements LoginService {
                     if("MOMO_OFFICIAL".equals(app)){
                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                         //绑定公众号通知
-                        if(official_openid != null){
+                        if(official_openid != "no_id"){
                             String[] official_list = official_openid.split(",");
                             for(int j=0;j<official_list.length;j++){
                                 String official_openid_get = official_list[j];
@@ -5076,7 +5076,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String token = getToken("MOMO_OFFICIAL");
                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    if(official_openid != null){
+                    if(official_openid != "no_id"){
                         String[] official_list = official_openid.split(",");
                         for(int j=0;j<official_list.length;j++){
                             String official_openid_get = official_list[j];
@@ -5121,7 +5121,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String token = getToken("MOMO_OFFICIAL");
                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    if(official_openid != null){
+                    if(official_openid != "no_id"){
                         String[] official_list = official_openid.split(",");
                         for(int j=0;j<official_list.length;j++){
                             String official_openid_get = official_list[j];
@@ -6995,7 +6995,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != null){
+                if(official_openid != "no_id"){
                     jsonObject.put("official_status", "已关注");
                 }
                 resul_list.add(jsonObject);
@@ -8191,9 +8191,14 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                 }
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
 
+                DecimalFormat df = new DecimalFormat("0.00");
                 //json
+                jsonObject.put("uuid", uuid);
                 jsonObject.put("consume_amount", consume_amount);
                 jsonObject.put("price", price);
                 jsonObject.put("student_name", student_name);
@@ -8222,7 +8227,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != null){
+                if(official_openid != "no_id"){
                     jsonObject.put("official_status", "已关注");
                 }
 
@@ -8391,7 +8396,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != null){
+                if(official_openid != "no_id"){
                     jsonObject.put("official_status", "已关注");
                 }
                 resul_list.add(jsonObject);
@@ -8609,7 +8614,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("delete_status", delete_status);
                     jsonObject.put("age", age);
                     jsonObject.put("official_status", "未关注");
-                    if(official_openid != null){
+                    if(official_openid != "no_id"){
                         jsonObject.put("official_status", "已关注");
                     }
 
