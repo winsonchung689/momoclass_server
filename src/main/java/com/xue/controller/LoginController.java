@@ -5760,7 +5760,6 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-
 	@RequestMapping("/updateLessonPoints")
 	@ResponseBody
 	public String updateLessonPoints(HttpServletRequest request, HttpServletResponse response){
@@ -5786,6 +5785,29 @@ public class LoginController {
 
 		try {
 			loginService.updateAddPoints(student_name,studio,points_int,subject,campus,mark,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateLessonPointStatus")
+	@ResponseBody
+	public String updateLessonPointStatus(HttpServletRequest request, HttpServletResponse response){
+		//获取用户名
+		try {
+			String studio = request.getParameter("studio");
+			String openid = request.getParameter("openid");
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			List<Lesson> lessons = dao.getLesson(studio,campus);
+			Lesson lesson = lessons.get(0);
+			Integer point_status = lesson.getPoint_status();
+			Integer new_status = 1;
+			if(point_status == 1){
+				new_status = 0;
+			}
+			dao.updateLessonPointStatus(studio,campus,new_status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

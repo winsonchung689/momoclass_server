@@ -1821,11 +1821,17 @@
     update lesson set subject=#{param1} where id=#{param2} and studio = #{param3} and subject=#{param4} and campus=#{param5} and delete_status = 0
   </update>
 
-  <!-- 更新课时 -->
+  <!-- 更新积分展示状态 -->
+  <update id="updateLessonPointStatus" parameterType="com.xue.entity.model.Lesson">
+    update lesson set point_status=#{param3} where studio = #{param1} and campus =#{param2} and delete_status = 0
+  </update>
+
+  <!-- 更新单次积分全部 -->
   <update id="updateCoinsAll" parameterType="com.xue.entity.model.Lesson">
     update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and delete_status = 0
   </update>
 
+  <!-- 更新单次积分单人 -->
   <update id="updateCoinsByStudent" parameterType="com.xue.entity.model.Lesson">
     update lesson set coins=#{param1} where studio = #{param2} and campus =#{param3} and subject=#{param5} and delete_status = 0 and student_name=#{param4}
   </update>

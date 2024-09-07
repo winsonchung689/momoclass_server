@@ -8,6 +8,8 @@ public class Lesson {
 
     private Integer points;
 
+    private Integer point_status;
+
     private String student_name;
 
     private String create_time;
@@ -226,6 +228,14 @@ public class Lesson {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public Integer getPoint_status() {
+        return point_status;
+    }
+
+    public void setPoint_status(Integer point_status) {
+        this.point_status = point_status;
     }
 
     public String getStudent_name() {

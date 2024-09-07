@@ -8992,6 +8992,12 @@ public class LoginServiceImpl implements LoginService {
             Lesson lesson = list.get(i);
             String student_name_get = lesson.getStudent_name();
             String subject_get = lesson.getSubject();
+            Integer point_status = lesson.getPoint_status();
+            String point_status_cn = "全部";
+            if(point_status == 1){
+                point_status_cn = "个人";
+            }
+
             Integer points = lesson.getPoints();
             if(student_name.equals(student_name_get) && subject.equals(subject_get)){
                 my_points = my_points + points;
@@ -9010,6 +9016,8 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("student_name", student_name_get);
             jsonObject.put("subject", subject_get);
             jsonObject.put("points", points);
+            jsonObject.put("point_status_cn", point_status_cn);
+            jsonObject.put("point_status", point_status);
             jsonObject.put("month_points", month_points);
             jsonObject.put("rank", i+1);
             resul_list.add(jsonObject);
