@@ -1845,7 +1845,9 @@ public class LoginServiceImpl implements LoginService {
                     String final_time = lesson.getFinal_time();
                     Float leave_times = lesson.getLeave_times();
                     Float minus = lesson.getMinus();
+                    String related_id = lesson.getRelated_id();
 
+                    jsonObject.put("related_id", related_id);
                     jsonObject.put("minus", minus);
                     jsonObject.put("left", left);
                     jsonObject.put("total", total);
