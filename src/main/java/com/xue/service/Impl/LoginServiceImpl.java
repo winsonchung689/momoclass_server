@@ -4475,7 +4475,7 @@ public class LoginServiceImpl implements LoginService {
                                     if("MOMO_OFFICIAL".equals(app)){
                                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                         //绑定公众号通知
-                                        if(official_openid != "no_id"){
+                                        if(!"no_id".equals(official_openid)){
                                             String[] official_list = official_openid.split(",");
                                             for(int k=0;k<official_list.length;k++){
                                                 try {
@@ -4524,7 +4524,7 @@ public class LoginServiceImpl implements LoginService {
                         if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)) {
                             String token = getToken("MOMO_OFFICIAL");
                             String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                            if (official_openid != "no_id") {
+                            if (!"no_id".equals(official_openid)) {
                                 String[] official_list = official_openid.split(",");
                                 for (int j = 0; j < official_list.length; j++) {
                                     String official_openid_get = official_list[j];
@@ -4590,7 +4590,7 @@ public class LoginServiceImpl implements LoginService {
                     if("MOMO_OFFICIAL".equals(app)){
                         url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                         //绑定公众号通知
-                        if(official_openid != "no_id"){
+                        if(!"no_id".equals(official_openid)){
                             String[] official_list = official_openid.split(",");
                             for(int j=0;j<official_list.length;j++){
                                 String official_openid_get = official_list[j];
@@ -5076,7 +5076,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String token = getToken("MOMO_OFFICIAL");
                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    if(official_openid != "no_id"){
+                    if(!"no_id".equals(official_openid)){
                         String[] official_list = official_openid.split(",");
                         for(int j=0;j<official_list.length;j++){
                             String official_openid_get = official_list[j];
@@ -5121,7 +5121,7 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String token = getToken("MOMO_OFFICIAL");
                     url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    if(official_openid != "no_id"){
+                    if(!"no_id".equals(official_openid)){
                         String[] official_list = official_openid.split(",");
                         for(int j=0;j<official_list.length;j++){
                             String official_openid_get = official_list[j];
@@ -6995,7 +6995,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != "no_id"){
+                if(!"no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
                 resul_list.add(jsonObject);
@@ -8227,7 +8227,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != "no_id"){
+                if(!"no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
 
@@ -8396,7 +8396,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
                 jsonObject.put("official_status", "未关注");
-                if(official_openid != "no_id"){
+                if(!"no_id".equals(official_openid)){
                     jsonObject.put("official_status", "已关注");
                 }
                 resul_list.add(jsonObject);
@@ -8614,7 +8614,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("delete_status", delete_status);
                     jsonObject.put("age", age);
                     jsonObject.put("official_status", "未关注");
-                    if(official_openid != "no_id"){
+                    if(!"no_id".equals(official_openid)){
                         jsonObject.put("official_status", "已关注");
                     }
 
