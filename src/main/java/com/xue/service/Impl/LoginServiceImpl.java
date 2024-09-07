@@ -6955,9 +6955,14 @@ public class LoginServiceImpl implements LoginService {
 //                            throw new RuntimeException(e);
                 }
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
 
+                DecimalFormat df = new DecimalFormat("0.00");
                 //json
+                jsonObject.put("uuid", uuid);
                 jsonObject.put("consume_amount", consume_amount);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -8453,7 +8458,10 @@ public class LoginServiceImpl implements LoginService {
                 delete_status = line.getDelete_status();
                 String age = line.getAge();
                 String related_id = line.getRelated_id();
-
+                String uuid = line.getUuid();
+                if("no_id".equals(uuid)){
+                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                }
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -8608,6 +8616,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("consume_lesson", consume_lesson);
                     jsonObject.put("lesson_gap", lesson_gap);
                     jsonObject.put("package_lesson", package_lesson);
+                    jsonObject.put("uuid", uuid);
                     resul_list.add(jsonObject);
                 }
 
