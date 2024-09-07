@@ -4895,14 +4895,23 @@ public class LoginController {
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
 			openid = DigestUtils.md5Hex(nick_name + studio);
 		}
+
+		String type = request.getParameter("type");
+		if(type == null || type.isEmpty() || "undefined".equals(type)){
+			type = "登陆码";
+		}
+
 		//获取代理人 openid
 		String openid_qr = request.getParameter("openid_qr");
 		if(openid_qr == null || openid_qr.isEmpty() || "undefined".equals(openid_qr)){
 			openid_qr = "noid";
 		}
-		if(openid_qr != "noid"){
-			studio = "请录入工作室";
-			campus = "请录入工作室";
+
+		if("邀请码".equals(type)){
+			if(!"noid".equals(openid_qr)){
+				studio = "请录入工作室";
+				campus = "请录入工作室";
+			}
 		}
 
 		//获取 avatarurl
