@@ -4943,7 +4943,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public synchronized String getOpenidOfficial() {
+    public String getOpenidOfficial() {
         // 每天更新公众号绑定状态
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");
