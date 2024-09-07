@@ -4120,7 +4120,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public synchronized int updateMinusLesson(String student_name, String studio,Float class_count,String subject,String campus) {
+    public int updateMinusLesson(String student_name, String studio,Float class_count,String subject,String campus) {
         int result = 0;
         Float total_amount = 0.0f;
         Float left_amount = 0.0f;
