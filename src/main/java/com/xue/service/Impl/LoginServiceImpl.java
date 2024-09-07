@@ -7563,13 +7563,25 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAnalyzeDetailWeek(String studio, String type, String weekday,String campus) {
+    public List getAnalyzeDetailWeek(String studio, String type, String weekday,String campus,String subject_in) {
 
         List<JSONObject> resul_list = new ArrayList<>();
 
+        if(subject_in == null || subject_in.isEmpty() || "undefined".equals(subject_in)){
+            subject_in = "全科目";
+        }
+
         if(weekday.length() == 7){
+            //按月算
             if("出勤数".equals(type)){
-                List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonthByStudent(studio,campus,weekday,weekday);
+                //获取签到次数与课时
+                List<AnalyzeCount> list = null;
+                if("全科目".equals(subject_in)){
+                    list = dao.getAnalyzeSignUpByMonthByStudent(studio,campus,weekday,weekday);
+                }else{
+                    list = dao.getAnalyzeSignUpByMonthBySubject(studio,campus,subject_in,weekday,weekday);
+                }
+
                 for(int i=0;i< list.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Float weekPrice = 0.0f;
@@ -7577,13 +7589,21 @@ public class LoginServiceImpl implements LoginService {
                     String student_name = list.get(i).getStudent_name();
                     Float signCount = list.get(i).getSign_count();
                     Float lessonCount = list.get(i).getLesson_count();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonthByStudent(studio,campus,weekday,student_name);
+
+                    //获取签到记录
+                    List<SignUp> signUps = null;
+                    if("全科目".equals(subject_in)){
+                        signUps = dao.getAnalyzeSignUpDetailByMonthByStudent(studio,campus,weekday,student_name);
+                    }else{
+                        signUps = dao.getAnalyzeSignUpDetailByMonthBySubject(studio,campus,subject_in,weekday,student_name);
+                    }
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
                             try {
+                                //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
                                     Float total_amount = lessons.get(0).getTotal_amount();
@@ -7592,6 +7612,8 @@ public class LoginServiceImpl implements LoginService {
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
                                     Float give_lesson = 0.0f;
+
+                                    //获取课包记录
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
                                         for (int k = 0; k < lessonPackages.size(); k++) {
@@ -7617,7 +7639,13 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonthByStudent(studio,campus,student_name);
+                    //获取排课记录
+                    List<AnalyzeCount> list3 = null;
+                    if("全科目".equals(subject_in)){
+                        list3 = dao.getLessonAllCountBySumUpMonthByStudent(studio,campus,student_name);
+                    }else{
+                        list3 = dao.getLessonAllCountBySumUpMonthBySubject(studio,campus,subject_in,student_name);
+                    }
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count()*4;
                     }
@@ -7633,8 +7661,15 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
         }else if(weekday.length() == 10){
+            //按日算
             if("出勤数".equals(type)){
-                List<AnalyzeCount> list = dao.getAnalyzeSignUpByStudent(studio,campus,weekday,weekday);
+                //获取签到次数与课时
+                List<AnalyzeCount> list = null;
+                if("全科目".equals(subject_in)){
+                    list = dao.getAnalyzeSignUpByStudent(studio,campus,weekday,weekday);
+                }else{
+                    list = dao.getAnalyzeSignUpBySubject(studio,campus,subject_in,weekday,weekday);
+                }
                 for(int i=0;i< list.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Float weekPrice = 0.0f;
@@ -7642,13 +7677,21 @@ public class LoginServiceImpl implements LoginService {
                     String student_name = list.get(i).getStudent_name();
                     Float signCount = list.get(i).getSign_count();
                     Float lessonCount = list.get(i).getLesson_count();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,student_name);
+
+                    //获取签到记录
+                    List<SignUp> signUps = null;
+                    if("全科目".equals(subject_in)){
+                        signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,weekday);
+                    }else{
+                        signUps = dao.getAnalyzeSignUpDetailBySubject(studio,campus,subject_in,weekday,weekday);
+                    }
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
                             try {
+                                //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
                                     Float total_amount = lessons.get(0).getTotal_amount();
@@ -7657,6 +7700,7 @@ public class LoginServiceImpl implements LoginService {
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
                                     Float give_lesson = 0.0f;
+                                    //获取课包记录
                                     List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                     if(lessonPackages.size()>0){
                                         for (int k = 0; k < lessonPackages.size(); k++) {
@@ -7674,7 +7718,6 @@ public class LoginServiceImpl implements LoginService {
                                         }
                                         weekPrice = weekPrice + price*count;
                                     }
-
                                 }
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
@@ -7682,7 +7725,13 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpByStudent(studio,campus,weekday,student_name);
+                    //获取排课记录
+                    List<AnalyzeCount> list3 = null;
+                    if("全科目".equals(subject_in)){
+                        list3 = dao.getLessonAllCountBySumUpByStudent(studio,campus,weekday,student_name);
+                    }else{
+                        list3 = dao.getLessonAllCountBySumUpBySubject(studio,campus,subject_in,weekday,student_name);
+                    }
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count();
                     }

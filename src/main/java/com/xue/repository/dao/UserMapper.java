@@ -120,17 +120,25 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeSignUpByStudent(String studio,String campus,String start_date,String end_date);
 
+    List<AnalyzeCount> getAnalyzeSignUpBySubject(String studio,String campus,String subject,String start_date,String end_date);
+
     List<AnalyzeCount> getAnalyzeSignUpByMonth(String studio,String campus,String start_date,String end_date);
 
     List<AnalyzeCount> getAnalyzeSignUpByMonthByStudent(String studio,String campus,String start_date,String end_date);
+
+    List<AnalyzeCount> getAnalyzeSignUpByMonthBySubject(String studio,String campus,String subject,String start_date,String end_date);
 
     List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
     List<SignUp> getAnalyzeSignUpDetailByStudent(String studio,String campus,String create_time,String student_name);
 
+    List<SignUp> getAnalyzeSignUpDetailBySubject(String studio,String campus,String subject,String create_time,String student_name);
+
     List<SignUp> getAnalyzeSignUpDetailByMonth(String studio,String campus,String create_time);
 
     List<SignUp> getAnalyzeSignUpDetailByMonthByStudent(String studio,String campus,String create_time,String student_name);
+
+    List<SignUp> getAnalyzeSignUpDetailByMonthBySubject(String studio,String campus,String subject,String create_time,String student_name);
 
     List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
 
@@ -699,9 +707,13 @@ public interface UserMapper {
 
     List<AnalyzeCount> getLessonAllCountBySumUpByStudent(String studio,String campus,String create_time,String student_name);
 
+    List<AnalyzeCount> getLessonAllCountBySumUpBySubject(String studio,String campus,String subject,String create_time,String student_name);
+
     List<AnalyzeCount> getLessonAllCountBySumUpMonth(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getLessonAllCountBySumUpMonthByStudent(String studio,String campus,String student_name);
+
+    List<AnalyzeCount> getLessonAllCountBySumUpMonthBySubject(String studio,String campus,String subject,String student_name);
 
     Integer getLessonAllCountByDayByName(String studio,Integer day,String duration,String class_number,String subject,String student_name,String campus);
 

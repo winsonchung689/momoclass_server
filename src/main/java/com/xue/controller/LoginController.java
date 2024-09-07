@@ -1404,10 +1404,10 @@ public class LoginController {
 
 	@RequestMapping("/getAnalyzeDetailWeek")
 	@ResponseBody
-	public List getAnalyzeDetailWeek(String studio,String type,String weekday,String campus){
+	public List getAnalyzeDetailWeek(String studio,String type,String weekday,String campus,String subject){
 		List list = null;
 		try {
-			list = loginService.getAnalyzeDetailWeek(studio,type,weekday,campus);
+			list = loginService.getAnalyzeDetailWeek(studio,type,weekday,campus,subject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
