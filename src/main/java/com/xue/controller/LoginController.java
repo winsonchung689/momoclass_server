@@ -99,7 +99,7 @@ public class LoginController {
 	@RequestMapping("/getOpenidOfficial")
 	@ResponseBody
 	public void getOpenidOfficial(){
-		loginService.getOpenidOfficial();
+//		loginService.getOpenidOfficial();
 	}
 
 	@RequestMapping("/updateOpenidOfficialByOpenid")
