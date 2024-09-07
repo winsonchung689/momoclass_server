@@ -242,6 +242,8 @@ public interface LoginService {
 
     public int updateMinusLesson(String student_name,String studio,Float class_count,String subject,String campus);
 
+    public int syncUpdateMinusLesson(String student_name,String studio,Float class_count,String subject,String campus);
+
     public List  getLessonByName(String student_name,String studio,String campus);
 
     public List  getLessonPackage(String student_name,String studio,String subject,String search_type,String duration_time,String openid);

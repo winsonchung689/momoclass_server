@@ -2693,11 +2693,13 @@ public class LoginController {
 			Float count = 0.0f;
 			Integer coins = 0;
 			Float left_amount = 0.0f;
+			String related_id = "no_id";
 			if(lessons.size()>0){
 				count = lessons.get(0).getMinus();
 				Float coins_get = lessons.get(0).getCoins();
 				coins = Math.round(coins_get);
 				left_amount = lessons.get(0).getLeft_amount() - count;
+				related_id = lessons.get(0).getRelated_id();
 			}
 
 			if(Float.parseFloat(class_count) != 100){
@@ -2726,9 +2728,15 @@ public class LoginController {
 
 			int insert_res = loginService.insertSignUp(signUp);
 			if(insert_res>0){
-				loginService.updateMinusLesson(student_name,studio,count,subject,campus);
+				if("no_id".equals(related_id)){
+					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
+				}else{
+					loginService.syncUpdateMinusLesson(student_name,studio,count,subject,campus);
+				}
+
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
 
+				// 发通知
 				List<User> users = dao.getUserByStudent(student_name,studio);
 				for(int i = 0;i < users.size(); i++){
 					User user = users.get(i);

@@ -4204,6 +4204,88 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public synchronized int syncUpdateMinusLesson(String student_name, String studio,Float class_count,String subject,String campus) {
+        int result = 0;
+        Float total_amount = 0.0f;
+        Float left_amount = 0.0f;
+        Float new_left = 0.0f;
+        Float minus = 0.0f;
+        Float coins = 0.0f;
+        Integer is_combine = 0;
+
+        List<Lesson> list = dao.getLessonByNameSubject(student_name, studio,subject,campus);
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Lesson line = list.get(i);
+                total_amount = line.getTotal_amount();
+                left_amount = line.getLeft_amount();
+                new_left = left_amount - class_count;
+                minus = line.getMinus();
+                coins = line.getCoins();
+                subject = line.getSubject();
+                is_combine = line.getIs_combine();
+
+                // 判断是否合并分科更新本人的课时
+                Lesson lesson = new Lesson();
+                lesson.setStudent_name(student_name);
+                lesson.setLeft_amount(new_left);
+                lesson.setTotal_amount(total_amount);
+                lesson.setStudio(studio);
+                lesson.setMinus(minus);
+                lesson.setCoins(coins);
+                lesson.setSubject(subject);
+                lesson.setCampus(campus);
+                if(is_combine == 0){
+                    result = dao.updateLesson(lesson);
+                }else if (is_combine == 1){
+                    result = dao.updateLessonBoth(lesson);
+                }
+
+                try {
+                    // 判断是否关联并更新其他人的课时
+                    String related_id = line.getRelated_id();
+                    // 判定有关联
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int j=0;j < related_id_list.length; j++){
+                            String id_get = related_id_list[j];
+                            if(id_get != null && id_get != ""){
+                                List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id_get));
+                                Lesson lesson_get = lessons.get(0);
+                                String student_name_get = lesson_get.getStudent_name();
+                                // 判定其他人
+                                if(!student_name.equals(student_name_get)){
+                                    String subject_get = lesson_get.getSubject();
+                                    Float minus_get = lesson_get.getMinus();
+                                    Float coins_get = lesson_get.getCoins();
+
+                                    Lesson lesson_re = new Lesson();
+                                    lesson_re.setStudent_name(student_name_get);
+                                    lesson_re.setLeft_amount(new_left);
+                                    lesson_re.setTotal_amount(total_amount);
+                                    lesson_re.setStudio(studio);
+                                    lesson_re.setCampus(campus);
+                                    lesson_re.setMinus(minus_get);
+                                    lesson_re.setCoins(coins_get);
+                                    lesson_re.setSubject(subject_get);
+
+                                    dao.updateLesson(lesson_re);
+                                }
+                            }
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     public int updateAddPoints(String student_name, String studio,Integer points_int,String subject,String campus,String mark,String type) {
         int result = 0;
         Integer points = 0;
