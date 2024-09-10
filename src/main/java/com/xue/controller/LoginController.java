@@ -2365,10 +2365,16 @@ public class LoginController {
 			String duration = leave.getDuration();
 			String date_time = leave.getDate_time();
 			String subject = leave.getSubject();
-			List<User> users = dao.getUserByStudent(student_name,studio);
-			User user = users.get(0);
-			String openid = user.getOpenid();
-			String official_openid = user.getOfficial_openid();
+			String openid = null;
+			String official_openid = null;
+			try {
+				List<User> users = dao.getUserByStudent(student_name,studio);
+				User user = users.get(0);
+				openid = user.getOpenid();
+				official_openid = user.getOfficial_openid();
+			} catch (Exception e) {
+//				throw new RuntimeException(e);
+			}
 
 			int status = 0;
 			if("通过".equals(type)){
