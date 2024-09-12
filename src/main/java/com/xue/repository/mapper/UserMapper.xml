@@ -1512,7 +1512,7 @@
   </select>
 
   <select id="getLessonPackageAll" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select * from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by student_name,create_time desc
+    select * from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getLessonPackageByDuration" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
@@ -1520,7 +1520,7 @@
   </select>
 
   <select id="getLessonPackageByDurationAll" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select * from lesson_package where studio =#{param1} and campus =#{param2} and create_time between #{param3} and #{param4} and delete_status = 0 order by student_name,create_time desc
+    select * from lesson_package where studio =#{param1} and campus =#{param2} and create_time between #{param3} and #{param4} and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 获取续课总人数 -->
