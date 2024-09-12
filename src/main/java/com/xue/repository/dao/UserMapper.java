@@ -633,11 +633,11 @@ public interface UserMapper {
 
     List<LessonPackage> getLessonPackage(String student_name,String studio,String campus,String subject);
 
-    List<LessonPackage> getLessonPackageAll(String studio,String campus,String subject);
+    List<LessonPackage> getLessonPackageAll(String studio,String campus);
 
     List<LessonPackage> getLessonPackageByDuration(String student_name,String studio,String campus,String subject,String start_time,String end_time);
 
-    List<LessonPackage> getLessonPackageByDurationAll(String studio,String campus,String subject,String start_time,String end_time);
+    List<LessonPackage> getLessonPackageByDurationAll(String studio,String campus,String start_time,String end_time);
 
     List<LessonPackage> getLessonPackageRenew(String studio,String campus,String create_time);
 

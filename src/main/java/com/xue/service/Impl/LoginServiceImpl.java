@@ -5335,9 +5335,9 @@ public class LoginServiceImpl implements LoginService {
                 }
             } else if ("全部".equals(search_type)) {
                 if("无".equals(start_time)){
-                    list = dao.getLessonPackageAll(studio,campus,subject);
+                    list = dao.getLessonPackageAll(studio,campus);
                 }else {
-                    list = dao.getLessonPackageByDurationAll(studio,campus,subject,start_time,end_time + " 23:59:59");
+                    list = dao.getLessonPackageByDurationAll(studio,campus,start_time,end_time + " 23:59:59");
                 }
             }
 
