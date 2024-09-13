@@ -2338,8 +2338,10 @@ public class LoginServiceImpl implements LoginService {
             String studio = user.getStudio();
             String role = user.getRole();
 //            String md5 = DigestUtils.md5Hex(nick_name + studio);
-            if(!"请录入工作室".equals(studio) && !"boss".equals(role) && !"teacher".equals(role)){
-                result = dao.updateUser(user);
+            if(!"请录入工作室".equals(studio)){
+                if(!"boss".equals(role) && !"teacher".equals(role)){
+                    result = dao.updateUser(user);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
