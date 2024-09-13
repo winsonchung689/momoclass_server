@@ -4472,7 +4472,7 @@ public class LoginServiceImpl implements LoginService {
                 timestamp_start = date_now.getTime();
                 timestamp_end = timestamp_start + 3*60*1000;
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+//                throw new RuntimeException(e);
             }
 
             Integer weekDay = 0;
@@ -4522,7 +4522,6 @@ public class LoginServiceImpl implements LoginService {
                                         String url_send = null;
                                         String app = apps.get(a);
                                         String token = getToken(app);
-
                                         if("MOMO_OFFICIAL".equals(app)){
                                             url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                             //绑定公众号通知
@@ -4607,35 +4606,39 @@ public class LoginServiceImpl implements LoginService {
             }
 
             //续课通知
-            if(!"no_name".equals(student_name)) {
-                List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
-                if (lessons.size() > 0) {
-                    for (int ii = 0; ii < lessons.size(); ii++) {
-                        Lesson lesson = lessons.get(ii);
-                        Float left_amount = lesson.getLeft_amount();
-                        String subject = lesson.getSubject();
-                        String student_lesson = lesson.getStudent_name();
-                        String student_split = student_lesson.split("_")[0];
-                        if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)) {
-                            String token = getToken("MOMO_OFFICIAL");
-                            String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                            if (!"no_id".equals(official_openid)) {
-                                String[] official_list = official_openid.split(",");
-                                for (int j = 0; j < official_list.length; j++) {
-                                    String official_openid_get = official_list[j];
-                                    JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                                    queryJson2.put("touser", official_openid_get);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
-                                    queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
-                                    result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                                    System.out.printf("res:" + result);
+            try {
+                if(!"no_name".equals(student_name)) {
+                    List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
+                    if (lessons.size() > 0) {
+                        for (int ii = 0; ii < lessons.size(); ii++) {
+                            Lesson lesson = lessons.get(ii);
+                            Float left_amount = lesson.getLeft_amount();
+                            String subject = lesson.getSubject();
+                            String student_lesson = lesson.getStudent_name();
+                            String student_split = student_lesson.split("_")[0];
+                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)) {
+                                String token = getToken("MOMO_OFFICIAL");
+                                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                                if (!"no_id".equals(official_openid)) {
+                                    String[] official_list = official_openid.split(",");
+                                    for (int j = 0; j < official_list.length; j++) {
+                                        String official_openid_get = official_list[j];
+                                        JSONObject queryJson2 = JSONObject.parseObject(tample14);
+                                        queryJson2.put("touser", official_openid_get);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
+                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                        result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                        System.out.printf("res:" + result);
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+//                throw new RuntimeException(e);
             }
         }
     }
