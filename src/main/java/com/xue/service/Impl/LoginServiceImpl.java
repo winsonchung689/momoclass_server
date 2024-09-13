@@ -4553,43 +4553,52 @@ public class LoginServiceImpl implements LoginService {
                             //学生家长上课通知
                             if(remind == 1 && choose == 1){
                                 dao.updateClassSendStatus(id,now_date);
-                                //小程序公众号通知
-                                for(int a=0;a<apps.size();a++){
-                                    String url_send = null;
-                                    String app=apps.get(a);
-                                    String token = getToken(app);
-                                    if("MOMO_OFFICIAL".equals(app)){
-                                        url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                                        //绑定公众号通知
-                                        if(!"no_id".equals(official_openid)){
-                                            String[] official_list = official_openid.split(",");
-                                            for(int k=0;k<official_list.length;k++){
-                                                try {
-                                                    String official_openid_get = official_list[k];
-                                                    JSONObject queryJson2 = JSONObject.parseObject(tample6);
-                                                    queryJson2.put("touser",official_openid_get);
-                                                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
-                                                    queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                                    queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
 
-                                                    System.out.println("json2:" + queryJson2.toJSONString());
-                                                    result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                                                    System.out.printf("res22:" + result);
-                                                } catch (Exception e) {
-                                                    throw new RuntimeException(e);
+                                //小程序公众号通知
+                                try {
+                                    for(int a=0;a<apps.size();a++){
+                                        String url_send = null;
+                                        String app=apps.get(a);
+                                        String token = getToken(app);
+                                        if("MOMO_OFFICIAL".equals(app)){
+                                            url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                                            //绑定公众号通知
+                                            if(!"no_id".equals(official_openid)){
+                                                String[] official_list = official_openid.split(",");
+                                                for(int k=0;k<official_list.length;k++){
+                                                    try {
+                                                        String official_openid_get = official_list[k];
+                                                        JSONObject queryJson2 = JSONObject.parseObject(tample6);
+                                                        queryJson2.put("touser",official_openid_get);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                                                        queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+
+                                                        System.out.println("json2:" + queryJson2.toJSONString());
+                                                        result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                                                        System.out.printf("res22:" + result);
+                                                    } catch (Exception e) {
+    //                                                    throw new RuntimeException(e);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+                                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
                                 }
 
                                 //pwa版上课通知
-                                if(subscription != null){
-                                    JSONObject payload = new JSONObject();
-                                    payload.put("title",studio);
-                                    payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
-                                    String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
-                                    System.out.printf("status:" + status);
+                                try {
+                                    if(subscription != null){
+                                        JSONObject payload = new JSONObject();
+                                        payload.put("title",studio);
+                                        payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+                                        String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                                        System.out.printf("status:" + status);
+                                    }
+                                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
                                 }
                             }
                         }
