@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8876,6 +8877,8 @@ public class LoginServiceImpl implements LoginService {
                 goods_intro = line.getGoods_intro();
                 goods_price = line.getGoods_price();
                 group_price = line.getGroup_price();
+                Timestamp expired_time = line.getExpired_time();
+                Float seckill_price = line.getSeckill_price();
 //                photo = line.getPhoto();
                 id = line.getId();
                 is_group = line.getIs_group();
@@ -8914,6 +8917,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_group", is_group);
                 jsonObject.put("group_price", group_price);
                 jsonObject.put("group_num", group_num);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("seckill_price", seckill_price);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

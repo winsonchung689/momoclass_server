@@ -1,6 +1,8 @@
 package com.xue.entity.model;
 
 
+import java.sql.Timestamp;
+
 public class GoodsList {
 
     private String id;
@@ -14,6 +16,8 @@ public class GoodsList {
     private Float goods_price;
 
     private Float group_price;
+
+    private Float seckill_price;
 
     private Float cut_step;
 
@@ -31,6 +35,16 @@ public class GoodsList {
 
     private String uuids;
 
+    private Timestamp expired_time;
+
+
+    public Timestamp getExpired_time() {
+        return expired_time;
+    }
+
+    public void setExpired_time(Timestamp expired_time) {
+        this.expired_time = expired_time;
+    }
 
     public Integer getGroup_num() {
         return group_num;
@@ -46,6 +60,14 @@ public class GoodsList {
 
     public void setGroup_price(Float group_price) {
         this.group_price = group_price;
+    }
+
+    public Float getSeckill_price() {
+        return seckill_price;
+    }
+
+    public void setSeckill_price(Float seckill_price) {
+        this.seckill_price = seckill_price;
     }
 
     public Float getCut_step() {
