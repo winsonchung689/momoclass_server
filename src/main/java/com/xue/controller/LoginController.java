@@ -1642,6 +1642,10 @@ public class LoginController {
 				dao.modifyGoodsGroupPrice(goods_id,studio,campus,goods_intro_modify);
 			}else if("cut_step".equals(type)){
 				dao.modifyGoodsCutStep(goods_id,studio,campus,goods_intro_modify);
+			}else if("seckill_price".equals(type)){
+				dao.modifyGoodsSeckillPrice(goods_id,studio,campus,goods_intro_modify);
+			}else if("expired_time".equals(type)){
+				dao.modifyGoodsExpiredTime(goods_id,studio,campus,goods_intro_modify);
 			}
 
 		} catch (Exception e) {

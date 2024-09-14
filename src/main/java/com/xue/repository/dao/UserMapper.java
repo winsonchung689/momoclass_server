@@ -269,6 +269,10 @@ public interface UserMapper {
 
     void modifyGoodsCutStep(String id,String studio,String campus,String goods_intro);
 
+    void modifyGoodsSeckillPrice(String id,String studio,String campus,String goods_intro);
+
+    void modifyGoodsExpiredTime(String id,String studio,String campus,String goods_intro);
+
     void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
 
     void modifySignUpMark(String id,String studio,String mark);
