@@ -1192,7 +1192,7 @@
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where studio =#{param1} and role ='boss' and delete_status = 0 order by create_time limit 1
+    select * from user where studio =#{param1} and role ='boss' and delete_status = 0 order by create_time desc limit 1
   </select>
 
   <select id="getUserByOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
