@@ -4702,7 +4702,7 @@ public class LoginController {
 				GoodsLike goodslike = goodsLikes.get(0);
 				String delete_status_get = goodslike.getDelete_status();
 				String delete_status = "1";
-				if("1".equals(delete_status_get){
+				if("1".equals(delete_status_get)){
 					delete_status = "0";
 				}
 				dao.deleteGoodsLike(goods_id,openid,delete_status);

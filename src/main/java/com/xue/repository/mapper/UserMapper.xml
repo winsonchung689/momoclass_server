@@ -915,6 +915,10 @@
     select * from goods_like where goods_id = #{param1} and openid =#{param2} and delete_status = 0;
   </select>
 
+  <select id="getGoodsLikeByGoodsId" parameterType="com.xue.entity.model.GoodsLike" resultMap="BaseGoodsLike">
+    select * from goods_like where goods_id = #{param1} and delete_status = 0;
+  </select>
+
   <!-- 获取商品列表 -->
   <select id="getGoodsListById" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
     select * from goods_list where id = #{param1} and delete_status = 0;

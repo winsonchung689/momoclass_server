@@ -8881,6 +8881,12 @@ public class LoginServiceImpl implements LoginService {
                 Float seckill_price = line.getSeckill_price();
 //                photo = line.getPhoto();
                 id = line.getId();
+                int like_count = 0;
+                List<GoodsLike> goodsLists = dao.getGoodsLikeByGoodsId(id);
+                if(goodsLists.size()>0){
+                    like_count = goodsLists.size();
+                }
+
                 is_group = line.getIs_group();
                 group_num = line.getGroup_num();
                 StringBuilder group = new StringBuilder(10);
@@ -8919,6 +8925,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("seckill_price", seckill_price);
+                jsonObject.put("like_count", like_count);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
