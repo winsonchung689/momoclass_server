@@ -785,6 +785,8 @@ public interface UserMapper {
 
     int insertGoodsList(GoodsList goodsList);
 
+    int insertGoodsLike(GoodsLike goodslike);
+
     int insertGroupBuy(GroupBuy groupBuy);
 
     int insertGift(Gift gift);

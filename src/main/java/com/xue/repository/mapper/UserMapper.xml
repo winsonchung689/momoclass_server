@@ -888,6 +888,11 @@
     insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price,group_num,cut_step,goods_type) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price},#{group_num},#{cut_step},#{goods_type})
   </insert>
 
+  <!-- 点赞表 -->
+  <insert id="insertGoodsLike" parameterType="com.xue.entity.model.GoodsLike">
+    insert goods_like(goods_id,openid,studio,campus,create_time) values(#{goods_id},#{openid},#{studio},#{campus},#{create_time})
+  </insert>
+
   <!-- 插入团购列表 -->
   <insert id="insertGroupBuy" parameterType="com.xue.entity.model.GoodsList">
     insert group_buy(goods_id,goods_name,nick_name,openid,create_time,studio) values(#{goods_id},#{goods_name},#{nick_name},#{openid},#{create_time},#{studio})
