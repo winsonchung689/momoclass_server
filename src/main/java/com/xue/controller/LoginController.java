@@ -942,7 +942,7 @@ public class LoginController {
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getGoodsList(studio,page,campus,content,type,goods_type);
+			list = loginService.getGoodsList(studio,page,campus,content,type,goods_type,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

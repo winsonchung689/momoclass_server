@@ -8845,7 +8845,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGoodsList(String studio, Integer page,String campus,String content,String type,String goods_type) {
+    public List getGoodsList(String studio, Integer page,String campus,String content,String type,String goods_type,String openid) {
         String goods_name = null;
         String goods_intro = null;
         String create_time = null;
@@ -8882,9 +8882,15 @@ public class LoginServiceImpl implements LoginService {
 //                photo = line.getPhoto();
                 id = line.getId();
                 int like_count = 0;
-                List<GoodsLike> goodsLists = dao.getGoodsLikeByGoodsId(id);
-                if(goodsLists.size()>0){
-                    like_count = goodsLists.size();
+                List<GoodsLike> goodsLikes1 = dao.getGoodsLikeByGoodsId(id);
+                if(goodsLikes1.size()>0){
+                    like_count = goodsLikes1.size();
+                }
+
+                String liked = "0";
+                List<GoodsLike> goodsLikes2 = dao.getGoodsLike(id,openid);
+                if(goodsLikes2.size()>0){
+                    liked="1";
                 }
 
                 is_group = line.getIs_group();
@@ -8926,6 +8932,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("seckill_price", seckill_price);
                 jsonObject.put("like_count", like_count);
+                jsonObject.put("liked", liked);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
