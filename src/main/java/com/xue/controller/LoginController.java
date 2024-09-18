@@ -4651,6 +4651,8 @@ public class LoginController {
 
 		String cut_step = request.getParameter("cut_step");
 
+		String goods_type = request.getParameter("goods_type");
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -4669,6 +4671,7 @@ public class LoginController {
 			goodsList.setIs_group(Integer.parseInt(is_group));
 			goodsList.setGroup_num(Integer.parseInt(group_num));
 			goodsList.setCut_step(Float.parseFloat(cut_step));
+			goodsList.setGoods_type(goods_type);
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {

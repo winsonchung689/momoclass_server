@@ -35,8 +35,19 @@ public class GoodsList {
 
     private String uuids;
 
+    private String goods_type;
+
     private Timestamp expired_time;
 
+
+
+    public String getGoods_type() {
+        return goods_type;
+    }
+
+    public void setGoods_type(String goods_type) {
+        this.goods_type = goods_type;
+    }
 
     public Timestamp getExpired_time() {
         return expired_time;
