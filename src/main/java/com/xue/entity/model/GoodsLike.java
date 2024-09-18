@@ -15,6 +15,17 @@ public class GoodsLike {
 
     private String create_time;
 
+    private String delete_status;
+
+
+
+    public String getDelete_status() {
+        return delete_status;
+    }
+
+    public void setDelete_status(String delete_status) {
+        this.delete_status = delete_status;
+    }
 
     public String getStudio() {
         return studio;

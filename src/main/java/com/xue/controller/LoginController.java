@@ -4681,7 +4681,7 @@ public class LoginController {
 	}
 
 
-	@RequestMapping("/insertGoodsLike")
+	@RequestMapping("/updateGoodsLike")
 	@ResponseBody
 	public String insertGoodsLike(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
@@ -4697,14 +4697,25 @@ public class LoginController {
 
 		GoodsLike goodsLike =new GoodsLike();
 		try {
+			List<GoodsLike> goodsLikes = dao.getGoodsLike(goods_id,openid);
+			if(goodsLikes.size()>0){
+				GoodsLike goodslike = goodsLikes.get(0);
+				String delete_status_get = goodslike.getDelete_status();
+				String delete_status = "1";
+				if("1".equals(delete_status_get){
+					delete_status = "0";
+				}
+				dao.deleteGoodsLike(goods_id,openid,delete_status);
 
-			goodsLike.setGoods_id(goods_id);
-			goodsLike.setOpenid(openid);
-			goodsLike.setStudio(studio);
-			goodsLike.setCampus(campus);
-			goodsLike.setCreate_time(create_time);
+			}else{
+				goodsLike.setGoods_id(goods_id);
+				goodsLike.setOpenid(openid);
+				goodsLike.setStudio(studio);
+				goodsLike.setCampus(campus);
+				goodsLike.setCreate_time(create_time);
 
-			dao.insertGoodsLike(goodsLike);
+				dao.insertGoodsLike(goodsLike);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -311,6 +311,8 @@ public interface UserMapper {
 
     void deleteHome(String studio);
 
+    void deleteGoodsLike(String goods_id,String openid,String delete_status);
+
     void deleteMyOrder(String id);
 
     void deleteNote(Integer id);
@@ -796,6 +798,8 @@ public interface UserMapper {
     List<Arrangement> getArrangementByDay(String studio,Integer dayofweek,String campus);
 
     List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String goods_type);
+
+    List<GoodsLike> getGoodsLike(String goods_id,String openid);
 
     List<GoodsList> getGoodsListById(String id);
 

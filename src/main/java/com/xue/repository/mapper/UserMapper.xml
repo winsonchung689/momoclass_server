@@ -66,6 +66,9 @@
   <resultMap id="BaseGoodsList" type="com.xue.entity.model.GoodsList">
     <result column="goods_name" jdbcType="VARCHAR" property="goods_name" />
   </resultMap>
+  <resultMap id="BaseGoodsLike" type="com.xue.entity.model.GoodsLike">
+    <result column="goods_id" jdbcType="VARCHAR" property="goods_id" />
+  </resultMap>
   <resultMap id="BaseGroupBuy" type="com.xue.entity.model.GroupBuy">
     <result column="goods_id" jdbcType="VARCHAR" property="goods_id" />
   </resultMap>
@@ -305,6 +308,10 @@
   <!-- 删除详情 -->
   <select id="deleteHome" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     update class_comment set delete_status = 1 where class_target = '主页' and studio =#{param1}
+  </select>
+
+  <select id="deleteGoodsLike" parameterType="com.xue.entity.model.GoodsLike" resultMap="BaseResultMap">
+    update goods_like set delete_status = #{param3} where goods_id =#{param1} and openid =#{param2}
   </select>
 
   <!-- 删除详情 -->
@@ -901,6 +908,11 @@
   <!-- 获取商品列表 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
     select * from goods_list where studio = #{param1} and goods_type =#{param4} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
+  </select>
+
+  <!-- 获取商品点赞 -->
+  <select id="getGoodsLike" parameterType="com.xue.entity.model.GoodsLike" resultMap="BaseGoodsLike">
+    select * from goods_like where goods_id = #{param1} and openid =#{param2} and delete_status = 0;
   </select>
 
   <!-- 获取商品列表 -->
