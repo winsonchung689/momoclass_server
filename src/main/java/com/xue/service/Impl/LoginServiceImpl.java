@@ -5074,9 +5074,17 @@ public class LoginServiceImpl implements LoginService {
                         if(users.size()>0){
                             for(int j =0;j<users.size();j++){
                                 String official_openid_get = users.get(j).getOfficial_openid();
-                                if("no_id".equals(official_openid_get) || official_openid_get.isEmpty() || official_openid_get == null){
-                                    dao.updateUserOfficialOpenid(unionid,official_openid);
+                                if(official_openid_get == null){
+                                    official_openid_get = "no_id";
                                 }
+                                try {
+                                    if("no_id".equals(official_openid_get) || official_openid_get.isEmpty()){
+                                        dao.updateUserOfficialOpenid(unionid,official_openid);
+                                    }
+                                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
+                                }
+
                             }
                         }
                     } catch (Exception e) {
