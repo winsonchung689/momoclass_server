@@ -5068,28 +5068,30 @@ public class LoginServiceImpl implements LoginService {
                     String unionid = jsonObject2.getString("unionid");
                     String official_openid = jsonObject2.getString("openid");
 
-                    //更新小桃子助手公众号
-                    try {
-                        List<User> users = dao.getUserByUnionid(unionid);
-                        if(users.size()>0){
-                            for(int j =0;j<users.size();j++){
-                                String official_openid_get = users.get(j).getOfficial_openid();
-                                if(official_openid_get == null){
-                                    official_openid_get = "no_id";
-                                }
-                                try {
-                                    if("no_id".equals(official_openid_get) || official_openid_get.isEmpty()){
-                                        dao.updateUserOfficialOpenid(unionid,official_openid);
-                                    }
-                                } catch (Exception e) {
-//                                    throw new RuntimeException(e);
-                                }
+                    dao.updateUserOfficialOpenid(unionid,official_openid);
 
-                            }
-                        }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    //更新小桃子助手公众号
+//                    try {
+//                        List<User> users = dao.getUserByUnionid(unionid);
+//                        if(users.size()>0){
+//                            for(int j =0;j<users.size();j++){
+//                                String official_openid_get = users.get(j).getOfficial_openid();
+//                                if(official_openid_get == null){
+//                                    official_openid_get = "no_id";
+//                                }
+//                                try {
+//                                    if("no_id".equals(official_openid_get) || official_openid_get.isEmpty()){
+//                                        dao.updateUserOfficialOpenid(unionid,official_openid);
+//                                    }
+//                                } catch (Exception e) {
+////                                    throw new RuntimeException(e);
+//                                }
+//
+//                            }
+//                        }
+//                    } catch (Exception e) {
+//                        throw new RuntimeException(e);
+//                    }
 
                 }
             } catch (Exception e) {
