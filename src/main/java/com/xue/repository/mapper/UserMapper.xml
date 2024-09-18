@@ -895,7 +895,7 @@
 
   <!-- 获取商品列表 -->
   <select id="getGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select * from goods_list where studio = #{param1} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
+    select * from goods_list where studio = #{param1} and goods_type =#{param4} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <!-- 获取商品列表 -->
@@ -905,7 +905,7 @@
 
   <!-- 搜索商品列表 -->
   <select id="getGoodsListSearch" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select * from goods_list where studio = #{param1} and delete_status = 0 and (goods_name like "%"#{param4}"%" or goods_intro like "%"#{param4}"%") order by create_time desc,id asc limit #{param2},#{param3};
+    select * from goods_list where studio = #{param1} and goods_type =#{param5} and delete_status = 0 and (goods_name like "%"#{param4}"%" or goods_intro like "%"#{param4}"%") order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <!-- 获取团购列表 -->

@@ -8845,7 +8845,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGoodsList(String studio, Integer page,String campus,String content,String type) {
+    public List getGoodsList(String studio, Integer page,String campus,String content,String type,String goods_type) {
         String goods_name = null;
         String goods_intro = null;
         String create_time = null;
@@ -8864,9 +8864,9 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             if(type.equals("normal")){
-                list = dao.getGoodsList(studio,page_start,page_length);
+                list = dao.getGoodsList(studio,page_start,page_length,goods_type);
             }else if(type.equals("search")){
-                list = dao.getGoodsListSearch(studio,page_start,page_length,content);
+                list = dao.getGoodsListSearch(studio,page_start,page_length,content,goods_type);
             }
 
             for (int i = 0; i < list.size(); i++) {

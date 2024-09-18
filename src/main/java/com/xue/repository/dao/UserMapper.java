@@ -793,11 +793,11 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDay(String studio,Integer dayofweek,String campus);
 
-    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end);
+    List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String goods_type);
 
     List<GoodsList> getGoodsListById(String id);
 
-    List<GoodsList> getGoodsListSearch(String studio,Integer page_start,Integer page_end,String content);
+    List<GoodsList> getGoodsListSearch(String studio,Integer page_start,Integer page_end,String content,String goods_type);
 
     List<GroupBuy> getGroupBuy(String studio, String goods_id);
 
