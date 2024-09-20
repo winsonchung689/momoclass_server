@@ -1297,7 +1297,7 @@
   </select>
 
   <select id="getUserByOpenidQrAll" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by studio,create_time desc
+    select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByOpenidQrLike" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
