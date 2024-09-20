@@ -5650,6 +5650,10 @@ public class LoginController {
 			if(all_lesson == null || all_lesson.isEmpty() || "undefined".equals(all_lesson)){
 				all_lesson = "0";
 			}
+			String give_amount = request.getParameter("give_amount");
+			if(give_amount == null || give_amount.isEmpty() || "undefined".equals(give_amount)){
+				give_amount = "0";
+			}
 			String give_lesson = request.getParameter("give_lesson");
 			if(give_lesson == null || give_lesson.isEmpty() || "undefined".equals(give_lesson)){
 				give_lesson = "0";
@@ -5721,7 +5725,7 @@ public class LoginController {
 			}
 
 
-			//获年剩余课时
+			//获取剩余课时
 			String left_amount_get = request.getParameter("left_amount");
 
 			if("left_modify".equals(modify_type)){
@@ -5829,6 +5833,8 @@ public class LoginController {
 				lesson.setMinus(minus_amount_t);
 				lesson.setCoins(coins_amount_t);
 				lesson.setPrice(price);
+				lesson.setTotal_amount(total_amount + Float.parseFloat(give_amount));
+				lesson.setLeft_amount(left_amount + Float.parseFloat(give_amount));
 				loginService.insertLesson(lesson);
 
 				LessonPackage lessonPackage = new LessonPackage();
@@ -5840,10 +5846,10 @@ public class LoginController {
 				lessonPackage.setSubject(subject);
 				lessonPackage.setCreate_time(create_time);
 				lessonPackage.setAll_lesson(total_amount);
+				lessonPackage.setGive_lesson(Float.parseFloat(give_amount));
 				lessonPackage.setTotal_money(Float.parseFloat(total_money));
 				lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
 				lessonPackage.setMark("初次录入");
-				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 				lessonPackage.setNick_name(nick_name);
 				dao.insertLessonPackage(lessonPackage);
 
