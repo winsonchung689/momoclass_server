@@ -3338,19 +3338,16 @@ public class LoginController {
 			}else if("生日".equals(modifyHead)){
 				dao.updateLessonBirthdateById(id,content);
 			}else if("余课时".equals(modifyHead) || "总课时".equals(modifyHead)){
-
 				if("余课时".equals(modifyHead)){
 					lesson.setLeft_amount(Float.parseFloat(content));
-				}else if("总课时".equals(modifyHead)){
+				}else{
 					lesson.setTotal_amount(Float.parseFloat(content));
 				}
-
 				if(is_combine == 0){
 					dao.updateLesson(lesson);
 				}else if (is_combine == 1){
 					dao.updateLessonBoth(lesson);
 				}
-
 				try {
 					if(!"no_id".equals(related_id)){
 						String[] related_id_list = related_id.split(",");
@@ -3370,7 +3367,17 @@ public class LoginController {
 //					throw new RuntimeException(e);
 				}
 
+			}else if("单次扣课".equals(modifyHead)){
+				dao.updateLessonMinus(Float.valueOf(content),studio,student_name,campus,subject);
+			}else if("单课积分_单人".equals(modifyHead) || "单课积分_全部".equals(modifyHead)){
+				if("单课积分_单人".equals(modifyHead)){
+					dao.updateCoinsByStudent(Float.valueOf(content),studio,campus,student_name,subject);
+				}else{
+					dao.updateCoinsAll(Float.valueOf(content),studio,campus);
+				}
+
 			}
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
