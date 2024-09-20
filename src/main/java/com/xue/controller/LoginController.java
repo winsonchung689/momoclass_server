@@ -3314,6 +3314,8 @@ public class LoginController {
 		String student_name = lesson.getStudent_name();
 		String campus = lesson.getCampus();
 		String subject = lesson.getSubject();
+		Integer is_combine = lesson.getIs_combine();
+		String related_id = lesson.getRelated_id();
 
 		try {
 			if("阶段".equals(modifyHead)){
@@ -3335,6 +3337,39 @@ public class LoginController {
 				dao.updateLessonLocationById(id,content);
 			}else if("生日".equals(modifyHead)){
 				dao.updateLessonBirthdateById(id,content);
+			}else if("余课时".equals(modifyHead) || "总课时".equals(modifyHead)){
+
+				if("余课时".equals(modifyHead)){
+					lesson.setLeft_amount(Float.parseFloat(content));
+				}else if("总课时".equals(modifyHead)){
+					lesson.setTotal_amount(Float.parseFloat(content));
+				}
+
+				if(is_combine == 0){
+					dao.updateLesson(lesson);
+				}else if (is_combine == 1){
+					dao.updateLessonBoth(lesson);
+				}
+
+				try {
+					if(!"no_id".equals(related_id)){
+						String[] related_id_list = related_id.split(",");
+						for(int j=0;j < related_id_list.length; j++){
+							String id_get = related_id_list[j];
+							List<Lesson> lessons1 = dao.getLessonById(Integer.parseInt(id_get));
+							Lesson lesson_get = lessons1.get(0);
+							String student_name_get = lesson_get.getStudent_name();
+							if(!student_name.equals(student_name_get)){
+								lesson.setStudent_name(student_name_get);
+								dao.updateLesson(lesson);
+							}
+						}
+
+					}
+				} catch (NumberFormatException e) {
+//					throw new RuntimeException(e);
+				}
+
 			}
 
 		} catch (Exception e) {
