@@ -7998,7 +7998,7 @@ public class LoginServiceImpl implements LoginService {
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
-                        phone_number = user.get(0).getPhone_number();
+//                        phone_number = user.get(0).getPhone_number();
                         official_openid = user.get(0).getOfficial_openid();
                     }
                 } catch (Exception e) {
@@ -8053,6 +8053,7 @@ public class LoginServiceImpl implements LoginService {
                 String school = line.getSchool();
                 String location = line.getLocation();
                 String birthdate = line.getBirthdate();
+                phone_number = line.getPhone_number();
 
                 String combine = "分";
                 if(is_combine == 1){

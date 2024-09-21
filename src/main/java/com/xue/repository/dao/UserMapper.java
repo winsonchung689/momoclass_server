@@ -379,6 +379,8 @@ public interface UserMapper {
 
     int updateLessonSchoolById(String id,String school);
 
+    int updateLessonPhoneNumberById(String id,String phone_number);
+
     int updateLessonLocationById(String id,String location);
 
     int updateLessonBirthdateById(String id,String birthdate);

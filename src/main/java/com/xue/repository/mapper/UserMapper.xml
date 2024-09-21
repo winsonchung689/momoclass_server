@@ -1331,6 +1331,10 @@
     update lesson set school=#{param2} where id = #{param1}
   </update>
 
+  <update id="updateLessonPhoneNumberById" parameterType="com.xue.entity.model.Lesson">
+    update lesson set phone_number=#{param2} where id = #{param1}
+  </update>
+
   <update id="updateLessonLocationById" parameterType="com.xue.entity.model.Lesson">
     update lesson set location=#{param2} where id = #{param1}
   </update>

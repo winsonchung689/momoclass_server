@@ -3331,6 +3331,8 @@ public class LoginController {
 				dao.updateScheduleName(content,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(content,student_name,studio,campus,subject);
 				dao.updateLessonPackageName(content,student_name,studio,campus,subject);
+			}else if("电话".equals(modifyHead)){
+				dao.updateLessonPhoneNumberById(id,content);
 			}else if("在读学校".equals(modifyHead)){
 				dao.updateLessonSchoolById(id,content);
 			}else if("家庭住址".equals(modifyHead)){
@@ -3366,7 +3368,6 @@ public class LoginController {
 				} catch (NumberFormatException e) {
 //					throw new RuntimeException(e);
 				}
-
 			}else if("单次扣课".equals(modifyHead)){
 				dao.updateLessonMinus(Float.valueOf(content),studio,student_name,campus,subject);
 			}else if("单课积分_单人".equals(modifyHead) || "单课积分_全部".equals(modifyHead)){
