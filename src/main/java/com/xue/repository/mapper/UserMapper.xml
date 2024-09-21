@@ -1535,7 +1535,7 @@
 
   <!-- 插入课时 -->
   <insert id="insertLesson" parameterType="com.xue.entity.model.Lesson">
-    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus,price,total_money,discount_money,age) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus},#{price},#{total_money},#{discount_money},#{age})
+    insert lesson(student_name,total_amount,left_amount,points,create_time,studio,minus,coins,subject,campus,price,total_money,discount_money,age,phone_number) values(#{student_name},#{total_amount},#{left_amount},#{points},#{create_time},#{studio},#{minus},#{coins},#{subject},#{campus},#{price},#{total_money},#{discount_money},#{age},#{phone_number})
   </insert>
 
   <select id="getLessonPackageById" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">

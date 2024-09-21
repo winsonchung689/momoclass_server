@@ -5826,6 +5826,7 @@ public class LoginController {
 				}
 
 			}else {
+				String phone_number = request.getParameter("phone_number");
 				Integer point = 0;
 				Float minus_amount_t = 1.0f;
 				Float coins_amount_t = 0.0f;
@@ -5836,6 +5837,7 @@ public class LoginController {
 				lesson.setPrice(price);
 				lesson.setTotal_amount(total_amount + Float.parseFloat(give_amount));
 				lesson.setLeft_amount(left_amount + Float.parseFloat(give_amount));
+				lesson.setPhone_number(phone_number);
 				loginService.insertLesson(lesson);
 
 				LessonPackage lessonPackage = new LessonPackage();
