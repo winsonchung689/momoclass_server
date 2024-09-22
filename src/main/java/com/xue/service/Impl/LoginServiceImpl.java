@@ -6734,7 +6734,11 @@ public class LoginServiceImpl implements LoginService {
                         }
                     } else if (is_combine == 1) {
                         consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name_all);
+                        if(consume_lesson_get == null){
+                            consume_lesson_get = 0.0f;
+                        }
                     }
+
 
 
                     // 判断寻找其他关联课时
@@ -8084,6 +8088,9 @@ public class LoginServiceImpl implements LoginService {
                     }
                 } else if (is_combine == 1) {
                     consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
+                    if(consume_lesson_get == null){
+                        consume_lesson_get = 0.0f;
+                    }
                 }
 
 
@@ -8650,6 +8657,9 @@ public class LoginServiceImpl implements LoginService {
                     }
                 } else if (is_combine == 1) {
                     consume_lesson_get = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
+                    if(consume_lesson_get == null){
+                        consume_lesson_get = 0.0f;
+                    }
                 }
 
 
