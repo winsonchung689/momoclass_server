@@ -5345,7 +5345,7 @@ public class LoginController {
 	public String updateStudio(HttpServletRequest request, HttpServletResponse response){
 		String studio = request.getParameter("studio");
 		String content = request.getParameter("content");
-        String type = request.getParameter("content");
+        String type = request.getParameter("type");
 
 		try {
             if("工作室".equals(type)){
