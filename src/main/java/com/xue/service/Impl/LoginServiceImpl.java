@@ -4617,7 +4617,8 @@ public class LoginServiceImpl implements LoginService {
                             String subject = lesson.getSubject();
                             String student_lesson = lesson.getStudent_name();
                             String student_split = student_lesson.split("_")[0];
-                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time)) {
+                            Integer urge_payment = lesson.getUrge_payment();
+                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
                                 String token = getToken("MOMO_OFFICIAL");
                                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                                 if (!"no_id".equals(official_openid)) {
