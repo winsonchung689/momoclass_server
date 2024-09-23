@@ -3333,6 +3333,13 @@ public class LoginController {
 				dao.updateLessonPackageName(content,student_name,studio,campus,subject);
 			}else if("电话".equals(modifyHead)){
 				dao.updateLessonPhoneNumberById(id,content);
+			}else if("催缴".equals(modifyHead)){
+				Integer urge_payment = lesson.getUrge_payment();
+				Integer status = 1;
+				if(urge_payment == 1){
+					status = 0;
+				}
+				dao.updateLessonUrgePaymentById(id,status);
 			}else if("在读学校".equals(modifyHead)){
 				dao.updateLessonSchoolById(id,content);
 			}else if("家庭住址".equals(modifyHead)){

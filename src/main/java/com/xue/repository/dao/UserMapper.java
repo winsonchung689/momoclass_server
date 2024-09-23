@@ -381,6 +381,8 @@ public interface UserMapper {
 
     int updateLessonPhoneNumberById(String id,String phone_number);
 
+    int updateLessonUrgePaymentById(String id,Integer urge_payment);
+
     int updateLessonLocationById(String id,String location);
 
     int updateLessonBirthdateById(String id,String birthdate);

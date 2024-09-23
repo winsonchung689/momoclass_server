@@ -34,6 +34,8 @@ public class Lesson {
 
     private Integer is_combine;
 
+    private Integer urge_payment;
+
     private Integer delete_status;
 
     private String final_time;
@@ -166,6 +168,14 @@ public class Lesson {
 
     public void setIs_combine(Integer is_combine) {
         this.is_combine = is_combine;
+    }
+
+    public Integer getUrge_payment() {
+        return urge_payment;
+    }
+
+    public void setUrge_payment(Integer urge_payment) {
+        this.urge_payment = urge_payment;
     }
 
     public String getCampus() {

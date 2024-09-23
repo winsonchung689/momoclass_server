@@ -8058,10 +8058,16 @@ public class LoginServiceImpl implements LoginService {
                 String location = line.getLocation();
                 String birthdate = line.getBirthdate();
                 phone_number = line.getPhone_number();
+                Integer urge_payment = line.getUrge_payment();
 
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
+                }
+
+                String urge_payment_status = "开";
+                if(urge_payment == 1){
+                    urge_payment_status = "关";
                 }
 
                 try {
@@ -8133,6 +8139,7 @@ public class LoginServiceImpl implements LoginService {
                 DecimalFormat df = new DecimalFormat("0.00");
 
                 jsonObject.put("school", school);
+                jsonObject.put("urge_payment_status",urge_payment_status);
                 jsonObject.put("location", location);
                 jsonObject.put("birthdate", birthdate);
                 jsonObject.put("student_name", student_name);
