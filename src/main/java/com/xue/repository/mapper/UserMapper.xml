@@ -2117,6 +2117,14 @@
     update lesson_package set total_money=#{param2} where id=#{param1} and delete_status = 0
   </update>
 
+  <update id="updateLessonPackageCampusByStudio" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonPackageStudio" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateLessonPackageDiscountMoney" parameterType="com.xue.entity.model.LessonPackage">
     update lesson_package set discount_money=#{param2} where id=#{param1} and delete_status = 0
   </update>

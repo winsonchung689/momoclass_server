@@ -5356,6 +5356,7 @@ public class LoginController {
                 dao.updateScheduleArrangementStudio(studio,content);
                 dao.updateSignUpRecordStudio(studio,content);
                 dao.updateLeaveRecordStudio(studio,content);
+				dao.updateLessonPackageStudio(studio,content);
             }else if("校区".equals(type)){
                 dao.updateUserCampusByStudio(studio,content);
                 dao.updateLessonCampusByStudio(studio,content);
@@ -5364,6 +5365,7 @@ public class LoginController {
                 dao.updateScheduleArrangementCampusByStudio(studio,content);
                 dao.updateSignUpRecordCampusByStudio(studio,content);
                 dao.updateLeaveRecordCampusByStudio(studio,content);
+				dao.updateLessonPackageCampusByStudio(studio,content);
             }
 
 		} catch (Exception e) {
