@@ -5357,7 +5357,7 @@ public class LoginController {
                 dao.updateSignUpRecordStudio(studio,content);
                 dao.updateLeaveRecordStudio(studio,content);
             }else if("校区".equals(type)){
-                dao.updateUserCampus(studio,content);
+                dao.updateUserCampusByStudio(studio,content);
                 dao.updateLessonCampusByStudio(studio,content);
                 dao.updateClassScheduleCampusByStudio(studio,content);
                 dao.updateCommentCampusByStudio(studio,content);

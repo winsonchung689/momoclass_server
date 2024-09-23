@@ -459,7 +459,7 @@ public interface UserMapper {
 
     int updateUserStudio(String studio,String new_studio);
 
-    int updateUserCampus(String studio,String campus);
+    int updateUserCampusByStudio(String studio,String campus);
 
     int updateUserUnionid(String openid,String unionid,String app);
 

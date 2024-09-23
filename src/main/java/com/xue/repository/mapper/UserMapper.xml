@@ -1933,7 +1933,7 @@
   </update>
 
   <!-- 更改校区 -->
-  <update id="updateUserCampus" parameterType="com.xue.entity.model.User">
+  <update id="updateUserCampusByStudio" parameterType="com.xue.entity.model.User">
     update user set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
