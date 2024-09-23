@@ -1929,7 +1929,12 @@
 
   <!-- 更改工作室名 -->
   <update id="updateUserStudio" parameterType="com.xue.entity.model.User">
-    update user set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update user set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更改校区 -->
+  <update id="updateUserCampus" parameterType="com.xue.entity.model.User">
+    update user set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateUserUnionid" parameterType="com.xue.entity.model.User">
@@ -1953,27 +1958,51 @@
   </update>
 
   <update id="updateLessonStudio" parameterType="com.xue.entity.model.Lesson">
-    update lesson set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update lesson set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLessonCampusByStudio" parameterType="com.xue.entity.model.Lesson">
+    update lesson set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateClassScheduleStudio" parameterType="com.xue.entity.model.Arrangement">
-    update class_schedule set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update class_schedule set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateClassScheduleCampusByStudio" parameterType="com.xue.entity.model.Arrangement">
+    update class_schedule set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateCommentStudio" parameterType="com.xue.entity.model.Message">
-    update class_comment set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update class_comment set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateCommentCampusByStudio" parameterType="com.xue.entity.model.Message">
+    update class_comment set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateScheduleArrangementStudio" parameterType="com.xue.entity.model.Arrangement">
-    update schedule_arrangement set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update schedule_arrangement set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateScheduleArrangementCampusByStudio" parameterType="com.xue.entity.model.Arrangement">
+    update schedule_arrangement set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateSignUpRecordStudio" parameterType="com.xue.entity.model.SignUp">
-    update sign_up_record set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update sign_up_record set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateSignUpRecordCampusByStudio" parameterType="com.xue.entity.model.SignUp">
+    update sign_up_record set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateLeaveRecordStudio" parameterType="com.xue.entity.model.Leave">
-    update leave_record set studio=#{param2},campus=#{param2} where studio=#{param1} and delete_status = 0
+    update leave_record set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateLeaveRecordCampusByStudio" parameterType="com.xue.entity.model.Leave">
+    update leave_record set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateLeaveStatus" parameterType="com.xue.entity.model.Leave">

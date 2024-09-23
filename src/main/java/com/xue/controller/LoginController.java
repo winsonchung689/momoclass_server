@@ -5344,16 +5344,28 @@ public class LoginController {
 	@ResponseBody
 	public String updateStudio(HttpServletRequest request, HttpServletResponse response){
 		String studio = request.getParameter("studio");
-		String new_studio = request.getParameter("new_studio");
+		String content = request.getParameter("content");
+        String type = request.getParameter("content");
 
 		try {
-			dao.updateUserStudio(studio,new_studio);
-			dao.updateLessonStudio(studio,new_studio);
-			dao.updateClassScheduleStudio(studio,new_studio);
-			dao.updateCommentStudio(studio,new_studio);
-			dao.updateScheduleArrangementStudio(studio,new_studio);
-			dao.updateSignUpRecordStudio(studio,new_studio);
-			dao.updateLeaveRecordStudio(studio,new_studio);
+            if("工作室".equals(type)){
+                dao.updateUserStudio(studio,content);
+                dao.updateLessonStudio(studio,content);
+                dao.updateClassScheduleStudio(studio,content);
+                dao.updateCommentStudio(studio,content);
+                dao.updateScheduleArrangementStudio(studio,content);
+                dao.updateSignUpRecordStudio(studio,content);
+                dao.updateLeaveRecordStudio(studio,content);
+            }else if("校区".equals(type)){
+                dao.updateUserCampus(studio,content);
+                dao.updateLessonCampusByStudio(studio,content);
+                dao.updateClassScheduleCampusByStudio(studio,content);
+                dao.updateCommentCampusByStudio(studio,content);
+                dao.updateScheduleArrangementCampusByStudio(studio,content);
+                dao.updateSignUpRecordCampusByStudio(studio,content);
+                dao.updateLeaveRecordCampusByStudio(studio,content);
+            }
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

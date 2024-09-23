@@ -459,6 +459,8 @@ public interface UserMapper {
 
     int updateUserStudio(String studio,String new_studio);
 
+    int updateUserCampus(String studio,String campus);
+
     int updateUserUnionid(String openid,String unionid,String app);
 
     int updateRestaurantUserUnionid(String openid,String unionid);
@@ -471,15 +473,27 @@ public interface UserMapper {
 
     int updateLessonStudio(String studio,String new_studio);
 
+    int updateLessonCampusByStudio(String studio,String campus);
+
     int updateClassScheduleStudio(String studio,String new_studio);
+
+    int updateClassScheduleCampusByStudio(String studio,String campus);
 
     int updateCommentStudio(String studio,String new_studio);
 
+    int updateCommentCampusByStudio(String studio,String campus);
+
     int updateScheduleArrangementStudio(String studio,String new_studio);
+
+    int updateScheduleArrangementCampusByStudio(String studio,String campus);
 
     int updateSignUpRecordStudio(String studio,String new_studio);
 
+    int updateSignUpRecordCampusByStudio(String studio,String campus);
+
     int updateLeaveRecordStudio(String studio,String new_studio);
+
+    int updateLeaveRecordCampusByStudio(String studio,String campus);
 
     int updateLeaveStatus(String id,Integer status);
 
