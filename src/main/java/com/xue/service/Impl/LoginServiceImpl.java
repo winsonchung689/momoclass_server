@@ -3319,6 +3319,9 @@ public class LoginServiceImpl implements LoginService {
                     students_str.append(student_name);
                     students_str.append(",");
                 }
+                if(students_str.length()>0) {
+                    students_str = students_str.deleteCharAt(students_str.lastIndexOf(","));
+                }
 
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
