@@ -3311,6 +3311,14 @@ public class LoginServiceImpl implements LoginService {
                 String group_status = "未成团";
                 List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
                 int group_sum = orders.size();
+                StringBuffer students_str = new StringBuffer();
+                for (int j = 0; j < orders.size(); j++) {
+                    String openid_buy = orders.get(j).getOpenid();
+                    List<User> users = dao.getUser(openid_buy);
+                    String student_name = users.get(0).getStudent_name();
+                    students_str.append(student_name);
+                    students_str.append(",");
+                }
 
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
@@ -3356,7 +3364,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", open_id);
                 jsonObject.put("group_price", group_price);
-                jsonObject.put("group_num", group_num);
+                jsonObject.put("students_str", students_str.toString());
                 jsonObject.put("leader_id", leader_id);
                 jsonObject.put("leader", leader);
                 jsonObject.put("group_role", group_role);
