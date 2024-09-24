@@ -3428,6 +3428,12 @@ public class LoginServiceImpl implements LoginService {
                     campus =  users.get(0).getCampus();
                 }
 
+                String student_name = null;
+                List<User> users1 = dao.getUserByOpenid(openid);
+                if(users1.size()>0){
+                    student_name = users1.get(0).getStudent_name();
+                }
+
                 String status_get="已发货";
                 if(0==status){
                     status_get="未发货";
@@ -3453,6 +3459,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("group_sum", group_sum);
                 jsonObject.put("cut_price", cut_price);
+                jsonObject.put("student_name", student_name);
 
                 //json
                 resul_list.add(jsonObject);
