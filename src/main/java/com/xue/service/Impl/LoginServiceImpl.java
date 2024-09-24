@@ -3345,9 +3345,9 @@ public class LoginServiceImpl implements LoginService {
                     group_status = "已成团";
                 }
 
-                String status_get="已发货";
+                String status_get="已完成";
                 if(0==status){
-                    status_get="未发货";
+                    status_get="未完成";
                 }
 
                 create_time = line.getCreate_time();
