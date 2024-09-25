@@ -758,7 +758,7 @@
   </select>
 
   <select id="getAnalyzeSignUpDetail" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select create_time,student_name,subject,count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3}  order by create_time desc
+    select create_time,student_name,subject,count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time, '%Y-%m-%d')=#{param3}  order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
