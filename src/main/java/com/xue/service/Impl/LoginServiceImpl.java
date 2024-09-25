@@ -7818,9 +7818,9 @@ public class LoginServiceImpl implements LoginService {
                     //获取签到记录
                     List<SignUp> signUps = null;
                     if("全科目".equals(subject_in)){
-                        signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,weekday);
+                        signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,student_name);
                     }else{
-                        signUps = dao.getAnalyzeSignUpDetailBySubject(studio,campus,subject_in,weekday,weekday);
+                        signUps = dao.getAnalyzeSignUpDetailBySubject(studio,campus,subject_in,weekday,student_name);
                     }
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
@@ -7851,7 +7851,7 @@ public class LoginServiceImpl implements LoginService {
                                             give_lesson = give_lesson + give_lesson_get;
                                         }
                                         if(total_money>0){
-                                            price = (total_money - dis_money)/total_amount;
+                                            price = (total_money - dis_money)/(all_lesson - give_lesson);
                                         }
                                         weekPrice = weekPrice + price*count;
                                     }
