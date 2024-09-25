@@ -734,51 +734,51 @@
   </select>
 
   <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time, '%Y-%m-%d') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time, '%Y-%m-%d') between #{param3} and #{param4} group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time, '%Y-%m-%d') desc
+    select date_format(create_time, '%Y-%m-%d') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time, '%Y-%m-%d') between #{param3} and #{param4} group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time, '%Y-%m-%d') desc
   </select>
 
   <select id="getAnalyzeSignUpByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} group by student_name
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpBySubject" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} group by student_name
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time,'%Y-%m') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by date_format(create_time,'%Y-%m') order by date_format(create_time,'%Y-%m') desc
+    select date_format(create_time,'%Y-%m') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by date_format(create_time,'%Y-%m') order by date_format(create_time,'%Y-%m') desc
   </select>
 
   <select id="getAnalyzeSignUpByMonthByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by student_name
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpByMonthBySubject" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param4} and #{param5} group by student_name
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param4} and #{param5} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpDetail" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select create_time,student_name,subject,count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3}  order by create_time desc
+    select create_time,student_name,subject,count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3}  order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3} and student_name=#{param4} order by create_time desc
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3} and student_name=#{param4} order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailBySubject" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and create_time=#{param4} and student_name=#{param5} order by create_time desc
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and create_time=#{param4} and student_name=#{param5} order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByMonth" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select create_time,student_name,subject,count from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3}  order by create_time desc
+    select create_time,student_name,subject,count from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3}  order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByMonthByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3} and student_name=#{param4} order by create_time desc
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3} and student_name=#{param4} order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByMonthBySubject" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param4} and student_name=#{param5} order by create_time desc
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param4} and student_name=#{param5} order by create_time desc
   </select>
 
   <select id="getAnalyzeTryDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
