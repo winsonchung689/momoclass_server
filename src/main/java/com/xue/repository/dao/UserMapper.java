@@ -110,6 +110,8 @@ public interface UserMapper {
     List<Book> getBookByStudio(String studio);
     List<Book> getBookDetailAll(String studio,String create_time,String start_date);
 
+    List<Book> getBookDetailByMark(String studio,String create_time,String start_date);
+
     List<Book> searchBookDetail(String studio,String value,String type);
 
     List<BookCount> getBookByMonth(String studio,String campus);

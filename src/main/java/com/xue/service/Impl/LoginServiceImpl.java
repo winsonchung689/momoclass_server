@@ -7263,6 +7263,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUserByOpenidQr(String openid_qr) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -7276,6 +7278,9 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 String studio = line.getStudio();
+                List<Book> books = dao.getBookDetailByMark(studio,create_time,"2024-01-01");
+                int number = books.size();
+
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
@@ -7285,7 +7290,7 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name_rc = users.get(0).getNick_name();
 
                 int is_paid = line.getIs_paid();
-                String is_paid_cn = "未返现";
+                String is_paid_cn = "未返现"+"(" + number +")";
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
                 }
