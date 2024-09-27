@@ -319,6 +319,8 @@ public interface UserMapper {
 
     void deleteNote(Integer id);
 
+    void deleteNotice(Integer id);
+
     void deleteUser(Integer id);
 
     void deletePointsRecordById(Integer id);

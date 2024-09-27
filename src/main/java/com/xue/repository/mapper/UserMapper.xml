@@ -325,7 +325,7 @@
   </select>
 
   <!-- 删除通知 -->
-  <select id="deleteAnnouncement" parameterType="com.xue.entity.model.Announcement" resultMap="BaseResultMap">
+  <select id="deleteNotice" parameterType="com.xue.entity.model.Announcement" resultMap="BaseResultMap">
     delete from announcement where id = #{param1};
   </select>
 

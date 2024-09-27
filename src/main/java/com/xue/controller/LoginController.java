@@ -2205,7 +2205,7 @@ public class LoginController {
 	@ResponseBody
 	public int deleteNotice(Integer id){
 		try {
-			dao.deleteNote(id);
+			dao.deleteNotice(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
