@@ -5430,7 +5430,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                     lesson_left1 = all_lesson + give_lesson - package_sum1;
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
                 int end_status = line.getEnd_status();
