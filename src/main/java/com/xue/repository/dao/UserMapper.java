@@ -981,6 +981,10 @@ public interface UserMapper {
 
     int updateLessonPackageGiveLesson(String id,Float give_lesson);
 
+    int updateLessonPackageStartDate(String id,String start_date);
+
+    int updateLessonPackageEndDate(String id,String end_date);
+
 
 
 
