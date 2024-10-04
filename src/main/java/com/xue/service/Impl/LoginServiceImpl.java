@@ -5418,16 +5418,20 @@ public class LoginServiceImpl implements LoginService {
                 }
                 Float lesson_left = all_lesson + give_lesson - package_sum;
 
-                List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
                 Float package_sum1 = 0.0f;
-                if(signUps1.size()>0){
-                    for (int j = 0; j < signUps1.size(); j++) {
-                        Float count = signUps1.get(j).getCount();
-                        package_sum1 = package_sum1 + count;
+                Float lesson_left1 = 0.0f;
+                try {
+                    List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
+                    if(signUps1.size()>0){
+                        for (int j = 0; j < signUps1.size(); j++) {
+                            Float count = signUps1.get(j).getCount();
+                            package_sum1 = package_sum1 + count;
+                        }
                     }
+                    lesson_left1 = all_lesson + give_lesson - package_sum1;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-                Float lesson_left1 = all_lesson + give_lesson - package_sum1;
-
 
                 int end_status = line.getEnd_status();
                 jsonObject.put("end_status", "未结课");
