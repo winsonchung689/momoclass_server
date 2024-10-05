@@ -4935,11 +4935,20 @@ public class LoginController {
 		//获取名字
 		String student_name = request.getParameter("student_name");
 
-
 		String status =request.getParameter("status") ;
 		if(status == null || status.isEmpty() || "undefined".equals(status)){
 			status = "1";
 		}
+
+		// 获取提醒
+		Integer remind = 1;
+		try {
+			List<Schedule> schedules = dao.getScheduleByDuration(add_date,duration,class_number,subject,studio,campus);
+			remind = schedules.get(0).getRemind();
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
 
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
@@ -4958,6 +4967,7 @@ public class LoginController {
 				schedule.setStatus(Integer.parseInt(status));
 				schedule.setSubject(subject);
 				schedule.setCampus(campus);
+				schedule.setRemind(remind);
 				schedule.setIs_try(Integer.parseInt(is_try));
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
