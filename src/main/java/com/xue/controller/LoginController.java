@@ -2756,7 +2756,6 @@ public class LoginController {
 				}else{
 					loginService.syncUpdateMinusLesson(student_name,studio,count,subject,campus);
 				}
-
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
 
 				// 发送通知
@@ -5606,7 +5605,6 @@ public class LoginController {
 				}else if (is_combine == 1){
 					dao.updateLessonBoth(lesson_in);
 				}
-
 				try {
 					// 判断是否关联并更新其他人的课时
 					String related_id = lesson.getRelated_id();
