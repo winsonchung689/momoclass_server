@@ -2728,6 +2728,7 @@ public class LoginController {
 				count = Float.parseFloat(class_count);
 			}
 
+			// 签到记录
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
 			signUp.setSign_time(update_time);
@@ -2738,7 +2739,6 @@ public class LoginController {
 			signUp.setSubject(subject);
 			signUp.setTeacher(nick_name);
 			signUp.setCampus(campus);
-
 			if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
 				package_id = "0";
 			}
@@ -2747,8 +2747,9 @@ public class LoginController {
 				class_number = "无班号";
 			}
 			signUp.setClass_number(class_number);
-
 			int insert_res = loginService.insertSignUp(signUp);
+
+			// 扣课时
 			if(insert_res>0){
 				if("no_id".equals(related_id)){
 					loginService.updateMinusLesson(student_name,studio,count,subject,campus);
@@ -2758,7 +2759,7 @@ public class LoginController {
 
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
 
-				// 发通知
+				// 发送通知
 				List<User> users = dao.getUserByStudent(student_name,studio);
 				for(int i = 0;i < users.size(); i++){
 					User user = users.get(i);
@@ -5588,7 +5589,7 @@ public class LoginController {
 			signUp.setCampus(campus);
 			int insert_res = loginService.insertSignUp(signUp);
 
-			// 扣课
+			// 扣课时
 			if(insert_res>0){
 				Lesson lesson_in = new Lesson();
 				lesson_in.setStudent_name(student_name);
