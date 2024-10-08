@@ -5587,8 +5587,9 @@ public class LoginController {
 			signUp.setPackage_id(package_id);
 			signUp.setCampus(campus);
 			int insert_res = loginService.insertSignUp(signUp);
+
+			// 扣课
 			if(insert_res>0){
-				// 扣课
 				Lesson lesson_in = new Lesson();
 				lesson_in.setStudent_name(student_name);
 				lesson_in.setStudio(studio);
@@ -5662,8 +5663,6 @@ public class LoginController {
 					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject);
 					sendConsumeLesson(openid,consume_lesson_amount,student_name,subject);
 				}
-
-
 			}
 		}
 
