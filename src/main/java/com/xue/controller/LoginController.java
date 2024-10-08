@@ -5546,14 +5546,19 @@ public class LoginController {
 	@RequestMapping("/consumeLesson")
 	@ResponseBody
 	public String consumeLesson(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		//获取openid
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		String nick_name = list_user.get(0).getNick_name();
 		String studio = request.getParameter("studio");
 		String subject = request.getParameter("subject");
 		String student_name = request.getParameter("student_name");
 		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
+		String mark = request.getParameter("mark");
+		String package_id = request.getParameter("package_id");
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		if(lessons.size()>0){
@@ -5567,61 +5572,99 @@ public class LoginController {
 			Float coins = lesson.getCoins();
 			Integer is_combine = lesson.getIs_combine();
 
+			// 签到记录
+			SignUp signUp = new SignUp();
+			signUp.setStudent_name(student_name);
+			signUp.setStudio(studio);
+			signUp.setSign_time(update_time);
+			signUp.setMark("划课_"+mark);
+			signUp.setCount(Float.parseFloat(consume_lesson_amount));
+			signUp.setSubject(subject);
+			signUp.setTeacher(nick_name);
+			signUp.setCreate_time(update_time);
+			signUp.setDuration("00:00:00");
+			signUp.setClass_number("无班号");
+			signUp.setPackage_id(package_id);
+			signUp.setCampus(campus);
+			int insert_res = loginService.insertSignUp(signUp);
+			if(insert_res>0){
+				// 扣课
+				Lesson lesson_in = new Lesson();
+				lesson_in.setStudent_name(student_name);
+				lesson_in.setStudio(studio);
+				lesson_in.setSubject(subject);
+				lesson_in.setCampus(campus);
+				lesson_in.setLeft_amount(left_amount);
+				lesson_in.setTotal_amount(total_amount);
+				lesson_in.setMinus(minus);
+				lesson_in.setCoins(coins);
 
-			Lesson lesson_in = new Lesson();
-			lesson_in.setStudent_name(student_name);
-			lesson_in.setStudio(studio);
-			lesson_in.setSubject(subject);
-			lesson_in.setCampus(campus);
-			lesson_in.setLeft_amount(left_amount);
-			lesson_in.setTotal_amount(total_amount);
-			lesson_in.setMinus(minus);
-			lesson_in.setCoins(coins);
+				if(is_combine == 0){
+					dao.consumeLesson(lesson_in);
+				}else if (is_combine == 1){
+					dao.updateLessonBoth(lesson_in);
+				}
 
-			if(is_combine == 0){
-				dao.consumeLesson(lesson_in);
-			}else if (is_combine == 1){
-				dao.updateLessonBoth(lesson_in);
-			}
+				try {
+					// 判断是否关联并更新其他人的课时
+					String related_id = lesson.getRelated_id();
+					// 判定有关联
+					if(!"no_id".equals(related_id)){
+						String[] related_id_list = related_id.split(",");
+						for(int j=0;j < related_id_list.length; j++){
+							String id_get = related_id_list[j];
+							if(id_get != null && id_get != "") {
+								List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
+								Lesson lesson_get = lessons_get.get(0);
+								String student_name_get = lesson_get.getStudent_name();
+								// 判定其他人
+								if (!student_name.equals(student_name_get)) {
+									String subject_get = lesson_get.getSubject();
+									Float minus_get = lesson_get.getMinus();
+									Float coins_get = lesson_get.getCoins();
 
-			try {
-				// 判断是否关联并更新其他人的课时
-				String related_id = lesson.getRelated_id();
-				// 判定有关联
-				if(!"no_id".equals(related_id)){
-					String[] related_id_list = related_id.split(",");
-					for(int j=0;j < related_id_list.length; j++){
-						String id_get = related_id_list[j];
-						if(id_get != null && id_get != "") {
-							List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
-							Lesson lesson_get = lessons_get.get(0);
-							String student_name_get = lesson_get.getStudent_name();
-							// 判定其他人
-							if (!student_name.equals(student_name_get)) {
-								String subject_get = lesson_get.getSubject();
-								Float minus_get = lesson_get.getMinus();
-								Float coins_get = lesson_get.getCoins();
+									Lesson lesson_re = new Lesson();
+									lesson_re.setStudent_name(student_name_get);
+									lesson_re.setLeft_amount(left_amount);
+									lesson_re.setTotal_amount(total_amount);
+									lesson_re.setStudio(studio);
+									lesson_re.setCampus(campus);
+									lesson_re.setMinus(minus_get);
+									lesson_re.setCoins(coins_get);
+									lesson_re.setSubject(subject_get);
 
-								Lesson lesson_re = new Lesson();
-								lesson_re.setStudent_name(student_name_get);
-								lesson_re.setLeft_amount(left_amount);
-								lesson_re.setTotal_amount(total_amount);
-								lesson_re.setStudio(studio);
-								lesson_re.setCampus(campus);
-								lesson_re.setMinus(minus_get);
-								lesson_re.setCoins(coins_get);
-								lesson_re.setSubject(subject_get);
-
-								dao.consumeLesson(lesson_re);
+									dao.consumeLesson(lesson_re);
+								}
 							}
 						}
 					}
+				} catch (NumberFormatException e) {
+					throw new RuntimeException(e);
 				}
-			} catch (NumberFormatException e) {
-				throw new RuntimeException(e);
+
+				// 发送通知
+				List<User> users = dao.getUserByStudent(student_name,studio);
+				for(int i = 0;i < users.size(); i++){
+					User user = users.get(i);
+					String subscription = user.getSubscription();
+					String openid_get = user.getOpenid();
+
+					// pwa
+					if(subscription != null){
+						JSONObject payload = new JSONObject();
+						payload.put("title","划课成功");
+						payload.put("message","学生名:" + student_name+"\n本次扣课:" + consume_lesson_amount + "\n剩余课时:" + left_amount );
+						String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
+						System.out.printf("status:" + status);
+					}
+
+					// 小程序
+					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject);
+					sendConsumeLesson(openid,consume_lesson_amount,student_name,subject);
+				}
+
+
 			}
-
-
 		}
 
 
