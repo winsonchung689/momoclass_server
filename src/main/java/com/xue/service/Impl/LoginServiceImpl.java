@@ -1595,17 +1595,20 @@ public class LoginServiceImpl implements LoginService {
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
                 StringBuilder student_leaves = new StringBuilder();
+                String book_stauts = "未预约";
                 for (int j = 0; j < list_user.size(); j++) {
                     User user = list_user.get(j);
                     String student_name = user.getStudent_name();
                     List<Schedule> check_schedule = dao.getScheduleCheck(date_time,duration,class_number,subject,studio,campus,student_name);
                     if(check_schedule.size() >= 1){
                         student_names = student_names.append(student_name).append(",");
+                        book_stauts = "已预约";
                     }
 
                     List<Schedule> check_arrange = dao.getScheduleCheckArrangement(weekDay,duration,class_number,subject,studio,campus,student_name);
                     if(check_arrange.size() >= 1){
                         student_arranges = student_arranges.append(student_name).append(",");
+                        book_stauts = "已排课";
                     }
 
                     List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
@@ -1652,6 +1655,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("limits", limits);
                 jsonObject.put("classes_count", classes_count);
                 jsonObject.put("teachers", teachers);
+                jsonObject.put("book_stauts",book_stauts);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
