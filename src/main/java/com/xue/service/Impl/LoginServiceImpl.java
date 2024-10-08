@@ -1591,6 +1591,7 @@ public class LoginServiceImpl implements LoginService {
                 String duration = line.getDuration();
                 String subject = line.getSubject();
                 String limits = line.getLimits();
+                String id = line.getId();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1656,6 +1657,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("classes_count", classes_count);
                 jsonObject.put("teachers", teachers);
                 jsonObject.put("book_stauts",book_stauts);
+                jsonObject.put("id",id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
