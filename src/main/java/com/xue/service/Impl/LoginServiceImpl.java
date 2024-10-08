@@ -1590,6 +1590,7 @@ public class LoginServiceImpl implements LoginService {
                 String class_number = line.getClass_number();
                 String duration = line.getDuration();
                 String subject = line.getSubject();
+                String limits = line.getLimits();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1623,6 +1624,24 @@ public class LoginServiceImpl implements LoginService {
                     student_leaves = student_leaves.deleteCharAt(student_leaves.lastIndexOf(","));
                 }
 
+                int classes_count = dao.getLessonAllCountByDay(studio,weekDay,duration,class_number,subject,campus);
+
+                String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
+
+                StringBuffer teachers = new StringBuffer();
+                List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
+                if(teacher_user != null){
+                    for(int t = 0;t < teacher_user.size(); t++){
+                        String nick_name_get = teacher_user.get(t).getNick_name();
+                        teachers.append(nick_name_get);
+                        teachers.append(",");
+                    }
+                    if(teachers.length()>0) {
+                        teachers = teachers.deleteCharAt(teachers.lastIndexOf(","));
+                    }
+
+                }
+
                 jsonObject.put("dayofweek", dayofweek);
                 jsonObject.put("duration", duration);
                 jsonObject.put("class_number", class_number);
@@ -1630,6 +1649,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("student_names", student_names);
                 jsonObject.put("student_arranges", student_arranges);
                 jsonObject.put("student_leaves", student_leaves);
+                jsonObject.put("limits", limits);
+                jsonObject.put("classes_count", classes_count);
+                jsonObject.put("teachers", teachers);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
