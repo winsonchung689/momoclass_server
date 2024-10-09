@@ -848,7 +848,7 @@
 
   <!-- 插入网页信息 -->
   <insert id="insertWebsite" parameterType="com.xue.entity.model.Website">
-    insert website(studio,company,teacher,uuids,create_time) values(#{studio},#{company},#{teacher},#{uuids},#{create_time})
+    insert website(studio,company,teacher,uuids,create_time,campus) values(#{studio},#{company},#{teacher},#{uuids},#{create_time},#{campus})
   </insert>
 
   <!-- 插入公约 -->

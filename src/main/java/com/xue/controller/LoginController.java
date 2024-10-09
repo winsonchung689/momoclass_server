@@ -3149,6 +3149,8 @@ public class LoginController {
 	@RequestMapping("/updateWebsite")
 	@ResponseBody
 	public int updateWebsite(HttpServletRequest request, HttpServletResponse response) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String content = request.getParameter("content");
 		String type = request.getParameter("type");
@@ -3163,6 +3165,7 @@ public class LoginController {
 			Website website = new Website();
 			website.setStudio(studio);
 			website.setCampus(campus);
+			website.setCreate_time(create_time);
 			dao.insertWebsite(website);
 			websites = dao.getWebsite(studio,campus);
 		}
