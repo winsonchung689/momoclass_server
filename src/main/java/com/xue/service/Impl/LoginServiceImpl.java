@@ -3950,6 +3950,29 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getWebsite(String studio,String campus) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Website> websites = dao.getWebsite(studio,campus);
+        try {
+            for(int i = 0;i< websites.size();i++){
+                JSONObject jsonObject = new JSONObject();
+                Website website = websites.get(i);
+                String company = website.getCompany();
+                String teacher = website.getTeacher();
+                String uuids = website.getUuids();
+
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("teacher", teacher);
+                jsonObject.put("company", company);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getExhibition(String studio, String type,Integer page) {
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;

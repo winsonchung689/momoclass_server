@@ -1069,6 +1069,22 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getWebsite")
+	@ResponseBody
+	public List getWebsite(String openid){
+		List list = null;
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getCampus();
+			String campus = user.getCampus();
+			list = loginService.getWebsite(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	// 获取相册
 	@RequestMapping("/getAlbum")
 	@ResponseBody
