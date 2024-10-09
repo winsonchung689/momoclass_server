@@ -105,7 +105,7 @@
   </resultMap>
   <resultMap id="BaseWebsite" type="com.xue.entity.model.Website">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
-\  </resultMap>
+  </resultMap>
 
 
 
