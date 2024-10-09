@@ -3130,6 +3130,40 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateWebsite")
+	@ResponseBody
+	public int updateWebsite(HttpServletRequest request, HttpServletResponse response) {
+
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String campus = user.getCampus();
+		String studio = user.getStudio();
+
+		List<Website> websites = dao.getWebsite(studio,campus);
+		if(websites.size() == 0){
+			Website website = new Website();
+			website.setStudio(studio);
+			website.setCampus(campus);
+			dao.insertWebsite(website);
+			websites = dao.getWebsite(studio,campus);
+		}
+		Website website = websites.get(0);
+		String id = website.getId();
+		if("company".equals(type)){
+			dao.updateWebsiteCompany(id,content);
+		} else if ("teacher".equals(type)) {
+			dao.updateWebsiteTeacher(id,content);
+		} else if ("uuids".equals(type)) {
+			dao.updateWebsiteUuids(id,content);
+		}
+
+
+		return 1;
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){

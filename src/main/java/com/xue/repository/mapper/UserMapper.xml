@@ -103,6 +103,9 @@
     <result column="studio" jdbcType="VARCHAR" property="studio" />
     <result column="contract" jdbcType="VARCHAR" property="contract" />
   </resultMap>
+  <resultMap id="BaseWebsite" type="com.xue.entity.model.Website">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+\  </resultMap>
 
 
 
@@ -843,6 +846,11 @@
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
+  <!-- 插入网页信息 -->
+  <insert id="insertWebsite" parameterType="com.xue.entity.model.Website">
+    insert website(studio,company,teacher,uuids,create_time) values(#{studio},#{company},#{teacher},#{uuids},#{create_time})
+  </insert>
+
   <!-- 插入公约 -->
   <insert id="insertContract" parameterType="com.xue.entity.model.Contract">
     insert contract(studio,campus,contract,create_time) values(#{studio},#{campus},#{contract},#{create_time})
@@ -1316,6 +1324,25 @@
   <select id="getUserByOpenidQrLike" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select * from user where studio like "%"#{param1}"%" and openid_qr &lt;&gt; 'noid' and delete_status = 0 order by studio,create_time desc
   </select>
+
+  <select id="getWebsite" parameterType="com.xue.entity.model.Website" resultMap="BaseWebsite">
+    select * from website where studio =#{param1} and campus =#{param2}  and delete_status = 0;
+  </select>
+
+  <!-- 更新网站公司 -->
+  <update id="updateWebsiteCompany" parameterType="com.xue.entity.model.Website">
+    update website set company=#{param2} where id =#{param1}  and delete_status = 0
+  </update>
+
+  <!-- 更新网站师资 -->
+  <update id="updateWebsiteTeacher" parameterType="com.xue.entity.model.Website">
+    update website set teacher=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更新网站图片 -->
+  <update id="updateWebsiteUuids" parameterType="com.xue.entity.model.Website">
+    update website set uuids=#{param2} where id =#{param1} and delete_status = 0
+  </update>
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">

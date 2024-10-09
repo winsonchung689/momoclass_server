@@ -207,6 +207,8 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
+    int insertWebsite(Website website);
+
     int insertContract(String studio, String campus, String contract, String create_time);
 
     int insertBookDetail(BookDetail bookDetail);
@@ -372,6 +374,12 @@ public interface UserMapper {
 
     int insertPointsRecord(Points points);
     int updateUser(User user);
+
+    int updateWebsiteUuids(String id,String uuids);
+
+    int updateWebsiteTeacher(String id,String teacher);
+
+    int updateWebsiteCompany(String id,String company);
 
     int updateOpenid(User user);
 
@@ -626,6 +634,8 @@ public interface UserMapper {
     List<User> getUserByOpenidQrAll();
 
     List<User> getUserByOpenidQrLike(String studio);
+
+    List<Website> getWebsite(String studio,String campus);
 
     List<User> getStudio();
 
