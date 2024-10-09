@@ -2792,8 +2792,9 @@ public class LoginController {
 
 					// 小程序
 					sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number);
-					sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number);
+
 				}
+				sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number);
 			}
 
 
@@ -5713,8 +5714,8 @@ public class LoginController {
 
 					// 小程序
 					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject);
-					sendConsumeLesson(openid,consume_lesson_amount,student_name,subject);
 				}
+				sendConsumeLesson(openid,consume_lesson_amount,student_name,subject);
 			}
 		}
 
