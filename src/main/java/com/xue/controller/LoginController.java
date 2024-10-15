@@ -1829,10 +1829,10 @@ public class LoginController {
 
 	@RequestMapping("/getUserByOpenidQr")
 	@ResponseBody
-	public List getUserByOpenidQr(String openid_qr){
+	public List getUserByOpenidQr(String openid_qr,Integer page){
 		List list = null;
 		try {
-			list = loginService.getUserByOpenidQr(openid_qr);
+			list = loginService.getUserByOpenidQr(openid_qr,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

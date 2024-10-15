@@ -1314,11 +1314,11 @@
   </select>
 
   <select id="getUserByOpenidQr" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where openid_qr = #{param1} and delete_status = 0 order by create_time desc
+    select * from user where openid_qr = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};
   </select>
 
   <select id="getUserByOpenidQrAll" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by create_time desc
+    select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by create_time desc limit #{param1},#{param2};
   </select>
 
   <select id="getUserByOpenidQrLike" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

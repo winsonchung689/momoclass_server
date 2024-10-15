@@ -629,9 +629,9 @@ public interface UserMapper {
 
     List<User> getUserByRole(String role);
 
-    List<User> getUserByOpenidQr(String openid_qr);
+    List<User> getUserByOpenidQr(String openid_qr,Integer page_start,Integer page_length);
 
-    List<User> getUserByOpenidQrAll();
+    List<User> getUserByOpenidQrAll(Integer page_start,Integer page_length);
 
     List<User> getUserByOpenidQrLike(String studio);
 

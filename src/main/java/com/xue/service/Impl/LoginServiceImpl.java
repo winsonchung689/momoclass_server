@@ -7320,15 +7320,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getUserByOpenidQr(String openid_qr) {
+    public List getUserByOpenidQr(String openid_qr,Integer page) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer page_start = (page - 1) * 50;
+        Integer page_length = 50;
 
         try {
-            List<User> list = dao.getUserByOpenidQr(openid_qr);
+            List<User> list = dao.getUserByOpenidQr(openid_qr,page_start,page_length);
             if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
-                list = dao.getUserByOpenidQrAll();
+                list = dao.getUserByOpenidQrAll(page_start,page_length);
             }
 
             for (int i = 0; i < list.size(); i++) {

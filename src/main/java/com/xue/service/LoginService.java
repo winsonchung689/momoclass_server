@@ -48,7 +48,7 @@ public interface LoginService {
 
     public List  getUserByRole(String role);
 
-    public List  getUserByOpenidQr(String openid_qr);
+    public List  getUserByOpenidQr(String openid_qr,Integer page);
 
     public List  getUserByOpenidQrLike(String studio);
 
