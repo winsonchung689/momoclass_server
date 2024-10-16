@@ -345,7 +345,7 @@ public class LoginController {
 					queryJson.put("touser",official_openid_get);
 					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",title);
 					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",content_head);
-					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?studio=" + studio);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/noticedetail/noticedetail?openid=" + openid);
 
 					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
