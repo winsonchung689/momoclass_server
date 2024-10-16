@@ -2650,8 +2650,8 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
 		String campus = users.get(0).getCampus();
+		String studio = users.get(0).getStudio();
 
-		String studio = request.getParameter("studio");
 		String content = request.getParameter("content");
 		String title = request.getParameter("title");
 
