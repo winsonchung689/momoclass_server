@@ -1444,10 +1444,13 @@ public class LoginController {
 
 	@RequestMapping("/getAnnouncement")
 	@ResponseBody
-	public List getAnnouncement(String studio){
+	public List getAnnouncement(String openid){
 		List list = null;
+		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
+		String campus = list_user.get(0).getCampus();
 		try {
-			list = dao.getAnnouncement(studio);
+			list = dao.getAnnouncement(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

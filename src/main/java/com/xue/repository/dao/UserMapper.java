@@ -705,7 +705,7 @@ public interface UserMapper {
 
     List<Lesson> getClassNote(String subject,String studio,String student_name);
 
-    List<Announcement> getAnnouncement(String studio);
+    List<Announcement> getAnnouncement(String studio,String campus);
 
     List<Lesson> getLessonBySubject(String studio,String subject,String campus);
 
