@@ -319,14 +319,14 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendNotice")
 	@ResponseBody
-	public String sendNotice(String token, String openid, String studio, String title,String content,String mytime){
+	public String sendNotice(String openid,String title,String content){
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"O9vQEneXUbkhdCuWW_-hQEGqUztTXQ8g0Mrgy97VAuI\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
-		studio = user.getStudio();
+		String studio = user.getStudio();
 		String official_openid = user.getOfficial_openid();
 
 		String content_head = null;
@@ -335,7 +335,7 @@ public class LoginController {
 		}
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
+			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			if(official_openid != null){
 				String[] official_list = official_openid.split(",");
@@ -2640,18 +2640,35 @@ public class LoginController {
 
 	@RequestMapping("/insertAnnouncement")
 	@ResponseBody
-	public int insertAnnouncement(String studio,String content,String title){
+	public int insertAnnouncement(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		Announcement announcement = new Announcement();
-		announcement.setCreate_time(create_time);
-		announcement.setStudio(studio);
-		announcement.setContent(content);
-		announcement.setTitle(title);
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String campus = users.get(0).getCampus();
+
+		String studio = request.getParameter("studio");
+		String content = request.getParameter("content");
+		String title = request.getParameter("title");
+
 
 		try {
+			Announcement announcement = new Announcement();
+			announcement.setCreate_time(create_time);
+			announcement.setStudio(studio);
+			announcement.setCampus(campus);
+			announcement.setContent(content);
+			announcement.setTitle(title);
 			dao.insertAnnouncement(announcement);
+
+			List<User> users_all = dao.getUserByStudio(studio,campus);
+			for(int i = 0;i < users_all.size(); i++){
+				User user = users_all.get(i);
+				String openid_get = user.getOpenid();
+				sendNotice(openid_get,title,content);
+			}
+
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
