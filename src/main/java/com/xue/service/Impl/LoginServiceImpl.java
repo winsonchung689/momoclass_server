@@ -7633,7 +7633,7 @@ public class LoginServiceImpl implements LoginService {
                                             give_lesson = give_lesson + give_lesson_get;
                                         }
                                         if(total_money>0){
-                                            price = (total_money - dis_money)/(all_lesson - give_lesson);
+                                            price = (total_money - dis_money)/(all_lesson + give_lesson);
                                         }
                                         weekPrice = weekPrice + price*count;
                                     }
@@ -7721,7 +7721,7 @@ public class LoginServiceImpl implements LoginService {
                                             give_lesson = give_lesson + give_lesson_get;
                                         }
                                         if(total_money>0){
-                                            price = (total_money - dis_money)/(all_lesson - give_lesson);
+                                            price = (total_money - dis_money)/(all_lesson + give_lesson);
                                         }
                                         weekPrice = weekPrice + price*count;
                                     }
