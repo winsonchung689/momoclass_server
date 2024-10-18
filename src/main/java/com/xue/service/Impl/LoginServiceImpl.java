@@ -328,6 +328,8 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
+                String create_time = line.getCreate_time();
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
@@ -346,6 +348,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("uuids_c", uuids_c);
                 jsonObject.put("vuuid", vuuid);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
 
@@ -446,6 +449,8 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
+                String create_time = line.getCreate_time();
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
@@ -464,6 +469,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("uuids_c", uuids_c);
                 jsonObject.put("vuuid", vuuid);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
 
