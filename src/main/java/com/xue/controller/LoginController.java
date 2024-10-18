@@ -4618,6 +4618,10 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 
 		String is_try = request.getParameter("is_try");
+		List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
+		if(lessons.size( ) == 0){
+			is_try = "1";
+		}
 
 		String weekofday = request.getParameter("weekofday");
 
