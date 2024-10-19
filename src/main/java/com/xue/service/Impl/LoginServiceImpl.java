@@ -1606,6 +1606,10 @@ public class LoginServiceImpl implements LoginService {
                 for (int j = 0; j < list_user.size(); j++) {
                     User user = list_user.get(j);
                     String student_name = user.getStudent_name();
+                    String nick_name = user.getNick_name();
+                    if(subject.contains("成人") || class_number.contains("成人")){
+                        student_name = nick_name;
+                    }
                     List<Schedule> check_schedule = dao.getScheduleCheck(date_time,duration,class_number,subject,studio,campus,student_name);
                     if(check_schedule.size() >= 1){
                         student_names = student_names.append(student_name).append(",");
