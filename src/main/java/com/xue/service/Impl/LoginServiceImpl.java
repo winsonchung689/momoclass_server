@@ -7332,7 +7332,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getUserByOpenidQr(String openid_qr,Integer page) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
@@ -7348,7 +7348,7 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 String studio = line.getStudio();
-                List<Book> books = dao.getBookDetailByMark(studio,create_time,"2024-01-01");
+                List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
                 int number = books.size();
 
                 String student_name = line.getStudent_name();
@@ -7366,6 +7366,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String cash_uuid = line.getCash_uuid();
+                String create_time = line.getCreate_time();
 
                 //json
                 jsonObject.put("rank", i + 1);
@@ -7377,6 +7378,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_paid_cn", is_paid_cn);
                 jsonObject.put("nick_name_rc", nick_name_rc);
                 jsonObject.put("cash_uuid", cash_uuid);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
