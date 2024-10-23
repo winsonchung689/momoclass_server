@@ -8004,8 +8004,8 @@ public class LoginServiceImpl implements LoginService {
         Float minus = 0.0f;
         Float coins = 0.0f;
         List<Lesson> list = null;
-        Integer page_start = (page - 1) * 10;
-        Integer page_length = 10;
+        Integer page_start = (page - 1) * 20;
+        Integer page_length = 20;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer length = student_name.split(",").length;
         Integer total_student =0;
