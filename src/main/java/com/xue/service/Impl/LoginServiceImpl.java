@@ -4509,7 +4509,7 @@ public class LoginServiceImpl implements LoginService {
 
         String result = null;
         List<Schedule> list_schedule = new ArrayList<>();
-        String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+        String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaRzUIJ_7Hxqozhz8QpkaPTY4\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"},\"thing8\":{\"value\": \"A1\"},\"thing11\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String publickey = Constants.publickey;
         String privatekey = Constants.privatekey;
@@ -4601,6 +4601,12 @@ public class LoginServiceImpl implements LoginService {
                             weekDayChoose = weekDay -1;
                         }
 
+                        String upcoming = "未设";
+                        List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+                        if(arrangement_list.size()>0){
+                            upcoming = arrangement_list.get(0).getUpcoming();
+                        }
+
                         if(!send_status.equals(now_date)){
                             //选课老师上课通知
                             String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
@@ -4625,7 +4631,9 @@ public class LoginServiceImpl implements LoginService {
                                                         queryJson2.put("touser",official_openid_get);
                                                         queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送" +"(" + student_name + ")");
                                                         queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number +"(" + studio + ")");
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing8").put("value",class_number);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing11").put("value",studio);
 
                                                         System.out.printf("param2:" + queryJson2.toJSONString());
                                                         result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
@@ -4662,7 +4670,9 @@ public class LoginServiceImpl implements LoginService {
                                                         queryJson2.put("touser",official_openid_get);
                                                         queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
                                                         queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", upcoming);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing8").put("value",class_number);
+                                                        queryJson2.getJSONObject("data").getJSONObject("thing11").put("value",studio);
 
                                                         System.out.println("json2:" + queryJson2.toJSONString());
                                                         result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
