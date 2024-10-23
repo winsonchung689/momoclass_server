@@ -1739,12 +1739,14 @@ public class LoginServiceImpl implements LoginService {
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
             List<Schedule> list=null;
+            List<Schedule> list_try=null;
             try {
                 if(subject.equals("全科目")){
                     list = dao.getScheduleAllDistinct(weekDay, studio,campus);
                 }else {
                     list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
                 }
+
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
@@ -1759,6 +1761,9 @@ public class LoginServiceImpl implements LoginService {
                     class_number = line.getClass_number();
                     subject = line.getSubject();
                     remind = line.getRemind();
+                    String add_date= line.getAdd_date();
+                    String student_type = line.getStudent_type();
+
                     String lesson_string = null;
                     List<String> list_2 = null;
                     Integer contains = 0;
@@ -1780,13 +1785,18 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if(contains == 1 || "1".equals(test)){
+                    if(contains == 1){
                         jsonObject.put("studio", studio);
                         jsonObject.put("duration", duration);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("subject", subject);
                         jsonObject.put("remind",remind);
-                        resul_list.add(jsonObject);
+
+                        if("ordinary".equals(student_type)){
+                            resul_list.add(jsonObject);
+                        }else if("transferred".equals(student_type) && add_date.equals(date_time)){
+                            resul_list.add(jsonObject);
+                        }
                     }
 
                 }
