@@ -1739,7 +1739,6 @@ public class LoginServiceImpl implements LoginService {
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
             List<Schedule> list=null;
-            List<Schedule> list_try=null;
             try {
                 if(subject.equals("全科目")){
                     list = dao.getScheduleAllDistinct(weekDay, studio,campus);
