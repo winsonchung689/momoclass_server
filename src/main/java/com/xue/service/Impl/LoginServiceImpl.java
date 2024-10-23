@@ -883,6 +883,7 @@ public class LoginServiceImpl implements LoginService {
                 photo = line.getPhoto();
                 id = line.getId();
                 subject = line.getSubject();
+                String upcoming = line.getUpcoming();
 
 
                 remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
@@ -937,6 +938,7 @@ public class LoginServiceImpl implements LoginService {
                     if(!"all".equals(student_name_in)){
                         search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
                         if(search_res>0){
+                            jsonObject.put("upcoming", upcoming);
                             jsonObject.put("class_number", class_number);
                             jsonObject.put("duration", duration);
                             jsonObject.put("limits", limits);
@@ -958,6 +960,7 @@ public class LoginServiceImpl implements LoginService {
                             resul_list.add(jsonObject);
                         }
                     }else {
+                        jsonObject.put("upcoming", upcoming);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
                         jsonObject.put("limits", limits);
@@ -982,6 +985,7 @@ public class LoginServiceImpl implements LoginService {
                     if(!"all".equals(student_name_in)){
                         search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
                         if(search_res>0){
+                            jsonObject.put("upcoming", upcoming);
                             jsonObject.put("class_number", class_number);
                             jsonObject.put("duration", duration);
                             jsonObject.put("limits", limits);
@@ -1003,6 +1007,7 @@ public class LoginServiceImpl implements LoginService {
                             resul_list.add(jsonObject);
                         }
                     }else {
+                        jsonObject.put("upcoming", upcoming);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
                         jsonObject.put("limits", limits);
@@ -1598,6 +1603,7 @@ public class LoginServiceImpl implements LoginService {
                 String subject = line.getSubject();
                 String limits = line.getLimits();
                 String id = line.getId();
+                String upcoming = line.getUpcoming();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1668,6 +1674,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("teachers", teachers);
                 jsonObject.put("book_stauts",book_stauts);
                 jsonObject.put("id",id);
+                jsonObject.put("upcoming",upcoming);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
