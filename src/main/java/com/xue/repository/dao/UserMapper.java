@@ -301,6 +301,8 @@ public interface UserMapper {
 
     void changeLimit(Integer id,String studio,String limits);
 
+    void changeUpcoming(Integer id,String studio,String upcoming);
+
     void changeDuration(Integer id,String studio,String duration);
 
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus,Integer dayofweek);

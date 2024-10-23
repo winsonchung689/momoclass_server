@@ -20,6 +20,18 @@ public class Arrangement {
 
     private String campus;
 
+    private String upcoming;
+
+
+
+    public String getUpcoming() {
+        return upcoming;
+    }
+
+    public void setUpcoming(String upcoming) {
+        this.upcoming = upcoming;
+    }
+
     public String getCampus() {
         return campus;
     }

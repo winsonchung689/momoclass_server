@@ -2161,16 +2161,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int changeClassName(String id, String role, String studio, String openid,String class_number,String change_title,String limit_number,String campus) {
+    public int changeClassName(String id, String openid,String content,String type) {
         try {
             Integer id1 = Integer.parseInt(id);
             List<User> list = dao.getUser(openid);
-            String studio_get = list.get(0).getStudio();
+            String studio = list.get(0).getStudio();
+            String campus = list.get(0).getCampus();
+
             List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
             Arrangement arrangement = list_1.get(0);
             String duration = arrangement.getDuration();
             String old_class_number = arrangement.getClass_number();
             String old_subject = arrangement.getSubject();
+
             Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
             if(dayofweek==7){
                 dayofweek=1;
@@ -2179,25 +2182,23 @@ public class LoginServiceImpl implements LoginService {
             }
 
 
-            if ( studio_get.equals(studio)) {
-                if(change_title.equals("班号")){
-                    dao.changeClassName(id1,studio,class_number);
-                    dao.changeScheduleClassName(old_class_number,studio,duration,class_number,old_subject,campus,dayofweek);
-                    dao.changeSignUpClassName(old_class_number,studio,duration,class_number,old_subject,campus);
-                }else if(change_title.equals("科目")){
-                    dao.changeSubjectName(id1,studio,class_number);
-                    dao.changeScheduleSubject(old_subject,studio,duration,class_number,old_class_number,campus,dayofweek);
-//                    dao.changeSignUpSubject(old_subject,studio,duration,class_number,old_class_number,campus);
-                }else if(change_title.equals("上限")){
-                    dao.changeLimit(id1,studio,limit_number);
-                }else if(change_title.equals("时间")){
-                    dao.changeDuration(id1,studio,limit_number);
-                    dao.changeScheduleDuration(old_class_number,studio,duration,limit_number,old_subject,campus,dayofweek);
-                }
-
-            }else {
-                logger.error("it's not your studio, could not delete!");
+            if(type.equals("班号")){
+                dao.changeClassName(id1,studio,content);
+                dao.changeScheduleClassName(old_class_number,studio,duration,content,old_subject,campus,dayofweek);
+                dao.changeSignUpClassName(old_class_number,studio,duration,content,old_subject,campus);
+            }else if(type.equals("科目")){
+                dao.changeSubjectName(id1,studio,content);
+                dao.changeScheduleSubject(old_subject,studio,duration,content,old_class_number,campus,dayofweek);
+            }else if(type.equals("上限")){
+                dao.changeLimit(id1,studio,content);
+            }else if(type.equals("时间")){
+                dao.changeDuration(id1,studio,content);
+                dao.changeScheduleDuration(old_class_number,studio,duration,content,old_subject,campus,dayofweek);
+            }else if(type.equals("预告")){
+                dao.changeUpcoming(id1,studio,content);
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

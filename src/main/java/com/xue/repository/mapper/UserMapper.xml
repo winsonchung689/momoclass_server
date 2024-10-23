@@ -494,6 +494,11 @@
     update schedule_arrangement set limits =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 更改课程预告 -->
+  <select id="changeUpcoming" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set upcoming =#{param3} where id =#{param1} and studio =#{param2}
+  </select>
+
   <!-- 更改时间 -->
   <select id="changeDuration" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set duration =#{param3} where id =#{param1} and studio =#{param2}
@@ -957,11 +962,11 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangement" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3} and campus =#{param4} and delete_status = 0 order by duration
+    select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and subject =#{param3} and campus =#{param4} and delete_status = 0 order by duration
   </select>
 
   <select id="getArrangementByDay" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
+    select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找订单 -->
@@ -989,12 +994,13 @@
 
   <!-- 查找课程表 -->
   <select id="getArrangementAll" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
+    select * from
+    where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找课程表 -->
   <select id="getArrangementByDate" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select id,dayofweek,class_number,duration,limits,photo,studio,subject from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and delete_status = 0 order by duration
+    select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and delete_status = 0 order by duration
   </select>
 
   <!-- 查找请假记录 -->

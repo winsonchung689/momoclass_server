@@ -34,7 +34,16 @@ public class Schedule {
 
     private String send_status;
 
+    private String upcoming;
 
+
+    public String getUpcoming() {
+        return upcoming;
+    }
+
+    public void setUpcoming(String upcoming) {
+        this.upcoming = upcoming;
+    }
 
     public String getSend_status() {
         return send_status;
