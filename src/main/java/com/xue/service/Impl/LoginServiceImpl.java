@@ -4659,8 +4659,6 @@ public class LoginServiceImpl implements LoginService {
 
                             //学生家长上课通知
                             if(remind == 1 && choose == 1){
-                                dao.updateClassSendStatus(id,now_date);
-
                                 //小程序公众号通知
                                 try {
                                     for(int a=0;a<apps.size();a++){
@@ -4686,6 +4684,7 @@ public class LoginServiceImpl implements LoginService {
                                                         System.out.println("json2:" + queryJson2.toJSONString());
                                                         result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
                                                         System.out.printf("res22:" + result);
+                                                        dao.updateClassSendStatus(id,now_date);
                                                     } catch (Exception e) {
     //                                                    throw new RuntimeException(e);
                                                     }
