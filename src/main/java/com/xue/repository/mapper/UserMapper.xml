@@ -340,6 +340,11 @@
     update user set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除礼品清单 -->
+  <select id="deleteGiftList" parameterType="com.xue.entity.model.GiftList" resultMap="BaseResultMap">
+    update gift_list set delete_status = 1 where id = #{param1};
+  </select>
+
   <select id="deletePointsRecordById" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
     update points_record set delete_status = 1 where id = #{param1};
   </select>
@@ -1031,7 +1036,7 @@
 
   <!-- 礼品列表 -->
   <insert id="insertGiftList" parameterType="com.xue.entity.model.GiftList">
-    insert gift_list(gift_name,studio,campus,create_time,uuids,coins) values(#{gift_name},#{studio},#{campus},#{create_time},#{uuids},#{coins})
+    insert gift_list(gift_name,studio,campus,create_time,uuids,coins,type,price) values(#{gift_name},#{studio},#{campus},#{create_time},#{uuids},#{coins},#{type},#{price})
   </insert>
 
   <!-- 查找签到记录 -->

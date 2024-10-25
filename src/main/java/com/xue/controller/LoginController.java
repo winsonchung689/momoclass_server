@@ -2262,6 +2262,19 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteGiftList")
+	@ResponseBody
+	public int deleteGiftList(Integer id){
+		try {
+			dao.deleteGiftList(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+
 
 	//	获取详情页
 	@RequestMapping("/deliverMyOrder")
@@ -5771,6 +5784,9 @@ public class LoginController {
 		String gift_name = request.getParameter("gift_name");
 		String uuids = request.getParameter("uuids");
 		String coins = request.getParameter("coins");
+		String type = request.getParameter("type");
+		String price = request.getParameter("price");
+
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
 		String campus = users.get(0).getCampus();
@@ -5784,6 +5800,8 @@ public class LoginController {
 			giftList.setStudio(studio);
 			giftList.setCampus(campus);
 			giftList.setUuids(uuids);
+			giftList.setType(type);
+			giftList.setPrice(Float.parseFloat(price));
 			giftList.setCoins(Integer.parseInt(coins));
 			dao.insertGiftList(giftList);
 		} catch (Exception e) {
