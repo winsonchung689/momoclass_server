@@ -606,6 +606,32 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGiftList(String studio, String campus) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        List<GiftList> giftLists = dao.getGiftList(studio,campus);
+        for (int i = 0; i < giftLists.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            GiftList line = giftLists.get(i);
+            //获取字段
+            String create_time = line.getCreate_time();
+            String gift_name = line.getGift_name();
+            String uuids = line.getUuids();
+            Integer coins = line.getCoins();
+            String id = line.getId();
+
+            //json
+            jsonObject.put("id", id);
+            jsonObject.put("create_time", create_time);
+            jsonObject.put("gift_name", gift_name);
+            jsonObject.put("uuids", uuids);
+            jsonObject.put("coins", coins);
+            resul_list.add(jsonObject);
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getSignUpByAll(String studio, String openid) {
         String create_time = null;
         String sign_time = null;

@@ -5745,6 +5745,38 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertGiftList")
+	@ResponseBody
+	public String insertGiftList(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String gift_name = request.getParameter("gift_name");
+		String uuids = request.getParameter("uuids");
+		String coins = request.getParameter("coins");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String campus = users.get(0).getCampus();
+		String studio = users.get(0).getStudio();
+
+		try {
+			GiftList giftList = new GiftList();
+
+			giftList.setGift_name(gift_name);
+			giftList.setCreate_time(create_time);
+			giftList.setStudio(studio);
+			giftList.setCampus(campus);
+			giftList.setUuids(uuids);
+			giftList.setCoins(Integer.parseInt(coins));
+			dao.insertGiftList(giftList);
+		} catch (Exception e) {
+//					e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){

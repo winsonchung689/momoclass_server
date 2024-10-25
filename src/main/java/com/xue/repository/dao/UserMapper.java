@@ -833,6 +833,8 @@ public interface UserMapper {
 
     int insertGift(Gift gift);
 
+    int insertGiftList(GiftList giftList);
+
     List<Arrangement> getArrangement(String studio,String dayofweek,String subject,String campus);
 
     List<Arrangement> getArrangementByDay(String studio,Integer dayofweek,String campus);
@@ -856,6 +858,8 @@ public interface UserMapper {
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
     List<SignUp> getSignUp(String student_name,String studio,String subject,String campus);
+
+    List<GiftList> getGiftList(String studio,String campus);
 
     List<SignUp> getSignUpByPackageId(String student_name,String studio,String subject,String campus,String package_id);
 

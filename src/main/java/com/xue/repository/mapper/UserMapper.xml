@@ -106,6 +106,9 @@
   <resultMap id="BaseWebsite" type="com.xue.entity.model.Website">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseGiftList" type="com.xue.entity.model.GiftList">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -1026,9 +1029,19 @@
     insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status,campus) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status},#{campus})
   </insert>
 
+  <!-- 礼品列表 -->
+  <insert id="insertGiftList" parameterType="com.xue.entity.model.GiftList">
+    insert gift_list(gift_name,studio,campus,create_time,uuids,coins) values(#{gift_name},#{studio},#{campus},#{create_time},#{uuids},#{coins})
+  </insert>
+
   <!-- 查找签到记录 -->
   <select id="getSignUp" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4}  order by create_time desc
+  </select>
+
+  <!-- 查找礼物清单 -->
+  <select id="getGiftList" parameterType="com.xue.entity.model.GiftList" resultMap="BaseGiftList">
+    select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2}  order by create_time desc
   </select>
 
   <!-- 按课包id查找签到记录 -->
