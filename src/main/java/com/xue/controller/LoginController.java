@@ -1471,6 +1471,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取礼物清单
+	@RequestMapping("/getGiftList")
+	@ResponseBody
+	public List getGiftList(String studio, String campus){
+		List list = null;
+		try {
+			list = loginService.getGiftList(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取请假记录
 	@RequestMapping("/getLeaveRecord")
 	@ResponseBody
