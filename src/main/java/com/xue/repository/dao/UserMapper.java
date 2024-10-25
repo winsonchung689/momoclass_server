@@ -863,6 +863,8 @@ public interface UserMapper {
 
     List<GiftList> getGiftList(String studio,String campus);
 
+    List<GiftList> getGiftListById(String id);
+
     List<SignUp> getSignUpByPackageId(String student_name,String studio,String subject,String campus,String package_id);
 
     List<SignUp> getSignUpByAll(String studio,String campus);

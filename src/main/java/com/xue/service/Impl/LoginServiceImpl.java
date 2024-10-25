@@ -763,6 +763,7 @@ public class LoginServiceImpl implements LoginService {
                 gift_amount = line.getGift_amount();
                 status = line.getStatus();
                 id = line.getId();
+                String campus = line.getCampus();
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
                 String now_time = df1.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -780,6 +781,13 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("status", "已领取");
                 }
 
+                String gift_id = line.getGift_id();
+                String type = "礼品";
+                List<GiftList> giftLists = dao.getGiftListById(gift_id);
+                if(giftLists.size()>0){
+                    type = giftLists.get(0).getType();
+                }
+
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -789,6 +797,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("gift_amount", gift_amount);
                 jsonObject.put("rank", i + 1);
                 jsonObject.put("id",id);
+                jsonObject.put("type",type);
                 resul_list.add(jsonObject);
             }
 
