@@ -6123,6 +6123,7 @@ public class LoginController {
 		}
 
 		String student_name = request.getParameter("student_name");
+		String gift_id = request.getParameter("gift_id");
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String studio = list_user.get(0).getStudio();
@@ -6144,6 +6145,7 @@ public class LoginController {
 		gift.setStudio(studio);
 		gift.setCampus(campus);
 		gift.setStatus(0);
+		gift.setGift_id(gift_id);
 		loginService.insertGift(gift);
 		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,"兑换积分","");
 		return "push massage successfully";

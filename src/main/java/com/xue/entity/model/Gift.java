@@ -21,6 +21,17 @@ public class Gift {
 
     private String campus;
 
+    private String gift_id;
+
+
+    public String getGift_id() {
+        return gift_id;
+    }
+
+    public void setGift_id(String gift_id) {
+        this.gift_id = gift_id;
+    }
+
     public String getCampus() {
         return campus;
     }
