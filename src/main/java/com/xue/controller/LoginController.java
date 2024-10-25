@@ -6092,6 +6092,45 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/sendGift")
+	@ResponseBody
+	public String sendGift(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		String student_name = request.getParameter("student_name");
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
+		String campus = list_user.get(0).getCampus();
+		String gift_name = request.getParameter("gift_name");
+		String amount = request.getParameter("amount");
+		String coins = request.getParameter("coins");
+		String subject = request.getParameter("subject");
+
+		cal.add(cal.DATE,100);
+		String expired_time = df.format(cal.getTime());
+
+		Gift gift = new Gift();
+		gift.setStudent_name(student_name);
+		gift.setGift_name(gift_name);
+		gift.setGift_amount(Integer.parseInt(amount));
+		gift.setCreate_time(create_time);
+		gift.setExpired_time(expired_time);
+		gift.setStudio(studio);
+		gift.setCampus(campus);
+		gift.setStatus(0);
+		loginService.insertGift(gift);
+		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,"兑换积分","");
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateLessonPoints")
 	@ResponseBody
 	public String updateLessonPoints(HttpServletRequest request, HttpServletResponse response){
