@@ -1031,7 +1031,7 @@
 
   <!-- 发放礼物记录 -->
   <insert id="insertGift" parameterType="com.xue.entity.model.Gift">
-    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status,campus,gift_id) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status},#{campus},,#{gift_id})
+    insert gift_record(student_name,gift_name,create_time,expired_time,studio,gift_amount,status,campus,gift_id) values(#{student_name},#{gift_name},#{create_time},#{expired_time},#{studio},#{gift_amount},#{status},#{campus},#{gift_id})
   </insert>
 
   <!-- 礼品列表 -->
