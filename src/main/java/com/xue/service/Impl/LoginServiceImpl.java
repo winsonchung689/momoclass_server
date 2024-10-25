@@ -619,6 +619,8 @@ public class LoginServiceImpl implements LoginService {
             String uuids = line.getUuids();
             Integer coins = line.getCoins();
             String id = line.getId();
+            String type = line.getType();
+            Float price = line.getPrice();
 
             //json
             jsonObject.put("id", id);
@@ -626,6 +628,8 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("gift_name", gift_name);
             jsonObject.put("uuids", uuids);
             jsonObject.put("coins", coins);
+            jsonObject.put("type", type);
+            jsonObject.put("price", price);
             resul_list.add(jsonObject);
         }
         return resul_list;
