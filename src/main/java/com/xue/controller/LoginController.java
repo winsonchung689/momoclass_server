@@ -1474,9 +1474,12 @@ public class LoginController {
 	//	获取礼物清单
 	@RequestMapping("/getGiftList")
 	@ResponseBody
-	public List getGiftList(String studio, String campus){
+	public List getGiftList(String openid){
 		List list = null;
 		try {
+			List<User> list_user = dao.getUser(openid);
+			String studio = list_user.get(0).getStudio();
+			String campus = list_user.get(0).getCampus();
 			list = loginService.getGiftList(studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
