@@ -775,7 +775,7 @@ public class LoginServiceImpl implements LoginService {
                     if (compare > 0) {
                         jsonObject.put("status", "已过期");
                     } else {
-                        jsonObject.put("status", "未过期");
+                        jsonObject.put("status", "待领取");
                     }
                 } else if (status==1) {
                     jsonObject.put("status", "已领取");
@@ -783,9 +783,13 @@ public class LoginServiceImpl implements LoginService {
 
                 String gift_id = line.getGift_id();
                 String type = "礼品";
+                Float price = 0.0f;
+
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
-                    type = giftLists.get(0).getType();
+                    GiftList giftList = giftLists.get(0);
+                    type = giftList.getType();
+                    price = giftList.getPrice();
                 }
 
 
@@ -798,6 +802,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("rank", i + 1);
                 jsonObject.put("id",id);
                 jsonObject.put("type",type);
+                jsonObject.put("price",price);
                 resul_list.add(jsonObject);
             }
 
