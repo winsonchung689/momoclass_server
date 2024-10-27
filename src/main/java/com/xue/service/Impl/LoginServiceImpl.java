@@ -7424,6 +7424,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
+                String user_type = line.getUser_type();
 
                 String openid_qr_get = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr_get);
@@ -7433,6 +7434,9 @@ public class LoginServiceImpl implements LoginService {
                 String is_paid_cn = "未返现"+"(" + number +")";
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
+                }
+                if("新用户".equals(user_type)){
+                    is_paid_cn = "未试用";
                 }
 
                 String cash_uuid = line.getCash_uuid();
