@@ -9381,15 +9381,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStandings(String studio, String openid, String student_name, String subject) {
+    public List getStandings(String openid, String student_name, String subject,Integer page) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
+        String studio = list_user.get(0).getStudio();
+        Integer page_start = (page - 1) * 50;
+        Integer page_length = 50;
+
         Integer my_points = 0;
         List<JSONObject> resul_list = new ArrayList<>();
 
-        List<Lesson> list = dao.getRating(studio,0,10000,campus);
+        List<Lesson> list = dao.getRating(studio,page_start,page_length,campus);
         for (int i = 0; i < list.size(); i++) {
             JSONObject jsonObject = new JSONObject();
             Lesson lesson = list.get(i);
@@ -9422,13 +9426,12 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("point_status_cn", point_status_cn);
             jsonObject.put("point_status", point_status);
             jsonObject.put("month_points", month_points);
-            jsonObject.put("rank", i+1);
+            jsonObject.put("rank", page_start + i + 1);
+            if(page == 1) {
+                jsonObject.put("my_points", my_points);
+            }
             resul_list.add(jsonObject);
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("my_points", my_points);
-        resul_list.add(jsonObject);
-
         return resul_list;
     }
 

@@ -897,10 +897,10 @@ public class LoginController {
 
 	@RequestMapping("/getStandings")
 	@ResponseBody
-	public List getStandings(String studio, String openid, String student_name, String subject){
+	public List getStandings(String openid, String student_name, String subject,Integer page){
 		List list = null;
 		try {
-			list = loginService.getStandings(studio,openid,student_name,subject);
+			list = loginService.getStandings(openid,student_name,subject,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
