@@ -7406,8 +7406,30 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
+        int all_sum = 0;
+        int no_try = 0;
+        int no_paid = 0;
+        int has_paid = 0;
 
         try {
+            if(page == 0){
+                List<User> list_init = dao.getUserByOpenidQrAll(0,10000);
+                for (int i = 0; i < list_init.size(); i++) {
+                    User line = list_init.get(i);
+                    int is_paid = line.getIs_paid();
+                    String user_type = line.getUser_type();
+
+                    all_sum += 1;
+                    if(is_paid == 1){
+                        has_paid += 1;
+                    }else if(is_paid == 0 && "新用户".equals(user_type)){
+                        no_try += 1;
+                    }else{
+                        no_paid += 1;
+                    }
+                }
+            }
+
             List<User> list = dao.getUserByOpenidQr(openid_qr,page_start,page_length);
             if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
                 list = dao.getUserByOpenidQrAll(page_start,page_length);
@@ -7425,7 +7447,6 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
                 String user_type = line.getUser_type();
-
                 String openid_qr_get = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr_get);
                 String nick_name_rc = users.get(0).getNick_name();
@@ -7443,7 +7464,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
 
                 //json
-                jsonObject.put("rank", i + 1);
+                jsonObject.put("rank", page_start + 1);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
@@ -7453,6 +7474,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name_rc", nick_name_rc);
                 jsonObject.put("cash_uuid", cash_uuid);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("all_sum", all_sum);
+                jsonObject.put("no_try", no_try);
+                jsonObject.put("no_paid", no_paid);
+                jsonObject.put("has_paid", has_paid);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
