@@ -7412,7 +7412,7 @@ public class LoginServiceImpl implements LoginService {
         Integer has_paid = 0;
 
         try {
-            if(page == 0){
+            if(page == 1){
                 List<User> list_init = dao.getUserByOpenidQrAll(0,10000);
                 for (int i = 0; i < list_init.size(); i++) {
                     User line = list_init.get(i);
