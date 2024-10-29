@@ -7464,7 +7464,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
 
                 //json
-                jsonObject.put("rank", page_start + 1);
+                jsonObject.put("rank", i + page_start + 1);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
