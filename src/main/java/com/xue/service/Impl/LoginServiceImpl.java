@@ -7406,10 +7406,10 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
-        int all_sum = 0;
-        int no_try = 0;
-        int no_paid = 0;
-        int has_paid = 0;
+        Integer all_sum = 0;
+        Integer no_try = 0;
+        Integer no_paid = 0;
+        Integer has_paid = 0;
 
         try {
             if(page == 0){
@@ -7419,13 +7419,13 @@ public class LoginServiceImpl implements LoginService {
                     int is_paid = line.getIs_paid();
                     String user_type = line.getUser_type();
 
-                    all_sum += 1;
+                    all_sum = all_sum + 1;
                     if(is_paid == 1){
-                        has_paid += 1;
+                        has_paid = has_paid + 1;
                     }else if(is_paid == 0 && "新用户".equals(user_type)){
-                        no_try += 1;
+                        no_try = no_try + 1;
                     }else{
-                        no_paid += 1;
+                        no_paid = no_paid + 1;
                     }
                 }
             }
