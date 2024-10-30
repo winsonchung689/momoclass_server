@@ -459,6 +459,8 @@ public interface UserMapper {
 
     int updateCommunicateUuids(String id,String uuids);
 
+    int updateCommunicateStatus(String id,Integer status);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);

@@ -3365,6 +3365,14 @@ public class LoginController {
 				}
 			}else if("电话".equals(type)){
 				dao.updateCommunicatePhoneNumber(id,content);
+			}else if("状态".equals(type)){
+				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+				Integer status = communicateRecords.get(0).getStatus();
+				int status_new = 1;
+				if(status == 1){
+					status_new = 0;
+				}
+				dao.updateCommunicateStatus(id,status_new);
 			}
 
 		} catch (Exception e) {

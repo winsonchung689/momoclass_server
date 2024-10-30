@@ -6574,6 +6574,11 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getOpenid();
                 String uuids = line.getUuids();
                 String phone_number = line.getPhone_number();
+                String status_cn = "沟通中";
+                Integer status = line.getStatus();
+                if(status == 1){
+                    status_cn = "已完成";
+                }
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -6585,6 +6590,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("uuids",uuids);
                 jsonObject.put("phone_number",phone_number);
+                jsonObject.put("status_cn",status_cn);
                 resul_list.add(jsonObject);
             }
 
