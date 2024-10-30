@@ -1519,6 +1519,10 @@
     update communicate_record set content=#{param2} where id =#{param1} and delete_status=0
   </update>
 
+  <update id="updateCommunicatePhoneNumber" parameterType="com.xue.entity.model.CommunicateRecord">
+    update communicate_record set phone_number=#{param2} where id =#{param1} and delete_status=0
+  </update>
+
   <update id="updateCommunicateUuids" parameterType="com.xue.entity.model.CommunicateRecord">
     update communicate_record set uuids=#{param2} where id =#{param1} and delete_status=0
   </update>

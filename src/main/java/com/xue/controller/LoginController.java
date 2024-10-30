@@ -3329,14 +3329,15 @@ public class LoginController {
 	public int updateCommunicate(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
+		String type = request.getParameter("type");
 		String id = request.getParameter("id");
 		String content = request.getParameter("content");
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
 
 		try {
-			if("modify_content".equals(uuids)){
+			if("记录".equals(type)){
 				dao.updateCommunicateContent(id,content);
-			}else if("modify_uuids".equals(content)){
+			}else if("新增图片".equals(type)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
 				if(uuids_get != null){
@@ -3349,7 +3350,7 @@ public class LoginController {
 				}else{
 					dao.updateCommunicateUuids(id,uuids);
 				}
-			}else if("update_uuids".equals(content)){
+			}else if("删除图片".equals(type)){
 				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
 				String uuids_get = communicateRecords.get(0).getUuids();
 				if(uuids_get != null){
@@ -3362,6 +3363,8 @@ public class LoginController {
 					}
 					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
 				}
+			}else if("电话".equals(type)){
+				dao.updateCommunicatePhoneNumber(id,content);
 			}
 
 		} catch (Exception e) {

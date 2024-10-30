@@ -455,6 +455,8 @@ public interface UserMapper {
 
     int updateCommunicateContent(String id,String content);
 
+    int updateCommunicatePhoneNumber(String id,String phone_number);
+
     int updateCommunicateUuids(String id,String uuids);
 
     int updateBossLessons(User user);
