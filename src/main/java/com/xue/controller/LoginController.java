@@ -4579,6 +4579,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		String student_name = request.getParameter("student_name");
 		String content = request.getParameter("content");
+		String phone_number = request.getParameter("phone_number");
 		String class_target = request.getParameter("class_target");
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
 		List<User> list_user = dao.getUser(openid);
@@ -4608,6 +4609,7 @@ public class LoginController {
 			communicateRecord.setOpenid(nick_name);
 			communicateRecord.setCreate_time(create_time);
 			communicateRecord.setUuids(uuids);
+			communicateRecord.setPhone_number(phone_number);
 			try {
 				dao.insertCommunicateRecord(communicateRecord);
 			} catch (Exception e) {

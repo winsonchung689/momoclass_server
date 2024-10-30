@@ -205,7 +205,7 @@
   </select>
 
   <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
-    select id,student_name,studio,campus,openid,content,create_time,uuids from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <select id="getCommunicateLike" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
@@ -875,7 +875,7 @@
 
   <!-- 插入沟通记录 -->
   <insert id="insertCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord">
-    insert communicate_record(student_name,studio,campus,content,openid,create_time,uuids) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time},#{uuids})
+    insert communicate_record(student_name,studio,campus,content,openid,create_time,uuids,phone_number) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time},#{uuids},#{phone_number})
   </insert>
 
   <!-- 插入课评 -->

@@ -6573,6 +6573,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String nick_name = line.getOpenid();
                 String uuids = line.getUuids();
+                String phone_number = line.getPhone_number();
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -6583,6 +6584,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("uuids",uuids);
+                jsonObject.put("phone_number",phone_number);
                 resul_list.add(jsonObject);
             }
 
