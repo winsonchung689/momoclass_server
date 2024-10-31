@@ -1754,6 +1754,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取新用户
+	@RequestMapping("/getNewUser")
+	@ResponseBody
+	public List getNewUser(String openid){
+		List list = null;
+		try {
+			list = loginService.getNewUser(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getUserByNickName")
 	@ResponseBody

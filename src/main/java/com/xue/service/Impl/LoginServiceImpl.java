@@ -6286,6 +6286,49 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getNewUser(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
+        String studio = user.getStudio();
+
+        try {
+            List<User> list = dao.getUserByStudio(studio,campus);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                User line = list.get(i);
+
+                //获取字段
+                String student_name = line.getStudent_name();
+                String avatarurl = line.getAvatarurl();
+                String nick_name = line.getNick_name();
+                String create_time = line.getCreate_time();
+                String openid_get = line.getOpenid();
+                String phone_number = line.getPhone_number();
+                String role = line.getRole();
+                if("client".equals(role)){
+                    List<Lesson> lessons = dao.getLessonByName(student_name,studio,campus);
+                    if(lessons.size() == 0){
+                        //json
+                        jsonObject.put("student_name", student_name);
+                        jsonObject.put("avatarurl", avatarurl);
+                        jsonObject.put("nick_name", nick_name);
+                        jsonObject.put("studio", studio);
+                        jsonObject.put("create_time", create_time);
+                        jsonObject.put("openid",openid_get);
+                        jsonObject.put("phone_number",phone_number);
+                        resul_list.add(jsonObject);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getContract(String openid) {
         List<User> users = dao.getUser(openid);
         User user = users.get(0);
