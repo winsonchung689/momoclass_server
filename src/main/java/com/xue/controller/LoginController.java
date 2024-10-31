@@ -3124,7 +3124,7 @@ public class LoginController {
 				dao.updateLocation(openid,content);
 			}else if("更新学生".equals(type)){
 				dao.updateUserStudentByOpenid(content,openid,id);
-			} else if("学生".equals(type)) {
+			}else if("学生".equals(type)) {
 				List<User> users = dao.getUserByOpenid(openid);
 				User user = users.get(0);
 				String studio =user.getStudio();
@@ -3141,6 +3141,12 @@ public class LoginController {
 						}
 					}
 				}
+			}else if("注册卡".equals(type)){
+				String[] content_list = content.split("_");
+				String student_name = content_list[0];
+				String phone_number = content_list[1];
+				dao.updateUserStudentByOpenid(student_name,openid,id);
+				dao.updateLocation(openid,phone_number);
 			}
 
 		} catch (Exception e) {
