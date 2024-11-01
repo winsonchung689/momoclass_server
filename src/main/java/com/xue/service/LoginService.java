@@ -100,6 +100,8 @@ public interface LoginService {
 
     public List  getSignUpByBetween(String student_name,String subject,String openid,String duration_time);
 
+    public List  getCardRecordByBetween(String student_name,String card_id,String subject,String openid,String duration_time);
+
     public List  getGiftList(String studio,String campus);
 
     public List  getSignUpByAll(String studio,String openid);

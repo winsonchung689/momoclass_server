@@ -666,6 +666,41 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getCardRecordByBetween(String student_name, String card_id, String subject, String openid, String duration_time) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<User> user_get= dao.getUser(openid);
+            String campus = user_get.get(0).getCampus();
+            String studio = user_get.get(0).getStudio();
+            String[] duration_list = duration_time.split("_");
+            String start_time = duration_list[0];
+            String end_time = duration_list[1];
+
+            List<CardRecord> list = dao.getCardRecordByBetween(student_name,card_id,studio,campus,subject,start_time,end_time);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                CardRecord line = list.get(i);
+
+                //获取字段
+                String mark = line.getMark();
+                String duration = line.getDuration();
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+
+                jsonObject.put("mark",mark);
+                jsonObject.put("duration",duration);
+                jsonObject.put("id",id);
+                jsonObject.put("create_time",create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getGiftList(String studio, String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
 

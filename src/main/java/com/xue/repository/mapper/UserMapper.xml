@@ -1113,6 +1113,10 @@
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and campus =#{param3} and subject =#{param4} and create_time &gt;=#{param5} and create_time &lt;#{param6} order by create_time
   </select>
 
+  <select id="getCardRecordByBetween" parameterType="com.xue.entity.model.CardRecord" resultMap="BaseCardRecord">
+    select * from card_record where student_name =#{param1} and card_id =#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5} and create_time &gt;=#{param6} and create_time &lt;#{param7} and delete_status = 0  order by create_time
+  </select>
+
   <select id="getSignUpDetailByMonthStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
   </select>

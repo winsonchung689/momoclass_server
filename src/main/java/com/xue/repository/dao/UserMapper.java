@@ -905,6 +905,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUpByBetween(String student_name,String studio,String campus,String subject,String start_time,String end_time);
 
+    List<CardRecord> getCardRecordByBetween(String student_name,String card_id,String studio,String campus,String subject,String start_time,String end_time);
+
     List<SignUp> getSignUpDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 
     List<Schedule> getTryDetailByMonthStudent(String studio,String date_time,String campus);
