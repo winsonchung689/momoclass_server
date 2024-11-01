@@ -6399,6 +6399,7 @@ public class LoginServiceImpl implements LoginService {
                 String expired_time_ad = line.getExpired_time_ad();
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
+                String campus= line.getCampus();
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 String today_time = df.format(new Date());
@@ -6411,6 +6412,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
+                jsonObject.put("campus", campus);
                 jsonObject.put("role", role);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("avatarurl", avatarurl);
