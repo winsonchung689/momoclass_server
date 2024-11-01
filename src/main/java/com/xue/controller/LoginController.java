@@ -3613,6 +3613,7 @@ public class LoginController {
 			}else if("科目".equals(modifyHead)){
 				dao.updateLessonSubjectById(id,content);
 				dao.updateSignUpSubject(studio,student_name,campus,subject,content);
+				dao.updateLessonPackageSubject(student_name,studio,subject,campus,content);
 			}else if("校区".equals(modifyHead)){
 				dao.updateLessonCampusById(id,content);
 				dao.updateSignUpCampus(studio,student_name,content);

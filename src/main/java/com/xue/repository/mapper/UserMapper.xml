@@ -2222,6 +2222,10 @@
     update lesson set points=#{points} where student_name=#{student_name} and studio = #{studio} and subject = #{subject} and campus = #{campus} and delete_status = 0
   </update>
 
+  <update id="updateLessonPackageSubject" parameterType="com.xue.entity.model.LessonPackage">
+    update lesson_package set subject=#{param5} where student_name=#{param1} and studio = #{param2} and subject = #{param3} and campus = #{param4} and delete_status = 0
+  </update>
+
   <update id="updateLessonPackageTotalMoney" parameterType="com.xue.entity.model.LessonPackage">
     update lesson_package set total_money=#{param2} where id=#{param1} and delete_status = 0
   </update>

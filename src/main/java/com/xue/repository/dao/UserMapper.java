@@ -1011,6 +1011,8 @@ public interface UserMapper {
 
     int updateLessonPackageTotalMoney(String id,String total_money);
 
+    int updateLessonPackageSubject(String student_name,String studio,String subject,String campus,String subject_new);
+
     int updateLessonPackageDiscountMoney(String id,String discount_money);
 
     int updateLessonPackageEndStatus(String id,int end_status);
