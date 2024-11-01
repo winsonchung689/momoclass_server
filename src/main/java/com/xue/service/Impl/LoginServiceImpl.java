@@ -5702,7 +5702,7 @@ public class LoginServiceImpl implements LoginService {
                 Float package_sum1 = 0.0f;
                 Float lesson_left1 = 0.0f;
                 try {
-                    if(start_date.split("-").length > 1){
+                    if(start_date.split("-").length >= 3){
                         List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
                         if(signUps1.size()>0){
                             for (int j = 0; j < signUps1.size(); j++) {
