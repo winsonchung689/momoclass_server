@@ -182,6 +182,8 @@ public interface LoginService {
 
     public List getUser(String openid);
 
+    public List getCard(String studio,String campus,String student_name,String subject);
+
     public List getRestaurantUser(String openid);
 
     public List getBookUser(String openid);

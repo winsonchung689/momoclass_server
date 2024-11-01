@@ -1753,6 +1753,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCard")
+	@ResponseBody
+	public List getCard(String studio, String campus, String student_name,String subject){
+		List list = null;
+		try {
+			list = loginService.getCard(studio,campus,student_name,subject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getUserByOpenid")
 	@ResponseBody

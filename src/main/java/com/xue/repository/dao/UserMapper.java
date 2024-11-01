@@ -574,6 +574,8 @@ public interface UserMapper {
 
     List<User> getUser(String openid);
 
+    List<Card> getCard(String studio,String campus,String student_name,String subject);
+
     List<RestaurantUser> getRestaurantUser(String openid);
 
     List<BookUser> getBookUser(String openid);

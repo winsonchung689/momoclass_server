@@ -2793,6 +2793,30 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getCard(String studio, String campus, String student_name,String subject) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Card> cards = dao.getCard(studio,campus,student_name,subject);
+        for (int i = 0; i < cards.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Card line = cards.get(i);
+
+            String type = line.getType();
+            String mark = line.getMark();
+            String start_date = line.getStart_date();
+            String end_date = line.getEnd_date();
+            String uuid = line.getUuid();
+
+            jsonObject.put("type",type);
+            jsonObject.put("mark",mark);
+            jsonObject.put("start_date",start_date);
+            jsonObject.put("end_date",end_date);
+            jsonObject.put("uuid",uuid);
+            resul_list.add(jsonObject);
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getUserByNickName(String nickName) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String role = null;
