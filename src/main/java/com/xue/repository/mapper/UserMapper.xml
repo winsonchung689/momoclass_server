@@ -1220,7 +1220,7 @@
   </insert>
 
   <select id="getCard" parameterType="com.xue.entity.model.Card" resultMap="BaseCard">
-    select * from card where studio =#{param1} and campus =#{param2} and student_name =#{param3} and subject =#{param3} and delete_status = 0 order by create_time desc
+    select * from card where studio =#{param1} and campus =#{param2} and student_name =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
