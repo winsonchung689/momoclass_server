@@ -2744,6 +2744,45 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/insertCard")
+	@ResponseBody
+	public int insertCard(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String student_name = request.getParameter("student_name");
+		String subject = request.getParameter("subject");
+		String studio = request.getParameter("studio");
+		String campus = request.getParameter("campus");
+		String mark = request.getParameter("mark");
+		String type = request.getParameter("type");
+		String uuid = request.getParameter("uuid");
+		String start_date = request.getParameter("start_date");
+		String end_date = request.getParameter("end_date");
+
+
+		try {
+			Card card = new Card();
+			card.setCreate_time(create_time);
+			card.setStudio(studio);
+			card.setCampus(campus);
+			card.setSubject(subject);
+			card.setStudent_name(student_name);
+			card.setMark(mark);
+			card.setType(type);
+			card.setUuid(uuid);
+			card.setStart_date(start_date);
+			card.setEnd_date(end_date);
+
+			dao.insertCard(card);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateContract")
 	@ResponseBody
 	public int updateContract(String contract, String openid){

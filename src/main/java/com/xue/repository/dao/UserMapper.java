@@ -819,6 +819,8 @@ public interface UserMapper {
 
     int insertNote(Note note);
 
+    int insertCard(Card card);
+
     int insertRestaurantMenu(Menu menu);
 
     int insertRestaurantOrder(RestaurantOrder restaurantOrder);
