@@ -1777,6 +1777,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCardRecordByBetween")
+	@ResponseBody
+	public List getCardRecordByBetween(String student_name, String card_id, String subject, String openid, String duration_time){
+		List list = null;
+		try {
+			list = loginService.getCardRecordByBetween(student_name,card_id,subject,openid,duration_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getUserByOpenid")
 	@ResponseBody
