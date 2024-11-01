@@ -355,6 +355,10 @@
     update card set delete_status = 1 where id = #{param1};
   </select>
 
+  <select id="deleteCardRecord" parameterType="com.xue.entity.model.Card" resultMap="BaseResultMap">
+    update card_record set delete_status = 1 where id = #{param1};
+  </select>
+
   <select id="deletePointsRecordById" parameterType="com.xue.entity.model.Points" resultMap="BaseResultMap">
     update points_record set delete_status = 1 where id = #{param1};
   </select>

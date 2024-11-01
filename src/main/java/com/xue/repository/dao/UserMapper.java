@@ -333,6 +333,8 @@ public interface UserMapper {
 
     void deleteCard(Integer id);
 
+    void deleteCardRecord(Integer id);
+
     void deletePointsRecordById(Integer id);
 
     void deletePointsRecordByStudent(String student_name,String studio,String campus,String subject);
