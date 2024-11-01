@@ -5702,14 +5702,16 @@ public class LoginServiceImpl implements LoginService {
                 Float package_sum1 = 0.0f;
                 Float lesson_left1 = 0.0f;
                 try {
-                    List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
-                    if(signUps1.size()>0){
-                        for (int j = 0; j < signUps1.size(); j++) {
-                            Float count = signUps1.get(j).getCount();
-                            package_sum1 = package_sum1 + count;
+                    if(start_date.split("-").length > 1){
+                        List<SignUp> signUps1 = dao.getSignUpByBetween(student_name,studio,campus,subject,start_date,start_date_next);
+                        if(signUps1.size()>0){
+                            for (int j = 0; j < signUps1.size(); j++) {
+                                Float count = signUps1.get(j).getCount();
+                                package_sum1 = package_sum1 + count;
+                            }
                         }
+                        lesson_left1 = all_lesson + give_lesson - package_sum1;
                     }
-                    lesson_left1 = all_lesson + give_lesson - package_sum1;
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
