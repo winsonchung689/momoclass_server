@@ -112,6 +112,9 @@
   <resultMap id="BaseCard" type="com.xue.entity.model.Card">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseCardRecord" type="com.xue.entity.model.CardRecord">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -1219,12 +1222,20 @@
     insert card(student_name,subject,mark,campus,studio,start_date,end_date,create_time,type,uuid) values(#{student_name},#{subject},#{mark},#{campus},#{studio},#{start_date},#{end_date},#{create_time},#{type},#{uuid})
   </insert>
 
+  <insert id="insertCardRecord" parameterType="com.xue.entity.model.CardRecord">
+    insert card(student_name,subject,mark,campus,studio,card_id,create_time,duration) values(#{student_name},#{subject},#{mark},#{campus},#{studio},#{card_id},#{create_time},#{duration})
+  </insert>
+
   <insert id="insertBookUser" parameterType="com.xue.entity.model.BookUser">
     insert book_user(nick_name,role,openid,create_time,avatarurl,expired_time) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{expired_time})
   </insert>
 
   <select id="getCard" parameterType="com.xue.entity.model.Card" resultMap="BaseCard">
     select * from card where studio =#{param1} and campus =#{param2} and student_name =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getCardRecord" parameterType="com.xue.entity.model.CardRecord" resultMap="BaseCardRecord">
+    select * from card_record where student_name =#{param1} and card_id =#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUser" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

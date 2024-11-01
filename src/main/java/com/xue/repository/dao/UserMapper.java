@@ -578,6 +578,8 @@ public interface UserMapper {
 
     List<Card> getCard(String studio,String campus,String student_name,String subject);
 
+    List<CardRecord> getCardRecord(String student_name,String card_id,String studio,String campus,String subject);
+
     List<RestaurantUser> getRestaurantUser(String openid);
 
     List<BookUser> getBookUser(String openid);
@@ -822,6 +824,8 @@ public interface UserMapper {
     int insertNote(Note note);
 
     int insertCard(Card card);
+
+    int insertCardRecord(CardRecord cardRecord);
 
     int insertRestaurantMenu(Menu menu);
 

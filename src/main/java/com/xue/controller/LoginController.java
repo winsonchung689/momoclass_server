@@ -1765,6 +1765,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCardRecord")
+	@ResponseBody
+	public List getCardRecord(String openid,String student_name, String card_id,String subject){
+		List list = null;
+		try {
+			list = loginService.getCardRecord(openid,student_name,card_id,subject);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取用户
 	@RequestMapping("/getUserByOpenid")
 	@ResponseBody
@@ -2786,6 +2798,43 @@ public class LoginController {
 			card.setEnd_date(end_date);
 
 			dao.insertCard(card);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
+	@RequestMapping("/insertCardRecord")
+	@ResponseBody
+	public int insertCardRecord(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String student_name = request.getParameter("student_name");
+		String subject = request.getParameter("subject");
+		String mark = request.getParameter("mark");
+		String card_id = request.getParameter("card_id");
+		String duration = request.getParameter("duration");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String studio = users.get(0).getStudio();
+		String campus = users.get(0).getCampus();
+
+
+		try {
+			CardRecord cardRecord = new CardRecord();
+			cardRecord.setCreate_time(create_time);
+			cardRecord.setStudio(studio);
+			cardRecord.setCampus(campus);
+			cardRecord.setSubject(subject);
+			cardRecord.setStudent_name(student_name);
+			cardRecord.setMark(mark);
+			cardRecord.setCard_id(card_id);
+			cardRecord.setDuration(duration);
+
+			dao.insertCardRecord(cardRecord);
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
