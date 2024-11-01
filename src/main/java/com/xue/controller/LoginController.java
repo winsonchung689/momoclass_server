@@ -2311,6 +2311,17 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteCard")
+	@ResponseBody
+	public int deleteCard(Integer id){
+		try {
+			dao.deleteCard(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 
 
 	//	获取详情页

@@ -2805,12 +2805,14 @@ public class LoginServiceImpl implements LoginService {
             String start_date = line.getStart_date();
             String end_date = line.getEnd_date();
             String uuid = line.getUuid();
+            String id = line.getId();
 
             jsonObject.put("type",type);
             jsonObject.put("mark",mark);
             jsonObject.put("start_date",start_date);
             jsonObject.put("end_date",end_date);
             jsonObject.put("uuid",uuid);
+            jsonObject.put("id",id);
             resul_list.add(jsonObject);
         }
         return resul_list;
