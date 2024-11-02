@@ -1994,6 +1994,12 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 remind = line.getRemind();
 
+                int has_card = 0;
+                List<Card> cards = dao.getCard(studio,campus,student_name,subject);
+                if(cards.size()>0){
+                    has_card = 1;
+                }
+
                 jsonObject.put("student_type", student_type);
                 jsonObject.put("subject", subject);
                 if("transferred".equals(student_type)){
@@ -2041,6 +2047,7 @@ public class LoginServiceImpl implements LoginService {
                     Float minus = lesson.getMinus();
                     String related_id = lesson.getRelated_id();
 
+                    jsonObject.put("has_card", has_card);
                     jsonObject.put("related_id", related_id);
                     jsonObject.put("minus", minus);
                     jsonObject.put("left", left);
