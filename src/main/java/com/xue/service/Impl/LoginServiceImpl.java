@@ -2839,6 +2839,20 @@ public class LoginServiceImpl implements LoginService {
             String mark = line.getMark();
             String start_date = line.getStart_date();
             String end_date = line.getEnd_date();
+
+            String status = "生效中";
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(end_date);
+                long end_timestamp = date.getTime();
+                long timestamp = new Date().getTime();
+                if(end_timestamp < timestamp){
+                    status = "已过期";
+                }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
             String uuid = line.getUuid();
             String id = line.getId();
 
@@ -2848,6 +2862,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("end_date",end_date);
             jsonObject.put("uuid",uuid);
             jsonObject.put("id",id);
+            jsonObject.put("status",status);
             resul_list.add(jsonObject);
         }
         return resul_list;
