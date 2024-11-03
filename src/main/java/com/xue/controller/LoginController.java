@@ -3293,7 +3293,7 @@ public class LoginController {
 				String student_name = content_list[0];
 				String phone_number = content_list[1];
 				dao.updateUserStudentByOpenid(student_name,openid,id);
-				dao.updateLocation(openid,phone_number);
+				dao.updatePhoneNumber(openid,phone_number);
 			}
 
 		} catch (Exception e) {
