@@ -5329,6 +5329,7 @@ public class LoginController {
 
 		if("绑定码".equals(type)){
 			student_name = request.getParameter("student_name_qr");
+			nick_name = student_name;
 			List<User> users =dao.getUser(openid_qr);
 			User user = users.get(0);
 			studio = user.getStudio();
