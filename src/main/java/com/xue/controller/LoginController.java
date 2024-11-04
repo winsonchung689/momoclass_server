@@ -5327,6 +5327,14 @@ public class LoginController {
 			}
 		}
 
+		if("绑定码".equals(type)){
+			student_name = request.getParameter("student_name_qr");
+			List<User> users =dao.getUser(openid_qr);
+			User user = users.get(0);
+			studio = user.getStudio();
+			campus = user.getCampus();
+		}
+
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
