@@ -4437,6 +4437,11 @@ public class LoginController {
 								if(!age.isEmpty()){
 									lesson.setAge(age);
 								}
+							}else if(16==j){
+								String phone_number =cell.getContents();
+								if(!phone_number.isEmpty()){
+									lesson.setPhone_number(phone_number);
+								}
 							}
 
 						}
@@ -4445,6 +4450,7 @@ public class LoginController {
 //					throw new RuntimeException(e);
 				}
 
+//				课时处理
 				if(student_name != null){
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 					if(lessons_get.size()==0){
@@ -4454,10 +4460,12 @@ public class LoginController {
 					}
 				}
 
+//				礼物处理
 				if (!gift.getGift_name().isEmpty()){
 					loginService.insertGift(gift);
 				}
 
+//				课包处理
 				if (lessonPackage.getAll_lesson() != 0.0f){
 					List<LessonPackage> lessonPackages_list = dao.getLessonPackageByStudentSubjectBatch(student_name,studio,campus,subject);
 					if(lessonPackages_list.size()==0){
@@ -4467,6 +4475,7 @@ public class LoginController {
 					}
 				}
 
+//				录前消课
 				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
 					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
 					Float count = lesson.getTotal_amount() - lesson.getLeft_amount();
