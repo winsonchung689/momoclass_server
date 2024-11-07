@@ -709,10 +709,10 @@ public class LoginController {
 
 	@RequestMapping("/getCommentModel")
 	@ResponseBody
-	public List getCommentModel(){
+	public List getCommentModel(String openid,String date_time,String duration,String class_number){
 		List list = null;
 		try {
-			list = loginService.getCommentModel();
+			list = loginService.getCommentModel(openid,date_time,duration,class_number);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

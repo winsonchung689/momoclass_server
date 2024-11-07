@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.stream.events.Comment;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -6026,8 +6027,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getCommentModel() {
+    public List getCommentModel(String openid,String date_time,String duration,String class_number) {
         List<JSONObject> resul_list = new ArrayList<>();
+
+        List<User> list_user = dao.getUser(openid);
+        String campus = list_user.get(0).getCampus();
+        String studio = list_user.get(0).getStudio();
+        String class_target_int = null;
+        List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,class_number,duration);
+        if(messages.size()>0){
+            class_target_int = messages.get(0).getClass_target();
+        }
+
         List<Message> list = dao.getCommentModel();
         for (int i = 0; i < list.size(); i++) {
             JSONObject jsonObject = new JSONObject();
@@ -6037,6 +6048,7 @@ public class LoginServiceImpl implements LoginService {
             String id = line.getId();
 
             jsonObject.put("class_target", class_target);
+            jsonObject.put("class_target_int", class_target_int);
             jsonObject.put("comment", comment);
             jsonObject.put("id", id);
             resul_list.add(jsonObject);
