@@ -157,6 +157,8 @@ public class LoginServiceImpl implements LoginService {
             List<Lesson> lessons = dao.getLessonById(id);
             Lesson lesson = lessons.get(0);
             String related_id_get = lesson.getRelated_id();
+            Float total_amount = lesson.getTotal_amount();
+            Float left_amount = lesson.getLeft_amount();
 
             if("关联".equals(type)){
                 StringBuffer related_id_new = new StringBuffer();
@@ -194,13 +196,14 @@ public class LoginServiceImpl implements LoginService {
                 String[] related_new_list = related_id_new.toString().split(",");
                 for(int j = 0;j < related_new_list.length;j++){
                     String value  = related_new_list[j];
-                    result = dao.updateLessonRelatedById(Integer.valueOf(value),related_id_new.toString());
+                    result = dao.updateLessonRelatedById(Integer.valueOf(value),related_id_new.toString(),total_amount,left_amount);
                 }
             }else if ("取关".equals(type)){
                 StringBuffer related_id_new = new StringBuffer();
                 String[] array = related_id_get.split(",");
                 List<String> list_get = Arrays.asList(array);
                 List<String> list = new ArrayList<>();
+
                 // 剔除元素
                 for(int k = 0; k < list_get.size(); k++){
                     String value = list_get.get(k);
@@ -212,7 +215,7 @@ public class LoginServiceImpl implements LoginService {
 
                 if(list.size() == 1){
                     String id_get = list.get(0);
-                    dao.updateLessonRelatedById(Integer.valueOf(id_get),"no_id");
+                    dao.updateLessonRelatedById(Integer.valueOf(id_get),"no_id",total_amount,left_amount);
                 }else if(list.size() > 1){
                     for(int i = 0; i < list.size(); i++){
                         String id_get = list.get(i);
@@ -225,19 +228,15 @@ public class LoginServiceImpl implements LoginService {
                     String[] related_new_list = related_id_new.toString().split(",");
                     for(int j = 0;j < related_new_list.length;j++){
                         String value  = related_new_list[j];
-                        result = dao.updateLessonRelatedById(Integer.valueOf(value),related_id_new.toString());
+                        result = dao.updateLessonRelatedById(Integer.valueOf(value),related_id_new.toString(),total_amount,left_amount);
                     }
                 }
                 // 取消本人关联状态
-                dao.updateLessonRelatedById(Integer.valueOf(id),"no_id");
+                dao.updateLessonRelatedById(Integer.valueOf(id),"no_id",total_amount,left_amount);
             }
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
         return result;
     }
 

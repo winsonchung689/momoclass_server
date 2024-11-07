@@ -417,7 +417,7 @@ public interface UserMapper {
 
     int updateLessonCampusById(String id,String subject);
 
-    int updateLessonRelatedById(Integer id,String related_id);
+    int updateLessonRelatedById(Integer id,String related_id,Float total_amount,Float left_amount);
 
     int updateRestaurantAvatar(RestaurantUser restaurantUser);
 

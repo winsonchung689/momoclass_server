@@ -1469,7 +1469,7 @@
   </update>
 
   <update id="updateLessonRelatedById" parameterType="com.xue.entity.model.Lesson">
-    update lesson set related_id=#{param2} where id = #{param1}
+    update lesson set related_id=#{param2},total_amount=#{param3},left_amount=#{param4} where id = #{param1}
   </update>
 
   <update id="updateRestaurantAvatar" parameterType="com.xue.entity.model.RestaurantUser">
