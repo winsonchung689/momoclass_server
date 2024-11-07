@@ -6034,7 +6034,7 @@ public class LoginServiceImpl implements LoginService {
         String campus = list_user.get(0).getCampus();
         String studio = list_user.get(0).getStudio();
         String class_target_int = null;
-        List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,class_number,duration);
+        List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,duration);
         if(messages.size()>0){
             class_target_int = messages.get(0).getClass_target();
         }

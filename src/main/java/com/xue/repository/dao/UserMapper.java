@@ -188,7 +188,7 @@ public interface UserMapper {
     //获取详情
     List<Message> getDetails(Integer id);
 
-    List<Message> getMessageByDurationDate(String studio,String campus,String date_time,String class_number,String duration);
+    List<Message> getMessageByDurationDate(String studio,String campus,String date_time,String duration);
 
     List<Post> getPostPublic(Integer page_start,Integer page_length);
 
