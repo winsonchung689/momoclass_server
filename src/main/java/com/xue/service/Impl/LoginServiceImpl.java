@@ -1211,6 +1211,8 @@ public class LoginServiceImpl implements LoginService {
                     String duration = schedule.getDuration();
                     String class_number = schedule.getClass_number();
                     subject = schedule.getSubject();
+                    String add_date = schedule.getAdd_date();
+                    String student_type = schedule.getStudent_type();
 
                     int weekDayChoose = 0;
                     if(dayOfWeek == 1){
@@ -1219,34 +1221,36 @@ public class LoginServiceImpl implements LoginService {
                         weekDayChoose = dayOfWeek -1;
                     }
 
-                    if("boss".equals(role) || "teacher".equals(role)){
-                        String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                        List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-                        for(int j=0;j<users.size();j++){
-                            User user = users.get(j);
-                            String openid_get = user.getOpenid();
-                            if(openid_get.equals(openid)){
-                                int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
-                                int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
-                                int loss = classes_count - sign_count;
-                                String result = class_number + ":" + loss + "人未签" ;
+                    if(("transferred".equals(student_type) && add_date.equals(dateString)) || "ordinary".equals(student_type)){
+                        if("boss".equals(role) || "teacher".equals(role)){
+                            String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                            List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                            for(int j=0;j<users.size();j++){
+                                User user = users.get(j);
+                                String openid_get = user.getOpenid();
+                                if(openid_get.equals(openid)){
+                                    int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
+                                    int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
+                                    int loss = classes_count - sign_count;
+                                    String result = class_number + ":" + loss + "人未签" ;
 
-                                if(sign_count< classes_count){
+                                    if(sign_count< classes_count){
+                                        schedule_status.append(result);
+                                        schedule_status.append(",");
+                                    }
+                                }
+                            }
+                        } else if ("client".equals(role)) {
+                            List<User> users = dao.getUserByOpenid(openid);
+                            for(int j=0;j<users.size();j++){
+                                User user = users.get(j);
+                                String student_name = user.getStudent_name();
+                                List<Schedule> schedules1 = dao.getScheduleByStudentDay(studio,dayOfWeek,duration,class_number,subject,campus,student_name);
+                                if(schedules1.size()>0){
+                                    String result = class_number + ":" + student_name + "有课" ;
                                     schedule_status.append(result);
                                     schedule_status.append(",");
                                 }
-                            }
-                        }
-                    } else if ("client".equals(role)) {
-                        List<User> users = dao.getUserByOpenid(openid);
-                        for(int j=0;j<users.size();j++){
-                            User user = users.get(j);
-                            String student_name = user.getStudent_name();
-                            List<Schedule> schedules1 = dao.getScheduleByStudentDay(studio,dayOfWeek,duration,class_number,subject,campus,student_name);
-                            if(schedules1.size()>0){
-                                String result = class_number + ":" + student_name + "有课" ;
-                                schedule_status.append(result);
-                                schedule_status.append(",");
                             }
                         }
                     }
