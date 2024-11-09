@@ -4217,7 +4217,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getExhibition(String studio, String type,Integer page) {
+    public List getExhibition(String openid, String type,Integer page) {
+        List<User> list_user = dao.getUser(openid);
+        String studio = list_user.get(0).getStudio();
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -4230,6 +4232,22 @@ public class LoginServiceImpl implements LoginService {
             String comment = line.getComment();
             Integer views = line.getViews();
             String id = line.getId();
+
+            int liked = 0;
+            int like_count =0;
+            List<PostLike> postLikes = dao.getPostLike(id);
+            if(postLikes.size()>0){
+                for (int j = 0; j < postLikes.size(); j++) {
+                    like_count = like_count + 1;
+                    PostLike postLike = postLikes.get(j);
+                    String openid_get = postLike.getOpenid();
+                    if(openid.equals(openid_get)){
+                        liked = 1;
+                    }
+                }
+            }
+
+
             try {
                 uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
             } catch (Exception e) {
@@ -4257,6 +4275,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("views",views);
                     jsonObject.put("class_name",class_name);
                     jsonObject.put("student_name",student_name);
+                    jsonObject.put("liked",liked);
+                    jsonObject.put("like_count",like_count);
                     resul_list.add(jsonObject);
                 }
             }else{

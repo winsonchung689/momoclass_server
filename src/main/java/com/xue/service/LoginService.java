@@ -244,7 +244,7 @@ public interface LoginService {
 
     public List getWebsite(String studio, String campus);
 
-    public List getExhibition(String studio, String type,Integer page);
+    public List getExhibition(String openid, String type,Integer page);
 
     public List getUpdateNews();
 

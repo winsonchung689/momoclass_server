@@ -1100,10 +1100,10 @@ public class LoginController {
 
 	@RequestMapping("/getExhibition")
 	@ResponseBody
-	public List getExhibition(String studio,String type,Integer page){
+	public List getExhibition(String openid,String type,Integer page){
 		List list = null;
 		try {
-			list = loginService.getExhibition(studio,type,page);
+			list = loginService.getExhibition(openid,type,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -4735,8 +4735,9 @@ public class LoginController {
 
 		//获取
 		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
 		String post_id = request.getParameter("post_id");
-		String studio = request.getParameter("studio");
 
 		PostLike postLike = new PostLike();
 		postLike.setOpenid(openid);
