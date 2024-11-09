@@ -2833,7 +2833,7 @@ public class LoginController {
 	@RequestMapping("/insertCardRecord")
 	@ResponseBody
 	public int insertCardRecord(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String student_name = request.getParameter("student_name");
@@ -2841,6 +2841,10 @@ public class LoginController {
 		String mark = request.getParameter("mark");
 		String card_id = request.getParameter("card_id");
 		String duration = request.getParameter("duration");
+		String date_time = request.getParameter("date_time");
+		if(date_time == null || date_time.isEmpty() || "undefined".equals(date_time)){
+			date_time = create_time;
+		}
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
 		String studio = users.get(0).getStudio();
@@ -2849,7 +2853,7 @@ public class LoginController {
 
 		try {
 			CardRecord cardRecord = new CardRecord();
-			cardRecord.setCreate_time(create_time);
+			cardRecord.setCreate_time(date_time);
 			cardRecord.setStudio(studio);
 			cardRecord.setCampus(campus);
 			cardRecord.setSubject(subject);
