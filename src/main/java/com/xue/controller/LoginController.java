@@ -4727,9 +4727,9 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/insertPostLike")
+	@RequestMapping("/updatePostLike")
 	@ResponseBody
-	public String insertPostLike(HttpServletRequest request, HttpServletResponse response){
+	public String updatePostLike(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
@@ -4740,16 +4740,27 @@ public class LoginController {
 		String post_id = request.getParameter("post_id");
 
 		PostLike postLike = new PostLike();
-		postLike.setOpenid(openid);
-		postLike.setPost_id(post_id);
-		postLike.setStudio(studio);
-		postLike.setCreate_time(create_time);
-
 		try {
-			dao.insertPostLike(postLike);
+			List<PostLike> postLikes = dao.getPostLikeByOpenid(post_id,openid);
+			if(postLikes.size()>0){
+				PostLike postLike_get = postLikes.get(0);
+				String delete_status_get = postLike_get.getDelete_status();
+				String delete_status = "1";
+				if("1".equals(delete_status_get)){
+					delete_status = "0";
+				}
+				dao.deletePostLike(post_id,openid,delete_status);
+			}else{
+				postLike.setPost_id(post_id);
+				postLike.setOpenid(openid);
+				postLike.setStudio(studio);
+				postLike.setCreate_time(create_time);
+				dao.insertPostLike(postLike);
+			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
+
 		return "push massage successfully";
 	}
 
@@ -5040,7 +5051,7 @@ public class LoginController {
 
 	@RequestMapping("/updateGoodsLike")
 	@ResponseBody
-	public String insertGoodsLike(HttpServletRequest request, HttpServletResponse response){
+	public String updateGoodsLike(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 

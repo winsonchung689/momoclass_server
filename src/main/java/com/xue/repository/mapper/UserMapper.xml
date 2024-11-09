@@ -169,7 +169,7 @@
   </select>
 
   <select id="getPostLikeByOpenid" parameterType="com.xue.entity.model.PostLike" resultMap="BasePostLike">
-    select id,openid,post_id,studio,create_time from post_like where delete_status = 0 and post_id =#{param1} and openid =#{param2} order by create_time desc;
+    select * from post_like where delete_status = 0 and post_id =#{param1} and openid =#{param2} order by create_time desc;
   </select>
 
   <!-- 获取全部 -->
@@ -328,6 +328,10 @@
 
   <select id="deleteGoodsLike" parameterType="com.xue.entity.model.GoodsLike" resultMap="BaseResultMap">
     update goods_like set delete_status = #{param3} where goods_id =#{param1} and openid =#{param2}
+  </select>
+
+  <select id="deletePostLike" parameterType="com.xue.entity.model.GoodsLike" resultMap="BaseResultMap">
+    update post_like set delete_status = #{param3} where post_id =#{param1} and openid =#{param2}
   </select>
 
   <!-- 删除详情 -->

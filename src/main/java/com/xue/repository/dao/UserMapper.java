@@ -323,6 +323,8 @@ public interface UserMapper {
 
     void deleteGoodsLike(String goods_id,String openid,String delete_status);
 
+    void deletePostLike(String post_id,String openid,String delete_status);
+
     void deleteMyOrder(String id);
 
     void deleteNote(Integer id);
