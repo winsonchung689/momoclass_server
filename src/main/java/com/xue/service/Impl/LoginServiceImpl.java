@@ -4241,6 +4241,10 @@ public class LoginServiceImpl implements LoginService {
             } catch (Exception e) {
 //                    throw new RuntimeException(e);
             }
+
+            String class_name = line.getClass_name();
+            String student_name = line.getStudent_name();
+
             String[] uuids_list = uuids.split(",");
             if(uuids.length()>2){
                 for(int j=0;j<uuids_list.length;j++){
@@ -4251,6 +4255,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("id",id);
                     jsonObject.put("comment",comment);
                     jsonObject.put("views",views);
+                    jsonObject.put("class_name",class_name);
+                    jsonObject.put("student_name",student_name);
                     resul_list.add(jsonObject);
                 }
             }else{
