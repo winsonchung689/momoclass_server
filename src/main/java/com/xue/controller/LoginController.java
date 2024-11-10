@@ -5879,6 +5879,10 @@ public class LoginController {
 		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
 		String mark = request.getParameter("mark");
 		String package_id = request.getParameter("package_id");
+		String date_time = request.getParameter("date_time");
+		if(date_time == null || date_time.isEmpty() || "undefined".equals(date_time)){
+			date_time = update_time;
+		}
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		if(lessons.size()>0){
@@ -5896,12 +5900,12 @@ public class LoginController {
 			SignUp signUp = new SignUp();
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
-			signUp.setSign_time(update_time);
+			signUp.setSign_time(date_time);
 			signUp.setMark("划课_"+mark);
 			signUp.setCount(Float.parseFloat(consume_lesson_amount));
 			signUp.setSubject(subject);
 			signUp.setTeacher(nick_name);
-			signUp.setCreate_time(update_time);
+			signUp.setCreate_time(date_time);
 			signUp.setDuration("00:00:00");
 			signUp.setClass_number("无班号");
 			signUp.setPackage_id(package_id);
