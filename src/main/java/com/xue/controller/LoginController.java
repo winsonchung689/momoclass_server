@@ -2863,6 +2863,20 @@ public class LoginController {
 			cardRecord.setDuration(duration);
 
 			dao.insertCardRecord(cardRecord);
+
+			// 发送通知
+			List<User> userss = dao.getUserByStudent(student_name,studio);
+			for(int i = 0;i < userss.size(); i++){
+				User user = users.get(i);
+				String subscription = user.getSubscription();
+				String openid_get = user.getOpenid();
+
+				// 小程序
+				sendSignUpRemind(openid_get,student_name,date_time,"0",subject,"卡签");
+
+			}
+			sendSignUpRemind(openid,student_name,date_time,"0",subject,"卡签");
+
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
