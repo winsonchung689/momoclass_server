@@ -3414,6 +3414,23 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateCard")
+	@ResponseBody
+	public int updateCard(HttpServletRequest request, HttpServletResponse response) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+		String id = request.getParameter("id");
+
+		if("uuid".equals(type)){
+			dao.updateCardUuid(id,content);
+		}
+
+		return 1;
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){

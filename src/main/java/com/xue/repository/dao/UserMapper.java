@@ -393,6 +393,9 @@ public interface UserMapper {
 
     int updateWebsiteCompany(String id,String company);
 
+
+    int updateCardUuid(String id,String uuid);
+
     int updateOpenid(User user);
 
     int updateOpenidById(String openid_old,String openid_new);

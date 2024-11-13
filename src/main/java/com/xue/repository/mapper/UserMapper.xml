@@ -1403,6 +1403,11 @@
     update website set company=#{param2} where id =#{param1}  and delete_status = 0
   </update>
 
+  <!-- 更新卡图片 -->
+  <update id="updateCardUuid" parameterType="com.xue.entity.model.Website">
+    update card set uuid=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
   <!-- 更新网站师资 -->
   <update id="updateWebsiteTeacher" parameterType="com.xue.entity.model.Website">
     update website set teacher=#{param2} where id =#{param1} and delete_status = 0
