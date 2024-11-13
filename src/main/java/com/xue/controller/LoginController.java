@@ -2867,8 +2867,7 @@ public class LoginController {
 			// 发送通知
 			List<User> userss = dao.getUserByStudent(student_name,studio);
 			for(int i = 0;i < userss.size(); i++){
-				User user = users.get(i);
-				String subscription = user.getSubscription();
+				User user = userss.get(i);
 				String openid_get = user.getOpenid();
 
 				// 小程序
