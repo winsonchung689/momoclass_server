@@ -3424,8 +3424,16 @@ public class LoginController {
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
 
-		if("uuid".equals(type)){
+		if("卡图".equals(type)){
 			dao.updateCardUuid(id,content);
+		}else if("卡类".equals(type)){
+			dao.updateCardType(id,content);
+		}else if("备注".equals(type)){
+			dao.updateCardMark(id,content);
+		}else if("开始时间".equals(type)){
+			dao.updateCardStartDate(id,content);
+		}else if("结束时间".equals(type)){
+			dao.updateCardEndDate(id,content);
 		}
 
 		return 1;

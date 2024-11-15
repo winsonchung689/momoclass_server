@@ -1404,8 +1404,28 @@
   </update>
 
   <!-- 更新卡图片 -->
-  <update id="updateCardUuid" parameterType="com.xue.entity.model.Website">
+  <update id="updateCardUuid" parameterType="com.xue.entity.model.Card">
     update card set uuid=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更新卡类 -->
+  <update id="updateCardType" parameterType="com.xue.entity.model.Card">
+    update card set type=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更新卡备注 -->
+  <update id="updateCardMark" parameterType="com.xue.entity.model.Card">
+    update card set mark=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更新卡开始时间 -->
+  <update id="updateCardStartDate" parameterType="com.xue.entity.model.Card">
+    update card set start_date=#{param2} where id =#{param1} and delete_status = 0
+  </update>
+
+  <!-- 更新卡结束时间 -->
+  <update id="updateCardEndDate" parameterType="com.xue.entity.model.Card">
+    update card set end_date=#{param2} where id =#{param1} and delete_status = 0
   </update>
 
   <!-- 更新网站师资 -->
