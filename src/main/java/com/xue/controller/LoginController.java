@@ -6301,6 +6301,9 @@ public class LoginController {
 
 			}else {
 				String phone_number = request.getParameter("phone_number");
+				if(phone_number == null || phone_number.isEmpty() || "undefined".equals(phone_number)){
+					phone_number = "未录入";
+				}
 				Integer point = 0;
 				Float minus_amount_t = 1.0f;
 				Float coins_amount_t = 0.0f;
