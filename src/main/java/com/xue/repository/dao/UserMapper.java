@@ -347,7 +347,9 @@ public interface UserMapper {
 
     void deleteSignUpRecord(Integer id,String studio);
 
-    void deleteSignUpAllRecord(String student_name,String studio);
+    void updateSignUpEndingByAll(String student_name,String studio);
+
+    void updateSignUpEndingById(String id,String studio);
 
     void updateLeaveAllRecord(String student_name,String studio,String campus);
 

@@ -154,7 +154,7 @@ public interface LoginService {
 
     public int  deleteSignUpRecord(Integer id,String role,String studio,String openid);
 
-    public int  deleteSignUpAllRecord(String name,String role,String studio,String openid);
+    public int  updateSignUpEnding(String student_name,String openid,String id,String ending_status);
 
     public int  deleteGiftRecord(Integer id,String role,String studio,String openid);
 

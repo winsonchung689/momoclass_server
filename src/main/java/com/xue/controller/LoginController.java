@@ -2463,21 +2463,12 @@ public class LoginController {
 		return 1;
 	}
 
-	//	清空签到记录
-	@RequestMapping("/deleteSignUpAllRecord")
+	//	更新结课状态
+	@RequestMapping("/updateSignUpEnding")
 	@ResponseBody
-	public int deleteSignUpAllRecord(String name,String role,String studio,String openid){
+	public int updateSignUpEnding(String student_name,String openid,String id,String ending_status){
 		try {
-			List<User> list = dao.getUser(openid);
-			String studio_get = list.get(0).getStudio();
-
-			if (studio_get.equals(studio)) {
-				loginService.deleteSignUpAllRecord(name,role,studio,openid);
-			}else {
-				logger.error("it's not your studio, could not delete!");
-			}
-
-
+			loginService.updateSignUpEnding(student_name,openid,id,ending_status);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

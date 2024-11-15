@@ -2391,15 +2391,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteSignUpAllRecord(String name, String role, String studio,String openid) {
+    public int updateSignUpEnding(String student_name,String openid,String id,String ending_status) {
         try {
             List<User> list = dao.getUser(openid);
-            String studio_get = list.get(0).getStudio();
-
-            if ( studio_get.equals(studio)) {
-                dao.deleteSignUpAllRecord(name,studio);
-            }else {
-                logger.error("it's not your studio, could not delete!");
+            String studio = list.get(0).getStudio();
+            if("未结课".equals(ending_status)){
+                dao.updateSignUpEndingByAll(student_name,studio);
+            }else if("已结课".equals(ending_status)){
+                dao.updateSignUpEndingById(id,studio);
             }
         } catch (Exception e) {
             e.printStackTrace();

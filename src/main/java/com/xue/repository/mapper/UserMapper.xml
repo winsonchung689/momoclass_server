@@ -565,9 +565,14 @@
     update sign_up_record set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
-  <!-- 获取详情 -->
-  <select id="deleteSignUpAllRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+  <!-- 更新结课状态 -->
+  <select id="updateSignUpEndingByAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     update sign_up_record set ending_status = 1 where student_name =#{param1} and studio =#{param2}
+  </select>
+
+  <!-- 更新单个结课状态 -->
+  <select id="updateSignUpEndingById" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    update sign_up_record set ending_status = 0 where id =#{param1} and studio =#{param2}
   </select>
 
   <select id="updateLeaveAllRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
