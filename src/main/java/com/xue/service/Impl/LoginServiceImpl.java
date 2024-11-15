@@ -2395,9 +2395,9 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> list = dao.getUser(openid);
             String studio = list.get(0).getStudio();
-            if("未结课".equals(ending_status)){
+            if("未结".equals(ending_status)){
                 dao.updateSignUpEndingByAll(student_name,studio);
-            }else if("已结课".equals(ending_status)){
+            }else if("已结".equals(ending_status)){
                 dao.updateSignUpEndingById(id,studio);
             }
         } catch (Exception e) {
