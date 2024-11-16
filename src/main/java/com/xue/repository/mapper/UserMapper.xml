@@ -953,7 +953,7 @@
 
   <!-- 插入商品列表 -->
   <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
-    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price,group_num,cut_step,goods_type) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price},#{group_num},#{cut_step},#{goods_type})
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price,group_num,cut_step,goods_type,goods_id) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price},#{group_num},#{cut_step},#{goods_type},#{goods_id})
   </insert>
 
   <!-- 点赞表 -->
@@ -983,6 +983,11 @@
   <!-- 获取商品列表 -->
   <select id="getGoodsListById" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
     select * from goods_list where id = #{param1} and delete_status = 0;
+  </select>
+
+  <!-- 获取商品列表 -->
+  <select id="getSubGoods" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
+    select * from goods_list where id =#{param1} and goods_type =#{param1} and delete_status = 0;
   </select>
 
   <!-- 搜索商品列表 -->

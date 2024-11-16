@@ -9466,6 +9466,37 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getSubGoods(String goods_id, String goods_type) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<GoodsList> goodsLists = dao.getSubGoods(goods_id,goods_type);
+
+            for (int i = 0; i < goodsLists.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                GoodsList line = goodsLists.get(i);
+                //获取字段
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                String create_time = line.getCreate_time();
+                String uuids = line.getUuids();
+
+                //json
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getGroupBuy(String studio,String goods_id) {
         String goods_name = null;
         String create_time = null;

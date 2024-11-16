@@ -76,6 +76,8 @@ public interface LoginService {
 
     public List  getGoodsList(String studio,Integer page,String campus,String content,String type,String goods_type,String openid);
 
+    public List  getSubGoods(String goods_id,String goods_type);
+
     public List  getGroupBuy(String studio,String goods_id);
 
     public List  getRating(String studio,String student_name,Integer page,String subject,String openid);

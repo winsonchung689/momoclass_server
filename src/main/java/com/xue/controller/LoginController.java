@@ -935,6 +935,19 @@ public class LoginController {
 	}
 
 	//	获取商品列表
+	@RequestMapping("/getSubGoods")
+	@ResponseBody
+	public List getSubGoods(String goods_id,String goods_type){
+		List list = null;
+		try {
+			list = loginService.getSubGoods(goods_id,goods_type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//	获取商品列表
 	@RequestMapping("/getGoodsList")
 	@ResponseBody
 	public List getGoodsList(String studio,Integer page,String openid,String content,String type,String goods_type){
@@ -5056,6 +5069,11 @@ public class LoginController {
 
 		String goods_type = request.getParameter("goods_type");
 
+		String goods_id = request.getParameter("goods_id");
+		if(goods_id == null || goods_id.isEmpty() || "undefined".equals(goods_id)){
+			goods_id = "no_id";
+		}
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -5075,6 +5093,7 @@ public class LoginController {
 			goodsList.setGroup_num(Integer.parseInt(group_num));
 			goodsList.setCut_step(Float.parseFloat(cut_step));
 			goodsList.setGoods_type(goods_type);
+			goodsList.setGoods_id(goods_id);
 
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {

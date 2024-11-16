@@ -879,6 +879,8 @@ public interface UserMapper {
 
     List<GoodsLike> getGoodsLikeByGoodsId(String goods_id);
 
+    List<GoodsList> getSubGoods(String goods_id,String goods_type);
+
     List<GoodsList> getGoodsListById(String id);
 
     List<GoodsList> getGoodsListSearch(String studio,Integer page_start,Integer page_end,String content,String goods_type);
