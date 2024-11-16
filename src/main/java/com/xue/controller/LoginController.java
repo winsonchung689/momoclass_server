@@ -3813,6 +3813,7 @@ public class LoginController {
 			String group_role =  request.getParameter("group_role");
 			String goods_id =  request.getParameter("goods_id");
 			String leader_id =  request.getParameter("leader_id");
+			String type =  request.getParameter("type");
 
 			Order order = new Order();
 			order.setNick_name(nick_name);
@@ -3824,6 +3825,7 @@ public class LoginController {
 			order.setGroup_role(group_role);
 			order.setGoods_id(goods_id);
 			order.setLeader_id(leader_id);
+			order.setType(type);
 
 			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
 			Float cut_step = goodsLists.get(0).getCut_step();

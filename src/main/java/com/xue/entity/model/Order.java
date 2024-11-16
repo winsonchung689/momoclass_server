@@ -18,8 +18,16 @@ public class Order {
     private String goods_id;
     private String leader_id;
     private Float cut_price;
+    private String type;
 
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Float getCut_price() {
         return cut_price;
