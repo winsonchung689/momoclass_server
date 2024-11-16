@@ -987,7 +987,7 @@
 
   <!-- 获取商品列表 -->
   <select id="getSubGoods" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select * from goods_list where goods_id =#{param1} and goods_type =#{param2} and delete_status = 0;
+    select * from goods_list where goods_id =#{param1} and goods_type =#{param2} and delete_status = 0 order by create_time desc;
   </select>
 
   <!-- 搜索商品列表 -->
