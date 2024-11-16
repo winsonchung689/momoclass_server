@@ -9481,12 +9481,15 @@ public class LoginServiceImpl implements LoginService {
                 Float goods_price = line.getGoods_price();
                 String create_time = line.getCreate_time();
                 String uuids = line.getUuids();
+                String id = line.getId();
 
                 //json
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("id", id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
