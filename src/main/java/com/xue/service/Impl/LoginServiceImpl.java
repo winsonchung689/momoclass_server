@@ -7582,6 +7582,7 @@ public class LoginServiceImpl implements LoginService {
                 String campus = line.getCampus();
                 String expired_time = line.getExpired_time();
                 String create_time = line.getCreate_time();
+                String avatarurl = line.getAvatarurl();
 
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
@@ -7631,6 +7632,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("use_days", use_days);
                 jsonObject.put("theme", theme);
                 jsonObject.put("coins", coins);
+                jsonObject.put("avatarurl", avatarurl);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
