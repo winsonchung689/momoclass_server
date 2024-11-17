@@ -3620,7 +3620,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 create_time = line.getCreate_time();
-                String type = line.getType();
+                type = line.getType();
                 Integer counts = line.getCounts();
                 Float amount = line.getAmount();
 
