@@ -1032,8 +1032,8 @@
   </select>
 
   <!-- 查找全部订单 -->
-  <select id="getAllOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select * from `order` where studio = #{param1} and delete_status = 0 order by create_time desc
+  <select id="getAllOrderByType" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
+    select * from `order` where studio = #{param1} and type =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 查找课程表 -->

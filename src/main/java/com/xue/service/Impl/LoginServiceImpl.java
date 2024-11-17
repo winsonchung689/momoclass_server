@@ -3545,16 +3545,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getMyOrder(String studio, String openid) {
+    public List getAllOrderByType(String studio,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Order> list =null;
-            if("All".equals(openid)){
-                list = dao.getAllOrder(studio);
-            }else {
-                list = dao.getMyOrder(studio,openid);
-            }
+            List<Order> list = dao.getAllOrderByType(studio,type);
 
             for (int i = 0; i < list.size(); i++) {
                 String create_time = null;
@@ -3625,6 +3620,9 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 create_time = line.getCreate_time();
+                String type = line.getType();
+                Integer counts = line.getCounts();
+                Float amount = line.getAmount();
 
                 jsonObject.put("id", id);
                 jsonObject.put("goods_id", goods_id);
@@ -3646,6 +3644,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_status", group_status);
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("group_sum", group_sum);
+                jsonObject.put("type", type);
+                jsonObject.put("counts", counts);
+                jsonObject.put("amount", amount);
 
                 //json
                 resul_list.add(jsonObject);

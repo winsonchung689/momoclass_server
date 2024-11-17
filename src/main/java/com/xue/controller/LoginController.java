@@ -2147,12 +2147,12 @@ public class LoginController {
 	}
 
 	//	获取订单
-	@RequestMapping("/getMyOrder")
+	@RequestMapping("/getAllOrderByType")
 	@ResponseBody
-	public List getMyOrder(String studio,String openid){
+	public List getAllOrderByType(String studio,String type){
 		List list = null;
 		try {
-			list = loginService.getMyOrder(studio,openid);
+			list = loginService.getAllOrderByType(studio,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

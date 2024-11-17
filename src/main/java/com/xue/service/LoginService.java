@@ -220,7 +220,7 @@ public interface LoginService {
 
     public List getCertificateModel(String class_name);
 
-    public List getMyOrder(String studio,String openid);
+    public List getAllOrderByType(String studio,String type);
 
     public List getOrderByGoodsId(String goods_id);
 
