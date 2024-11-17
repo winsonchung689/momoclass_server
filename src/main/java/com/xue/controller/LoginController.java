@@ -3866,6 +3866,11 @@ public class LoginController {
 			String location =  request.getParameter("location");
 			String group_role =  request.getParameter("group_role");
 			String goods_id =  request.getParameter("goods_id");
+			String sub_goods_id =  request.getParameter("sub_goods_id");
+			if(sub_goods_id == null || sub_goods_id.isEmpty() || "undefined".equals(sub_goods_id)){
+				sub_goods_id = "no_id";
+			}
+
 			String leader_id =  request.getParameter("leader_id");
 			String type =  request.getParameter("type");
 
@@ -3892,6 +3897,7 @@ public class LoginController {
 			order.setType(type);
 			order.setAmount(Float.parseFloat(amount));
 			order.setCounts(Integer.parseInt(counts));
+			order.setSub_goods_id(sub_goods_id);
 
 			if("简易团购".equals(type)){
 				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);

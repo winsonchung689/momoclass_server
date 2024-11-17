@@ -16,6 +16,7 @@ public class Order {
     private String campus;
     private String group_role;
     private String goods_id;
+    private String sub_goods_id;
     private String leader_id;
     private Float cut_price;
     private String type;
@@ -70,6 +71,14 @@ public class Order {
 
     public void setGoods_id(String goods_id) {
         this.goods_id = goods_id;
+    }
+
+    public String getSub_goods_id() {
+        return sub_goods_id;
+    }
+
+    public void setSub_goods_id(String sub_goods_id) {
+        this.sub_goods_id = sub_goods_id;
     }
 
     public String getGroup_role() {
