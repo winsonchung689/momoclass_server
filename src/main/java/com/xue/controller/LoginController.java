@@ -1717,6 +1717,24 @@ public class LoginController {
 				}
 				photo_new.append(goods_intro_modify);
 				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
+			}else if("minus_photo".equals(type)){
+				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+				GoodsList goodsList = goodsLists.get(0);
+				String photo = goodsList.getPhoto();
+				StringBuffer photo_new = new StringBuffer();
+				if(!"no_id".equals(photo)){
+					String[] array = photo.split(",");
+					for(int index = 0; index < array.length; index++) {
+						if(!goods_intro_modify.equals(array[index])){
+							photo_new.append(array[index]);
+							photo_new.append(",");
+						}
+					}
+					if(photo_new.length()>0) {
+						photo_new = photo_new.deleteCharAt(photo_new.lastIndexOf(","));
+					}
+				}
+				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
 			}
 
 		} catch (Exception e) {
