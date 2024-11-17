@@ -9493,11 +9493,6 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                photo = line.getPhoto();
-                if(uuids != null){
-                    photo = null;
-
-                }
 
                 Float cut_step = line.getCut_step();
 
