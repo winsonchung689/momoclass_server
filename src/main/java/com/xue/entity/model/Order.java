@@ -19,7 +19,26 @@ public class Order {
     private String leader_id;
     private Float cut_price;
     private String type;
+    private Integer counts;
+    private Float amount;
 
+
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
+    public Integer getCounts() {
+        return counts;
+    }
+
+    public void setCounts(Integer counts) {
+        this.counts = counts;
+    }
 
     public String getType() {
         return type;

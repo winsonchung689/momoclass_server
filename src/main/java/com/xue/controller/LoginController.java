@@ -3869,6 +3869,16 @@ public class LoginController {
 			String leader_id =  request.getParameter("leader_id");
 			String type =  request.getParameter("type");
 
+			String counts =  request.getParameter("counts");
+			if(counts == null || counts.isEmpty() || "undefined".equals(counts)){
+				counts = "0";
+			}
+
+			String amount =  request.getParameter("amount");
+			if(amount == null || amount.isEmpty() || "undefined".equals(amount)){
+				amount = "0";
+			}
+
 			Order order = new Order();
 			order.setNick_name(nick_name);
 			order.setOpenid(openid);
@@ -3880,6 +3890,8 @@ public class LoginController {
 			order.setGoods_id(goods_id);
 			order.setLeader_id(leader_id);
 			order.setType(type);
+			order.setAmount(Float.parseFloat(amount));
+			order.setCounts(Integer.parseInt(counts));
 
 			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
 			Float cut_step = goodsLists.get(0).getCut_step();
