@@ -3569,7 +3569,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String nick_name = line.getNick_name();
-                String  open_id = line.getOpenid();
+                String openid = line.getOpenid();
                 String goods_id = line.getGoods_id();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
@@ -3634,7 +3634,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
                 jsonObject.put("nick_name", nick_name);
-                jsonObject.put("openid", open_id);
+                jsonObject.put("openid", openid);
                 jsonObject.put("group_price", group_price);
                 jsonObject.put("students_str", students_str.toString());
                 jsonObject.put("leader_id", leader_id);
