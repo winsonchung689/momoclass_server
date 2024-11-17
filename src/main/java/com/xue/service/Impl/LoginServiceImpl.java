@@ -9469,6 +9469,60 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGoodsListById(String goods_id) {
+        String uuids = null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<GoodsList> list = dao.getGoodsListById(goods_id);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                GoodsList line = list.get(i);
+                //获取字段
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                Float group_price = line.getGroup_price();
+                Timestamp expired_time = line.getExpired_time();
+                Float seckill_price = line.getSeckill_price();
+                String photo = line.getPhoto();
+                String id = line.getId();
+                String create_time = line.getCreate_time();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                photo = line.getPhoto();
+                if(uuids != null){
+                    photo = null;
+
+                }
+
+                Float cut_step = line.getCut_step();
+
+                //json
+                jsonObject.put("cut_step", cut_step);
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("photo", photo);
+                jsonObject.put("id", id);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("group_price", group_price);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("seckill_price", seckill_price);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getSubGoods(String goods_id, String goods_type) {
         List<JSONObject> resul_list = new ArrayList<>();
 

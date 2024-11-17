@@ -962,6 +962,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getGoodsListById")
+	@ResponseBody
+	public List getGoodsListById(String goods_id){
+		List list = null;
+		try {
+			list = loginService.getGoodsListById(goods_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取团购列表
 	@RequestMapping("/getGroupBuy")
 	@ResponseBody
