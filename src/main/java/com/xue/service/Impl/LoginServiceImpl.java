@@ -6068,9 +6068,11 @@ public class LoginServiceImpl implements LoginService {
         String campus = list_user.get(0).getCampus();
         String studio = list_user.get(0).getStudio();
         String class_target_int = null;
+        String class_name_int = null;
         List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,duration);
         if(messages.size()>0){
             class_target_int = messages.get(0).getClass_target();
+            class_name_int = messages.get(0).getClass_name();
         }
 
         List<Message> list = dao.getCommentModel();
@@ -6083,6 +6085,7 @@ public class LoginServiceImpl implements LoginService {
 
             jsonObject.put("class_target", class_target);
             jsonObject.put("class_target_int", class_target_int);
+            jsonObject.put("class_name_int", class_name_int);
             jsonObject.put("comment", comment);
             jsonObject.put("id", id);
             resul_list.add(jsonObject);
