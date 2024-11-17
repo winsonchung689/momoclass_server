@@ -9383,7 +9383,7 @@ public class LoginServiceImpl implements LoginService {
         List<GoodsList> list = null;
         List<GroupBuy> list_buy = null;
         String uuids = null;
-        byte[] photo = null;
+        String photo = null;
         Integer is_group = 0;
         Integer group_num = 0;
         List<JSONObject> resul_list = new ArrayList<>();

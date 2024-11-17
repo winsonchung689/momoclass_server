@@ -29,7 +29,7 @@ public class GoodsList {
 
     private String studio;
 
-    private byte[] photo;
+    private String photo;
 
     private String campus;
 
@@ -123,11 +123,11 @@ public class GoodsList {
         this.campus = campus;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

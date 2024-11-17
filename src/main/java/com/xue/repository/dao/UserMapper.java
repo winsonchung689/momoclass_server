@@ -270,6 +270,8 @@ public interface UserMapper {
 
     void modifyGoodsIntro(String id,String studio,String campus,String goods_intro);
 
+    void modifyGoodsPhoto(String id,String studio,String campus,String photo);
+
     void modifyGoodsName(String id,String studio,String campus,String goods_intro);
 
     void modifyGoodsGroupNum(String id,String studio,String campus,String goods_intro);

@@ -1706,6 +1706,17 @@ public class LoginController {
 				dao.modifyGoodsSeckillPrice(goods_id,studio,campus,goods_intro_modify);
 			}else if("expired_time".equals(type)){
 				dao.modifyGoodsExpiredTime(goods_id,studio,campus,goods_intro_modify);
+			}else if("add_photo".equals(type)){
+				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+				GoodsList goodsList = goodsLists.get(0);
+				String photo = goodsList.getPhoto();
+				StringBuffer photo_new = new StringBuffer();
+				if(!"no_id".equals(photo)){
+					photo_new.append(photo);
+					photo_new.append(",");
+				}
+				photo_new.append(goods_intro_modify);
+				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
 			}
 
 		} catch (Exception e) {
@@ -5078,9 +5089,8 @@ public class LoginController {
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 
-		GoodsList goodsList =new GoodsList();
 		try {
-
+			GoodsList goodsList =new GoodsList();
 			goodsList.setGoods_name(goods_name);
 			goodsList.setGoods_intro(goods_intro);
 			goodsList.setGoods_price(Float.parseFloat(goods_price));
@@ -5094,7 +5104,6 @@ public class LoginController {
 			goodsList.setCut_step(Float.parseFloat(cut_step));
 			goodsList.setGoods_type(goods_type);
 			goodsList.setGoods_id(goods_id);
-
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {
 			e.printStackTrace();

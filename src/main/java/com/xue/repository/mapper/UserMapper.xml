@@ -461,6 +461,10 @@
     update goods_list set goods_intro =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
+  <select id="modifyGoodsPhoto" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set photo =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
+  </select>
+
   <!-- 更改商品名称 -->
   <select id="modifyGoodsName" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
     update goods_list set goods_name =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
