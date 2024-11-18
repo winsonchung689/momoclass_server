@@ -2323,15 +2323,17 @@ public class LoginController {
 
 			dao.deleteMyOrder(id);
 
-			if("leader".equals(group_role)){
-				dao.deleteGroupBuy(goods_id,leader_id,type);
-			}
+			if("简易团购".equals(type)){
+				if("leader".equals(group_role)){
+					dao.deleteGroupBuy(goods_id,leader_id,type);
+				}
 
-			if("follower".equals(group_role)){
-				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-				Float cut_step = goodsLists.get(0).getCut_step();
-				Float cut_price_new = cut_price + cut_step;
-				dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+				if("follower".equals(group_role)){
+					List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+					Float cut_step = goodsLists.get(0).getCut_step();
+					Float cut_price_new = cut_price + cut_step;
+					dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
