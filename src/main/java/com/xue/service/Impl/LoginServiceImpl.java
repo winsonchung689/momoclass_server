@@ -3571,6 +3571,7 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
                 String goods_id = line.getGoods_id();
+                String sub_goods_id = line.getSub_goods_id();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
 
@@ -3607,6 +3608,15 @@ public class LoginServiceImpl implements LoginService {
                         uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
                     } catch (Exception e) {
 //                    throw new RuntimeException(e);
+                    }
+                }
+
+                if("自定义团".equals(type)){
+                    List<GoodsList> subGoodsLists = dao.getGoodsListById(sub_goods_id);
+                    if(subGoodsLists.size()>0){
+                        GoodsList subGoodsList = subGoodsLists.get(0);
+                        goods_name = subGoodsList.getGoods_name();
+                        goods_price = subGoodsList.getGoods_price();
                     }
                 }
 
