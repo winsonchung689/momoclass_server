@@ -2321,7 +2321,7 @@ public class LoginController {
 			Float cut_price = order.getCut_price();
 
 			if("leader".equals(group_role)){
-				dao.deleteGroupBuy(goods_id,leader_id);
+				dao.deleteGroupBuy(goods_id,leader_id,"简易团购");
 			}
 			dao.deleteMyOrder(id);
 
@@ -2450,9 +2450,9 @@ public class LoginController {
 
 	@RequestMapping("/deleteGroupBuy")
 	@ResponseBody
-	public int deleteGroupBuy(String goods_id,String leader_id){
+	public int deleteGroupBuy(String goods_id,String leader_id,String type){
 		try {
-			dao.deleteGroupBuy(goods_id,leader_id);
+			dao.deleteGroupBuy(goods_id,leader_id,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

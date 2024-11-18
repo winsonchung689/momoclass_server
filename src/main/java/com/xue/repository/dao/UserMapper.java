@@ -264,7 +264,7 @@ public interface UserMapper {
 
     void deleteBBookeDetail(Integer id);
 
-    void deleteGroupBuy(String goods_id,String leader_id);
+    void deleteGroupBuy(String goods_id,String leader_id,String type);
 
     void changeClassName(Integer id,String studio,String class_number);
 

@@ -427,7 +427,7 @@
 
   <!-- 删除团购 -->
   <select id="deleteGroupBuy" parameterType="com.xue.entity.model.GroupBuy" resultMap="BaseResultMap">
-    update `order` set delete_status = 1 where goods_id =#{param1} and leader_id =#{param2}
+    update `order` set delete_status = 1 where goods_id =#{param1} and leader_id =#{param2} and type =#{param3}
   </select>
 
   <!-- 删除安排 -->
