@@ -4,7 +4,6 @@ package com.xue.entity.model;
 public class Order {
 
     private String id;
-
     private String nick_name;
     private String openid;
     private String phone_number;

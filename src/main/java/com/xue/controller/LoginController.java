@@ -2319,11 +2319,13 @@ public class LoginController {
 			String leader_id = order.getLeader_id();
 			String goods_id = order.getGoods_id();
 			Float cut_price = order.getCut_price();
+			String type = order.getType();
+
+			dao.deleteMyOrder(id);
 
 			if("leader".equals(group_role)){
-				dao.deleteGroupBuy(goods_id,leader_id,"简易团购");
+				dao.deleteGroupBuy(goods_id,leader_id,type);
 			}
-			dao.deleteMyOrder(id);
 
 			if("follower".equals(group_role)){
 				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
