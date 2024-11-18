@@ -1020,7 +1020,7 @@
 
   <!-- 查找ID订单 -->
   <select id="getOrderByGoodsId" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select * from `order` where goods_id = #{param1} and delete_status = 0 order by create_time desc
+    select * from `order` where goods_id = #{param1} and type = #{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getOrderByGoodsLeader" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">

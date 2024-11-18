@@ -3668,11 +3668,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getOrderByGoodsId(String goods_id) {
+    public List getOrderByGoodsId(String goods_id,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<Order> list =dao.getOrderByGoodsId(goods_id);;
+            List<Order> list =dao.getOrderByGoodsId(goods_id,type);;
 
             for (int i = 0; i < list.size(); i++) {
                 String goods_name = null;

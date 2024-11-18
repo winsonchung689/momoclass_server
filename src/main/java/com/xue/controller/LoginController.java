@@ -2161,10 +2161,10 @@ public class LoginController {
 
 	@RequestMapping("/getOrderByGoodsId")
 	@ResponseBody
-	public List getOrderByGoodsId(String goods_id){
+	public List getOrderByGoodsId(String goods_id,String type){
 		List list = null;
 		try {
-			list = loginService.getOrderByGoodsId(goods_id);
+			list = loginService.getOrderByGoodsId(goods_id,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

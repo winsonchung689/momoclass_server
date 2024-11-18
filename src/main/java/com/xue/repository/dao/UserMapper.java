@@ -685,7 +685,7 @@ public interface UserMapper {
 
     List<Order> getMyOrder(String studio,String openid);
 
-    List<Order> getOrderByGoodsId(String goods_id);
+    List<Order> getOrderByGoodsId(String goods_id,String type);
 
     List<Order> getOrderByGoodsLeader(String goods_id,String leader_id);
 

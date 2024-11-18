@@ -222,7 +222,7 @@ public interface LoginService {
 
     public List getAllOrderByType(String studio,String type);
 
-    public List getOrderByGoodsId(String goods_id);
+    public List getOrderByGoodsId(String goods_id,String type);
 
     public List getFrameModel(String studio,Integer page,String class_target,String campus);
 
