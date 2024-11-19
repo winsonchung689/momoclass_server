@@ -3550,7 +3550,6 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<Order> list = dao.getAllOrderByType(studio,type);
-
             for (int i = 0; i < list.size(); i++) {
                 String create_time = null;
                 Float group_price = 0.0f;
@@ -3575,6 +3574,13 @@ public class LoginServiceImpl implements LoginService {
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
 
+                String student_name_get="no_name";
+                List<User> users_get = dao.getUser(openid);
+                if(users_get.size()>0){
+                    student_name_get = users_get.get(0).getStudent_name();
+                }
+
+
                 String group_status = "未成团";
                 List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
                 int group_sum = orders.size();
@@ -3595,7 +3601,6 @@ public class LoginServiceImpl implements LoginService {
                     User user = users.get(0);
                     leader = user.getNick_name();
                 }
-
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -3659,6 +3664,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("type", type);
                 jsonObject.put("counts", counts);
                 jsonObject.put("amount", amount);
+                jsonObject.put("student_name", student_name_get);
 
                 //json
                 resul_list.add(jsonObject);
