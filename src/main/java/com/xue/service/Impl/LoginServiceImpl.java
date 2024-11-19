@@ -3624,9 +3624,11 @@ public class LoginServiceImpl implements LoginService {
                     group_status = "已成团";
                 }
 
-                String status_get="已完成";
-                if(0==status){
-                    status_get="未完成";
+                String status_get="未付款";
+                if(1==status){
+                    status_get="已付款";
+                }else if(2==status){
+                    status_get="已使用";
                 }
 
                 create_time = line.getCreate_time();
