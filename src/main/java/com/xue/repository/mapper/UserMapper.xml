@@ -480,6 +480,11 @@
     update goods_list set group_price =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
+  <!-- 更改单价 -->
+  <select id="modifyGoodsPrice" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set goods_price =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
+  </select>
+
   <!-- 更改砍价 -->
   <select id="modifyGoodsCutStep" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
     update goods_list set cut_step =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
