@@ -4653,7 +4653,7 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
-        List<Lesson> list = dao.getLessonByNameSubject(studio,student_name,subject,campus);
+        List<Lesson> list = dao.getLessonByNameSubject(student_name,studio,subject,campus);
         try {
             for (int i = 0; i < list.size(); i++) {
                 Lesson line = list.get(i);
