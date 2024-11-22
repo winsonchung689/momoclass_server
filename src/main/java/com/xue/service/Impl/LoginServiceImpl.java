@@ -7789,7 +7789,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
-            List<User> list = dao.getUserByOpenidQrLike(studio);
+            List<User> list = dao.getUserByOpenidQrAll(0,10000);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 User line = list.get(i);
@@ -7800,23 +7800,29 @@ public class LoginServiceImpl implements LoginService {
                 String openid_qr = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr);
                 String nick_name_rc = users.get(0).getNick_name();
-
-                String studio_get = line.getStudio();
+                String user_type = line.getUser_type();
                 int is_paid = line.getIs_paid();
+                String cash_uuid = line.getCash_uuid();
+                String create_time = line.getCreate_time();
+
                 String is_paid_cn = "未返现";
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
                 }
+                if("新用户".equals(user_type)){
+                    is_paid_cn = "未试用";
+                }
 
                 //json
-                jsonObject.put("rank", i + 1);
-                jsonObject.put("studio", studio_get);
+                jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", openid);
                 jsonObject.put("is_paid", is_paid);
                 jsonObject.put("is_paid_cn", is_paid_cn);
                 jsonObject.put("nick_name_rc", nick_name_rc);
+                jsonObject.put("cash_uuid", cash_uuid);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
