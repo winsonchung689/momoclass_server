@@ -1973,12 +1973,12 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getUserByOpenidQrLike")
+	@RequestMapping("/getUserByOpenidQrAll")
 	@ResponseBody
-	public List getUserByOpenidQrLike(String studio){
+	public List getUserByOpenidQrAll(){
 		List list = null;
 		try {
-			list = loginService.getUserByOpenidQrLike(studio);
+			list = loginService.getUserByOpenidQrAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

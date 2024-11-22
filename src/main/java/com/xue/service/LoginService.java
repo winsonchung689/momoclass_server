@@ -52,7 +52,7 @@ public interface LoginService {
 
     public List  getUserByOpenidQr(String openid_qr,Integer page);
 
-    public List  getUserByOpenidQrLike(String studio);
+    public List  getUserByOpenidQrAll();
 
     public List  getAllUserByStudioByPage(String studio,Integer page);
 

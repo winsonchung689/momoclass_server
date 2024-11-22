@@ -7785,9 +7785,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getUserByOpenidQrLike(String studio) {
+    public List getUserByOpenidQrAll() {
         List<JSONObject> resul_list = new ArrayList<>();
-
         try {
             List<User> list = dao.getUserByOpenidQrAll(0,10000);
             for (int i = 0; i < list.size(); i++) {
@@ -7804,6 +7803,7 @@ public class LoginServiceImpl implements LoginService {
                 int is_paid = line.getIs_paid();
                 String cash_uuid = line.getCash_uuid();
                 String create_time = line.getCreate_time();
+                String studio = line.getStudio();
 
                 String is_paid_cn = "未返现";
                 if(is_paid == 1){
