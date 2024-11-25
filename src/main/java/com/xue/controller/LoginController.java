@@ -3904,7 +3904,7 @@ public class LoginController {
 				if("leader".equals(group_role)){
 					order.setCut_price(group_price-cut_step);
 				}else {
-					List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+					List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
 					Float cut_price = orders.get(0).getCut_price();
 					Float cut_price_new = cut_price - cut_step;
 					order.setCut_price(cut_price_new);
