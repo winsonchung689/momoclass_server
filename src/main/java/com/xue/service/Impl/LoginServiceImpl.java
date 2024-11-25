@@ -610,6 +610,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("package_mark", package_mark);
                 jsonObject.put("all_lesson", all_lesson);
                 jsonObject.put("given_lesson", given_lesson);
+                jsonObject.put("package_id", package_id);
                 resul_list.add(jsonObject);
 
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
