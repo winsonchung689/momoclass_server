@@ -564,6 +564,20 @@ public class LoginServiceImpl implements LoginService {
                 mark = line.getMark();
                 duration = line.getDuration();
                 count = line.getCount();
+
+                String package_id = line.getPackage_id();
+                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                String package_mark = null;
+                Float all_lesson = 0.0f;
+                Float given_lesson = 0.0f;
+                if(lessonPackages.size()>0){
+                    LessonPackage lessonPackage = lessonPackages.get(0);
+                    package_mark = lessonPackage.getMark();
+                    all_lesson = lessonPackage.getAll_lesson();
+                    given_lesson = lessonPackage.getGive_lesson();
+                }
+
+
                 ending_status_get = line.getEnding_status();
                 String ending_status = "未结";
                 if(ending_status_get == 1){
@@ -593,6 +607,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject);
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
+                jsonObject.put("package_mark", package_mark);
+                jsonObject.put("all_lesson", all_lesson);
+                jsonObject.put("given_lesson", given_lesson);
                 resul_list.add(jsonObject);
 
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
