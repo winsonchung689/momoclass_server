@@ -565,16 +565,21 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 count = line.getCount();
 
-                String package_id = line.getPackage_id();
-                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
                 String package_mark = null;
                 Float all_lesson = 0.0f;
                 Float given_lesson = 0.0f;
-                if(lessonPackages.size()>0){
-                    LessonPackage lessonPackage = lessonPackages.get(0);
-                    package_mark = lessonPackage.getMark();
-                    all_lesson = lessonPackage.getAll_lesson();
-                    given_lesson = lessonPackage.getGive_lesson();
+                String package_id = line.getPackage_id();
+
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                    if(lessonPackages.size()>0){
+                        LessonPackage lessonPackage = lessonPackages.get(0);
+                        package_mark = lessonPackage.getMark();
+                        all_lesson = lessonPackage.getAll_lesson();
+                        given_lesson = lessonPackage.getGive_lesson();
+                    }
+                } catch (NumberFormatException e) {
+//                    throw new RuntimeException(e);
                 }
 
 
