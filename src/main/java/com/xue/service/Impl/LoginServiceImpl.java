@@ -565,7 +565,7 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 count = line.getCount();
 
-                String package_mark = null;
+                String package_mark = "无备注";
                 Float all_lesson = 0.0f;
                 Float given_lesson = 0.0f;
                 String package_id = line.getPackage_id();
