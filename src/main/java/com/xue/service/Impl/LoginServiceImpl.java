@@ -3582,7 +3582,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                 String group_status = "未成团";
-                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = orders.size();
                 StringBuffer students_str = new StringBuffer();
                 for (int j = 0; j < orders.size(); j++) {
@@ -3715,7 +3715,7 @@ public class LoginServiceImpl implements LoginService {
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 int group_num = goodsLists.get(0).getGroup_num();
 
-                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id);
+                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = orders.size();
 
                 if(group_sum >= group_num){
