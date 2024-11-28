@@ -5651,8 +5651,6 @@ public class LoginController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cal.add(cal.DATE,30);
-		String expired_time = df.format(cal.getTime());
 
 		//获取openid
 		String openid = request.getParameter("openid");
@@ -5661,6 +5659,11 @@ public class LoginController {
 		User user_get= dao.getUser(openid).get(0);
 		String studio = user_get.getStudio();
 		String theme = user_get.getTheme();
+		String user_type = user_get.getUser_type();
+		if("新用户".equals(user_type)){
+			cal.add(cal.DATE,30);
+		}
+		String expired_time = df.format(cal.getTime());
 
 		try {
 			User user_boss = dao.getBossByStudio(studio).get(0);
@@ -5671,7 +5674,7 @@ public class LoginController {
 		}
 
         //获取用户类型
-		String user_type = "老用户";
+		user_type = "老用户";
 		try {
 			User user =new User();
 			user.setOpenid(openid);
