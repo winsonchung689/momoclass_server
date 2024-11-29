@@ -7845,6 +7845,16 @@ public class LoginServiceImpl implements LoginService {
                     is_paid_cn = "未试用";
                 }
 
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String expired_time = line.getExpired_time();
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date expired_time_dt = df.parse(expired_time.substring(0,10));
+                int compare = today_dt.compareTo(expired_time_dt);
+                if(compare > 0 && "老用户".equals(user_type)){
+                    is_paid_cn = "已过期";
+                }
+
                 //json
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
