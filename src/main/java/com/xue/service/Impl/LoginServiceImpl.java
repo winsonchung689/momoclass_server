@@ -4532,8 +4532,6 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setLeft_amount(new_left);
                 lesson.setTotal_amount(total_amount);
                 lesson.setStudio(studio);
-                lesson.setMinus(minus);
-                lesson.setCoins(coins);
                 lesson.setSubject(subject);
                 lesson.setCampus(campus);
                 if(is_combine == 0){
@@ -4566,12 +4564,10 @@ public class LoginServiceImpl implements LoginService {
                                     lesson_re.setTotal_amount(total_amount);
                                     lesson_re.setStudio(studio);
                                     lesson_re.setCampus(campus);
-                                    lesson_re.setMinus(minus_get);
-                                    lesson_re.setCoins(coins_get);
                                     lesson_re.setSubject(subject_get);
 
                                     dao.updateLesson(lesson_re);
-                            }
+                                }
                             }
                         }
                     }
@@ -4614,8 +4610,6 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setLeft_amount(new_left);
                 lesson.setTotal_amount(total_amount);
                 lesson.setStudio(studio);
-                lesson.setMinus(minus);
-                lesson.setCoins(coins);
                 lesson.setSubject(subject);
                 lesson.setCampus(campus);
                 if(is_combine == 0){
@@ -4648,8 +4642,6 @@ public class LoginServiceImpl implements LoginService {
                                     lesson_re.setTotal_amount(total_amount);
                                     lesson_re.setStudio(studio);
                                     lesson_re.setCampus(campus);
-                                    lesson_re.setMinus(minus_get);
-                                    lesson_re.setCoins(coins_get);
                                     lesson_re.setSubject(subject_get);
 
                                     dao.updateLesson(lesson_re);
