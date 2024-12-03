@@ -2414,12 +2414,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateSignUpEnding(String student_name,String openid,String id,String ending_status) {
+    public int updateSignUpEnding(String student_name,String openid,String id,String ending_status,String create_time) {
         try {
             List<User> list = dao.getUser(openid);
             String studio = list.get(0).getStudio();
             if("未结".equals(ending_status)){
-                dao.updateSignUpEndingByAll(student_name,studio);
+                dao.updateSignUpEndingByAll(student_name,studio,create_time);
             }else if("已结".equals(ending_status)){
                 dao.updateSignUpEndingById(id,studio);
             }

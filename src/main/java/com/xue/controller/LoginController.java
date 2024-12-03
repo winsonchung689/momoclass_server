@@ -2518,9 +2518,9 @@ public class LoginController {
 	//	更新结课状态
 	@RequestMapping("/updateSignUpEnding")
 	@ResponseBody
-	public int updateSignUpEnding(String student_name,String openid,String id,String ending_status){
+	public int updateSignUpEnding(String student_name,String openid,String id,String ending_status,String create_time){
 		try {
-			loginService.updateSignUpEnding(student_name,openid,id,ending_status);
+			loginService.updateSignUpEnding(student_name,openid,id,ending_status,create_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

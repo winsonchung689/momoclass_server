@@ -350,7 +350,7 @@ public interface UserMapper {
 
     void deleteSignUpRecord(Integer id,String studio);
 
-    void updateSignUpEndingByAll(String student_name,String studio);
+    void updateSignUpEndingByAll(String student_name,String studio,String create_time);
 
     void updateSignUpEndingById(String id,String studio);
 

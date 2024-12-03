@@ -576,7 +576,7 @@
 
   <!-- 更新结课状态 -->
   <select id="updateSignUpEndingByAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    update sign_up_record set ending_status = 1 where student_name =#{param1} and studio =#{param2}
+    update sign_up_record set ending_status = 1 where student_name =#{param1} and studio =#{param2} and date_format(create_time,'%Y-%m-%d') &lt;= #{param3}
   </select>
 
   <!-- 更新单个结课状态 -->
