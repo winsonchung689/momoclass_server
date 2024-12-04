@@ -8060,8 +8060,8 @@ public class LoginServiceImpl implements LoginService {
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
-                            signCount = signCount + 1;
-                            leaveCount = leaveCount + count;
+                            signCount = signCount + 1.0f;
+                            lessonCount = lessonCount + count;
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
@@ -8132,9 +8132,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
-                        resul_list.add(jsonObject);
-                    }
+                    resul_list.add(jsonObject);
 
                     dateTime2 = dateTime2.minusDays(1);
                 }
@@ -8171,10 +8169,11 @@ public class LoginServiceImpl implements LoginService {
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
+                            signCount = signCount + 1.0f;
+                            lessonCount = lessonCount + count;
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float total_amount = lessons.get(0).getTotal_amount();
                                     Float price = lessons.get(0).getPrice();
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
@@ -8244,10 +8243,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-
-                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
-                        resul_list.add(jsonObject);
-                    }
+                    resul_list.add(jsonObject);
 
                     dateTime2 = dateTime2.minusMonths(1);
                 }
