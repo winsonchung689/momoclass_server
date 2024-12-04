@@ -875,7 +875,7 @@
   </select>
 
   <select id="getAnalyzePackage" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and delete_status = 0 and create_time=#{param3} group by create_time
+    select date_format(create_time,'%Y-%m-%d') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time,'%Y-%m-%d')=#{param3} group by date_format(create_time,'%Y-%m-%d')
   </select>
 
   <select id="getAnalyzePackageByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
