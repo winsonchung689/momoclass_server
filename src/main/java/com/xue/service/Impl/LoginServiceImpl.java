@@ -8132,7 +8132,9 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-                    resul_list.add(jsonObject);
+                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
+                        resul_list.add(jsonObject);
+                    }
 
                     dateTime2 = dateTime2.minusDays(1);
                 }
@@ -8242,7 +8244,10 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-                    resul_list.add(jsonObject);
+
+                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
+                        resul_list.add(jsonObject);
+                    }
 
                     dateTime2 = dateTime2.minusMonths(1);
                 }
