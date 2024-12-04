@@ -8053,7 +8053,7 @@ public class LoginServiceImpl implements LoginService {
                     Float package_sum_m = 0.0f;
 
 //                    签到
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,dateTime1.toString());
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,dateTime2.toString());
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
@@ -8095,25 +8095,25 @@ public class LoginServiceImpl implements LoginService {
                     }
 
 //                    试听
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,dateTime1.toString());
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,dateTime2.toString());
                     if(list1.size() > 0){
                         tryCount = list1.get(0).getTry_count();
                     }
 
 //                    请假
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,dateTime1.toString());
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,dateTime2.toString());
                     if(list2.size() > 0){
                         leaveCount = list2.get(0).getLeave_count();
                     }
 
 //                    排课
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,dateTime1.toString());
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,dateTime2.toString());
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count();
                     }
 
 //                    续课
-                    List<AnalyzeCount> list4 = dao.getAnalyzePackage(studio,campus,dateTime1.toString());
+                    List<AnalyzeCount> list4 = dao.getAnalyzePackage(studio,campus,dateTime2.toString());
                     if(list4.size() > 0){
                         package_count = list4.get(0).getPackage_count();
                         package_sum_l = list4.get(0).getPackage_sum_l();
@@ -8132,7 +8132,9 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-                    resul_list.add(jsonObject);
+                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
+                        resul_list.add(jsonObject);
+                    }
 
                     dateTime2 = dateTime2.minusDays(1);
                 }
@@ -8162,7 +8164,7 @@ public class LoginServiceImpl implements LoginService {
                     Float package_sum_m = 0.0f;
 
 //                    签到
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
@@ -8205,25 +8207,25 @@ public class LoginServiceImpl implements LoginService {
                     }
 
 //                    试听
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(list1.size() > 0){
                         tryCount = list1.get(0).getTry_count();
                     }
 
 //                    请假
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(list2.size() > 0){
                         leaveCount = list2.get(0).getLeave_count();
                     }
 
 //                    排课
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count()*4;
                     }
 
 //                    续课
-                    List<AnalyzeCount> list4 = dao.getAnalyzePackageByMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    List<AnalyzeCount> list4 = dao.getAnalyzePackageByMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(list4.size() > 0){
                         package_count = list4.get(0).getPackage_count();
                         package_sum_l = list4.get(0).getPackage_sum_l();
@@ -8243,7 +8245,10 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_count", package_count);
                     jsonObject.put("package_sum_l", package_sum_l);
                     jsonObject.put("package_sum_m", package_sum_m);
-                    resul_list.add(jsonObject);
+
+                    if(tryCount>0 || leaveCount >0 || signCount > 0 || package_count >0){
+                        resul_list.add(jsonObject);
+                    }
 
                     dateTime2 = dateTime2.minusMonths(1);
                 }
