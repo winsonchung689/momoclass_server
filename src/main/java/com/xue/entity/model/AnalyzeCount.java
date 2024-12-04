@@ -15,6 +15,37 @@ public class AnalyzeCount {
 
     private Float lesson_count;
 
+    private Float package_count;
+
+    private Float package_sum_l;
+
+    private Float package_sum_m;
+
+
+
+    public Float getPackage_sum_m() {
+        return package_sum_m;
+    }
+
+    public void setPackage_sum_m(Float package_sum_m) {
+        this.package_sum_m = package_sum_m;
+    }
+
+    public Float getPackage_sum_l() {
+        return package_sum_l;
+    }
+
+    public void setPackage_sum_l(Float package_sum_l) {
+        this.package_sum_l = package_sum_l;
+    }
+
+    public Float getPackage_count() {
+        return package_count;
+    }
+
+    public void setPackage_count(Float package_count) {
+        this.package_count = package_count;
+    }
 
     public String getStudent_name() {
         return student_name;

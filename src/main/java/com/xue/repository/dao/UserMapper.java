@@ -158,6 +158,10 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
 
+    List<AnalyzeCount> getAnalyzePackage(String studio,String campus,String create_time);
+
+    List<AnalyzeCount> getAnalyzePackageByMonth(String studio,String campus,String create_time);
+
     List<BookCount> getAnalyzeAbsent(String studio,String campus,Integer weekDay);
 
     List<BookCount> getBookByYear(String studio,String campus);

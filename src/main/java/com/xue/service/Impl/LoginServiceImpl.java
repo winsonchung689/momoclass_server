@@ -20,6 +20,8 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -8017,6 +8019,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             Date d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
@@ -8034,8 +8037,10 @@ public class LoginServiceImpl implements LoginService {
                     end_date = duration_time.split("_")[1];
                 }
 
-                List<AnalyzeCount> list = dao.getAnalyzeSignUp(studio,campus,start_date,end_date);
-                for(int i=0;i< list.size();i++){
+                LocalDate dateTime1 = LocalDate.parse(start_date, formatter);
+                LocalDate dateTime2 = LocalDate.parse(end_date, formatter);
+
+                while (!dateTime1.isAfter(dateTime2)){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
@@ -8043,20 +8048,23 @@ public class LoginServiceImpl implements LoginService {
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
                     Float all_lesson_count = 0.0f;
-                    String create_time = list.get(i).getCreate_time();
-                    signCount = list.get(i).getSign_count();
-                    lessonCount = list.get(i).getLesson_count();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,create_time);
+                    Float package_count = 0.0f;
+                    Float package_sum_l = 0.0f;
+                    Float package_sum_m = 0.0f;
+
+//                    签到
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetail(studio,campus,dateTime1.toString());
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
                             String student_name = signUp.getStudent_name();
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
+                            signCount = signCount + 1;
+                            leaveCount = leaveCount + count;
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float total_amount = lessons.get(0).getTotal_amount();
                                     Float price = lessons.get(0).getPrice();
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
@@ -8081,28 +8089,39 @@ public class LoginServiceImpl implements LoginService {
                                     }
                                 }
                             } catch (Exception e) {
-                            throw new RuntimeException(e);
+                                throw new RuntimeException(e);
                             }
                         }
                     }
 
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,create_time);
+//                    试听
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTry(studio,campus,dateTime1.toString());
                     if(list1.size() > 0){
                         tryCount = list1.get(0).getTry_count();
                     }
 
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,create_time);
+//                    请假
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeave(studio,campus,dateTime1.toString());
                     if(list2.size() > 0){
                         leaveCount = list2.get(0).getLeave_count();
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,create_time);
+//                    排课
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUp(studio,campus,dateTime1.toString());
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count();
                     }
 
+//                    续课
+                    List<AnalyzeCount> list4 = dao.getAnalyzePackage(studio,campus,dateTime1.toString());
+                    if(list4.size() > 0){
+                        package_count = list4.get(0).getPackage_count();
+                        package_sum_l = list4.get(0).getPackage_sum_l();
+                        package_sum_m = list4.get(0).getPackage_sum_m();
+                    }
+
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", create_time.substring(0,10));
+                    jsonObject.put("create_time", dateTime1.toString());
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
@@ -8110,20 +8129,27 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
+                    jsonObject.put("package_count", package_count);
+                    jsonObject.put("package_sum_l", package_sum_l);
+                    jsonObject.put("package_sum_m", package_sum_m);
                     resul_list.add(jsonObject);
+
+                    dateTime1 = dateTime1.plusDays(1);
                 }
             }else if("月".equals(dimension)){
                 cal.add(Calendar.DATE,-31);
-                start_date = fmt.format(cal.getTime()).substring(0,7);
-                end_date = date_time.substring(0,7);
+                start_date = fmt.format(cal.getTime()).substring(0,7) + "-01";
+                end_date = date_time.substring(0,7) + "-01";
 
                 if(!"无_无".equals(duration_time)){
-                    start_date = duration_time.split("_")[0].substring(0,7);
-                    end_date = duration_time.split("_")[1].substring(0,7);
+                    start_date = duration_time.split("_")[0].substring(0,7) + "-01";
+                    end_date = duration_time.split("_")[1].substring(0,7) + "-01";
                 }
 
-                List<AnalyzeCount> list = dao.getAnalyzeSignUpByMonth(studio,campus,start_date,end_date);
-                for(int i=0;i< list.size();i++){
+                LocalDate dateTime1 = LocalDate.parse(start_date, formatter);
+                LocalDate dateTime2 = LocalDate.parse(end_date, formatter);
+
+                while (!dateTime1.isAfter(dateTime2)){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
@@ -8131,10 +8157,12 @@ public class LoginServiceImpl implements LoginService {
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
                     Float all_lesson_count = 0.0f;
-                    String create_time = list.get(i).getCreate_time();
-                    signCount = list.get(i).getSign_count();
-                    lessonCount = list.get(i).getLesson_count();
-                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,create_time);
+                    Float package_count = 0.0f;
+                    Float package_sum_l = 0.0f;
+                    Float package_sum_m = 0.0f;
+
+//                    签到
+                    List<SignUp> signUps = dao.getAnalyzeSignUpDetailByMonth(studio,campus,dateTime1.toString().substring(0,7));
                     if(signUps.size() > 0){
                         for (int j = 0; j < signUps.size(); j++) {
                             SignUp signUp = signUps.get(j);
@@ -8175,23 +8203,35 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
 
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,create_time);
+//                    试听
+                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,dateTime1.toString().substring(0,7));
                     if(list1.size() > 0){
                         tryCount = list1.get(0).getTry_count();
                     }
 
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,create_time);
+//                    请假
+                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,dateTime1.toString().substring(0,7));
                     if(list2.size() > 0){
                         leaveCount = list2.get(0).getLeave_count();
                     }
 
-                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,create_time);
+//                    排课
+                    List<AnalyzeCount> list3 = dao.getLessonAllCountBySumUpMonth(studio,campus,dateTime1.toString().substring(0,7));
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count()*4;
                     }
 
+//                    续课
+                    List<AnalyzeCount> list4 = dao.getAnalyzePackageByMonth(studio,campus,dateTime1.toString().substring(0,7));
+                    if(list4.size() > 0){
+                        package_count = list4.get(0).getPackage_count();
+                        package_sum_l = list4.get(0).getPackage_sum_l();
+                        package_sum_m = list4.get(0).getPackage_sum_m();
+                    }
+
+
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("create_time", dateTime1.toString().substring(0,7));
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
@@ -8199,11 +8239,14 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
+                    jsonObject.put("package_count", package_count);
+                    jsonObject.put("package_sum_l", package_sum_l);
+                    jsonObject.put("package_sum_m", package_sum_m);
                     resul_list.add(jsonObject);
+
+                    dateTime1 = dateTime1.plusMonths(1);
                 }
             }
-
-
         } catch (ParseException e) {
 //            throw new RuntimeException(e);
         }
