@@ -8040,7 +8040,7 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate dateTime1 = LocalDate.parse(start_date, formatter);
                 LocalDate dateTime2 = LocalDate.parse(end_date, formatter);
 
-                while (!dateTime1.isAfter(dateTime2)){
+                while (!dateTime2.isBefore(dateTime1)){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
@@ -8134,7 +8134,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_sum_m", package_sum_m);
                     resul_list.add(jsonObject);
 
-                    dateTime1 = dateTime1.plusDays(1);
+                    dateTime2 = dateTime2.minusDays(1);
                 }
             }else if("月".equals(dimension)){
                 cal.add(Calendar.DATE,-31);
@@ -8149,7 +8149,7 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate dateTime1 = LocalDate.parse(start_date, formatter);
                 LocalDate dateTime2 = LocalDate.parse(end_date, formatter);
 
-                while (!dateTime1.isAfter(dateTime2)){
+                while (!dateTime2.isBefore(dateTime1)){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
                     Float tryCount = 0.0f;
@@ -8244,7 +8244,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("package_sum_m", package_sum_m);
                     resul_list.add(jsonObject);
 
-                    dateTime1 = dateTime1.plusMonths(1);
+                    dateTime2 = dateTime2.minusMonths(1);
                 }
             }
         } catch (ParseException e) {
