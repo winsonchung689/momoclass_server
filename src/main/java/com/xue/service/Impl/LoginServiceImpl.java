@@ -8121,7 +8121,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", dateTime1.toString());
+                    jsonObject.put("create_time", dateTime2.toString());
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);
@@ -8234,7 +8234,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("create_time", dateTime1.toString().substring(0,7));
+                    jsonObject.put("create_time", dateTime2.toString().substring(0,7));
                     jsonObject.put("tryCount", tryCount);
                     jsonObject.put("leaveCount", leaveCount);
                     jsonObject.put("signCount", signCount);

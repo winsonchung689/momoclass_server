@@ -27,13 +27,13 @@ public class test {
 //            long timestamp = new Date().getTime();
 //            System.out.println(end_timestamp);
 //            System.out.println(timestamp);
-        String tt = "2024-01-11";
+        String tt = "2024-01-01";
         LocalDate dateTime1 = LocalDate.parse(tt, formatter);
-        LocalDate dateTime2 = LocalDate.parse("2024-02-03", formatter);
+        LocalDate dateTime2 = LocalDate.parse("2024-01-03", formatter);
 
-        while (!dateTime1.isAfter(dateTime2)){
-            System.out.println("aa:" + dateTime1.toString());
-            dateTime1 = dateTime1.plusMonths(1);
+        while (!dateTime2.isBefore(dateTime1)){
+            System.out.println("aa:" + dateTime2.toString());
+            dateTime2 = dateTime2.minusDays(1);
         }
 
 
