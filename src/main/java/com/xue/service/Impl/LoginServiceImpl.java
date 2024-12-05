@@ -7767,9 +7767,6 @@ public class LoginServiceImpl implements LoginService {
 
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现"+"(" + number +")";
-                if(is_paid == 1){
-                    is_paid_cn = "已返现";
-                }
                 if("新用户".equals(user_type)){
                     is_paid_cn = "未试用";
                 }
@@ -7781,6 +7778,9 @@ public class LoginServiceImpl implements LoginService {
                 int compare = today_dt.compareTo(expired_time_dt);
                 if(compare > 0 && "老用户".equals(user_type)){
                     is_paid_cn = "已过期";
+                }
+                if(is_paid == 1){
+                    is_paid_cn = "已返现";
                 }
 
                 String cash_uuid = line.getCash_uuid();
