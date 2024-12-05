@@ -2028,6 +2028,14 @@ public class LoginController {
 	public List getUserByNickStudio(String nick_name,String studio){
 		List list = null;
 		try {
+			if("校长".equals(nick_name)){
+				nick_name = "boss";
+			}else if("老师".equals(nick_name)){
+				nick_name = "teacher";
+			}else if("家长".equals(nick_name)){
+				nick_name = "client";
+			}
+
 			list = loginService.getUserByNickStudio(nick_name,studio);
 		} catch (Exception e) {
 			e.printStackTrace();
