@@ -2880,7 +2880,7 @@ public class LoginServiceImpl implements LoginService {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = formatter.parse(end_date);
                 long end_timestamp = date.getTime();
-                long timestamp = new Date().getTime() + 60*60*24*1000;
+                long timestamp = new Date().getTime() - 60*60*24*1000;
                 if(end_timestamp < timestamp){
                     status = "已过期";
                 }
