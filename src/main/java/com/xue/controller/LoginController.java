@@ -262,7 +262,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendSignUpRemind")
 	@ResponseBody
-	public String sendSignUpRemind(String openid,String student_name,String date_time,String class_count,String subject,String class_number){
+	public String sendSignUpRemind(String openid,String student_name,String date_time,String class_count,String subject,String class_number,String card_id){
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
@@ -301,7 +301,13 @@ public class LoginController {
 					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
 					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
 					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
-					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid);
+					if("卡签".equals(class_number)){
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/cardrecord/cardrecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid + "&card_id=" + card_id);
+
+					}else {
+						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid + "&campus=" + campus);
+
+					}
 
 					System.out.println("OFFICIAL_PARAM:" + queryJson.toJSONString());
 					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
@@ -2923,10 +2929,10 @@ public class LoginController {
 				String openid_get = user.getOpenid();
 
 				// 小程序
-				sendSignUpRemind(openid_get,student_name,date_time,"0",subject,"卡签");
+				sendSignUpRemind(openid_get,student_name,date_time,"0",subject,"卡签",card_id);
 
 			}
-			sendSignUpRemind(openid,student_name,date_time,"0",subject,"卡签");
+			sendSignUpRemind(openid,student_name,date_time,"0",subject,"卡签",card_id);
 
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
@@ -3067,10 +3073,10 @@ public class LoginController {
 					}
 
 					// 小程序
-					sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number);
+					sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number,"no_id");
 
 				}
-				sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number);
+				sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number,"no_id");
 			}
 
 
