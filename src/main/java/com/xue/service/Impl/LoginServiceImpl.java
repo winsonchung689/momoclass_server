@@ -2864,7 +2864,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getCard(String studio, String campus, String student_name,String subject) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DecimalFormat df = new DecimalFormat("0.00");
         List<JSONObject> resul_list = new ArrayList<>();
+
         List<Card> cards = dao.getCard(studio,campus,student_name,subject);
         for (int i = 0; i < cards.size(); i++) {
             JSONObject jsonObject = new JSONObject();
@@ -2874,16 +2877,27 @@ public class LoginServiceImpl implements LoginService {
             String mark = line.getMark();
             String start_date = line.getStart_date();
             String end_date = line.getEnd_date();
+            Float price = line.getPrice();
+            Float used_price = 0.0f;
+            Float left_price = 0.0f;
 
             String status = "生效中";
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = formatter.parse(end_date);
                 long end_timestamp = date.getTime();
                 long timestamp = new Date().getTime() - 60*60*24*1000;
                 if(end_timestamp < timestamp){
                     status = "已过期";
                 }
+
+                String today_time = formatter.format(new Date());
+                Date today_dt = formatter.parse(today_time.substring(0,10));
+                Date start_date_dt = formatter.parse(start_date.substring(0,10));
+                Date end_date_dt = formatter.parse(end_date.substring(0,10));
+                long total_time = end_date_dt.getTime() - start_date_dt.getTime();
+                long used_time = today_dt.getTime() - start_date_dt.getTime();
+                used_price = price * used_time/total_time;
+                left_price = price - used_price;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -2898,6 +2912,9 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("uuid",uuid);
             jsonObject.put("id",id);
             jsonObject.put("status",status);
+            jsonObject.put("price",df.format(price));
+            jsonObject.put("used_price",df.format(used_price));
+            jsonObject.put("left_price",df.format(left_price));
             resul_list.add(jsonObject);
         }
         return resul_list;

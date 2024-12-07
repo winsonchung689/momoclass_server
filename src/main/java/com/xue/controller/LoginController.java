@@ -2857,7 +2857,7 @@ public class LoginController {
 		String uuid = request.getParameter("uuid");
 		String start_date = request.getParameter("start_date");
 		String end_date = request.getParameter("end_date");
-
+		String price = request.getParameter("price");
 
 		try {
 			Card card = new Card();
@@ -2871,6 +2871,7 @@ public class LoginController {
 			card.setUuid(uuid);
 			card.setStart_date(start_date);
 			card.setEnd_date(end_date);
+			card.setPrice(Float.parseFloat(price));
 
 			dao.insertCard(card);
 		} catch (Exception e) {

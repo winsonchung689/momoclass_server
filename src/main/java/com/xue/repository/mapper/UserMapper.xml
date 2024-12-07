@@ -1262,7 +1262,7 @@
   </insert>
 
   <insert id="insertCard" parameterType="com.xue.entity.model.Card">
-    insert card(student_name,subject,mark,campus,studio,start_date,end_date,create_time,type,uuid) values(#{student_name},#{subject},#{mark},#{campus},#{studio},#{start_date},#{end_date},#{create_time},#{type},#{uuid})
+    insert card(student_name,subject,mark,campus,studio,start_date,end_date,create_time,type,uuid,price) values(#{student_name},#{subject},#{mark},#{campus},#{studio},#{start_date},#{end_date},#{create_time},#{type},#{uuid},#{price})
   </insert>
 
   <insert id="insertCardRecord" parameterType="com.xue.entity.model.CardRecord">

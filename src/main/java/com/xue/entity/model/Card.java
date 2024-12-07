@@ -25,7 +25,17 @@ public class Card {
 
     private String create_time;
 
+    private Float price;
 
+
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public String getUuid() {
         return uuid;
