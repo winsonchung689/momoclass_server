@@ -605,6 +605,8 @@ public interface UserMapper {
 
     List<Card> getCard(String studio,String campus,String student_name,String subject);
 
+    List<Card> getCardById(String id);
+
     List<CardRecord> getCardRecord(String student_name,String card_id,String studio,String campus,String subject);
 
     List<RestaurantUser> getRestaurantUser(String openid);

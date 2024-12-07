@@ -1277,6 +1277,10 @@
     select * from card where studio =#{param1} and campus =#{param2} and student_name =#{param3} and subject =#{param4} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getCardById" parameterType="com.xue.entity.model.Card" resultMap="BaseCard">
+    select * from card where id =#{param1}
+  </select>
+
   <select id="getCardRecord" parameterType="com.xue.entity.model.CardRecord" resultMap="BaseCardRecord">
     select * from card_record where student_name =#{param1} and card_id =#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5} and delete_status = 0 order by create_time desc
   </select>

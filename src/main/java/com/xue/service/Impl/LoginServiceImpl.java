@@ -2922,9 +2922,31 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getCardRecord(String openid,String student_name, String card_id,String subject) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         List<User> list = dao.getUser(openid);
         String studio = list.get(0).getStudio();
         String campus = list.get(0).getCampus();
+
+        List<Card> cards = dao.getCardById(card_id);
+        Card card = cards.get(0);
+        String start_date = card.getStart_date();
+        String end_date = card.getEnd_date();
+        Float price = card.getPrice();
+        Float used_price = 0.0f;
+        Float left_price = 0.0f;
+
+        try {
+            String today_time = formatter.format(new Date());
+            Date today_dt = formatter.parse(today_time.substring(0,10));
+            Date start_date_dt = formatter.parse(start_date.substring(0,10));
+            Date end_date_dt = formatter.parse(end_date.substring(0,10));
+            long total_time = end_date_dt.getTime() - start_date_dt.getTime();
+            long used_time = today_dt.getTime() - start_date_dt.getTime();
+            used_price = price * used_time/total_time;
+            left_price = price - used_price;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         List<JSONObject> resul_list = new ArrayList<>();
         List<CardRecord> cardRecords = dao.getCardRecord(student_name,card_id,studio,campus,subject);
@@ -2941,6 +2963,9 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("duration",duration);
             jsonObject.put("id",id);
             jsonObject.put("create_time",create_time);
+            jsonObject.put("price",price);
+            jsonObject.put("used_price",used_price);
+            jsonObject.put("left_price",left_price);
             resul_list.add(jsonObject);
         }
         return resul_list;
