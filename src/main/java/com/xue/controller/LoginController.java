@@ -3486,6 +3486,8 @@ public class LoginController {
 			dao.updateCardStartDate(id,content);
 		}else if("结束时间".equals(type)){
 			dao.updateCardEndDate(id,content);
+		}else if("价格".equals(type)){
+			dao.updateCardPrice(id,content);
 		}
 
 		return 1;
