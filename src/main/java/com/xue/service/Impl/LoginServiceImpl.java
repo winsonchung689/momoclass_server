@@ -2923,6 +2923,8 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getCardRecord(String openid,String student_name, String card_id,String subject) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DecimalFormat df = new DecimalFormat("0.00");
+
         List<User> list = dao.getUser(openid);
         String studio = list.get(0).getStudio();
         String campus = list.get(0).getCampus();
@@ -2963,9 +2965,9 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("duration",duration);
             jsonObject.put("id",id);
             jsonObject.put("create_time",create_time);
-            jsonObject.put("price",price);
-            jsonObject.put("used_price",used_price);
-            jsonObject.put("left_price",left_price);
+            jsonObject.put("price",df.format(price));
+            jsonObject.put("used_price",df.format(used_price));
+            jsonObject.put("left_price",df.format(left_price));
             resul_list.add(jsonObject);
         }
         return resul_list;
