@@ -2894,8 +2894,8 @@ public class LoginServiceImpl implements LoginService {
                 Date today_dt = formatter.parse(today_time.substring(0,10));
                 Date start_date_dt = formatter.parse(start_date.substring(0,10));
                 Date end_date_dt = formatter.parse(end_date.substring(0,10));
-                long total_time = end_date_dt.getTime() - start_date_dt.getTime();
-                long used_time = today_dt.getTime() - start_date_dt.getTime();
+                long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
+                long used_time = today_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
                 used_price = price * used_time/total_time;
                 left_price = price - used_price;
             } catch (ParseException e) {
@@ -2940,8 +2940,8 @@ public class LoginServiceImpl implements LoginService {
             Date today_dt = formatter.parse(today_time.substring(0,10));
             Date start_date_dt = formatter.parse(start_date.substring(0,10));
             Date end_date_dt = formatter.parse(end_date.substring(0,10));
-            long total_time = end_date_dt.getTime() - start_date_dt.getTime();
-            long used_time = today_dt.getTime() - start_date_dt.getTime();
+            long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
+            long used_time = today_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
             used_price = price * used_time/total_time;
             left_price = price - used_price;
         } catch (ParseException e) {
