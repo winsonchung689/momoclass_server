@@ -2303,8 +2303,24 @@
     update lesson_package set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
+  <update id="updateCardCampusByStudio" parameterType="com.xue.entity.model.Card">
+    update card set campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateCardRecordCampusByStudio" parameterType="com.xue.entity.model.CardRecord">
+    update card_record set campus=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateLessonPackageStudio" parameterType="com.xue.entity.model.LessonPackage">
     update lesson_package set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateCardStudio" parameterType="com.xue.entity.model.Card">
+    update card set studio=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
+  <update id="updateCardRecordStudio" parameterType="com.xue.entity.model.CardRecord">
+    update card_record set studio=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
   <update id="updateLessonPackageDiscountMoney" parameterType="com.xue.entity.model.LessonPackage">
