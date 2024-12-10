@@ -3264,9 +3264,9 @@ public class LoginController {
 	public int updateComment(HttpServletRequest request, HttpServletResponse response){
 
 		//获取文字
-		String comment = request.getParameter("comment");
+		String content = request.getParameter("content");
 		//获取课堂目标
-		String class_target = request.getParameter("class_target");
+		String type = request.getParameter("type");
 
 		String studio = request.getParameter("studio");
 
@@ -3275,18 +3275,22 @@ public class LoginController {
 		try {
 			List<Message> messages_get = dao.getDetails(Integer.parseInt(id));
 			Message message_get = messages_get.get(0);
-			String commemt_get = message_get.getComment();
-			String target_get = message_get.getClass_target();
+			String comment = message_get.getComment();
+			String class_target = message_get.getClass_target();
+			String create_time = message_get.getCreate_time();
 
 			Message message =new Message();
-			if(comment.isEmpty()){
-				comment =commemt_get;
+			if("target".equals(type)){
+				class_target = content;
+			}else if("comment".equals(type)){
+				comment = content;
+			}else if("create_time".equals(type)){
+				create_time = content;
 			}
-			if(class_target.isEmpty()){
-				class_target =target_get;
-			}
+
 			message.setComment(comment);
 			message.setClass_target(class_target);
+			message.setCreate_time(create_time);
 			message.setId(id);
 			message.setStudio(studio);
 			loginService.updateComment(message);
