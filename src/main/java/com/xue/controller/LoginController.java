@@ -6328,12 +6328,12 @@ public class LoginController {
 				lessons_amount = Float.valueOf(lessons_amount_1);
 			}
 
+			String record_type = request.getParameter("record_type");
+
 			//续课记录
 			if(lessons_amount>0 && "add_lessons".equals(modify_type)){
 				LessonPackage lessonPackage = new LessonPackage();
 				lessonPackage.setStudent_name(student_name);
-				lessonPackage.setTotal_money(Float.parseFloat(total_money));
-				lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
 				lessonPackage.setMark(mark);
 				lessonPackage.setStart_date(start_date);
 				lessonPackage.setEnd_date(end_date);
@@ -6341,12 +6341,32 @@ public class LoginController {
 				lessonPackage.setStudio(studio);
 				lessonPackage.setSubject(subject);
 				lessonPackage.setCreate_time(create_time);
-				lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
-				lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+
 				lessonPackage.setNick_name(nick_name);
+				if("合并".equals(record_type)){
+					lessonPackage.setTotal_money(Float.parseFloat(total_money));
+					lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+					lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+					lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+					dao.insertLessonPackage(lessonPackage);
+				}else if("分开".equals(record_type)){
+					if(Float.parseFloat(all_lesson)>0){
+						lessonPackage.setTotal_money(Float.parseFloat(total_money));
+						lessonPackage.setDiscount_money(0.0f);
+						lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+						lessonPackage.setGive_lesson(0.0f);
+						dao.insertLessonPackage(lessonPackage);
+					}
+					if(Float.parseFloat(give_lesson)>0){
+						lessonPackage.setTotal_money(0.0f);
+						lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+						lessonPackage.setAll_lesson(0.0f);
+						lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+						dao.insertLessonPackage(lessonPackage);
+					}
+				}
 
 				try {
-					dao.insertLessonPackage(lessonPackage);
 					loginService.renewLessonRemind(student_name,studio,campus,subject,lessons_amount);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
