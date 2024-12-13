@@ -86,7 +86,16 @@ public class User {
 
     private String cash_uuid;
 
+    private String wechat_id;
 
+
+    public String getWechat_id() {
+        return wechat_id;
+    }
+
+    public void setWechat_id(String wechat_id) {
+        this.wechat_id = wechat_id;
+    }
 
     public String getCash_uuid() {
         return cash_uuid;
