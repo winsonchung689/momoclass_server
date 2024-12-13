@@ -6040,7 +6040,7 @@ public class LoginController {
 			SignUp signUp = new SignUp();
 			signUp.setStudent_name(student_name);
 			signUp.setStudio(studio);
-			signUp.setSign_time(date_time);
+			signUp.setSign_time(update_time);
 			signUp.setMark("划课_"+mark);
 			signUp.setCount(Float.parseFloat(consume_lesson_amount));
 			signUp.setSubject(subject);
