@@ -7964,6 +7964,7 @@ public class LoginServiceImpl implements LoginService {
                     is_open_name = "受限";
                 }
                 String location = line.getLocation();
+                String wechat_id = line.getWechat_id();
 
                 //json
                 jsonObject.put("location", location);
@@ -7983,6 +7984,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("is_open_name", is_open_name);
                 jsonObject.put("all_user_count", all_user_count);
+                jsonObject.put("wechat_id", wechat_id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
