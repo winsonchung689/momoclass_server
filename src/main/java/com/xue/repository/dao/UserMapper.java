@@ -300,6 +300,8 @@ public interface UserMapper {
 
     void updatePhoneNumber(String openid,String phone_number);
 
+    void updateWechatId(String openid,String wechat_id);
+
     void updateUserStudentName(String openid,String student_name);
 
     void updateNewName(String openid,String new_name);

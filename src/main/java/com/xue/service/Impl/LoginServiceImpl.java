@@ -7808,6 +7808,7 @@ public class LoginServiceImpl implements LoginService {
                 String openid_qr_get = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr_get);
                 String nick_name_rc = users.get(0).getNick_name();
+                String phone_number = users.get(0).getPhone_number();
 
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现"+"(" + number +")";
@@ -7835,6 +7836,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
+                jsonObject.put("phone_number", phone_number);
                 jsonObject.put("openid", openid);
                 jsonObject.put("is_paid", is_paid);
                 jsonObject.put("is_paid_cn", is_paid_cn);

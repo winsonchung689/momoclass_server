@@ -509,6 +509,10 @@
     update user set phone_number =#{param2} where openid =#{param1}
   </select>
 
+  <select id="updateWechatId" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
+    update user set wechat_id =#{param2} where openid =#{param1}
+  </select>
+
   <select id="updateUserStudentName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set student_name =#{param2} where openid =#{param1} and student_name ='no_name'
   </select>

@@ -5804,7 +5804,9 @@ public class LoginController {
                         }
                     }
                 }
-            }
+            }else if("微信".equals(type)){
+				dao.updateWechatId(openid_get,campus);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
