@@ -7803,12 +7803,18 @@ public class LoginServiceImpl implements LoginService {
 
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
-                String openid = line.getOpenid();
                 String user_type = line.getUser_type();
+
+                //推荐人
                 String openid_qr_get = line.getOpenid_qr();
-                List<User> users = dao.getUser(openid_qr_get);
+                List<User> users_qr = dao.getUser(openid_qr_get);
+                User user_qr = users_qr.get(0);
+                String nick_name_rc = user_qr.getNick_name();
+
+                //本尊
+                String openid = line.getOpenid();
+                List<User> users = dao.getUser(openid);
                 User user = users.get(0);
-                String nick_name_rc = user.getNick_name();
                 String phone_number = user.getPhone_number();
                 String wechat_id = user.getWechat_id();
 
