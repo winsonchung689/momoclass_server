@@ -6019,6 +6019,10 @@ public class LoginController {
 		if(date_time == null || date_time.isEmpty() || "undefined".equals(date_time)){
 			date_time = update_time;
 		}
+		String duration = request.getParameter("duration");
+		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
+			duration = "00:00-00:00";
+		}
 
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		if(lessons.size()>0){
@@ -6042,7 +6046,7 @@ public class LoginController {
 			signUp.setSubject(subject);
 			signUp.setTeacher(nick_name);
 			signUp.setCreate_time(date_time);
-			signUp.setDuration("00:00:00");
+			signUp.setDuration(duration);
 			signUp.setClass_number("无班号");
 			signUp.setPackage_id(package_id);
 			signUp.setCampus(campus);
