@@ -377,7 +377,7 @@ public class LoginController {
 //		绑定码:type,openid,student_name 改用学生表 id，type= 3
 		String scene = "type="+ type + "&id=" + id;
 
-		System.out.println("scene:" + scene);
+//		System.out.println("scene:" + scene);
 		try {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			Map<String,String> param = new HashMap<> () ;
@@ -388,7 +388,7 @@ public class LoginController {
 			byte[] bytes = new byte[inputStream.available()];
 			inputStream.read(bytes);
 			result = Base64.getEncoder().encodeToString(bytes);
-			System.out.println("res:" + result);
+//			System.out.println("res:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
