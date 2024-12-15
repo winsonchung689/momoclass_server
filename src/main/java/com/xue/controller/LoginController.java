@@ -5499,7 +5499,7 @@ public class LoginController {
 
 		String type = request.getParameter("type");
 		if(type == null || type.isEmpty() || "undefined".equals(type)){
-			type = "登陆码";
+			type = "0";
 		}
 
 		String id = request.getParameter("id");
