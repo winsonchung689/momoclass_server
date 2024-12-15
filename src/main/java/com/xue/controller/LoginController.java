@@ -372,6 +372,9 @@ public class LoginController {
 	public String getQrCode(String param1,String param2,String param3){
 		String result = null;
 		String token = loginService.getToken("MOMO");
+//		登陆码:type,studio,campus
+//		邀请码:type,studio,openid
+//		绑定码:type,openid,student_name
 		String scene = param1 + "&" + param2 + "&" + param3;
 
 		System.out.println("scene:" + scene);
