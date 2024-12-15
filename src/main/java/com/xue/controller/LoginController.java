@@ -365,6 +365,29 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/getQrCode")
+	@ResponseBody
+	public String getQrCode(){
+		String result = null;
+		String token = loginService.getToken("MOMO");
+		String model ="{\"page\":\"pages/welcome/welcome\",\"scene\":\"a=1\",\"check_path\":true,\"env_version\":\"release\"}";
+
+		try {
+
+			String url_send = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
+			JSONObject queryJson = JSONObject.parseObject(model);
+			queryJson.getJSONObject("scene").put("value","a=2");
+
+			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+			System.out.printf("MOMO_OFFICIAL_RES:" + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	@RequestMapping("/sendReadingCenter")
 	@ResponseBody
 	public String sendReadingCenter(String openid,String title){
