@@ -369,13 +369,13 @@ public class LoginController {
 
 	@RequestMapping("/getQrCode")
 	@ResponseBody
-	public String getQrCode(String param1,String param2,String param3){
+	public String getQrCode(String type,String id){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-//		登陆码:type,studio,campus
-//		邀请码:type,studio,openid
-//		绑定码:type,openid,student_name
-		String scene = param1 + "&" + param2 + "&" + param3;
+//		登陆码:type,studio,campus 改用 boss 的 id，type = 1
+//		邀请码:type,studio,openid 改用要邀请人的 id，type = 2
+//		绑定码:type,openid,student_name 改用学生的id，type= 3
+		String scene = "type="+ type + "&id=" + id;
 
 		System.out.println("scene:" + scene);
 		try {
