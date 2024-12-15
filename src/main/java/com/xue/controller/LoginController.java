@@ -369,9 +369,10 @@ public class LoginController {
 
 	@RequestMapping("/getQrCode")
 	@ResponseBody
-	public String getQrCode(String scene){
+	public String getQrCode(String param1,String param2,String param3){
 		String result = null;
 		String token = loginService.getToken("MOMO");
+		String scene = param1 + "&" + param2 + "&" + param3;
 
 		System.out.println("scene:" + scene);
 		try {
