@@ -372,20 +372,37 @@ public class LoginController {
 	public String getQrCode(){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-//		String model ="{\"page\":\"pages/welcome/welcome\",\"scene\":\"a=1\",\"check_path\":true,\"env_version\":\"release\"}";
 
 		try {
 
-			String url_send = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
+			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 //			JSONObject queryJson = JSONObject.parseObject(model);
 			Map<String,String> param = new HashMap<> () ;
 			param.put("scene","a=2");
 			param.put("page","pages/welcome/welcome");
-			String json = JSON.toJSONString(param);
+			String json = JSON.toJSONString(param) ;
+			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
+			result = inputStream.toString();
 
-			System.out.println("QR_PARAM:" + json);
-			result = HttpUtil.sendPostJson(url_send,json);
-			System.out.printf("QR_RES:" + result);
+			//这里判断的是返回的图片还是错误信息，一般错误信息不会大于200
+			if (inputStream. available() <= 200){
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ();
+				int i;
+				byte[] buffer = new byte[200];
+				while ((i = inputStream. read (buffer)) != -1){
+					byteArrayOutputStream.write (buffer, 0,i);
+				}
+
+				String str = new String(byteArrayOutputStream.toByteArray ()) ;
+				//错误信息的格式在官方文档里有
+				JSONObject jsonObject = JSONObject.parseObject(str);
+				if ("41030".equals(jsonObject.getString ("errcode") )){
+					System.out.println("所传page页面不存在，或者小程序没有发布");
+				}else if ("45009". equals(jsonObject.getString ("errcode")) ){
+					System.out.println("调用分钟频率受限");
+				}
+				byteArrayOutputStream.close ();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
