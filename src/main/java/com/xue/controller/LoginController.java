@@ -5481,43 +5481,60 @@ public class LoginController {
 		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
 			student_name = "no_name";
 		}
-		//获年角色
+
+		//获取角色
 		String role = request.getParameter("role");
 		if(role == null || role.isEmpty() || "undefined".equals(role)){
 			role = "client";
 		}
+
         //获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
 			openid = DigestUtils.md5Hex(nick_name + studio);
 		}
 
+		//获取代理人 openid
+		String openid_qr = "noid";
+
 		String type = request.getParameter("type");
 		if(type == null || type.isEmpty() || "undefined".equals(type)){
 			type = "登陆码";
 		}
 
-		//获取代理人 openid
-		String openid_qr = request.getParameter("openid_qr");
-		if(openid_qr == null || openid_qr.isEmpty() || "undefined".equals(openid_qr)){
-			openid_qr = "noid";
+		String id = request.getParameter("id");
+		if(id == null || id.isEmpty() || "undefined".equals(id)){
+			id = "noid";
 		}
 
-		if("邀请码".equals(type)){
-			if(!"noid".equals(openid_qr)){
-				studio = "请录入工作室";
-				campus = "请录入工作室";
-			}
-		}
+		studio = "请录入工作室";
+		campus = "请录入工作室";
 
-		if("绑定码".equals(type)){
-			student_name = request.getParameter("student_name_qr");
-			List<User> users =dao.getUser(openid_qr);
+//		登陆码
+		if("1".equals(type)){
+			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
 			studio = user.getStudio();
 			campus = user.getCampus();
+		}
+
+//		邀请码
+		if("2".equals(type)){
+			List<User> users = dao.getUserById(id);
+			User user = users.get(0);
+			openid_qr = user.getOpenid();
+			studio = "请录入工作室";
+			campus = "请录入工作室";
+		}
+
+//		绑定码
+		if("3".equals(type)){
+			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
+			Lesson lesson = lessons.get(0);
+			studio = lesson.getStudio();
+			campus = lesson.getCampus();
+			student_name = lesson.getStudent_name();
 			nick_name = student_name;
-			openid_qr = "noid";
 		}
 
 		//获取 avatarurl

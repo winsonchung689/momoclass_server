@@ -1345,6 +1345,10 @@
     select * from user where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getUserById" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where id =#{param1}
+  </select>
+
   <select id="getUserByUnionid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select * from user where unionid =#{param1} and delete_status = 0 order by create_time desc
   </select>

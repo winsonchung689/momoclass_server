@@ -645,6 +645,8 @@ public interface UserMapper {
 
     List<User> getUserByOpenid(String openid);
 
+    List<User> getUserById(String id);
+
     List<User> getUserByUnionid(String unionid);
 
     List<User> getUserByNoOfficialOpenid();
