@@ -1,5 +1,6 @@
 package com.xue.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.xue.JsonUtils.JsonUtils;
@@ -18,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.admin.SpringApplicationAdminMXBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -376,15 +378,14 @@ public class LoginController {
 
 			String url_send = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			JSONObject queryJson = JSONObject.parseObject(model);
-//			try {
-//				queryJson.getJSONObject("scene").put("value",URLEncoder.encode("a=2","utf-8"));
-//			} catch (UnsupportedEncodingException e) {
-//				throw new RuntimeException(e);
-//			}
+			Map<String,String> param = new HashMap<> () ;
+			param.put("scene","a=2");
+			param.put("page","pages/welcome/welcome");
+			String json = JSON.toJSONString(param);
 
-			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
-			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-			System.out.printf("MOMO_OFFICIAL_RES:" + result);
+			System.out.println("QR_PARAM:" + queryJson.toJSONString());
+			result = HttpUtil.sendPostJson(url_send,json);
+			System.out.printf("QR_RES:" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
