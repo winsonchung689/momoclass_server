@@ -383,7 +383,7 @@ public class LoginController {
 			byte[] bytes = new byte[inputStream.available()];
 			inputStream.read(bytes);
 			result = Base64.getEncoder().encodeToString(bytes);
-//			System.out.println("res:" + result);
+			System.out.println("res:" + result);
 
 			//这里判断的是返回的图片还是错误信息，一般错误信息不会大于200
 			if (inputStream. available() <= 200){
