@@ -392,26 +392,6 @@ public class LoginController {
 			inputStream.read(bytes);
 			result = Base64.getEncoder().encodeToString(bytes);
 			System.out.println("res:" + result);
-
-			//这里判断的是返回的图片还是错误信息，一般错误信息不会大于200
-			if (inputStream. available() <= 200){
-				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ();
-				int i;
-				byte[] buffer = new byte[200];
-				while ((i = inputStream. read (buffer)) != -1){
-					byteArrayOutputStream.write (buffer, 0,i);
-				}
-
-				String str = new String(byteArrayOutputStream.toByteArray ()) ;
-				//错误信息的格式在官方文档里有
-				JSONObject jsonObject = JSONObject.parseObject(str);
-				if ("41030".equals(jsonObject.getString ("errcode") )){
-					System.out.println("所传page页面不存在，或者小程序没有发布");
-				}else if ("45009". equals(jsonObject.getString ("errcode")) ){
-					System.out.println("调用分钟频率受限");
-				}
-				byteArrayOutputStream.close ();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
