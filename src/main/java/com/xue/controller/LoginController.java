@@ -369,16 +369,9 @@ public class LoginController {
 
 	@RequestMapping("/getQrCode")
 	@ResponseBody
-	public String getQrCode(String param1,String param2,String param3){
+	public String getQrCode(String scene){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-		String scene = "type=" + param1 + "&studio=" + param2 + "&campus=" + param3;
-		if("邀请码".equals(param1)){
-			scene = "type=" + param1 + "&studio=" + param2 + "&openid=" + param3;
-		}
-		if("绑定码".equals(param1)){
-			scene = "type=" + param1 + "&openid=" + param2 + "&student_name=" + param3;
-		}
 
 		System.out.println("scene:" + scene);
 		try {
