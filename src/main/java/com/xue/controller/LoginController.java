@@ -369,20 +369,21 @@ public class LoginController {
 
 	@RequestMapping("/getQrCode")
 	@ResponseBody
-	public String getQrCode(){
+	public String getQrCode(String scene){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-
+		System.out.println("scene:" + scene);
 		try {
-
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
-//			JSONObject queryJson = JSONObject.parseObject(model);
 			Map<String,String> param = new HashMap<> () ;
-			param.put("scene","a=2");
+			param.put("scene",scene);
 			param.put("page","pages/welcome/welcome");
 			String json = JSON.toJSONString(param) ;
 			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
-			result = inputStream.toString();
+			byte[] bytes = new byte[inputStream.available()];
+			inputStream.read(bytes);
+			result = Base64.getEncoder().encodeToString(bytes);
+//			System.out.println("res:" + result);
 
 			//这里判断的是返回的图片还是错误信息，一般错误信息不会大于200
 			if (inputStream. available() <= 200){
