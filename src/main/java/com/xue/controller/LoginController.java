@@ -372,18 +372,18 @@ public class LoginController {
 	public String getQrCode(){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-		String model ="{\"page\":\"pages/welcome/welcome\",\"scene\":\"a=1\",\"check_path\":true,\"env_version\":\"release\"}";
+//		String model ="{\"page\":\"pages/welcome/welcome\",\"scene\":\"a=1\",\"check_path\":true,\"env_version\":\"release\"}";
 
 		try {
 
 			String url_send = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
-			JSONObject queryJson = JSONObject.parseObject(model);
+//			JSONObject queryJson = JSONObject.parseObject(model);
 			Map<String,String> param = new HashMap<> () ;
 			param.put("scene","a=2");
 			param.put("page","pages/welcome/welcome");
 			String json = JSON.toJSONString(param);
 
-			System.out.println("QR_PARAM:" + queryJson.toJSONString());
+			System.out.println("QR_PARAM:" + json);
 			result = HttpUtil.sendPostJson(url_send,json);
 			System.out.printf("QR_RES:" + result);
 		} catch (Exception e) {
