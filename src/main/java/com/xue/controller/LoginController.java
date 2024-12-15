@@ -376,7 +376,11 @@ public class LoginController {
 
 			String url_send = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			JSONObject queryJson = JSONObject.parseObject(model);
-			queryJson.getJSONObject("scene").put("value","a=2");
+			try {
+				queryJson.getJSONObject("scene").put("value",URLEncoder.encode("a=2","utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
+			}
 
 			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
