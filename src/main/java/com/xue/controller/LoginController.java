@@ -372,10 +372,23 @@ public class LoginController {
 	public String getQrCode(String type,String id){
 		String result = null;
 		String token = loginService.getToken("MOMO");
-//		登陆码:type,studio,campus 改用 boss 的 user 表 id，type = 1
-//		邀请码:type,studio,openid 改用要邀请人的 user 表 id，type = 2
-//		绑定码:type,openid,student_name 改用学生表 id，type= 3
 		String scene = "type="+ type + "&id=" + id;
+
+//		登陆码 type = 1，id = boss 的 user 表 id；邀请码，id = boss 的 user 表 id
+		String studio = null;
+		if("1".equals(type) || "2".equals(type)){
+			List<User> users = dao.getUserById(id);
+			User user = users.get(0);
+			studio = user.getStudio();
+		}
+
+//		绑定码，student_name 学生表 id
+		if("3".equals(type)){
+			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
+			Lesson lesson = lessons.get(0);
+			studio = lesson.getStudio();
+		}
+
 
 //		System.out.println("scene:" + scene);
 		try {
@@ -388,7 +401,16 @@ public class LoginController {
 			byte[] bytes = new byte[inputStream.available()];
 			inputStream.read(bytes);
 			result = Base64.getEncoder().encodeToString(bytes);
-//			System.out.println("res:" + result);
+
+			// 上传二维码
+			String studio_md5 = DigestUtils.md5Hex(studio);
+			String serverPath = "/data/uploadRr";
+			String fileName = studio_md5 + ".png";
+			File file = new File(serverPath, fileName);
+			try (FileOutputStream fos = new FileOutputStream(file)) {
+				fos.write(bytes);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
