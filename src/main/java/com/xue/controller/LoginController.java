@@ -369,8 +369,8 @@ public class LoginController {
 
 	@RequestMapping("/getQrCode")
 	@ResponseBody
-	public String getQrCode(String type,String id){
-		String result = null;
+	public JSONObject getQrCode(String type,String id){
+		JSONObject jsonObject = new JSONObject();
 		String token = loginService.getToken("MOMO");
 		String scene = "type="+ type + "&id=" + id;
 
@@ -397,11 +397,11 @@ public class LoginController {
 			String json = JSON.toJSONString(param) ;
 			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
 			byte[] bytes = new byte[inputStream.available()];
-//			inputStream.read(bytes);
-//			Base64.getEncoder().encodeToString(bytes);
+			inputStream.read(bytes);
+			String imageString = Base64.getEncoder().encodeToString(bytes);
 
 			// 上传二维码
-			String studio_md5 = DigestUtils.md5Hex(studio);
+			String studio_md5 = DigestUtils.md5Hex(studio+type);
 			String serverPath = "/data/uploadRr";
 			String fileName = studio_md5 + ".png";
 			File file = new File(serverPath, fileName);
@@ -409,12 +409,13 @@ public class LoginController {
 				fos.write(bytes);
 			}
 
-			result = fileName;
+			jsonObject.put("imageString", imageString);
+			jsonObject.put("fileName", fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return result;
+		return jsonObject;
 	}
 
 	@RequestMapping("/sendReadingCenter")
