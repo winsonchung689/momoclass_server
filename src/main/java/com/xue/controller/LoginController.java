@@ -389,8 +389,6 @@ public class LoginController {
 			studio = lesson.getStudio();
 		}
 
-
-//		System.out.println("scene:" + scene);
 		try {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			Map<String,String> param = new HashMap<> () ;
@@ -399,8 +397,8 @@ public class LoginController {
 			String json = JSON.toJSONString(param) ;
 			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
 			byte[] bytes = new byte[inputStream.available()];
-			inputStream.read(bytes);
-			result = Base64.getEncoder().encodeToString(bytes);
+//			inputStream.read(bytes);
+//			Base64.getEncoder().encodeToString(bytes);
 
 			// 上传二维码
 			String studio_md5 = DigestUtils.md5Hex(studio);
@@ -411,6 +409,7 @@ public class LoginController {
 				fos.write(bytes);
 			}
 
+			result = fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
