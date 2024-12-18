@@ -4800,7 +4800,6 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
         String result = null;
-        List<Schedule> list_schedule = new ArrayList<>();
         String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String publickey = Constants.publickey;
@@ -4849,6 +4848,7 @@ public class LoginServiceImpl implements LoginService {
 
             Integer weekDay = 0;
             String date_time = null;
+            List<Schedule> list_schedule = new ArrayList<>();
             //上课通知
             if(!"no_name".equals(student_name)){
                 if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
