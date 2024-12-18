@@ -6047,6 +6047,8 @@ public class LoginController {
 
 		String value = request.getParameter("value");
 
+		String id = request.getParameter("id");
+
 
 		try {
 			if("统一提醒次日".equals(remind_type)){
@@ -6062,6 +6064,20 @@ public class LoginController {
 				user.setRemind_type(remind_type);
 				dao.updateHours(user);
 				dao.updateScheduleHours(studio,Integer.parseInt(value));
+			}else if("单独提前".equals(remind_type)){
+				List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
+				Arrangement arrangement = arrangements.get(0);
+				Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
+				if(dayofweek==7){
+					dayofweek=1;
+				}else {
+					dayofweek = dayofweek + 1;
+				}
+				String class_number = arrangement.getClass_number();
+				String duration = arrangement.getDuration();
+				String subject = arrangement.getSubject();
+				String campus = arrangement.getCampus();
+				dao.changeScheduleHours(Integer.parseInt(value),class_number,studio,duration,subject,campus,dayofweek);
 			}
 			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
 		} catch (Exception e) {

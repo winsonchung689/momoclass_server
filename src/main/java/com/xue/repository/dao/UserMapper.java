@@ -320,6 +320,8 @@ public interface UserMapper {
 
     void changeScheduleDuration(String class_number,String studio,String duration,String new_duration,String subject,String campus,Integer dayofweek);
 
+    void changeScheduleHours(Integer hours,String class_number,String studio,String duration,String subject,String campus,Integer dayofweek);
+
     void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus);
 
     void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number,String campus,Integer dayofweek);
