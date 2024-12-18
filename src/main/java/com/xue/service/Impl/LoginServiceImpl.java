@@ -4863,17 +4863,6 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal_today = Calendar.getInstance();
             cal_today.add(Calendar.HOUR_OF_DAY,hours);
             int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
-            int hour = cal_today.get(Calendar.HOUR_OF_DAY);
-            int minute = cal_today.get(Calendar.MINUTE);
-            String hour_st = Integer.toString(hour);
-            String minute_st = Integer.toString(minute);
-            if(hour < 10 ){
-                hour_st = "0" + hour_st;
-            }
-            if(minute < 10 ){
-                minute_st = "0" + minute_st;
-            }
-            String duration_st = hour_st + ":" + minute_st;
 
             //获取统一时间
             Calendar cal_tomorrow = Calendar.getInstance();
@@ -4908,7 +4897,31 @@ public class LoginServiceImpl implements LoginService {
                 }else if("提前N小时提醒".equals(remindType) && hours > 0){
                     weekDay = weekDay_today;
                     date_time = df.format(cal_today.getTime());
-                    list_schedule = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                    List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                    for(int j = 0;j < schedules.size();j++){
+                        Schedule schedule = schedules.get(0);
+                        Integer hours_get = schedule.getHours();
+
+                        //获取提前时间
+                        Calendar cal_today_get = Calendar.getInstance();
+                        cal_today_get.add(Calendar.HOUR_OF_DAY,hours_get);
+                        int hour = cal_today_get.get(Calendar.HOUR_OF_DAY);
+                        int minute = cal_today_get.get(Calendar.MINUTE);
+                        String hour_st = Integer.toString(hour);
+                        String minute_st = Integer.toString(minute);
+                        if(hour < 10 ){
+                            hour_st = "0" + hour_st;
+                        }
+                        if(minute < 10 ){
+                            minute_st = "0" + minute_st;
+                        }
+                        String duration_st = hour_st + ":" + minute_st;
+
+                        List<Schedule> schedule_unit = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                        if(schedule_unit.size() > 0){
+                            list_schedule.addAll(schedule_unit);
+                        }
+                    }
                 }
 
                 if(list_schedule.size() > 0 && weekDay > 0){

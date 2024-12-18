@@ -36,6 +36,16 @@ public class Schedule {
 
     private String upcoming;
 
+    private Integer hours;
+
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
 
     public String getUpcoming() {
         return upcoming;
