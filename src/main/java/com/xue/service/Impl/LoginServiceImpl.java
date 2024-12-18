@@ -1036,6 +1036,7 @@ public class LoginServiceImpl implements LoginService {
                 Integer classes_count =0;
                 Integer uncomfirmed_count = 0;
                 Integer remind = 0;
+                Integer hours = 0;
                 String remind_name="否";
                 String chooseLesson="未选";
                 JSONObject jsonObject = new JSONObject();
@@ -1051,13 +1052,17 @@ public class LoginServiceImpl implements LoginService {
 
 
                 List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
-                Schedule schedule = schedules.get(0);
-                remind = schedule.getRemind();
+                if(schedules.size()>0){
+                    Schedule schedule = schedules.get(0);
+                    remind = schedule.getRemind();
+                    hours = schedule.getHours();
+                }
+
 
                 if(remind == 1 ){
                     remind_name = "是";
                 }
-                Integer hours = schedule.getHours();
+
 
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
