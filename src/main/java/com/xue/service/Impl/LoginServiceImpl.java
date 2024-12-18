@@ -4855,7 +4855,7 @@ public class LoginServiceImpl implements LoginService {
                     date_time = df.format(cal_today.getTime());
                     List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
                     for(int j = 0;j < schedules.size();j++){
-                        Schedule schedule = schedules.get(0);
+                        Schedule schedule = schedules.get(j);
                         Integer hours_get = schedule.getHours();
 
                         //获取提前时间
