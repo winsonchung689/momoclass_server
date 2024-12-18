@@ -4857,6 +4857,8 @@ public class LoginServiceImpl implements LoginService {
                     for(int j = 0;j < schedules.size();j++){
                         Schedule schedule = schedules.get(j);
                         Integer hours_get = schedule.getHours();
+                        String duration = schedule.getDuration();
+                        String duration_st_get = duration.substring(0,5);
 
                         //获取提前时间
                         Calendar cal_today_get = Calendar.getInstance();
@@ -4873,9 +4875,11 @@ public class LoginServiceImpl implements LoginService {
                         }
                         String duration_st = hour_st + ":" + minute_st;
 
-                        List<Schedule> schedule_unit = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
-                        if(schedule_unit.size() > 0){
-                            list_schedule.addAll(schedule_unit);
+                        if(duration_st.equals(duration_st_get)){
+                            List<Schedule> schedule_unit = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                            if(schedule_unit.size() > 0){
+                                list_schedule.addAll(schedule_unit);
+                            }
                         }
                     }
                 }
