@@ -1665,6 +1665,10 @@
     update user set hours=#{hours},remind_type=#{remind_type} where studio = #{studio}
   </update>
 
+  <update id="updateScheduleHours" parameterType="com.xue.entity.model.Schedule">
+    update  class_schedule set hours=#{param2} where studio = #{param1}
+  </update>
+
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select comment_style from user where studio = #{studio} and role = 'boss' and delete_status = 0 order by create_time limit 1
   </select>

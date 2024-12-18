@@ -6061,6 +6061,7 @@ public class LoginController {
 				user.setStudio(studio);
 				user.setRemind_type(remind_type);
 				dao.updateHours(user);
+				dao.updateScheduleHours(studio,Integer.parseInt(value));
 			}
 			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
 		} catch (Exception e) {

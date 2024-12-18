@@ -611,6 +611,8 @@ public interface UserMapper {
 
     int updateHours(User user);
 
+    int updateScheduleHours(String studio,Integer hours);
+
     List<User> getUser(String openid);
 
     List<Card> getCard(String studio,String campus,String student_name,String subject);
