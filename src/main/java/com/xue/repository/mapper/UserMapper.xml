@@ -558,7 +558,7 @@
   </select>
 
   <!-- 更改通知时间 -->
-  <select id="changeScheduleHours" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+  <select id="changeScheduleHours" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
     update class_schedule set hours =#{param1} where class_number =#{param2} and studio =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and dayofweek(add_date)=#{param7}
   </select>
 
