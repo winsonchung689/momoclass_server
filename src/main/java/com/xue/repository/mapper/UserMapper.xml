@@ -1889,8 +1889,8 @@
   </select>
 
   <!-- 获取提醒状态 -->
-  <select id="getScheduleRemind" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
-    select distinct remind from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_type ='ordinary' and delete_status = 0 limit 1
+  <select id="getScheduleRemind" parameterType="com.xue.entity.model.Schedule" resultType="BaseSchedule">
+    select distinct remind,hours from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_type ='ordinary' and delete_status = 0 limit 1
   </select>
 
   <!-- 获取提醒状态 -->

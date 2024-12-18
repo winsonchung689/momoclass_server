@@ -798,7 +798,7 @@ public interface UserMapper {
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject,String campus);
 
-    Integer getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
+    List<Schedule> getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
 
     List<Lesson> getCampusByStudio(String studio);
 

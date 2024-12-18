@@ -1050,16 +1050,18 @@ public class LoginServiceImpl implements LoginService {
                 String upcoming = line.getUpcoming();
 
 
-                remind = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
-                if(remind == null){
-                    remind = 0;
-                }
+                List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
+                Schedule schedule = schedules.get(0);
+                remind = schedule.getRemind();
+
                 if(remind == 1 ){
                     remind_name = "是";
                 }
+                Integer hours = schedule.getHours();
 
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
+                // 选课
                 try {
                     String lessons = user_get.get(0).getLessons();
                     String lesson_string = null;
@@ -1098,32 +1100,9 @@ public class LoginServiceImpl implements LoginService {
                     e.printStackTrace();
                 }
 
-                if(is_open == 1 || "boss".equals(role)){
-                    if(!"all".equals(student_name_in)){
-                        search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
-                        if(search_res>0){
-                            jsonObject.put("upcoming", upcoming);
-                            jsonObject.put("class_number", class_number);
-                            jsonObject.put("duration", duration);
-                            jsonObject.put("limits", limits);
-                            jsonObject.put("photo", photo);
-                            jsonObject.put("classes_count", classes_count);
-                            jsonObject.put("dayofweek",dayofweek);
-                            jsonObject.put("id",id);
-                            jsonObject.put("sign_count",sign_count);
-                            jsonObject.put("subject",subject);
-                            jsonObject.put("classes_count_all",classes_count_all);
-                            jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
-                            jsonObject.put("uncomfirmed_count",uncomfirmed_count);
-                            jsonObject.put("student_string",student_string);
-                            jsonObject.put("remind",remind);
-                            jsonObject.put("remind_name",remind_name);
-                            jsonObject.put("teachers",teachers);
-                            jsonObject.put("all_teachers",all_teachers);
-                            jsonObject.put("chooseLesson",chooseLesson);
-                            resul_list.add(jsonObject);
-                        }
-                    }else {
+                if(!"all".equals(student_name_in)){
+                    search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
+                    if(search_res>0){
                         jsonObject.put("upcoming", upcoming);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
@@ -1140,58 +1119,34 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("student_string",student_string);
                         jsonObject.put("remind",remind);
                         jsonObject.put("remind_name",remind_name);
+                        jsonObject.put("hours",hours);
                         jsonObject.put("teachers",teachers);
                         jsonObject.put("all_teachers",all_teachers);
                         jsonObject.put("chooseLesson",chooseLesson);
                         resul_list.add(jsonObject);
                     }
-                }else if("teacher".equals(role) && is_open == 0 && "已选".equals(chooseLesson)){
-                    if(!"all".equals(student_name_in)){
-                        search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
-                        if(search_res>0){
-                            jsonObject.put("upcoming", upcoming);
-                            jsonObject.put("class_number", class_number);
-                            jsonObject.put("duration", duration);
-                            jsonObject.put("limits", limits);
-                            jsonObject.put("photo", photo);
-                            jsonObject.put("classes_count", classes_count);
-                            jsonObject.put("dayofweek",dayofweek);
-                            jsonObject.put("id",id);
-                            jsonObject.put("sign_count",sign_count);
-                            jsonObject.put("subject",subject);
-                            jsonObject.put("classes_count_all",classes_count_all);
-                            jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
-                            jsonObject.put("uncomfirmed_count",uncomfirmed_count);
-                            jsonObject.put("student_string",student_string);
-                            jsonObject.put("remind",remind);
-                            jsonObject.put("remind_name",remind_name);
-                            jsonObject.put("teachers",teachers);
-                            jsonObject.put("all_teachers",all_teachers);
-                            jsonObject.put("chooseLesson",chooseLesson);
-                            resul_list.add(jsonObject);
-                        }
-                    }else {
-                        jsonObject.put("upcoming", upcoming);
-                        jsonObject.put("class_number", class_number);
-                        jsonObject.put("duration", duration);
-                        jsonObject.put("limits", limits);
-                        jsonObject.put("photo", photo);
-                        jsonObject.put("classes_count", classes_count);
-                        jsonObject.put("dayofweek",dayofweek);
-                        jsonObject.put("id",id);
-                        jsonObject.put("sign_count",sign_count);
-                        jsonObject.put("subject",subject);
-                        jsonObject.put("classes_count_all",classes_count_all);
-                        jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
-                        jsonObject.put("uncomfirmed_count",uncomfirmed_count);
-                        jsonObject.put("student_string",student_string);
-                        jsonObject.put("remind",remind);
-                        jsonObject.put("remind_name",remind_name);
-                        jsonObject.put("teachers",teachers);
-                        jsonObject.put("all_teachers",all_teachers);
-                        jsonObject.put("chooseLesson",chooseLesson);
-                        resul_list.add(jsonObject);
-                    }
+                }else {
+                    jsonObject.put("upcoming", upcoming);
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("limits", limits);
+                    jsonObject.put("photo", photo);
+                    jsonObject.put("classes_count", classes_count);
+                    jsonObject.put("dayofweek",dayofweek);
+                    jsonObject.put("id",id);
+                    jsonObject.put("sign_count",sign_count);
+                    jsonObject.put("subject",subject);
+                    jsonObject.put("classes_count_all",classes_count_all);
+                    jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
+                    jsonObject.put("uncomfirmed_count",uncomfirmed_count);
+                    jsonObject.put("student_string",student_string);
+                    jsonObject.put("remind",remind);
+                    jsonObject.put("remind_name",remind_name);
+                    jsonObject.put("hours",hours);
+                    jsonObject.put("teachers",teachers);
+                    jsonObject.put("all_teachers",all_teachers);
+                    jsonObject.put("chooseLesson",chooseLesson);
+                    resul_list.add(jsonObject);
                 }
             }
 
