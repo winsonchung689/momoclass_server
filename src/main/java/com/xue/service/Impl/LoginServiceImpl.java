@@ -7849,14 +7849,18 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
+
                 String openid_qr = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr);
                 String nick_name_rc = users.get(0).getNick_name();
+
                 String user_type = line.getUser_type();
                 int is_paid = line.getIs_paid();
                 String cash_uuid = line.getCash_uuid();
                 String create_time = line.getCreate_time();
                 String studio = line.getStudio();
+                String phone_number = line.getPhone_number();
+                String wechat_id = line.getWechat_id();
 
                 String is_paid_cn = "未返现";
                 if(is_paid == 1){
@@ -7877,6 +7881,8 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("wechat_id", wechat_id);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
