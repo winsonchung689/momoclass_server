@@ -2321,16 +2321,17 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int changeClassName(String id, String openid,String content,String type) {
         try {
-            Integer id1 = Integer.parseInt(id);
             List<User> list = dao.getUser(openid);
             String studio = list.get(0).getStudio();
             String campus = list.get(0).getCampus();
 
+            Integer id1 = Integer.parseInt(id);
             List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
             Arrangement arrangement = list_1.get(0);
             String duration = arrangement.getDuration();
             String old_class_number = arrangement.getClass_number();
             String old_subject = arrangement.getSubject();
+            Integer is_reserved = arrangement.getIs_reserved();
 
             Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
             if(dayofweek==7){
@@ -2354,9 +2355,13 @@ public class LoginServiceImpl implements LoginService {
                 dao.changeScheduleDuration(old_class_number,studio,duration,content,old_subject,campus,dayofweek);
             }else if(type.equals("预告")){
                 dao.changeUpcoming(id1,studio,content);
+            }else if(type.equals("预约")){
+                Integer new_reserved = 1;
+                if(is_reserved == 1){
+                    new_reserved = 0;
+                }
+                dao.changeIsReserved(id1,studio,new_reserved);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
