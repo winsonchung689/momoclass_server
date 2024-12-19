@@ -1049,7 +1049,11 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 subject = line.getSubject();
                 String upcoming = line.getUpcoming();
-
+                Integer is_reserved = line.getIs_reserved();
+                String is_reserved_cn = "是";
+                if(is_reserved == 0){
+                    is_reserved_cn = "否";
+                }
 
                 List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
                 if(schedules.size()>0){
@@ -1057,13 +1061,9 @@ public class LoginServiceImpl implements LoginService {
                     remind = schedule.getRemind();
                     hours = schedule.getHours();
                 }
-
-
                 if(remind == 1 ){
                     remind_name = "是";
                 }
-
-
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
                 // 选课
@@ -1108,6 +1108,8 @@ public class LoginServiceImpl implements LoginService {
                 if(!"all".equals(student_name_in)){
                     search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
                     if(search_res>0){
+                        jsonObject.put("is_reserved", is_reserved);
+                        jsonObject.put("is_reserved_cn", is_reserved_cn);
                         jsonObject.put("upcoming", upcoming);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
@@ -1131,6 +1133,8 @@ public class LoginServiceImpl implements LoginService {
                         resul_list.add(jsonObject);
                     }
                 }else {
+                    jsonObject.put("is_reserved", is_reserved);
+                    jsonObject.put("is_reserved_cn", is_reserved_cn);
                     jsonObject.put("upcoming", upcoming);
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
@@ -1732,6 +1736,7 @@ public class LoginServiceImpl implements LoginService {
                 String limits = line.getLimits();
                 String id = line.getId();
                 String upcoming = line.getUpcoming();
+                Integer is_reserved = line.getIs_reserved();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1790,6 +1795,7 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
+                jsonObject.put("is_reserved", is_reserved);
                 jsonObject.put("dayofweek", dayofweek);
                 jsonObject.put("duration", duration);
                 jsonObject.put("class_number", class_number);

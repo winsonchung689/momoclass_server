@@ -22,7 +22,17 @@ public class Arrangement {
 
     private String upcoming;
 
+    private Integer is_reserved;
 
+
+
+    public Integer getIs_reserved() {
+        return is_reserved;
+    }
+
+    public void setIs_reserved(Integer is_reserved) {
+        this.is_reserved = is_reserved;
+    }
 
     public String getUpcoming() {
         return upcoming;
