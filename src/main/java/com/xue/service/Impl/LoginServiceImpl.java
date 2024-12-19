@@ -7665,7 +7665,7 @@ public class LoginServiceImpl implements LoginService {
                 if(is_teacher==1){
                     jsonObject.put("is_teacher", "代理");
                 }
-
+                String wechat_id = line.getWechat_id();
 
                 //json
                 jsonObject.put("studio", studio);
@@ -7687,6 +7687,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("theme", theme);
                 jsonObject.put("coins", coins);
                 jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("wechat_id", wechat_id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
