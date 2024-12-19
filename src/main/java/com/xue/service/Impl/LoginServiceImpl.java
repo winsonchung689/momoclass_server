@@ -2984,6 +2984,8 @@ public class LoginServiceImpl implements LoginService {
                 member = line.getMember();
                 campus = line.getCampus();
                 String theme = line.getTheme();
+                String wechat_id = line.getWechat_id();
+
                 Integer is_square = line.getIs_square();
                 jsonObject.put("ai_type", "团体");
                 if(is_square==0){
@@ -3008,6 +3010,7 @@ public class LoginServiceImpl implements LoginService {
                 long pay_days = pay_diff / (24*60*60*1000);
 
                 //json
+                jsonObject.put("wechat_id", wechat_id);
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
                 jsonObject.put("role_cn", role_cn);
