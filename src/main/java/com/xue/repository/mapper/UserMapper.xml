@@ -522,9 +522,19 @@
     update user set nick_name =#{param2} where openid =#{param1}
   </select>
 
-  <!-- 更新公约 -->
-  <select id="updateContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+  <!-- 更新公约文字 -->
+  <select id="updateContractText" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
     update contract set contract =#{param3} where studio =#{param1} and campus =#{param2}
+  </select>
+
+  <!-- 更新公约图片 -->
+  <select id="updateContractUuid" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+    update contract set uuid =#{param3} where studio =#{param1} and campus =#{param2}
+  </select>
+
+  <!-- 更新公约类型 -->
+  <select id="updateContractType" parameterType="com.xue.entity.model.Contract" resultMap="BaseResultMap">
+    update contract set type =#{param3} where studio =#{param1} and campus =#{param2}
   </select>
 
   <!-- 更改课程名 -->
@@ -924,7 +934,7 @@
 
   <!-- 插入公约 -->
   <insert id="insertContract" parameterType="com.xue.entity.model.Contract">
-    insert contract(studio,campus,contract,create_time) values(#{studio},#{campus},#{contract},#{create_time})
+    insert contract(studio,campus,contract,create_time,uuid) values(#{studio},#{campus},#{contract},#{create_time},#{uuid})
   </insert>
 
   <insert id="insertBookDetail" parameterType="com.xue.entity.model.BookDetail">

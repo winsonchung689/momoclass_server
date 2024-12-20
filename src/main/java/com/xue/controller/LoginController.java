@@ -2997,7 +2997,7 @@ public class LoginController {
 
 	@RequestMapping("/updateContract")
 	@ResponseBody
-	public int updateContract(String contract, String openid){
+	public int updateContract(String content, String openid,String type){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		List<User> users = dao.getUser(openid);
@@ -3007,9 +3007,24 @@ public class LoginController {
 		try {
 			List<Contract> contracts = dao.getContract(studio,campus);
 			if(contracts.size()>0){
-				dao.updateContract(studio,campus,contract);
+				if("text".equals(type)){
+					dao.updateContractText(studio,campus,content);
+				}else if("image".equals(type)){
+					dao.updateContractUuid(studio,campus,content);
+				}else if ("switch".equals(type)) {
+					dao.updateContractUuid(studio,campus,content);
+				}
 			}else {
-				dao.insertContract(studio,campus,contract,create_time);
+				Contract contract = new Contract();
+				if("text".equals(type)){
+					contract.setContract(content);
+				}else if("image".equals(type)){
+					contract.setUuid(content);
+				}
+				contract.setStudio(studio);
+				contract.setCampus(campus);
+				contract.setCreate_time(create_time);
+				dao.insertContract(contract);
 			}
 
 		} catch (Exception e) {

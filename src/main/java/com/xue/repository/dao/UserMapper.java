@@ -215,7 +215,7 @@ public interface UserMapper {
 
     int insertWebsite(Website website);
 
-    int insertContract(String studio, String campus, String contract, String create_time);
+    int insertContract(Contract contract);
 
     int insertBookDetail(BookDetail bookDetail);
 
@@ -306,7 +306,11 @@ public interface UserMapper {
 
     void updateNewName(String openid,String new_name);
 
-    void updateContract(String studio, String campus, String contract);
+    void updateContractText(String studio, String campus, String contract);
+
+    void updateContractUuid(String studio, String campus, String uuid);
+
+    void updateContractType(String studio, String campus, String uuid);
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
