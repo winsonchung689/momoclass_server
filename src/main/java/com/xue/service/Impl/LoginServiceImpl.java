@@ -6645,8 +6645,12 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 String contract = line.getContract();
                 String create_time = line.getCreate_time();
+                String uuid = line.getUuid();
+                String type = line.getType();
 
                 //json
+                jsonObject.put("uuid", uuid);
+                jsonObject.put("type", type);
                 jsonObject.put("contract", contract);
                 jsonObject.put("student_name", sb);
                 jsonObject.put("create_time", create_time);
