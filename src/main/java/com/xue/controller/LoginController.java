@@ -3012,7 +3012,7 @@ public class LoginController {
 				}else if("image".equals(type)){
 					dao.updateContractUuid(studio,campus,content);
 				}else if ("switch".equals(type)) {
-					dao.updateContractUuid(studio,campus,content);
+					dao.updateContractType(studio,campus,content);
 				}
 			}else {
 				Contract contract = new Contract();

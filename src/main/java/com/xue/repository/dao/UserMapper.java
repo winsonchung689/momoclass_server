@@ -310,7 +310,7 @@ public interface UserMapper {
 
     void updateContractUuid(String studio, String campus, String uuid);
 
-    void updateContractType(String studio, String campus, String uuid);
+    void updateContractType(String studio, String campus, String type);
 
     void changeSubjectName(Integer id,String studio,String class_number);
 
