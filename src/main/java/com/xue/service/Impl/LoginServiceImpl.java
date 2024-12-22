@@ -2062,28 +2062,17 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus,subject);
-                    if (signUps.size() >= 1) {
-                        if (signUps.get(0).getDuration().equals("00:00-00:00")) {
-                            jsonObject.put("sign_up", "已签到");
-                            jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                            mark = signUps.get(0).getMark();
-                            jsonObject.put("mark", mark);
-
-                        } else {
-                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus,subject);
-                            if (signUpsDuration.size() == 1) {
-                                jsonObject.put("sign_up", "已签到");
-                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                mark = signUpsDuration.get(0).getMark();
-                                jsonObject.put("mark", mark);
-                            }else if(signUpsDuration.size() > 1){
-                                jsonObject.put("sign_up", "重复签到");
-                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                mark = signUpsDuration.get(0).getMark();
-                                jsonObject.put("mark", mark);
-                            }
-                        }
+                    List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time, duration,campus,subject);
+                    if (signUpsDuration.size() == 1) {
+                        jsonObject.put("sign_up", "已签到");
+                        jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
+                        mark = signUpsDuration.get(0).getMark();
+                        jsonObject.put("mark", mark);
+                    }else if(signUpsDuration.size() > 1){
+                        jsonObject.put("sign_up", "重复签到");
+                        jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
+                        mark = signUpsDuration.get(0).getMark();
+                        jsonObject.put("mark", mark);
                     }
 
                     jsonObject.put("leave", "请假");
