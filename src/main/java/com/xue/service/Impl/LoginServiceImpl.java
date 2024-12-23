@@ -6408,6 +6408,8 @@ public class LoginServiceImpl implements LoginService {
                                 age = line_class.getAge();
                                 status = line_class.getStatus();
                                 subject = line_class.getSubject();
+                                int remind  = line_class.getRemind();
+                                int hours = line_class.getHours();
 
                                 Schedule schedule =new Schedule();
                                 schedule.setAdd_date(add_date);
@@ -6423,6 +6425,8 @@ public class LoginServiceImpl implements LoginService {
                                 schedule.setSubject(subject);
                                 schedule.setCampus(campus);
                                 schedule.setIs_try(0);
+                                schedule.setRemind(remind);
+                                schedule.setHours(hours);
                                 List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,student_name);
                                 if(check_schedule.size()==0){
                                     dao.insertSchedule(schedule);
