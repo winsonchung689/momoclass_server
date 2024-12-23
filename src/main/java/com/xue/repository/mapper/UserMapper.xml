@@ -2444,6 +2444,10 @@
     update user set member=#{param1} where studio=#{param2} and role in ('boss', 'teacher') and delete_status = 0
   </update>
 
+  <update id="updateUserMemberByOpenid" parameterType="com.xue.entity.model.User">
+    update user set member=#{param2} where openid=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateUserRegion" parameterType="com.xue.entity.model.User">
     update user set city=#{param1} where studio=#{param2} and delete_status = 0
   </update>

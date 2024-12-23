@@ -1042,6 +1042,8 @@ public interface UserMapper {
 
     int updateUserMember(String member,String studio);
 
+    int updateUserMemberByOpenid(String openid,String member);
+
     int updateUserRegion(String region,String studio);
 
     int updateExchangeByStudio(String studio,Integer is_exchange);
