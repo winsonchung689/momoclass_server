@@ -5892,7 +5892,7 @@ public class LoginController {
             }else if("微信".equals(type)){
 				dao.updateWechatId(openid_get,campus);
 			}else if("会员".equals(type)){
-				dao.updateWechatId(openid_get,campus);
+				dao.updateUserMemberByOpenid(openid_get,campus);
 			}
 
 		} catch (Exception e) {
