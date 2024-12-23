@@ -2316,19 +2316,29 @@ public class LoginServiceImpl implements LoginService {
             String studio = list.get(0).getStudio();
             String campus = list.get(0).getCampus();
 
-            Integer id1 = Integer.parseInt(id);
-            List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
-            Arrangement arrangement = list_1.get(0);
-            String duration = arrangement.getDuration();
-            String old_class_number = arrangement.getClass_number();
-            String old_subject = arrangement.getSubject();
-            Integer is_reserved = arrangement.getIs_reserved();
+            Integer id1 = null;
+            String duration = null;
+            String old_class_number = null;
+            String old_subject = null;
+            Integer is_reserved = null;
+            Integer dayofweek = null;
+            try {
+                id1 = Integer.parseInt(id);
+                List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
+                Arrangement arrangement = list_1.get(0);
+                duration = arrangement.getDuration();
+                old_class_number = arrangement.getClass_number();
+                old_subject = arrangement.getSubject();
+                is_reserved = arrangement.getIs_reserved();
 
-            Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
-            if(dayofweek==7){
-                dayofweek=1;
-            }else {
-                dayofweek = dayofweek + 1;
+                dayofweek = Integer.parseInt(arrangement.getDayofweek());
+                if(dayofweek==7){
+                    dayofweek=1;
+                }else {
+                    dayofweek = dayofweek + 1;
+                }
+            } catch (NumberFormatException e) {
+//                throw new RuntimeException(e);
             }
 
 
