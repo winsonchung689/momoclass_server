@@ -24,7 +24,17 @@ public class Arrangement {
 
     private Integer is_reserved;
 
+    private Integer days;
 
+
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
 
     public Integer getIs_reserved() {
         return is_reserved;

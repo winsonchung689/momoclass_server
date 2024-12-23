@@ -1737,6 +1737,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String upcoming = line.getUpcoming();
                 Integer is_reserved = line.getIs_reserved();
+                Integer days = line.getDays();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1795,6 +1796,7 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
+                jsonObject.put("days", days);
                 jsonObject.put("is_reserved", is_reserved);
                 jsonObject.put("dayofweek", dayofweek);
                 jsonObject.put("duration", duration);
@@ -2350,6 +2352,8 @@ public class LoginServiceImpl implements LoginService {
                     new_reserved = 0;
                 }
                 dao.changeIsReserved(id1,studio,new_reserved);
+            }else if(type.equals("可提前")){
+                dao.changeArrangementDays(studio,campus);
             }
         } catch (Exception e) {
             e.printStackTrace();

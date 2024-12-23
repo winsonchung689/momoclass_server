@@ -557,6 +557,11 @@
     update schedule_arrangement set is_reserved =#{param3} where id =#{param1} and studio =#{param2}
   </select>
 
+  <!-- 更改提前预约天数 -->
+  <select id="changeArrangementDays" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set days =#{param3} where studio =#{param1} and campus =#{param2}
+  </select>
+
   <!-- 更改时间 -->
   <select id="changeDuration" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set duration =#{param3} where id =#{param1} and studio =#{param2}

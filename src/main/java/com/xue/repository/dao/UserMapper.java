@@ -320,6 +320,8 @@ public interface UserMapper {
 
     void changeIsReserved(Integer id,String studio,Integer is_reserved);
 
+    void changeArrangementDays(String studio,String campus);
+
     void changeDuration(Integer id,String studio,String duration);
 
     void changeScheduleClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus,Integer dayofweek);
