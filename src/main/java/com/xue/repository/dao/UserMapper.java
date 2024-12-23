@@ -612,6 +612,8 @@ public interface UserMapper {
 
     int updateUserPay(User user);
 
+    int updateUserPayBoss(User user);
+
     int updateComentStyle(User user);
 
     int updateIsOpen(User user);

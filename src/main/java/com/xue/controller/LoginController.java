@@ -6752,6 +6752,7 @@ public class LoginController {
 		user.setDays(Math.toIntExact(days));
 
 		try {
+			dao.updateUserPayBoss(user);
 			dao.updateUserPay(user);
 		} catch (Exception e) {
 			e.printStackTrace();
