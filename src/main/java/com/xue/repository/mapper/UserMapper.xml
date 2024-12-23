@@ -2311,7 +2311,7 @@
 
   <!-- 过期校长恢复 -->
   <update id="updateUserPayBoss" parameterType="com.xue.entity.model.User">
-    update user set expired_time=#{expired_time},days=#{days},role=#{boss} where studio=#{studio} and member in ('永恒会员','黄金会员')
+    update user set expired_time=#{expired_time},days=#{days},role=#{role} where studio=#{studio} and member in ('永恒会员','黄金会员')
   </update>
 
   <!-- 获取学生名课时 -->
