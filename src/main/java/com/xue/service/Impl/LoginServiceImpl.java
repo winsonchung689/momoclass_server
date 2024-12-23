@@ -2325,17 +2325,19 @@ public class LoginServiceImpl implements LoginService {
             try {
                 id1 = Integer.parseInt(id);
                 List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
-                Arrangement arrangement = list_1.get(0);
-                duration = arrangement.getDuration();
-                old_class_number = arrangement.getClass_number();
-                old_subject = arrangement.getSubject();
-                is_reserved = arrangement.getIs_reserved();
+                if(list_1.size() > 0){
+                    Arrangement arrangement = list_1.get(0);
+                    duration = arrangement.getDuration();
+                    old_class_number = arrangement.getClass_number();
+                    old_subject = arrangement.getSubject();
+                    is_reserved = arrangement.getIs_reserved();
 
-                dayofweek = Integer.parseInt(arrangement.getDayofweek());
-                if(dayofweek==7){
-                    dayofweek=1;
-                }else {
-                    dayofweek = dayofweek + 1;
+                    dayofweek = Integer.parseInt(arrangement.getDayofweek());
+                    if(dayofweek==7){
+                        dayofweek=1;
+                    }else {
+                        dayofweek = dayofweek + 1;
+                    }
                 }
             } catch (NumberFormatException e) {
 //                throw new RuntimeException(e);
@@ -2363,10 +2365,10 @@ public class LoginServiceImpl implements LoginService {
                 }
                 dao.changeIsReserved(id1,studio,new_reserved);
             }else if(type.equals("可提前")){
-                dao.changeArrangementDays(studio,campus);
+                dao.changeArrangementDays(studio,campus,content);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return 0;
         }
         return 1;
