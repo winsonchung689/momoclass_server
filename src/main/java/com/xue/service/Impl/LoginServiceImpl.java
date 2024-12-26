@@ -1055,15 +1055,15 @@ public class LoginServiceImpl implements LoginService {
                     is_reserved_cn = "否";
                 }
 
-                try {
-                    List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
-                    if(schedules.size()>0){
-                        Schedule schedule = schedules.get(0);
+                List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
+                if(schedules.size()>0){
+                    Schedule schedule = schedules.get(0);
+                    try {
                         remind = schedule.getRemind();
                         hours = schedule.getHours();
+                    } catch (Exception e) {
+//                        throw new RuntimeException(e);
                     }
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
                 }
 
                 if(remind == 1 ){
