@@ -5446,6 +5446,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		Integer hours = list_user.get(0).getHours();
 
 		//获取名字
 		String student_name = request.getParameter("student_name");
@@ -5461,6 +5462,7 @@ public class LoginController {
 			List<Schedule> schedules = dao.getScheduleByDuration(add_date,duration,class_number,subject,studio,campus);
 			if(schedules.size()>0){
 				remind = schedules.get(0).getRemind();
+				hours = schedules.get(0).getHours();
 			}
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
@@ -5486,6 +5488,7 @@ public class LoginController {
 				schedule.setCampus(campus);
 				schedule.setRemind(remind);
 				schedule.setIs_try(Integer.parseInt(is_try));
+				schedule.setHours(hours);
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
 					loginService.insertSchedule(schedule);

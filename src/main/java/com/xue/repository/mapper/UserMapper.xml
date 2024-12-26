@@ -973,7 +973,7 @@
 
   <!-- 插入课程表 -->
   <insert id="insertSchedule" parameterType="com.xue.entity.model.Schedule">
-    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,delete_status,subject,campus,is_try,remind) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number},0,#{subject},#{campus},#{is_try},#{remind})
+    insert class_schedule(add_date,age,student_name,duration,create_time,studio,update_time,student_type,status,class_number,delete_status,subject,campus,is_try,remind,hours) values(#{add_date},#{age},#{student_name},#{duration},#{create_time},#{studio},#{update_time},#{student_type},#{status},#{class_number},0,#{subject},#{campus},#{is_try},#{remind},#{hours})
   </insert>
 
   <!-- 插入订单 -->
