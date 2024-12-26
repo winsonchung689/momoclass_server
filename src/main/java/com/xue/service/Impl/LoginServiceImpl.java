@@ -4765,7 +4765,7 @@ public class LoginServiceImpl implements LoginService {
             }else if("有效期至".equals(type)){
                 result = dao.updateLessonPackageEndDate(id,content);
             }else if("分拆".equals(type)){
-                dao.updateLessonPackageDiscountMoney(id,"0");
+                dao.updateLessonPackageGiveLesson(id,0.0f);
 
                 lessonPackage.setTotal_money(0.0f);
                 lessonPackage.setDiscount_money(0.0f);
