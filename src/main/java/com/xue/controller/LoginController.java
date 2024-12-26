@@ -3263,7 +3263,17 @@ public class LoginController {
 		String studio = request.getParameter("studio");
 		String student_name = request.getParameter("student_name");
 		String total_amount = request.getParameter("total_amount");
+		if(total_amount == null || total_amount.isEmpty() || "undefined".equals(total_amount)){
+			total_amount = "0";
+		}
 		String left_amount = request.getParameter("left_amount");
+		if(left_amount == null || left_amount.isEmpty() || "undefined".equals(left_amount)){
+			left_amount = "0";
+		}
+		String give_lesson = request.getParameter("give_lesson");
+		if(give_lesson == null || give_lesson.isEmpty() || "undefined".equals(give_lesson)){
+			give_lesson = "0";
+		}
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -3274,8 +3284,8 @@ public class LoginController {
 			lesson.setSubject(subject);
 			lesson.setStudio(studio);
 			lesson.setStudent_name(student_name);
-			lesson.setTotal_amount(Float.parseFloat(total_amount));
-			lesson.setLeft_amount(Float.parseFloat(left_amount));
+			lesson.setTotal_amount(Float.parseFloat(total_amount) + Float.parseFloat(give_lesson));
+			lesson.setLeft_amount(Float.parseFloat(left_amount) + Float.parseFloat(give_lesson));
 			lesson.setCreate_time(create_time);
 			lesson.setCoins(1.00f);
 			lesson.setPoints(0);
@@ -3296,7 +3306,7 @@ public class LoginController {
 			lessonPackage.setTotal_money(0.0f);
 			lessonPackage.setDiscount_money(0.0f);
 			lessonPackage.setMark("初次录入");
-			lessonPackage.setGive_lesson(0.0f);
+			lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 			lessonPackage.setNick_name(nick_name);
 			dao.insertLessonPackage(lessonPackage);
 
