@@ -4740,15 +4740,16 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int updateLessonPackage(String id, String content,String type) {
         int result = 0;
+        List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(id));
+        LessonPackage lessonPackage = lessonPackages.get(0);
         try {
             if("课包原价".equals(type)){
                 result = dao.updateLessonPackageTotalMoney(id,content);
             }else if("优惠金额".equals(type)){
                 result = dao.updateLessonPackageDiscountMoney(id,content);
             }else if("结课状态".equals(type)){
-                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(id));
+                int end_status = lessonPackage.getEnd_status();
                 int status = 1;
-                int end_status = lessonPackages.get(0).getEnd_status();
                 if(end_status == 1 ){
                     status = 0;
                 }
@@ -4763,7 +4764,15 @@ public class LoginServiceImpl implements LoginService {
                 result = dao.updateLessonPackageStartDate(id,content);
             }else if("有效期至".equals(type)){
                 result = dao.updateLessonPackageEndDate(id,content);
+            }else if("分拆".equals(type)){
+                dao.updateLessonPackageDiscountMoney(id,content);
+                dao.updateLessonPackageGiveLesson(id,0.0f);
+
+                lessonPackage.setTotal_money(0.0f);
+                lessonPackage.setAll_lesson(0.0f);
+                dao.insertLessonPackage(lessonPackage);
             }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
