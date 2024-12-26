@@ -7130,7 +7130,10 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 subject_get = line.getSubject();
                 studio = line.getStudio();
+                int delete_status = line.getDelete_status();
+
                 //json
+                jsonObject.put("delete_status", delete_status);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
