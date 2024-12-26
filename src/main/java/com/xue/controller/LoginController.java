@@ -5459,7 +5459,9 @@ public class LoginController {
 		Integer remind = 1;
 		try {
 			List<Schedule> schedules = dao.getScheduleByDuration(add_date,duration,class_number,subject,studio,campus);
-			remind = schedules.get(0).getRemind();
+			if(schedules.size()>0){
+				remind = schedules.get(0).getRemind();
+			}
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
 		}
