@@ -905,11 +905,13 @@ public class LoginServiceImpl implements LoginService {
                 String type = "礼品";
                 Float price = 0.0f;
 
+                String uuids = "no_id";
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
                     GiftList giftList = giftLists.get(0);
                     type = giftList.getType();
                     price = giftList.getPrice();
+                    uuids = giftList.getUuids();
                 }
 
 
@@ -923,6 +925,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("type",type);
                 jsonObject.put("price",price);
+                jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
             }
 
