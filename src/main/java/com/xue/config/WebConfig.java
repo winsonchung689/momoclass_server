@@ -16,5 +16,6 @@ public class WebConfig implements WebMvcConfigurer {
         // /home/file/**为前端URL访问路径 后面 file:xxxx为本地磁盘映射
         registry.addResourceHandler("/file/**").addResourceLocations("file:" + "/data/");
         registry.addResourceHandler("/**").addResourceLocations("file:" + "/");
+        registry.addResourceHandler("/data1/**").addResourceLocations("file:" + "/data1/");
     }
 }
