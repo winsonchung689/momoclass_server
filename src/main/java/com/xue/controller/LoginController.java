@@ -4169,11 +4169,8 @@ public class LoginController {
 		String class_name =  request.getParameter("class_name");
 		String class_target =  request.getParameter("class_target");
 
-
-
 		//获取类路径
 		String p_path = null;
-//		String path = System.getProperty("user.dir");
 		String path = "/data1";
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
@@ -4423,25 +4420,6 @@ public class LoginController {
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			headers.setContentDispositionFormData("class_name", file.getName());
-			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
-		}else{
-			System.out.println("文件不存在,请重试...");
-			return null;
-		}
-	}
-
-	@RequestMapping("/get_MP3")
-	@ResponseBody
-	public ResponseEntity<byte[]> get_MP3(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("file_name");
-//		String path = System.getProperty("user.dir");
-		String path = "/data";
-		String p_path = path +"/uploadMP3/"+ file_name;
-		File file = new File(p_path);
-		if(file.exists()){
-			org.springframework.http.HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-			headers.setContentDispositionFormData("file_name", file.getName());
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
 		}else{
 			System.out.println("文件不存在,请重试...");
