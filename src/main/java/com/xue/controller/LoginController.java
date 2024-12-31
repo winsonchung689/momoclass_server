@@ -4174,7 +4174,7 @@ public class LoginController {
 		//获取类路径
 		String p_path = null;
 //		String path = System.getProperty("user.dir");
-		String path = "/data";
+		String path = "/data1";
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
 			p_path = path +"/uploadimages/"+ class_name + ".png";
@@ -4198,7 +4198,7 @@ public class LoginController {
 	@ResponseBody
 	public String push_video(HttpServletRequest request, HttpServletResponse response){
 //		String path = System.getProperty("user.dir");
-		String path = "/data";
+		String path = "/data1";
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("video");
@@ -4208,12 +4208,6 @@ public class LoginController {
 		if (!file.exists()){ //如果不存在
 			boolean dr = file.mkdirs(); //创建目录
 		}
-
-//		String[] content = file.list();//取得当前目录下所有文件和文件夹
-//		for(String name : content){
-//			File temp = new File(d_path, name);
-//			temp.delete();
-//		}
 
 		//获取类路径
 		String p_path = null;
@@ -4414,25 +4408,6 @@ public class LoginController {
 		}else{
 			System.out.println("文件不存在,请重试...");
 			return null;
-		}
-	}
-
-	@RequestMapping("/get_video")
-	@ResponseBody
-	public String get_video(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name = null;
-		String studio =  request.getParameter("studio");
-//		String path = System.getProperty("user.dir");
-		String path = "/data";
-		String p_path = path +"/uploadVideo/"+ studio + "/";
-		System.out.printf("path:" + p_path);
-		File file = new File(p_path);
-		if(file.exists()){
-			 String[] content = file.list();
-			 file_name = content[0];
-			return file_name;
-		}else{
-			return "文件不存在";
 		}
 	}
 
