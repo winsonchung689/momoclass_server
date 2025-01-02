@@ -4671,32 +4671,24 @@ public class LoginController {
 		if(positive_get == null || positive_get.isEmpty() || "undefined".equals(positive_get)){
 			positive_get = "积极性_1";
 		}
-//		Integer positive = Integer.parseInt(positive_get);
-
 
 		//获取纪律性
 		String discipline_get = request.getParameter("discipline");
 		if(discipline_get == null || discipline_get.isEmpty() || "undefined".equals(discipline_get)){
 			discipline_get = "纪律性_1";
 		}
-//		Integer discipline = Integer.parseInt(discipline_get);
 
 		//获取开心值
 		String happiness_get = request.getParameter("happiness");
 		if(happiness_get == null || happiness_get.isEmpty() || "undefined".equals(happiness_get)){
 			happiness_get = "开心值_1";
 		}
-//		Integer happiness = Integer.parseInt(happiness_get);
-
 
 		//获取音频路径
 		String mp3_url = request.getParameter("mp3_url");
 		if(mp3_url == null || mp3_url.isEmpty() || "undefined".equals(mp3_url)){
 			mp3_url = "no_mp3_url";
 		}
-
-		//获取图片路径
-		String photo = request.getParameter("photo");
 
 		//获取文字
 		String comment = request.getParameter("comment");
@@ -4709,11 +4701,13 @@ public class LoginController {
 		if(student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
 			student_name = "no_student_name";
 		}
+
 		//获取课堂名称
 		String class_name = request.getParameter("class_name");
 		if(class_name == null || class_name.isEmpty() || "undefined".equals(class_name)){
 			class_name = "no_class_name";
 		}
+
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
@@ -4756,13 +4750,11 @@ public class LoginController {
 //			e.printStackTrace();
 		}
 
-		String studio = request.getParameter("studio");
-
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
 		String campus = list_user.get(0).getCampus();
 
-		FileInputStream in = null;
 		Message message =new Message();
 		message.setComment(comment);
 		message.setStudent_name(student_name);
@@ -4780,7 +4772,6 @@ public class LoginController {
 		message.setCampus(campus);
 		message.setVuuid(vuuid);
 		message.setOpenid(openid);
-
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
