@@ -3916,45 +3916,29 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAdvertise(String class_target,String studio,Integer page) {
-        byte[] photo = null;
-        InputStream inputStream_photo = null;
-        String comment = null;
-        String student_name = null;
-        String class_name = null;
-        String id = null;
-        String create_time = null;
-        Integer page_start = (page - 1) * 1;
-        Integer page_length = 1;
-        String uuids = null;
-        List<JSONObject> resul_list = new ArrayList<>();
+    public List getUuidByTarget(String class_target,String openid) {
+        List<User> list_user = dao.getUser(openid);
+        String studio = list_user.get(0).getStudio();
+        String campus = list_user.get(0).getCampus();
 
+        List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Message> list = dao.getAdvertise(class_target, studio,page_start,page_length);
+            List<Message> list = dao.getUuidByTarget(class_target,studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
+
                 //获取字段
-                student_name = line.getStudent_name();
-                class_name = line.getClass_name();
-                comment = line.getComment();
-                photo = line.getPhoto();
+                String uuids = null;
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                if(uuids != null){
-                    photo = null;
-                }
-                class_target = line.getClass_target();
-                id = line.getId();
-                create_time = line.getCreate_time();
+                String id = line.getId();
+                String create_time = line.getCreate_time();
+
                 //json
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("class_name", class_name);
-                jsonObject.put("comment", comment);
-                jsonObject.put("photo", photo);
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);

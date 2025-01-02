@@ -1060,12 +1060,12 @@ public class LoginController {
 	}
 
 	//	获取广告
-	@RequestMapping("/getAdvertise")
+	@RequestMapping("/getUuidByTarget")
 	@ResponseBody
-	public List getAdvertise(String class_target,String studio,Integer page){
+	public List getUuidByTarget(String class_target,String openid){
 		List list = null;
 		try {
-			list = loginService.getAdvertise(class_target,studio,page);
+			list = loginService.getUuidByTarget(class_target,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -4812,6 +4812,51 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateCommentUuid")
+	@ResponseBody
+	public String updateCommentUuid(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//获取课堂目标
+		String class_target = request.getParameter("class_target");
+
+		String id = request.getParameter("id");
+		if(id == null || id.isEmpty() || "undefined".equals(id)){
+			id = "noid";
+		}
+
+		String uuids = request.getParameter("uuids");
+		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
+			uuids = "no_uuids";
+		}
+
+		String openid = request.getParameter("openid");
+		List<User> list_user = dao.getUser(openid);
+		String studio = list_user.get(0).getStudio();
+		String campus = list_user.get(0).getCampus();
+
+		Message message =new Message();
+		message.setClass_target(class_target);
+		message.setClass_target_bak(class_target);
+		message.setStudio(studio);
+		message.setUuids(uuids);
+		message.setCampus(campus);
+		message.setOpenid(openid);
+		message.setCreate_time(create_time);
+
+		try {
+			if("noid".equals(id)){
+				loginService.push(message);
+			}else{
+				dao.updateUuids(Integer.parseInt(id),studio,uuids);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
 
 	//	推送
 	@RequestMapping("/insertPost")

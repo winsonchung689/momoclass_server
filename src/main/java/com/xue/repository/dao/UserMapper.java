@@ -34,7 +34,7 @@ public interface UserMapper {
     List<Message> getCertificateByName(String studio,String student_name);
 
     //获取
-    List<Message> getAdvertise(String class_target,String studio,Integer page_start, Integer page_length);
+    List<Message> getUuidByTarget(String class_target,String studio,String campus);
 
     //获取
     List<Message> getPpt(Integer page_start, Integer page_length);

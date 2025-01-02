@@ -228,8 +228,8 @@
   </select>
 
   <!-- 获取广告 -->
-  <select id="getAdvertise" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,photo,comment,create_time,class_name,class_target,studio,uuids from class_comment where class_target=#{param1} and delete_status = 0 and studio = #{param2} order by create_time desc limit #{param3},#{param4};
+  <select id="getUuidByTarget" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+    select * from class_comment where class_target=#{param1} and studio = #{param2} and campus = #{param3} and delete_status = 0 order by create_time desc limit 1;
   </select>
 
   <!-- 获取奖状模板 -->
