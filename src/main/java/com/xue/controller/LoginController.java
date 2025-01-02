@@ -1557,10 +1557,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getGift")
 	@ResponseBody
-	public List getGift(String student_name,String openid,String coupon_type){
+	public List getGift(String student_name,String openid){
 		List list = null;
 		try {
-			list = loginService.getGift(student_name,openid,coupon_type);
+			list = loginService.getGift(student_name,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

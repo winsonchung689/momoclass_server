@@ -862,7 +862,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGift(String student_name,String openid,String coupon_type) {
+    public List getGift(String student_name,String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now_time = df.format(new Date());
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUser(openid);
         String studio = list_user.get(0).getStudio();
@@ -879,13 +881,9 @@ public class LoginServiceImpl implements LoginService {
                 Integer gift_amount = line.getGift_amount();
                 Integer status = line.getStatus();
                 String id = line.getId();
-                String campus = line.getCampus();
 
-                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
-                String now_time = df1.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-                Date now_time_dt = df1.parse(now_time);
-                Date expired_time_dt = df1.parse(expired_time);
+                Date now_time_dt = df.parse(now_time);
+                Date expired_time_dt = df.parse(expired_time);
                 int compare = now_time_dt.compareTo(expired_time_dt);
                 if (status==0){
                     if (compare > 0) {
@@ -897,17 +895,18 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("status", "已领取");
                 }
 
-                String gift_id = line.getGift_id();
                 String type = "礼品";
                 Float price = 0.0f;
-
                 String uuids = "no_id";
+                Integer coupon_type = 1;
+                String gift_id = line.getGift_id();
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
                     GiftList giftList = giftLists.get(0);
                     type = giftList.getType();
                     price = giftList.getPrice();
                     uuids = giftList.getUuids();
+                    coupon_type = giftList.getCoupon_type();
                 }
 
 
@@ -921,6 +920,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("type",type);
                 jsonObject.put("price",price);
+                jsonObject.put("uuids",uuids);
                 jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
             }
