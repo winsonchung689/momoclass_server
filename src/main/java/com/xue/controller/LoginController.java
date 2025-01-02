@@ -6670,6 +6670,7 @@ public class LoginController {
 		gift.setCampus(campus);
 		gift.setStatus(0);
 		gift.setGift_id(gift_id);
+		gift.setOpenid(openid);
 		loginService.insertGift(gift);
 		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,"兑换积分","");
 		return "push massage successfully";

@@ -23,6 +23,16 @@ public class Gift {
 
     private String gift_id;
 
+    private String openid;
+
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public String getGift_id() {
         return gift_id;
