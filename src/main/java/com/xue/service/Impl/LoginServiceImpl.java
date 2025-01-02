@@ -742,6 +742,7 @@ public class LoginServiceImpl implements LoginService {
             String type = line.getType();
             Float price = line.getPrice();
             Integer coupon_type = line.getCoupon_type();
+            String mark = line.getMark();
 
             //json
             jsonObject.put("id", id);
@@ -752,6 +753,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("type", type);
             jsonObject.put("price", price);
             jsonObject.put("coupon_type", coupon_type);
+            jsonObject.put("mark", mark);
             resul_list.add(jsonObject);
         }
         return resul_list;

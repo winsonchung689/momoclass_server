@@ -416,6 +416,8 @@ public interface UserMapper {
 
     int updateCardUuid(String id,String uuid);
 
+    int updateGiftDetail(GiftList giftList);
+
     int updateCardPrice(String id,String price);
 
     int updateCardType(String id,String type);

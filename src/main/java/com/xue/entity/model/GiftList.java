@@ -25,6 +25,17 @@ public class GiftList {
 
     private Integer coupon_type;
 
+    private String mark;
+
+
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
 
     public Integer getCoupon_type() {
         return coupon_type;

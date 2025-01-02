@@ -1472,6 +1472,11 @@
     update website set company=#{param2} where id =#{param1}  and delete_status = 0
   </update>
 
+  <!-- 更新礼品名 -->
+  <update id="updateGiftDetail" parameterType="com.xue.entity.model.GiftList">
+    update card set gift_name=#{gift_name},mark=#{mark},price=#{price} where id =#{param1} and delete_status = 0
+  </update>
+
   <!-- 更新卡图片 -->
   <update id="updateCardUuid" parameterType="com.xue.entity.model.Card">
     update card set uuid=#{param2} where id =#{param1} and delete_status = 0

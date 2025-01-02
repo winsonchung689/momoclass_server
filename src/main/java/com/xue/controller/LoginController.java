@@ -3581,6 +3581,31 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateGiftDetail")
+	@ResponseBody
+	public int updateGiftDetail(HttpServletRequest request, HttpServletResponse response) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+		String id = request.getParameter("id");
+
+		List<GiftList> giftLists = dao.getGiftListById(id);
+		GiftList giftList = giftLists.get(0);
+
+		if("名称".equals(type)){
+			giftList.setGift_name(content);
+		}else if("备注".equals(type)){
+			giftList.setMark(content);
+		}else if("价格".equals(type)){
+			giftList.setPrice(Float.parseFloat(content));
+		}
+		dao.updateGiftDetail(giftList);
+
+		return 1;
+	}
+
 	@RequestMapping("/updateDetailPhoto")
 	@ResponseBody
 	public int updateDetailPhoto(HttpServletRequest request, HttpServletResponse response){
