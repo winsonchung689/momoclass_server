@@ -862,15 +862,22 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGift(String student_name,String openid) {
+    public List getGift(String student_name,String openid,Integer coupon_type) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now_time = df.format(new Date());
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUser(openid);
         String studio = list_user.get(0).getStudio();
+        String campus = list_user.get(0).getCampus();
 
         try {
-            List<Gift> list = dao.getGift(student_name, studio);
+            List<Gift> list = null;
+            if(coupon_type == 1){
+                list = dao.getGift(student_name, studio);
+            }else if(coupon_type == 2){
+                list = dao.getGiftByOpenid(openid,studio,campus);
+            }
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Gift line = list.get(i);
@@ -898,7 +905,7 @@ public class LoginServiceImpl implements LoginService {
                 String type = "礼品";
                 Float price = 0.0f;
                 String uuids = "no_id";
-                Integer coupon_type = 1;
+                Integer coupon_type_get = 1;
                 String gift_id = line.getGift_id();
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
@@ -906,7 +913,7 @@ public class LoginServiceImpl implements LoginService {
                     type = giftList.getType();
                     price = giftList.getPrice();
                     uuids = giftList.getUuids();
-                    coupon_type = giftList.getCoupon_type();
+                    coupon_type_get = giftList.getCoupon_type();
                 }
 
 
@@ -921,7 +928,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("type",type);
                 jsonObject.put("price",price);
                 jsonObject.put("uuids",uuids);
-                jsonObject.put("uuids",uuids);
+                jsonObject.put("coupon_type",coupon_type_get);
                 resul_list.add(jsonObject);
             }
 

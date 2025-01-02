@@ -1218,6 +1218,11 @@
     select * from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
   </select>
 
+  <!-- 查找个人优惠券 -->
+  <select id="getGiftByOpenid" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
+    select * from gift_record where openid =#{param1} and studio = #{param2} and campus = #{param3} order by expired_time desc
+  </select>
+
   <select id="getGiftById" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
     select * from gift_record where id =#{param1}
   </select>

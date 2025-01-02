@@ -116,7 +116,7 @@ public interface LoginService {
 
     public List  getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 
-    public List  getGift(String student_name,String openid);
+    public List  getGift(String student_name,String openid,Integer coupon_type);
 
     public List  getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
