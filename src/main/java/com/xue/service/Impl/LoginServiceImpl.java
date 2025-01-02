@@ -863,14 +863,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getGift(String student_name,String openid,String coupon_type) {
-        String create_time = null;
-        String expired_time = null;
-        String gift_name = null;
-        Integer gift_amount = null;
-        Integer status=null;
-        String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
-
         List<User> list_user = dao.getUser(openid);
         String studio = list_user.get(0).getStudio();
 
@@ -880,12 +873,12 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Gift line = list.get(i);
                 //获取字段
-                create_time = line.getCreate_time();
-                expired_time = line.getExpired_time();
-                gift_name = line.getGift_name();
-                gift_amount = line.getGift_amount();
-                status = line.getStatus();
-                id = line.getId();
+                String create_time = line.getCreate_time();
+                String expired_time = line.getExpired_time();
+                String gift_name = line.getGift_name();
+                Integer gift_amount = line.getGift_amount();
+                Integer status = line.getStatus();
+                String id = line.getId();
                 String campus = line.getCampus();
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//
