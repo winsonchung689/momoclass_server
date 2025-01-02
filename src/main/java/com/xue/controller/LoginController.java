@@ -3371,7 +3371,7 @@ public class LoginController {
 			message.setCreate_time(create_time);
 			message.setId(id);
 			message.setStudio(studio);
-			loginService.updateComment(message);
+			dao.updateComment(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -4856,7 +4856,7 @@ public class LoginController {
 					dao.updateUuids(Integer.parseInt(id),studio,content);
 				}else if("comment".equals(type)){
 					message.setComment(content);
-					loginService.updateComment(message);
+					dao.updateComment(message);
 				}
 			}
 		} catch (Exception e) {

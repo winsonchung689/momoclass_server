@@ -180,8 +180,6 @@ public interface LoginService {
 
     public int updateSchedule(Schedule schedule);
 
-    public int updateComment(Message message);
-
     public int updateDetailPhoto(Message message);
 
     public int updateUsertype(User user);
