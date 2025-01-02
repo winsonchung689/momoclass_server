@@ -862,7 +862,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGift(String student_name, String studio) {
+    public List getGift(String student_name,String openid,String coupon_type) {
         String create_time = null;
         String expired_time = null;
         String gift_name = null;
@@ -870,6 +870,9 @@ public class LoginServiceImpl implements LoginService {
         Integer status=null;
         String id = null;
         List<JSONObject> resul_list = new ArrayList<>();
+
+        List<User> list_user = dao.getUser(openid);
+        String studio = list_user.get(0).getStudio();
 
         try {
             List<Gift> list = dao.getGift(student_name, studio);

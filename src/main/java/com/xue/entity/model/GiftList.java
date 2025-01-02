@@ -23,7 +23,16 @@ public class GiftList {
 
     private Float price;
 
+    private Integer coupon_type;
 
+
+    public Integer getCoupon_type() {
+        return coupon_type;
+    }
+
+    public void setCoupon_type(Integer coupon_type) {
+        this.coupon_type = coupon_type;
+    }
 
     public String getType() {
         return type;

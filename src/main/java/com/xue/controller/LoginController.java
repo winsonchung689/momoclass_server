@@ -1557,10 +1557,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getGift")
 	@ResponseBody
-	public List getGift(String student_name,String studio){
+	public List getGift(String student_name,String openid,String coupon_type){
 		List list = null;
 		try {
-			list = loginService.getGift(student_name,studio);
+			list = loginService.getGift(student_name,openid,coupon_type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -6252,7 +6252,6 @@ public class LoginController {
 	@RequestMapping("/insertGiftList")
 	@ResponseBody
 	public String insertGiftList(HttpServletRequest request, HttpServletResponse response){
-		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
@@ -6261,6 +6260,7 @@ public class LoginController {
 		String coins = request.getParameter("coins");
 		String type = request.getParameter("type");
 		String price = request.getParameter("price");
+		String coupon_type = request.getParameter("coupon_type");
 
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
@@ -6278,6 +6278,7 @@ public class LoginController {
 			giftList.setType(type);
 			giftList.setPrice(Float.parseFloat(price));
 			giftList.setCoins(Integer.parseInt(coins));
+			giftList.setCoupon_type(Integer.parseInt(coupon_type));
 			dao.insertGiftList(giftList);
 		} catch (Exception e) {
 //					e.printStackTrace();
