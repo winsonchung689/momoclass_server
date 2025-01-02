@@ -3937,12 +3937,14 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String id = line.getId();
                 String create_time = line.getCreate_time();
+                String comment = line.getComment();
 
                 //json
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("comment", comment);
                 resul_list.add(jsonObject);
             }
 

@@ -4821,14 +4821,16 @@ public class LoginController {
 		//获取课堂目标
 		String class_target = request.getParameter("class_target");
 
+		String type = request.getParameter("type");
+
 		String id = request.getParameter("id");
 		if(id == null || id.isEmpty() || "undefined".equals(id)){
 			id = "noid";
 		}
 
-		String uuids = request.getParameter("uuids");
-		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
-			uuids = "no_uuids";
+		String content = request.getParameter("content");
+		if(content == null || content.isEmpty() || "undefined".equals(content)){
+			content = "no_uuids";
 		}
 
 		String openid = request.getParameter("openid");
@@ -4840,16 +4842,22 @@ public class LoginController {
 		message.setClass_target(class_target);
 		message.setClass_target_bak(class_target);
 		message.setStudio(studio);
-		message.setUuids(uuids);
 		message.setCampus(campus);
 		message.setOpenid(openid);
 		message.setCreate_time(create_time);
+		message.setId(id);
 
 		try {
 			if("noid".equals(id)){
 				loginService.push(message);
 			}else{
-				dao.updateUuids(Integer.parseInt(id),studio,uuids);
+				if("uuids".equals(type)){
+					message.setUuids(content);
+					dao.updateUuids(Integer.parseInt(id),studio,content);
+				}else if("comment".equals(type)){
+					message.setComment(content);
+					loginService.updateComment(message);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
