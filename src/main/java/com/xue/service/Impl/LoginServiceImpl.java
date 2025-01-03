@@ -901,6 +901,7 @@ public class LoginServiceImpl implements LoginService {
                 Float price = 0.0f;
                 String uuids = "no_id";
                 Integer coupon_type_get = 1;
+                String mark = "无备注";
                 String gift_id = line.getGift_id();
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
@@ -909,6 +910,7 @@ public class LoginServiceImpl implements LoginService {
                     price = giftList.getPrice();
                     uuids = giftList.getUuids();
                     coupon_type_get = giftList.getCoupon_type();
+                    mark = giftList.getMark();
                 }
 
                 String status_cn = "待领取";
@@ -928,7 +930,9 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
-                jsonObject.put("status", status_cn);
+                jsonObject.put("mark", mark);
+                jsonObject.put("status_cn", status_cn);
+                jsonObject.put("status", status);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("expired_time", expired_time.substring(0,10));
