@@ -5600,6 +5600,7 @@ public class LoginController {
 
 		studio = "请录入工作室";
 		campus = "请录入工作室";
+		// is_open 表示是否发券
 		Integer is_open =0;
 		String my_openid ="";
 

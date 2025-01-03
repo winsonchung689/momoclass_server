@@ -2757,6 +2757,7 @@ public class LoginServiceImpl implements LoginService {
                 Float read_times = line.getRead_times();
                 String expired_time_ad = line.getExpired_time_ad();
                 String city = line.getCity();
+                // is_exchange 表示是否在群内
                 Integer is_exchange = line.getIs_exchange();
                 Integer is_teacher = line.getIs_teacher();
                 String openid_qr = line.getOpenid_qr();
