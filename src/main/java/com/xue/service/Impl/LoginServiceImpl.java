@@ -896,15 +896,6 @@ public class LoginServiceImpl implements LoginService {
                 Date now_time_dt = df.parse(now_time);
                 Date expired_time_dt = df.parse(expired_time);
                 int compare = now_time_dt.compareTo(expired_time_dt);
-                if (status==0){
-                    if (compare > 0) {
-                        jsonObject.put("status", "已过期");
-                    } else {
-                        jsonObject.put("status", "待领取");
-                    }
-                } else if (status==1) {
-                    jsonObject.put("status", "已领取");
-                }
 
                 String type = "礼品";
                 Float price = 0.0f;
@@ -920,8 +911,24 @@ public class LoginServiceImpl implements LoginService {
                     coupon_type_get = giftList.getCoupon_type();
                 }
 
+                String status_cn = "待领取";
+                if (status==0){
+                    if (compare > 0) {
+                        status_cn = "已过期";
+                    } else {
+                        if(coupon_type_get == 2){
+                            status_cn = "未进群";
+                        }
+                    }
+                } else if (status==1) {
+                    status_cn = "已领取";
+                    if(coupon_type_get == 2){
+                        status_cn = "已进群";
+                    }
+                }
 
                 //json
+                jsonObject.put("status", status_cn);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("expired_time", expired_time.substring(0,10));
