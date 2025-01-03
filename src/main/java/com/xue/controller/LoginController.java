@@ -5702,8 +5702,8 @@ public class LoginController {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
 					dao.insertUser(user);
-					// 发券
-					if(is_open > 0){
+					// 邀请成功则给双方发券
+					if("1".equals(type) && is_open > 0){
 						List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
 						GiftList giftList = giftLists.get(0);
 						String gift_name = giftList.getGift_name();
