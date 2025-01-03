@@ -880,6 +880,10 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getGift(student_name, studio);
             }else if(coupon_type == 2){
                 list = dao.getGiftByOpenid(openid,studio,campus);
+            }else if(coupon_type ==3){
+                list = dao.getGift(student_name, studio);
+                List<Gift> list1 = dao.getGiftByOpenid(openid,studio,campus);
+                list.addAll(list1);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -927,6 +931,8 @@ public class LoginServiceImpl implements LoginService {
                     if(coupon_type_get == 2){
                         status_cn = "已进群";
                     }
+                }else if (status==2) {
+                    status_cn = "已消费";
                 }
 
                 //json
