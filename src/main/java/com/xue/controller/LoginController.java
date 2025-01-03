@@ -4843,7 +4843,7 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		//获取课堂目标
+		//获取课堂目标,更新社群信息
 		String class_target = request.getParameter("class_target");
 
 		String type = request.getParameter("type");
@@ -4884,6 +4884,23 @@ public class LoginController {
 					dao.updateComment(message);
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/updateExchangeByOpenid")
+	@ResponseBody
+	public String updateExchangeByOpenid(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		//更改入群状态
+		String openid = request.getParameter("openid");
+		try {
+			dao.updateExchangeByOpenid(openid,1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1050,7 +1050,7 @@ public interface UserMapper {
 
     int updateUserRegion(String region,String studio);
 
-    int updateExchangeByStudio(String studio,Integer is_exchange);
+    int updateExchangeByOpenid(String openid,Integer is_exchange);
 
     int updateUserIsPaid(String openid,Integer is_paid,String cash_uuid);
 
