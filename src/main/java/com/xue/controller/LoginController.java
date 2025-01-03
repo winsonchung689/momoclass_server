@@ -7131,8 +7131,9 @@ public class LoginController {
 	public String updateGift(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String id = request.getParameter("id");
+        String status = request.getParameter("status");
 		try {
-			loginService.updateGift(id);
+            dao.updateGift(id,Integer.parseInt(status));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
