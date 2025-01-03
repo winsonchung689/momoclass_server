@@ -2777,6 +2777,7 @@ public class LoginServiceImpl implements LoginService {
 
                 Integer contract = line.getContract();
                 String unionid = line.getUnionid();
+                Integer is_open = line.getIs_open();
 
                 //json
                 jsonObject.put("unionid", unionid);
@@ -2845,6 +2846,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid_qr", openid_qr);
                 jsonObject.put("is_exchange", is_exchange);
                 jsonObject.put("is_square", is_square);
+                jsonObject.put("is_open", is_open);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
