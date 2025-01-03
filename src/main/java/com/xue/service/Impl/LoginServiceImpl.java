@@ -4859,11 +4859,15 @@ public class LoginServiceImpl implements LoginService {
             Calendar cal_today = Calendar.getInstance();
             cal_today.add(Calendar.HOUR_OF_DAY,hours);
             int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+            long td_time = cal_today.getTimeInMillis();
+            String td_date = df.format(td_time);
 
             //获取统一时间
             Calendar cal_tomorrow = Calendar.getInstance();
             cal_tomorrow.add(Calendar.DATE,+1);
             Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
+            long tm_time = cal_tomorrow.getTimeInMillis();
+            String tm_date = df.format(tm_time);
 
             //获取当前时间
             Date date =new Date();
@@ -4920,17 +4924,29 @@ public class LoginServiceImpl implements LoginService {
 
                 if(list_schedule.size() > 0 && weekDay > 0){
                     for (int j = 0; j < list_schedule.size(); j++) {
-                        String duration = null;
-                        String class_number = null;
-                        String subject = null;
-                        Integer remind = 0;
                         Schedule schedule = list_schedule.get(j);
-                        duration = schedule.getDuration();
-                        class_number = schedule.getClass_number();
-                        subject = schedule.getSubject();
-                        remind = schedule.getRemind();
+                        String duration = schedule.getDuration();
+                        String class_number = schedule.getClass_number();
+                        String subject = schedule.getSubject();
+                        Integer remind = schedule.getRemind();
                         String id = schedule.getId();
                         String send_status = schedule.getSend_status();
+                        String student_type = schedule.getStudent_type();
+                        String add_date = schedule.getAdd_date();
+
+                        //  插班生
+                        if("transferred".equals(student_type)){
+                            if("统一提醒次日".equals(remindType)){
+                                if(!tm_date.equals(add_date)){
+                                    send_status = now_date;
+                                }
+                            }else if("提前N小时提醒".equals(remindType)){
+                                if(!td_date.equals(add_date)){
+                                    send_status = now_date;
+                                }
+                            }
+                        }
+
                         Integer choose = 0;
                         Integer weekDayChoose = 0;
                         if(weekDay == 1){
