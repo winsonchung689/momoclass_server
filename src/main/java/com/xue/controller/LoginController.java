@@ -6048,23 +6048,34 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateIsOpen")
+	@ResponseBody
+	public String updateIsOpen(HttpServletRequest request, HttpServletResponse response){
+		//获取openid
+		String openid = request.getParameter("openid");
+		String is_open = request.getParameter("is_open");
+
+		try {
+			List<User> users= dao.getUser(openid);
+			User user = users.get(0);
+			user.setIs_open(Integer.parseInt(is_open));
+
+			dao.updateIsOpen(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/updateComentStyle")
 	@ResponseBody
 	public String updateComentStyle(HttpServletRequest request, HttpServletResponse response){
 		//获取openid
 		String openid = request.getParameter("openid");
-
 		String studio = request.getParameter("studio");
-
-		String type = request.getParameter("type");
 
 		User user_get= dao.getUser(openid).get(0);
 		String comment_style_get = user_get.getComment_style();
-		Integer is_open_get = user_get.getIs_open();
-		Integer is_open = 0;
-		if(is_open_get == 0){
-			is_open = 1;
-		}
 
 		//定义comment_style
 		String comment_style = "public";
@@ -6072,17 +6083,11 @@ public class LoginController {
 			comment_style = "self";
 		}
 
-
 		try {
 			User user =new User();
 			user.setComment_style(comment_style);
 			user.setStudio(studio);
-			user.setIs_open(is_open);
-			if("comment".equals(type)){
-				dao.updateComentStyle(user);
-			}else if("open".equals(type)){
-				dao.updateIsOpen(user);
-			}
+			dao.updateComentStyle(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

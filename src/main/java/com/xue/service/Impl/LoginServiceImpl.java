@@ -6543,6 +6543,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String campus= line.getCampus();
+                int is_open = line.getIs_open();
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                 String today_time = df.format(new Date());
@@ -6555,6 +6556,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
+                jsonObject.put("is_open", is_open);
                 jsonObject.put("campus", campus);
                 jsonObject.put("role", role);
                 jsonObject.put("student_name", student_name);
