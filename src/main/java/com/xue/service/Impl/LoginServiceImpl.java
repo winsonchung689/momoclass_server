@@ -882,8 +882,13 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getGiftByOpenid(openid,studio,campus);
             }else if(coupon_type ==3){
                 list = dao.getGift(student_name, studio);
-                List<Gift> list1 = dao.getGiftByOpenid(openid,studio,campus);
-                list.addAll(list1);
+                List<User> users =dao.getUserByStudent(student_name,studio);
+                if(users.size()>0){
+                    User user = users.get(0);
+                    String openid_get = user.getOpenid();
+                    List<Gift> list1 = dao.getGiftByOpenid(openid_get,studio,campus);
+                    list.addAll(list1);
+                }
             }
 
             for (int i = 0; i < list.size(); i++) {
