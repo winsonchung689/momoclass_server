@@ -5601,6 +5601,7 @@ public class LoginController {
 		studio = "请录入工作室";
 		campus = "请录入工作室";
 		Integer is_open =0;
+		String my_openid ="";
 
 //		登陆码
 		if("1".equals(type)){
@@ -5608,30 +5609,8 @@ public class LoginController {
 			User user = users.get(0);
 			studio = user.getStudio();
 			campus = user.getCampus();
-			String my_openid = user.getOpenid();
+			my_openid = user.getOpenid();
 			is_open = user.getIs_open();
-
-			if(is_open > 0){
-				List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
-				GiftList giftList = giftLists.get(0);
-				String gift_name = giftList.getGift_name();
-
-				Gift gift = new Gift();
-				gift.setGift_name(gift_name);
-				gift.setGift_amount(1);
-				gift.setCreate_time(create_time);
-				gift.setExpired_time(expired_time);
-				gift.setStudio(studio);
-				gift.setCampus(campus);
-				gift.setStatus(0);
-				gift.setGift_id(is_open.toString());
-				//邀请者发券
-				gift.setOpenid(my_openid);
-				loginService.insertGift(gift);
-				//被邀请者发券
-				gift.setOpenid(openid);
-				loginService.insertGift(gift);
-			}
 		}
 
 //		邀请码
@@ -5723,6 +5702,28 @@ public class LoginController {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
 					dao.insertUser(user);
+
+					if(is_open > 0){
+						List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
+						GiftList giftList = giftLists.get(0);
+						String gift_name = giftList.getGift_name();
+
+						Gift gift = new Gift();
+						gift.setGift_name(gift_name);
+						gift.setGift_amount(1);
+						gift.setCreate_time(create_time);
+						gift.setExpired_time(expired_time);
+						gift.setStudio(studio);
+						gift.setCampus(campus);
+						gift.setStatus(0);
+						gift.setGift_id(is_open.toString());
+						//邀请者发券
+						gift.setOpenid(my_openid);
+						loginService.insertGift(gift);
+						//被邀请者发券
+						gift.setOpenid(openid);
+						loginService.insertGift(gift);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
