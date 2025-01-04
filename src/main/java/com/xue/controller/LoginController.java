@@ -6705,11 +6705,22 @@ public class LoginController {
 		String amount = request.getParameter("amount");
 		String coins = request.getParameter("coins");
 		String subject = request.getParameter("subject");
+		String price = request.getParameter("price");
+		if(price == null || price.isEmpty() || "undefined".equals(price)){
+			price = "0";
+		}
+
+		String uuids = request.getParameter("uuids");
+		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
+			uuids = "no_id";
+		}
 
 		cal.add(cal.DATE,100);
 		String expired_time = df.format(cal.getTime());
 
 		Gift gift = new Gift();
+		gift.setPrice(Float.parseFloat(price));
+		gift.setUuids(uuids);
 		gift.setStudent_name(student_name);
 		gift.setGift_name(gift_name);
 		gift.setGift_amount(Integer.parseInt(amount));

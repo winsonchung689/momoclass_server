@@ -25,6 +25,26 @@ public class Gift {
 
     private String openid;
 
+    private Float price;
+
+    private String uuids;
+
+
+    public String getUuids() {
+        return uuids;
+    }
+
+    public void setUuids(String uuids) {
+        this.uuids = uuids;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public String getOpenid() {
         return openid;
