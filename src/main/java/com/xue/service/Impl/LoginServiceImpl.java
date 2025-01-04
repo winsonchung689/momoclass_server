@@ -906,9 +906,9 @@ public class LoginServiceImpl implements LoginService {
                 Date expired_time_dt = df.parse(expired_time);
                 int compare = now_time_dt.compareTo(expired_time_dt);
 
-                String type = "礼品";
-                Float price = 0.0f;
-                String uuids = "no_id";
+                String type = line.gettType();
+                Float price = line.getPrice();
+                String uuids = line.getUuids();
                 Integer coupon_type_get = 1;
                 String mark = "无备注";
                 String gift_id = line.getGift_id();

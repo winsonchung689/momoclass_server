@@ -29,6 +29,16 @@ public class Gift {
 
     private String uuids;
 
+    private String type;
+
+
+    public String gettType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getUuids() {
         return uuids;

@@ -6715,6 +6715,11 @@ public class LoginController {
 			uuids = "no_id";
 		}
 
+		String type = request.getParameter("type");
+		if(type == null || type.isEmpty() || "undefined".equals(type)){
+			type = "礼品";
+		}
+
 		cal.add(cal.DATE,100);
 		String expired_time = df.format(cal.getTime());
 
@@ -6731,6 +6736,7 @@ public class LoginController {
 		gift.setStatus(0);
 		gift.setGift_id(gift_id);
 		gift.setOpenid(openid);
+		gift.setType(type);
 		loginService.insertGift(gift);
 		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,"兑换积分","");
 		return "push massage successfully";
