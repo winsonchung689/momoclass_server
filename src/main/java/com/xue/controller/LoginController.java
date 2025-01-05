@@ -3592,7 +3592,7 @@ public class LoginController {
 
 		String id = request.getParameter("id");
 		String teacher = request.getParameter("teacher");
-		dao.updateCardRecordTeacher(teacher,id);
+		dao.updateCardRecordTeacher(id,teacher);
 
 		return 1;
 	}
