@@ -2958,8 +2958,10 @@ public class LoginController {
 		}
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
-		String studio = users.get(0).getStudio();
-		String campus = users.get(0).getCampus();
+		User user_get = users.get(0);
+		String studio = user_get.getStudio();
+		String campus = user_get.getCampus();
+		String nick_name = user_get.getNick_name();
 
 
 		try {
@@ -2972,6 +2974,7 @@ public class LoginController {
 			cardRecord.setMark(mark);
 			cardRecord.setCard_id(card_id);
 			cardRecord.setDuration(duration);
+			cardRecord.setTeacher(nick_name);
 
 			dao.insertCardRecord(cardRecord);
 
