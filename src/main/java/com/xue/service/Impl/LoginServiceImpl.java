@@ -928,13 +928,13 @@ public class LoginServiceImpl implements LoginService {
                         status_cn = "已过期";
                     } else {
                         if(coupon_type_get == 2){
-                            status_cn = "未进群";
+                            status_cn = "未生效";
                         }
                     }
                 } else if (status==1) {
                     status_cn = "已领取";
                     if(coupon_type_get == 2){
-                        status_cn = "已进群";
+                        status_cn = "已生效";
                     }
                 }else if (status==2) {
                     status_cn = "已消费";
@@ -957,7 +957,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("coupon_type",coupon_type_get);
                 resul_list.add(jsonObject);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
