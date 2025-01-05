@@ -538,6 +538,8 @@ public interface UserMapper {
 
     int updateCardRecordCampusByStudio(String studio,String campus);
 
+    int updateCardRecordTeacher(String teacher,String id);
+
     int updateUserUnionid(String openid,String unionid,String app);
 
     int updateRestaurantUserUnionid(String openid,String unionid);

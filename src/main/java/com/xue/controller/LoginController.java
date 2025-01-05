@@ -3584,6 +3584,19 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateCardRecordTeacher")
+	@ResponseBody
+	public int updateCardRecordTeacher(HttpServletRequest request, HttpServletResponse response) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String id = request.getParameter("id");
+		String teacher = request.getParameter("teacher");
+		dao.updateCardRecordTeacher(teacher,id);
+
+		return 1;
+	}
+
 	@RequestMapping("/updateGiftDetail")
 	@ResponseBody
 	public int updateGiftDetail(HttpServletRequest request, HttpServletResponse response) {
