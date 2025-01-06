@@ -954,6 +954,8 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
 
+    List<CardRecord> getCardRecordByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
+
     List<SignUp> getStudentByTeacherByDurationByPage(String studio,String teacher,String date_start,String date_end,Integer page_start,Integer page_length);
 
     List<Message> getCommentByDate(String student_name,String studio,String date_time,String campus,String class_target);

@@ -1163,6 +1163,15 @@
     select * from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2} and sign_time between #{param3} and #{param4} order by sign_time desc
   </select>
 
+  <!-- 查找卡签记录 -->
+  <select id="getCardRecordByTeacherByDuration" parameterType="com.xue.entity.model.CardRecord" resultMap="BaseCardRecord">
+    select * from card_record where delete_status = 0 and studio = #{param1} and teacher = #{param2} and create_time between #{param3} and #{param4} order by create_time desc
+  </select>
+
+  <select id="getStudentByTeacherByDurationByPage" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2} and sign_time between #{param3} and #{param4} order by sign_time desc limit #{param5},#{param6};
+  </select>
+
   <select id="getStudentByTeacherByDurationByPage" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2} and sign_time between #{param3} and #{param4} order by sign_time desc limit #{param5},#{param6};
   </select>
