@@ -3927,6 +3927,7 @@ public class LoginController {
 
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
+			int hours = list_user.get(0).getHours();
 
 			List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek,class_number,duration,subject,campus);
 			if(arrangement_list.size() == 0){
@@ -3975,6 +3976,8 @@ public class LoginController {
 					schedule.setStatus(1);
 					schedule.setSubject(subject);
 					schedule.setCampus(campus);
+					schedule.setRemind(1);
+					schedule.setHours(hours);
 					List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 					if(check_schedule.size()==0){
 						loginService.insertSchedule(schedule);
