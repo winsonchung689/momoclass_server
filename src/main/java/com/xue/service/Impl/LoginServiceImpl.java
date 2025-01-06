@@ -5482,14 +5482,14 @@ public class LoginServiceImpl implements LoginService {
                     //获取卡
                     List<Card> cards = dao.getCardById(card_id);
                     Card card = cards.get(0);
-                    String car_type = card.getType();
+                    String card_type = card.getType();
 
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("mark", mark);
                     jsonObject.put("create_time", create_time);
-                    jsonObject.put("car_type", car_type);
+                    jsonObject.put("card_type", card_type);
                     resul_list.add(jsonObject);
                 }
             }
