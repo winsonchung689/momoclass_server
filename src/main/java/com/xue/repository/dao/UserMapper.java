@@ -206,7 +206,7 @@ public interface UserMapper {
 
     List<PostLike> getPostLikeByOpenid(String post_id,String openid);
 
-    List<Points> getPointsRecordByStudent(String student_name,String studio,String campus,String subject,String create_time);
+    List<Points> getPointsRecordByStudent(String student_name,String studio,String campus,String subject,String start_date,String end_date);
 
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus,String class_target_bak);
 

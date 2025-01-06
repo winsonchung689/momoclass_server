@@ -10012,7 +10012,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             Float month_points = 0.0f;
-            List<Points> points_list = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,create_time);
+            List<Points> points_list = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,create_time+"-01",create_time + "-31");
             if(points_list.size()>0){
                 for(int j = 0; j < points_list.size(); j++){
                     Points points_m = points_list.get(j);
@@ -10037,13 +10037,22 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getPointsRecordByMonth(String studio, String openid, String student_name, String subject, String month) {
+    public List getPointsRecordByMonth(String type, String openid, String student_name, String subject, String month) {
 
         List<User> list_user = dao.getUser(openid);
         String campus = list_user.get(0).getCampus();
+        String studio = list_user.get(0).getStudio();
         List<JSONObject> resul_list = new ArrayList<>();
 
-        List<Points> list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,month);
+        List<Points> list = null;
+        if("月".equals(type)){
+            list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,month+"-01",month+"-31");
+        } else if ("年".equals(type)) {
+            String year = month.split("-")[0];
+            list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,year+"-01-01",month+"-31");
+        }
+
+
         for (int i = 0; i < list.size(); i++) {
             JSONObject jsonObject = new JSONObject();
             Points points = list.get(i);

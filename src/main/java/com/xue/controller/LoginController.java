@@ -1689,10 +1689,10 @@ public class LoginController {
 
 	@RequestMapping("/getPointsRecordByMonth")
 	@ResponseBody
-	public List getPointsRecordByMonth(String studio, String openid, String student_name, String subject, String month){
+	public List getPointsRecordByMonth(String type, String openid, String student_name, String subject, String month){
 		List list = null;
 		try {
-			list = loginService.getPointsRecordByMonth(studio,openid,student_name,subject,month);
+			list = loginService.getPointsRecordByMonth(type,openid,student_name,subject,month);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

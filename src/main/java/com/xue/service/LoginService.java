@@ -302,6 +302,6 @@ public interface LoginService {
 
     public List getStandings(String openid,String student_name,String subject,Integer page);
 
-    public List getPointsRecordByMonth(String studio,String openid,String student_name,String subject,String month);
+    public List getPointsRecordByMonth(String type,String openid,String student_name,String subject,String month);
 
 }
