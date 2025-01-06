@@ -4892,17 +4892,22 @@ public class LoginController {
 		message.setId(id);
 
 		try {
-			if("noid".equals(id)){
-				loginService.push(message);
-			}else{
-				if("uuids".equals(type)){
-					message.setUuids(content);
-					dao.updateUuids(Integer.parseInt(id),studio,content);
-				}else if("comment".equals(type)){
-					message.setComment(content);
-					dao.updateComment(message);
+			if("社群码".equals(class_target)){
+				if("noid".equals(id)){
+					loginService.push(message);
+				}else{
+					if("uuids".equals(type)){
+						message.setUuids(content);
+						dao.updateUuids(Integer.parseInt(id),studio,content);
+					}else if("comment".equals(type)){
+						message.setComment(content);
+						dao.updateComment(message);
+					}
 				}
+			}else if("库存".equals(class_target)){
+				dao.updateGiftAmount(id,Integer.parseInt(content));
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
