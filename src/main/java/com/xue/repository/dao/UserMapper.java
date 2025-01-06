@@ -418,6 +418,8 @@ public interface UserMapper {
 
     int updateGiftDetail(GiftList giftList);
 
+    int updateGiftAmount(String id,Integer amount);
+
     int updateCardPrice(String id,String price);
 
     int updateCardType(String id,String type);

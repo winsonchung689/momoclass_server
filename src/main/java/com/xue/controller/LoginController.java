@@ -5730,6 +5730,7 @@ public class LoginController {
 						GiftList giftList = giftLists.get(0);
 						String gift_name = giftList.getGift_name();
 
+//						插入礼物记录
 						Gift gift = new Gift();
 						gift.setGift_name(gift_name);
 						gift.setGift_amount(1);

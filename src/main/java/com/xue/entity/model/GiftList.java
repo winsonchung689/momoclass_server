@@ -27,7 +27,16 @@ public class GiftList {
 
     private String mark;
 
+    private Integer amount;
 
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public String getMark() {
         return mark;

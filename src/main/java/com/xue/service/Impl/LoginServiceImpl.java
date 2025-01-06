@@ -743,6 +743,7 @@ public class LoginServiceImpl implements LoginService {
             Float price = line.getPrice();
             Integer coupon_type = line.getCoupon_type();
             String mark = line.getMark();
+            Integer amount = line.getAmount();
 
             //json
             jsonObject.put("id", id);
@@ -754,6 +755,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("price", price);
             jsonObject.put("coupon_type", coupon_type);
             jsonObject.put("mark", mark);
+            jsonObject.put("amount", amount);
             resul_list.add(jsonObject);
         }
         return resul_list;
@@ -1434,9 +1436,17 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int insertGift(Gift gift) {
         int result = 0;
-        FileInputStream in = null;
         try {
             result = dao.insertGift(gift);
+            // 更新减少库存
+            String gift_id = gift.getGift_id();
+            List<GiftList> giftLists = dao.getGiftListById(gift_id);
+            if(giftLists.size()>0){
+                GiftList giftList = giftLists.get(0);
+                Integer amount = giftList.getAmount();
+                amount = amount -1;
+                dao.updateGiftAmount(gift_id,amount);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
