@@ -5692,7 +5692,9 @@ public class LoginController {
 		List<User> list= dao.getUser(openid);
 		if(list.size()>0){
 			String role_get = list.get(0).getRole();
+            nick_name = list.get(0).getNick_name();
 			user.setRole(role_get);
+            user.setNick_name(nick_name);
 			int res = loginService.updateUser(user);
 			if(res > 0 && !student_name.equals("no_name")){
 				String user_type_get = list.get(0).getUser_type();
