@@ -10049,7 +10049,7 @@ public class LoginServiceImpl implements LoginService {
             list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,month+"-01",month+"-31");
         } else if ("年".equals(type)) {
             String year = month.split("-")[0];
-            list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,year+"-01-01",month+"-31");
+            list = dao.getPointsRecordByStudent(student_name,studio,campus,subject,year+"-01-01",year+"-12-31");
         }
 
 
