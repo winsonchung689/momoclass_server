@@ -1445,7 +1445,8 @@ public class LoginServiceImpl implements LoginService {
                 GiftList giftList = giftLists.get(0);
                 Integer amount = giftList.getAmount();
                 amount = amount -1;
-                dao.updateGiftAmount(gift_id,amount);
+                giftList.setAmount(amount);
+                dao.updateGiftDetail(giftList);
             }
         } catch (Exception e) {
             e.printStackTrace();
