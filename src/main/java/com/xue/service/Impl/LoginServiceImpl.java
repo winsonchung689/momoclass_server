@@ -774,6 +774,8 @@ public class LoginServiceImpl implements LoginService {
             String expired_time = line.getExpired_time();
             String id = line.getId();
             Integer gift_amount = line.getGift_amount();
+            Integer status = line.getStatus();
+
             String openid = line.getOpenid();
             List<User> users = dao.getUserByOpenid(openid);
             String nick_name= null;
@@ -789,6 +791,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("gift_amount", gift_amount);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
+                jsonObject.put("status", status);
                 resul_list.add(jsonObject);
             }
         }
