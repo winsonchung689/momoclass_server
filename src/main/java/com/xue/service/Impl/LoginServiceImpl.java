@@ -781,16 +781,16 @@ public class LoginServiceImpl implements LoginService {
             if(users.size()>0){
                 nick_name = users.get(0).getNick_name();
                 student_name = users.get(0).getStudent_name();
-            }
 
-            //json
-            jsonObject.put("id", id);
-            jsonObject.put("create_time", create_time);
-            jsonObject.put("expired_time", expired_time);
-            jsonObject.put("gift_amount", gift_amount);
-            jsonObject.put("nick_name", nick_name);
-            jsonObject.put("student_name", student_name);
-            resul_list.add(jsonObject);
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("expired_time", expired_time);
+                jsonObject.put("gift_amount", gift_amount);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("student_name", student_name);
+                resul_list.add(jsonObject);
+            }
         }
         return resul_list;
     }
