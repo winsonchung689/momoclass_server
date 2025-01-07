@@ -762,6 +762,36 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGiftByGiftId(String gift_id,String studio, String campus) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        List<Gift> gifts = dao.getGiftByGiftId(gift_id,studio,campus);
+        for (int i = 0; i < gifts.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Gift line = gifts.get(i);
+            //获取字段
+            String create_time = line.getCreate_time();
+            String expired_time = line.getExpired_time();
+            String id = line.getId();
+            Integer gift_amount = line.getGift_amount();
+            String openid = line.getOpenid();
+            List<User> users = dao.getUserByOpenid(openid);
+            String nick_name= users.get(0).getNick_name();
+            String student_name = users.get(0).getStudent_name();
+
+            //json
+            jsonObject.put("id", id);
+            jsonObject.put("create_time", create_time);
+            jsonObject.put("expired_time", expired_time);
+            jsonObject.put("gift_amount", gift_amount);
+            jsonObject.put("nick_name", nick_name);
+            jsonObject.put("student_name", student_name);
+            resul_list.add(jsonObject);
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getSignUpByAll(String studio, String openid) {
         String create_time = null;
         String sign_time = null;

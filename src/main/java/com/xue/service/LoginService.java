@@ -108,6 +108,8 @@ public interface LoginService {
 
     public List  getGiftList(String studio,String campus);
 
+    public List  getGiftByGiftId(String gift_id,String studio,String campus);
+
     public List  getSignUpByAll(String studio,String openid);
 
     public List  getLessonPackageByAll(String studio,String openid);

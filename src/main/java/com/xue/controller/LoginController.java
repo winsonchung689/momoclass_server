@@ -1583,6 +1583,22 @@ public class LoginController {
 		return list;
 	}
 
+	//获取得券名单
+	@RequestMapping("/getGiftByGiftId")
+	@ResponseBody
+	public List getGiftByGiftId(String gift_id,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String studio = list_user.get(0).getStudio();
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getGiftByGiftId(gift_id,studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取请假记录
 	@RequestMapping("/getLeaveRecord")
 	@ResponseBody
