@@ -3616,6 +3616,8 @@ public class LoginController {
 			giftList.setMark(content);
 		}else if("价格".equals(type)){
 			giftList.setPrice(Float.parseFloat(content));
+		}else if("库存".equals(type)){
+			giftList.setAmount(Integer.parseInt(content));
 		}
 		dao.updateGiftDetail(giftList);
 
@@ -4905,7 +4907,10 @@ public class LoginController {
 					}
 				}
 			}else if("库存".equals(class_target)){
-				dao.updateGiftAmount(id,Integer.parseInt(content));
+				List<GiftList> giftLists = dao.getGiftListById(id);
+				GiftList giftList = giftLists.get(0);
+				giftList.setAmount(Integer.parseInt(content));
+				dao.updateGiftDetail(giftList);
 			}
 
 		} catch (Exception e) {

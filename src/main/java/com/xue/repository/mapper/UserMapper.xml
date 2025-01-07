@@ -1485,12 +1485,7 @@
 
   <!-- 更新礼品详情 -->
   <update id="updateGiftDetail" parameterType="com.xue.entity.model.GiftList">
-    update gift_list set gift_name=#{gift_name},mark=#{mark},price=#{price} where id =#{id} and delete_status = 0
-  </update>
-
-  <!-- 更新券数量 -->
-  <update id="updateGiftAmount" parameterType="com.xue.entity.model.GiftList">
-    update gift_list set amount=#{param2} where id =#{param1} and delete_status = 0
+    update gift_list set gift_name=#{gift_name},mark=#{mark},price=#{price},amount=#{amount} where id =#{id} and delete_status = 0
   </update>
 
   <!-- 更新卡图片 -->
