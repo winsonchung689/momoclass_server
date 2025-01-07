@@ -776,8 +776,12 @@ public class LoginServiceImpl implements LoginService {
             Integer gift_amount = line.getGift_amount();
             String openid = line.getOpenid();
             List<User> users = dao.getUserByOpenid(openid);
-            String nick_name= users.get(0).getNick_name();
-            String student_name = users.get(0).getStudent_name();
+            String nick_name= null;
+            String student_name = null;
+            if(users.size()>0){
+                nick_name = users.get(0).getNick_name();
+                student_name = users.get(0).getStudent_name();
+            }
 
             //json
             jsonObject.put("id", id);
