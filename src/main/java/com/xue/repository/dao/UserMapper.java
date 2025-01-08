@@ -639,6 +639,10 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUser(String openid);
 
+    List<PptMenu> getPptMenu(String studio,String campus);
+
+    List<PptMenu> getPptMenuById(String id);
+
     List<BookUser> getBookUser(String openid);
 
     List<BookUser> getBookUserByBookName(String book_name);

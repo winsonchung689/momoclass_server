@@ -3033,6 +3033,47 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getPptMenu(String openid) {
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<PptMenu> list = dao.getPptMenu(studio,campus);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                PptMenu line = list.get(i);
+                //获取字段
+                String ppt_name = line.getPpt_name();
+                String category = line.getCategory();
+                String uuids = line.getUuids();
+                String uuid = line.getUuid();
+                String create_time = line.getCreate_time();
+                String introduce = line.getIntroduce();
+
+
+                //json
+                jsonObject.put("ppt_name", ppt_name);
+                jsonObject.put("category", category);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("uuid", uuid);
+                jsonObject.put("introduce", introduce);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getPptMenuById(String id) {
+        return null;
+    }
+
+    @Override
     public List getUserByNickName(String nickName) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String role = null;
