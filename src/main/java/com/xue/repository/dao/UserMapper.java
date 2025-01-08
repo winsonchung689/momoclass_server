@@ -643,6 +643,8 @@ public interface UserMapper {
 
     List<PptMenu> getPptMenuById(String id);
 
+    List<PptMenu> getPptMenuCategory(String studio,String campus);
+
     List<BookUser> getBookUser(String openid);
 
     List<BookUser> getBookUserByBookName(String book_name);

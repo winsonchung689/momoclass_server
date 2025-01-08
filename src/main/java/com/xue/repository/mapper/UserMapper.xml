@@ -1355,6 +1355,10 @@
     select * from ppt_menu where id =#{param1} and delete_status = 0 order by create_time
   </select>
 
+  <select id="getPptMenuCategory" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
+    select category from ppt_menu where studio =#{param1} and campus =#{param2} and delete_status = 0 group by category
+  </select>
+
   <select id="getBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
     select * from book_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
