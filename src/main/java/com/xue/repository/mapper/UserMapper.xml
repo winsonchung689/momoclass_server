@@ -1770,7 +1770,7 @@
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
-    insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time})
+    insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time,uuid) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time},#{uuid})
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">

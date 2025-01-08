@@ -13,6 +13,8 @@ public class PptMenu {
 
     private String uuids;
 
+    private String uuid;
+
     private String category;
 
     private Float price;
@@ -21,6 +23,14 @@ public class PptMenu {
 
     private String introduce;
 
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getIntroduce() {
         return introduce;

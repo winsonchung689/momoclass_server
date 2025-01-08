@@ -4093,6 +4093,7 @@ public class LoginController {
 			String studio = user.getStudio();
 			String campus = user.getCampus();
 			String ppt_name =  request.getParameter("ppt_name");
+			String uuid =  request.getParameter("uuid");
 			String uuids =  request.getParameter("uuids");
 			String introduce =  request.getParameter("introduce");
 			String category =  request.getParameter("category");
@@ -4107,6 +4108,7 @@ public class LoginController {
 			pptMenu.setIntroduce(introduce);
 			pptMenu.setCreate_time(create_time);
 			pptMenu.setPrice(Float.parseFloat(price));
+			pptMenu.setUuid(uuid);
 
 			dao.insertPptMenu(pptMenu);
 		} catch (Exception e) {
