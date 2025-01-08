@@ -36,6 +36,11 @@
   <resultMap id="BaseRestaurantMenu" type="com.xue.entity.model.Menu">
     <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
+
+  <resultMap id="BasePptMenu" type="com.xue.entity.model.PptMenu">
+    <result column="category" jdbcType="VARCHAR" property="category" />
+  </resultMap>
+
   <resultMap id="BaseLesson" type="com.xue.entity.model.Lesson">
     <result column="student_name" jdbcType="VARCHAR" property="student_name" />
   </resultMap>
@@ -1762,6 +1767,10 @@
 
   <insert id="insertRestaurantMenu" parameterType="com.xue.entity.model.Menu">
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time})
+  </insert>
+
+  <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
+    insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time) values(#{restaurant},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time})
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">

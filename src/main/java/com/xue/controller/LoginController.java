@@ -4080,6 +4080,40 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/insertPptMenu")
+	@ResponseBody
+	public int insertPptMenu(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			String openid =  request.getParameter("openid");
+			List<User> users =dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+
+			String ppt_name =  request.getParameter("ppt_name");
+			String uuids =  request.getParameter("uuids");
+			String introduce =  request.getParameter("introduce");
+			String category =  request.getParameter("category");
+
+			PptMenu pptMenu = new PptMenu();
+			pptMenu.setStudio(studio);
+			pptMenu.setCampus(campus);
+			pptMenu.setPpt_name(ppt_name);
+			pptMenu.setUuids(uuids);
+			pptMenu.setCategory(category);
+			pptMenu.setIntroduce(introduce);
+			pptMenu.setCreate_time(create_time);
+
+			dao.insertPptMenu(pptMenu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/insertNote")
 	@ResponseBody
 	public int insertNote(HttpServletRequest request, HttpServletResponse response){

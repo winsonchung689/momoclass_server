@@ -888,6 +888,8 @@ public interface UserMapper {
 
     int insertRestaurantMenu(Menu menu);
 
+    int insertPptMenu(PptMenu pptMenu);
+
     int insertRestaurantOrder(RestaurantOrder restaurantOrder);
 
     int insertLessonPackage(LessonPackage lessonPackage);
