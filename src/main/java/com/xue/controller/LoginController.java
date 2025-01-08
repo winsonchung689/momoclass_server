@@ -4092,7 +4092,6 @@ public class LoginController {
 			User user = users.get(0);
 			String studio = user.getStudio();
 			String campus = user.getCampus();
-
 			String ppt_name =  request.getParameter("ppt_name");
 			String uuids =  request.getParameter("uuids");
 			String introduce =  request.getParameter("introduce");
