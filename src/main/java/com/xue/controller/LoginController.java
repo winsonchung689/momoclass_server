@@ -4097,7 +4097,7 @@ public class LoginController {
 			String uuids =  request.getParameter("uuids");
 			String introduce =  request.getParameter("introduce");
 			String category =  request.getParameter("category");
-			String price =  request.getParameter("pirce");
+			String price =  request.getParameter("price");
 
 			PptMenu pptMenu = new PptMenu();
 			pptMenu.setStudio(studio);
