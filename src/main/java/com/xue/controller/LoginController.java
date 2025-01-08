@@ -2254,6 +2254,30 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getPptMenuById")
+	@ResponseBody
+	public List getPptMenuById(String id){
+		List list = null;
+		try {
+			list = loginService.getPptMenuById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@RequestMapping("/getPptMenu")
+	@ResponseBody
+	public List getPptMenu(String openid){
+		List list = null;
+		try {
+			list = loginService.getPptMenu(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteComment")
