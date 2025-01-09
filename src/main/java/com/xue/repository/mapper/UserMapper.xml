@@ -1308,7 +1308,7 @@
 
   <!-- 更新课时 -->
   <update id="updateGift" parameterType="com.xue.entity.model.Gift">
-    update gift_record set status=#{param2} where id=#{param1}
+    update gift_record set status=#{status},create_time=#{create_time},expired_time=#{expired_time} where id=#{id}
   </update>
 
   <!-- 插入客户信息 -->

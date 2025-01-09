@@ -7299,9 +7299,19 @@ public class LoginController {
 	public String updateGift(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
 		String id = request.getParameter("id");
-        String status = request.getParameter("status");
+        String content = request.getParameter("content");
+		String type = request.getParameter("type");
 		try {
-            dao.updateGift(id,Integer.parseInt(status));
+			List<Gift> gifts = dao.getGiftById(id);
+			Gift gift = gifts.get(0);
+			if("状态".equals(type)){
+				gift.setStatus(Integer.parseInt(content));
+			} else if ("发放时间".equals(type)) {
+				gift.setCreate_time(content);
+			}else if ("过期时间：".equals(type)) {
+				gift.setExpired_time(content);
+			}
+			dao.updateGift(gift);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

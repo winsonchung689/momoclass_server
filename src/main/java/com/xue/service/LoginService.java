@@ -278,8 +278,6 @@ public interface LoginService {
 
     public int updateCoinsByStudio(String studio,String openid,Float number,String type);
 
-    public int updateGift(String id);
-
     public void sendClassRemind();
 
     public void sendBossPayRemind();

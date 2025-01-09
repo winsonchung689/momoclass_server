@@ -4958,24 +4958,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int updateGift(String id) {
-        int result = 0;
-        try {
-            List<Gift> gifts = dao.getGiftById(id);
-            Gift gift = gifts.get(0);
-            Integer status = gift.getStatus();
-            int new_status = 1;
-            if(status == 1){
-                new_status = 0;
-            }
-            result = dao.updateGift(id,new_status);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
     public void sendClassRemind() {
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");
