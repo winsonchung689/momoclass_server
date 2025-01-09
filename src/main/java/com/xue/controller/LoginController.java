@@ -3745,6 +3745,34 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updatePptMenu")
+	@ResponseBody
+	public int updatePptMenu(HttpServletRequest request, HttpServletResponse response){
+
+		//获取参数
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+		String id = request.getParameter("id");
+
+		try {
+			List<PptMenu> pptMenus = dao.getPptMenuById(id);
+			PptMenu pptMenu = pptMenus.get(0);
+			if("名称".equals(type)){
+				pptMenu.setPpt_name(content);
+			} else if ("类别".equals(type)) {
+				pptMenu.setCategory(content);
+			}else if ("简介".equals(type)) {
+				pptMenu.setIntroduce(content);
+			}
+			dao.updatePptMenu(pptMenu);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateBackUrl")
 	@ResponseBody
 	public int updateBackUrl(HttpServletRequest request, HttpServletResponse response){

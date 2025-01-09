@@ -517,6 +517,8 @@ public interface UserMapper {
 
     int updateDetailPhoto(Message message);
 
+    int updatePptMenu(PptMenu pptMenu);
+
     int updateUsertype(User user);
 
     int updateUserCampus(User user);
