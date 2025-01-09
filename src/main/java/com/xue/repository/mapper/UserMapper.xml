@@ -1306,7 +1306,6 @@
     update ppt_menu set ppt_name=#{ppt_name},category=#{category},introduce=#{introduce} where id=#{id}
   </update>
 
-
   <!-- 更新课时 -->
   <update id="updateGift" parameterType="com.xue.entity.model.Gift">
     update gift_record set status=#{param2} where id=#{param1}
