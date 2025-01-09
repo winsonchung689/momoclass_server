@@ -7308,7 +7308,7 @@ public class LoginController {
 				gift.setStatus(Integer.parseInt(content));
 			} else if ("发放时间".equals(type)) {
 				gift.setCreate_time(content);
-			}else if ("过期时间：".equals(type)) {
+			}else if ("过期时间".equals(type)) {
 				gift.setExpired_time(content);
 			}
 			dao.updateGift(gift);
