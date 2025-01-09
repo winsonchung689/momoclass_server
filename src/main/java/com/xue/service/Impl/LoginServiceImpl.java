@@ -3065,8 +3065,10 @@ public class LoginServiceImpl implements LoginService {
                     String uuid = line.getUuid();
                     String create_time = line.getCreate_time();
                     String introduce = line.getIntroduce();
+                    String id = line.getId();
 
                     //json
+                    jsonObject.put("id", id);
                     jsonObject.put("ppt_name", ppt_name);
                     jsonObject.put("category", category);
                     jsonObject.put("uuids", uuids);
@@ -3079,9 +3081,6 @@ public class LoginServiceImpl implements LoginService {
                     resul_list.add(jsonObject);
                 }
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
