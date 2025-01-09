@@ -3041,30 +3041,45 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus);
+            if(pptMenus.size()>0){
+                StringBuffer category_all = new StringBuffer();
+                for(int i=0;i < pptMenus.size();i++){
+                    String category = pptMenus.get(i).getCategory();
+                    category_all.append(category);
+                    category_all.append(",");
+                }
+                if(category_all.length()>0) {
+                    category_all = category_all.deleteCharAt(category_all.lastIndexOf(","));
+                }
 
+                List<PptMenu> list = dao.getPptMenu(studio,campus);
+                for (int i = 0; i < list.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    PptMenu line = list.get(i);
+                    //获取字段
+                    String ppt_name = line.getPpt_name();
+                    String category = line.getCategory();
+                    String uuids = line.getUuids();
+                    String uuid = line.getUuid();
+                    String create_time = line.getCreate_time();
+                    String introduce = line.getIntroduce();
 
-            List<PptMenu> list = dao.getPptMenu(studio,campus);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                PptMenu line = list.get(i);
-                //获取字段
-                String ppt_name = line.getPpt_name();
-                String category = line.getCategory();
-                String uuids = line.getUuids();
-                String uuid = line.getUuid();
-                String create_time = line.getCreate_time();
-                String introduce = line.getIntroduce();
-
-
-                //json
-                jsonObject.put("ppt_name", ppt_name);
-                jsonObject.put("category", category);
-                jsonObject.put("uuids", uuids);
-                jsonObject.put("uuid", uuid);
-                jsonObject.put("introduce", introduce);
-                jsonObject.put("create_time", create_time);
-                resul_list.add(jsonObject);
+                    //json
+                    jsonObject.put("ppt_name", ppt_name);
+                    jsonObject.put("category", category);
+                    jsonObject.put("uuids", uuids);
+                    jsonObject.put("uuid", uuid);
+                    jsonObject.put("introduce", introduce);
+                    jsonObject.put("create_time", create_time);
+                    if(i==0){
+                        jsonObject.put("category_all", category_all);
+                    }
+                    resul_list.add(jsonObject);
+                }
             }
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
