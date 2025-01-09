@@ -3040,6 +3040,7 @@ public class LoginServiceImpl implements LoginService {
         String campus = user.getCampus();
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            // 获取类目
             List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus);
             if(pptMenus.size()>0){
                 StringBuffer category_all = new StringBuffer();
@@ -3052,6 +3053,7 @@ public class LoginServiceImpl implements LoginService {
                     category_all = category_all.deleteCharAt(category_all.lastIndexOf(","));
                 }
 
+                //明细
                 List<PptMenu> list = dao.getPptMenu(studio,campus);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
