@@ -2622,6 +2622,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deletePptMenu")
+	@ResponseBody
+	public int deletePptMenu(Integer id){
+		try {
+			dao.deletePptMenu(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	更新结课状态
 	@RequestMapping("/updateSignUpEnding")
 	@ResponseBody

@@ -486,6 +486,9 @@ public interface UserMapper {
 
     int deleteRestaurantFood(int id);
 
+
+    int deletePptMenu(int id);
+
     int updateUserDelete(User user);
 
     int updateUserBackUrl(User user);
