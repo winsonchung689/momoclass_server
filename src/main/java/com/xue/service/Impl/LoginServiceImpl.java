@@ -3104,6 +3104,7 @@ public class LoginServiceImpl implements LoginService {
                 String introduce = line.getIntroduce();
 
                 //json
+                jsonObject.put("id", id);
                 jsonObject.put("ppt_name", ppt_name);
                 jsonObject.put("category", category);
                 jsonObject.put("uuids", uuids);
