@@ -1489,7 +1489,6 @@ public class LoginServiceImpl implements LoginService {
                         dao.updateGiftDetail(giftList);
                     }
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
