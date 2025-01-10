@@ -995,6 +995,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("price",price);
                 jsonObject.put("uuids",uuids);
                 jsonObject.put("coupon_type",coupon_type_get);
+                jsonObject.put("gift_id",gift_id);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
