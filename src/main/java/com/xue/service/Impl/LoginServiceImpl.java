@@ -566,6 +566,7 @@ public class LoginServiceImpl implements LoginService {
                 mark = line.getMark();
                 duration = line.getDuration();
                 count = line.getCount();
+                String teacher = line.getTeacher();
 
                 String package_mark = "无备注";
                 Float all_lesson = 0.0f;
@@ -583,7 +584,6 @@ public class LoginServiceImpl implements LoginService {
                 } catch (NumberFormatException e) {
 //                    throw new RuntimeException(e);
                 }
-
 
                 ending_status_get = line.getEnding_status();
                 String ending_status = "未结";
@@ -618,6 +618,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("all_lesson", all_lesson);
                 jsonObject.put("given_lesson", given_lesson);
                 jsonObject.put("package_id", package_id);
+                jsonObject.put("teacher", teacher);
                 resul_list.add(jsonObject);
 
                 String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
