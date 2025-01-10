@@ -1474,22 +1474,23 @@ public class LoginServiceImpl implements LoginService {
     public int insertGift(Gift gift) {
         int result = 0;
         try {
+            result = dao.insertGift(gift);
             // 更新减少库存
             String gift_id = gift.getGift_id();
             List<GiftList> giftLists = dao.getGiftListById(gift_id);
             if(giftLists.size()>0){
                 GiftList giftList = giftLists.get(0);
                 Integer amount = giftList.getAmount();
-                if(amount >= 1){
-                    amount = amount -1;
-                    giftList.setAmount(amount);
-                    dao.updateGiftDetail(giftList);
-                    result = dao.insertGift(gift);
+                Integer coupon_type = giftList.getCoupon_type();
+                if(coupon_type == 2){
+                    if(amount >= 1){
+                        amount = amount -1;
+                        giftList.setAmount(amount);
+                        dao.updateGiftDetail(giftList);
+                    }
                 }
-            }else {
-                result = dao.insertGift(gift);
-            }
 
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
