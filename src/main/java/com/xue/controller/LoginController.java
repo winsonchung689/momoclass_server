@@ -268,6 +268,8 @@ public class LoginController {
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"Z0mHLtqz1JNHvxTFt2QoiZ2222-FN1TVWEttoWKV12c\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"first\":{\"value\": \"AA\"},\"keyword1\":{\"value\": \"A1\"},\"keyword2\":{\"value\": \"A1\"},\"keyword3\":{\"value\": \"A1\"},\"keyword4\":{\"value\": \"A1\"},\"remark\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model_card ="{\"touser\":\"openid\",\"template_id\":\"3kqSFRikIkl4J9B4mBCcbLiLlrNtvHBOgv2hZRRIT-M\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"time4\":{\"value\": \"AA\"},\"thing18\":{\"value\": \"A1\"},\"time5\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String campus = user.getCampus();
@@ -277,15 +279,19 @@ public class LoginController {
 		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 		Float count = 0.0f;
 		Float left = 0.0f;
-		Float total = 0.0f;
 		if(lessons.size()>0){
 			count = lessons.get(0).getMinus();
 			left = lessons.get(0).getLeft_amount();
-			total = lessons.get(0).getTotal_amount();
 		}
 
 		if(Float.parseFloat(class_count) != 100){
 			count = Float.parseFloat(class_count);
+		}
+
+		String end_date = null;
+		if("卡签".equals(class_number)){
+			List<Card> cards = dao.getCardById(card_id);
+			end_date = cards.get(0).getEnd_date();
 		}
 
 		String thing8 = "本次扣课" + count + "课时";
@@ -297,16 +303,21 @@ public class LoginController {
 				String[] official_list = official_openid.split(",");
 				for(int j=0;j<official_list.length;j++){
 					String official_openid_get = official_list[j];
-					JSONObject queryJson = JSONObject.parseObject(model);
-					queryJson.put("touser",official_openid_get);
-					queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",date_time);
-					queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
-					queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
-					queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
+					JSONObject queryJson = null;
 					if("卡签".equals(class_number)){
+						queryJson = JSONObject.parseObject(model_card);
+						queryJson.put("touser",official_openid_get);
+						queryJson.getJSONObject("data").getJSONObject("time4").put("value",date_time);
+						queryJson.getJSONObject("data").getJSONObject("thing18").put("value",class_number + "("+subject+student_name+")");
+						queryJson.getJSONObject("data").getJSONObject("time5").put("value",end_date);
 						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/cardrecord/cardrecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid + "&card_id=" + card_id);
-
 					}else {
+						queryJson = JSONObject.parseObject(model);
+						queryJson.put("touser",official_openid_get);
+						queryJson.getJSONObject("data").getJSONObject("keyword1").put("value",date_time);
+						queryJson.getJSONObject("data").getJSONObject("keyword2").put("value",class_number + "("+subject+student_name+")");
+						queryJson.getJSONObject("data").getJSONObject("keyword3").put("value",thing8);
+						queryJson.getJSONObject("data").getJSONObject("keyword4").put("value",left + "课时");
 						queryJson.getJSONObject("miniprogram").put("pagepath","/pages/signuprecord/signuprecord?student_name=" + student_name + "&studio=" + studio + "&subject=" + subject + "&openid=" + openid + "&campus=" + campus);
 
 					}
@@ -6648,10 +6659,6 @@ public class LoginController {
 			//获取总课时
 			String total_amount_1 = request.getParameter("total_amount");
 
-			if("total_modify".equals(modify_type)){
-				loginService.updateLessonRemind(student_name,studio,campus,subject,total_amount_1,openid,modify_type);
-			}
-
 			Float total_amount = 0.0f;
 			if (!total_amount_1.isEmpty() && !"0".equals(total_amount_1)){
 				total_amount = Float.valueOf(total_amount_1);
@@ -6660,13 +6667,8 @@ public class LoginController {
 				dao.updateLessonTotal(total_amount,studio,student_name,campus,subject);
 			}
 
-
 			//获取剩余课时
 			String left_amount_get = request.getParameter("left_amount");
-
-			if("left_modify".equals(modify_type)){
-				loginService.updateLessonRemind(student_name,studio,campus,subject,left_amount_get,openid,modify_type);
-			}
 
 			Float left_amount = 0.0f;
 			if(!left_amount_get.isEmpty() && !"0".equals(left_amount_get)){

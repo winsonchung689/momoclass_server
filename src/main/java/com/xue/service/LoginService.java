@@ -282,8 +282,6 @@ public interface LoginService {
 
     public void sendBossPayRemind();
 
-    public String updateLessonRemind(String student_name, String studio,String campus,String subject,String modify_amount,String openid,String modify_type);
-
     public String getToken(String app);
 
     public List getStudentByTeacher(String type,String openid,String duration_time,Integer page,String class_number);
