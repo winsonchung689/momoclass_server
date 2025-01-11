@@ -4334,19 +4334,26 @@ public class LoginController {
 
 		//获取类路径
 		String p_path = null;
+        String bak_path = null;
 		String path = "/data1";
+        String path_bak = "/databak_bucket";
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
 			p_path = path +"/uploadimages/"+ class_name + ".png";
+            bak_path = path_bak +"/uploadimages/"+ class_name + ".png";
 		}else if("录音文件".equals(class_target)){
 			p_path = path +"/uploadMP3/"+ uuid + ".mp3";
+            bak_path = path_bak +"/uploadMP3/"+ uuid + ".mp3";
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
+            bak_path = path_bak +"/uploadimages/"+ uuid + ".png";
 		}
 
 		//保存图片
 		try {
 			multipartFile.transferTo(new File(p_path));
+            // 备份数据
+            multipartFile.transferTo(new File(bak_path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -4373,10 +4380,13 @@ public class LoginController {
 		String p_path = null;
 		UUID uuid = UUID.randomUUID();
 		p_path = path +"/uploadVideo/"+ studio + "/" + uuid + ".mp4";
+        String bak_path = "/databak_bucket/uploadVideo/"+ studio + "/" + uuid + ".mp4";
 
 		//保存图片
 		try {
 			multipartFile.transferTo(new File(p_path));
+            // 数据备份
+            multipartFile.transferTo(new File(bak_path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
