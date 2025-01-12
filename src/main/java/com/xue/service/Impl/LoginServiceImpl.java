@@ -1122,7 +1122,7 @@ public class LoginServiceImpl implements LoginService {
                 id = line.getId();
                 subject = line.getSubject();
                 String upcoming = line.getUpcoming();
-                Integer is_repaet = line.getIs_repeat();
+                Integer is_repeat = line.getIs_repeat();
                 String repeat_duration = line.getRepeat_duration();
                 String[] repeat_duration_list = repeat_duration.split(",");
                 String start_date = "2025-01-01";
@@ -1204,7 +1204,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
                         jsonObject.put("limits", limits);
-                        jsonObject.put("is_repaet", is_repaet);
+                        jsonObject.put("is_repeat", is_repeat);
                         jsonObject.put("repeat_duration", repeat_duration);
                         jsonObject.put("classes_count", classes_count);
                         jsonObject.put("dayofweek",dayofweek);
@@ -1232,7 +1232,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("limits", limits);
-                    jsonObject.put("is_repaet", is_repaet);
+                    jsonObject.put("is_repeat", is_repeat);
                     jsonObject.put("repeat_duration", repeat_duration);
                     jsonObject.put("classes_count", classes_count);
                     jsonObject.put("dayofweek",dayofweek);
