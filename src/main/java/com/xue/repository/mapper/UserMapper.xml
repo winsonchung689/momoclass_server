@@ -444,11 +444,6 @@
     update schedule_arrangement set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
-  <!-- 更改课程名 -->
-  <select id="changeClassName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set class_number =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
   <!-- 更改签到备注 -->
   <select id="modifySignUpMark" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
     update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
@@ -546,34 +541,14 @@
     update contract set type =#{param3} where studio =#{param1} and campus =#{param2}
   </select>
 
-  <!-- 更改课程名 -->
-  <select id="changeSubjectName" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set subject =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
-  <!-- 更改人数上限 -->
-  <select id="changeLimit" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set limits =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
-  <!-- 更改课程预告 -->
-  <select id="changeUpcoming" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set upcoming =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
-  <!-- 更改预约 -->
-  <select id="changeIsReserved" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set is_reserved =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
   <!-- 更改提前预约天数 -->
   <select id="changeArrangementDays" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update schedule_arrangement set days =#{param3} where studio =#{param1} and campus =#{param2}
   </select>
 
-  <!-- 更改时间 -->
-  <select id="changeDuration" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set duration =#{param3} where id =#{param1} and studio =#{param2}
+  <!-- 更改课程表明细 -->
+  <select id="changeArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set repeat_duration=#{repeat_duration},is_repeat =#{is_repeat},class_number =#{class_number},subject =#{subject},duration =#{duration},upcoming=#{upcoming},limits=#{limits},is_reserved =#{is_reserved} where id =#{id} and studio =#{studio}
   </select>
 
   <!-- 更改课程名 -->

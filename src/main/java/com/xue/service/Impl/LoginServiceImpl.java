@@ -2424,21 +2424,22 @@ public class LoginServiceImpl implements LoginService {
             String studio = list.get(0).getStudio();
             String campus = list.get(0).getCampus();
 
-            Integer id1 = null;
             String duration = null;
             String old_class_number = null;
             String old_subject = null;
             Integer is_reserved = null;
             Integer dayofweek = null;
+            Integer is_repeat = null;
+            Arrangement arrangement = null;
             try {
-                id1 = Integer.parseInt(id);
-                List<Arrangement> list_1 = dao.getArrangementById(studio,id1);
+                List<Arrangement> list_1 = dao.getArrangementById(studio,Integer.parseInt(id));
                 if(list_1.size() > 0){
-                    Arrangement arrangement = list_1.get(0);
+                    arrangement = list_1.get(0);
                     duration = arrangement.getDuration();
                     old_class_number = arrangement.getClass_number();
                     old_subject = arrangement.getSubject();
                     is_reserved = arrangement.getIs_reserved();
+                    is_repeat = arrangement.getIs_repeat();
 
                     dayofweek = Integer.parseInt(arrangement.getDayofweek());
                     if(dayofweek==7){
@@ -2453,27 +2454,46 @@ public class LoginServiceImpl implements LoginService {
 
 
             if(type.equals("班号")){
-                dao.changeClassName(id1,studio,content);
+                arrangement.setClass_number(content);
+                dao.changeArrangementById(arrangement);
+
                 dao.changeScheduleClassName(old_class_number,studio,duration,content,old_subject,campus,dayofweek);
                 dao.changeSignUpClassName(old_class_number,studio,duration,content,old_subject,campus);
             }else if(type.equals("科目")){
-                dao.changeSubjectName(id1,studio,content);
+                arrangement.setSubject(content);
+                dao.changeArrangementById(arrangement);
+
                 dao.changeScheduleSubject(old_subject,studio,duration,content,old_class_number,campus,dayofweek);
             }else if(type.equals("上限")){
-                dao.changeLimit(id1,studio,content);
+                arrangement.setLimits(content);
+                dao.changeArrangementById(arrangement);
             }else if(type.equals("时间")){
-                dao.changeDuration(id1,studio,content);
+                arrangement.setDuration(content);
+                dao.changeArrangementById(arrangement);
+
                 dao.changeScheduleDuration(old_class_number,studio,duration,content,old_subject,campus,dayofweek);
             }else if(type.equals("预告")){
-                dao.changeUpcoming(id1,studio,content);
+                arrangement.setUpcoming(content);
+                dao.changeArrangementById(arrangement);
             }else if(type.equals("预约")){
                 Integer new_reserved = 1;
                 if(is_reserved == 1){
                     new_reserved = 0;
                 }
-                dao.changeIsReserved(id1,studio,new_reserved);
+                arrangement.setIs_reserved(new_reserved);
+                dao.changeArrangementById(arrangement);
             }else if(type.equals("可提前")){
                 dao.changeArrangementDays(studio,campus,content);
+            }else if(type.equals("重复")){
+                Integer new_is_repeat = 1;
+                if(is_repeat == 1){
+                    new_is_repeat = 0;
+                }
+                arrangement.setIs_repeat(new_is_repeat);
+                dao.changeArrangementById(arrangement);
+            }else if(type.equals("重复时间")){
+                arrangement.setRepeat_duration(content);
+                dao.changeArrangementById(arrangement);
             }
         } catch (Exception e) {
 //            e.printStackTrace();
