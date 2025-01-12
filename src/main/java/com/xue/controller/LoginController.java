@@ -2786,7 +2786,6 @@ public class LoginController {
 			if("删除".equals(type)){
 				dao.deletePointsRecordById(id);
 			}else if("撤回".equals(type)){
-				dao.deletePointsRecordById(id);
 				List<Points> points_list = dao.getPointsRecordById(id);
 				Points point = points_list.get(0);
 				int points = Math.round(point.getPoints());
@@ -2800,6 +2799,7 @@ public class LoginController {
 				Integer points_get = lesson.getPoints();
 				lesson.setPoints(points_get - points);
 				dao.updateLessonPoint(lesson);
+				dao.deletePointsRecordById(id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
