@@ -6899,7 +6899,7 @@ public class LoginController {
 		gift.setOpenid(openid);
 		gift.setType(type);
 		loginService.insertGift(gift);
-		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,gift_id+"_"+gift_name,"");
+		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,gift_name+"_"+gift_id,"");
 		return "push massage successfully";
 	}
 
