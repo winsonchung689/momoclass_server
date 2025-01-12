@@ -6917,7 +6917,7 @@ public class LoginController {
 		gift.setOpenid(openid);
 		gift.setType(type);
 		loginService.insertGift(gift);
-		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,gift_name+"_"+gift_id,"");
+		loginService.updateAddPoints(student_name,studio,-Math.round(Float.parseFloat(coins)),subject,campus,gift_name+"_"+gift_id,"兑换积分");
 		return "push massage successfully";
 	}
 
