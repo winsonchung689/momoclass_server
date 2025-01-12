@@ -208,6 +208,8 @@ public interface UserMapper {
 
     List<Points> getPointsRecordByStudent(String student_name,String studio,String campus,String subject,String start_date,String end_date);
 
+    List<Points> getPointsRecordById(Integer id);
+
     List<Message> getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String campus,String class_target_bak);
 
     //插入

@@ -2780,9 +2780,26 @@ public class LoginController {
 
 	@RequestMapping("/deletePointsRecordById")
 	@ResponseBody
-	public int deletePointsRecordById(Integer id){
+	public int deletePointsRecordById(Integer id,String type){
+
 		try {
-			dao.deletePointsRecordById(id);
+			if("删除".equals(type)){
+				dao.deletePointsRecordById(id);
+			}else if("撤回".equals(type)){
+				List<Points> points_list = dao.getPointsRecordById(id);
+				Points point = points_list.get(0);
+				int points = Math.round(point.getPoints());
+
+				String student_name = point.getStudent_name();
+				String studio = point.getStudio();
+				String subject = point.getSubject();
+				String campus = point.getCampus();
+				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+				Lesson lesson = lessons.get(0);
+				Integer points_get = lesson.getPoints();
+				lesson.setPoints(points_get + points);
+				dao.updateLessonPoint(lesson);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
