@@ -2797,7 +2797,7 @@ public class LoginController {
 				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 				Lesson lesson = lessons.get(0);
 				Integer points_get = lesson.getPoints();
-				lesson.setPoints(points_get + points);
+				lesson.setPoints(points_get - points);
 				dao.updateLessonPoint(lesson);
 			}
 		} catch (Exception e) {
