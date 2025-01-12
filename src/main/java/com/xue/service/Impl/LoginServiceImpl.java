@@ -1099,7 +1099,7 @@ public class LoginServiceImpl implements LoginService {
                 String class_number = null;
                 String duration = null;
                 String limits = "0";
-                byte[] photo = null;
+//                byte[] photo = null;
                 String id = null;
                 Integer sign_count =0;
                 StringBuffer teachers = new StringBuffer();
@@ -1111,16 +1111,20 @@ public class LoginServiceImpl implements LoginService {
                 Integer hours = 0;
                 String remind_name="否";
                 String chooseLesson="未选";
+
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
+
                 //获取字段
                 class_number = line.getClass_number();
                 duration = line.getDuration();
                 limits = line.getLimits();
-                photo = line.getPhoto();
                 id = line.getId();
                 subject = line.getSubject();
                 String upcoming = line.getUpcoming();
+                Integer is_repaet = line.getIs_repeat();
+                String repeat_duration = line.getRepeat_duration();
+
                 Integer is_reserved = line.getIs_reserved();
                 String is_reserved_cn = "是";
                 if(is_reserved == 0){
@@ -1191,7 +1195,8 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("duration", duration);
                         jsonObject.put("limits", limits);
-                        jsonObject.put("photo", photo);
+                        jsonObject.put("is_repaet", is_repaet);
+                        jsonObject.put("repeat_duration", repeat_duration);
                         jsonObject.put("classes_count", classes_count);
                         jsonObject.put("dayofweek",dayofweek);
                         jsonObject.put("id",id);
@@ -1216,7 +1221,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("limits", limits);
-                    jsonObject.put("photo", photo);
+                    jsonObject.put("is_repaet", is_repaet);
+                    jsonObject.put("repeat_duration", repeat_duration);
                     jsonObject.put("classes_count", classes_count);
                     jsonObject.put("dayofweek",dayofweek);
                     jsonObject.put("id",id);

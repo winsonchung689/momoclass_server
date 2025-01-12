@@ -26,7 +26,26 @@ public class Arrangement {
 
     private Integer days;
 
+    private Integer is_repeat;
 
+    private String repeat_duration;
+
+
+    public String getRepeat_duration() {
+        return repeat_duration;
+    }
+
+    public void setRepeat_duration(String repeat_duration) {
+        this.repeat_duration = repeat_duration;
+    }
+
+    public Integer getIs_repeat() {
+        return is_repeat;
+    }
+
+    public void setIs_repeat(Integer is_repeat) {
+        this.is_repeat = is_repeat;
+    }
 
     public Integer getDays() {
         return days;
