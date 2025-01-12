@@ -2806,7 +2806,10 @@ public class LoginController {
 				String[] list = mark.split("_");
 				if(list.length==2){
 					String gift_id = list[1];
-					dao.deleteGiftRecord(Integer.parseInt(gift_id),studio);
+					List<Gift> gifts =dao.getGiftByGiftId(gift_id,studio,campus);
+					Gift gift = gifts.get(0);
+					String record_id = gift.getId();
+					dao.deleteGiftRecord(Integer.parseInt(record_id),studio);
 				}
 			}
 		} catch (Exception e) {
