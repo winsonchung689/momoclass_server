@@ -2789,6 +2789,8 @@ public class LoginController {
 				List<Points> points_list = dao.getPointsRecordById(id);
 				Points point = points_list.get(0);
 				int points = Math.round(point.getPoints());
+				String mark = points_list.get(0).getMark();
+
 
 				String student_name = point.getStudent_name();
 				String studio = point.getStudio();
@@ -2800,6 +2802,12 @@ public class LoginController {
 				lesson.setPoints(points_get - points);
 				dao.updateLessonPoint(lesson);
 				dao.deletePointsRecordById(id);
+
+				String[] list = mark.split("_");
+				if(list.length==2){
+					String gift_id = list[1];
+					dao.deleteGiftRecord(Integer.parseInt(gift_id),studio);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
