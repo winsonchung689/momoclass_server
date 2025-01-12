@@ -1001,6 +1001,8 @@ public interface UserMapper {
 
     List<Gift> getGiftByGiftId(String gift_id,String studio,String campus);
 
+    List<Gift> getGiftByGiftIdStudent(String gift_id,String studio,String campus,String student,String subject);
+
     List<Leave> getLeaveRecord(String student_name,String studio,String leave_type,String subject,String campus);
 
     List<Leave> getLeaveRecordById(String id);

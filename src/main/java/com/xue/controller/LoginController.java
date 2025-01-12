@@ -2791,7 +2791,6 @@ public class LoginController {
 				int points = Math.round(point.getPoints());
 				String mark = points_list.get(0).getMark();
 
-
 				String student_name = point.getStudent_name();
 				String studio = point.getStudio();
 				String subject = point.getSubject();
@@ -2806,7 +2805,7 @@ public class LoginController {
 				String[] list = mark.split("_");
 				if(list.length==2){
 					String gift_id = list[1];
-					List<Gift> gifts =dao.getGiftByGiftId(gift_id,studio,campus);
+					List<Gift> gifts =dao.getGiftByGiftIdStudent(gift_id,studio,campus,student_name,subject);
 					Gift gift = gifts.get(0);
 					String record_id = gift.getId();
 					dao.deleteGiftRecord(Integer.parseInt(record_id),studio);
