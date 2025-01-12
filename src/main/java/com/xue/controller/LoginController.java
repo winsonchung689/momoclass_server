@@ -3206,7 +3206,7 @@ public class LoginController {
 				}else{
 					loginService.syncUpdateMinusLesson(student_name,studio,count,subject,campus);
 				}
-				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","");
+				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","上课积分");
 
 				// 发送通知
 				List<User> users = dao.getUserByStudent(student_name,studio);
