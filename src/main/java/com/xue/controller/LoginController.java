@@ -2805,7 +2805,7 @@ public class LoginController {
 				String[] list = mark.split("_");
 				if(list.length==2){
 					String gift_id = list[1];
-					List<Gift> gifts =dao.getGiftByGiftIdStudent(gift_id,studio,campus,student_name,subject);
+					List<Gift> gifts =dao.getGiftByGiftIdStudent(gift_id,studio,campus,student_name);
 					Gift gift = gifts.get(0);
 					String record_id = gift.getId();
 					dao.deleteGiftRecord(Integer.parseInt(record_id),studio);

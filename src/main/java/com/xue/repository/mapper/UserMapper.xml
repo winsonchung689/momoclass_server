@@ -1252,7 +1252,7 @@
   </select>
 
   <select id="getGiftByGiftIdStudent" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
-    select * from gift_record where gift_id =#{param1} and studio = #{param2} and campus = #{param3} and student_name=#{param4} and subject=#{param5}
+    select * from gift_record where gift_id =#{param1} and studio = #{param2} and campus = #{param3} and student_name=#{param4}
   </select>
 
   <!-- 更新课时 -->
