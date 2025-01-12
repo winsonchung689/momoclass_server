@@ -1124,6 +1124,13 @@ public class LoginServiceImpl implements LoginService {
                 String upcoming = line.getUpcoming();
                 Integer is_repaet = line.getIs_repeat();
                 String repeat_duration = line.getRepeat_duration();
+                String[] repeat_duration_list = repeat_duration.split(",");
+                String start_date = "2025-01-01";
+                String end_date = "2025-01-01";
+                if(repeat_duration_list.length ==2){
+                    start_date = repeat_duration_list[0];
+                    end_date = repeat_duration_list[1];
+                }
 
                 Integer is_reserved = line.getIs_reserved();
                 String is_reserved_cn = "是";
@@ -1189,6 +1196,8 @@ public class LoginServiceImpl implements LoginService {
                 if(!"all".equals(student_name_in)){
                     search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
                     if(search_res>0){
+                        jsonObject.put("start_date", start_date);
+                        jsonObject.put("end_date", end_date);
                         jsonObject.put("is_reserved", is_reserved);
                         jsonObject.put("is_reserved_cn", is_reserved_cn);
                         jsonObject.put("upcoming", upcoming);
@@ -1215,6 +1224,8 @@ public class LoginServiceImpl implements LoginService {
                         resul_list.add(jsonObject);
                     }
                 }else {
+                    jsonObject.put("start_date", start_date);
+                    jsonObject.put("end_date", end_date);
                     jsonObject.put("is_reserved", is_reserved);
                     jsonObject.put("is_reserved_cn", is_reserved_cn);
                     jsonObject.put("upcoming", upcoming);
