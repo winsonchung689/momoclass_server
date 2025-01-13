@@ -2039,9 +2039,7 @@ public class LoginServiceImpl implements LoginService {
                                         contains = 1;
                                     }
                                 }
-
                             }
-
                         }
                     } catch (Exception e) {
 //                        e.printStackTrace();
