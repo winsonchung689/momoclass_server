@@ -1320,6 +1320,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getScheduleByClassRepeat")
+	@ResponseBody
+	public List getScheduleByClassRepeat(String date_time, Integer dayofweek, String duration, String class_number, String subject, String openid){
+		List list = null;
+		try {
+			list = loginService.getScheduleByClassRepeat(date_time,dayofweek,duration,class_number,subject,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取课程表
 	@RequestMapping("/updateRemind")
 	@ResponseBody

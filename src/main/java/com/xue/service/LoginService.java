@@ -146,6 +146,8 @@ public interface LoginService {
 
     public List  getScheduleByClass(String date_time,String duration,String studio,String class_number,String subject,String openid);
 
+    public List  getScheduleByClassRepeat(String date_time,Integer dayofweek,String duration,String class_number,String subject,String openid);
+
     public List  getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
     public int  deleteComment(Integer id,String role,String studio,String openid);
