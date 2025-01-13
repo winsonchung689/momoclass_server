@@ -2032,7 +2032,6 @@ public class LoginServiceImpl implements LoginService {
                                     long start_timestamp = date_start.getTime();
                                     Date date_end = fmt.parse(end_date);
                                     long end_timestamp = date_end.getTime();
-                                    String today_time = fmt.format(new Date());
                                     Date today_dt = fmt.parse(date_time);
                                     long today_timestamp = today_dt.getTime();
                                     if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
@@ -2044,8 +2043,6 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
 //                        e.printStackTrace();
                     }
-
-
 
                     if(contains == 1){
                         jsonObject.put("studio", studio);
