@@ -2033,7 +2033,7 @@ public class LoginServiceImpl implements LoginService {
                                     Date date_end = fmt.parse(end_date);
                                     long end_timestamp = date_end.getTime();
                                     String today_time = fmt.format(new Date());
-                                    Date today_dt = fmt.parse(today_time.substring(0,10));
+                                    Date today_dt = fmt.parse(date_time);
                                     long today_timestamp = today_dt.getTime();
                                     if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
                                         contains = 1;
