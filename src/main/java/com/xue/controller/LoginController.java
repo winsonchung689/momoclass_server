@@ -3814,7 +3814,10 @@ public class LoginController {
 				pptMenu.setCategory(content);
 			}else if ("简介".equals(type)) {
 				pptMenu.setIntroduce(content);
+			}else if ("图片".equals(type)) {
+				pptMenu.setUuids(content);
 			}
+
 			dao.updatePptMenu(pptMenu);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
