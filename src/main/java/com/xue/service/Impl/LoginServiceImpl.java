@@ -1984,12 +1984,16 @@ public class LoginServiceImpl implements LoginService {
             }
 
             List<Arrangement> list=null;
+            List<Arrangement> repeat_list=null;
             try {
                 if(subject.equals("全科目")){
                     list = dao.getArrangementByDay(studio,weekofday,campus);
                 }else {
                     list = dao.getArrangement(studio,weekofday.toString(),subject,campus);
                 }
+
+                repeat_list = dao.getArrangementByRepeat(studio,campus);
+                list.addAll(repeat_list);
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
@@ -2003,11 +2007,13 @@ public class LoginServiceImpl implements LoginService {
                     String duration = line.getDuration();
                     String class_number = line.getClass_number();
                     subject = line.getSubject();
+                    int is_repeat = line.getIs_repeat();
+                    String repeat_duration = line.getRepeat_duration();
+                    int weekofday_get = line.getIs_reserved();
 
                     String lesson_string = null;
                     List<String> list_2 = null;
                     Integer contains = 0;
-
                     try {
 //                        判断老师选课
                         if(lessons_string != null){
@@ -2021,6 +2027,8 @@ public class LoginServiceImpl implements LoginService {
                     } catch (Exception e) {
 //                        e.printStackTrace();
                     }
+
+
 
                     if(contains == 1){
                         jsonObject.put("studio", studio);

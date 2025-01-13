@@ -1039,6 +1039,10 @@
     select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration
   </select>
 
+  <select id="getArrangementByRepeat" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select * from schedule_arrangement where studio = #{param1} and campus =#{param2} and is_repeat = 1 and delete_status = 0 order by duration
+  </select>
+
   <!-- 查找订单 -->
   <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
     select * from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
