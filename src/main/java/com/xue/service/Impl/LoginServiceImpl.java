@@ -2295,6 +2295,17 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+                jsonObject.put("homework_status", "作业");
+                jsonObject.put("homework_color", "rgb(157, 162, 165)");
+                List<Message> homeworks = dao.getCommentByDate(student_name, studio, date_time,campus,"课后作业");
+                if (homeworks.size() >= 1) {
+                    List<Message> homeworksDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课后作业");
+                    if (homeworksDuration.size() == 1) {
+                        jsonObject.put("homework_status", "已发");
+                        jsonObject.put("homework_color", "rgba(162, 106, 214, 0.849)");
+                    }
+                }
+
                 //json
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                 Float left = 0.0f;
