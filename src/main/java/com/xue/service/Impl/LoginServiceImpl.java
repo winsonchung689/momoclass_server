@@ -2050,6 +2050,8 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("duration", duration);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("subject", subject);
+                        jsonObject.put("is_repeat", is_repeat);
+                        jsonObject.put("dayofweek", dayofweek_get);
                         resul_list.add(jsonObject);
                     }
 
