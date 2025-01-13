@@ -9,6 +9,7 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
+import org.hibernate.type.IntegerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5208,6 +5209,52 @@ public class LoginServiceImpl implements LoginService {
 //                throw new RuntimeException(e);
             }
 
+            // 查找当天重复范围
+            List<Schedule> list_schedule_rp = new ArrayList<>();
+            List<Arrangement> arrangements = dao.getArrangementByRepeat(studio,campus);
+            if(arrangements.size()>0){
+                for(int ri=0;ri < arrangements.size();ri++){
+                    Arrangement arrangement = arrangements.get(ri);
+                    String class_number = arrangement.getClass_number();
+                    String duration = arrangement.getDuration();
+                    String subject = arrangement.getSubject();
+                    Integer dayofweek = Integer.parseInt(arrangement.getDayofweek());
+                    String repeat_duration = arrangement.getRepeat_duration();
+                    String[] repeat_duration_list = repeat_duration.split(",");
+                    String start_date = "2025-01-01";
+                    String end_date = "2025-01-01";
+                    if(repeat_duration_list.length ==2){
+                        start_date = repeat_duration_list[0];
+                        end_date = repeat_duration_list[1];
+                    }
+
+                    try {
+                        Date date_start = df.parse(start_date);
+                        long start_timestamp = date_start.getTime();
+                        Date date_end = df.parse(end_date);
+                        long end_timestamp = date_end.getTime();
+                        long td_timestamp  = td_time;
+                        if("统一提醒次日".equals(remindType)){
+                            td_timestamp = tm_time;
+                        }
+                        if(td_timestamp >=start_timestamp && td_timestamp <= end_timestamp){
+                            int dayofweek_by = 0;
+                            if(dayofweek==7){
+                                dayofweek_by=1;
+                            }else {
+                                dayofweek_by = dayofweek + 1;
+                            }
+                            list_schedule_rp = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
+                        }
+                    } catch (ParseException e) {
+//                        throw new RuntimeException(e);
+                    }
+
+
+                }
+            }
+
+
             Integer weekDay = 0;
             String date_time = null;
             List<Schedule> list_schedule = new ArrayList<>();
@@ -5217,6 +5264,7 @@ public class LoginServiceImpl implements LoginService {
                     weekDay = weekDay_tomorrow;
                     date_time = df.format(cal_tomorrow.getTime());
                     list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+                    list_schedule.addAll(list_schedule_rp);
                 }else if("提前N小时提醒".equals(remindType) && hours > 0){
                     weekDay = weekDay_today;
                     date_time = df.format(cal_today.getTime());
@@ -5241,6 +5289,7 @@ public class LoginServiceImpl implements LoginService {
                         String duration_st = hour_st + ":" + minute_st;
 
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                        list_schedule.addAll(list_schedule_rp);
                     }
                 }
 
