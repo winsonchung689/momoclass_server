@@ -2009,7 +2009,9 @@ public class LoginServiceImpl implements LoginService {
                     subject = line.getSubject();
                     int is_repeat = line.getIs_repeat();
                     String repeat_duration = line.getRepeat_duration();
-                    int weekofday_get = line.getIs_reserved();
+                    String dayofweek_get = line.getDayofweek();
+                    String start_date = repeat_duration.split(",")[0];
+                    String end_date = repeat_duration.split(",")[1];
 
                     String lesson_string = null;
                     List<String> list_2 = null;
@@ -2018,11 +2020,28 @@ public class LoginServiceImpl implements LoginService {
 //                        判断老师选课
                         if(lessons_string != null){
                             String[] list_1 =lessons_string.split("\\|");
-                            lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
+                            lesson_string = "星期" + dayofweek_get + "," + subject + "," + class_number + "," + duration;
+
                             list_2 = Arrays.asList(list_1);
                             if(list_2.contains(lesson_string)){
-                                contains = 1;
+                                if(is_repeat == 0){
+                                    contains = 1;
+                                }
+                                if(is_repeat == 1){
+                                    Date date_start = fmt.parse(start_date);
+                                    long start_timestamp = date_start.getTime();
+                                    Date date_end = fmt.parse(end_date);
+                                    long end_timestamp = date_end.getTime();
+                                    String today_time = fmt.format(new Date());
+                                    Date today_dt = fmt.parse(today_time.substring(0,10));
+                                    long today_timestamp = today_dt.getTime();
+                                    if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
+                                        contains = 1;
+                                    }
+                                }
+
                             }
+
                         }
                     } catch (Exception e) {
 //                        e.printStackTrace();
