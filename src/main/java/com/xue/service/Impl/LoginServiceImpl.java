@@ -1928,12 +1928,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getClassByDate(String date_time, String studio, String subject, String openid, String test) {
-        String duration = null;
+    public List getClassByDate(String date_time, String studio, String subject, String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = null;
-        String class_number = null;
         Integer weekDay=0;
         Integer weekofday=0;
         Float sign_counts=0.0f;
@@ -1942,7 +1939,6 @@ public class LoginServiceImpl implements LoginService {
         Float sign_counts_get=0.0f;
         Integer try_counts_get=0;
         Integer leave_counts_get=0;
-        Integer remind=0;
         String campus = null;
         String lessons_string = null;
         JSONObject jsonObject_1 = new JSONObject();
@@ -1953,6 +1949,7 @@ public class LoginServiceImpl implements LoginService {
                 lessons_string = list_user.get(0).getLessons();
             }
 
+            // 统计
             if(subject.equals("全科目")){
                 sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
                 try_counts_get = dao.getTryByMonthAll(studio, date_time.substring(0,7),campus);
@@ -1962,7 +1959,6 @@ public class LoginServiceImpl implements LoginService {
                 try_counts_get = dao.getTryByMonth(studio,subject, date_time.substring(0,7),campus);
                 leave_counts_get = dao.getLeaveByMonth(studio,subject, date_time.substring(0,7),campus);
             }
-
             if(sign_counts_get!=null){
                 sign_counts = sign_counts_get;
             }
@@ -1977,19 +1973,23 @@ public class LoginServiceImpl implements LoginService {
             jsonObject_1.put("leave_counts", leave_counts);
             resul_list.add(jsonObject_1);
 
-            d = fmt.parse(date_time);
+            Date d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            if(weekDay==1){
+                weekofday=7;
+            }else {
+                weekofday = weekDay - 1;
+            }
 
-            List<Schedule> list=null;
+            List<Arrangement> list=null;
             try {
                 if(subject.equals("全科目")){
-                    list = dao.getScheduleAllDistinct(weekDay, studio,campus);
+                    list = dao.getArrangementByDay(studio,weekofday,campus);
                 }else {
-                    list = dao.getScheduleDistinct(weekDay, studio,subject,campus);
+                    list = dao.getArrangement(studio,weekofday.toString(),subject,campus);
                 }
-
             } catch (Exception e) {
 //                throw new RuntimeException(e);
             }
@@ -1997,28 +1997,21 @@ public class LoginServiceImpl implements LoginService {
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
-                    Schedule line = list.get(i);
+                    Arrangement line = list.get(i);
                     //获取字段
                     studio = line.getStudio();
-                    duration = line.getDuration();
-                    class_number = line.getClass_number();
+                    String duration = line.getDuration();
+                    String class_number = line.getClass_number();
                     subject = line.getSubject();
-                    remind = line.getRemind();
-                    String add_date= line.getAdd_date();
-                    String student_type = line.getStudent_type();
 
                     String lesson_string = null;
                     List<String> list_2 = null;
                     Integer contains = 0;
 
                     try {
+//                        判断老师选课
                         if(lessons_string != null){
                             String[] list_1 =lessons_string.split("\\|");
-                            if(weekDay == 1){
-                                weekofday = 7 ;
-                            }else {
-                                weekofday = weekDay - 1;
-                            }
                             lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
                             list_2 = Arrays.asList(list_1);
                             if(list_2.contains(lesson_string)){
@@ -2026,20 +2019,15 @@ public class LoginServiceImpl implements LoginService {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
+
                     if(contains == 1){
                         jsonObject.put("studio", studio);
                         jsonObject.put("duration", duration);
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("subject", subject);
-                        jsonObject.put("remind",remind);
-
-                        if("ordinary".equals(student_type)){
-                            resul_list.add(jsonObject);
-                        }else if("transferred".equals(student_type) && add_date.equals(date_time)){
-                            resul_list.add(jsonObject);
-                        }
+                        resul_list.add(jsonObject);
                     }
 
                 }

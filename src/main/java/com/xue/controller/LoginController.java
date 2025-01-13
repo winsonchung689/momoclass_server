@@ -1297,10 +1297,10 @@ public class LoginController {
 
 	@RequestMapping("/getClassByDate")
 	@ResponseBody
-	public List getClassByDate(String date_time,String studio,String subject,String openid,String test){
+	public List getClassByDate(String date_time,String studio,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getClassByDate(date_time,studio,subject,openid,test);
+			list = loginService.getClassByDate(date_time,studio,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
