@@ -2017,7 +2017,7 @@ public class LoginServiceImpl implements LoginService {
                     List<String> list_2 = null;
                     Integer contains = 0;
                     try {
-//                        判断老师选课
+                        // 判断老师选课
                         if(lessons_string != null){
                             String[] list_1 =lessons_string.split("\\|");
                             lesson_string = "星期" + dayofweek_get + "," + subject + "," + class_number + "," + duration;
@@ -2027,6 +2027,7 @@ public class LoginServiceImpl implements LoginService {
                                 if(is_repeat == 0){
                                     contains = 1;
                                 }
+                                // 判断重复区间
                                 if(is_repeat == 1){
                                     Date date_start = fmt.parse(start_date);
                                     long start_timestamp = date_start.getTime();
