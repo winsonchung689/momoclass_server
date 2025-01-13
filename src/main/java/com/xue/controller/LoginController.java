@@ -5290,6 +5290,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
+		int hours = list_user.get(0).getHours();
 
 		//获取学生类型
 		String student_type = request.getParameter("student_type");
@@ -5352,6 +5353,7 @@ public class LoginController {
 				schedule.setSubject(subject);
 				schedule.setIs_try(Integer.parseInt(is_try));
 				schedule.setCampus(campus);
+				schedule.setHours(hours);
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
 					loginService.insertSchedule(schedule);
