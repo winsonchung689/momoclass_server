@@ -5269,6 +5269,7 @@ public class LoginServiceImpl implements LoginService {
                     weekDay = weekDay_today;
                     date_time = df.format(cal_today.getTime());
                     List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                    schedules.addAll(list_schedule_rp);
                     for(int j = 0;j < schedules.size();j++){
                         Schedule schedule = schedules.get(j);
                         Integer hours_get = schedule.getHours();
@@ -5289,7 +5290,6 @@ public class LoginServiceImpl implements LoginService {
                         String duration_st = hour_st + ":" + minute_st;
 
                         list_schedule = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
-                        list_schedule.addAll(list_schedule_rp);
                     }
                 }
 
