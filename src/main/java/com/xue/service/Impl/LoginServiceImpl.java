@@ -3924,9 +3924,32 @@ public class LoginServiceImpl implements LoginService {
                 class_number = line.getClass_number();
                 duration = line.getDuration();
                 subject = line.getSubject();
-                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
-                if(weekofday.equals(Integer.parseInt(dayofweek))){
-                    resul_list.add(item);
+                int is_repeat = line.getIs_repeat();
+
+                String repeat_duration = line.getRepeat_duration();
+                String[] repeat_duration_list = repeat_duration.split(",");
+                String start_date = "2025-01-01";
+                String end_date = "2025-01-01";
+                if(repeat_duration_list.length ==2){
+                    start_date = repeat_duration_list[0];
+                    end_date = repeat_duration_list[1];
+                }
+                Date date_start = fmt.parse(start_date);
+                long start_timestamp = date_start.getTime();
+                Date date_end = fmt.parse(end_date);
+                long end_timestamp = date_end.getTime();
+                Date today_dt = fmt.parse(date_time);
+                long today_timestamp = today_dt.getTime();
+
+                String item = "星期"+ dayofweek + "," + class_number + "," + duration + "," + subject;
+                if(is_repeat == 0){
+                    if(weekofday.equals(Integer.parseInt(dayofweek))){
+                        resul_list.add(item);
+                    }
+                }else if(is_repeat == 1){
+                    if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
+                        resul_list.add(item);
+                    }
                 }
             }
         } catch (Exception e) {
