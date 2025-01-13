@@ -5354,6 +5354,7 @@ public class LoginController {
 				schedule.setIs_try(Integer.parseInt(is_try));
 				schedule.setCampus(campus);
 				schedule.setHours(hours);
+				schedule.setRemind(1);
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
 					loginService.insertSchedule(schedule);
