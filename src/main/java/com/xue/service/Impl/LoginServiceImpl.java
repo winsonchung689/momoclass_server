@@ -2078,7 +2078,6 @@ public class LoginServiceImpl implements LoginService {
         Integer weekDay=0;
         Integer weekofday=0;
         String mark = null;
-        List<Schedule> list_tra=null;
         Integer remind=0;
         String student_type=null;
         List<User> list_user = dao.getUser(openid);
@@ -2092,9 +2091,8 @@ public class LoginServiceImpl implements LoginService {
             cal.setTime(d);
             weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
-            List<Schedule> list=null;
-            list = dao.getScheduleByClassOrdinary(weekDay,duration,studio,class_number,subject,campus);
-            list_tra = dao.getScheduleByClassTransferred(date_time,duration,studio,class_number,subject,campus);
+            List<Schedule> list = dao.getScheduleByClassOrdinary(weekDay,duration,studio,class_number,subject,campus);
+            List<Schedule> list_tra = dao.getScheduleByClassTransferred(date_time,duration,studio,class_number,subject,campus);
             list.addAll(list_tra);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -2253,6 +2251,8 @@ public class LoginServiceImpl implements LoginService {
         // 获取常规学生
         try {
             List<Schedule> list = dao.getScheduleByClassOrdinary(dayofweek,duration,studio,class_number,subject,campus);
+            List<Schedule> list_tra = dao.getScheduleByClassTransferred(date_time,duration,studio,class_number,subject,campus);
+            list.addAll(list_tra);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
