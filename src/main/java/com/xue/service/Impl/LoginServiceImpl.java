@@ -5364,50 +5364,6 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-            //重复课通知
-            List<Schedule> list_schedule_rp = new ArrayList<>();
-            List<Arrangement> arrangements = dao.getArrangementByRepeat(studio,campus);
-            if(arrangements.size()>0){
-                for(int ri=0;ri < arrangements.size();ri++){
-                    Arrangement arrangement = arrangements.get(ri);
-                    String class_number = arrangement.getClass_number();
-                    String duration = arrangement.getDuration();
-                    String subject = arrangement.getSubject();
-                    Integer dayofweek = Integer.parseInt(arrangement.getDayofweek());
-                    String repeat_duration = arrangement.getRepeat_duration();
-                    String[] repeat_duration_list = repeat_duration.split(",");
-                    String start_date = "2025-01-01";
-                    String end_date = "2025-01-01";
-                    if(repeat_duration_list.length ==2){
-                        start_date = repeat_duration_list[0];
-                        end_date = repeat_duration_list[1];
-                    }
-
-                    try {
-                        Date date_start = df.parse(start_date);
-                        long start_timestamp = date_start.getTime();
-                        Date date_end = df.parse(end_date);
-                        long end_timestamp = date_end.getTime();
-                        long td_timestamp  = td_time;
-                        if("统一提醒次日".equals(remindType)){
-                            td_timestamp = tm_time;
-                        }
-                        // 判断日期
-                        if(td_timestamp >=start_timestamp && td_timestamp <= end_timestamp){
-                            int dayofweek_by = 0;
-                            if(dayofweek==7){
-                                dayofweek_by=1;
-                            }else {
-                                dayofweek_by = dayofweek + 1;
-                            }
-                            list_schedule_rp = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
-                        }
-                    } catch (ParseException e) {
-//                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
             //续课通知
             try {
                 if(!"no_name".equals(student_name)) {
