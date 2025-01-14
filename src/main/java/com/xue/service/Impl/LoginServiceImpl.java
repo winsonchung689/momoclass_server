@@ -5185,6 +5185,9 @@ public class LoginServiceImpl implements LoginService {
         return result;
     }
 
+
+
+
     @Override
     public void sendClassRemind() {
         List<String> apps = new ArrayList<>();
@@ -5332,84 +5335,16 @@ public class LoginServiceImpl implements LoginService {
                             if(users.size()>0 && remind == 1){
                                 choose = 1;
                                 for(int ui=0;ui<users.size();ui++){
-                                    String official_openid_boss = users.get(ui).getOfficial_openid();
-                                    for(int a=0;a<apps.size();a++){
-                                        String url_send = null;
-                                        String app = apps.get(a);
-                                        String token = getToken(app);
-                                        if("MOMO_OFFICIAL".equals(app)){
-                                            url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                                            //绑定公众号通知
-                                            if(official_openid_boss != null){
-                                                String[] official_list_boss = official_openid_boss.split(",");
-                                                for(int k=0;k<official_list_boss.length;k++){
-                                                    try {
-                                                        String official_openid_get = official_list_boss[k];
-                                                        JSONObject queryJson2 = JSONObject.parseObject(tample6);
-                                                        queryJson2.put("touser",official_openid_get);
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送" +"(" + student_name + ")");
-                                                        queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                                        if("未设".equals(upcoming)){
-                                                            upcoming = class_number;
-                                                        }
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
-//                                                        queryJson2.getJSONObject("data").getJSONObject("thing8").put("value",class_number);
-//                                                        queryJson2.getJSONObject("data").getJSONObject("thing11").put("value",studio);
-
-                                                        System.out.printf("param2:" + queryJson2.toJSONString());
-                                                        result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                                                        System.out.printf("res2:" + result);
-                                                    } catch (Exception e) {
-                                                        throw new RuntimeException(e);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    User user_teacher = users.get(ui);
+                                    String openid_get = user_teacher.getOpenid();
+                                    classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
                                 }
                             }
 
                             //学生家长上课通知
                             if(remind == 1 && choose == 1){
                                 //小程序公众号通知
-                                try {
-                                    for(int a=0;a<apps.size();a++){
-                                        String url_send = null;
-                                        String app=apps.get(a);
-                                        String token = getToken(app);
-                                        if("MOMO_OFFICIAL".equals(app)){
-                                            url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                                            //绑定公众号通知
-                                            if(!"no_id".equals(official_openid)){
-                                                String[] official_list = official_openid.split(",");
-                                                for(int k=0;k<official_list.length;k++){
-                                                    try {
-                                                        String official_openid_get = official_list[k];
-                                                        JSONObject queryJson2 = JSONObject.parseObject(tample6);
-                                                        queryJson2.put("touser",official_openid_get);
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
-                                                        queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                                                        if("未设".equals(upcoming)){
-                                                            upcoming = class_number;
-                                                        }
-                                                        queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", upcoming);
-//                                                        queryJson2.getJSONObject("data").getJSONObject("thing8").put("value",class_number);
-//                                                        queryJson2.getJSONObject("data").getJSONObject("thing11").put("value",studio);
-
-                                                        System.out.println("json2:" + queryJson2.toJSONString());
-                                                        result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                                                        System.out.printf("res22:" + result);
-                                                        dao.updateClassSendStatus(id,now_date);
-                                                    } catch (Exception e) {
-    //                                                    throw new RuntimeException(e);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                } catch (Exception e) {
-//                                    throw new RuntimeException(e);
-                                }
+                                classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
 
                                 //pwa版上课通知
                                 try {
@@ -5429,6 +5364,49 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            //重复课通知
+            List<Schedule> list_schedule_rp = new ArrayList<>();
+            List<Arrangement> arrangements = dao.getArrangementByRepeat(studio,campus);
+            if(arrangements.size()>0){
+                for(int ri=0;ri < arrangements.size();ri++){
+                    Arrangement arrangement = arrangements.get(ri);
+                    String class_number = arrangement.getClass_number();
+                    String duration = arrangement.getDuration();
+                    String subject = arrangement.getSubject();
+                    Integer dayofweek = Integer.parseInt(arrangement.getDayofweek());
+                    String repeat_duration = arrangement.getRepeat_duration();
+                    String[] repeat_duration_list = repeat_duration.split(",");
+                    String start_date = "2025-01-01";
+                    String end_date = "2025-01-01";
+                    if(repeat_duration_list.length ==2){
+                        start_date = repeat_duration_list[0];
+                        end_date = repeat_duration_list[1];
+                    }
+
+                    try {
+                        Date date_start = df.parse(start_date);
+                        long start_timestamp = date_start.getTime();
+                        Date date_end = df.parse(end_date);
+                        long end_timestamp = date_end.getTime();
+                        long td_timestamp  = td_time;
+                        if("统一提醒次日".equals(remindType)){
+                            td_timestamp = tm_time;
+                        }
+                        // 判断日期
+                        if(td_timestamp >=start_timestamp && td_timestamp <= end_timestamp){
+                            int dayofweek_by = 0;
+                            if(dayofweek==7){
+                                dayofweek_by=1;
+                            }else {
+                                dayofweek_by = dayofweek + 1;
+                            }
+                            list_schedule_rp = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
+                        }
+                    } catch (ParseException e) {
+//                        throw new RuntimeException(e);
+                    }
+                }
+            }
 
             //续课通知
             try {
@@ -10390,6 +10368,49 @@ public class LoginServiceImpl implements LoginService {
         }
 
         return resul_list;
+    }
+
+    @Override
+    public String classRemind(String openid, String student_name, String studio, String subject,String class_number, String duration, String date_time, String upcoming,String id,String now_date) {
+
+        String tample ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+        String token = getToken("MOMO_OFFICIAL");
+        String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+        // 绑定公众号通知
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String official_openid = user.getOfficial_openid();
+        String role = user.getRole();
+
+        String[] official_list = official_openid.split(",");
+        for(int i=0;i<official_list.length;i++){
+            try {
+                String official_openid_get = official_list[i];
+                JSONObject queryJson2 = JSONObject.parseObject(tample);
+                queryJson2.put("touser",official_openid_get);
+                queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送" +"(" + student_name + ")");
+                // 分情况
+                if("client".equals(role)){
+                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                }
+                queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                if("未设".equals(upcoming)){
+                    upcoming = class_number;
+                }
+                queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
+
+                System.out.printf("param:" + queryJson2.toJSONString());
+                String result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                System.out.printf("res:" + result);
+                // 更新通知状态
+                if("client".equals(role)){
+                    dao.updateClassSendStatus(id,now_date);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 
 
