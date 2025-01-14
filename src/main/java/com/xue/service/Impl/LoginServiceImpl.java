@@ -10342,28 +10342,31 @@ public class LoginServiceImpl implements LoginService {
         for(int i=0;i<official_list.length;i++){
             try {
                 String official_openid_get = official_list[i];
-                JSONObject queryJson2 = JSONObject.parseObject(tample);
-                queryJson2.put("touser",official_openid_get);
+                if(!"no_id".equals(official_openid_get)){
+                    JSONObject queryJson2 = JSONObject.parseObject(tample);
+                    queryJson2.put("touser",official_openid_get);
 
-                // 分情况
-                String thing1 = student_name;
-                if(!"client".equals(role)){
-                    thing1 = "上课提醒已发送" +"(" + student_name + ")";
-                }
+                    // 分情况
+                    String thing1 = student_name;
+                    if(!"client".equals(role)){
+                        thing1 = "上课提醒已发送" +"(" + student_name + ")";
+                    }
 
-                queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",thing1);
-                queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
-                if("未设".equals(upcoming)){
-                    upcoming = class_number;
-                }
-                queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
+                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",thing1);
+                    queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
+                    // 课程预告
+                    if("未设".equals(upcoming)){
+                        upcoming = class_number;
+                    }
+                    queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
 
-                System.out.printf("param:" + queryJson2.toJSONString());
-                String result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
-                System.out.printf("res:" + result);
-                // 更新通知状态
-                if("client".equals(role)){
-                    dao.updateClassSendStatus(id,now_date);
+                    System.out.printf("param:" + queryJson2.toJSONString());
+                    String result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
+                    System.out.printf("res:" + result);
+                    // 更新通知状态
+                    if("client".equals(role)){
+                        dao.updateClassSendStatus(id,now_date);
+                    }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
