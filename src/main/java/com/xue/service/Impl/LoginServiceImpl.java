@@ -10344,11 +10344,14 @@ public class LoginServiceImpl implements LoginService {
                 String official_openid_get = official_list[i];
                 JSONObject queryJson2 = JSONObject.parseObject(tample);
                 queryJson2.put("touser",official_openid_get);
-                queryJson2.getJSONObject("data").getJSONObject("thing1").put("value","上课提醒已发送" +"(" + student_name + ")");
+
                 // 分情况
-                if("client".equals(role)){
-                    queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",student_name);
+                String thing1 = student_name;
+                if(!"client".equals(role)){
+                    thing1 = "上课提醒已发送" +"(" + student_name + ")";
                 }
+
+                queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",thing1);
                 queryJson2.getJSONObject("data").getJSONObject("time3").put("value",date_time + " " + duration.split("-")[0]);
                 if("未设".equals(upcoming)){
                     upcoming = class_number;
