@@ -5248,7 +5248,7 @@ public class LoginServiceImpl implements LoginService {
             List<Schedule> list_schedule = new ArrayList<>();
             //上课通知
             if(!"no_name".equals(student_name)){
-//                通知分类
+                // 通知分类
                 if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
                     weekDay = weekDay_tomorrow;
                     date_time = df.format(cal_tomorrow.getTime());
@@ -5283,7 +5283,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-//                向家长发送通知
+                // 向家长发送通知
                 if(list_schedule.size() > 0 && weekDay > 0){
                     for (int j = 0; j < list_schedule.size(); j++) {
                         Schedule schedule = list_schedule.get(j);
@@ -5296,7 +5296,7 @@ public class LoginServiceImpl implements LoginService {
                         String student_type = schedule.getStudent_type();
                         String add_date = schedule.getAdd_date();
 
-                        //  插班生
+                        //  跳过插班生
                         if("transferred".equals(student_type)){
                             if("统一提醒次日".equals(remindType)){
                                 if(!tm_date.equals(add_date)){
@@ -5317,12 +5317,14 @@ public class LoginServiceImpl implements LoginService {
                             weekDayChoose = weekDay -1;
                         }
 
+                        // 课程设计
                         String upcoming = "未设";
                         List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                         if(arrangement_list.size()>0){
                             upcoming = arrangement_list.get(0).getUpcoming();
                         }
 
+                        // 判断是否已发
                         if(!send_status.equals(now_date)){
                             //选课老师上课通知
                             String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
@@ -5426,6 +5428,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
+
 
             //续课通知
             try {
