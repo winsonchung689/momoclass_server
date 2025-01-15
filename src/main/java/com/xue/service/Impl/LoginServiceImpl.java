@@ -5194,7 +5194,6 @@ public class LoginServiceImpl implements LoginService {
             Integer hours = user.getHours();
             String campus = user.getCampus();
             String openid = user.getOpenid();
-            String role = user.getRole();
 
             //获取提前时间
             Calendar cal_today = Calendar.getInstance();
@@ -5244,6 +5243,24 @@ public class LoginServiceImpl implements LoginService {
                     for(int j = 0;j < schedules.size();j++){
                         Schedule schedule = schedules.get(j);
                         Integer hours_get = schedule.getHours();
+                        String class_number = schedule.getClass_number();
+                        String duration = schedule.getDuration();
+                        String subject = schedule.getSubject();
+
+
+                        // 获取课程表
+                        Integer weekDayChoose = 0;
+                        if(weekDay == 1){
+                            weekDayChoose = 7;
+                        }else {
+                            weekDayChoose = weekDay -1;
+                        }
+                        List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+                        if(arrangements.size()>0){
+                            Arrangement arrangement = arrangements.get(0);
+                            hours_get = arrangement.getHours();
+                        }
+
 
                         //获取提前时间
                         Calendar cal_today_get = Calendar.getInstance();
@@ -5305,7 +5322,9 @@ public class LoginServiceImpl implements LoginService {
                         String upcoming = "未设";
                         List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                         if(arrangement_list.size()>0){
-                            upcoming = arrangement_list.get(0).getUpcoming();
+                            Arrangement arrangement = arrangement_list.get(0);
+                            upcoming = arrangement.getUpcoming();
+                            remind = arrangement.getRemind();
                         }
 
                         // 判断是否已发
