@@ -562,8 +562,8 @@
   </select>
 
   <!-- 更改通知时间 -->
-  <select id="changeScheduleHours" parameterType="com.xue.entity.model.Schedule" resultMap="BaseResultMap">
-    update class_schedule set hours =#{param1} where class_number =#{param2} and studio =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and dayofweek(add_date)=#{param7}
+  <select id="changeScheduleHours" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
+    update schedule_arrangement set hours =#{param2} where id =#{param1}
   </select>
 
   <!-- 更改课程名 -->
@@ -1244,9 +1244,9 @@
     update class_schedule set add_date=#{add_date},duration=#{duration},class_number=#{class_number},subject=#{subject},update_time=#{update_time} where id = #{id}
   </update>
 
-  <!-- 更新课时 -->
-  <update id="updateRemind" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set remind=#{param1} where subject=#{param2} and studio = #{param3} and duration = #{param4} and class_number = #{param5} and dayofweek(add_date) =#{param6} and campus =#{param7}
+  <!-- 更新提醒与否 -->
+  <update id="updateRemind" parameterType="com.xue.entity.model.Arrangement">
+    update schedule_arrangement set remind=#{param2} where id=#{param1}
   </update>
 
   <!-- 更新名字 -->
@@ -1728,8 +1728,8 @@
     update user set hours=#{hours},remind_type=#{remind_type} where studio = #{studio}
   </update>
 
-  <update id="updateScheduleHours" parameterType="com.xue.entity.model.Schedule">
-    update  class_schedule set hours=#{param2} where studio = #{param1}
+  <update id="updateScheduleHours" parameterType="com.xue.entity.model.Arrangement">
+    update  schedule_arrangement set hours=#{param2} where studio = #{param1}
   </update>
 
   <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

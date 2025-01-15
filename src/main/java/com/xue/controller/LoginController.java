@@ -1335,24 +1335,21 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/updateRemind")
 	@ResponseBody
-	public int updateRemind(String subject_class,String studio,String type,String dayofweek,String openid){
-		Integer remind = 1;
-		if("是".equals(type)){
-			remind = 0;
-		}else if("否".equals(type)){
-			remind = 1;
-		}
-		String[] list = subject_class.split(",");
-		String subject = list[0];
-		String class_number = list[1];
-		String duration = list[2];
-
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
+	public int updateRemind(String id ,String openid){
 
 		int result = 0;
 		try {
-			result =dao.updateRemind(remind,subject,studio,duration,class_number,dayofweek,campus);
+			List<User> list_user = dao.getUser(openid);
+			String studio = list_user.get(0).getStudio();
+
+			List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
+			Arrangement arrangement = arrangements.get(0);
+			int remind = 1;
+			int remind_get = arrangement.getRemind();
+			if(remind_get == 1){
+				remind = 0;
+			}
+			result =dao.updateRemind(id,remind);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -6384,19 +6381,7 @@ public class LoginController {
 				dao.updateHours(user);
 				dao.updateScheduleHours(studio,Integer.parseInt(value));
 			}else if("单独提前".equals(remind_type)){
-				List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
-				Arrangement arrangement = arrangements.get(0);
-				Integer dayofweek =  Integer.parseInt(arrangement.getDayofweek());
-				if(dayofweek==7){
-					dayofweek=1;
-				}else {
-					dayofweek = dayofweek + 1;
-				}
-				String class_number = arrangement.getClass_number();
-				String duration = arrangement.getDuration();
-				String subject = arrangement.getSubject();
-				String campus = arrangement.getCampus();
-				dao.changeScheduleHours(Integer.parseInt(value),class_number,studio,duration,subject,campus,dayofweek);
+				dao.changeScheduleHours(id,Integer.parseInt(value));
 			}
 			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
 		} catch (Exception e) {

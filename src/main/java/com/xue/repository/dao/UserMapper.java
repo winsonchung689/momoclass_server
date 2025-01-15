@@ -320,7 +320,7 @@ public interface UserMapper {
 
     void changeScheduleDuration(String class_number,String studio,String duration,String new_duration,String subject,String campus,Integer dayofweek);
 
-    void changeScheduleHours(Integer hours,String class_number,String studio,String duration,String subject,String campus,Integer dayofweek);
+    void changeScheduleHours(String id,Integer hours);
 
     void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus);
 
@@ -1039,7 +1039,7 @@ public interface UserMapper {
 
     int updateScheduleName(String student_name_new,String student_name,String studio,String campus,String subject);
 
-    int updateRemind(Integer remind,String subject,String studio,String duration,String class_number,String dayofweek,String campus);
+    int updateRemind(String id,Integer remind);
 
     int updateCommentName(String student_name_new,String student_name,String studio,String campus,String subject);
 
