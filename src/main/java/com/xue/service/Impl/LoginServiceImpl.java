@@ -5192,9 +5192,6 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
-        String result = null;
-        String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-        String tample14 ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String publickey = Constants.publickey;
         String privatekey = Constants.privatekey;
 
@@ -5362,40 +5359,35 @@ public class LoginServiceImpl implements LoginService {
             }
 
             //续课通知
-            try {
-                if(!"no_name".equals(student_name)) {
-                    List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
-                    if (lessons.size() > 0) {
-                        for (int ii = 0; ii < lessons.size(); ii++) {
-                            Lesson lesson = lessons.get(ii);
-                            Float left_amount = lesson.getLeft_amount();
-                            String subject = lesson.getSubject();
-                            String student_lesson = lesson.getStudent_name();
-                            String student_split = student_lesson.split("_")[0];
-                            Integer urge_payment = lesson.getUrge_payment();
-                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
-                                String token = getToken("MOMO_OFFICIAL");
-                                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                                if (!"no_id".equals(official_openid)) {
-                                    String[] official_list = official_openid.split(",");
-                                    for (int j = 0; j < official_list.length; j++) {
-                                        String official_openid_get = official_list[j];
-                                        JSONObject queryJson2 = JSONObject.parseObject(tample14);
-                                        queryJson2.put("touser", official_openid_get);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
-                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
-                                        result = HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                                        System.out.printf("res:" + result);
-                                    }
+            if(!"no_name".equals(student_name)) {
+                List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
+                if (lessons.size() > 0) {
+                    for (int j = 0; j < lessons.size(); j++) {
+                        Lesson lesson = lessons.get(j);
+                        Float left_amount = lesson.getLeft_amount();
+                        String subject = lesson.getSubject();
+                        String student_lesson = lesson.getStudent_name();
+                        String student_split = student_lesson.split("_")[0];
+                        Integer urge_payment = lesson.getUrge_payment();
+                        if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
+                            String token = getToken("MOMO_OFFICIAL");
+                            String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+                            String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                            if (!"no_id".equals(official_openid)) {
+                                String[] official_list = official_openid.split(",");
+                                for (int k = 0; k < official_list.length; k++) {
+                                    String official_openid_get = official_list[k];
+                                    JSONObject queryJson2 = JSONObject.parseObject(model);
+                                    queryJson2.put("touser", official_openid_get);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
+                                    queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                    HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                 }
-
                             }
                         }
                     }
                 }
-            } catch (Exception e) {
-//                throw new RuntimeException(e);
             }
         }
     }
