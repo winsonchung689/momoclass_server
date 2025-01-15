@@ -1117,6 +1117,8 @@ public class LoginServiceImpl implements LoginService {
                 Arrangement line = list.get(i);
 
                 //获取字段
+                remind = line.getRemind();
+                hours = line.getHours();
                 class_number = line.getClass_number();
                 duration = line.getDuration();
                 limits = line.getLimits();
@@ -1137,17 +1139,6 @@ public class LoginServiceImpl implements LoginService {
                 String is_reserved_cn = "是";
                 if(is_reserved == 0){
                     is_reserved_cn = "否";
-                }
-
-                List<Schedule> schedules = dao.getScheduleRemind(studio,dayofweek_by,duration,class_number,subject);
-                if(schedules.size()>0){
-                    Schedule schedule = schedules.get(0);
-                    try {
-                        remind = schedule.getRemind();
-                        hours = schedule.getHours();
-                    } catch (Exception e) {
-//                        throw new RuntimeException(e);
-                    }
                 }
 
                 if(remind == 1 ){

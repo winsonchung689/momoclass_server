@@ -30,6 +30,27 @@ public class Arrangement {
 
     private String repeat_duration;
 
+    private Integer remind;
+
+    private Integer hours;
+
+
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
+    public Integer getRemind() {
+        return remind;
+    }
+
+    public void setRemind(Integer remind) {
+        this.remind = remind;
+    }
 
     public String getRepeat_duration() {
         return repeat_duration;
