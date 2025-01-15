@@ -1100,14 +1100,12 @@ public class LoginServiceImpl implements LoginService {
                 String class_number = null;
                 String duration = null;
                 String limits = "0";
-//                byte[] photo = null;
                 String id = null;
                 Integer sign_count =0;
                 StringBuffer teachers = new StringBuffer();
                 StringBuffer all_teachers = new StringBuffer();
                 String student_string = null;
                 Integer classes_count =0;
-                Integer uncomfirmed_count = 0;
                 Integer remind = 0;
                 Integer hours = 0;
                 String remind_name="否";
@@ -1205,7 +1203,6 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("subject",subject);
                         jsonObject.put("classes_count_all",classes_count_all);
                         jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
-                        jsonObject.put("uncomfirmed_count",uncomfirmed_count);
                         jsonObject.put("student_string",student_string);
                         jsonObject.put("remind",remind);
                         jsonObject.put("remind_name",remind_name);
@@ -1233,7 +1230,6 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("subject",subject);
                     jsonObject.put("classes_count_all",classes_count_all);
                     jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
-                    jsonObject.put("uncomfirmed_count",uncomfirmed_count);
                     jsonObject.put("student_string",student_string);
                     jsonObject.put("remind",remind);
                     jsonObject.put("remind_name",remind_name);
