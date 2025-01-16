@@ -5661,13 +5661,13 @@ public class LoginServiceImpl implements LoginService {
                     //计算应出勤
                     List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
                     int week_count = schedules.size();
-                    long day_count  = week_count/7;
+                    double day_count  =  (double) week_count/7;
                     // 日期差
                     Date date1 = sdf.parse(date_start);
                     Date date2 = sdf.parse(date_end);
                     long diff = date2.getTime() - date1.getTime();
                     long days = diff / (1000 * 60 * 60 * 24);
-                    long all_count = day_count * Math.round(days);
+                    double all_count = day_count * Math.round(days);
 
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);

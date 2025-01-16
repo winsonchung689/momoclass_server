@@ -34,6 +34,11 @@ public class test {
             if(today_timestamp >= start_timestamp ){
                 System.out.println("aaaa");
             }
+
+            int aa = 6;
+            int bb= 7;
+            double count = (double)aa/bb;
+            System.out.println(count);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
