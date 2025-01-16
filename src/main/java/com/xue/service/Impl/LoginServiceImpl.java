@@ -5669,7 +5669,6 @@ public class LoginServiceImpl implements LoginService {
                     long days = diff / (1000 * 60 * 60 * 24);
                     int all_count = day_count * Math.round(days);
 
-
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number_get);
