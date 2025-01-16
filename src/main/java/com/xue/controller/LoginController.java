@@ -412,7 +412,7 @@ public class LoginController {
 			String imageString = Base64.getEncoder().encodeToString(bytes);
 
 			// 上传二维码
-			String studio_md5 = DigestUtils.md5Hex(studio+type);
+			String studio_md5 = DigestUtils.md5Hex(studio+type+id);
 			String serverPath = "/data/uploadRr";
 			String fileName = studio_md5 + ".png";
 			File file = new File(serverPath, fileName);
