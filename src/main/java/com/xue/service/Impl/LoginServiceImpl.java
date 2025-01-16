@@ -5500,6 +5500,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getStudentByTeacher(String type,String openid,String duration_time,Integer page,String class_number) {
         Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         String date_time = df.format(new Date());
         Date date = new Date();
@@ -5539,6 +5540,7 @@ public class LoginServiceImpl implements LoginService {
             List<String> data_list = new ArrayList<>();
             if(page == 1){
                 if("普通".equals(type)){
+                    // 签到记录相关计算
                     List<SignUp> list = dao.getStudentByTeacherByDuration(studio,nick_name,date_start,date_end);
                     for (int i = 0; i < list.size(); i++) {
                         SignUp line = list.get(i);
@@ -5557,13 +5559,13 @@ public class LoginServiceImpl implements LoginService {
                         Float all_lesson = 0.0f;
                         Float give_lesson = 0.0f;
 
+                        // 计算金额
                         try {
                             List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
                             if(lessons.size()>0){
                                 Lesson lesson = lessons.get(0);
                                 price = lesson.getPrice();
                             }
-
 
                             List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
                             if(lessonPackages.size()>0){
@@ -5581,7 +5583,6 @@ public class LoginServiceImpl implements LoginService {
                             if(re_price>0){
                                 price = re_price;
                             }
-
                             sign_price = count * price;
 
                         } catch (Exception e) {
@@ -5602,12 +5603,12 @@ public class LoginServiceImpl implements LoginService {
                         data_list.add(data_line);
                     }
                 } else if ("卡签".equals(type)) {
+                    // 统计卡签记录
                     List<CardRecord> list = dao.getCardRecordByTeacherByDuration(studio,nick_name,date_start,date_end);
                     for(int i = 0;i < list.size();i++){
                         count_sum = count_sum + 1;
                     }
                 }
-
 
                 jsonObject_all.put("price_sum", df1.format(price_sum));
                 jsonObject_all.put("sign_sum", sign_sum);
@@ -5635,13 +5636,12 @@ public class LoginServiceImpl implements LoginService {
                     Float all_lesson = 0.0f;
                     Float given_lesson = 0.0f;
 
+                    // 计算单价
                     List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus_get);
                     if(lessons.size()>0){
                         Lesson lesson = lessons.get(0);
                         price = lesson.getPrice();
                     }
-
-
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus_get,subject);
                     if(lessonPackages.size()>0){
                         for(int k = 0; k < lessonPackages.size(); k++){
@@ -5652,12 +5652,23 @@ public class LoginServiceImpl implements LoginService {
                             given_lesson = given_lesson + lessonPackage.getGive_lesson();
                         }
                     }
-
                     Float receipts = total_money - discount_money;
                     Float re_price = receipts/(all_lesson+given_lesson);
                     if(re_price>0){
                         price = re_price;
                     }
+
+                    //计算应出勤
+                    List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
+                    int week_count = schedules.size();
+                    int day_count  = week_count/7;
+                    // 日期差
+                    Date date1 = sdf.parse(date_start);
+                    Date date2 = sdf.parse(date_end);
+                    long diff = date2.getTime() - date1.getTime();
+                    long days = diff / (1000 * 60 * 60 * 24);
+                    int all_count = day_count * Math.round(days);
+
 
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);
@@ -5668,6 +5679,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("create_time", create_time);
                     jsonObject.put("mark", mark);
                     jsonObject.put("count", count);
+                    jsonObject.put("all_count", all_count);
                     jsonObject.put("price", df1.format(price));
                     if(student_name.length() >0){
                         if("全部".equals(class_number)){
@@ -5675,7 +5687,6 @@ public class LoginServiceImpl implements LoginService {
                         }else if(class_number.equals(class_number_get)){
                             resul_list.add(jsonObject);
                         }
-
                     }
                 }
             }
