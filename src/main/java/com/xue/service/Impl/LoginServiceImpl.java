@@ -3225,7 +3225,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getPptMenu(String openid,Integer page) {
+    public List getPptMenu(String openid,Integer page,String category) {
         List<User> users = dao.getUser(openid);
         User user = users.get(0);
         String studio = user.getStudio();
@@ -3245,8 +3245,13 @@ public class LoginServiceImpl implements LoginService {
                 // 获取类目
                 if(page == 1){
                     for(int i=0;i < pptMenus.size();i++){
-                        String category = pptMenus.get(i).getCategory();
-                        category_all.append(category);
+                        String category_get = pptMenus.get(i).getCategory();
+                        if(category == null || category.isEmpty() || "undefined".equals(category)){
+                            if(i == 0){
+                                category = category_get;
+                            }
+                        }
+                        category_all.append(category_get);
                         category_all.append(",");
                     }
                     if(category_all.length()>0) {
@@ -3255,13 +3260,13 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //明细
-                List<PptMenu> list = dao.getPptMenu(studio,campus,page_start,page_length);
+                List<PptMenu> list = dao.getPptMenu(studio,campus,category,page_start,page_length);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     PptMenu line = list.get(i);
                     //获取字段
                     String ppt_name = line.getPpt_name();
-                    String category = line.getCategory();
+                    category = line.getCategory();
                     String uuids = line.getUuids();
                     String uuid = line.getUuid();
                     String create_time = line.getCreate_time();

@@ -2288,10 +2288,10 @@ public class LoginController {
 
 	@RequestMapping("/getPptMenu")
 	@ResponseBody
-	public List getPptMenu(String openid,Integer page){
+	public List getPptMenu(String openid,Integer page,String category){
 		List list = null;
 		try {
-			list = loginService.getPptMenu(openid,page);
+			list = loginService.getPptMenu(openid,page,category);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
