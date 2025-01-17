@@ -3873,26 +3873,105 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getArrangements(String studio,String campus) {
-        String dayofweek = null;
-        String class_number = null;
-        String duration = null;
-        String subject = null;
-        List<String> resul_list = new ArrayList<>();
+        List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<Arrangement> list = dao.getArrangements(studio,campus);
             for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                StringBuffer teachers = new StringBuffer();
+                StringBuffer all_teachers = new StringBuffer();
                 Arrangement line = list.get(i);
                 //获取字段
-                dayofweek = line.getDayofweek();
-                class_number = line.getClass_number();
-                duration = line.getDuration();
-                subject = line.getSubject();
+                String dayofweek = line.getDayofweek();
+                String class_number = line.getClass_number();
+                String duration = line.getDuration();
+                String subject = line.getSubject();
+                //获取字段
+                Integer remind = line.getRemind();
+                Integer hours = line.getHours();
+                String limits = line.getLimits();
+                String id = line.getId();
+                String upcoming = line.getUpcoming();
+                Integer is_repeat = line.getIs_repeat();
+                String repeat_duration = line.getRepeat_duration();
+                String[] repeat_duration_list = repeat_duration.split(",");
+                String start_date = "2025-01-01";
+                String end_date = "2025-01-01";
+                if(repeat_duration_list.length ==2){
+                    start_date = repeat_duration_list[0];
+                    end_date = repeat_duration_list[1];
+                }
 
+                Integer is_reserved = line.getIs_reserved();
+                String is_reserved_cn = "是";
+                if(is_reserved == 0){
+                    is_reserved_cn = "否";
+                }
 
-                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
+                String remind_name = "否";
+                if(remind == 1 ){
+                    remind_name = "是";
+                }
 
-                //json
-                resul_list.add(item);
+                int classes_count = 0;
+                int dayofweek_by = 0;
+                int dayofweek_int = Integer.parseInt(dayofweek);
+                if(dayofweek_int==7){
+                    dayofweek_by=1;
+                }else {
+                    dayofweek_by = dayofweek_int + 1;
+                }
+                classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
+
+                // 选课
+                try {
+                    String lesson_string = null;
+                    lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
+
+                    List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
+                    if(teacher_user != null){
+                        for(int t = 0;t < teacher_user.size(); t++){
+                            String nick_name_get = teacher_user.get(t).getNick_name();
+                            String openid_get =teacher_user.get(t).getOpenid();
+                            teachers.append(nick_name_get + "|" + openid_get);
+                            teachers.append(",");
+                        }
+                    }
+
+                    List<User> all_teacher_user = dao.getBossByStudio(studio);
+                    if(all_teacher_user != null){
+                        for(int tt = 0;tt < all_teacher_user.size(); tt++){
+                            String nick_name_all = all_teacher_user.get(tt).getNick_name();
+                            String openid_all =all_teacher_user.get(tt).getOpenid();
+                            all_teachers.append(nick_name_all + "|" + openid_all);
+                            all_teachers.append(",");
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                jsonObject.put("start_date", start_date);
+                jsonObject.put("end_date", end_date);
+                jsonObject.put("is_reserved", is_reserved);
+                jsonObject.put("is_reserved_cn", is_reserved_cn);
+                jsonObject.put("upcoming", upcoming);
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("duration", duration);
+                jsonObject.put("limits", limits);
+                jsonObject.put("is_repeat", is_repeat);
+                jsonObject.put("repeat_duration", repeat_duration);
+                jsonObject.put("classes_count", classes_count);
+                jsonObject.put("dayofweek",dayofweek);
+                jsonObject.put("id",id);
+                jsonObject.put("subject",subject);
+                jsonObject.put("remind",remind);
+                jsonObject.put("remind_name",remind_name);
+                jsonObject.put("hours",hours);
+                jsonObject.put("teachers",teachers);
+                jsonObject.put("all_teachers",all_teachers);
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
