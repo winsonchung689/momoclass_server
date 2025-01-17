@@ -4058,9 +4058,15 @@ public class LoginController {
 				class_number = "无班号";
 			}
 
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			int hours = list_user.get(0).getHours();
+			if (student_name == null || student_name.isEmpty() || "undefined".equals(student_name)){
+				student_name = "无学生";
+			}
+
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String campus = user.getCampus();
+			int hours = user.getHours();
+			int remind = user.getHours();
 
 			List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek,class_number,duration,subject,campus);
 			if(arrangement_list.size() == 0){
@@ -4073,10 +4079,12 @@ public class LoginController {
 				arrangement.setSubject(subject);
 				arrangement.setCampus(campus);
 				arrangement.setIs_repeat(is_repeat);
+				arrangement.setHours(hours);
+				arrangement.setRemind(remind);
 				loginService.insertArrangement(arrangement);
 			}
 
-			if (student_name != null && !student_name.isEmpty() & !"undefined".equals(student_name)) {
+			if (!"无学生".equals(student_name)) {
 				String add_date = null;
 				if (dayofweek.equals("1")) {
 					add_date = "2022-05-02";
