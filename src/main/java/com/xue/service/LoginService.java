@@ -194,7 +194,7 @@ public interface LoginService {
 
     public List getCardRecord(String openid,String student_name,String card_id,String subject);
 
-    public List getPptMenu(String openid);
+    public List getPptMenu(String openid,Integer page);
 
     public List getPptMenuById(String id);
 

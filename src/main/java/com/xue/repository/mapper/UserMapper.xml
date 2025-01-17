@@ -1340,7 +1340,7 @@
   </select>
 
   <select id="getPptMenu" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
-    select * from ppt_menu where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time
+    select * from ppt_menu where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4}
   </select>
 
   <select id="getPptMenuById" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">

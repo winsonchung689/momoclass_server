@@ -3225,28 +3225,37 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getPptMenu(String openid) {
+    public List getPptMenu(String openid,Integer page) {
         List<User> users = dao.getUser(openid);
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
+
+        Integer page_start = 0;
+        Integer page_length = 0;
+        page_start = (page - 1) * 6;
+        page_length = 6;
+
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             // 获取类目
             List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus);
             if(pptMenus.size()>0){
                 StringBuffer category_all = new StringBuffer();
-                for(int i=0;i < pptMenus.size();i++){
-                    String category = pptMenus.get(i).getCategory();
-                    category_all.append(category);
-                    category_all.append(",");
-                }
-                if(category_all.length()>0) {
-                    category_all = category_all.deleteCharAt(category_all.lastIndexOf(","));
+                // 获取类目
+                if(page == 1){
+                    for(int i=0;i < pptMenus.size();i++){
+                        String category = pptMenus.get(i).getCategory();
+                        category_all.append(category);
+                        category_all.append(",");
+                    }
+                    if(category_all.length()>0) {
+                        category_all = category_all.deleteCharAt(category_all.lastIndexOf(","));
+                    }
                 }
 
                 //明细
-                List<PptMenu> list = dao.getPptMenu(studio,campus);
+                List<PptMenu> list = dao.getPptMenu(studio,campus,page_start,page_length);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     PptMenu line = list.get(i);
