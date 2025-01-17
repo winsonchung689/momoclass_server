@@ -6367,7 +6367,7 @@ public class LoginController {
 
 
 		try {
-			if("统一提醒次日".equals(remind_type)){
+			if("统一提醒次日".equals(remind_type) || "暂停上课提醒".equals(remind_type)){
 				User user =new User();
 				user.setSend_time(value);
 				user.setStudio(studio);
