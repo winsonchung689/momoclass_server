@@ -4047,7 +4047,7 @@ public class LoginController {
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
-	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name,String openid){
+	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name,String openid,Integer is_repeat){
 
 		try {
 
@@ -4072,6 +4072,7 @@ public class LoginController {
 				arrangement.setStudio(studio);
 				arrangement.setSubject(subject);
 				arrangement.setCampus(campus);
+				arrangement.setIs_repeat(is_repeat);
 				loginService.insertArrangement(arrangement);
 			}
 

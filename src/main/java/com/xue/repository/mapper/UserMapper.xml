@@ -978,7 +978,7 @@
 
   <!-- 插入课程安排 -->
   <insert id="insertArrangement" parameterType="com.xue.entity.model.Arrangement">
-    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject,campus) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject},#{campus})
+    insert schedule_arrangement(dayofweek,class_number,duration,limits,photo,studio,delete_status,subject,campus,is_repeat) values(#{dayofweek},#{class_number},#{duration},#{limits},#{photo},#{studio},0,#{subject},#{campus},#{is_repeat})
   </insert>
 
   <!-- 插入商品列表 -->
