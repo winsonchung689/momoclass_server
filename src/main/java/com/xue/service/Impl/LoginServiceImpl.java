@@ -3923,11 +3923,10 @@ public class LoginServiceImpl implements LoginService {
                 }
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
+                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
                 // 选课
                 try {
-                    String lesson_string = null;
-                    lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
-
+                    String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
                     List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
                     if(teacher_user != null){
                         for(int t = 0;t < teacher_user.size(); t++){
@@ -3971,6 +3970,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("hours",hours);
                 jsonObject.put("teachers",teachers);
                 jsonObject.put("all_teachers",all_teachers);
+                jsonObject.put("item",item);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
