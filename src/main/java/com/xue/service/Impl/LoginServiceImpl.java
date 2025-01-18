@@ -1834,6 +1834,7 @@ public class LoginServiceImpl implements LoginService {
                 String upcoming = line.getUpcoming();
                 Integer is_reserved = line.getIs_reserved();
                 Integer days = line.getDays();
+                Integer in_repeat = line.getIs_repeat();
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -1907,6 +1908,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("book_stauts",book_stauts);
                 jsonObject.put("id",id);
                 jsonObject.put("upcoming",upcoming);
+                jsonObject.put("in_repeat",in_repeat);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
