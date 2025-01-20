@@ -2662,11 +2662,7 @@ public class LoginServiceImpl implements LoginService {
                 arrangement.setRepeat_week(content);
                 dao.changeArrangementById(arrangement);
             }else if(type.equals("课状态")){
-                Integer new_class_type = 1;
-                if(class_type == 1){
-                    new_class_type = 0;
-                }
-                dao.updateArrangementClassType(studio,new_class_type);
+                dao.updateArrangementClassType(studio,Integer.parseInt(content));
             }
         } catch (Exception e) {
 //            e.printStackTrace();
