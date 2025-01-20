@@ -1182,6 +1182,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                int class_type = line.getClass_type();
 
                 if(!"all".equals(student_name_in)){
                     search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
@@ -1205,6 +1206,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
                         jsonObject.put("student_string",student_string);
                         jsonObject.put("remind",remind);
+                        jsonObject.put("class_type",class_type);
                         jsonObject.put("remind_name",remind_name);
                         jsonObject.put("hours",hours);
                         jsonObject.put("teachers",teachers);
@@ -1232,6 +1234,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
                     jsonObject.put("student_string",student_string);
                     jsonObject.put("remind",remind);
+                    jsonObject.put("class_type",class_type);
                     jsonObject.put("remind_name",remind_name);
                     jsonObject.put("hours",hours);
                     jsonObject.put("teachers",teachers);
@@ -3973,6 +3976,7 @@ public class LoginServiceImpl implements LoginService {
                     e.printStackTrace();
                 }
                 String repeat_week = line.getRepeat_week();
+                int class_type = line.getClass_type();
 
                 jsonObject.put("start_date", start_date);
                 jsonObject.put("end_date", end_date);
@@ -3995,6 +3999,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("all_teachers",all_teachers);
                 jsonObject.put("item",item);
                 jsonObject.put("repeat_week",repeat_week);
+                jsonObject.put("class_type",class_type);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
