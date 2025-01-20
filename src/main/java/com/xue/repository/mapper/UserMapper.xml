@@ -548,7 +548,7 @@
 
   <!-- 更改课程表明细 -->
   <select id="changeArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update schedule_arrangement set repeat_duration=#{repeat_duration},is_repeat =#{is_repeat},class_number =#{class_number},subject =#{subject},duration =#{duration},upcoming=#{upcoming},limits=#{limits},is_reserved =#{is_reserved} where id =#{id} and studio =#{studio}
+    update schedule_arrangement set repeat_week=#{repeat_week},repeat_duration=#{repeat_duration},is_repeat =#{is_repeat},class_number =#{class_number},subject =#{subject},duration =#{duration},upcoming=#{upcoming},limits=#{limits},is_reserved =#{is_reserved} where id =#{id} and studio =#{studio}
   </select>
 
   <!-- 更改课程名 -->

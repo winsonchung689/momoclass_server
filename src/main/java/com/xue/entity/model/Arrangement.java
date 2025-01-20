@@ -34,7 +34,17 @@ public class Arrangement {
 
     private Integer hours;
 
+    private String repeat_week;
 
+
+
+    public String getRepeat_week() {
+        return repeat_week;
+    }
+
+    public void setRepeat_week(String repeat_week) {
+        this.repeat_week = repeat_week;
+    }
 
     public Integer getHours() {
         return hours;

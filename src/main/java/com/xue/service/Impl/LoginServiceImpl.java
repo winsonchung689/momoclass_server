@@ -2649,6 +2649,9 @@ public class LoginServiceImpl implements LoginService {
             }else if(type.equals("重复时间")){
                 arrangement.setRepeat_duration(content);
                 dao.changeArrangementById(arrangement);
+            }else if(type.equals("重复星期")){
+                arrangement.setRepeat_week(content);
+                dao.changeArrangementById(arrangement);
             }
         } catch (Exception e) {
 //            e.printStackTrace();
@@ -3957,6 +3960,7 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                String repeat_week = line.getRepeat_week();
 
                 jsonObject.put("start_date", start_date);
                 jsonObject.put("end_date", end_date);
@@ -3978,6 +3982,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("teachers",teachers);
                 jsonObject.put("all_teachers",all_teachers);
                 jsonObject.put("item",item);
+                jsonObject.put("repeat_week",repeat_week);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
