@@ -1183,6 +1183,7 @@ public class LoginServiceImpl implements LoginService {
                     e.printStackTrace();
                 }
                 int class_type = line.getClass_type();
+                String repeat_week = line.getRepeat_week();
 
                 if(!"all".equals(student_name_in)){
                     search_res = dao.getLessonAllCountByDayByName(studio,dayofweek_by,duration,class_number,subject,student_name_in,campus);
@@ -1212,6 +1213,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("teachers",teachers);
                         jsonObject.put("all_teachers",all_teachers);
                         jsonObject.put("chooseLesson",chooseLesson);
+                        jsonObject.put("repeat_week",repeat_week);
                         resul_list.add(jsonObject);
                     }
                 }else {
@@ -1240,6 +1242,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("teachers",teachers);
                     jsonObject.put("all_teachers",all_teachers);
                     jsonObject.put("chooseLesson",chooseLesson);
+                    jsonObject.put("repeat_week",repeat_week);
                     resul_list.add(jsonObject);
                 }
             }
