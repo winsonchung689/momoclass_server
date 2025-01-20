@@ -4081,6 +4081,14 @@ public class LoginController {
 				arrangement.setHours(hours);
 				arrangement.setRemind(1);
 				loginService.insertArrangement(arrangement);
+				String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
+				List<User> users_get = dao.getUserByChooseLesson(chooseLesson,studio);
+				if(users_get.size() == 0){
+					String lesson = user.getLessons();
+					String new_lesson = lesson + "|" + chooseLesson;
+					user.setLessons(new_lesson);
+					loginService.updateBossLessons(user);
+				}
 			}
 
 			if (!"无学生".equals(student_name)) {
@@ -5399,7 +5407,6 @@ public class LoginController {
 							list_user.setLessons(new_lesson);
 							loginService.updateBossLessons(list_user);
 						}
-
 					}
 					//预约
 					if("星期8".equals(weekofday)){
