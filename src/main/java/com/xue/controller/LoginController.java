@@ -4047,9 +4047,19 @@ public class LoginController {
 
 	@RequestMapping("/insertArrangement")
 	@ResponseBody
-	public int insertArrangement(String dayofweek,String class_number,String duration,String limits,String studio,String subject,String student_name,String openid,Integer is_repeat){
+	public int insertArrangement(HttpServletRequest request, HttpServletResponse response){
 
 		try {
+			String dayofweek = request.getParameter("dayofweek");
+			String class_number = request.getParameter("class_number");
+			String duration = request.getParameter("duration");
+			String limits = request.getParameter("limits");
+			String subject = request.getParameter("subject");
+			String student_name = request.getParameter("student_name");
+			String openid = request.getParameter("openid");
+			String is_repeat = request.getParameter("is_repeat");
+			String repeat_duration = request.getParameter("repeat_duration");
+			String repeat_week = request.getParameter("repeat_week");
 
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 			String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
@@ -4065,6 +4075,7 @@ public class LoginController {
 			List<User> users = dao.getUser(openid);
 			User user = users.get(0);
 			String campus = user.getCampus();
+			String studio = user.getStudio();
 			int hours = user.getHours();
 
 			List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek,class_number,duration,subject,campus);
@@ -4077,9 +4088,11 @@ public class LoginController {
 				arrangement.setStudio(studio);
 				arrangement.setSubject(subject);
 				arrangement.setCampus(campus);
-				arrangement.setIs_repeat(is_repeat);
+				arrangement.setIs_repeat(Integer.parseInt(is_repeat));
 				arrangement.setHours(hours);
 				arrangement.setRemind(1);
+				arrangement.setRepeat_duration(repeat_duration);
+				arrangement.setRepeat_week(repeat_week);
 				loginService.insertArrangement(arrangement);
 				String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
 				List<User> users_get = dao.getUserByChooseLesson(chooseLesson,studio);
@@ -5397,6 +5410,8 @@ public class LoginController {
 						arrangement.setIs_repeat(0);
 						arrangement.setHours(hours);
 						arrangement.setRemind(1);
+						arrangement.setRepeat_duration("2025-01-01,2025-01-01");
+						arrangement.setRepeat_week("1,2,3,4,5,6,7");
 						loginService.insertArrangement(arrangement);
 						// 判断选课
 						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;

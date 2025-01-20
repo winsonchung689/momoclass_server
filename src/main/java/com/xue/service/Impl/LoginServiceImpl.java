@@ -6760,23 +6760,11 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekday.toString(),class_number,duration,subject,campus);
             for (int i = 0; i < arrangement_list.size(); i++) {
-                Arrangement line = arrangement_list.get(i);
+                Arrangement arrangement = arrangement_list.get(i);
                 //获取字段
-                class_number = line.getClass_number();
-                duration = line.getDuration();
-                limits = line.getLimits();
-                subject = line.getSubject();
-
                 List<Arrangement> check_list = dao.getArrangementByDate(studio,changeday.toString(),class_number,duration,subject,campus);
                 if(check_list.size() == 0){
-                    Arrangement arrangement =new Arrangement();
                     arrangement.setDayofweek(changeday.toString());
-                    arrangement.setClass_number(class_number);
-                    arrangement.setLimits(limits);
-                    arrangement.setStudio(studio);
-                    arrangement.setDuration(duration);
-                    arrangement.setSubject(subject);
-                    arrangement.setCampus(campus);
                     if(changeday != weekday){
                         dao.insertArrangement(arrangement);
 
