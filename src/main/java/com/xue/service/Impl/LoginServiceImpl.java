@@ -2002,6 +2002,7 @@ public class LoginServiceImpl implements LoginService {
                     String dayofweek_get = line.getDayofweek();
                     String start_date = repeat_duration.split(",")[0];
                     String end_date = repeat_duration.split(",")[1];
+                    String repeat_week = line.getRepeat_week();
 
                     String lesson_string = null;
                     List<String> list_2 = null;
@@ -2042,6 +2043,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("subject", subject);
                         jsonObject.put("is_repeat", is_repeat);
                         jsonObject.put("dayofweek", dayofweek_get);
+                        jsonObject.put("repeat_week", repeat_week);
                         resul_list.add(jsonObject);
                     }
 
