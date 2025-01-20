@@ -5385,7 +5385,7 @@ public class LoginController {
 						arrangement.setStudio(studio);
 						arrangement.setSubject(subject);
 						arrangement.setCampus(campus);
-						arrangement.setIs_repeat(1);
+						arrangement.setIs_repeat(0);
 						arrangement.setHours(hours);
 						arrangement.setRemind(1);
 						loginService.insertArrangement(arrangement);
