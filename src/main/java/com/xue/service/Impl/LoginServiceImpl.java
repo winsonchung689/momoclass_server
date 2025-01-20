@@ -2565,12 +2565,35 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public int deleteArrangement(Integer id,String role,String studio,String openid) {
         try {
-            List<User> list = dao.getUser(openid);
-            String studio_get = list.get(0).getStudio();
-            if ( studio_get.equals(studio)) {
-                dao.deleteArrangement(id,studio);
-            }else {
-                logger.error("it's not your studio, could not delete!");
+            List<User> users = dao.getUser(openid);
+            User user = users.get(0);
+            String campus = user.getCampus();
+            String lessons = user.getLessons();
+
+            dao.deleteArrangement(id,studio);
+
+            //重置个人选课
+            if(lessons != null){
+                String[] list =lessons.split("\\|");
+                List<String> list_lessons = Arrays.asList(list);
+                List<Arrangement> arrangements = dao.getArrangements(studio,campus);
+                if(arrangements.size()>0){
+                    StringBuffer new_lessons = new StringBuffer();
+                    for(int i=0;i<arrangements.size();i++){
+                        Arrangement arrangement = arrangements.get(i);
+                        String dayofweek = arrangement.getDayofweek();
+                        String subject = arrangement.getSubject();
+                        String class_number = arrangement.getClass_number();
+                        String duration = arrangement.getDuration();
+                        String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
+                        if(list_lessons.contains(lesson_string)){
+                            new_lessons.append(lesson_string);
+                            new_lessons.append("|");
+                        }
+                        user.setLessons(new_lessons.toString());
+                        dao.updateBossLessons(user);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
