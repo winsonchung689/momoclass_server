@@ -36,7 +36,16 @@ public class Arrangement {
 
     private String repeat_week;
 
+    private Integer class_type;
 
+
+    public Integer getClass_type() {
+        return class_type;
+    }
+
+    public void setClass_type(Integer class_type) {
+        this.class_type = class_type;
+    }
 
     public String getRepeat_week() {
         return repeat_week;

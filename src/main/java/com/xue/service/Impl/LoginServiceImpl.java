@@ -2003,6 +2003,7 @@ public class LoginServiceImpl implements LoginService {
                     String start_date = repeat_duration.split(",")[0];
                     String end_date = repeat_duration.split(",")[1];
                     String repeat_week = line.getRepeat_week();
+                    int class_type = line.getClass_type();
 
                     String lesson_string = null;
                     List<String> list_2 = null;
@@ -2044,6 +2045,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("is_repeat", is_repeat);
                         jsonObject.put("dayofweek", dayofweek_get);
                         jsonObject.put("repeat_week", repeat_week);
+                        jsonObject.put("class_type", class_type);
                         resul_list.add(jsonObject);
                     }
 
@@ -2587,6 +2589,7 @@ public class LoginServiceImpl implements LoginService {
             Integer is_reserved = null;
             Integer dayofweek = null;
             Integer is_repeat = null;
+            Integer class_type = null;
             Arrangement arrangement = null;
             try {
                 List<Arrangement> list_1 = dao.getArrangementById(studio,Integer.parseInt(id));
@@ -2597,6 +2600,7 @@ public class LoginServiceImpl implements LoginService {
                     old_subject = arrangement.getSubject();
                     is_reserved = arrangement.getIs_reserved();
                     is_repeat = arrangement.getIs_repeat();
+                    class_type = arrangement.getClass_type();
 
                     dayofweek = Integer.parseInt(arrangement.getDayofweek());
                     if(dayofweek==7){
@@ -2653,6 +2657,13 @@ public class LoginServiceImpl implements LoginService {
                 dao.changeArrangementById(arrangement);
             }else if(type.equals("重复星期")){
                 arrangement.setRepeat_week(content);
+                dao.changeArrangementById(arrangement);
+            }else if(type.equals("课状态")){
+                Integer new_class_type = 1;
+                if(class_type == 1){
+                    new_class_type = 0;
+                }
+                arrangement.setClass_type(new_class_type);
                 dao.changeArrangementById(arrangement);
             }
         } catch (Exception e) {
