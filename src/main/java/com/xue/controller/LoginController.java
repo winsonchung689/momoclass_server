@@ -4066,7 +4066,6 @@ public class LoginController {
 			User user = users.get(0);
 			String campus = user.getCampus();
 			int hours = user.getHours();
-			int remind = user.getHours();
 
 			List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek,class_number,duration,subject,campus);
 			if(arrangement_list.size() == 0){
@@ -4080,7 +4079,7 @@ public class LoginController {
 				arrangement.setCampus(campus);
 				arrangement.setIs_repeat(is_repeat);
 				arrangement.setHours(hours);
-				arrangement.setRemind(remind);
+				arrangement.setRemind(1);
 				loginService.insertArrangement(arrangement);
 			}
 
@@ -5325,22 +5324,30 @@ public class LoginController {
 		}
 
 		Integer status = 1;
+		Integer dayofweek = 0;
 
 		if("ordinary".equals(student_type)){
 			if(weekofday.equals("星期1")){
 				add_date = "2022-05-02";
+				dayofweek = 1;
 			}else if(weekofday.equals("星期2")){
 				add_date = "2022-05-03";
+				dayofweek = 2;
 			}else if(weekofday.equals("星期3")){
 				add_date = "2022-05-04";
+				dayofweek = 3;
 			}else if(weekofday.equals("星期4")){
 				add_date = "2022-05-05";
+				dayofweek = 4;
 			}else if(weekofday.equals("星期5")){
 				add_date = "2022-05-06";
+				dayofweek = 5;
 			}else if(weekofday.equals("星期6")){
 				add_date = "2022-05-07";
+				dayofweek = 6;
 			}else if(weekofday.equals("星期7")){
 				add_date = "2022-05-08";
+				dayofweek = 7;
 			}
 		}
 
@@ -5367,6 +5374,23 @@ public class LoginController {
 				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 				if(check_schedule.size()==0){
 					loginService.insertSchedule(schedule);
+					// 判断课表
+					List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration,subject,campus);
+					if(arrangement_list.size() == 0){
+						Arrangement arrangement =new Arrangement();
+						arrangement.setDayofweek(dayofweek.toString());
+						arrangement.setClass_number(class_number);
+						arrangement.setDuration(duration);
+						arrangement.setLimits("0");
+						arrangement.setStudio(studio);
+						arrangement.setSubject(subject);
+						arrangement.setCampus(campus);
+						arrangement.setIs_repeat(1);
+						arrangement.setHours(hours);
+						arrangement.setRemind(1);
+						loginService.insertArrangement(arrangement);
+					}
+					//预约
 					if("星期8".equals(weekofday)){
 						List<User> users = dao.getBossByStudio(studio);
 						for(int j=0;j<users.size();j++){
