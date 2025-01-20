@@ -5296,9 +5296,10 @@ public class LoginController {
 		String duration = request.getParameter("duration");
 
 		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
-		int hours = list_user.get(0).getHours();
+		List<User> list_users = dao.getUser(openid);
+		User list_user = list_users.get(0);
+		String campus = list_user.getCampus();
+		int hours = list_user.getHours();
 
 		//获取学生类型
 		String student_type = request.getParameter("student_type");
@@ -5389,6 +5390,16 @@ public class LoginController {
 						arrangement.setHours(hours);
 						arrangement.setRemind(1);
 						loginService.insertArrangement(arrangement);
+						// 判断选课
+						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
+						List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+						if(users.size() == 0){
+							String lesson = list_user.getLessons();
+							String new_lesson = lesson + "|" + chooseLesson;
+							list_user.setLessons(new_lesson);
+							loginService.updateBossLessons(list_user);
+						}
+
 					}
 					//预约
 					if("星期8".equals(weekofday)){
