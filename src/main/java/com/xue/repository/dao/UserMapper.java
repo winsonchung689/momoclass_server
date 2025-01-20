@@ -563,6 +563,8 @@ public interface UserMapper {
 
     int updateScheduleArrangementCampusByStudio(String studio,String campus);
 
+    int updateArrangementClassType(String studio,Integer class_type);
+
     int updateSignUpRecordStudio(String studio,String new_studio);
 
     int updateSignUpRecordCampusByStudio(String studio,String campus);

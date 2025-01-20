@@ -2663,8 +2663,7 @@ public class LoginServiceImpl implements LoginService {
                 if(class_type == 1){
                     new_class_type = 0;
                 }
-                arrangement.setClass_type(new_class_type);
-                dao.changeArrangementById(arrangement);
+                dao.updateArrangementClassType(studio,new_class_type);
             }
         } catch (Exception e) {
 //            e.printStackTrace();

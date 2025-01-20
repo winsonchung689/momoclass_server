@@ -2246,6 +2246,10 @@
     update schedule_arrangement set campus=#{param2} where studio=#{param1} and delete_status = 0
   </update>
 
+  <update id="updateArrangementClassType" parameterType="com.xue.entity.model.Arrangement">
+    update schedule_arrangement set class_type=#{param2} where studio=#{param1} and delete_status = 0
+  </update>
+
   <update id="updateSignUpRecordStudio" parameterType="com.xue.entity.model.SignUp">
     update sign_up_record set studio=#{param2} where studio=#{param1} and delete_status = 0
   </update>
