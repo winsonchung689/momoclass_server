@@ -3167,10 +3167,17 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
-		String package_id = request.getParameter("package_id");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 		String nick_name = list_user.get(0).getNick_name();
+		String package_id = request.getParameter("package_id");
+		if (("0".equals(package_id))) {
+			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+			if(lessonPackages.size()>0){
+				LessonPackage lessonPackage  = lessonPackages.get(0);
+				package_id = lessonPackage.getId();
+			}
+		}
 
 		try {
 			Schedule schedule =new Schedule();
