@@ -4148,6 +4148,7 @@ public class LoginController {
 					schedule.setCampus(campus);
 					schedule.setRemind(1);
 					schedule.setHours(hours);
+					schedule.setIs_try(0);
 					List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
 					if(check_schedule.size()==0){
 						loginService.insertSchedule(schedule);
