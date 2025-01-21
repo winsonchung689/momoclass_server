@@ -8794,11 +8794,11 @@ public class LoginServiceImpl implements LoginService {
                             SignUp signUp = signUps.get(j);
                             String subject = signUp.getSubject();
                             Float count = signUp.getCount();
+                            String package_id = signUp.getPackage_id();
                             try {
                                 //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float total_amount = lessons.get(0).getTotal_amount();
                                     Float price = lessons.get(0).getPrice();
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
@@ -8806,7 +8806,10 @@ public class LoginServiceImpl implements LoginService {
                                     Float give_lesson = 0.0f;
 
                                     //获取课包记录
-                                    List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                                    List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                                    if(lessonPackages.size() == 0){
+                                        lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                                    }
                                     if(lessonPackages.size()>0){
                                         for (int k = 0; k < lessonPackages.size(); k++) {
                                             Float total_money_get = lessonPackages.get(k).getTotal_money();
