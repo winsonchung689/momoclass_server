@@ -4096,6 +4096,7 @@ public class LoginController {
 				arrangement.setSubject(subject);
 				arrangement.setCampus(campus);
 				arrangement.setIs_repeat(Integer.parseInt(is_repeat));
+				arrangement.setClass_type(Integer.parseInt(is_repeat));
 				arrangement.setHours(hours);
 				arrangement.setRemind(1);
 				arrangement.setRepeat_duration(repeat_duration);
@@ -4130,7 +4131,7 @@ public class LoginController {
 				}
 
 				Schedule schedule = new Schedule();
-				List<String> list = Arrays.asList(student_name.split(" "));
+				List<String> list = Arrays.asList(student_name.split(","));
 				for (int i = 0; i < list.size(); i++) {
 					String list_student = list.get(i);
 					schedule.setAdd_date(add_date);
