@@ -9993,6 +9993,7 @@ public class LoginServiceImpl implements LoginService {
                 if("no_id".equals(uuid)){
                     uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
                 }
+                Integer point_status = line.getPoint_status();
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -10009,6 +10010,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("photo", photo);
                 jsonObject.put("subject_get", subject_get);
                 jsonObject.put("uuid", uuid);
+                jsonObject.put("point_status", point_status);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -10312,6 +10314,7 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
                 //获取字段
+                Integer point_status = line.getPoint_status();
                 student_name = line.getStudent_name();
                 byte[] photo = null;
                 total_amount = line.getTotal_amount();
@@ -10347,6 +10350,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("rank", i + page_start + 1);
                     jsonObject.put("photo", photo);
                     jsonObject.put("subject_get", subject_get);
+                    jsonObject.put("point_status", point_status);
                     jsonObject.put("uuid", uuid);
                     resul_list.add(jsonObject);
                 }else if("teacher".equals(role) && is_open == 0 && list_choose.contains(student_name)){
@@ -10423,7 +10427,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStandings(String openid, String student_name, String subject,Integer page) {
+    public List getStandings(String openid, String student_name, String subject,Integer page,String type) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<User> list_user = dao.getUser(openid);
@@ -10431,11 +10435,16 @@ public class LoginServiceImpl implements LoginService {
         String studio = list_user.get(0).getStudio();
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
-
         Float my_points = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
+        List<Lesson> list = null;
 
-        List<Lesson> list = dao.getRating(studio,page_start,page_length,campus);
+        if("single".equals(type)){
+            list = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+        } else if ("all".equals(type)) {
+            list = dao.getRating(studio,page_start,page_length,campus);
+        }
+
         for (int i = 0; i < list.size(); i++) {
             JSONObject jsonObject = new JSONObject();
             Lesson lesson = list.get(i);
