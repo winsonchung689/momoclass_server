@@ -10432,7 +10432,7 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
 
-        Integer my_points = 0;
+        Float my_points = 0.0f;
         List<JSONObject> resul_list = new ArrayList<>();
 
         List<Lesson> list = dao.getRating(studio,page_start,page_length,campus);
@@ -10447,7 +10447,16 @@ public class LoginServiceImpl implements LoginService {
                 point_status_cn = "个人";
             }
 
-            Integer points = lesson.getPoints();
+            Float points = 0.0f;
+            List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
+            if(points1.size()>0){
+                for(int j = 0; j < points1.size(); j++){
+                    Float point = points1.get(j).getPoints();
+                    points = points + point;
+                }
+            }
+
+
             if(student_name.equals(student_name_get) && subject.equals(subject_get)){
                 my_points = my_points + points;
             }
