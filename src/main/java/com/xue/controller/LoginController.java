@@ -1205,7 +1205,7 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getExhibition")
+	@RequestMapping("/getExhibitionRank")
 	@ResponseBody
 	public List getExhibitionRank(String openid,String type){
 		List list = null;
