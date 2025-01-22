@@ -6481,6 +6481,15 @@ public class LoginController {
 		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
 		String mark = request.getParameter("mark");
 		String package_id = request.getParameter("package_id");
+		if (("0".equals(package_id))) {
+			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+			if(lessonPackages.size()>0){
+				LessonPackage lessonPackage  = lessonPackages.get(0);
+				package_id = lessonPackage.getId();
+			}
+		}
+
+
 		String date_time = request.getParameter("date_time");
 		if(date_time == null || date_time.isEmpty() || "undefined".equals(date_time)){
 			date_time = update_time;
