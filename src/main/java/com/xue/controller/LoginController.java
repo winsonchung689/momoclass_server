@@ -1205,18 +1205,6 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getUpdateNews")
-	@ResponseBody
-	public List getUpdateNews(){
-		List list = null;
-		try {
-			list = loginService.getUpdateNews();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
 	@RequestMapping("/updateCityByStudio")
 	@ResponseBody
 	public int updateCityByStudio(String studio,String city) {

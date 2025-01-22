@@ -20,8 +20,6 @@ public interface UserMapper {
 
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);
 
-    List<Message> getUpdateNews();
-
     List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
 
     //获取

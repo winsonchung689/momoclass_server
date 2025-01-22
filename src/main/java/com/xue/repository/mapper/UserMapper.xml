@@ -145,10 +145,6 @@
     select * from class_comment where class_target_bak =#{param2} and studio =#{param1} and delete_status = 0 order by create_time desc limit #{param3},#{param4};
   </select>
 
-  <select id="getUpdateNews" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak in ('数学','英语','语文','冲刺') and studio ='大雄工作室' and delete_status = 0 order by create_time desc limit 3;
-  </select>
-
   <!-- 获取全量发帖 -->
   <select id="getPostPublic" parameterType="com.xue.entity.model.Post" resultMap="BasePost">
     select id,openid,uuids,content,studio,create_time from post where delete_status = 0 and is_private = 0 order by create_time desc limit #{param1},#{param2};
