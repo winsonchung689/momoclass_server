@@ -170,7 +170,7 @@
   </select>
 
   <select id="getPostLikeByOpenid" parameterType="com.xue.entity.model.PostLike" resultMap="BasePostLike">
-    select * from post_like where delete_status = 0 and post_id =#{param1} and openid =#{param2} order by create_time desc;
+    select * from post_like where post_id =#{param1} and openid =#{param2} order by create_time desc;
   </select>
 
   <!-- 获取全部 -->
