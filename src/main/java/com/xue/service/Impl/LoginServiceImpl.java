@@ -9978,8 +9978,9 @@ public class LoginServiceImpl implements LoginService {
                 percent = (float) Math.round(left_amount * 100 / total_amount);
                 id = line.getId();
                 create_time = line.getCreate_time();
+                subject_get = line.getSubject();
                 Float points = 0.0f;
-                List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject,"2000-01-01","2100-01-01");
+                List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
                 if(points1.size()>0){
                     for(int j = 0; j < list.size(); j++){
                         Float point = points1.get(j).getPoints();
@@ -9988,7 +9989,6 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
-                subject_get = line.getSubject();
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
                     uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
@@ -10319,8 +10319,9 @@ public class LoginServiceImpl implements LoginService {
                 percent = (float) Math.round(left_amount * 100 / total_amount);
                 id = line.getId();
                 create_time = line.getCreate_time();
+                subject_get = line.getSubject();
                 Float points = 0.0f;
-                List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject,"2000-01-01","2100-01-01");
+                List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
                 if(points1.size()>0){
                     for(int j = 0; j < list.size(); j++){
                         Float point = points1.get(j).getPoints();
@@ -10329,7 +10330,6 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
-                subject_get = line.getSubject();
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
                     uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
