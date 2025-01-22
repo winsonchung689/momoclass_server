@@ -256,6 +256,8 @@ public interface LoginService {
 
     public List getExhibition(String openid, String type,Integer page);
 
+    public List getExhibitionRank(String openid, String type);
+
     public List getCourseList(String studio,Integer page);
 
     public List getCourseDetail(String studio,String class_name,Integer page);

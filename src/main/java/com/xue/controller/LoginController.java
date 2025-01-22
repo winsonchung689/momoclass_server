@@ -1205,6 +1205,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getExhibition")
+	@ResponseBody
+	public List getExhibitionRank(String openid,String type){
+		List list = null;
+		try {
+			list = loginService.getExhibitionRank(openid,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateCityByStudio")
 	@ResponseBody
 	public int updateCityByStudio(String studio,String city) {

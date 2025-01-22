@@ -4864,6 +4864,77 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getExhibitionRank(String openid, String type) {
+        List<User> list_user = dao.getUser(openid);
+        String studio = list_user.get(0).getStudio();
+        Integer page_start = 0;
+        Integer page_length = 10000;
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<Message> messages = dao.getExhibitionByType(studio,type,page_start, page_length);
+
+        for (int i = 0; i < messages.size(); i++) {
+            Message line = messages.get(i);
+            String uuids = line.getUuids();
+            String vuuid = line.getVuuid();
+            String comment = line.getComment();
+            Integer views = line.getViews();
+            String id = line.getId();
+
+            int liked = 0;
+            int like_count =0;
+            List<PostLike> postLikes = dao.getPostLike(id);
+            if(postLikes.size()>0){
+                for (int j = 0; j < postLikes.size(); j++) {
+                    like_count = like_count + 1;
+                    PostLike postLike = postLikes.get(j);
+                    String openid_get = postLike.getOpenid();
+                    if(openid.equals(openid_get)){
+                        liked = 1;
+                    }
+                }
+            }
+
+
+            try {
+                uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+//                    throw new RuntimeException(e);
+            }
+
+            try {
+                vuuid = line.getVuuid().replace("\"","").replace("[","").replace("]","");
+            } catch (Exception e) {
+//                    throw new RuntimeException(e);
+            }
+
+            String class_name = line.getClass_name();
+            String student_name = line.getStudent_name();
+
+            String[] uuids_list = uuids.split(",");
+            if(uuids.length()>2){
+                for(int j=0;j<uuids_list.length;j++){
+                    JSONObject jsonObject = new JSONObject();
+                    String uuids_get = uuids_list[j];
+                    jsonObject.put("uuids",uuids_get);
+                    jsonObject.put("vuuid",vuuid);
+                    jsonObject.put("id",id);
+                    jsonObject.put("comment",comment);
+                    jsonObject.put("views",views);
+                    jsonObject.put("class_name",class_name);
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("liked",liked);
+                    jsonObject.put("like_count",like_count);
+                    resul_list.add(jsonObject);
+                }
+            }else{
+                dao.deleteComment(Integer.parseInt(id),studio);
+            }
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getCourseList(String studio, Integer page) {
         byte[] photo = null;
         InputStream inputStream_photo = null;
