@@ -2473,7 +2473,7 @@
 
   <!-- 更新学生名字 -->
   <update id="updateUserStudent" parameterType="com.xue.entity.model.User">
-    update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3} and openid=#{param4}
+    update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3} and campus =#{param4} and openid=#{param5}
   </update>
 
   <update id="updateUserStudentByOpenid" parameterType="com.xue.entity.model.User">
