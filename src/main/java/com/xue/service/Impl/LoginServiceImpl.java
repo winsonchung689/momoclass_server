@@ -10435,7 +10435,7 @@ public class LoginServiceImpl implements LoginService {
         String studio = list_user.get(0).getStudio();
         Integer page_start = (page - 1) * 50;
         Integer page_length = 50;
-        Float my_points = 0.0f;
+
         List<JSONObject> resul_list = new ArrayList<>();
         List<Lesson> list = null;
 
@@ -10465,7 +10465,7 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-
+            Float my_points = 0.0f;
             if(student_name.equals(student_name_get) && subject.equals(subject_get)){
                 my_points = my_points + points;
             }
