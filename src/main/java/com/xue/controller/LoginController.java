@@ -5964,23 +5964,28 @@ public class LoginController {
             nick_name = list.get(0).getNick_name();
 			user.setRole(role_get);
             user.setNick_name(nick_name);
+			// 只更新工作室校区
 			int res = loginService.updateUser(user);
-			if(res > 0 && !student_name.equals("no_name")){
+			if(res > 0){
 				String user_type_get = list.get(0).getUser_type();
 				String phone_number_get = list.get(0).getPhone_number();
 				String location = list.get(0).getLocation();
 				user.setUser_type(user_type_get);
 				user.setPhone_number(phone_number_get);
 				user.setLocation(location);
-				try {
-					if("client".equals(role_get)){
-						int update_res = dao.updateUserDelete(user);
-						if(update_res==0 && openid.length() == 28 && studio.length() > 0){
-							dao.insertUser(user);
+				// 只针对客户
+				if("client".equals(role_get)){
+					if(!student_name.equals("no_name")){
+						List<User> users = dao.getUserByStudentOpenid("no_name",studio,openid);
+						if(users.size()>0){
+							dao.updateUserStudent(student_name,"no_name",studio,campus,openid);
+						}else{
+							int update_res = dao.updateUserDelete(user);
+							if(update_res==0 && openid.length() == 28 && studio.length() > 0){
+								dao.insertUser(user);
+							}
 						}
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		}else{
