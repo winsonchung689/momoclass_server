@@ -304,7 +304,7 @@ public interface LoginService {
 
     public String downloadByOpenid(String studio,String openid,List<String> result_list,String title,String file_name);
 
-    public List getStandings(String openid,String student_name,String subject,Integer page,String type);
+    public List getStandings(String openid,String student_name,String subject,Integer page);
 
     public List getPointsRecordByMonth(String type,String openid,String student_name,String subject,String month);
 

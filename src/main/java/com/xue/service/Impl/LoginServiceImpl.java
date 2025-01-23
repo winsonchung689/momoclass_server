@@ -10428,7 +10428,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStandings(String openid, String student_name, String subject,Integer page,String type) {
+    public List getStandings(String openid, String student_name, String subject,Integer page) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<User> list_user = dao.getUser(openid);
@@ -10440,9 +10440,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         List<Lesson> list = null;
 
-        if("single".equals(type)){
-            list = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-        } else if ("all".equals(type)) {
+        list = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+        Integer point_status_init =  list.get(0).getPoint_status();
+        if(point_status_init == 0){
             list = dao.getRating(studio,page_start,page_length,campus);
         }
 
