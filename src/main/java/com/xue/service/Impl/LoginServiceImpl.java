@@ -9986,7 +9986,6 @@ public class LoginServiceImpl implements LoginService {
                         Float point = points1.get(j).getPoints();
                         points = points + point;
                     }
-
                 }
 
                 String uuid = line.getUuid();
