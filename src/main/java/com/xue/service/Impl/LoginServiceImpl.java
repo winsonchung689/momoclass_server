@@ -10365,6 +10365,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("photo", photo);
                     jsonObject.put("subject_get", subject_get);
                     jsonObject.put("uuid", uuid);
+                    jsonObject.put("point_status", point_status);
                     resul_list.add(jsonObject);
                 }
 
