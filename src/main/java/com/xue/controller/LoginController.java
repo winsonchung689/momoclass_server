@@ -6396,7 +6396,7 @@ public class LoginController {
 			if("全体".equals(type)){
 				dao.updateIsOpen(user);
 			} else if ("个人".equals(type)) {
-				dao.updateIsOpenSingle(user)
+				dao.updateIsOpenSingle(user);
 			}
 
 		} catch (Exception e) {
