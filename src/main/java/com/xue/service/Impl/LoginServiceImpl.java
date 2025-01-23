@@ -10465,10 +10465,6 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
-            Float my_points = 0.0f;
-            if(student_name.equals(student_name_get) && subject.equals(subject_get)){
-                my_points = my_points + points;
-            }
 
             Float month_points = 0.0f;
             List<Points> points_list = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,create_time+"-01",create_time + "-31");
@@ -10487,9 +10483,6 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("point_status", point_status);
             jsonObject.put("month_points", month_points);
             jsonObject.put("rank", page_start + i + 1);
-            if(page == 1) {
-                jsonObject.put("my_points", my_points);
-            }
             resul_list.add(jsonObject);
         }
         return resul_list;
