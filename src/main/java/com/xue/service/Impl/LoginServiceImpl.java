@@ -10457,7 +10457,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             Float points = 0.0f;
-            List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
+            List<Points> points1 = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,"2000-01-01","2100-01-01");
             if(points1.size()>0){
                 for(int j = 0; j < points1.size(); j++){
                     Float point = points1.get(j).getPoints();
