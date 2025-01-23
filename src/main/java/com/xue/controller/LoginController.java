@@ -6386,13 +6386,19 @@ public class LoginController {
 		//获取openid
 		String openid = request.getParameter("openid");
 		String is_open = request.getParameter("is_open");
+		String type = request.getParameter("type");
 
 		try {
 			List<User> users= dao.getUser(openid);
 			User user = users.get(0);
 			user.setIs_open(Integer.parseInt(is_open));
 
-			dao.updateIsOpen(user);
+			if("全体".equals(type)){
+				dao.updateIsOpen(user);
+			} else if ("个人".equals(type)) {
+				dao.updateIsOpenSingle(user)
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1715,6 +1715,10 @@
     update user set is_open=#{is_open} where studio = #{studio}
   </update>
 
+  <update id="updateIsOpenSingle" parameterType="com.xue.entity.model.User">
+    update user set is_open=#{is_open} where studio = #{studio} and openid =  #{openid}
+  </update>
+
   <!-- 更新提醒时间 -->
   <update id="updateSendTime" parameterType="com.xue.entity.model.User">
     update user set send_time=#{send_time},remind_type=#{remind_type} where studio = #{studio}

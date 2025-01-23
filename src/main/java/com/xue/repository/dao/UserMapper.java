@@ -619,6 +619,8 @@ public interface UserMapper {
 
     int updateIsOpen(User user);
 
+    int updateIsOpenSingle(User user);
+
     int updateSendTime(User user);
 
 
