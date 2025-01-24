@@ -56,7 +56,7 @@ public class AIController {
 			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
-			params.put("model", "gpt-4o-mini");
+			params.put("model", "gpt-4-vision-preview");
 			List<JSONObject> jsonObjects = new ArrayList<>();
 			JSONObject jsonObject = new JSONObject();
 			// content
@@ -142,7 +142,7 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:443/chat?question=" + question_encode;
+			String url = "http://43.156.34.5:80/chat?question=" + question_encode;
 			res = JsonUtils.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
@@ -158,7 +158,7 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:443/chatImg?question=" + question_encode + "&uuid=" + uuid;
+			String url = "http://43.156.34.5:80/chatImg?question=" + question_encode + "&uuid=" + uuid;
 			res = JsonUtils.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
