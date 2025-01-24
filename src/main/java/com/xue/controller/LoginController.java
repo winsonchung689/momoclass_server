@@ -238,7 +238,7 @@ public class LoginController {
 			// content 文字
 			JSONObject content_js_text = new JSONObject();
 			content_js_text.put("type","text");
-			content_js_text.put("type",question_text);
+			content_js_text.put("text",question_text);
 
 			// content 图片
 			JSONObject content_js_img = new JSONObject();
