@@ -251,7 +251,7 @@ public class LoginController {
 			content_list.add(content_js_img);
 
 			jsonObject.put("role", "user");
-			jsonObject.put("content", question);
+			jsonObject.put("content", content_list);
 			jsonObjects.add(jsonObject);
 			params.put("messages", jsonObjects);
 			params.put("temperature", 0.9);
