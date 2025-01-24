@@ -4433,6 +4433,8 @@ public class LoginController {
 		}else if("录音文件".equals(class_target)){
 			p_path = path +"/uploadMP3/"+ uuid + ".mp3";
             bak_path = path_bak +"/uploadMP3/"+ uuid + ".mp3";
+		}else if("AI问答".equals(class_target)){
+			p_path = path +"/uploadAIAsk/"+ uuid + ".png";
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
             bak_path = path_bak +"/uploadimages/"+ uuid + ".png";
@@ -4442,7 +4444,9 @@ public class LoginController {
 		try {
 			multipartFile.transferTo(new File(p_path));
             // 备份数据
-            multipartFile.transferTo(new File(bak_path));
+			if(!"AI问答".equals(class_target)){
+				multipartFile.transferTo(new File(bak_path));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
