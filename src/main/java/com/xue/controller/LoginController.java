@@ -212,7 +212,18 @@ public class LoginController {
 	public static String chat(String question){
 		System.out.println(question);
 		String res = null;
+		String question_uuid =null;
+		String img_url = null;
+
 		try {
+			// 参数处理
+			String [] question_list= question.split("_");
+			String question_text = question_list[0];
+			if(question_list.length>1){
+				question_uuid = question.split("_")[1];
+				img_url = "https://www.momoclasss.xyz:443/data1/uploadAIAsk/" + question_uuid;
+			}
+
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			Map<String, String> header = new HashMap<String, String>();
 			header.put("Content-Type", "application/json");
@@ -221,6 +232,24 @@ public class LoginController {
 			params.put("model", "gpt-4o-mini");
 			List<JSONObject> jsonObjects = new ArrayList<>();
 			JSONObject jsonObject = new JSONObject();
+			// content
+			List<JSONObject> content_list = new ArrayList<>();
+
+			// content 文字
+			JSONObject content_js_text = new JSONObject();
+			content_js_text.put("type","text");
+			content_js_text.put("type",question_text);
+
+			// content 图片
+			JSONObject content_js_img = new JSONObject();
+			content_js_img.put("type","image_url");
+			JSONObject img_js = new JSONObject();
+			img_js.put("url",img_url);
+			content_js_img.put("image_url",img_js);
+			// 入参
+			content_list.add(content_js_text);
+			content_list.add(content_js_img);
+
 			jsonObject.put("role", "user");
 			jsonObject.put("content", question);
 			jsonObjects.add(jsonObject);
