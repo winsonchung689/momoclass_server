@@ -5340,6 +5340,7 @@ public class LoginServiceImpl implements LoginService {
             if("充值".equals(type)){
                 if(is_square == 0){
                     coins_single = coins_single + number;
+                    user.setCoins_single(coins_single);
                 }
             }
 
