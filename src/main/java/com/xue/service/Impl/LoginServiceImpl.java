@@ -5320,20 +5320,24 @@ public class LoginServiceImpl implements LoginService {
         int result = 0;
         try {
             List<User> users = dao.getUserByOpenid(openid);
-            Float coins = users.get(0).getCoins();
-            Integer is_square = users.get(0).getIs_square();
+            User user = users.get(0);
+            Float coins = user.getCoins();
+            Float coins_single = user.getCoins_single();
+            Integer is_square = user.getIs_square();
             if (coins == null) {
                 coins = 0.0f;
             }
             if("消耗".equals(type)){
-                coins = coins - number;
+                if(is_square == 1){
+                    coins = coins - number;
+                    user.setCoins(coins);
+                }else if(is_square == 0){
+                    coins_single = coins_single - number;
+                    user.setCoins_single(coins_single);
+                }
             }
 
-            if(is_square == 1){
-                dao.updateCoinsByStudio(studio,coins);
-            }else {
-                dao.updateCoinsByUser(openid,coins);
-            }
+            dao.updateCoinsByUser(user);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1033,7 +1033,7 @@ public interface UserMapper {
 
     int updateCoinsByStudio(String studio,Float coins);
 
-    int updateCoinsByUser(String openid,Float coins);
+    int updateCoinsByUser(User user);
 
     int updateReadTimesByOpenid(String openid,Float read_times);
 

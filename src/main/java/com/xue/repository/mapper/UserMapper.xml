@@ -2445,7 +2445,7 @@
 
   <!-- 更新用户金币个人 -->
   <update id="updateCoinsByUser" parameterType="com.xue.entity.model.User">
-    update user set coins=#{param2} where openid=#{param1} and delete_status = 0
+    update user set coins=#{coins},coins_single=#{coins_single} where openid=#{openid} and delete_status = 0
   </update>
 
   <!-- 更新用户金币工作室 -->
