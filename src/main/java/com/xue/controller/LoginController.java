@@ -6302,7 +6302,10 @@ public class LoginController {
 	public String updateCoinsByUser(String coins, String openid){
 
 		try {
-			dao.updateCoinsByUser(openid,Float.parseFloat(coins));
+			List<User> users = dao.getUserByOpenid(openid);
+			User user = users.get(0);
+			user.setCoins(Float.parseFloat(coins));
+			dao.updateCoinsByUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
