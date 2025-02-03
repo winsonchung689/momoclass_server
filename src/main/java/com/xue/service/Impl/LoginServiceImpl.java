@@ -5337,6 +5337,12 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            if("充值".equals(type)){
+                if(is_square == 0){
+                    coins_single = coins_single + number;
+                }
+            }
+
             dao.updateCoinsByUser(user);
         } catch (Exception e) {
             throw new RuntimeException(e);
