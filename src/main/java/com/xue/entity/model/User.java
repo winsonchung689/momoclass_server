@@ -28,6 +28,8 @@ public class User {
 
     private Float coins;
 
+    private Float coins_single;
+
     private Float read_times;
 
     private String theme;
@@ -336,6 +338,14 @@ public class User {
 
     public void setCoins(Float coins) {
         this.coins = coins;
+    }
+
+    public Float getCoins_single() {
+        return coins_single;
+    }
+
+    public void setCoins_single(Float coins_single) {
+        this.coins_single = coins_single;
     }
 
     public Float getRead_times() {

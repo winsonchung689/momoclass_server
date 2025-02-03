@@ -3025,6 +3025,7 @@ public class LoginServiceImpl implements LoginService {
                 create_time = line.getCreate_time();
                 expired_time = line.getExpired_time();
                 coins = line.getCoins();
+                Float coins_single = line.getCoins_single();
                 openid_get = line.getOpenid();
                 comment_style = line.getComment_style();
                 theme = line.getTheme();
@@ -3145,6 +3146,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_exchange", is_exchange);
                 jsonObject.put("is_square", is_square);
                 jsonObject.put("is_open", is_open);
+                jsonObject.put("coins_single", coins_single);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
