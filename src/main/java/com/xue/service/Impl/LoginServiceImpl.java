@@ -780,11 +780,11 @@ public class LoginServiceImpl implements LoginService {
 
             String openid = line.getOpenid();
             List<User> users = dao.getUserByOpenid(openid);
-            String nick_name= null;
-            String student_name = null;
             if(users.size()>0){
-                nick_name = users.get(0).getNick_name();
-                student_name = users.get(0).getStudent_name();
+                User user = users.get(0);
+                String nick_name = user.getNick_name();
+                String student_name = user.getStudent_name();
+                String openid_id = user.getId();
 
                 //json
                 jsonObject.put("id", id);
@@ -794,6 +794,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("status", status);
+                jsonObject.put("openid_id", openid_id);
                 resul_list.add(jsonObject);
             }
         }
