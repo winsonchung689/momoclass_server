@@ -3482,7 +3482,7 @@ public class LoginController {
 			}else if("地址".equals(type)) {
 				dao.updateLocation(openid,content);
 			}else if("更新学生".equals(type)){
-				dao.updateUserStudentByOpenid(content,openid,id);
+				dao.updateUserStudentByOpenid(content,id);
 			}else if("学生".equals(type)) {
 				List<User> users = dao.getUserByOpenid(openid);
 				User user = users.get(0);
