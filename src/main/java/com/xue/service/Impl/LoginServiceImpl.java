@@ -795,6 +795,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("status", status);
                 jsonObject.put("openid_id", openid_id);
+                jsonObject.put("openid", openid);
                 resul_list.add(jsonObject);
             }
         }

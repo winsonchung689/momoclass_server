@@ -3504,7 +3504,7 @@ public class LoginController {
 				String[] content_list = content.split("_");
 				String student_name = content_list[0];
 				String phone_number = content_list[1];
-				dao.updateUserStudentByOpenid(student_name,openid,id);
+				dao.updateUserStudentByOpenid(student_name,id);
 				dao.updatePhoneNumber(openid,phone_number);
 			}
 
@@ -6169,12 +6169,12 @@ public class LoginController {
 				String id = openid_get.split("@")[1];
 				String[] student_list = campus.split(" ");
 				if(student_list.length == 1){
-					dao.updateUserStudentByOpenid(campus,openid,id);
+					dao.updateUserStudentByOpenid(campus,id);
 				}else if(student_list.length > 1){
 					for(int i=0; i < student_list.length;i++){
 						String name = student_list[i];
 						if(i == 0){
-							dao.updateUserStudentByOpenid(name,openid,id);
+							dao.updateUserStudentByOpenid(name,id);
 						}else{
 							List<User> users = dao.getUser(openid);
 							User user = users.get(0);
