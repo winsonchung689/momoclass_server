@@ -56,7 +56,7 @@ public class AIController {
 			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
-			params.put("model", "gpt-4o");
+			params.put("model", "gpt-4o-mini");
 			List<JSONObject> jsonObjects = new ArrayList<>();
 			JSONObject jsonObject = new JSONObject();
 			// content
