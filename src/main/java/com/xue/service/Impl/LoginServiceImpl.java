@@ -4739,12 +4739,23 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
         List<JSONObject> resul_list = new ArrayList<>();
+        String studio = null;
+        String campus = null;
 
         try {
             List<User> users = dao.getUserByOpenid(openid);
-            User user = users.get(0);
-            String studio = user.getStudio();
-            String campus = user.getCampus();
+            StringBuilder student_names = new StringBuilder();
+            for(int i = 0;i< users.size();i++){
+                User user = users.get(i);
+                String student_get = user.getStudent_name();
+                studio = user.getStudio();
+                campus = user.getCampus();
+                student_names = student_names.append(student_get).append(",");
+            }
+            if(student_names.length()>0){
+                student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
+            }
+
             List<Album> albums = dao.getAlbum(student_name,studio,campus,page_start,page_length);
             for(int i = 0;i< albums.size();i++){
                 JSONObject jsonObject = new JSONObject();
@@ -4754,6 +4765,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
+                jsonObject.put("student_names", student_names);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
