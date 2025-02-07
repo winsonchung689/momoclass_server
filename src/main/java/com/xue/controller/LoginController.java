@@ -1128,10 +1128,10 @@ public class LoginController {
 	// 获取相册
 	@RequestMapping("/getAlbum")
 	@ResponseBody
-	public List getAlbum(String studio,String openid){
+	public List getAlbum(String student_name,String openid,Integer page){
 		List list = null;
 		try {
-			list = loginService.getAlbum(studio,openid);
+			list = loginService.getAlbum(student_name,openid,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2373,6 +2373,18 @@ public class LoginController {
 			}else {
 				logger.error("it's not your studio, could not delete!");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	@RequestMapping("/deleteAlbum")
+	@ResponseBody
+	public int deleteAlbum(Integer id){
+		try {
+			dao.deleteAlbum(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -6567,6 +6579,35 @@ public class LoginController {
 			}
 		}
 
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/insertAlbum")
+	@ResponseBody
+	public String insertAlbum(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String student_name = request.getParameter("student_name");
+		String uuid = request.getParameter("uuid");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String campus = users.get(0).getCampus();
+		String studio = users.get(0).getStudio();
+
+		try {
+			Album album = new Album();
+			album.setStudio(studio);
+			album.setCampus(campus);
+			album.setStudent_name(student_name);
+			album.setUuid(uuid);
+			album.setCreate_time(create_time);
+
+			dao.insertAlbum(album);
+		} catch (Exception e) {
+//					e.printStackTrace();
+		}
 
 		return "push massage successfully";
 	}

@@ -14,7 +14,7 @@ public interface UserMapper {
 
     List<Message> getCommentModel();
 
-    List<Message> getAlbum(String studio,String campus,String student_name);
+    List<Album> getAlbum(String student_name,String studio,String campus,Integer page_start,Integer page_length);
 
     List<Contract> getContract(String studio,String campus);
 
@@ -342,6 +342,8 @@ public interface UserMapper {
 
     void deleteUser(Integer id);
 
+    void deleteAlbum(Integer id);
+
     void deleteGiftList(Integer id);
 
     void deleteCard(Integer id);
@@ -394,6 +396,8 @@ public interface UserMapper {
     int insertRestaurantUser(RestaurantUser restaurantUser);
 
     int insertBookUser(BookUser book);
+
+    int insertAlbum(Album album);
 
     int insertPointsRecord(Points points);
     int updateUser(User user);

@@ -4735,38 +4735,27 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAlbum(String studio,String openid) {
-        String uuids = null;
-        String back_uuids = null;
-        StringBuilder uuidString = new StringBuilder();
+    public List getAlbum(String student_name,String openid,Integer page) {
+        Integer page_start = (page - 1) * 10;
+        Integer page_length = 10;
         List<JSONObject> resul_list = new ArrayList<>();
-        List<User> list_user = dao.getUserByOpenid(openid);
+
         try {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                back_uuids = list_user.get(0).getBack_uuid().replace("\"","").replace("[","").replace("]","");
-            } catch (Exception e) {
-                //                    throw new RuntimeException(e);
-            }
+            List<User> users = dao.getUserByOpenid(openid);
+            User user = users.get(0);
+            String studio = user.getStudio();
+            String campus = user.getCampus();
+            List<Album> list = dao.getAlbum(student_name,studio,campus,page_start,page_length);
+            for(int i = 0;i< list.size();i++){
+                JSONObject jsonObject = new JSONObject();
+                Album album = list.get(i);
+                String uuid = album.getUuid();
+                String id = album.getId();
 
-            for(int i = 0;i< list_user.size();i++){
-                String campus = list_user.get(i).getCampus();
-                String student_name = list_user.get(i).getStudent_name();
-                List<Message> list = dao.getAlbum(studio,campus,student_name);
-
-                for (int j = 0; j < list.size(); j++) {
-                    Message line = list.get(j);
-                    try {
-                        uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
-                    } catch (Exception e) {
-    //                    throw new RuntimeException(e);
-                    }
-                    uuidString.append(uuids).append(",");
-                }
+                jsonObject.put("id", id);
+                jsonObject.put("uuid", uuid);
+                resul_list.add(jsonObject);
             }
-            jsonObject.put("back_uuid",back_uuids);
-            jsonObject.put("uuidString", uuidString.deleteCharAt(uuidString.length()-1));
-            resul_list.add(jsonObject);
         } catch (Exception e) {
 //            e.printStackTrace();
         }

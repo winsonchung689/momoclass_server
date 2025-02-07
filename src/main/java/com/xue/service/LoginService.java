@@ -250,7 +250,7 @@ public interface LoginService {
 
     public List getClassSys(String class_target,String studio,Integer page,String campus);
 
-    public List getAlbum(String studio, String student_name);
+    public List getAlbum(String student_name,String openid,Integer page);
 
     public List getWebsite(String studio, String campus);
 

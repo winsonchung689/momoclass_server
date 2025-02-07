@@ -120,6 +120,9 @@
   <resultMap id="BaseCardRecord" type="com.xue.entity.model.CardRecord">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseAlbum" type="com.xue.entity.model.Album">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
 
@@ -133,8 +136,8 @@
       select * from class_comment where class_target_bak = #{param4} and studio = #{param1} and campus =#{param5} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
-  <select id="getAlbum" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select uuids from class_comment where class_target_bak ='课评' and studio = #{param1} and campus =#{param2} and student_name=#{param3} and delete_status = 0 order by create_time desc limit 10;
+  <select id="getAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseResultMap">
+    select * from album where student_name =#{param1} and studio = #{param2} and campus =#{param3} and delete_status = 0 order by create_time desc limit #{param4},#{param5};
   </select>
 
   <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseContract">
@@ -357,6 +360,11 @@
   <!-- 删除详情 -->
   <select id="deleteUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set delete_status = 1 where id = #{param1};
+  </select>
+
+  <!-- 删除相册 -->
+  <select id="deleteAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseResultMap">
+    update album set delete_status = 1 where id = #{param1};
   </select>
 
   <!-- 删除礼品清单 -->
@@ -910,6 +918,10 @@
   <!-- 插入账单 -->
   <insert id="insertBook" parameterType="com.xue.entity.model.Book">
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
+  </insert>
+
+  <insert id="insertAlbum" parameterType="com.xue.entity.model.Album">
+    insert album(uuid,studio,campus,student_name,create_time) values(#{uuid},#{studio},#{campus},#{student_name},#{create_time})
   </insert>
 
   <!-- 插入网页信息 -->
