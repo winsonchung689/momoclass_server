@@ -4745,10 +4745,10 @@ public class LoginServiceImpl implements LoginService {
             User user = users.get(0);
             String studio = user.getStudio();
             String campus = user.getCampus();
-            List<Album> list = dao.getAlbum(student_name,studio,campus,page_start,page_length);
-            for(int i = 0;i< list.size();i++){
+            List<Album> albums = dao.getAlbum(student_name,studio,campus,page_start,page_length);
+            for(int i = 0;i< albums.size();i++){
                 JSONObject jsonObject = new JSONObject();
-                Album album = list.get(i);
+                Album album = albums.get(i);
                 String uuid = album.getUuid();
                 String id = album.getId();
 
