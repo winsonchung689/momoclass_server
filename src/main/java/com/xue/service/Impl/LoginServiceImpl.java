@@ -8268,8 +8268,16 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 String studio = line.getStudio();
-                List<Book> books = dao.getBookDetailByMark(studio+"_",now_time,"2024-01-01");
-                int number = books.size();
+                int number = 0;
+                List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
+                for(int j=0; j < books.size();j++){
+                    String mark = books.get(j).getMark();
+                    String type = books.get(j).getType();
+                    String studio_get = mark.split("_")[0];
+                    if(studio.equals(studio_get) && "收入".equals(type)){
+                        number += 1;
+                    }
+                }
 
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
