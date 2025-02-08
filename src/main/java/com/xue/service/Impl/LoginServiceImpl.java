@@ -8268,7 +8268,7 @@ public class LoginServiceImpl implements LoginService {
                 User line = list.get(i);
                 //获取字段
                 String studio = line.getStudio();
-                List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
+                List<Book> books = dao.getBookDetailByMark(studio+"_",now_time,"2024-01-01");
                 int number = books.size();
 
                 String student_name = line.getStudent_name();
