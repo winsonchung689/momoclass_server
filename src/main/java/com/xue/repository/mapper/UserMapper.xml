@@ -1132,6 +1132,11 @@
     select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and subject = #{param3} and campus = #{param4} and package_id = #{param5} order by create_time desc
   </select>
 
+  <!-- 按id查找签到记录 -->
+  <select id="getSignUpById" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where id =#{param1} and delete_status = 0
+  </select>
+
   <!-- 查找全部签到记录 -->
   <select id="getSignUpByAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where delete_status = 0 and studio = #{param1} and campus = #{param2}  order by student_name
@@ -1150,8 +1155,8 @@
     select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0
   </select>
 
-  <update id="updateSignUpTeacher" parameterType="com.xue.entity.model.Schedule">
-    update sign_up_record set teacher=#{param1} where id=#{param2}
+  <update id="updateSignUpDetail" parameterType="com.xue.entity.model.SignUp">
+    update sign_up_record set teacher=#{teacher},package_id=#{package_id},mark=#{mark},count=#{count} where id=#{id}
   </update>
 
   <!-- 查找签到记录 -->

@@ -955,6 +955,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUpByPackageId(String student_name,String studio,String subject,String campus,String package_id);
 
+    List<SignUp> getSignUpById(String id);
+
     List<SignUp> getSignUpByAll(String studio,String campus);
 
     List<SignUp> getSignUpByBacth(String student_name,String studio,String subject,String campus);
@@ -1013,7 +1015,7 @@ public interface UserMapper {
 
     int consumeLesson(Lesson lesson);
 
-    int updateSignUpTeacher(String teacher,String id);
+    int updateSignUpDetail(SignUp signUp);
 
     int updateLessonBoth(Lesson lesson);
 

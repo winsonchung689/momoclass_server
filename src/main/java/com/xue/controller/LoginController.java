@@ -1722,13 +1722,20 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/modifySignUpRecord")
 	@ResponseBody
-	public String modifySignUpRecord(String id,String studio,String content,String type){
+	public String modifySignUpRecord(String id,String content,String type){
 		try {
+			List<SignUp> signUps = dao.getSignUpById(id);
+			SignUp signUp = signUps.get(0);
 			if("备注".equals(type)) {
-				dao.modifySignUpMark(id, studio, content);
+				signUp.setMark(content);
 			}else if("课时".equals(type)){
-				dao.modifySignUpCount(id,studio,Float.parseFloat(content));
+				signUp.setCount(Float.parseFloat(content));
+			}else if("老师".equals(type)){
+				signUp.setTeacher(content);
+			}else if("课包".equals(type)){
+				signUp.setPackage_id(content);
 			}
+			dao.updateSignUpDetail(signUp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
