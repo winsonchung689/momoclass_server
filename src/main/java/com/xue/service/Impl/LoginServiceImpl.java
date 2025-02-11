@@ -7027,7 +7027,10 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("is_show_ad", "true");
                 }
 
+                String id = line.getId();
+
                 //json
+                jsonObject.put("id", id);
                 jsonObject.put("is_open", is_open);
                 jsonObject.put("campus", campus);
                 jsonObject.put("role", role);
