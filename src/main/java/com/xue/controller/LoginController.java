@@ -5192,9 +5192,11 @@ public class LoginController {
 
 		//获取
 		String openid = request.getParameter("openid");
-		List<User> list_user = dao.getUser(openid);
-		String studio = list_user.get(0).getStudio();
 		String post_id = request.getParameter("post_id");
+		List<Message> messages = dao.getDetails(Integer.parseInt(post_id));
+		Message message = messages.get(0);
+		String studio = message.getStudio();
+		String campus = message.getCampus();
 
 		PostLike postLike = new PostLike();
 		try {
@@ -5213,6 +5215,20 @@ public class LoginController {
 				postLike.setStudio(studio);
 				postLike.setCreate_time(create_time);
 				dao.insertPostLike(postLike);
+
+				// 新用户自动注册
+				List<User> users = dao.getUserByOpenid(openid);
+				if(users.size() == 0){
+					User user = new User();
+					user.setStudio(studio);
+					user.setCampus(campus);
+					user.setOpenid(openid);
+					user.setCreate_time(create_time);
+					user.setRole("client");
+					user.setUser_type("新用户");
+
+					dao.insertUser(user);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
