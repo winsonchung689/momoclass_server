@@ -10165,7 +10165,6 @@ public class LoginServiceImpl implements LoginService {
                 Float group_price = line.getGroup_price();
                 Timestamp expired_time = line.getExpired_time();
                 Float seckill_price = line.getSeckill_price();
-                String photo = line.getPhoto();
                 String id = line.getId();
                 String create_time = line.getCreate_time();
                 try {
@@ -10173,8 +10172,8 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-
                 Float cut_step = line.getCut_step();
+                Integer group_num = line.getGroup_num();
 
                 //json
                 jsonObject.put("cut_step", cut_step);
@@ -10182,7 +10181,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
                 jsonObject.put("create_time", create_time);
-                jsonObject.put("photo", photo);
+                jsonObject.put("group_num", group_num);
                 jsonObject.put("id", id);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("group_price", group_price);
