@@ -2247,7 +2247,7 @@ public class LoginController {
 		List<Lesson> to_lessons = dao.getLessonById(to_id);
 		Lesson to_lesson = to_lessons.get(0);
 		String to_subject = to_lesson.getSubject();
-		String to_student = from_lesson.getStudent_name();
+		String to_student = to_lesson.getStudent_name();
 		loginService.updateMinusLesson(to_student,studio,-trans_count,to_subject,campus);
 
 		SignUp signUp = new SignUp();
@@ -2255,6 +2255,7 @@ public class LoginController {
 		signUp.setSubject(from_subject);
 		signUp.setMark("课时转让到"+to_student+"("+to_subject+")");
 		signUp.setStudio(studio);
+		signUp.setCampus(campus);
 		signUp.setSign_time(create_time);
 		signUp.setCount(trans_count);
 		signUp.setTeacher(nick_name);
