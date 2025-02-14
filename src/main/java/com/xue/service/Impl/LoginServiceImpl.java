@@ -4164,7 +4164,7 @@ public class LoginServiceImpl implements LoginService {
                 String goods_name = line.getGoods_name();
                 String goods_intro = line.getGoods_intro();
                 Float goods_price = line.getGoods_price();
-                Integer status = line.getStatus();
+                status = line.getStatus();
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String nick_name = line.getNick_name();
