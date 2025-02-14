@@ -2226,6 +2226,52 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/lessonTransferById")
+	@ResponseBody
+	public int lessonTransferById(Integer from_id,Integer to_id,Float trans_count,String openid ){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String create_time = df.format(new Date());
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String studio = user.getStudio();
+		String campus = user.getCampus();
+		String nick_name = user.getNick_name();
+
+		//被转
+		List<Lesson> from_lessons = dao.getLessonById(from_id);
+		Lesson from_lesson = from_lessons.get(0);
+		String from_subject = from_lesson.getSubject();
+		String from_student = from_lesson.getStudent_name();
+		loginService.updateMinusLesson(from_student,studio,trans_count,from_subject,campus);
+		//转让
+		List<Lesson> to_lessons = dao.getLessonById(to_id);
+		Lesson to_lesson = to_lessons.get(0);
+		String to_subject = to_lesson.getSubject();
+		String to_student = from_lesson.getStudent_name();
+		loginService.updateMinusLesson(to_student,studio,-trans_count,to_subject,campus);
+
+		SignUp signUp = new SignUp();
+		signUp.setStudent_name(from_student);
+		signUp.setSubject(from_subject);
+		signUp.setMark("课时转让到"+to_student+"("+to_subject+")");
+		signUp.setStudio(studio);
+		signUp.setSign_time(create_time);
+		signUp.setCount(trans_count);
+		signUp.setTeacher(nick_name);
+		signUp.setCreate_time(create_time);
+		signUp.setDuration("00:00:00");
+		signUp.setClass_number("无班号");
+		signUp.setPackage_id("0");
+		loginService.insertSignUp(signUp);
+
+		signUp.setStudent_name(to_student);
+		signUp.setSubject(to_subject);
+		signUp.setMark("课时转让自"+from_student+"("+from_subject+")");
+		loginService.insertSignUp(signUp);
+
+		return 1;
+	}
+
 	@RequestMapping("/getPptMenuById")
 	@ResponseBody
 	public List getPptMenuById(String id){
