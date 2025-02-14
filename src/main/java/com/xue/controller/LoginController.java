@@ -2248,8 +2248,13 @@ public class LoginController {
 		Lesson to_lesson = to_lessons.get(0);
 		String to_subject = to_lesson.getSubject();
 		String to_student = to_lesson.getStudent_name();
-		loginService.updateMinusLesson(to_student,studio,-trans_count,to_subject,campus);
+		Float total_amount_get = to_lesson.getTotal_amount();
+		Float left_amount_get = to_lesson.getLeft_amount();
+		to_lesson.setTotal_amount(total_amount_get + trans_count);
+		to_lesson.setLeft_amount(left_amount_get + trans_count);
+		dao.updateLesson(to_lesson);
 
+		// 转出的签到记录
 		SignUp signUp = new SignUp();
 		signUp.setStudent_name(from_student);
 		signUp.setSubject(from_subject);
@@ -2265,10 +2270,19 @@ public class LoginController {
 		signUp.setPackage_id("0");
 		loginService.insertSignUp(signUp);
 
-		signUp.setStudent_name(to_student);
-		signUp.setSubject(to_subject);
-		signUp.setMark("课时转让自"+from_student+"("+from_subject+")");
-		loginService.insertSignUp(signUp);
+		// 转出的课包记录
+		LessonPackage lessonPackage = new LessonPackage();
+		lessonPackage.setStudent_name(to_student);
+		lessonPackage.setMark("课时转让自"+ from_student + "("+ from_subject + ")");
+		lessonPackage.setStart_date(create_time);
+		lessonPackage.setEnd_date(create_time);
+		lessonPackage.setCampus(campus);
+		lessonPackage.setStudio(studio);
+		lessonPackage.setSubject(to_subject);
+		lessonPackage.setCreate_time(create_time);
+		lessonPackage.setNick_name(nick_name);
+		lessonPackage.setAll_lesson(trans_count);
+		dao.insertLessonPackage(lessonPackage);
 
 		return 1;
 	}
