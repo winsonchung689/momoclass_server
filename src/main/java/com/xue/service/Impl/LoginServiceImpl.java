@@ -4123,18 +4123,26 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List getAllOrderByType(String studio,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
-
         try {
-            List<Order> list = dao.getAllOrderByType(studio,type);
+            List<Order> list = null;
+            if("全部订单".equals(type)){
+                list = dao.getAllOrderByStudio(studio);
+            }else if ("待付款".equals(type)) {
+                list = dao.getAllOrderByType(studio,0);
+            }else if ("待使用".equals(type)) {
+                list = dao.getAllOrderByType(studio,1);
+            }else if ("已完成".equals(type)) {
+                list = dao.getAllOrderByType(studio,2);
+            }
+
             for (int i = 0; i < list.size(); i++) {
-                String create_time = null;
                 Float group_price = 0.0f;
                 Integer group_num = 0;
                 String uuids = null;
                 String leader = null;
-
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
+
                 //获取字段
                 String id = line.getId();
                 String goods_name = line.getGoods_name();
@@ -4155,7 +4163,6 @@ public class LoginServiceImpl implements LoginService {
                 if(users_get.size()>0){
                     student_name_get = users_get.get(0).getStudent_name();
                 }
-
 
                 String group_status = "未成团";
                 List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
@@ -4192,27 +4199,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if("自定义团".equals(type)){
-                    List<GoodsList> subGoodsLists = dao.getGoodsListById(sub_goods_id);
-                    if(subGoodsLists.size()>0){
-                        GoodsList subGoodsList = subGoodsLists.get(0);
-                        goods_name = subGoodsList.getGoods_name();
-                        goods_price = subGoodsList.getGoods_price();
-                    }
-                }
-
-                if(group_sum >= group_num){
-                    group_status = "已成团";
-                }
-
-                String status_get="未付款";
-                if(1==status){
-                    status_get="已付款";
-                }else if(2==status){
-                    status_get="已使用";
-                }
-
-                create_time = line.getCreate_time();
+                String create_time = line.getCreate_time();
                 type = line.getType();
                 Integer counts = line.getCounts();
                 Float amount = line.getAmount();
@@ -4222,7 +4209,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
-                jsonObject.put("status", status_get);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
@@ -4241,6 +4227,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("counts", counts);
                 jsonObject.put("amount", amount);
                 jsonObject.put("student_name", student_name_get);
+                jsonObject.put("status", status);
 
                 //json
                 resul_list.add(jsonObject);

@@ -21,7 +21,8 @@ public class Order {
     private String type;
     private Integer counts;
     private Float amount;
-
+    private Float goods_price;
+    private Integer status;
 
 
     public Float getAmount() {
@@ -96,10 +97,6 @@ public class Order {
         this.campus = campus;
     }
 
-
-    private Float goods_price;
-    private Integer status;
-
     public String getId() {
         return id;
     }
@@ -123,7 +120,6 @@ public class Order {
     public void setGoods_price(Float goods_price) {
         this.goods_price = goods_price;
     }
-
 
     public String getCreate_time() {
         return create_time;
