@@ -2204,10 +2204,10 @@ public class LoginController {
 	//	获取订单
 	@RequestMapping("/getAllOrderByType")
 	@ResponseBody
-	public List getAllOrderByType(String studio,String type){
+	public List getAllOrderByType(String openid,String type,Integer page){
 		List list = null;
 		try {
-			list = loginService.getAllOrderByType(studio,type);
+			list = loginService.getAllOrderByType(openid,type,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

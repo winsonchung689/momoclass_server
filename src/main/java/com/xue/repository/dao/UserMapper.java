@@ -739,9 +739,11 @@ public interface UserMapper {
 
     List<Order> getOrderById(String id);
 
-    List<Order> getAllOrderByStudio(String studio);
+    List<Order> getAllOrderByStudio(String studio,Integer page_start,Integer page_length);
 
-    List<Order> getAllOrderByType(String studio,Integer status);
+    List<Order> getAllOrderByOpenid(String openid,Integer page_start,Integer page_length);
+
+    List<Order> getAllOrderByType(String studio,Integer status,String openid,Integer page_start,Integer page_length);
 
     List<Arrangement> getArrangementsByDate(String studio);
 

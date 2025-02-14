@@ -4121,18 +4121,34 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAllOrderByType(String studio,String type) {
+    public List getAllOrderByType(String openid,String type,Integer page) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            List<User> users = dao.getUser(openid);
+            User user = users.get(0);
+            String studio = user.getStudio();
+            String role = user.getRole();
+
+            Integer page_start = (page - 1) * 10;
+            Integer page_length = 10;
+
             List<Order> list = null;
+            Integer status = 0;
             if("全部订单".equals(type)){
-                list = dao.getAllOrderByStudio(studio);
-            }else if ("待付款".equals(type)) {
-                list = dao.getAllOrderByType(studio,0);
-            }else if ("待使用".equals(type)) {
-                list = dao.getAllOrderByType(studio,1);
-            }else if ("已完成".equals(type)) {
-                list = dao.getAllOrderByType(studio,2);
+                if("boss".equals(role) || "teacher".equals(role)){
+                    list = dao.getAllOrderByStudio(studio,page_start,page_length);
+                }else{
+                    list = dao.getAllOrderByOpenid(openid,page_start,page_length);
+                }
+            }else{
+                if ("待付款".equals(type)) {
+                    status = 0;
+                }else if ("待使用".equals(type)) {
+                    status = 1;
+                }else if ("已完成".equals(type)) {
+                    status = 2;
+                }
+                list = dao.getAllOrderByType(studio,status,openid,page_start,page_length);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -4152,38 +4168,9 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String nick_name = line.getNick_name();
-                String openid = line.getOpenid();
                 String goods_id = line.getGoods_id();
-                String sub_goods_id = line.getSub_goods_id();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
-
-                String student_name_get="no_name";
-                List<User> users_get = dao.getUser(openid);
-                if(users_get.size()>0){
-                    student_name_get = users_get.get(0).getStudent_name();
-                }
-
-                String group_status = "未成团";
-                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
-                int group_sum = orders.size();
-                StringBuffer students_str = new StringBuffer();
-                for (int j = 0; j < orders.size(); j++) {
-                    String openid_buy = orders.get(j).getOpenid();
-                    List<User> users = dao.getUser(openid_buy);
-                    String student_name = users.get(0).getStudent_name();
-                    students_str.append(student_name);
-                    students_str.append(",");
-                }
-                if(students_str.length()>0) {
-                    students_str = students_str.deleteCharAt(students_str.lastIndexOf(","));
-                }
-
-                List<User> users = dao.getUserByOpenid(leader_id);
-                if(users.size()>0){
-                    User user = users.get(0);
-                    leader = user.getNick_name();
-                }
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -4215,18 +4202,14 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("openid", openid);
                 jsonObject.put("group_price", group_price);
-                jsonObject.put("students_str", students_str.toString());
                 jsonObject.put("leader_id", leader_id);
                 jsonObject.put("leader", leader);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
-                jsonObject.put("group_status", group_status);
                 jsonObject.put("group_num", group_num);
-                jsonObject.put("group_sum", group_sum);
                 jsonObject.put("type", type);
                 jsonObject.put("counts", counts);
                 jsonObject.put("amount", amount);
-                jsonObject.put("student_name", student_name_get);
                 jsonObject.put("status", status);
 
                 //json
