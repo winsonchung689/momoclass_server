@@ -2282,6 +2282,9 @@ public class LoginController {
 		lessonPackage.setCreate_time(create_time);
 		lessonPackage.setNick_name(nick_name);
 		lessonPackage.setAll_lesson(trans_count);
+		lessonPackage.setGive_lesson(0.0f);
+		lessonPackage.setTotal_money(0.0f);
+		lessonPackage.setDiscount_money(0.0f);
 		dao.insertLessonPackage(lessonPackage);
 
 		return 1;
