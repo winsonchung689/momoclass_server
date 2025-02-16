@@ -731,6 +731,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangements(String studio,String campus);
 
+    List<Arrangement> getArrangementsByStudio(String studio);
+
     List<Order> getMyOrder(String studio,String openid);
 
     List<Order> getOrderByGoodsId(String goods_id,String type);

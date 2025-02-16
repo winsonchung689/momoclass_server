@@ -2581,7 +2581,7 @@ public class LoginServiceImpl implements LoginService {
             if(lessons != null){
                 String[] list =lessons.split("\\|");
                 List<String> list_lessons = Arrays.asList(list);
-                List<Arrangement> arrangements = dao.getArrangements(studio,campus);
+                List<Arrangement> arrangements = dao.getArrangementsByStudio(studio);
                 if(arrangements.size()>0){
                     StringBuffer new_lessons = new StringBuffer();
                     for(int i=0;i<arrangements.size();i++){
@@ -2595,9 +2595,9 @@ public class LoginServiceImpl implements LoginService {
                             new_lessons.append(lesson_string);
                             new_lessons.append("|");
                         }
-                        user.setLessons(new_lessons.toString());
-                        dao.updateBossLessons(user);
                     }
+                    user.setLessons(new_lessons.toString());
+                    dao.updateBossLessons(user);
                 }
             }
         } catch (Exception e) {

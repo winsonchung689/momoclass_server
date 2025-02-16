@@ -1785,6 +1785,10 @@
     select * from schedule_arrangement where studio =#{param1} and campus =#{param2} and delete_status = 0 order by dayofweek,duration,subject
   </select>
 
+  <select id="getArrangementsByStudio" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select * from schedule_arrangement where studio =#{param1} and delete_status = 0;
+  </select>
+
   <select id="getArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select * from schedule_arrangement where studio =#{param1} and id =#{param2} and delete_status = 0
   </select>
