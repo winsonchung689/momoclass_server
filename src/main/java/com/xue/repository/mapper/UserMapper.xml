@@ -1360,6 +1360,11 @@
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getRestaurantUserById" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
+    select * from restaurant_user where id =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+
   <select id="getPptMenu" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
     select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and delete_status = 0 order by create_time desc limit #{param4},#{param5}
   </select>

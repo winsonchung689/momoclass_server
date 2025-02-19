@@ -1,11 +1,11 @@
 package com.xue.controller;
 
-import com.xue.entity.model.Menu;
-import com.xue.entity.model.RestaurantOrder;
-import com.xue.entity.model.RestaurantUser;
-import com.xue.entity.model.User;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.util.HttpUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class RestaurantController {
@@ -78,22 +79,47 @@ public class RestaurantController {
 		restaurantUser.setExpired_time(expired_time);
 
 		loginService.insertRestaurantUser(restaurantUser);
-//		try {
-//			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
-//			if(restaurantUsers.size()>0){
-//				RestaurantUser restaurantUser1 = restaurantUsers.get(0);
-//				int id = restaurantUser1.getId();
-//				if(id<1000){
-//					RestaurantUser restaurantUser2 = new RestaurantUser();
-//					restaurantUser2.setRole("boss");
-//					restaurantUser2.setOpenid(openid);
-//					dao.updateRestaurantRole(restaurantUser2);
-//				}
-//			}
-//		} catch (Exception e) {
-//			throw new RuntimeException(e);
-//		}
 		return "push massage successfully";
+	}
+
+	@RequestMapping("/shareShopQrCode")
+	@ResponseBody
+	public JSONObject getQrCode(String id){
+		JSONObject jsonObject = new JSONObject();
+		String token = loginService.getToken("ORDER");
+		String scene = "&id=" + id;
+
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
+		RestaurantUser restaurantUser = restaurantUsers.get(0);
+		String restaurant = restaurantUser.getRestaurant();
+
+		try {
+			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
+			Map<String,String> param = new HashMap<>() ;
+			param.put("scene",scene);
+			param.put("page","pages/welcome/welcome");
+			String json = JSON.toJSONString(param) ;
+			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
+			byte[] bytes = new byte[inputStream.available()];
+			inputStream.read(bytes);
+			String imageString = Base64.getEncoder().encodeToString(bytes);
+
+			// 上传二维码
+			String restaurant_md5 = DigestUtils.md5Hex(restaurant + "shop" + id );
+			String serverPath = "/data/uploadRr";
+			String fileName = restaurant_md5 + ".png";
+			File file = new File(serverPath, fileName);
+			try (FileOutputStream fos = new FileOutputStream(file)) {
+				fos.write(bytes);
+			}
+
+			jsonObject.put("imageString", imageString);
+			jsonObject.put("fileName", fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return jsonObject;
 	}
 
 	@RequestMapping("/insertRestaurantMenu")

@@ -642,6 +642,8 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUser(String openid);
 
+    List<RestaurantUser> getRestaurantUserById(String id);
+
     List<PptMenu> getPptMenu(String studio,String campus,String category,Integer page_start,Integer page_length);
 
     List<PptMenu> getPptMenuById(String id);
