@@ -51,29 +51,16 @@ public class RestaurantController {
 		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
-		String nick_name = request.getParameter("nick_name");
-
-		String restaurant = request.getParameter("restaurant");
-
-		//获年角色
-		String role = request.getParameter("role");
-		if(role == null || role.isEmpty() || "undefined".equals(role)){
-			role = "client";
-		}
-		//获取 openid
+		String id = request.getParameter("id");
 		String openid = request.getParameter("openid");
 
-		//获取 avatarurl
-		String avatarurl = request.getParameter("avatarurl");
-		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
-			avatarurl = "https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
-		}
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
+		RestaurantUser restaurantUser = restaurantUsers.get(0);
+		String restaurant = restaurantUser.getRestaurant();
 
-		RestaurantUser restaurantUser =new RestaurantUser();
-		restaurantUser.setNick_name(nick_name);
-		restaurantUser.setRole(role);
+		restaurantUser.setNick_name("微信用户");
+		restaurantUser.setRole("client");
 		restaurantUser.setOpenid(openid);
-		restaurantUser.setAvatarurl(avatarurl);
 		restaurantUser.setRestaurant(restaurant);
 		restaurantUser.setCreate_time(create_time);
 		restaurantUser.setExpired_time(expired_time);
