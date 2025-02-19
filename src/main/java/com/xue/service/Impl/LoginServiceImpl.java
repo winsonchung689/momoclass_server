@@ -3696,13 +3696,13 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<RestaurantUser> restaurantUser = dao.getRestaurantUser(openid);
             String restaurant = restaurantUser.get(0).getRestaurant();
-
-            if("my".equals(type)){
-                list = dao.getRestaurantOrderByOpenid(openid);
-            } else if ("all".equals(type)) {
+            String role = restaurantUser.get(0).getRole();
+            if ("boss".equals(role)) {
                 list = dao.getRestaurantOrderByShop(restaurant);
-
+            }else {
+                list = dao.getRestaurantOrderByOpenid(openid);
             }
+
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -3714,11 +3714,14 @@ public class LoginServiceImpl implements LoginService {
                 int num = line.getNum();
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
-                int status_get = line.getStatus();
-                String status = "未完成";
-                if(status_get==1){
-                    status = "已完成";
+                int status = line.getStatus();
+                String status_cn = "待付款";
+                if(status==1){
+                    status_cn = "待发货";
+                }else if(status == 2){
+                    status_cn = "已完成";
                 }
+
                 String openid_get = line.getOpenid();
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
                 String nick_name = restaurantUser_get.get(0).getNick_name();
@@ -3733,11 +3736,13 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
+                jsonObject.put("status_cn", status_cn);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("id", id);
                 jsonObject.put("total_price", total_price);
                 resul_list.add(jsonObject);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
