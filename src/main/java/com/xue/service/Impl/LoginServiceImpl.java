@@ -3627,7 +3627,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getRestaurantUserAll(String restaurant) {
+    public List getRestaurantUserAll(String openid) {
         String role = null;
         String avatarurl = null;
         String nick_name = null;
@@ -3637,14 +3637,19 @@ public class LoginServiceImpl implements LoginService {
         List<RestaurantUser> list= null;
         int id = 0;
         String logo = null;
-        String openid = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            if("all".equals(restaurant)){
+            List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+            RestaurantUser restaurant_get = restaurantUsers.get(0);
+            String restaurant = restaurant_get.getRestaurant();
+
+            if("ougOI60Jjf6PkDHSI0mJDQ_129YM".equals(openid)){
                 list= dao.getRestaurantUserAll();
             }else {
                 list = dao.getRestaurantUserByShop(restaurant);
             }
+
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantUser line = list.get(i);
@@ -3658,9 +3663,9 @@ public class LoginServiceImpl implements LoginService {
                 openid = line.getOpenid();
                 logo = line.getLogo();
                 id = line.getId();
-                String role_name = "普通";
+                String role_name = "客户";
                 if("boss".equals(role)){
-                    role_name = "群主";
+                    role_name = "店长";
                 }
 
                 //json

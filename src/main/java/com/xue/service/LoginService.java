@@ -204,7 +204,7 @@ public interface LoginService {
 
     public List getBBookDetail(String openid,String date_time,String book_name);
 
-    public List getRestaurantUserAll(String restaurant);
+    public List getRestaurantUserAll(String openid);
 
     public List getRestaurantOrder(String openid,String type);
 

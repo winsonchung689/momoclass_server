@@ -184,10 +184,10 @@ public class RestaurantController {
 
 	@RequestMapping("/getRestaurantUserAll")
 	@ResponseBody
-	public List getRestaurantUserAll(String restaurant){
+	public List getRestaurantUserAll(String openid){
 		List list = null;
 		try {
-			list = loginService.getRestaurantUserAll(restaurant);
+			list = loginService.getRestaurantUserAll(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
