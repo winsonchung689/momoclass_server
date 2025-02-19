@@ -3721,14 +3721,20 @@ public class LoginServiceImpl implements LoginService {
                     status_cn = "已完成";
                 }
 
+                String nick_name = null;
+                String food_image = null;
                 String openid_get = line.getOpenid();
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
-                String nick_name = restaurantUser_get.get(0).getNick_name();
+                if(restaurantUser_get.size()>0){
+                    nick_name = restaurantUser_get.get(0).getNick_name();
+                }
                 String id = line.getId();
                 Float total_price = num * price ;
                 String goods_id = line.getGoods_id();
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
-                String food_image = menus.get(0).getFood_image();
+                if(menus.size()>0) {
+                    food_image = menus.get(0).getFood_image();
+                }
 
                 //json
                 jsonObject.put("food_image", food_image);
