@@ -194,6 +194,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/deleteRestaurantUser")
+	@ResponseBody
+	public int deleteRestaurantUser(Integer id){
+		try {
+			dao.deleteRestaurantUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/getRestaurantOrder")
 	@ResponseBody
 	public List getRestaurantOrder(String openid,String type){

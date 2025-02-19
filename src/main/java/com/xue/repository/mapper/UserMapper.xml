@@ -1690,6 +1690,10 @@
     update restaurant_menu set delete_status = 1 where id = #{param1}
   </update>
 
+  <update id="deleteRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set delete_status = 1 where id = #{param1}
+  </update>
+
   <update id="deletePptMenu" parameterType="com.xue.entity.model.PptMenu">
     update ppt_menu set delete_status = 1 where id = #{param1}
   </update>
