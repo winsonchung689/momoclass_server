@@ -152,7 +152,7 @@ public class RestaurantController {
 		String num = request.getParameter("num");
 		String price = request.getParameter("price");
 		String openid = request.getParameter("openid");
-		String order_id = request.getParameter("order_id");
+		String goods_id = request.getParameter("goods_id");
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
@@ -162,7 +162,7 @@ public class RestaurantController {
 		restaurantOrder.setPrice(Float.parseFloat(price));
 		restaurantOrder.setCreate_time(create_time);
 		restaurantOrder.setOpenid(openid);
-		restaurantOrder.setOrder_id(order_id);
+		restaurantOrder.setGoods_id(goods_id);
 		try {
 			dao.insertRestaurantOrder(restaurantOrder);
 		} catch (Exception e) {

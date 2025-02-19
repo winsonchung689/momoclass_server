@@ -673,6 +673,8 @@ public interface UserMapper {
 
     List<Menu> getRestaurantMenu(String restaurant);
 
+    List<Menu> getRestaurantMenuById(String goods_id);
+
     List<User> getUserSendTime(String studio);
 
     List<User> getUserByOpenid(String openid);

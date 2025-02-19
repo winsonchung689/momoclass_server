@@ -3726,8 +3726,12 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = restaurantUser_get.get(0).getNick_name();
                 String id = line.getId();
                 Float total_price = num * price ;
+                String goods_id = line.getGoods_id();
+                List<Menu> menus = dao.getRestaurantMenuById(goods_id);
+                String food_image = menus.get(0).getFood_image();
 
                 //json
+                jsonObject.put("food_image", food_image);
                 jsonObject.put("food_name", food_name);
                 jsonObject.put("restaurant", restaurant);
                 jsonObject.put("category", category);
