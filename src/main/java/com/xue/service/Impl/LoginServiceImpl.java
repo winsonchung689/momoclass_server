@@ -3714,9 +3714,9 @@ public class LoginServiceImpl implements LoginService {
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
                 int status = line.getStatus();
-                String status_cn = "待付款";
+                String status_cn = "去付款";
                 if(status==1){
-                    status_cn = "待发货";
+                    status_cn = "去发货";
                 }else if(status == 2){
                     status_cn = "已完成";
                 }
