@@ -667,6 +667,8 @@ public interface UserMapper {
 
     List<RestaurantOrder> getRestaurantOrderByShop(String restaurant);
 
+    List<RestaurantOrder> getRestaurantOrderById(String id);
+
     List<Menu> getRestaurantCategory(String restaurant);
 
     List<Menu> getRestaurantMenu(String restaurant);

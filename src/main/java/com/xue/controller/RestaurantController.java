@@ -328,13 +328,17 @@ public class RestaurantController {
 
 		//获取文字
 		String id = request.getParameter("id");
-		String status_get = request.getParameter("status");
-		int status = 1;
-		if("已完成".equals(status_get)){
-			status =0;
-		}
 
 		try {
+			List<RestaurantOrder> restaurantOrders = dao.getRestaurantOrderById(id);
+			RestaurantOrder restaurantOrder = restaurantOrders.get(0);
+			int status = restaurantOrder.getStatus();
+			if(status == 0){
+				status = 1;
+			}else if(status == 1){
+				status =2;
+			}
+
 			dao.updateRestaurantOrderStatus(id,status);
 		} catch (Exception e) {
 			e.printStackTrace();

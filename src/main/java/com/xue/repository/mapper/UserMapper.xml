@@ -1409,6 +1409,10 @@
     select * from restaurant_order where restaurant =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantOrderById" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getRestaurantCategory" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
     select distinct category from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
   </select>
