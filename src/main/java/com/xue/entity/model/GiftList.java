@@ -33,11 +33,11 @@ public class GiftList {
 
 
 
-    public String getSend_type() {
+    public Integer getSend_type() {
         return send_type;
     }
 
-    public void setSend_type(String send_type) {
+    public void setSend_type(Integer send_type) {
         this.send_type = send_type;
     }
 
