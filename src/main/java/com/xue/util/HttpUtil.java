@@ -17,6 +17,9 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 
 public class HttpUtil {
 
@@ -147,6 +150,14 @@ public class HttpUtil {
         }
     }
 
+    public static String sendPayPost(String url,String body) throws IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException{
+
+
+
+
+
+        return null;
+    }
 
 }
 
