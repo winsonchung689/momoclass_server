@@ -1012,6 +1012,8 @@ public interface UserMapper {
 
     List<Gift> getGiftByOpenid(String openid,String studio,String campus);
 
+    List<Gift> getGiftByOpenidGiftid(String openid,String gift_id);
+
     List<Gift> getGiftById(String id);
 
     List<Gift> getGiftByGiftId(String gift_id,String studio,String campus);

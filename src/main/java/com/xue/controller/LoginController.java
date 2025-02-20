@@ -6082,8 +6082,11 @@ public class LoginController {
 
 		// 单发的活动券
 		if("1".equals(type) && is_open > 0 && send_type ==2){
-			gift.setOpenid(openid);
-			loginService.insertGift(gift);
+			List<Gift> gifts_get =dao.getGiftByOpenidGiftid(openid,is_open.toString());
+			if(gifts_get.size() == 0){
+				gift.setOpenid(openid);
+				loginService.insertGift(gift);
+			}
 		}
 
 		return "push massage successfully";

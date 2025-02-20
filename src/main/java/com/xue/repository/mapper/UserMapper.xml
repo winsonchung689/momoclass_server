@@ -1243,6 +1243,11 @@
     select * from gift_record where openid =#{param1} and studio = #{param2} and campus = #{param3} order by expired_time desc
   </select>
 
+  <!-- 查找个人优惠券 -->
+  <select id="getGiftByOpenidGiftid" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
+    select * from gift_record where openid =#{param1} and gift_id = #{param2}
+  </select>
+
   <select id="getGiftById" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
     select * from gift_record where id =#{param1}
   </select>
