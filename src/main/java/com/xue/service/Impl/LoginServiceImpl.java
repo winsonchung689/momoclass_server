@@ -8358,6 +8358,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getUserByOpenidQrAll() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String today_time = df.format(new Date());
+
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<User> list = dao.getUserByOpenidQrAll(0,10000);
@@ -8368,11 +8371,9 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String nick_name = line.getNick_name();
                 String openid = line.getOpenid();
-
                 String openid_qr = line.getOpenid_qr();
                 List<User> users = dao.getUser(openid_qr);
                 String nick_name_rc = users.get(0).getNick_name();
-
                 String user_type = line.getUser_type();
                 int is_paid = line.getIs_paid();
                 String cash_uuid = line.getCash_uuid();
@@ -8386,17 +8387,29 @@ public class LoginServiceImpl implements LoginService {
                     is_paid_cn = "未试用";
                 }
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String expired_time = line.getExpired_time();
-                String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
                 Date expired_time_dt = df.parse(expired_time.substring(0,10));
                 int compare = today_dt.compareTo(expired_time_dt);
                 if(compare > 0 && "老用户".equals(user_type)){
                     is_paid_cn = "已过期";
                 }
+
                 if(is_paid == 1){
                     is_paid_cn = "已返现";
+                }
+
+                int number = 0;
+                String pay_type ="未续费";
+                List<Book> books = dao.getBookDetailByMark(studio,today_time,"2024-01-01");
+                for(int j=0; j < books.size();j++){
+                    String mark = books.get(j).getMark();
+                    String type = books.get(j).getType();
+                    String studio_get = mark.split("_")[0];
+                    pay_type = books.get(0).getMark().split("_")[1];
+                    if(studio.equals(studio_get) && "收入".equals(type)){
+                        number += 1;
+                    }
                 }
 
                 //json
@@ -8411,6 +8424,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name_rc", nick_name_rc);
                 jsonObject.put("cash_uuid", cash_uuid);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("pay_type", pay_type);
+                jsonObject.put("number", number);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
