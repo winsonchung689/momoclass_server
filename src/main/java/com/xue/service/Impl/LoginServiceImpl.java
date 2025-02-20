@@ -1896,7 +1896,7 @@ public class LoginServiceImpl implements LoginService {
                     for(int t = 0;t < teacher_user.size(); t++){
                         avatarurl = teacher_user.get(0).getAvatarurl();
                         String nick_name_get = teacher_user.get(t).getNick_name();
-                        teachers.append(nick_name_get+"_");
+                        teachers.append(nick_name_get);
                         teachers.append(",");
                     }
                     if(teachers.length()>0) {
