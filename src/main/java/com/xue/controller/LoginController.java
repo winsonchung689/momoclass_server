@@ -5469,6 +5469,7 @@ public class LoginController {
 						arrangement.setRemind(1);
 						arrangement.setRepeat_duration("2025-01-01,2025-01-01");
 						arrangement.setRepeat_week("1,2,3,4,5,6,7");
+						arrangement.setClass_type(0);
 						loginService.insertArrangement(arrangement);
 						// 判断选课
 						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
