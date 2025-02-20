@@ -5989,6 +5989,27 @@ public class LoginController {
 			comment_style = list_send.get(0).getComment_style();
 		}
 
+		String gift_name = null;
+		int send_type = 1;
+		if(is_open > 0){
+			List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
+			GiftList giftList = giftLists.get(0);
+			gift_name = giftList.getGift_name();
+			send_type = giftList.getSend_type();
+		}
+
+		//插入礼物记录
+		Gift gift = new Gift();
+		gift.setGift_name(gift_name);
+		gift.setGift_amount(1);
+		gift.setCreate_time(create_time);
+		gift.setExpired_time(expired_time);
+		gift.setStudio(studio);
+		gift.setCampus(campus);
+		gift.setStatus(0);
+		gift.setGift_id(is_open.toString());
+
+		// 用户新增
 		User user =new User();
 		user.setNick_name(nick_name);
 		user.setStudent_name(student_name);
@@ -6006,6 +6027,7 @@ public class LoginController {
 		user.setRemind_type(remind_type);
 		user.setHours(hours);
 		user.setPhone_number(phone_number);
+
 		List<User> list= dao.getUser(openid);
 		if(list.size()>0){
 			String role_get = list.get(0).getRole();
@@ -6043,22 +6065,8 @@ public class LoginController {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
 					dao.insertUser(user);
-					// 邀请成功则给双方发券
-					if("1".equals(type) && is_open > 0){
-						List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
-						GiftList giftList = giftLists.get(0);
-						String gift_name = giftList.getGift_name();
-
-//						插入礼物记录
-						Gift gift = new Gift();
-						gift.setGift_name(gift_name);
-						gift.setGift_amount(1);
-						gift.setCreate_time(create_time);
-						gift.setExpired_time(expired_time);
-						gift.setStudio(studio);
-						gift.setCampus(campus);
-						gift.setStatus(0);
-						gift.setGift_id(is_open.toString());
+					// 双发的活动全
+					if("1".equals(type) && is_open > 0 && send_type ==1){
 						//邀请者发券
 						gift.setOpenid(my_openid);
 						loginService.insertGift(gift);
@@ -6070,6 +6078,12 @@ public class LoginController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+
+		// 单发的活动券
+		if("1".equals(type) && is_open > 0 && send_type ==2){
+			gift.setOpenid(openid);
+			loginService.insertGift(gift);
 		}
 
 		return "push massage successfully";
