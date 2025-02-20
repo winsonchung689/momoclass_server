@@ -8308,7 +8308,7 @@ public class LoginServiceImpl implements LoginService {
                 String wechat_id = user.getWechat_id();
 
                 int is_paid = line.getIs_paid();
-                String is_paid_cn = "未返现"+"(" + number +")";
+                String is_paid_cn = "未返现";
                 if("新用户".equals(user_type)){
                     is_paid_cn = "未试用";
                 }
@@ -8346,6 +8346,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("no_paid", no_paid);
                 jsonObject.put("has_paid", has_paid);
                 jsonObject.put("pay_type", pay_type);
+                jsonObject.put("number", number);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
