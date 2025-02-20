@@ -29,6 +29,17 @@ public class GiftList {
 
     private Integer amount;
 
+    private String send_type;
+
+
+
+    public String getSend_type() {
+        return send_type;
+    }
+
+    public void setSend_type(String send_type) {
+        this.send_type = send_type;
+    }
 
     public Integer getAmount() {
         return amount;

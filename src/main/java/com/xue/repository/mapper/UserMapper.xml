@@ -1118,7 +1118,7 @@
 
   <!-- 礼品列表 -->
   <insert id="insertGiftList" parameterType="com.xue.entity.model.GiftList">
-    insert gift_list(gift_name,studio,campus,create_time,uuids,coins,type,price,coupon_type) values(#{gift_name},#{studio},#{campus},#{create_time},#{uuids},#{coins},#{type},#{price},#{coupon_type})
+    insert gift_list(gift_name,studio,campus,create_time,uuids,coins,type,price,coupon_type,send_type) values(#{gift_name},#{studio},#{campus},#{create_time},#{uuids},#{coins},#{type},#{price},#{coupon_type},#{send_type})
   </insert>
 
   <!-- 查找签到记录 -->
