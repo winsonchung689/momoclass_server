@@ -8278,7 +8278,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 String studio = line.getStudio();
                 int number = 0;
-                String pay_type =null;
+                String pay_type ="未续费";
                 List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
                 for(int j=0; j < books.size();j++){
                     String mark = books.get(j).getMark();
