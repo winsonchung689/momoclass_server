@@ -8278,11 +8278,13 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 String studio = line.getStudio();
                 int number = 0;
+                String pay_type =null;
                 List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
                 for(int j=0; j < books.size();j++){
                     String mark = books.get(j).getMark();
                     String type = books.get(j).getType();
                     String studio_get = mark.split("_")[0];
+                    pay_type = books.get(0).getMark().split("_")[1];
                     if(studio.equals(studio_get) && "收入".equals(type)){
                         number += 1;
                     }
@@ -8343,6 +8345,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("no_try", no_try);
                 jsonObject.put("no_paid", no_paid);
                 jsonObject.put("has_paid", has_paid);
+                jsonObject.put("pay_type", pay_type);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
