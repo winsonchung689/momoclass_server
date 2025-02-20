@@ -1889,12 +1889,14 @@ public class LoginServiceImpl implements LoginService {
 
                 String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
 
+                String avatarurl = null;
                 StringBuffer teachers = new StringBuffer();
                 List<User> teacher_user = dao.getUserByChooseLesson(lesson_string,studio);
                 if(teacher_user != null){
                     for(int t = 0;t < teacher_user.size(); t++){
+                        avatarurl = teacher_user.get(0).getAvatarurl();
                         String nick_name_get = teacher_user.get(t).getNick_name();
-                        teachers.append(nick_name_get);
+                        teachers.append(nick_name_get+"_");
                         teachers.append(",");
                     }
                     if(teachers.length()>0) {
@@ -1919,6 +1921,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("upcoming",upcoming);
                 jsonObject.put("in_repeat",in_repeat);
+                jsonObject.put("avatarurl",avatarurl);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
