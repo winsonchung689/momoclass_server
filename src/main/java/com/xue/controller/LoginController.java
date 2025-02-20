@@ -6730,7 +6730,7 @@ public class LoginController {
 			giftList.setPrice(Float.parseFloat(price));
 			giftList.setCoins(Integer.parseInt(coins));
 			giftList.setCoupon_type(Integer.parseInt(coupon_type));
-			giftList.setSend_type(send_type);
+			giftList.setSend_type(Integer.parseInt(send_type));
 
 			dao.insertGiftList(giftList);
 		} catch (Exception e) {

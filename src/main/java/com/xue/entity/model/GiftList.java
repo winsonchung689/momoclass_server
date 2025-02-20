@@ -29,7 +29,7 @@ public class GiftList {
 
     private Integer amount;
 
-    private String send_type;
+    private Integer send_type;
 
 
 
