@@ -7496,13 +7496,22 @@ public class LoginController {
 	@ResponseBody
 	public String updateVideoViewsById(HttpServletRequest request, HttpServletResponse response){
 		//获取用户名
-		String video_id = request.getParameter("video_id");
+		String id = request.getParameter("id");
+		String openid = request.getParameter("openid");
 
 		try {
-			List<Message> messages = dao.getDetails(Integer.parseInt(video_id));
-			Integer views = messages.get(0).getViews() + 1;
-			dao.updateVideoViewsById(video_id,views);
-
+			List<Message> messages = dao.getDetails(Integer.parseInt(id));
+			Message message = messages.get(0);
+			String student_name = message.getStudent_name();
+			Integer views = message.getViews();
+			List<User> users = getUserByOpenid(openid);
+			for(int i=0;i<users.size();i++){
+				User user = users.get(i);
+				String student_get = user.getSubject();
+				if(student_name.equals(student_get)){
+					dao.updateVideoViewsById(id,views + 1);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
