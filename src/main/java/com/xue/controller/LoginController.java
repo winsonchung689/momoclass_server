@@ -481,24 +481,24 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPaymentNotice")
 	@ResponseBody
-	public String sendPaymentNotice(String token, String openid, String studio, String amount,String days){
+	public String sendPaymentNotice(String openid,String amount,String days,String mark){
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"AA\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
-		studio = user.getStudio();
+		String studio = user.getStudio();
 		String nick_name = user.getNick_name();
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
+			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			JSONObject queryJson = JSONObject.parseObject(model);
 			queryJson.put("touser","oFTmu6Z3Wg2hiAXMe13yGsz35opY");
 			queryJson.getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
 			queryJson.getJSONObject("data").getJSONObject("thing17").put("value","支付" + amount +"元,续费" + days + "天" );
-			queryJson.getJSONObject("data").getJSONObject("short_thing5").put("value","待处理");
+			queryJson.getJSONObject("data").getJSONObject("short_thing5").put("value",mark);
 
 			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
