@@ -332,8 +332,10 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String create_time = line.getCreate_time();
+                Integer views = line.getViews();
 
                 //json
+                jsonObject.put("views", views);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("comment", comment);
@@ -453,8 +455,10 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String create_time = line.getCreate_time();
+                Integer views = line.getViews();
 
                 //json
+                jsonObject.put("views", views);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("comment", comment);
@@ -6590,7 +6594,10 @@ public class LoginServiceImpl implements LoginService {
                         e.printStackTrace();
                     }
 
+                    Integer views = line.getViews();
+
                     //json
+                    jsonObject.put("views", views);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("class_name", class_name);
                     jsonObject.put("comment", comment);

@@ -7500,7 +7500,7 @@ public class LoginController {
 
 		try {
 			List<Message> messages = dao.getDetails(Integer.parseInt(video_id));
-			Integer views = messages.get(0).getViews() + 5;
+			Integer views = messages.get(0).getViews() + 1;
 			dao.updateVideoViewsById(video_id,views);
 
 		} catch (Exception e) {
