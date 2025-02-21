@@ -7504,7 +7504,7 @@ public class LoginController {
 			Message message = messages.get(0);
 			String student_name = message.getStudent_name();
 			Integer views = message.getViews();
-			List<User> users = getUserByOpenid(openid);
+			List<User> users = dao.getUserByOpenid(openid);
 			for(int i=0;i<users.size();i++){
 				User user = users.get(i);
 				String student_get = user.getSubject();
