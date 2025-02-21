@@ -7507,7 +7507,7 @@ public class LoginController {
 			List<User> users = dao.getUserByOpenid(openid);
 			for(int i=0;i<users.size();i++){
 				User user = users.get(i);
-				String student_get = user.getSubject();
+				String student_get = user.getStudent_name();
 				if(student_name.equals(student_get)){
 					dao.updateVideoViewsById(id,views + 1);
 				}
