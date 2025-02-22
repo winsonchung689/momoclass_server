@@ -2143,6 +2143,22 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getArrangementClassType")
+	@ResponseBody
+	public Integer getArrangementClassType(String studio,String openid){
+		Integer class_type = 0;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			List<Arrangement> arrangements = dao.getArrangements(studio,campus);
+			Arrangement arrangement = arrangements.get(0);
+			class_type = arrangement.getClass_type();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return class_type;
+	}
+
 
 	//	获取课程列表
 	@RequestMapping("/getArrangementsByDate")
