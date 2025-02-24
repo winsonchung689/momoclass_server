@@ -1378,6 +1378,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", 0);
                         jsonObject.put("left_amount", 0);
+                        jsonObject.put("counts", 1);
                         resul_list.add(jsonObject);
                     }
                 }
