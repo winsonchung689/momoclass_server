@@ -1386,6 +1386,8 @@ public class LoginServiceImpl implements LoginService {
         }else {
             if("全科目".equals(subject)){
                 lessons = dao.getLesson(studio,campus);
+                List<Lesson> go_lesson = dao.getGoneStudent(studio,campus);
+                lessons.addAll(go_lesson);
             }else{
                 lessons = dao.getLessonBySubject(studio,subject,campus);
             }
