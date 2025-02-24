@@ -4232,7 +4232,7 @@ public class LoginController {
 
 			String counts =  request.getParameter("counts");
 			if(counts == null || counts.isEmpty() || "undefined".equals(counts)){
-				counts = "0";
+				counts = "1";
 			}
 
 			String amount =  request.getParameter("amount");
@@ -4254,21 +4254,6 @@ public class LoginController {
 			order.setAmount(Float.parseFloat(amount));
 			order.setCounts(Integer.parseInt(counts));
 			order.setSub_goods_id(sub_goods_id);
-
-			if("简易团购".equals(type)){
-				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-				Float cut_step = goodsLists.get(0).getCut_step();
-				Float group_price = goodsLists.get(0).getGroup_price();
-				if("leader".equals(group_role)){
-					order.setCut_price(group_price-cut_step);
-				}else {
-					List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
-					Float cut_price = orders.get(0).getCut_price();
-					Float cut_price_new = cut_price - cut_step;
-					order.setCut_price(cut_price_new);
-					dao.modifyOrderCutPrice(goods_id,leader_id,cut_price_new);
-				}
-			}
 
 			loginService.insertOrder(order);
 		} catch (Exception e) {
