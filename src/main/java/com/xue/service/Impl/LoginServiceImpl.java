@@ -4240,6 +4240,9 @@ public class LoginServiceImpl implements LoginService {
                     sub_goods_name  = goodsList1.getGoods_name();
                 }
 
+                List<Order> success_orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
+                int group_sum = success_orders.size();
+
                 jsonObject.put("id", id);
                 jsonObject.put("sub_goods_name", sub_goods_name);
                 jsonObject.put("client_name", client_name);
@@ -4259,6 +4262,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
                 jsonObject.put("type", type);
                 jsonObject.put("counts", counts);
                 jsonObject.put("amount", amount);
