@@ -4227,8 +4227,16 @@ public class LoginServiceImpl implements LoginService {
                 type = line.getType();
                 Integer counts = line.getCounts();
                 Float amount = line.getAmount();
+                String sub_goods_id = line.getSub_goods_id();
+                List<GoodsList> goodsLists1 = dao.getGoodsListById(sub_goods_id);
+                String sub_goods_name = "无";
+                if(goodsLists1.size()>0){
+                    GoodsList goodsList1 = goodsLists1.get(0);
+                    sub_goods_name  = goodsList1.getGoods_name();
+                }
 
                 jsonObject.put("id", id);
+                jsonObject.put("sub_goods_name", sub_goods_name);
                 jsonObject.put("client_name", client_name);
                 jsonObject.put("client_student", client_student);
                 jsonObject.put("goods_id", goods_id);
