@@ -1426,10 +1426,11 @@ public class LoginServiceImpl implements LoginService {
                         }
 
                         jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get+"("+ counts +")");
+                        jsonObject.put("subject", subject_get);
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
+                        jsonObject.put("counts", counts);
                         resul_list.add(jsonObject);
                     }
                 }else if("月请假".equals(type)){
@@ -1440,10 +1441,11 @@ public class LoginServiceImpl implements LoginService {
                             counts = counts + 1;
                         }
                         jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get+"("+ counts +")");
+                        jsonObject.put("subject", subject_get);
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
+                        jsonObject.put("counts", counts);
                         resul_list.add(jsonObject);
                     }
                 }
