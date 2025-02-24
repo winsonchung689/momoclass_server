@@ -1794,6 +1794,8 @@ public class LoginController {
 					}
 				}
 				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
+			}else if("pay_type".equals(type)){
+				dao.modifyGoodsPayType(goods_id,studio,campus,goods_intro_modify);
 			}
 
 		} catch (Exception e) {

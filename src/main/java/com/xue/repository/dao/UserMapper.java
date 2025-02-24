@@ -280,6 +280,8 @@ public interface UserMapper {
 
     void modifyGoodsGroupPrice(String id,String studio,String campus,String goods_intro);
 
+    void modifyGoodsPayType(String id,String studio,String campus,String pay_type);
+
     void modifyGoodsCutStep(String id,String studio,String campus,String goods_intro);
 
     void modifyGoodsSeckillPrice(String id,String studio,String campus,String goods_intro);

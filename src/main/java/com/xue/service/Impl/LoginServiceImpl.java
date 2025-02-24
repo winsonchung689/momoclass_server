@@ -10131,7 +10131,6 @@ public class LoginServiceImpl implements LoginService {
                 group_price = line.getGroup_price();
                 Timestamp expired_time = line.getExpired_time();
                 Float seckill_price = line.getSeckill_price();
-//                photo = line.getPhoto();
                 id = line.getId();
                 int like_count = 0;
                 List<GoodsLike> goodsLikes1 = dao.getGoodsLikeByGoodsId(id);
@@ -10167,8 +10166,10 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float cut_step = line.getCut_step();
+                Integer pay_type = line.getPay_type();
 
                 //json
+                jsonObject.put("pay_type", pay_type);
                 jsonObject.put("cut_step", cut_step);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
