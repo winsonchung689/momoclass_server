@@ -1206,7 +1206,7 @@
   </select>
 
   <select id="getSignUpDetailByMonthStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} order by create_time
+    select * from sign_up_record where student_name =#{param1} and delete_status = 0 and studio = #{param2} and date_format(create_time,'%Y-%m') =#{param3} and campus =#{param4} and subject =#{param5} and mark &lt;&gt; '录前消课' order by create_time
   </select>
 
   <select id="getTryDetailByMonthStudent" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
