@@ -4307,17 +4307,22 @@ public class LoginServiceImpl implements LoginService {
                     group_status = "已成团";
                 }
 
-
+                String avartar_leader = null;
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
-                    studio = users.get(0).getStudio();
-                    campus =  users.get(0).getCampus();
+                    User user = users.get(0);
+                    studio = user.getStudio();
+                    campus =  user.getCampus();
+                    avartar_leader = user.getAvatarurl();
                 }
 
+                String avartar_follow = null;
                 String student_name = null;
                 List<User> users1 = dao.getUserByOpenid(openid);
                 if(users1.size()>0){
-                    student_name = users1.get(0).getStudent_name();
+                    User user1 = users1.get(0);
+                    student_name = user1.getStudent_name();
+                    avartar_follow = user1.getAvatarurl();
                 }
 
                 String status_get="已发货";
@@ -4346,6 +4351,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_sum", group_sum);
                 jsonObject.put("cut_price", cut_price);
                 jsonObject.put("student_name", student_name);
+                jsonObject.put("avartar_leader", avartar_leader);
+                jsonObject.put("avartar_follow", avartar_follow);
 
                 //json
                 resul_list.add(jsonObject);
