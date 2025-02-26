@@ -2,6 +2,13 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.wechat.pay.java.core.Config;
+import com.wechat.pay.java.core.RSAPublicKeyConfig;
+import com.wechat.pay.java.service.payments.jsapi.model.Payer;
+import com.wechat.pay.java.service.payments.jsapi.JsapiService;
+import com.wechat.pay.java.service.payments.jsapi.model.Amount;
+import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
+import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -3639,54 +3646,54 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
-    private String generateNonceStr() {
-        return Long.toString(System.currentTimeMillis());
-    }
-
-    private String generateOrderNo() {
-        return "ORDER_" + System.currentTimeMillis();
-    }
-
     @Override
     public List getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
-        String jspai_url = Constants.jspaip_url;
+//        String jspai_url = Constants.jspaip_url;
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("mchid",mchid);
-        jsonObject.put("appid",appid);
-        jsonObject.put("description",description);
-        jsonObject.put("notify_url",notify_url);
-        jsonObject.put("out_trade_no",generateOrderNo());
+        // 使用微信支付公钥的RSA配置
+        Config config = new RSAPublicKeyConfig.Builder()
+                .merchantId(mchid)
+                .privateKeyFromPath("")
+                .publicKeyFromPath("")
+                .publicKeyId("")
+                .merchantSerialNumber("")
+                .apiV3Key("")
+                .build();
 
-        JSONObject amount  = new JSONObject();
-        amount.put("total",total);
-        amount.put("currency","CNY");
-        jsonObject.put("amount",amount);
+        // 构建service
+        JsapiService service = new JsapiService.Builder().config(config).build();
+        // request.setXxx(val)设置所需参数，具体参数可见Request定义
+        PrepayRequest request = new PrepayRequest();
+        Amount amount = new Amount();
+        amount.setTotal(total);
+        request.setAmount(amount);
+        request.setAppid(appid);
+        request.setMchid(mchid);
+        request.setDescription(description);
+        request.setNotifyUrl(notify_url);
+        request.setOutTradeNo(WechatPayUtil.generateOrderNo());
+        Payer payer = new Payer();
+        payer.setOpenid(openid);
+        request.setPayer(payer);
 
-        JSONObject payer = new JSONObject();
-        payer.put("openid",openid);
-        jsonObject.put("payer",payer);
+        // 获取prepay_id
+        PrepayResponse response = service.prepay(request);
+        String prepay_id = response.getPrepayId();
 
+        // 返回数据给前端
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject result_json = new JSONObject();
-        try {
-            Long timestamp = System.currentTimeMillis()/1000;
-            String nonceStr = WechatPayUtil.generateNonceStr();
-            String prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
+        Long timestamp = System.currentTimeMillis()/1000;
+        String nonceStr = WechatPayUtil.generateNonceStr();
 
-            result_json.put("timeStamp",String.valueOf(timestamp));
-            result_json.put("nonceStr",nonceStr);
-            result_json.put("package","prepay_id=" + prepay_id);
-            result_json.put("signType","RSA");
-            result_json.put("paySign","");
-
-            resul_list.add(result_json);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        result_json.put("timeStamp",String.valueOf(timestamp));
+        result_json.put("nonceStr",nonceStr);
+        result_json.put("package","prepay_id=" + prepay_id);
+        result_json.put("signType","RSA");
+        result_json.put("paySign","");
+        resul_list.add(result_json);
 
         return resul_list;
     }

@@ -12,13 +12,9 @@ public class WechatPayUtil {
         return uuid.substring(0, 16);
     }
 
-    public String getSign(String appid,long timestamp,String nonceStr,String pack){
-        String message = appid + "\n" + timestamp + "\n" + nonceStr + "\n" + pack  + "\n";
-
-
-
-
-        return null;
+    // 生成订单
+    public static String generateOrderNo() {
+        return "ORDER_" + System.currentTimeMillis();
     }
 
 }
