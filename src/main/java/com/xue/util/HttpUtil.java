@@ -150,14 +150,44 @@ public class HttpUtil {
         }
     }
 
-    public static String sendPayPost(String url,String body) throws IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException{
+    public static String sendWeChatPayPost(String url,String body) throws IOException{
 
+        // 创建默认的httpClient实例。
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        // 创建httppost
+        HttpPost httpPost = new HttpPost (url);
 
+        StringEntity entity = new StringEntity(body,"UTF-8");
+        entity.setContentType("application/json");
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept","application/json");
+        httpPost.setHeader("Content-Type","application/json");
 
+        String result = null;
+        CloseableHttpResponse response = httpClient.execute(httpPost);
+        System.out.println(response);
 
-
+        try {
+            int statusCode = response.getStatusLine().getStatusCode();
+            System.out.println(statusCode);
+            if(statusCode == 200){
+                result = EntityUtils.toString(response.getEntity());
+                System.out.println("suceess,resp code =" + statusCode + ",return body =" + result);
+                return result;
+            }else if(statusCode == 204){
+                System.out.println("suceess,return body =" + statusCode);
+            }else {
+                System.out.printf("failed,resp code =" + statusCode + ", return body = " + result);
+                throw new IOException("request failed");
+            }
+        } finally {
+            response.close();
+        }
         return null;
     }
+
+
+
 
 }
 

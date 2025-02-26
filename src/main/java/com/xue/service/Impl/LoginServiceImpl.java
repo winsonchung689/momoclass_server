@@ -2,6 +2,7 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xue.JsonUtils.JsonUtils;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -3638,6 +3639,47 @@ public class LoginServiceImpl implements LoginService {
             e.printStackTrace();
         }
         return resul_list;
+    }
+
+    private String generateNonceStr() {
+        return Long.toString(System.currentTimeMillis());
+    }
+
+    private String generateOrderNo() {
+        return "ORDER_" + System.currentTimeMillis();
+    }
+
+    @Override
+    public String getWeChatPay(String openid,String mchid,String appid,String description) {
+
+        String notify_url = Constants.notify_url;
+        String jspai_url = Constants.jspaip_url;
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("mchid",mchid);
+        jsonObject.put("appid",appid);
+        jsonObject.put("description",description);
+        jsonObject.put("notify_url",notify_url);
+        jsonObject.put("out_trade_no",generateOrderNo());
+
+        JSONObject amount  = new JSONObject();
+        amount.put("total",100);
+        amount.put("currency","CNY");
+        jsonObject.put("amount",amount);
+
+        JSONObject payer = new JSONObject();
+        payer.put("openid",openid);
+        jsonObject.put("payer",payer);
+
+
+        String prepay_id = null;
+        try {
+            prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return prepay_id;
     }
 
     @Override

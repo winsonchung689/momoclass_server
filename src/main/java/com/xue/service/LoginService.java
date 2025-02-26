@@ -204,6 +204,8 @@ public interface LoginService {
 
     public List getBBookDetail(String openid,String date_time,String book_name);
 
+    public String getWeChatPay(String openid,String mchid,String appid,String description);
+
     public List getRestaurantUserAll(String openid);
 
     public List getRestaurantOrder(String openid,String type);
