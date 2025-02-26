@@ -123,8 +123,15 @@
   <resultMap id="BaseAlbum" type="com.xue.entity.model.Album">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
+  <resultMap id="BaseMerchant" type="com.xue.entity.model.Merchant">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
 
 
+  <!-- 获取商户 -->
+  <select id="getMerchant" parameterType="com.xue.entity.model.Merchant" resultMap="BaseMerchant">
+    select * from merchant where studio =#{param1} and campus =#{param2} and appid =#{param3} and delete_status = 0;
+  </select>
 
   <!-- 获取课评模版 -->
   <select id="getCommentModel" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
@@ -1327,6 +1334,11 @@
   <update id="updateGift" parameterType="com.xue.entity.model.Gift">
     update gift_record set status=#{status},create_time=#{create_time},expired_time=#{expired_time} where id=#{id}
   </update>
+
+  <!-- 插入商户 -->
+  <insert id="insertMerchant" parameterType="com.xue.entity.model.Merchant">
+    insert merchant(mchid,appid,openid,studio,campus,create_time) values(#{mchid},#{appid},#{openid},#{studio},#{campus},#{create_time})
+  </insert>
 
   <!-- 插入客户信息 -->
   <insert id="insertUser" parameterType="com.xue.entity.model.User">

@@ -56,16 +56,27 @@ public class LoginController {
 		System.out.println("pay sucessfully");
 	}
 
-	@RequestMapping("/getWeChatPayM1")
+	@RequestMapping("/getWeChatPay")
 	@ResponseBody
-	public String getWeChatPayM1(HttpServletRequest request, HttpServletResponse response){
+	public String getWeChatPay(HttpServletRequest request, HttpServletResponse response){
 
 		String description = request.getParameter("description");
+		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 		String appid = request.getParameter("appid");
-		String mchid = request.getParameter("mchid");
+        List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+        Merchant merchant = merchants.get(0);
+        String mchid = merchant.getMchid();
 
-		String prepay_id = loginService.getWeChatPay(openid,mchid,appid,description);
+		try {
+			String prepay_id = loginService.getWeChatPay(openid,mchid,appid,description,Integer.parseInt(total));
+		} catch (NumberFormatException e) {
+			throw new RuntimeException(e);
+		}
 
 		return null;
 	}

@@ -3650,7 +3650,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String getWeChatPay(String openid,String mchid,String appid,String description) {
+    public String getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
         String jspai_url = Constants.jspaip_url;
@@ -3663,7 +3663,7 @@ public class LoginServiceImpl implements LoginService {
         jsonObject.put("out_trade_no",generateOrderNo());
 
         JSONObject amount  = new JSONObject();
-        amount.put("total",100);
+        amount.put("total",total);
         amount.put("currency","CNY");
         jsonObject.put("amount",amount);
 

@@ -14,6 +14,8 @@ public interface UserMapper {
 
     List<Message> getCommentModel();
 
+    List<Merchant> getMerchant(String studio,String campus,String appid);
+
     List<Album> getAlbum(String student_name,String studio,String campus,Integer page_start,Integer page_length);
 
     List<Contract> getContract(String studio,String campus);
