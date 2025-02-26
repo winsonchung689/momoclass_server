@@ -2,7 +2,7 @@ package com.xue.util;
 
 import java.util.UUID;
 
-public class RandomUtil {
+public class WechatPayUtil {
 
     // 读取本地图片获取输入流
     public static String generateNonceStr() {

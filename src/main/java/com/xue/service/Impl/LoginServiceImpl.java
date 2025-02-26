@@ -9,7 +9,7 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
-import com.xue.util.RandomUtil;
+import com.xue.util.WechatPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -3669,12 +3669,11 @@ public class LoginServiceImpl implements LoginService {
         payer.put("openid",openid);
         jsonObject.put("payer",payer);
 
-
         HashMap<String,Object> map = new HashMap<>();
         try {
             Long timestamp = System.currentTimeMillis()/1000;
             map.put("timeStamp",String.valueOf(timestamp));
-            String nonceStr = RandomUtil.generateNonceStr();
+            String nonceStr = WechatPayUtil.generateNonceStr();
             map.put("nonceStr",nonceStr);
             String prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
             map.put("package","prepay_id=" + prepay_id);
