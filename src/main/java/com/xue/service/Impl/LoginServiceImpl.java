@@ -3647,7 +3647,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
+    public List weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
 //        String jspai_url = Constants.jspaip_url;
@@ -3668,6 +3668,7 @@ public class LoginServiceImpl implements LoginService {
         PrepayRequest request = new PrepayRequest();
         Amount amount = new Amount();
         amount.setTotal(total);
+        amount.setCurrency("CNY");
         request.setAmount(amount);
         request.setAppid(appid);
         request.setMchid(mchid);
@@ -3687,12 +3688,14 @@ public class LoginServiceImpl implements LoginService {
         JSONObject result_json = new JSONObject();
         Long timestamp = System.currentTimeMillis()/1000;
         String nonceStr = WechatPayUtil.generateNonceStr();
+        String pack = "prepay_id=" + prepay_id;
+        String signatureStr = appid + "\n" + timestamp + "\n" + nonceStr + "\n" + pack + "\n";
 
         result_json.put("timeStamp",String.valueOf(timestamp));
         result_json.put("nonceStr",nonceStr);
-        result_json.put("package","prepay_id=" + prepay_id);
+        result_json.put("package",pack);
         result_json.put("signType","RSA");
-        result_json.put("paySign","");
+        result_json.put("paySign",WechatPayUtil.generateSignature(signatureStr,""));
         resul_list.add(result_json);
 
         return resul_list;

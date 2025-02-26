@@ -2,6 +2,7 @@ package com.xue;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.swing.plaf.IconUIResource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -18,6 +19,8 @@ public class test {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+        String signatureStr = "aaaa" + "\n" + "timestamp" + "\n" ;
+        System.out.println(signatureStr);
 
         try {
             Date date_start = fmt.parse("2025-01-12");

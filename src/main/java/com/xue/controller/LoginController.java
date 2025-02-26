@@ -56,9 +56,9 @@ public class LoginController {
 		System.out.println("pay sucessfully");
 	}
 
-	@RequestMapping("/getWeChatPay")
+	@RequestMapping("/weChatPayDirect")
 	@ResponseBody
-	public List getWeChatPay(HttpServletRequest request, HttpServletResponse response){
+	public List weChatPayDirect(HttpServletRequest request, HttpServletResponse response){
 
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
@@ -74,7 +74,7 @@ public class LoginController {
 
 		List list = null;
 		try {
-			list = loginService.getWeChatPay(openid,mchid,appid,description,Integer.parseInt(total));
+			list = loginService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));
 		} catch (NumberFormatException e) {
 			throw new RuntimeException(e);
 		}
