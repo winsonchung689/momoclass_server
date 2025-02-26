@@ -3648,7 +3648,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Map<String ,Object> getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
+    public List getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
         String jspai_url = Constants.jspaip_url;
@@ -3669,23 +3669,26 @@ public class LoginServiceImpl implements LoginService {
         payer.put("openid",openid);
         jsonObject.put("payer",payer);
 
-        HashMap<String,Object> map = new HashMap<>();
+        List<JSONObject> resul_list = new ArrayList<>();
+        JSONObject result_json = new JSONObject();
         try {
             Long timestamp = System.currentTimeMillis()/1000;
-            map.put("timeStamp",String.valueOf(timestamp));
             String nonceStr = WechatPayUtil.generateNonceStr();
-            map.put("nonceStr",nonceStr);
             String prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
-            map.put("package","prepay_id=" + prepay_id);
-            map.put("signType","RSA");
 
-            map.put("paySign","");
+            result_json.put("timeStamp",String.valueOf(timestamp));
+            result_json.put("nonceStr",nonceStr);
+            result_json.put("package","prepay_id=" + prepay_id);
+            result_json.put("signType","RSA");
+            result_json.put("paySign","");
+
+            resul_list.add(result_json);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return map;
+        return resul_list;
     }
 
     @Override

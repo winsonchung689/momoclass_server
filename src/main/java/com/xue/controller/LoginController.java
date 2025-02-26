@@ -58,7 +58,7 @@ public class LoginController {
 
 	@RequestMapping("/getWeChatPay")
 	@ResponseBody
-	public Map<String ,Object> getWeChatPay(HttpServletRequest request, HttpServletResponse response){
+	public List getWeChatPay(HttpServletRequest request, HttpServletResponse response){
 
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
@@ -71,15 +71,15 @@ public class LoginController {
         List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
         Merchant merchant = merchants.get(0);
         String mchid = merchant.getMchid();
-        Map<String,Object> map = new HashMap<>();
 
+		List list = null;
 		try {
-            map = loginService.getWeChatPay(openid,mchid,appid,description,Integer.parseInt(total));
+			list = loginService.getWeChatPay(openid,mchid,appid,description,Integer.parseInt(total));
 		} catch (NumberFormatException e) {
 			throw new RuntimeException(e);
 		}
 
-		return map;
+		return list;
 	}
 
 	@RequestMapping("/sendLeaveRemind")
