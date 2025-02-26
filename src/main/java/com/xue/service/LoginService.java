@@ -1,6 +1,7 @@
 package com.xue.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.xue.entity.model.*;
 
@@ -204,7 +205,7 @@ public interface LoginService {
 
     public List getBBookDetail(String openid,String date_time,String book_name);
 
-    public String getWeChatPay(String openid,String mchid,String appid,String description,Integer total);
+    public Map<String ,Object> getWeChatPay(String openid, String mchid, String appid, String description, Integer total);
 
     public List getRestaurantUserAll(String openid);
 

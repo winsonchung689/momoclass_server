@@ -2,7 +2,6 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.xue.JsonUtils.JsonUtils;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -10,13 +9,12 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
-import org.hibernate.type.IntegerType;
+import com.xue.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.stream.events.Comment;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -3650,7 +3648,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
+    public Map<String ,Object> getWeChatPay(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
         String jspai_url = Constants.jspaip_url;
@@ -3672,14 +3670,23 @@ public class LoginServiceImpl implements LoginService {
         jsonObject.put("payer",payer);
 
 
-        String prepay_id = null;
+        HashMap<String,Object> map = new HashMap<>();
         try {
-            prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
+            Long timestamp = System.currentTimeMillis()/1000;
+            map.put("timeStamp",String.valueOf(timestamp));
+            String nonceStr = RandomUtil.generateNonceStr();
+            map.put("nonceStr",nonceStr);
+            String prepay_id = HttpUtil.sendWeChatPayPost(jspai_url,jsonObject.toString());
+            map.put("package","prepay_id=" + prepay_id);
+            map.put("signType","RSA");
+
+            map.put("paySign","");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return prepay_id;
+        return map;
     }
 
     @Override

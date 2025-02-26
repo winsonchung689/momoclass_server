@@ -163,7 +163,7 @@ public class HttpUtil {
         httpPost.setHeader("Accept","application/json");
         httpPost.setHeader("Content-Type","application/json");
 
-        String result = null;
+        String prepay_id = null;
         CloseableHttpResponse response = httpClient.execute(httpPost);
         System.out.println(response);
 
@@ -171,13 +171,14 @@ public class HttpUtil {
             int statusCode = response.getStatusLine().getStatusCode();
             System.out.println(statusCode);
             if(statusCode == 200){
-                result = EntityUtils.toString(response.getEntity());
-                System.out.println("suceess,resp code =" + statusCode + ",return body =" + result);
-                return result;
+                JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
+                prepay_id = object.getString("prepay_id");
+                System.out.println("suceess,resp code =" + statusCode + ",return body =" + prepay_id);
+                return prepay_id;
             }else if(statusCode == 204){
                 System.out.println("suceess,return body =" + statusCode);
             }else {
-                System.out.printf("failed,resp code =" + statusCode + ", return body = " + result);
+                System.out.printf("failed,resp code =" + statusCode);
                 throw new IOException("request failed");
             }
         } finally {
