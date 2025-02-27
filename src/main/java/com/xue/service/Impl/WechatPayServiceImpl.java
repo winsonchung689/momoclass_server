@@ -1,39 +1,21 @@
 package com.xue.service.Impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.wechat.pay.java.core.Config;
-import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
-import com.wechat.pay.java.core.notification.NotificationConfig;
-import com.wechat.pay.java.core.notification.RSAPublicKeyNotificationConfig;
-import com.wechat.pay.java.service.payments.jsapi.JsapiService;
+import com.wechat.pay.java.service.partnerpayments.jsapi.JsapiServiceExtension;
+import com.wechat.pay.java.service.partnerpayments.jsapi.model.PrepayWithRequestPaymentResponse;
 import com.wechat.pay.java.service.payments.jsapi.model.Amount;
 import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
-import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
-import com.xue.config.TokenCache;
-import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
-import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.service.WechatPayService;
-import com.xue.util.HttpUtil;
 import com.xue.util.WechatPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.*;
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 @Service
 public class WechatPayServiceImpl implements WechatPayService {
@@ -43,11 +25,8 @@ public class WechatPayServiceImpl implements WechatPayService {
     @Autowired
     private UserMapper dao;
 
-    @Autowired
-    private WebPushService webPushService;
-
     @Override
-    public List weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
+    public String weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
 
@@ -62,7 +41,8 @@ public class WechatPayServiceImpl implements WechatPayService {
                 .build();
 
         // 构建service
-        JsapiService service = new JsapiService.Builder().config(config).build();
+        com.wechat.pay.java.service.payments.jsapi.JsapiServiceExtension service = new com.wechat.pay.java.service.payments.jsapi.JsapiServiceExtension.Builder().config(config).build();
+
         // request.setXxx(val)设置所需参数，具体参数可见Request定义
         PrepayRequest request = new PrepayRequest();
         Amount amount = new Amount();
@@ -78,80 +58,51 @@ public class WechatPayServiceImpl implements WechatPayService {
         payer.setOpenid(openid);
         request.setPayer(payer);
 
-        List<JSONObject> resul_list = null;
-        try {
-            // 获取prepay_id
-            PrepayResponse response = service.prepay(request);
-            String prepay_id = response.getPrepayId();
+        // 获取 response
+        com.wechat.pay.java.service.payments.jsapi.model.PrepayWithRequestPaymentResponse response = service.prepayWithRequestPayment(request);
 
-            // 返回数据给前端
-            JSONObject result_json = new JSONObject();
-            Long timestamp = System.currentTimeMillis()/1000;
-            String nonceStr = WechatPayUtil.generateNonceStr();
-            String pack = "prepay_id=" + prepay_id;
-            String signatureStr = appid + "\n" + timestamp + "\n" + nonceStr + "\n" + pack + "\n";
-
-            result_json.put("timeStamp",String.valueOf(timestamp));
-            result_json.put("nonceStr",nonceStr);
-            result_json.put("package",pack);
-            result_json.put("signType","RSA");
-            result_json.put("paySign",WechatPayUtil.generateSignature(signatureStr,""));
-            resul_list.add(result_json);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return resul_list;
+        return response.toString();
     }
 
     @Override
-    public List weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
+    public String weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
 
-        String v3_url = Constants.host_name + "/v3/pay/partner/transactions/jsapi";
+        // 使用微信支付公钥的RSA配置
+        Config config = new RSAPublicKeyConfig.Builder()
+                .merchantId(mchid)
+                .privateKeyFromPath("")
+                .publicKeyFromPath("")
+                .publicKeyId("")
+                .merchantSerialNumber("")
+                .apiV3Key("")
+                .build();
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("sp_appid",appid);
-        jsonObject.put("sp_mchid",mchid);
-        jsonObject.put("sub_appid",appid);
-        jsonObject.put("sub_mchid",sub_mchid);
-        jsonObject.put("description",description);
-        jsonObject.put("out_trade_no",WechatPayUtil.generateOrderNo());
-        jsonObject.put("notify_url",notify_url);
+        // 构建service
+        JsapiServiceExtension jsapiServiceExtension = new JsapiServiceExtension.Builder().config(config).build();
 
-        JSONObject amount = new JSONObject();
-        amount.put("total",total);
-        amount.put("currency","CNY");
-        jsonObject.put("amount",amount);
+        // request.setXxx(val)设置所需参数，具体参数可见Request定义
+        com.wechat.pay.java.service.partnerpayments.jsapi.model.PrepayRequest prepayRequest = new com.wechat.pay.java.service.partnerpayments.jsapi.model.PrepayRequest();
+        com.wechat.pay.java.service.partnerpayments.jsapi.model.Amount amount = new com.wechat.pay.java.service.partnerpayments.jsapi.model.Amount();
+        amount.setTotal(total);
+        amount.setCurrency("CNY");
+        prepayRequest.setAmount(amount);
+        prepayRequest.setSpAppid(appid);
+        prepayRequest.setSpMchid(mchid);
+        prepayRequest.setSubAppid(appid);
+        prepayRequest.setSubMchid(sub_mchid);
+        prepayRequest.setDescription(description);
+        prepayRequest.setNotifyUrl(notify_url);
+        prepayRequest.setOutTradeNo(WechatPayUtil.generateOrderNo());
+        com.wechat.pay.java.service.partnerpayments.jsapi.model.Payer payer = new com.wechat.pay.java.service.partnerpayments.jsapi.model.Payer();
+        payer.setSpOpenid(openid);
+        prepayRequest.setPayer(payer);
 
-        JSONObject payer = new JSONObject();
-        payer.put("sp_openid",openid);
-        jsonObject.put("payer",payer);
+        // 获取response
+        PrepayWithRequestPaymentResponse prepayResponse = jsapiServiceExtension.prepayWithRequestPayment(prepayRequest,appid);
 
-        List<JSONObject> resul_list = new ArrayList<>();
-        try {
-            String prepay_id = HttpUtil.sendWeChatPayPost(v3_url,jsonObject.toString());
-
-            // 返回数据给前端
-            JSONObject result_json = new JSONObject();
-            Long timestamp = System.currentTimeMillis()/1000;
-            String nonceStr = WechatPayUtil.generateNonceStr();
-            String pack = "prepay_id=" + prepay_id;
-            String signatureStr = appid + "\n" + timestamp + "\n" + nonceStr + "\n" + pack + "\n";
-
-            result_json.put("timeStamp",String.valueOf(timestamp));
-            result_json.put("nonceStr",nonceStr);
-            result_json.put("package",pack);
-            result_json.put("signType","RSA");
-            result_json.put("paySign",WechatPayUtil.generateSignature(signatureStr,""));
-            resul_list.add(result_json);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        return resul_list;
+        return prepayResponse.toString();
     }
 
 

@@ -11,12 +11,33 @@ public class Merchant {
 
     private String mchid;
 
+    private String sub_mchid;
+
     private String appid;
+
+    private String sub_appid;
 
     private String openid;
 
     private String create_time;
 
+
+
+    public String getSub_appid() {
+        return sub_appid;
+    }
+
+    public void setSub_appid(String sub_appid) {
+        this.sub_appid = sub_appid;
+    }
+
+    public String getSub_mchid() {
+        return sub_mchid;
+    }
+
+    public void setSub_mchid(String sub_mchid) {
+        this.sub_mchid = sub_mchid;
+    }
 
     public String getMchid() {
         return mchid;
