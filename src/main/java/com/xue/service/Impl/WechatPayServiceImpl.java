@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
+import com.wechat.pay.java.core.notification.NotificationConfig;
+import com.wechat.pay.java.core.notification.RSAPublicKeyNotificationConfig;
 import com.wechat.pay.java.service.payments.jsapi.JsapiService;
 import com.wechat.pay.java.service.payments.jsapi.model.Amount;
 import com.wechat.pay.java.service.payments.jsapi.model.Payer;
@@ -50,9 +52,11 @@ public class WechatPayServiceImpl implements WechatPayService {
         String notify_url = Constants.notify_url;
 
         // 使用微信支付公钥的RSA配置
-        Config config = new RSAAutoCertificateConfig.Builder()
+        Config config = new RSAPublicKeyConfig.Builder()
                 .merchantId(mchid)
                 .privateKeyFromPath("")
+                .publicKeyFromPath("")
+                .publicKeyId("")
                 .merchantSerialNumber("")
                 .apiV3Key("")
                 .build();

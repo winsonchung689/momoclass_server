@@ -24,10 +24,10 @@ public class WechatPayUtil {
     }
 
     // RSA签名
-    public static String generateSignature(String signatureStr,String privateKey){
+    public static String generateSignature(String signatureStr,String privateKeyPath){
 
         try {
-            PrivateKey merchantPrivatekey = PemUtil.loadPrivateKeyFromPath(privateKey);
+            PrivateKey merchantPrivatekey = PemUtil.loadPrivateKeyFromPath(privateKeyPath);
             Signature signature = Signature.getInstance("SHA256withRSA");
             signature.initSign(merchantPrivatekey);
             signature.update(signatureStr.getBytes(StandardCharsets.UTF_8));
