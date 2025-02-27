@@ -37,6 +37,8 @@ public class WechatPayController {
 		String mchid = request.getParameter("mchid");
 		String appid = request.getParameter("appid");
 		String openid = request.getParameter("openid");
+		String sub_mchid = request.getParameter("sub_mchid");
+		String sub_appid = request.getParameter("sub_appid");
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String studio = user.getStudio();
@@ -49,6 +51,8 @@ public class WechatPayController {
 			merchant.setOpenid(openid);
 			merchant.setStudio(studio);
 			merchant.setCampus(campus);
+			merchant.setSub_appid(sub_appid);
+			merchant.setSub_mchid(sub_mchid);
 			merchant.setCreate_time(create_time);
 
 			dao.insertMerchant(merchant);
