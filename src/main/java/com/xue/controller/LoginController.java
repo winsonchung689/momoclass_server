@@ -7,6 +7,7 @@ import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
+import com.xue.service.WechatPayService;
 import com.xue.util.HttpUtil;
 import jxl.Cell;
 import jxl.Sheet;
@@ -44,6 +45,9 @@ public class LoginController {
 	private LoginService loginService;
 
 	@Autowired
+	private WechatPayService wechatPayService;
+
+	@Autowired
 	private WebPushService webPushService;
 
 	@Autowired
@@ -74,7 +78,7 @@ public class LoginController {
 
 		List list = null;
 		try {
-			list = loginService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));
+			list = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));
 		} catch (NumberFormatException e) {
 			throw new RuntimeException(e);
 		}

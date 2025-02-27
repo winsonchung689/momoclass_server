@@ -3647,61 +3647,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
-
-        String notify_url = Constants.notify_url;
-//        String jspai_url = Constants.jspaip_url;
-
-        // 使用微信支付公钥的RSA配置
-        Config config = new RSAPublicKeyConfig.Builder()
-                .merchantId(mchid)
-                .privateKeyFromPath("")
-                .publicKeyFromPath("")
-                .publicKeyId("")
-                .merchantSerialNumber("")
-                .apiV3Key("")
-                .build();
-
-        // 构建service
-        JsapiService service = new JsapiService.Builder().config(config).build();
-        // request.setXxx(val)设置所需参数，具体参数可见Request定义
-        PrepayRequest request = new PrepayRequest();
-        Amount amount = new Amount();
-        amount.setTotal(total);
-        amount.setCurrency("CNY");
-        request.setAmount(amount);
-        request.setAppid(appid);
-        request.setMchid(mchid);
-        request.setDescription(description);
-        request.setNotifyUrl(notify_url);
-        request.setOutTradeNo(WechatPayUtil.generateOrderNo());
-        Payer payer = new Payer();
-        payer.setOpenid(openid);
-        request.setPayer(payer);
-
-        // 获取prepay_id
-        PrepayResponse response = service.prepay(request);
-        String prepay_id = response.getPrepayId();
-
-        // 返回数据给前端
-        List<JSONObject> resul_list = new ArrayList<>();
-        JSONObject result_json = new JSONObject();
-        Long timestamp = System.currentTimeMillis()/1000;
-        String nonceStr = WechatPayUtil.generateNonceStr();
-        String pack = "prepay_id=" + prepay_id;
-        String signatureStr = appid + "\n" + timestamp + "\n" + nonceStr + "\n" + pack + "\n";
-
-        result_json.put("timeStamp",String.valueOf(timestamp));
-        result_json.put("nonceStr",nonceStr);
-        result_json.put("package",pack);
-        result_json.put("signType","RSA");
-        result_json.put("paySign",WechatPayUtil.generateSignature(signatureStr,""));
-        resul_list.add(result_json);
-
-        return resul_list;
-    }
-
-    @Override
     public List getRestaurantUserAll(String openid) {
         String role = null;
         String avatarurl = null;
