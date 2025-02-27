@@ -47,6 +47,38 @@ public class WechatPayController {
 	@Autowired
 	private UserMapper dao;
 
+	@RequestMapping("/insertMerchant")
+	@ResponseBody
+	public String insertMerchant(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String mchid = request.getParameter("mchid");
+		String appid = request.getParameter("appid");
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		User user = users.get(0);
+		String studio = user.getStudio();
+		String campus = user.getCampus();
+
+		try {
+			Merchant merchant = new Merchant();
+			merchant.setAppid(appid);
+			merchant.setMchid(mchid);
+			merchant.setOpenid(openid);
+			merchant.setStudio(studio);
+			merchant.setCampus(campus);
+			merchant.setCreate_time(create_time);
+
+			dao.insertMerchant(merchant);
+		} catch (Exception e) {
+//					e.printStackTrace();
+		}
+
+		return "push massage successfully";
+	}
+
+
 	@RequestMapping("/getWeChatPayNotify")
 	@ResponseBody
 	public void getWeChatPayNotify(){
@@ -78,6 +110,8 @@ public class WechatPayController {
 
 		return list;
 	}
+
+
 
 
 }
