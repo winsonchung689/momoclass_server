@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.service.RestaurantService;
 import com.xue.util.HttpUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class RestaurantController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private RestaurantService restaurantService;
 
 	@Autowired
 	private UserMapper dao;
@@ -65,7 +69,7 @@ public class RestaurantController {
 		restaurantUser.setCreate_time(create_time);
 		restaurantUser.setExpired_time(expired_time);
 
-		loginService.insertRestaurantUser(restaurantUser);
+		restaurantService.insertRestaurantUser(restaurantUser);
 		return "push massage successfully";
 	}
 
@@ -177,7 +181,7 @@ public class RestaurantController {
 	public List getRestaurantUser(String openid){
 		List list = null;
 		try {
-			list = loginService.getRestaurantUser(openid);
+			list = restaurantService.getRestaurantUser(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -189,7 +193,7 @@ public class RestaurantController {
 	public List getRestaurantUserAll(String openid){
 		List list = null;
 		try {
-			list = loginService.getRestaurantUserAll(openid);
+			list = restaurantService.getRestaurantUserAll(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -225,7 +229,7 @@ public class RestaurantController {
 	public List getRestaurantOrder(String openid,String type){
 		List list = null;
 		try {
-			list = loginService.getRestaurantOrder(openid,type);
+			list = restaurantService.getRestaurantOrder(openid,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -237,7 +241,7 @@ public class RestaurantController {
 	public List getRestaurantCategory(String restaurant){
 		List list = null;
 		try {
-			list = loginService.getRestaurantCategory(restaurant);
+			list = restaurantService.getRestaurantCategory(restaurant);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -249,7 +253,7 @@ public class RestaurantController {
 	public List getRestaurantMenu(String restaurant){
 		List list = null;
 		try {
-			list = loginService.getRestaurantMenu(restaurant);
+			list = restaurantService.getRestaurantMenu(restaurant);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

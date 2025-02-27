@@ -175,8 +175,6 @@ public interface LoginService {
 
     public int  deleteLesson(Integer id,String role,String studio,String openid,String student_name);
 
-    public int insertRestaurantUser(RestaurantUser restaurantUser);
-
     public int insertBookUser(BookUser bookUser);
 
     public int updateUser(User user);
@@ -199,19 +197,9 @@ public interface LoginService {
 
     public List getPptMenuById(String id);
 
-    public List getRestaurantUser(String openid);
-
     public List getBookUser(String openid);
 
     public List getBBookDetail(String openid,String date_time,String book_name);
-
-    public List getRestaurantUserAll(String openid);
-
-    public List getRestaurantOrder(String openid,String type);
-
-    public List getRestaurantCategory(String restaurant);
-
-    public List getRestaurantMenu(String restaurant);
 
     public List getUserByNickName(String nickName);
 
