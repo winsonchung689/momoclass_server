@@ -53,39 +53,6 @@ public class LoginController {
 	@Autowired
 	private UserMapper dao;
 
-
-	@RequestMapping("/getWeChatPayNotify")
-	@ResponseBody
-	public void getWeChatPayNotify(){
-		System.out.println("pay sucessfully");
-	}
-
-	@RequestMapping("/weChatPayDirect")
-	@ResponseBody
-	public List weChatPayDirect(HttpServletRequest request, HttpServletResponse response){
-
-		String description = request.getParameter("description");
-		String total = request.getParameter("total");
-		String openid = request.getParameter("openid");
-        List<User> users = dao.getUser(openid);
-        User user = users.get(0);
-        String studio = user.getStudio();
-        String campus = user.getCampus();
-		String appid = request.getParameter("appid");
-        List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
-        Merchant merchant = merchants.get(0);
-        String mchid = merchant.getMchid();
-
-		List list = null;
-		try {
-			list = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));
-		} catch (NumberFormatException e) {
-			throw new RuntimeException(e);
-		}
-
-		return list;
-	}
-
 	@RequestMapping("/sendLeaveRemind")
 	@ResponseBody
 	public String sendLeaveRemind(String token, String openid, String studio,String subject,String student_name,String date_time,String mark_leave,String makeup_date){
