@@ -26,10 +26,6 @@ public class Constants {
     // 微信支付url
     public static final String notify_url = "https://www.momoclasss.xyz:443/getWeChatPayNotify";
 
-    public static final String v3_url = "https://api.mch.weixin.qq.com";
-
-    public static final String direct_url = "https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi";
-
-    public static final String partner_url = "https://api.mch.weixin.qq.com/v3/pay/partner/transactions/jsapi";
+    public static final String host_name = "https://api.mch.weixin.qq.com";
 
 }
