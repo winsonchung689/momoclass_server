@@ -479,7 +479,7 @@ public class LoginController {
 			JSONObject queryJson = JSONObject.parseObject(model);
 			queryJson.put("touser","oFTmu6Z3Wg2hiAXMe13yGsz35opY");
 			queryJson.getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
-			queryJson.getJSONObject("data").getJSONObject("thing17").put("value","支付" + amount +"元,续费" + days + "天" );
+			queryJson.getJSONObject("data").getJSONObject("thing17").put("value","金额" + amount +"元,续期" + days + "天" );
 			queryJson.getJSONObject("data").getJSONObject("short_thing5").put("value",mark);
 
 			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
