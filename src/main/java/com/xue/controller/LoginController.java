@@ -537,11 +537,10 @@ public class LoginController {
 	//续费成功通知
 	@RequestMapping("/sendFeedback")
 	@ResponseBody
-	public String sendFeedback(String token, String openid, String studio, String expired_time,String days){
+	public String sendFeedback(String openid, String studio, String expired_time,String days){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
-		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
@@ -549,8 +548,8 @@ public class LoginController {
 		String official_openid = user.getOfficial_openid();
 
 		try {
-			token = loginService.getToken("MOMO_OFFICIAL");
-			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+			String token = loginService.getToken("MOMO_OFFICIAL");
+			String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			if(official_openid != null){
 				String[] official_list = official_openid.split(",");
 				for(int j=0;j<official_list.length;j++){
@@ -558,7 +557,7 @@ public class LoginController {
 					JSONObject queryJson = JSONObject.parseObject(model);
 					queryJson.put("touser",official_openid_get);
 					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
-					queryJson.getJSONObject("data").getJSONObject("thing4").put("value","续费" + days + "天" );
+					queryJson.getJSONObject("data").getJSONObject("thing4").put("value","续期" + days + "天" );
 					queryJson.getJSONObject("data").getJSONObject("character_string3").put("value","TO"+expired_time );
 					queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
 
