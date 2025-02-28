@@ -2946,50 +2946,6 @@ public class LoginController {
 		return 1;
 	}
 
-	@RequestMapping("/insertSignUp")
-	@ResponseBody
-	public int insertSignUp(HttpServletRequest request, HttpServletResponse response){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String update_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-		try {
-			String openid = request.getParameter("openid");
-			String studio = request.getParameter("studio");
-			String consume_lesson_amount = request.getParameter("consume_lesson_amount");
-			String student_name = request.getParameter("student_name");
-			String mark = request.getParameter("mark");
-			String subject = request.getParameter("subject");
-			String package_id = request.getParameter("package_id");
-			if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
-				package_id = "0";
-			}
-
-			List<User> users = dao.getUser(openid);
-			String nick_name = users.get(0).getNick_name();
-
-			SignUp signUp = new SignUp();
-			signUp.setStudent_name(student_name);
-			signUp.setStudio(studio);
-			signUp.setSign_time(update_time);
-			signUp.setMark("划课_"+mark);
-			signUp.setCount(Float.parseFloat(consume_lesson_amount));
-			signUp.setSubject(subject);
-			signUp.setTeacher(nick_name);
-			signUp.setCreate_time(update_time);
-			signUp.setDuration("00:00:00");
-			signUp.setClass_number("无班号");
-			signUp.setPackage_id(package_id);
-			List<User> list = dao.getUser(openid);
-			String campus = list.get(0).getCampus();
-			signUp.setCampus(campus);
-
-			loginService.insertSignUp(signUp);
-		} catch (Exception e) {
-//			throw new RuntimeException(e);
-		}
-		return 1;
-	}
-
 	@RequestMapping("/insertAnnouncement")
 	@ResponseBody
 	public int insertAnnouncement(HttpServletRequest request, HttpServletResponse response){
