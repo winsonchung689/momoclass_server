@@ -487,7 +487,7 @@ public class LoginController {
 			throw new RuntimeException(e);
 		}
 
-
+		// 系统续费
 		if("系统续费".equals(mark)){
 			try {
 				if(diff > 0){
@@ -513,7 +513,7 @@ public class LoginController {
 			dao.updateUserPay(user_new);
 		}
 
-
+		// 发通知给管理员
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
