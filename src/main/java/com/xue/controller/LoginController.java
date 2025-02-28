@@ -463,7 +463,11 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPaymentNotice")
 	@ResponseBody
-	public String sendPaymentNotice(String openid,String amount,String days,String mark){
+	public String sendPaymentNotice(String openid,String amount,Integer days,String mark){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
 		String result = null;
 		String url_send = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"AA\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
@@ -472,6 +476,43 @@ public class LoginController {
 		User user = users.get(0);
 		String studio = user.getStudio();
 		String nick_name = user.getNick_name();
+		String expired_time = user.getExpired_time();
+
+		long diff = 0;
+		try {
+			Date date1 = df.parse(create_time);
+			Date date2 = df.parse(expired_time);
+			diff = date2.getTime() - date1.getTime();
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
+
+		if("系统续费".equals(mark)){
+			try {
+				if(diff > 0){
+					cal.setTime(df.parse(expired_time));
+				}else {
+					cal.setTime(df.parse(create_time));
+				}
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+			cal.add(cal.DATE,days);
+			String expired_time_new = df.format(cal.getTime());
+
+			User user_new=new User();
+			user_new.setExpired_time(expired_time_new);
+			user_new.setStudio(studio);
+			user_new.setCreate_time(create_time);
+			user_new.setUser_type("老用户");
+			user_new.setRole("boss");
+			user_new.setDays(Math.toIntExact(days));
+
+			dao.updateUserPayBoss(user_new);
+			dao.updateUserPay(user_new);
+		}
+
 
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");
