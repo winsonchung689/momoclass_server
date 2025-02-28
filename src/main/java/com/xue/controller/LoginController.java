@@ -489,6 +489,7 @@ public class LoginController {
 
 		// 系统续费
 		if("系统续费".equals(mark)){
+			// 根据时间判断续期起点
 			try {
 				if(diff > 0){
 					cal.setTime(df.parse(expired_time));
