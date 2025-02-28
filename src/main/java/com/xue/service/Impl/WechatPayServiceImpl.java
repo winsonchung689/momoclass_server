@@ -9,7 +9,6 @@ import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.xue.config.Constants;
 import com.xue.repository.dao.UserMapper;
-import com.xue.service.WebPushService;
 import com.xue.service.WechatPayService;
 import com.xue.util.WechatPayUtil;
 import org.slf4j.Logger;
