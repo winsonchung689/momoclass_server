@@ -78,13 +78,9 @@ public class WechatPayController {
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
-		// 查询校区
-		List<User> users = dao.getUser(openid);
-		User user = users.get(0);
-		String studio = user.getStudio();
-		String campus = user.getCampus();
+
 		// 查询 merchant
-		List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+		List<Merchant> merchants =dao.getMerchant("桃园艺术","桃园艺术",appid);
 		Merchant merchant = merchants.get(0);
 		String mchid = merchant.getMchid();
 
