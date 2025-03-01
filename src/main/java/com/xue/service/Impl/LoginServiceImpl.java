@@ -5152,216 +5152,220 @@ public class LoginServiceImpl implements LoginService {
 
         List<User> list = dao.getAllUser();
         for (int i = 0; i < list.size(); i++) {
-            User user = list.get(i);
-            String official_openid = user.getOfficial_openid();
-            String studio = user.getStudio();
-            String student_name = user.getStudent_name();
-            String send_time = user.getSend_time();
-            String subscription = user.getSubscription();
-            String remindType = user.getRemind_type();
-            Integer hours = user.getHours();
-            String campus = user.getCampus();
-            String openid = user.getOpenid();
-
-            //获取提前时间
-            Calendar cal_today = Calendar.getInstance();
-            cal_today.add(Calendar.HOUR_OF_DAY,hours);
-            int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
-            long td_time = cal_today.getTimeInMillis();
-            String td_date = df.format(td_time);
-
-            //获取统一时间
-            Calendar cal_tomorrow = Calendar.getInstance();
-            cal_tomorrow.add(Calendar.DATE,+1);
-            Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
-            long tm_time = cal_tomorrow.getTimeInMillis();
-            String tm_date = df.format(tm_time);
-
-            //获取当前时间
-            Date date =new Date();
-            long timestamp = date.getTime();
-            String now_date = df_now.format(date).split(" ")[0];
-            String now_time = df_now.format(date).split(" ")[1];
-
-            //获取发送时间戳
-            long timestamp_start = 0l;
-            long timestamp_end = 0l;
             try {
-                Date date_now = df_now.parse(now_date + " " + send_time);
-                timestamp_start = date_now.getTime();
-                timestamp_end = timestamp_start + 3*60*1000;
-            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-            }
+                User user = list.get(i);
+                String official_openid = user.getOfficial_openid();
+                String studio = user.getStudio();
+                String student_name = user.getStudent_name();
+                String send_time = user.getSend_time();
+                String subscription = user.getSubscription();
+                String remindType = user.getRemind_type();
+                Integer hours = user.getHours();
+                String campus = user.getCampus();
+                String openid = user.getOpenid();
 
-            Integer weekDay = 0;
-            String date_time = null;
-            List<Schedule> list_schedule = new ArrayList<>();
-            //上课通知
-            if(!"no_name".equals(student_name)){
-                // 通知分类
-                if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
-                    weekDay = weekDay_tomorrow;
-                    date_time = df.format(cal_tomorrow.getTime());
-                    list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
-                }else if("提前N小时提醒".equals(remindType) && hours > 0){
-                    weekDay = weekDay_today;
-                    date_time = df.format(cal_today.getTime());
-                    List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
-                    for(int j = 0;j < schedules.size();j++){
-                        Schedule schedule = schedules.get(j);
-                        Integer hours_get = schedule.getHours();
-                        String class_number = schedule.getClass_number();
-                        String duration = schedule.getDuration();
-                        String subject = schedule.getSubject();
+                //获取提前时间
+                Calendar cal_today = Calendar.getInstance();
+                cal_today.add(Calendar.HOUR_OF_DAY,hours);
+                int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+                long td_time = cal_today.getTimeInMillis();
+                String td_date = df.format(td_time);
 
+                //获取统一时间
+                Calendar cal_tomorrow = Calendar.getInstance();
+                cal_tomorrow.add(Calendar.DATE,+1);
+                Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
+                long tm_time = cal_tomorrow.getTimeInMillis();
+                String tm_date = df.format(tm_time);
 
-                        // 获取课程表
-                        Integer weekDayChoose = 0;
-                        if(weekDay == 1){
-                            weekDayChoose = 7;
-                        }else {
-                            weekDayChoose = weekDay -1;
-                        }
-                        List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
-                        if(arrangements.size()>0){
-                            Arrangement arrangement = arrangements.get(0);
-                            hours_get = arrangement.getHours();
-                        }
+                //获取当前时间
+                Date date =new Date();
+                long timestamp = date.getTime();
+                String now_date = df_now.format(date).split(" ")[0];
+                String now_time = df_now.format(date).split(" ")[1];
 
-
-                        //获取提前时间
-                        Calendar cal_today_get = Calendar.getInstance();
-                        cal_today_get.add(Calendar.HOUR_OF_DAY,hours_get);
-                        int hour = cal_today_get.get(Calendar.HOUR_OF_DAY);
-                        int minute = cal_today_get.get(Calendar.MINUTE);
-                        String hour_st = Integer.toString(hour);
-                        String minute_st = Integer.toString(minute);
-                        if(hour < 10 ){
-                            hour_st = "0" + hour_st;
-                        }
-                        if(minute < 10 ){
-                            minute_st = "0" + minute_st;
-                        }
-                        String duration_st = hour_st + ":" + minute_st;
-
-                        List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
-                        if(schedules_tmp.size()>0){
-                            list_schedule = schedules_tmp;
-                        }
-                    }
+                //获取发送时间戳
+                long timestamp_start = 0l;
+                long timestamp_end = 0l;
+                try {
+                    Date date_now = df_now.parse(now_date + " " + send_time);
+                    timestamp_start = date_now.getTime();
+                    timestamp_end = timestamp_start + 3*60*1000;
+                } catch (ParseException e) {
+    //                throw new RuntimeException(e);
                 }
 
-                // 向家长发送通知
-                if(list_schedule.size() > 0 && weekDay > 0){
-                    for (int j = 0; j < list_schedule.size(); j++) {
-                        Schedule schedule = list_schedule.get(j);
-                        String duration = schedule.getDuration();
-                        String class_number = schedule.getClass_number();
-                        String subject = schedule.getSubject();
-                        Integer remind = schedule.getRemind();
-                        String id = schedule.getId();
-                        String send_status = schedule.getSend_status();
-                        String student_type = schedule.getStudent_type();
-                        String add_date = schedule.getAdd_date();
+                Integer weekDay = 0;
+                String date_time = null;
+                List<Schedule> list_schedule = new ArrayList<>();
+                //上课通知
+                if(!"no_name".equals(student_name)){
+                    // 通知分类
+                    if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
+                        weekDay = weekDay_tomorrow;
+                        date_time = df.format(cal_tomorrow.getTime());
+                        list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+                    }else if("提前N小时提醒".equals(remindType) && hours > 0){
+                        weekDay = weekDay_today;
+                        date_time = df.format(cal_today.getTime());
+                        List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                        for(int j = 0;j < schedules.size();j++){
+                            Schedule schedule = schedules.get(j);
+                            Integer hours_get = schedule.getHours();
+                            String class_number = schedule.getClass_number();
+                            String duration = schedule.getDuration();
+                            String subject = schedule.getSubject();
 
-                        //  跳过插班生
-                        if("transferred".equals(student_type)){
-                            if("统一提醒次日".equals(remindType)){
-                                if(!tm_date.equals(add_date)){
-                                    send_status = now_date;
-                                }
-                            }else if("提前N小时提醒".equals(remindType)){
-                                if(!td_date.equals(add_date)){
-                                    send_status = now_date;
-                                }
+
+                            // 获取课程表
+                            Integer weekDayChoose = 0;
+                            if(weekDay == 1){
+                                weekDayChoose = 7;
+                            }else {
+                                weekDayChoose = weekDay -1;
                             }
-                        }
-
-                        Integer choose = 0;
-                        Integer weekDayChoose = 0;
-                        if(weekDay == 1){
-                            weekDayChoose = 7;
-                        }else {
-                            weekDayChoose = weekDay -1;
-                        }
-
-                        // 课程设计
-                        String upcoming = "未设";
-                        List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
-                        if(arrangement_list.size()>0){
-                            Arrangement arrangement = arrangement_list.get(0);
-                            upcoming = arrangement.getUpcoming();
-                            remind = arrangement.getRemind();
-                        }
-
-                        // 判断是否已发
-                        if(!send_status.equals(now_date)){
-                            //选课老师上课通知
-                            String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                            List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-                            if(users.size()>0 && remind == 1){
-                                choose = 1;
-                                for(int ui=0;ui<users.size();ui++){
-                                    User user_teacher = users.get(ui);
-                                    String openid_get = user_teacher.getOpenid();
-                                    classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-                                }
+                            List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+                            if(arrangements.size()>0){
+                                Arrangement arrangement = arrangements.get(0);
+                                hours_get = arrangement.getHours();
                             }
 
-                            //学生家长上课通知
-                            if(remind == 1 && choose == 1){
-                                //小程序公众号通知
-                                classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
 
-                                //pwa版上课通知
-                                try {
-                                    if(subscription != null){
-                                        JSONObject payload = new JSONObject();
-                                        payload.put("title",studio);
-                                        payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
-                                        String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
-                                        System.out.printf("status:" + status);
+                            //获取提前时间
+                            Calendar cal_today_get = Calendar.getInstance();
+                            cal_today_get.add(Calendar.HOUR_OF_DAY,hours_get);
+                            int hour = cal_today_get.get(Calendar.HOUR_OF_DAY);
+                            int minute = cal_today_get.get(Calendar.MINUTE);
+                            String hour_st = Integer.toString(hour);
+                            String minute_st = Integer.toString(minute);
+                            if(hour < 10 ){
+                                hour_st = "0" + hour_st;
+                            }
+                            if(minute < 10 ){
+                                minute_st = "0" + minute_st;
+                            }
+                            String duration_st = hour_st + ":" + minute_st;
+
+                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                            if(schedules_tmp.size()>0){
+                                list_schedule = schedules_tmp;
+                            }
+                        }
+                    }
+
+                    // 向家长发送通知
+                    if(list_schedule.size() > 0 && weekDay > 0){
+                        for (int j = 0; j < list_schedule.size(); j++) {
+                            Schedule schedule = list_schedule.get(j);
+                            String duration = schedule.getDuration();
+                            String class_number = schedule.getClass_number();
+                            String subject = schedule.getSubject();
+                            Integer remind = schedule.getRemind();
+                            String id = schedule.getId();
+                            String send_status = schedule.getSend_status();
+                            String student_type = schedule.getStudent_type();
+                            String add_date = schedule.getAdd_date();
+
+                            //  跳过插班生
+                            if("transferred".equals(student_type)){
+                                if("统一提醒次日".equals(remindType)){
+                                    if(!tm_date.equals(add_date)){
+                                        send_status = now_date;
                                     }
-                                } catch (Exception e) {
-//                                    throw new RuntimeException(e);
+                                }else if("提前N小时提醒".equals(remindType)){
+                                    if(!td_date.equals(add_date)){
+                                        send_status = now_date;
+                                    }
                                 }
                             }
-                        }
-                    }
-                }
-            }
 
-            //续课通知
-            if(!"no_name".equals(student_name)) {
-                List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
-                if (lessons.size() > 0) {
-                    for (int j = 0; j < lessons.size(); j++) {
-                        Lesson lesson = lessons.get(j);
-                        Float left_amount = lesson.getLeft_amount();
-                        String subject = lesson.getSubject();
-                        String student_lesson = lesson.getStudent_name();
-                        String student_split = student_lesson.split("_")[0];
-                        Integer urge_payment = lesson.getUrge_payment();
-                        if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
-                            String token = getToken("MOMO_OFFICIAL");
-                            String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-                            String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                            if (!"no_id".equals(official_openid)) {
-                                String[] official_list = official_openid.split(",");
-                                for (int k = 0; k < official_list.length; k++) {
-                                    String official_openid_get = official_list[k];
-                                    JSONObject queryJson2 = JSONObject.parseObject(model);
-                                    queryJson2.put("touser", official_openid_get);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
-                                    queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
-                                    HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                            Integer choose = 0;
+                            Integer weekDayChoose = 0;
+                            if(weekDay == 1){
+                                weekDayChoose = 7;
+                            }else {
+                                weekDayChoose = weekDay -1;
+                            }
+
+                            // 课程设计
+                            String upcoming = "未设";
+                            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+                            if(arrangement_list.size()>0){
+                                Arrangement arrangement = arrangement_list.get(0);
+                                upcoming = arrangement.getUpcoming();
+                                remind = arrangement.getRemind();
+                            }
+
+                            // 判断是否已发
+                            if(!send_status.equals(now_date)){
+                                //选课老师上课通知
+                                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                                if(users.size()>0 && remind == 1){
+                                    choose = 1;
+                                    for(int ui=0;ui<users.size();ui++){
+                                        User user_teacher = users.get(ui);
+                                        String openid_get = user_teacher.getOpenid();
+                                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                                    }
+                                }
+
+                                //学生家长上课通知
+                                if(remind == 1 && choose == 1){
+                                    //小程序公众号通知
+                                    classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+
+                                    //pwa版上课通知
+                                    try {
+                                        if(subscription != null){
+                                            JSONObject payload = new JSONObject();
+                                            payload.put("title",studio);
+                                            payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+                                            String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                                            System.out.printf("status:" + status);
+                                        }
+                                    } catch (Exception e) {
+    //                                    throw new RuntimeException(e);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                //续课通知
+                if(!"no_name".equals(student_name)) {
+                    List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
+                    if (lessons.size() > 0) {
+                        for (int j = 0; j < lessons.size(); j++) {
+                            Lesson lesson = lessons.get(j);
+                            Float left_amount = lesson.getLeft_amount();
+                            String subject = lesson.getSubject();
+                            String student_lesson = lesson.getStudent_name();
+                            String student_split = student_lesson.split("_")[0];
+                            Integer urge_payment = lesson.getUrge_payment();
+                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
+                                String token = getToken("MOMO_OFFICIAL");
+                                String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+                                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                                if (!"no_id".equals(official_openid)) {
+                                    String[] official_list = official_openid.split(",");
+                                    for (int k = 0; k < official_list.length; k++) {
+                                        String official_openid_get = official_list[k];
+                                        JSONObject queryJson2 = JSONObject.parseObject(model);
+                                        queryJson2.put("touser", official_openid_get);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
+                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                        HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
     }
