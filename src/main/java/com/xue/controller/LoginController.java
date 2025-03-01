@@ -502,6 +502,7 @@ public class LoginController {
 			cal.add(cal.DATE,days);
 			String expired_time_new = df.format(cal.getTime());
 
+			// 更新有效期
 			User user_new=new User();
 			user_new.setExpired_time(expired_time_new);
 			user_new.setStudio(studio);
@@ -512,6 +513,20 @@ public class LoginController {
 
 			dao.updateUserPayBoss(user_new);
 			dao.updateUserPay(user_new);
+
+			// 入账
+			String book_mark = "月费";
+			if(Float.parseFloat(amount) > 300){
+				book_mark = "年费";
+			}
+			Book book =new Book();
+			book.setStudio("大雄工作室");
+			book.setCampus("大雄工作室");
+			book.setType("收入");
+			book.setMark(studio + "_" + book_mark + "_" + days);
+			book.setAmount(Float.parseFloat(amount));
+			book.setCreate_time(create_time);
+			dao.insertBook(book);
 		}
 
 		// 发通知给管理员

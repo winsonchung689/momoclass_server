@@ -80,7 +80,7 @@ public class WechatPayController {
 		String openid = request.getParameter("openid");
 
 		// 查询 merchant
-		List<Merchant> merchants =dao.getMerchant("桃园艺术","桃园艺术",appid);
+		List<Merchant> merchants =dao.getMerchant("大雄工作室","大雄工作室",appid);
 		Merchant merchant = merchants.get(0);
 		String mchid = merchant.getMchid();
 
