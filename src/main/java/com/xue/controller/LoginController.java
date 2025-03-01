@@ -3210,6 +3210,9 @@ public class LoginController {
 		String campus = list_user.get(0).getCampus();
 		String nick_name = list_user.get(0).getNick_name();
 		String package_id = request.getParameter("package_id");
+		if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
+			package_id = "0";
+		}
 		if (("0".equals(package_id))) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
 			if(lessonPackages.size()>0){
@@ -6557,6 +6560,9 @@ public class LoginController {
 		String consume_lesson_amount = request.getParameter("consume_lesson_amount");
 		String mark = request.getParameter("mark");
 		String package_id = request.getParameter("package_id");
+		if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
+			package_id = "0";
+		}
 		if (("0".equals(package_id))) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
 			if(lessonPackages.size()>0){
