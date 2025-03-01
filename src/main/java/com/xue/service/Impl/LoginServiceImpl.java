@@ -9919,16 +9919,18 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                photo = line.getPhoto();
-                if(uuids != null){
-                    photo = null;
-
-                }
 
                 Float cut_step = line.getCut_step();
                 Integer pay_type = line.getPay_type();
 
+                int is_merchant = 0;
+                List<Merchant> merchants =dao. getMerchant(studio,campus,Constants.appid);
+                if(merchants.size() > 0){
+                    is_merchant  = 1;
+                }
+
                 //json
+                jsonObject.put("is_merchant", is_merchant);
                 jsonObject.put("pay_type", pay_type);
                 jsonObject.put("cut_step", cut_step);
                 jsonObject.put("goods_name", goods_name);
