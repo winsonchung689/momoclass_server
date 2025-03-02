@@ -4213,7 +4213,7 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
-			String studio =  request.getParameter("studio");
+//			String studio =  request.getParameter("studio");
 			String nick_name =  request.getParameter("nick_name");
 			String openid =  request.getParameter("openid");
 			String phone_number =  request.getParameter("phone_number");
@@ -4237,6 +4237,10 @@ public class LoginController {
 			if(amount == null || amount.isEmpty() || "undefined".equals(amount)){
 				amount = "0";
 			}
+
+			List<GoodsList> goodslists = dao.getGoodsListById(goods_id);
+			GoodsList goodsList = goodslists.get(0);
+			String studio = goodsList.getStudio();
 
 			Order order = new Order();
 			order.setNick_name(nick_name);
