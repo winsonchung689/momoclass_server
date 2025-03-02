@@ -4258,7 +4258,7 @@ public class LoginController {
 
 			loginService.insertOrder(order);
 
-			List<User> users = dao.getUserById(openid);
+			List<User> users = dao.getUserByOpenid(openid);
 			if(users.size() == 0){
 				User user = new User();
 				user.setOpenid(openid);
