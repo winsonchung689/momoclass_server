@@ -4258,9 +4258,11 @@ public class LoginController {
 
 			loginService.insertOrder(order);
 
+			// 新用户自动注册
 			List<User> users = dao.getUserByOpenid(openid);
 			if(users.size() == 0){
-				User user = new User();
+				List<User> bosses = dao.getBossByStudio(studio);
+				User user = bosses.get(0);
 				user.setOpenid(openid);
 				user.setStudio(studio);
 				user.setCampus(studio);
@@ -5300,7 +5302,8 @@ public class LoginController {
 				// 新用户自动注册
 				List<User> users = dao.getUserByOpenid(openid);
 				if(users.size() == 0){
-					User user = new User();
+					List<User> bosses = dao.getBossByStudio(studio);
+					User user = bosses.get(0);
 					user.setStudio(studio);
 					user.setCampus(campus);
 					user.setOpenid(openid);
