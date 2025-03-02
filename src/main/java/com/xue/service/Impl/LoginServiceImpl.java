@@ -4037,30 +4037,18 @@ public class LoginServiceImpl implements LoginService {
             List<Order> list =dao.getOrderByGoodsId(goods_id,type);;
 
             for (int i = 0; i < list.size(); i++) {
-                String goods_name = null;
-                String goods_intro = null;
-                Float goods_price = 0.0f;
-                Integer status = 0;
-                String create_time = null;
-                String phone_number = null;
-                String location = null;
-                String nick_name = null;
-                String openid = null;
-                String studio = null;
-                String campus = null;
-
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
                 //获取字段
                 String id = line.getId();
-                goods_name = line.getGoods_name();
-                goods_intro = line.getGoods_intro();
-                goods_price = line.getGoods_price();
-                status = line.getStatus();
-                phone_number = line.getPhone_number();
-                location = line.getLocation();
-                nick_name = line.getNick_name();
-                openid = line.getOpenid();
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                Integer status = line.getStatus();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+                String nick_name = line.getNick_name();
+                String openid = line.getOpenid();
                 String group_role = line.getGroup_role();
                 String leader_id = line.getLeader_id();
                 Float cut_price = line.getCut_price();
@@ -4077,6 +4065,8 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String avartar_leader = null;
+                String studio = null;
+                String campus = null;
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
                     User user = users.get(0);
@@ -4099,7 +4089,7 @@ public class LoginServiceImpl implements LoginService {
                     status_get="未发货";
                 }
 
-                create_time = line.getCreate_time();
+                String create_time = line.getCreate_time();
 
                 jsonObject.put("id", id);
                 jsonObject.put("goods_name", goods_name);
