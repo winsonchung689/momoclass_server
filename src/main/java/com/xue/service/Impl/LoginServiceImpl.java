@@ -3940,7 +3940,7 @@ public class LoginServiceImpl implements LoginService {
                 Float group_price = 0.0f;
                 Integer group_num = 0;
                 String uuids = null;
-                String leader = null;
+                String leader_name = null;
                 JSONObject jsonObject = new JSONObject();
                 Order line = list.get(i);
 
@@ -3965,6 +3965,14 @@ public class LoginServiceImpl implements LoginService {
                     client_name = user_get.getNick_name();
                     client_student = user_get.getStudent_name();
                 }
+
+
+                List<User> leaders = dao.getUser(leader_id);
+                if(leaders.size() > 0){
+                    User leader_user = leaders.get(0);
+                    leader_name = leader_user.getNick_name();
+                }
+
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -4010,7 +4018,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", openid);
                 jsonObject.put("group_price", group_price);
                 jsonObject.put("leader_id", leader_id);
-                jsonObject.put("leader", leader);
+                jsonObject.put("leader", leader_name);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("group_num", group_num);

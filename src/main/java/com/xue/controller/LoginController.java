@@ -4268,6 +4268,7 @@ public class LoginController {
 				user.setRole("client");
 				user.setUser_type("新用户");
 				user.setStudent_name("no_name");
+				user.setNick_name("微信用户");
 
 				dao.insertUser(user);
 			}
