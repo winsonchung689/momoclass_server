@@ -4261,7 +4261,7 @@ public class LoginController {
 			// 新用户自动注册
 			List<User> users = dao.getUserByOpenid(openid);
 			if(users.size() == 0){
-				List<User> bosses = dao.getBossByStudio(studio);
+				List<User> bosses = dao.getBossByStudioOnly(studio);
 				User user = bosses.get(0);
 				user.setOpenid(openid);
 				user.setStudio(studio);
@@ -5302,7 +5302,7 @@ public class LoginController {
 				// 新用户自动注册
 				List<User> users = dao.getUserByOpenid(openid);
 				if(users.size() == 0){
-					List<User> bosses = dao.getBossByStudio(studio);
+					List<User> bosses = dao.getBossByStudioOnly(studio);
 					User user = bosses.get(0);
 					user.setStudio(studio);
 					user.setCampus(campus);
