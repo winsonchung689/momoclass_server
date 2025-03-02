@@ -4213,7 +4213,6 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
-//			String studio =  request.getParameter("studio");
 			String nick_name =  request.getParameter("nick_name");
 			String openid =  request.getParameter("openid");
 			String phone_number =  request.getParameter("phone_number");
@@ -4258,6 +4257,20 @@ public class LoginController {
 			order.setSub_goods_id(sub_goods_id);
 
 			loginService.insertOrder(order);
+
+			List<User> users = dao.getUserById(openid);
+			if(users.size() == 0){
+				User user = new User();
+				user.setOpenid(openid);
+				user.setStudio(studio);
+				user.setCampus(studio);
+				user.setCreate_time(create_time);
+				user.setRole("client");
+				user.setUser_type("新用户");
+				user.setStudent_name("no_name");
+
+				dao.insertUser(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5293,6 +5306,7 @@ public class LoginController {
 					user.setCreate_time(create_time);
 					user.setRole("client");
 					user.setUser_type("新用户");
+					user.setStudent_name("no_name");
 
 					dao.insertUser(user);
 				}
