@@ -4495,7 +4495,7 @@ public class LoginController {
 		//获取类路径
 		String p_path = null;
         String bak_path = null;
-		String path = "/data1";
+		String path = "/data/disk";
         String path_bak = "/databak_bucket";
 		UUID uuid = UUID.randomUUID();
 		if("相框模板".equals(class_target)){
@@ -4529,7 +4529,7 @@ public class LoginController {
 	@ResponseBody
 	public String push_video(HttpServletRequest request, HttpServletResponse response){
 //		String path = System.getProperty("user.dir");
-		String path = "/data1";
+		String path = "/data/disk";
 		//获取图片
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile multipartFile = req.getFile("video");

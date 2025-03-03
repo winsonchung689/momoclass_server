@@ -47,7 +47,7 @@ public class AIController {
 	public static String chatImg(String question,String uuid){
 		String res = null;
 		try {
-			String img_url = "https://www.momoclasss.xyz:443/data1/uploadAIAsk/" + uuid;
+			String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 			System.out.println(question);
 			System.out.println(img_url);
 

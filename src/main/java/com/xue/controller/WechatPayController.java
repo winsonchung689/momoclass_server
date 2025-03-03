@@ -38,7 +38,7 @@ public class WechatPayController {
 
 		//获取图片
 		String uuid =  request.getParameter("uuid");
-		String path = "/data1/uploadimages/" + uuid + ".png";
+		String path = "/data/disk/uploadimages/" + uuid + ".png";
 
 		String media_id = HttpUtil.merchantUploadImage(path);
 
