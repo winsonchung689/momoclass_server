@@ -3287,7 +3287,7 @@ public class LoginServiceImpl implements LoginService {
 
         Integer page_start = 0;
         Integer page_length = 0;
-        page_start = (page - 1) * 6;
+        page_start = (page - 1) * 4;
         page_length = 6;
 
         List<JSONObject> resul_list = new ArrayList<>();
