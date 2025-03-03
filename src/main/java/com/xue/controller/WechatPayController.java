@@ -4,15 +4,19 @@ import com.xue.entity.model.Merchant;
 import com.xue.entity.model.User;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
+import com.xue.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +31,19 @@ public class WechatPayController {
 
 	@Autowired
 	private UserMapper dao;
+
+	@RequestMapping("/merchantUploadImage")
+	@ResponseBody
+	public String merchantUploadImage(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+
+		//获取图片
+		String uuid =  request.getParameter("uuid");
+		String path = "/data1/uploadimages/" + uuid + ".png";
+
+		String media_id = HttpUtil.merchantUploadImage(path);
+
+		return media_id;
+	}
 
 	@RequestMapping("/insertMerchant")
 	@ResponseBody

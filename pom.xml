@@ -153,6 +153,12 @@
 			<version>0.2.16</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.wechatpay-apiv3</groupId>
+			<artifactId>wechatpay-apache-httpclient</artifactId>
+			<version>0.2.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

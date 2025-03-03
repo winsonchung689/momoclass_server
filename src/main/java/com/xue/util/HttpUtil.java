@@ -1,10 +1,16 @@
 package com.xue.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wechat.pay.contrib.apache.httpclient.WechatPayUploadHttpPost;
+import com.wechat.pay.contrib.apache.httpclient.auth.AutoUpdateCertificatesVerifier;
+import com.wechat.pay.contrib.apache.httpclient.auth.PrivateKeySigner;
+import com.wechat.pay.contrib.apache.httpclient.auth.WechatPay2Credentials;
+import com.wechat.pay.contrib.apache.httpclient.auth.WechatPay2Validator;
+import com.wechat.pay.contrib.apache.httpclient.util.PemUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -12,14 +18,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import com.wechat.pay.contrib.apache.httpclient.WechatPayHttpClientBuilder;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
+import java.security.PrivateKey;
 
 public class HttpUtil {
 
@@ -188,7 +195,51 @@ public class HttpUtil {
     }
 
 
+    public static String merchantUploadImage(String filePath) throws URISyntaxException {
+        URI uri = new URI("https://api.mch.weixin.qq.com/v3/merchant/media/upload");
+        File file = new File(filePath);
 
+        CloseableHttpClient httpClient = null;
+        AutoUpdateCertificatesVerifier verifier;
+        String media_id = null;
+        try {
+            PrivateKey merchantPrivateKey = PemUtil.loadPrivateKey(
+                    new FileInputStream("/path/to/apiclient_key.pem"));
+
+            //使用自动更新的签名验证器，不需要传入证书
+            verifier = new AutoUpdateCertificatesVerifier(
+                    new WechatPay2Credentials("mchId", new PrivateKeySigner("mchSerialNo", merchantPrivateKey)),
+                    "apiV3Key".getBytes("utf-8"));
+
+            httpClient = WechatPayHttpClientBuilder.create()
+                    .withMerchant("mchId", "mchSerialNo", merchantPrivateKey)
+                    .withValidator(new WechatPay2Validator(verifier))
+                    .build();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (FileInputStream ins1 = new FileInputStream(file)) {
+            String sha256 = DigestUtils.sha256Hex(ins1);
+            try (InputStream ins2 = new FileInputStream(file)) {
+                HttpPost request = new WechatPayUploadHttpPost.Builder(uri)
+                        .withImage(file.getName(), sha256, ins2)
+                        .build();
+                CloseableHttpResponse response = httpClient.execute(request);
+                JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
+                media_id = object.getString("media_id");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return media_id;
+    }
 
 }
 
