@@ -823,6 +823,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getMerchantByAppid")
+	@ResponseBody
+	public List getMerchantByAppid(String appid){
+		List list = null;
+		try {
+			list = dao.getMerchantByAppid(appid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取学生的课包记录
 	@RequestMapping("/getLessonPackageByStudent")
 	@ResponseBody

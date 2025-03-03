@@ -128,6 +128,11 @@
   </resultMap>
 
 
+  <!-- 获取全部appid商户 -->
+  <select id="getMerchantByAppid" parameterType="com.xue.entity.model.Merchant" resultMap="BaseMerchant">
+    select * from merchant where appid =#{param3} and delete_status = 0;
+  </select>
+
   <!-- 获取商户 -->
   <select id="getMerchant" parameterType="com.xue.entity.model.Merchant" resultMap="BaseMerchant">
     select * from merchant where studio =#{param1} and campus =#{param2} and appid =#{param3} and delete_status = 0;

@@ -11,8 +11,9 @@ public interface UserMapper {
     //获取
     List<Message> getMessage(String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
-
     List<Message> getCommentModel();
+
+    List<Merchant> getMerchantByAppid(String appid);
 
     List<Merchant> getMerchant(String studio,String campus,String appid);
 
