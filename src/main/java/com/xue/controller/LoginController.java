@@ -2530,6 +2530,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteMerchant")
+	@ResponseBody
+	public int deleteMerchant(Integer id){
+		try {
+			dao.deleteMerchant(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	//	获取详情页
 	@RequestMapping("/deleteMyOrder")
 	@ResponseBody

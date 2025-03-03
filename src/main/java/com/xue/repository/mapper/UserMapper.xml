@@ -379,6 +379,11 @@
     update album set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除商户 -->
+  <select id="deleteMerchant" parameterType="com.xue.entity.model.Merchant" resultMap="BaseResultMap">
+    update merchant set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除礼品清单 -->
   <select id="deleteGiftList" parameterType="com.xue.entity.model.GiftList" resultMap="BaseResultMap">
     update gift_list set delete_status = 1 where id = #{param1};
