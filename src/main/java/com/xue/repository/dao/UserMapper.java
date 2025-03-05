@@ -23,8 +23,6 @@ public interface UserMapper {
 
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);
 
-    List<Message> getMessageByName(String studio,String student_name,Integer page_start,Integer page_length);
-
     //获取
     List<Message> getCertificate(String studio);
 
@@ -36,9 +34,6 @@ public interface UserMapper {
 
     //获取
     List<Message> getUuidByTarget(String class_target,String studio,String campus);
-
-    //获取
-    List<Message> getPpt(Integer page_start, Integer page_length);
 
     //获取
     List<Message> getStudentPhoto(String student_name,String studio,String campus);
@@ -92,14 +87,8 @@ public interface UserMapper {
 
     List<Schedule> getScheduleCheckArrangement(Integer add_date,String duration,String class_number,String subject,String studio,String campus,String student_name);
 
-    List<Schedule> getScheduleDistinct(Integer date_time,String studio,String subject,String campus);
-
     //获取
     List<Schedule> getScheduleDetail(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
-
-    List<Schedule> getScheduleDetailAll_O(Integer weekDay,String duration,String studio,String class_number,String subject,String campus,String date_time);
-
-    List<Schedule> getScheduleDetailAll_T(Integer weekDay,String duration,String studio,String class_number,String subject,String campus,String date_time);
 
     List<Schedule> getScheduleByClassOrdinary(Integer weekDay,String duration,String studio,String class_number,String subject,String campus);
 
@@ -121,13 +110,9 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio,String campus);
 
-    List<AnalyzeCount> getAnalyzeSignUp(String studio,String campus,String start_date,String end_date);
-
     List<AnalyzeCount> getAnalyzeSignUpByStudent(String studio,String campus,String start_date,String end_date);
 
     List<AnalyzeCount> getAnalyzeSignUpBySubject(String studio,String campus,String subject,String start_date,String end_date);
-
-    List<AnalyzeCount> getAnalyzeSignUpByMonth(String studio,String campus,String start_date,String end_date);
 
     List<AnalyzeCount> getAnalyzeSignUpByMonthByStudent(String studio,String campus,String start_date,String end_date);
 
@@ -145,12 +130,6 @@ public interface UserMapper {
 
     List<SignUp> getAnalyzeSignUpDetailByMonthBySubject(String studio,String campus,String subject,String create_time,String student_name);
 
-    List<Schedule> getAnalyzeTryDetail(String studio,String campus,Integer weekDay);
-
-    List<Leave> getAnalyzeLeaveDetail(String studio,String campus,Integer weekDay);
-
-    List<Leave> getAnalyzeAbsentDetail(String studio,String campus,Integer weekDay);
-
     List<AnalyzeCount> getAnalyzeTry(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getAnalyzeTryByMonth(String studio,String campus,String create_time);
@@ -162,8 +141,6 @@ public interface UserMapper {
     List<AnalyzeCount> getAnalyzePackage(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getAnalyzePackageByMonth(String studio,String campus,String create_time);
-
-    List<BookCount> getAnalyzeAbsent(String studio,String campus,Integer weekDay);
 
     List<BookCount> getBookByYear(String studio,String campus);
 
@@ -293,10 +270,6 @@ public interface UserMapper {
 
     void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
 
-    void modifySignUpMark(String id,String studio,String mark);
-
-    void modifySignUpCount(String id,String studio,Float count);
-
     void modifyOrderCutPrice(String goods_id,String leader_id,Float cut_price);
 
     void updateLocation(String openid,String location);
@@ -328,8 +301,6 @@ public interface UserMapper {
     void changeSignUpClassName(String old_class_number,String studio,String duration,String new_class_number,String subject,String campus);
 
     void changeScheduleSubject(String old_subject,String studio,String duration,String new_subject,String class_number,String campus,Integer dayofweek);
-
-    void changeSignUpSubject(String old_subject,String studio,String duration,String new_subject,String class_number,String campus);
 
     void deleteStudentPhoto(String student_name,String studio);
 
@@ -431,8 +402,6 @@ public interface UserMapper {
 
     int updateCardEndDate(String id,String end_date);
 
-    int updateOpenid(User user);
-
     int updateOpenidById(String openid_old,String openid_new);
 
     int updateAvatar(User user);
@@ -501,8 +470,6 @@ public interface UserMapper {
 
     int updateClassSendStatus(String id,String send_status);
 
-    int updateClassSendStatusByOpenid(String openid,String send_status);
-
     int updateClassSendStatusByStudio(String studio,String send_status);
 
     int updateCommunicateContent(String id,String content);
@@ -559,8 +526,6 @@ public interface UserMapper {
 
     int updateUserOfficialOpenid(String unionid,String official_openid);
 
-    int updateRestaurantUserOfficialOpenid(String unionid,String official_openid);
-
     int updateLessonStudio(String studio,String new_studio);
 
     int updateLessonCampusByStudio(String studio,String campus);
@@ -591,8 +556,6 @@ public interface UserMapper {
 
     int updateCombine(Lesson lesson);
 
-    int updateLessonCampus(String studio,String student_name,String campus);
-
     int updateLessonLeft(Float left_amount,String studio,String student_name,String campus,String subject);
 
     int updateLessonTotal(Float left_amount,String studio,String student_name,String campus,String subject);
@@ -610,12 +573,6 @@ public interface UserMapper {
     int updateSignUpByBacth(Float count,String studio,String student_name,String subject,String campus);
 
     int updateSignUpSubject(String studio,String student_name,String campus,String subject,String new_subject);
-
-    int updateGiftCampus(String studio,String student_name,String campus);
-
-    int updateNoteCampus(String studio,String student_name,String campus);
-
-    int updateLeaveCampus(String studio,String student_name,String campus);
 
     int updateSubscription(User user);
 
@@ -664,8 +621,6 @@ public interface UserMapper {
 
     List<BookUser> getBookUser(String openid);
 
-    List<BookUser> getBookUserByBookName(String book_name);
-
     List<BookUser> getBookUserById(String id);
 
     List<BookDetail> getBBookDetail(String openid,String date_time,String book_name);
@@ -694,13 +649,7 @@ public interface UserMapper {
 
     List<User> getUserByUnionid(String unionid);
 
-    List<User> getUserByNoOfficialOpenid();
-
-    List<RestaurantUser> getRestaurantUserByUnionid(String unionid);
-
     List<User> getUserByChooseLesson(String chooseLesson,String studio);
-
-    List<User> getUserByOpenidIgnore(String openid);
 
     List<User> getUserByStudent(String student_name,String studio);
 
@@ -709,8 +658,6 @@ public interface UserMapper {
     List<User> getUserByNickStudio(String nick_name,String studio);
 
     List<User> getUserByNickStudioEq(String nick_name,String studio);
-
-    List<User> getComentStyle(String studio);
 
     List<User> getUserByNickName(String nickName);
 
@@ -733,8 +680,6 @@ public interface UserMapper {
 
     List<User> getUserByOpenidQrAll(Integer page_start,Integer page_length);
 
-    List<User> getUserByOpenidQrLike(String studio);
-
     List<Website> getWebsite(String studio,String campus);
 
     List<User> getStudio();
@@ -751,8 +696,6 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementsByStudio(String studio);
 
-    List<Order> getMyOrder(String studio,String openid);
-
     List<Order> getOrderByGoodsId(String goods_id,String type);
 
     List<Order> getOrderByGoodsLeader(String goods_id,String leader_id,String type);
@@ -766,8 +709,6 @@ public interface UserMapper {
     List<Order> getAllOrderByType(String studio,Integer status,String openid,Integer page_start,Integer page_length);
 
     List<Arrangement> getArrangementsByDate(String studio);
-
-    List<Arrangement> getClassNumber(String studio,Integer dayofweek,String duration);
 
     List<Message> getCertificateModel(String class_name);
 
@@ -800,8 +741,6 @@ public interface UserMapper {
     List<LessonPackage> getLessonPackageByStudentSubjectBatch(String student_name,String studio,String campus,String subject);
 
     List<LessonPackage> getLessonPackageByCampus(String studio,String campus);
-
-    List<LessonPackage> getLessonPackageBySubject(String studio,String campus,String subject);
 
     List<Lesson> getLessonByPage(String studio,String campus,Integer page_start,Integer page_length);
 
@@ -846,8 +785,6 @@ public interface UserMapper {
     Integer getLessonOweCountBySubject(String studio,String subject,String campus);
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject,String campus);
-
-    List<Schedule> getScheduleRemind(String studio,Integer day,String duration,String class_number,String subject);
 
     List<Lesson> getCampusByStudio(String studio);
 
@@ -989,8 +926,6 @@ public interface UserMapper {
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
-    List<SignUp> getStudentByTeacherAll();
-
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
 
     List<CardRecord> getCardRecordByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
@@ -1045,8 +980,6 @@ public interface UserMapper {
 
     int updateLessonBoth(Lesson lesson);
 
-    int updateLessonSubject(String subject_new,String student_name,String studio, String subject,String campus);
-
     int updateCoinsAll(Float coins,String studio,String campus);
 
     int updateLessonPointStatus(String studio,String campus,Integer point_status);
@@ -1093,8 +1026,6 @@ public interface UserMapper {
 
     int updateUserExpired(String role,String studio,String role_old,String campus);
 
-    int updateUserExpiredTimeAd(String openid,String expired_time_ad);
-
     int updateUserMember(String member,String studio);
 
     int updateUserMemberByOpenid(String openid,String member);
@@ -1138,9 +1069,6 @@ public interface UserMapper {
     int updateLessonPackageStartDate(String id,String start_date);
 
     int updateLessonPackageEndDate(String id,String end_date);
-
-
-
 
 
 }

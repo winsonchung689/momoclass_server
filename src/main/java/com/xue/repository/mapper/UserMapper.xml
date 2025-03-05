@@ -189,11 +189,6 @@
   </select>
 
   <!-- 获取全部 -->
-  <select id="getMessageByName" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' and student_name = #{param1} and studio = #{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4};
-  </select>
-
-  <!-- 获取全部 -->
   <select id="getMessageClient" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
     select id,student_name,'null' photo,comment,create_time,class_name,class_target,studio from class_comment where class_target_bak ='课评' and delete_status = 0 and student_name like "%"#{param1}"%" and studio = #{param2} order by create_time desc
   </select>
@@ -465,16 +460,6 @@
     update schedule_arrangement set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
-  <!-- 更改签到备注 -->
-  <select id="modifySignUpMark" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
-    update sign_up_record set mark =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
-  <!-- 更改签到课时 -->
-  <select id="modifySignUpCount" parameterType="com.xue.entity.model.SignUp" resultMap="BaseResultMap">
-    update sign_up_record set count =#{param3} where id =#{param1} and studio =#{param2}
-  </select>
-
   <!-- 更改课程名 -->
   <select id="modifyOrderCutPrice" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
     update `order` set cut_price =#{param3} where goods_id =#{param1} and leader_id =#{param2}
@@ -602,10 +587,6 @@
     update class_schedule set subject =#{param4} where subject =#{param1} and studio =#{param2} and duration =#{param3} and class_number =#{param5} and campus =#{param6} and dayofweek(add_date)=#{param7}
   </select>
 
-  <!-- 更改课程名 -->
-  <select id="changeSignUpSubject" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
-    update sign_up_record set subject =#{param4} where subject =#{param1} and studio =#{param2} and duration =#{param3} and class_number =#{param5} and campus =#{param6}
-  </select>
 
   <!-- 获取详情 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
@@ -716,11 +697,6 @@
   </select>
 
   <!-- 获取课程表 -->
-  <select id="getScheduleDistinct" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select distinct add_date,duration,studio,class_number,subject,remind,student_type from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and subject = #{param3} and campus =#{param4} and delete_status = 0 order by duration,subject,class_number
-  </select>
-
-  <!-- 获取课程表 -->
   <select id="getScheduleAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus =#{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
   </select>
@@ -752,13 +728,6 @@
     select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 and is_try = 0 order by duration
   </select>
 
-  <select id="getScheduleDetailAll_O" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type = 'ordinary' and delete_status = 0 order by duration
-  </select>
-
-  <select id="getScheduleDetailAll_T" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where dayofweek(add_date)=#{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus =#{param6} and student_type= 'transferred' and add_date =#{param7} and delete_status = 0 order by duration
-  </select>
 
   <!-- 获取课程表 -->
   <select id="getScheduleByClassOrdinary" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
@@ -836,10 +805,6 @@
     select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
-  <select id="getAnalyzeSignUp" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time, '%Y-%m-%d') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time, '%Y-%m-%d') between #{param3} and #{param4} group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time, '%Y-%m-%d') desc
-  </select>
-
   <select id="getAnalyzeSignUpByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} group by student_name
   </select>
@@ -848,9 +813,6 @@
     select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} group by student_name
   </select>
 
-  <select id="getAnalyzeSignUpByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time,'%Y-%m') create_time,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by date_format(create_time,'%Y-%m') order by date_format(create_time,'%Y-%m') desc
-  </select>
 
   <select id="getAnalyzeSignUpByMonthByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by student_name
@@ -884,18 +846,6 @@
     select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param4} and student_name=#{param5} order by create_time desc
   </select>
 
-  <select id="getAnalyzeTryDetail" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select add_date,student_name,subject from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and date_format(create_time, '%V')=#{param3}  order by create_time desc
-  </select>
-
-  <select id="getAnalyzeLeaveDetail" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select * from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time, '%V')=#{param3}  order by create_time desc
-  </select>
-
-  <select id="getAnalyzeAbsentDetail" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select * from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(create_time, '%V')=#{param3}  order by create_time desc
-  </select>
-
   <select id="getAnalyzeTry" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select create_time,count(1) try_count from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and create_time=#{param3}  group by create_time order by create_time desc
   </select>
@@ -918,10 +868,6 @@
 
   <select id="getAnalyzePackageByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select date_format(create_time,'%Y-%m') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y-%m')=#{param3} group by date_format(create_time,'%Y-%m')
-  </select>
-
-  <select id="getAnalyzeAbsent" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
-    select date_format(date_time, '%V') create_time,count(1) income,'' expenditure from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '旷课' and date_format(date_time, '%V')=#{param3}  group by date_format(date_time, '%V') order by date_format(date_time, '%V') desc
   </select>
 
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
@@ -1072,11 +1018,6 @@
     select * from schedule_arrangement where studio = #{param1} and campus =#{param2} and is_repeat = 1 and delete_status = 0 order by duration
   </select>
 
-  <!-- 查找订单 -->
-  <select id="getMyOrder" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select * from `order` where studio = #{param1} and openid =#{param2} and delete_status = 0 order by create_time
-  </select>
-
   <!-- 查找ID订单 -->
   <select id="getOrderByGoodsId" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
     select * from `order` where goods_id = #{param1} and type = #{param2} and delete_status = 0 order by create_time desc
@@ -1178,10 +1119,6 @@
   <!-- 查找签到记录 -->
   <select id="getStudentByTeacher" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0 and studio = #{param1} and teacher = #{param2}  order by create_time desc
-  </select>
-
-  <select id="getStudentByTeacherAll" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select id,student_name,create_time,studio,sign_time,mark,duration,count,subject,teacher from sign_up_record where delete_status = 0
   </select>
 
   <update id="updateSignUpDetail" parameterType="com.xue.entity.model.SignUp">
@@ -1412,10 +1349,6 @@
     select * from book_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
-  <select id="getBookUserByBookName" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
-    select * from book_user where book_name =#{param1} and delete_status = 0 order by id desc limit 1
-  </select>
-
   <select id="getBookUserById" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
     select * from book_user where id =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
@@ -1472,20 +1405,9 @@
     select * from user where unionid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
-  <select id="getUserByNoOfficialOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where official_openid is null and delete_status = 0 order by create_time desc
-  </select>
-
-  <select id="getRestaurantUserByUnionid" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
-    select * from restaurant_user where unionid =#{param1} and delete_status = 0 order by create_time desc
-  </select>
 
   <select id="getUserByChooseLesson" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select * from user where lessons like "%"#{param1}"%" and role in ('boss','teacher') and studio =#{param2}  and delete_status = 0;
-  </select>
-
-  <select id="getUserByOpenidIgnore" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select id,nick_name,student_name,role,openid,create_time,avatarurl,studio,user_type,expired_time,coins,comment_style,theme,display,cover,phone_number,location,lessons,subjects,campus from user where openid =#{param1} order by create_time desc limit 1
   </select>
 
   <select id="getUserByStudent" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
@@ -1548,10 +1470,6 @@
     select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by create_time desc limit #{param1},#{param2};
   </select>
 
-  <select id="getUserByOpenidQrLike" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where studio like "%"#{param1}"%" and openid_qr &lt;&gt; 'noid' and delete_status = 0 order by studio,create_time desc
-  </select>
-
   <select id="getWebsite" parameterType="com.xue.entity.model.Website" resultMap="BaseWebsite">
     select * from website where studio =#{param1} and campus =#{param2}  and delete_status = 0;
   </select>
@@ -1609,11 +1527,6 @@
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
     update user set studio=#{studio},campus=#{campus} where openid = #{openid} and delete_status = 0
-  </update>
-
-  <!-- 更新工作室 -->
-  <update id="updateOpenid" parameterType="com.xue.entity.model.User">
-    update user set openid =#{openid} where studio=#{studio} and campus=#{campus} and nick_name=#{nick_name} and delete_status = 0
   </update>
 
   <update id="updateOpenidById" parameterType="com.xue.entity.model.User">
@@ -1754,10 +1667,6 @@
     update class_schedule set send_status=#{param2} where id = #{param1} and delete_status=0
   </update>
 
-  <update id="updateClassSendStatusByOpenid" parameterType="com.xue.entity.model.User">
-    update user set send_status=#{param2} where openid = #{param1} and delete_status=0
-  </update>
-
   <update id="updateClassSendStatusByStudio" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set send_status=#{param2} where studio = #{param1} and delete_status=0
   </update>
@@ -1809,10 +1718,6 @@
     update  schedule_arrangement set hours=#{param2} where studio = #{param1}
   </update>
 
-  <select id="getComentStyle" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select comment_style from user where studio = #{studio} and role = 'boss' and delete_status = 0 order by create_time limit 1
-  </select>
-
   <select id="getStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select distinct studio from user where delete_status = 0 order by studio
   </select>
@@ -1827,10 +1732,6 @@
 
   <select id="getSubjectByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select distinct subject from lesson where delete_status = 0 and studio =#{param1} and campus =#{param2}
-  </select>
-
-  <select id="getClassNumbers" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select distinct class_number from class_schedule where studio = #{param1}
   </select>
 
   <select id="getArrangements" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
@@ -1945,10 +1846,6 @@
     select * from lesson_package where studio =#{param1} and campus =#{param2} and delete_status = 0 order by student_name
   </select>
 
-  <select id="getLessonPackageBySubject" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select * from lesson_package where studio =#{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 order by create_time desc
-  </select>
-
   <!-- 获取课时 -->
   <select id="getLesson" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select * from lesson where studio =#{param1} and campus =#{param2} and delete_status = 0 order by left_amount,id
@@ -2034,11 +1931,6 @@
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
     select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and is_try = 0 and delete_status = 0
-  </select>
-
-  <!-- 获取提醒状态 -->
-  <select id="getScheduleRemind" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and student_type ='ordinary' and delete_status = 0
   </select>
 
   <!-- 获取提醒状态 -->
@@ -2217,10 +2109,6 @@
     update lesson set left_amount=#{left_amount},total_amount=#{total_amount} where student_name=#{student_name} and studio =#{studio} and campus =#{campus} and delete_status = 0
   </update>
 
-  <!-- 更新课时 -->
-  <update id="updateLessonSubject" parameterType="com.xue.entity.model.Lesson">
-    update lesson set subject=#{param1} where id=#{param2} and studio = #{param3} and subject=#{param4} and campus=#{param5} and delete_status = 0
-  </update>
 
   <!-- 更新积分展示状态 -->
   <update id="updateLessonPointStatus" parameterType="com.xue.entity.model.Lesson">
@@ -2291,10 +2179,6 @@
     update user set official_openid=#{param2} where unionid=#{param1} and delete_status = 0
   </update>
 
-  <update id="updateRestaurantUserOfficialOpenid" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set official_openid=#{param2} where unionid=#{param1} and delete_status = 0
-  </update>
-
   <update id="updateLessonStudio" parameterType="com.xue.entity.model.Lesson">
     update lesson set studio=#{param2} where studio=#{param1} and delete_status = 0
   </update>
@@ -2355,10 +2239,6 @@
     update lesson set is_combine=#{is_combine} where student_name=#{student_name} and studio=#{studio} and campus=#{campus}
   </update>
 
-  <update id="updateLessonCampus" parameterType="com.xue.entity.model.Lesson">
-    update lesson set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
-  </update>
-
   <update id="updateLessonLeft" parameterType="com.xue.entity.model.Lesson">
     update lesson set left_amount=#{param1} where studio=#{param2} and student_name=#{param3} and campus=#{param4} and subject=#{param5} and delete_status = 0
   </update>
@@ -2393,18 +2273,6 @@
 
   <update id="updateSignUpSubject" parameterType="com.xue.entity.model.SignUp">
     update sign_up_record set subject=#{param5} where studio=#{param1} and student_name=#{param2} and campus=#{param3} and subject=#{param4} and delete_status = 0
-  </update>
-
-  <update id="updateGiftCampus" parameterType="com.xue.entity.model.Gift">
-    update gift_record set campus=#{param3} where studio=#{param1} and student_name=#{param2}
-  </update>
-
-  <update id="updateNoteCampus" parameterType="com.xue.entity.model.Note">
-    update class_note set campus=#{param3} where studio=#{param1} and student_name=#{param2}
-  </update>
-
-  <update id="updateLeaveCampus" parameterType="com.xue.entity.model.Leave">
-    update leave_record set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
   </update>
 
   <update id="updateSubscription" parameterType="com.xue.entity.model.User">
@@ -2564,11 +2432,6 @@
   <!-- 用户过期 -->
   <update id="updateUserExpired" parameterType="com.xue.entity.model.User">
     update user set role=#{param1} where studio=#{param2} and role in ('boss','teacher')
-  </update>
-
-  <!-- 用户过期 -->
-  <update id="updateUserExpiredTimeAd" parameterType="com.xue.entity.model.User">
-    update user set expired_time_ad=#{param2} where openid=#{param1}
   </update>
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">
