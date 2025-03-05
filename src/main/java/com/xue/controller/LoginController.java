@@ -4319,6 +4319,7 @@ public class LoginController {
 				user.setUser_type("新用户");
 				user.setStudent_name("no_name");
 				user.setNick_name("微信用户");
+				user.setPhone_number(phone_number);
 
 				dao.insertUser(user);
 			}
