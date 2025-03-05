@@ -3050,6 +3050,7 @@ public class LoginController {
 
 		String content = request.getParameter("content");
 		String title = request.getParameter("title");
+		String uuid = request.getParameter("uuid");
 
 
 		try {
@@ -3059,6 +3060,7 @@ public class LoginController {
 			announcement.setCampus(campus);
 			announcement.setContent(content);
 			announcement.setTitle(title);
+			announcement.setUuid(uuid);
 			dao.insertAnnouncement(announcement);
 
 			List<User> users_all = dao.getUserByStudio(studio,campus);

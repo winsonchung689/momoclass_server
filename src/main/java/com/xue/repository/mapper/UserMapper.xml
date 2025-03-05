@@ -1777,7 +1777,7 @@
 
   <!-- 插入通知 -->
   <insert id="insertAnnouncement" parameterType="com.xue.entity.model.Announcement">
-    insert announcement(studio,create_time,content,campus,title) values(#{studio},#{create_time},#{content},#{campus},#{title})
+    insert announcement(studio,create_time,content,campus,title,uuid) values(#{studio},#{create_time},#{content},#{campus},#{title},#{uuid})
   </insert>
 
   <!-- 插入课时 -->
