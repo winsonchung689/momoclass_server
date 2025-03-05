@@ -3641,6 +3641,16 @@ public class LoginController {
 				String phone_number = content_list[1];
 				dao.updateUserStudentByOpenid(student_name,id);
 				dao.updatePhoneNumber(openid,phone_number);
+			}else if("校区".equals(type)){
+				User user =new User();
+				user.setOpenid(openid);
+				user.setCampus(content);
+				dao.updateUserCampus(user);
+			}else if("工作室".equals(type)){
+				User user =new User();
+				user.setOpenid(openid);
+				user.setStudio(content);
+				dao.updateUserStudioByOpenid(user);
 			}
 
 		} catch (Exception e) {
