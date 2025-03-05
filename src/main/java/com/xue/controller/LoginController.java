@@ -1905,6 +1905,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getUserByUserType")
+	@ResponseBody
+	public List getUserByUserType(String user_type){
+		List list = null;
+		try {
+			list = dao.getUserByUserType(user_type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getCard")
 	@ResponseBody
 	public List getCard(String studio, String campus, String student_name,String subject){

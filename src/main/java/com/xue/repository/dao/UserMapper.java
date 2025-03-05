@@ -649,6 +649,8 @@ public interface UserMapper {
 
     List<User> getUserByUnionid(String unionid);
 
+    List<User> getUserByUserType(String user_type);
+
     List<User> getUserByChooseLesson(String chooseLesson,String studio);
 
     List<User> getUserByStudent(String student_name,String studio);

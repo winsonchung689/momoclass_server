@@ -1405,6 +1405,10 @@
     select * from user where unionid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getUserByUserType" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where user_type =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
 
   <select id="getUserByChooseLesson" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
     select * from user where lessons like "%"#{param1}"%" and role in ('boss','teacher') and studio =#{param2}  and delete_status = 0;
