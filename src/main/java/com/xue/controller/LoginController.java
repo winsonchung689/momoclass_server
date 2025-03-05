@@ -4322,6 +4322,8 @@ public class LoginController {
 				user.setPhone_number(phone_number);
 
 				dao.insertUser(user);
+			}else{
+				dao.updatePhoneNumber(openid,phone_number);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
