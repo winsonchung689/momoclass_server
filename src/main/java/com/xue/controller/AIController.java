@@ -152,11 +152,8 @@ public class AIController {
 			params.put("model", "dall-e-3");
 			params.put("prompt", question);
 			params.put("n", 1);
-			params.put("nsize", "1024x1024");
+			params.put("size", "1024x1024");
 
-			JSONArray stop = new JSONArray();
-			stop.add("<br>");
-			params.put("stop", stop);
 			res = JsonUtils.doPost("https://api.openai.com/v1/images/generations", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
