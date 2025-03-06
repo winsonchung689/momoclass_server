@@ -164,8 +164,6 @@ public class AIController {
 		try {
 			URL file = new URL(img_url);
 			BufferedImage image = ImageIO.read(file);
-//			ByteArrayOutputStream img_file = new ByteArrayOutputStream();
-//			ImageIO.write(image, "png", img_file);
 
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			Map<String, String> header = new HashMap<String, String>();
