@@ -169,13 +169,14 @@ public class AIController {
 	public static String imgVariations(String uuid){
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		String res = null;
+		System.out.printf(img_url);
 		try {
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			Map<String, String> header = new HashMap<String, String>();
-			header.put("Content-Type", "application/json");
+//			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
-			params.put("model", "dall-e-2");
+//			params.put("model", "dall-e-2");
 			params.put("image", img_url);
 			params.put("n", 2);
 			params.put("size", "1024x1024");
@@ -246,6 +247,7 @@ public class AIController {
 	@ResponseBody
 	public static String momoImgVariations(String uuid){
 		String res = null;
+		System.out.println(uuid);
 		try {
 			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
 			res = JsonUtils.doGet(url);
