@@ -163,6 +163,34 @@ public class AIController {
 		return res;
 	}
 
+	// 直连图生图
+	@RequestMapping("/imgVariations")
+	@ResponseBody
+	public static String imgVariations(String uuid){
+		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "dall-e-2");
+			params.put("image", img_url);
+			params.put("n", 2);
+			params.put("size", "1024x1024");
+
+			res = JsonUtils.doPost("https://api.openai.com/v1/images/variations", header, params);
+			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return res;
+	}
+
+////////////////////////////// 分界线 //////////////////////////////////
+
 	//小程序文本问答
 	@RequestMapping("/momoChat")
 	@ResponseBody
@@ -209,6 +237,20 @@ public class AIController {
 			res = JsonUtils.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	@RequestMapping("/momoImgVariations")
+	@ResponseBody
+	public static String momoImgVariations(String uuid){
+		String res = null;
+		try {
+			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
+			res = JsonUtils.doGet(url);
+			System.out.println(res);
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return res;
