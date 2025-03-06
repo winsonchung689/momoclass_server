@@ -1,41 +1,32 @@
 package com.xue.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.xue.JsonUtils.JsonUtils;
-import com.xue.config.Constants;
-import com.xue.entity.model.*;
-import com.xue.repository.dao.UserMapper;
-import com.xue.service.LoginService;
-import com.xue.service.WebPushService;
-import com.xue.util.HttpUtil;
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AIController {
@@ -171,15 +162,21 @@ public class AIController {
 		String res = null;
 		System.out.printf(img_url);
 		try {
+			URL file = new URL(img_url);
+			BufferedImage image = ImageIO.read(file);
+//			ByteArrayOutputStream img_file = new ByteArrayOutputStream();
+//			ImageIO.write(image, "png", img_file);
+
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			Map<String, String> header = new HashMap<String, String>();
-//			header.put("Content-Type", "application/json");
+			header.put("Content-Type", "multipart/form-data");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
 //			params.put("model", "dall-e-2");
-			params.put("image", img_url);
+			params.put("image", "data:image/png;base64," + image);
 			params.put("n", 2);
 			params.put("size", "1024x1024");
+
 
 			res = JsonUtils.doPost("https://api.openai.com/v1/images/variations", header, params);
 			System.out.println(res);
