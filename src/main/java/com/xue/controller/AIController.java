@@ -42,6 +42,7 @@ public class AIController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	// 直连图文问答
 	@RequestMapping("/chatImg")
 	@ResponseBody
 	public static String chatImg(String question,String uuid){
@@ -99,6 +100,7 @@ public class AIController {
 		return res;
 	}
 
+	// 直连文本问答
 	@RequestMapping("/chat")
 	@ResponseBody
 	public static String chat(String question){
@@ -135,6 +137,36 @@ public class AIController {
 		return res;
 	}
 
+	// 直连文生图
+	@RequestMapping("/imgGenerate")
+	@ResponseBody
+	public static String imgGenerate(String question){
+		System.out.println(question);
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "dall-e-3");
+			params.put("prompt", question);
+			params.put("n", 1);
+			params.put("nsize", "1024x1024");
+
+			JSONArray stop = new JSONArray();
+			stop.add("<br>");
+			params.put("stop", stop);
+			res = JsonUtils.doPost("https://api.openai.com/v1/images/generations", header, params);
+			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return res;
+	}
+
+	//小程序文本问答
 	@RequestMapping("/momoChat")
 	@ResponseBody
 	public static String momoChat(String question){
@@ -151,6 +183,7 @@ public class AIController {
 		return res;
 	}
 
+	//小程序图文问答
 	@RequestMapping("/momoChatImg")
 	@ResponseBody
 	public static String momoChatImg(String question,String uuid){
@@ -159,6 +192,23 @@ public class AIController {
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
 			String url = "http://43.156.34.5:80/chatImg?question=" + question_encode + "&uuid=" + uuid;
+			res = JsonUtils.doGet(url);
+			System.out.println(res);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	//小程序文生图
+	@RequestMapping("/momoImgGenerate")
+	@ResponseBody
+	public static String momoImgGenerate(String question){
+		String res = null;
+		System.out.println(question);
+		try {
+			String question_encode = URLEncoder.encode(question, "UTF-8");
+			String url = "http://43.156.34.5:80/imgGenerate?question=" + question_encode;
 			res = JsonUtils.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
