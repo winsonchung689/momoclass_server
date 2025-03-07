@@ -4,13 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.xue.JsonUtils.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,8 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -159,29 +161,54 @@ public class AIController {
 	@ResponseBody
 	public static String imgVariations(String uuid){
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
+		String filePath = "/data/imgs/imgfile.png";
 		String res = null;
 		System.out.printf(img_url);
 		try {
-			URL file = new URL(img_url);
-			BufferedImage image = ImageIO.read(file);
+			URL url = new URL(img_url);
+			// 打开连接
+			try (InputStream is = url.openStream();
+				 FileOutputStream fos = new FileOutputStream(filePath)) {
+				// 读取数据并写入文件
+				byte[] buffer = new byte[4096]; // 缓冲区大小，可以根据需要调整
+				int bytesRead;
+				while ((bytesRead = is.read(buffer)) != -1) {
+					fos.write(buffer, 0, bytesRead);
+				}
+			} catch (IOException e) {
+				System.err.println("Error reading from URL or writing to file: " + e.getMessage());
+			}
 
+			File file = new File(filePath);
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/variations");
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
-			Map<String, String> header = new HashMap<String, String>();
-			header.put("Content-Type", "multipart/form-data");
-			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
-			JSONObject params = new JSONObject();
-//			params.put("model", "dall-e-2");
-			params.put("image", "data:image/png;base64," + image);
-			params.put("n", 2);
-			params.put("size", "1024x1024");
+			httpPost.setHeader("Authorization","Bearer " + OPENAI_API_KEY);
 
+			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE); // 设置浏览器兼容模式
+			builder.addBinaryBody("image", file, ContentType.DEFAULT_BINARY, file.getName()); // 添加文件部分
+			builder.addTextBody("n", "2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+			builder.addTextBody("size", "1024x1024", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+			HttpEntity multipart = builder.build();
+			httpPost.setEntity(multipart);
+			CloseableHttpResponse response = httpClient.execute(httpPost);
 
-			res = JsonUtils.doPost("https://api.openai.com/v1/images/variations", header, params);
-			System.out.println(res);
+			try {
+				HttpEntity responseEntity = response.getEntity();
+				if (responseEntity != null) {
+					res = EntityUtils.toString(responseEntity); // 获取响应内容
+					System.out.println(res); // 打印响应内容或进行其他处理
+				}
+				response.close(); // 关闭响应对象
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 		return res;
 	}
 
