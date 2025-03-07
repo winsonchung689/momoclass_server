@@ -2033,7 +2033,7 @@
 
   <!-- 获取学生总耗课数 -->
   <select id="getAllSignUpByStudent" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Float">
-    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and campus=#{param3} and student_name=#{param4} and mark &lt;&gt; '录前消课' and delete_status = 0
+    select sum(count) from sign_up_record where studio =#{param1} and subject =#{param2} and campus=#{param3} and student_name=#{param4} and delete_status = 0
   </select>
 
   <!-- 获取学生总耗课数合并 -->
