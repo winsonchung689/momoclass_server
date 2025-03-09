@@ -6699,62 +6699,45 @@ public class LoginServiceImpl implements LoginService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
         return "changeClass successfully";
     }
 
     @Override
     public List getGrowthRecord(String studio, Integer page, String student_name) {
-        String comment = null;
-        String id = null;
-        String create_time = null;
-        byte[] photo = null;
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
         List<JSONObject> resul_list = new ArrayList<>();
-        List<Message> list=null;
-        String duration = null;
-        String class_name = null;
-        String mp3_url = null;
 
         try {
-            list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
-            if(list.size()>0){
-                for (int i = 0; i < list.size(); i++) {
-                    String uuids = null;
-                    JSONObject jsonObject = new JSONObject();
-                    Message line = list.get(i);
-                    //获取字段
-                    comment = line.getComment();
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    duration = line.getDuration();
-                    photo = line.getPhoto();
-                    class_name = line.getClass_name();
-                    mp3_url = line.getMp3_url();
-                    try {
-                        uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
-                    } catch (Exception e) {
+            List<Message> list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
+            for (int i = 0; i < list.size(); i++) {
+                String uuids = null;
+                JSONObject jsonObject = new JSONObject();
+                Message line = list.get(i);
+                //获取字段
+                String comment = line.getComment();
+                String id = line.getId();
+                String create_time = line.getCreate_time();
+                String duration = line.getDuration();
+                String class_name = line.getClass_name();
+                String mp3_url = line.getMp3_url();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
 //                    throw new RuntimeException(e);
-                    }
-                    if(uuids != null){
-                        photo = null;
-
-                    }
-
-                    //json
-                    jsonObject.put("comment", comment);
-                    jsonObject.put("id", id);
-                    jsonObject.put("create_time", create_time.substring(0,10));
-                    jsonObject.put("duration", duration);
-                    jsonObject.put("photo", photo);
-                    jsonObject.put("class_name", class_name);
-                    jsonObject.put("uuids", uuids);
-                    jsonObject.put("mp3_url", mp3_url);
-                    resul_list.add(jsonObject);
                 }
+                String v_uuid = line.getVuuid();
+
+                //json
+                jsonObject.put("comment", comment);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time.substring(0,10));
+                jsonObject.put("duration", duration);
+                jsonObject.put("v_uuid", v_uuid);
+                jsonObject.put("class_name", class_name);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("mp3_url", mp3_url);
+                resul_list.add(jsonObject);
             }
 
         } catch (Exception e) {
