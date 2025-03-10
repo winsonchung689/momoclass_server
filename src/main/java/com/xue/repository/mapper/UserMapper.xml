@@ -1041,7 +1041,7 @@
   </select>
 
   <select id="getAllOrderByType" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
-    select * from `order` where studio =#{param1} and status =#{param2} and delete_status = 0 order by create_time desc limit #{param4},#{param5};
+    select * from `order` where studio =#{param1} and status =#{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4};
   </select>
 
   <!-- 查找课程表 -->
