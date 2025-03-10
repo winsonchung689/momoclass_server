@@ -2,10 +2,9 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
-import com.xue.JsonUtils.JsonUtils;
+import com.xue.util.HttpUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -84,7 +81,7 @@ public class AIController {
 			JSONArray stop = new JSONArray();
 			stop.add("<br>");
 			params.put("stop", stop);
-			res = JsonUtils.doPost("https://api.openai.com/v1/chat/completions", header, params);
+			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -121,7 +118,7 @@ public class AIController {
 			JSONArray stop = new JSONArray();
 			stop.add("<br>");
 			params.put("stop", stop);
-			res = JsonUtils.doPost("https://api.openai.com/v1/chat/completions", header, params);
+			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -147,7 +144,7 @@ public class AIController {
 			params.put("n", 1);
 			params.put("size", "1024x1024");
 
-			res = JsonUtils.doPost("https://api.openai.com/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://api.openai.com/v1/images/generations", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -223,7 +220,7 @@ public class AIController {
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
 			String url = "http://43.156.34.5:80/chat?question=" + question_encode;
-			res = JsonUtils.doGet(url);
+			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
@@ -240,7 +237,7 @@ public class AIController {
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
 			String url = "http://43.156.34.5:80/chatImg?question=" + question_encode + "&uuid=" + uuid;
-			res = JsonUtils.doGet(url);
+			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
@@ -257,7 +254,7 @@ public class AIController {
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
 			String url = "http://43.156.34.5:80/imgGenerate?question=" + question_encode;
-			res = JsonUtils.doGet(url);
+			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
@@ -272,7 +269,7 @@ public class AIController {
 		System.out.println(uuid);
 		try {
 			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
-			res = JsonUtils.doGet(url);
+			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
