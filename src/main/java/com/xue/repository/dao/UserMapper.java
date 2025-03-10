@@ -708,7 +708,7 @@ public interface UserMapper {
 
     List<Order> getAllOrderByOpenid(String openid,Integer page_start,Integer page_length);
 
-    List<Order> getAllOrderByType(String studio,Integer status,String openid,Integer page_start,Integer page_length);
+    List<Order> getAllOrderByType(String studio,Integer status,Integer page_start,Integer page_length);
 
     List<Arrangement> getArrangementsByDate(String studio);
 

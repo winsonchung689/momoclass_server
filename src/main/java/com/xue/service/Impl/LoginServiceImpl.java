@@ -3933,7 +3933,7 @@ public class LoginServiceImpl implements LoginService {
                 }else if ("已完成".equals(type)) {
                     status = 2;
                 }
-                list = dao.getAllOrderByType(studio,status,openid,page_start,page_length);
+                list = dao.getAllOrderByType(studio,status,page_start,page_length);
             }
 
             for (int i = 0; i < list.size(); i++) {
