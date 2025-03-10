@@ -312,7 +312,7 @@ public class LoginController {
 		String token = loginService.getToken("MOMO");
 		String scene = "type="+ type + "&id=" + id;
 
-//		登陆码 type = 1，id = boss 的 user 表 id；邀请码，id = boss 的 user 表 id
+		// 登陆码 type = 1，id = boss 的 user 表 id；邀请码，id = boss 的 user 表 id
 		String studio = null;
 		if("1".equals(type) || "2".equals(type)){
 			List<User> users = dao.getUserById(id);
@@ -320,12 +320,19 @@ public class LoginController {
 			studio = user.getStudio();
 		}
 
-//		绑定码，student_name 学生表 id
+		// 绑定码，type = 3，id = 学生表 id
 		if("3".equals(type)){
 			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
 			Lesson lesson = lessons.get(0);
 			studio = lesson.getStudio();
 		}
+
+        // 活动码，type = 4，id = goods_list 的 id;
+        if("4".equals(type)){
+            List<GoodsList> goodsLists =dao.getGoodsListById(id);
+            GoodsList goodsList = goodsLists.get(0);
+            studio = goodsList.getStudio();
+        }
 
 		try {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
@@ -339,7 +346,7 @@ public class LoginController {
 			String imageString = Base64.getEncoder().encodeToString(bytes);
 
 			// 上传二维码
-			String studio_md5 = DigestUtils.md5Hex(studio+type+id);
+			String studio_md5 = DigestUtils.md5Hex(studio + type+ id);
 			String serverPath = "/data/uploadRr";
 			String fileName = studio_md5 + ".png";
 			File file = new File(serverPath, fileName);
@@ -5966,6 +5973,9 @@ public class LoginController {
 		String phone_number = request.getParameter("phone_number");
 
 		String nick_name = request.getParameter("nick_name");
+        if(nick_name == null || nick_name.isEmpty() || "undefined".equals(nick_name)){
+            nick_name = "微信用户";
+        }
 
 		String studio = request.getParameter("studio");
 
@@ -6039,6 +6049,13 @@ public class LoginController {
 			student_name = lesson.getStudent_name();
 			nick_name = student_name;
 		}
+
+        if("4".equals(type)){
+            List<GoodsList> goodsLists =dao.getGoodsListById(id);
+            GoodsList goodsList = goodsLists.get(0);
+            studio = goodsList.getStudio();
+            campus = goodsList.getCampus();
+        }
 
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
