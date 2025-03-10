@@ -338,7 +338,11 @@ public class LoginController {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			Map<String,String> param = new HashMap<> () ;
 			param.put("scene",scene);
-			param.put("page","pages/welcome/welcome");
+			String page = "pages/welcome/welcome";
+			if("4".equals(type)){
+				page = "pages/groupbuy/groupbuy";
+			}
+			param.put("page",page);
 			String json = JSON.toJSONString(param) ;
 			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
 			byte[] bytes = new byte[inputStream.available()];
@@ -6021,7 +6025,7 @@ public class LoginController {
 		Integer is_open =0;
 		String my_openid ="";
 
-//		登陆码
+		// 登陆码
 		if("1".equals(type)){
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
@@ -6031,7 +6035,7 @@ public class LoginController {
 			is_open = user.getIs_open();
 		}
 
-//		邀请码
+		// 邀请码
 		if("2".equals(type)){
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
@@ -6040,7 +6044,7 @@ public class LoginController {
 			campus = "请录入工作室";
 		}
 
-//		绑定码
+		// 绑定码
 		if("3".equals(type)){
 			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
 			Lesson lesson = lessons.get(0);
@@ -6049,7 +6053,7 @@ public class LoginController {
 			student_name = lesson.getStudent_name();
 			nick_name = student_name;
 		}
-
+		// 活动码
         if("4".equals(type)){
             List<GoodsList> goodsLists =dao.getGoodsListById(id);
             GoodsList goodsList = goodsLists.get(0);
