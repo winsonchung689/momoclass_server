@@ -39,8 +39,10 @@ public class AIController {
 		String res = null;
 		try {
 			String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
-			System.out.println(question);
-			System.out.println(img_url);
+			if("课后点评".equals(question.split("_")[0])){
+				img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
+			}
+
 
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			Map<String, String> header = new HashMap<String, String>();
