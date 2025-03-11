@@ -9969,8 +9969,10 @@ public class LoginServiceImpl implements LoginService {
                 Integer group_num = line.getGroup_num();
                 String photo = line.getPhoto();
                 String goods_type = line.getGoods_type();
+                String studio = line.getStudio();
 
                 //json
+                jsonObject.put("studio", studio);
                 jsonObject.put("cut_step", cut_step);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
