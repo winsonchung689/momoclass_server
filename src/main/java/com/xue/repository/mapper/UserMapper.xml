@@ -1061,7 +1061,7 @@
 
   <!-- 按天查找请假记录 -->
   <select id="getLeaveRecordByDate" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
-    select * from leave_record where student_name =#{param1} and studio =#{param2} and leave_type = '请假' and subject =#{param3} and campus =#{param4} and date_format(create_time, '%Y-%m-%d') =#{param5} and delete_status = 0 order by date_time desc
+    select * from leave_record where student_name =#{param1} and studio =#{param2} and subject =#{param3} and campus =#{param4} and date_time =#{param5} and leave_type = '请假' and delete_status = 0 order by date_time desc
   </select>
 
   <select id="getLeaveRecordById" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
