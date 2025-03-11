@@ -5264,19 +5264,35 @@ public class LoginServiceImpl implements LoginService {
                             String student_type = schedule.getStudent_type();
                             String add_date = schedule.getAdd_date();
 
-                            //  跳过插班生
-                            if("transferred".equals(student_type)){
-                                if("统一提醒次日".equals(remindType)){
+                            if("统一提醒次日".equals(remindType)){
+                                // 跳过插班生
+                                if("transferred".equals(student_type)){
                                     if(!tm_date.equals(add_date)){
                                         send_status = now_date;
                                     }
-                                }else if("提前N小时提醒".equals(remindType)){
+                                }
+
+                                // 跳过请假生
+                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,tm_date);
+                                if(leaves.size()>0){
+                                    send_status = now_date;
+                                }
+                            }else if("提前N小时提醒".equals(remindType)){
+                                // 跳过插班生
+                                if("transferred".equals(student_type)){
                                     if(!td_date.equals(add_date)){
                                         send_status = now_date;
                                     }
                                 }
+
+                                // 跳过请假生
+                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,td_date);
+                                if(leaves.size()>0){
+                                    send_status = now_date;
+                                }
                             }
 
+                            // 课程设计
                             Integer choose = 0;
                             Integer weekDayChoose = 0;
                             if(weekDay == 1){
@@ -5284,8 +5300,6 @@ public class LoginServiceImpl implements LoginService {
                             }else {
                                 weekDayChoose = weekDay -1;
                             }
-
-                            // 课程设计
                             String upcoming = "未设";
                             List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                             if(arrangement_list.size()>0){

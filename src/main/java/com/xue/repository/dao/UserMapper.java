@@ -926,6 +926,8 @@ public interface UserMapper {
 
     List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
 
+    List<Leave> getLeaveRecordByDate(String student_name,String studio,String subject,String campus,String create_time);
+
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);
