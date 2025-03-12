@@ -7683,7 +7683,7 @@ public class LoginController {
 		List<User> list = dao.getUser(openid);
 		String studio_get = list.get(0).getStudio();
 
-		if ( studio_get.equals(studio)) {
+		if (studio_get.equals(studio)) {
 			try {
 				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
 				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject,campus);
