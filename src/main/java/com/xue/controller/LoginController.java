@@ -7677,27 +7677,22 @@ public class LoginController {
 		String student_name = request.getParameter("student_name");
 		String count = request.getParameter("count");
 		String subject = request.getParameter("subject");
-		List<User> list_user = dao.getUser(openid);
-		String campus = list_user.get(0).getCampus();
 
-		List<User> list = dao.getUser(openid);
-		String studio_get = list.get(0).getStudio();
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			studio = user.getStudio();
+			String campus = user.getCampus();
 
-		if (studio_get.equals(studio)) {
-			try {
-				loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
-				loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject,campus);
+			loginService.deleteSignUpRecord(Integer.parseInt(id),role,studio,openid);
+			loginService.updateMinusLesson(student_name,studio,-Float.parseFloat(count),subject,campus);
 
-				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject,campus);
-				Float coins = list1.get(0).getCoins();
-				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else {
-			logger.error("it's not your studio, could not delete!");
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
+			Float coins = lessons.get(0).getCoins();
+			loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 		return "push massage successfully";
 	}
 
