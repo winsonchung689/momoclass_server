@@ -6676,7 +6676,7 @@ public class LoginController {
 			duration = "00:00-00:00";
 		}
 
-		List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
+		List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 		if(lessons.size()>0){
 			Lesson lesson = lessons.get(0);
 			Float total_amount = lesson.getTotal_amount();
@@ -6757,6 +6757,8 @@ public class LoginController {
 				} catch (NumberFormatException e) {
 					throw new RuntimeException(e);
 				}
+
+				loginService.updateAddPoints(student_name,studio,Math.round(coins),subject,campus,"上课积分","上课积分");
 
 				// 发送通知
 				List<User> users = dao.getUserByStudent(student_name,studio);
@@ -7689,7 +7691,6 @@ public class LoginController {
 				List<Lesson> list1 = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 				Float coins = list1.get(0).getCoins();
 				loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","");
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
