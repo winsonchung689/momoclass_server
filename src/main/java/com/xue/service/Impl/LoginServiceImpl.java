@@ -5036,7 +5036,7 @@ public class LoginServiceImpl implements LoginService {
                 lesson.setCampus(campus);
                 result = dao.updateLessonPoint(lesson);
 
-                if("上课积分".equals(type) || "add".equals(type) || "minus".equals(type) || "兑换积分".equals(type)){
+                if("上课积分".equals(type) || "add".equals(type) || "minus".equals(type) || "兑换积分".equals(type) || "取消签到".equals(type)){
                     Points points_rd = new Points();
                     points_rd.setStudent_name(student_name);
                     points_rd.setCreate_time(create_time);
