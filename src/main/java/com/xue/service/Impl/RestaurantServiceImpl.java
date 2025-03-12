@@ -238,17 +238,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List getRestaurantUser(String openid) {
-        String role = null;
-        String avatarurl = null;
-        String nick_name = null;
-        String restaurant = null;
-        String user_type = null;
-        String create_time = null;
-        String expired_time = null;
-        String subjects = null;
         List<RestaurantUser> list= null;
-        int id = 0;
-        String logo = null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             list = dao.getRestaurantUser(openid);
@@ -256,19 +246,21 @@ public class RestaurantServiceImpl implements RestaurantService {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantUser line = list.get(i);
                 //获取字段
-                role = line.getRole();
-                avatarurl = line.getAvatarurl();
-                nick_name = line.getNick_name();
-                restaurant = line.getRestaurant();
-                create_time = line.getCreate_time();
-                expired_time = line.getExpired_time();
+                String role = line.getRole();
+                String avatarurl = line.getAvatarurl();
+                String nick_name = line.getNick_name();
+                String restaurant = line.getRestaurant();
+                String create_time = line.getCreate_time();
+                String expired_time = line.getExpired_time();
                 openid = line.getOpenid();
-                logo = line.getLogo();
-                id = line.getId();
+                String logo = line.getLogo();
+                Integer id = line.getId();
                 String role_name = "普通";
                 if("boss".equals(role)){
                     role_name = "群主";
                 }
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
 
                 //json
                 jsonObject.put("id", id);
@@ -276,12 +268,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("restaurant", restaurant);
-                jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("expired_time", expired_time);
                 jsonObject.put("openid",openid);
                 jsonObject.put("logo",logo);
                 jsonObject.put("role_name",role_name);
+                jsonObject.put("phone_number",phone_number);
+                jsonObject.put("location",location);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

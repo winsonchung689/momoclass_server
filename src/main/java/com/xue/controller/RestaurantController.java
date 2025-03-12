@@ -272,28 +272,25 @@ public class RestaurantController {
 		String type = request.getParameter("type");
 
 		try {
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			if("avatarurl".equals(type)){
-				RestaurantUser restaurantUser =new RestaurantUser();
 				restaurantUser.setAvatarurl(content);
 				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantAvatar(restaurantUser);
+				dao.updateRestaurantUser(restaurantUser);
 			}else if("nickName".equals(type)){
-				RestaurantUser restaurantUser =new RestaurantUser();
 				restaurantUser.setNick_name(content);
 				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantNickName(restaurantUser);
+				dao.updateRestaurantUser(restaurantUser);
 			}else if("logo".equals(type)){
-				RestaurantUser restaurantUser =new RestaurantUser();
 				restaurantUser.setLogo(content);
 				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantLogo(restaurantUser);
+				dao.updateRestaurantUser(restaurantUser);
 			}else if("restaurant".equals(type)){
-				RestaurantUser restaurantUser =new RestaurantUser();
 				restaurantUser.setRestaurant(content);
 				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantName(restaurantUser);
+				dao.updateRestaurantUser(restaurantUser);
 			}else if("role".equals(type)){
-				RestaurantUser restaurantUser =new RestaurantUser();
 				if("boss".equals(content)){
 					content = "client";
 				}else {
@@ -301,7 +298,15 @@ public class RestaurantController {
 				}
 				restaurantUser.setRole(content);
 				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantRole(restaurantUser);
+				dao.updateRestaurantUser(restaurantUser);
+			}else if("phone_number".equals(type)){
+				restaurantUser.setPhone_number(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantUser(restaurantUser);
+			}else if("location".equals(type)){
+				restaurantUser.setLocation(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantUser(restaurantUser);
 			}
 
 		} catch (Exception e) {

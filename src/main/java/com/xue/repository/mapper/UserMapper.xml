@@ -1591,44 +1591,30 @@
     update lesson set related_id=#{param2},total_amount=#{param3},left_amount=#{param4} where id = #{param1}
   </update>
 
-  <update id="updateRestaurantAvatar" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set avatarurl=#{avatarurl} where openid = #{openid}
-  </update>
-
   <update id="updateBookAvatar" parameterType="com.xue.entity.model.BookUser">
     update book_user set avatarurl=#{avatarurl} where openid = #{openid}
-  </update>
-
-  <update id="updateBookDetailBookName" parameterType="com.xue.entity.model.BookDetail">
-    update book_detail set book_name=#{param2} where book_name = #{param1}
-  </update>
-
-  <update id="updateRestaurantNickName" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set nick_name=#{nick_name} where openid = #{openid}
   </update>
 
   <update id="updateBookNickName" parameterType="com.xue.entity.model.BookUser">
     update book_user set nick_name=#{nick_name} where openid = #{openid}
   </update>
 
-  <update id="updateRestaurantLogo" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set logo=#{logo} where openid = #{openid}
+  <update id="updateBookDetailBookName" parameterType="com.xue.entity.model.BookDetail">
+    update book_detail set book_name=#{param2} where book_name = #{param1}
   </update>
 
   <update id="updateBookLogo" parameterType="com.xue.entity.model.BookUser">
     update book_user set logo=#{logo} where openid = #{openid}
   </update>
 
+  <!--  更新商店用户信息-->
+  <update id="updateRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set nick_name=#{nick_name},logo=#{logo},restaurant=#{restaurant},role=#{role},avatarurl=#{avatarurl},phone_number=#{phone_number},location=#{location} where openid = #{openid}
+  </update>
+
+  <!--  更新订单状态-->
   <update id="updateRestaurantOrderStatus" parameterType="com.xue.entity.model.RestaurantOrder">
     update restaurant_order set status=#{param2} where id = #{param1}
-  </update>
-
-  <update id="updateRestaurantName" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set restaurant=#{restaurant} where openid = #{openid}
-  </update>
-
-  <update id="updateRestaurantRole" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set role=#{role} where openid = #{openid}
   </update>
 
   <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">

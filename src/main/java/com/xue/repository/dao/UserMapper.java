@@ -428,25 +428,17 @@ public interface UserMapper {
 
     int updateLessonRelatedById(Integer id,String related_id,Float total_amount,Float left_amount);
 
-    int updateRestaurantAvatar(RestaurantUser restaurantUser);
-
     int updateBookAvatar(BookUser bookUser);
 
     int updateBookDetailBookName(String book_name_old,String book_name_new);
 
-    int updateRestaurantNickName(RestaurantUser restaurantUser);
+    int updateRestaurantUser(RestaurantUser restaurantUser);
 
     int updateBookNickName(BookUser bookUser);
-
-    int updateRestaurantLogo(RestaurantUser restaurantUser);
 
     int updateBookLogo(BookUser bookUser);
 
     int updateRestaurantOrderStatus(String id,int status);
-
-    int updateRestaurantName(RestaurantUser restaurantUser);
-
-    int updateRestaurantRole(RestaurantUser restaurantUser);
 
     int updateBookRole(BookUser bookUser);
 
