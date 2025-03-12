@@ -7689,7 +7689,7 @@ public class LoginController {
 
 			List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
 			Float coins = lessons.get(0).getCoins();
-			loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","");
+			loginService.updateAddPoints(student_name,studio,-Math.round(coins),subject,campus,"取消签到","取消签到");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
