@@ -28,4 +28,8 @@ public class Constants {
 
     public static final String host_name = "https://api.mch.weixin.qq.com";
 
+    public static final String mc_serial = "4086E2B39712045237246CE498261EE30A5A0AB6";
+
+    public static final String apiV3Key = "91440104MABWT9T11F13527897733abc";
+
 }

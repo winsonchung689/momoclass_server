@@ -1,6 +1,7 @@
 package com.xue.service.Impl;
 
 import com.wechat.pay.java.core.Config;
+import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
 import com.wechat.pay.java.service.partnerpayments.jsapi.JsapiServiceExtension;
 import com.wechat.pay.java.service.partnerpayments.jsapi.model.PrepayWithRequestPaymentResponse;
@@ -28,15 +29,15 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
+        String mc_serial = Constants.mc_serial;
+        String apiV3Key = Constants.apiV3Key;
 
         // 使用微信支付公钥的RSA配置
-        Config config = new RSAPublicKeyConfig.Builder()
+        Config config = new RSAAutoCertificateConfig.Builder()
                 .merchantId(mchid)
-                .privateKeyFromPath("")
-                .publicKeyFromPath("")
-                .publicKeyId("")
-                .merchantSerialNumber("")
-                .apiV3Key("")
+                .privateKeyFromPath("/data/certificate/apiclient_key.pem")
+                .merchantSerialNumber(mc_serial)
+                .apiV3Key(apiV3Key)
                 .build();
 
         // 构建service
@@ -67,15 +68,15 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
+        String mc_serial = Constants.mc_serial;
+        String apiV3Key = Constants.apiV3Key;
 
         // 使用微信支付公钥的RSA配置
-        Config config = new RSAPublicKeyConfig.Builder()
+        Config config = new RSAAutoCertificateConfig.Builder()
                 .merchantId(mchid)
-                .privateKeyFromPath("")
-                .publicKeyFromPath("")
-                .publicKeyId("")
-                .merchantSerialNumber("")
-                .apiV3Key("")
+                .privateKeyFromPath("/data/certificate/apiclient_key.pem")
+                .merchantSerialNumber(mc_serial)
+                .apiV3Key(apiV3Key)
                 .build();
 
         // 构建service

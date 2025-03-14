@@ -87,50 +87,37 @@ public class WechatPayController {
 		System.out.println("pay sucessfully");
 	}
 
-	@RequestMapping("/weChatPayDirect")
+	@RequestMapping("/weChatPay")
 	@ResponseBody
-	public String weChatPayDirect(HttpServletRequest request, HttpServletResponse response){
+	public String weChatPay(HttpServletRequest request, HttpServletResponse response){
+		String result = null;
 
 		String appid = request.getParameter("appid");
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
 
-		// 查询 merchant
-		List<Merchant> merchants =dao.getMerchant("大雄工作室","大雄工作室",appid);
-		Merchant merchant = merchants.get(0);
-		String mchid = merchant.getMchid();
-
-		String result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));;
-
-		return result;
-	}
-
-	@RequestMapping("/weChatPayPartner")
-	@ResponseBody
-	public String weChatPayPartner(HttpServletRequest request, HttpServletResponse response){
-
-		String description = request.getParameter("description");
-		String total = request.getParameter("total");
-		String openid = request.getParameter("openid");
-		String appid = request.getParameter("appid");
-		// 查询校区
-		List<User> users = dao.getUser(openid);
+		// 查询工作室
+		List<User> users = dao.getUserByOpenid(openid);
 		User user = users.get(0);
 		String studio = user.getStudio();
 		String campus = user.getCampus();
+
 		// 查询 merchant
 		List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
 		Merchant merchant = merchants.get(0);
 		String mchid = merchant.getMchid();
 		String sub_mchid = merchant.getSub_mchid();
 
-		String result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total));;
+		// 判断支付方式
+		if(mchid.equals(sub_mchid)){
+			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));;
+		}else{
+			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total));;
+		}
 
 		return result;
 	}
-
-
 
 
 }
