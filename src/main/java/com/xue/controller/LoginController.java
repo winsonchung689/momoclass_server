@@ -488,6 +488,10 @@ public class LoginController {
 		String nick_name = user.getNick_name();
 		String expired_time = user.getExpired_time();
 
+		if(("请录入工作室").equals(studio)){
+			return "no_studio";
+		}
+
 		long diff = 0;
 		try {
 			Date date1 = df.parse(create_time);
