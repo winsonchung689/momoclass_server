@@ -480,7 +480,7 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String result = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"AA\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
@@ -537,10 +537,13 @@ public class LoginController {
 			book.setAmount(Float.parseFloat(amount));
 			book.setCreate_time(create_time);
 			dao.insertBook(book);
-		}
 
-		// 发通知给管理员
-		try {
+			// 通知管理员
+			sendFeedback("o25ly6whIE5oBYdDjc2M4afnxQmU",expired_time_new,days.toString());
+			// 通知客户
+			sendFeedback(openid,expired_time_new,days.toString());
+		}else{
+			// 发提现通知给管理员
 			String token = loginService.getToken("MOMO_OFFICIAL");
 			String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			JSONObject queryJson = JSONObject.parseObject(model);
@@ -552,17 +555,15 @@ public class LoginController {
 			System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 			result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
 			System.out.printf("MOMO_OFFICIAL_RES:" + result);
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
 		return result;
 	}
 
 	//续费成功通知
 	@RequestMapping("/sendFeedback")
 	@ResponseBody
-	public String sendFeedback(String openid, String studio, String expired_time,String days){
+	public String sendFeedback(String openid,String expired_time,String days){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
@@ -571,6 +572,7 @@ public class LoginController {
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String official_openid = user.getOfficial_openid();
+		String studio = user.getStudio();
 
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");
