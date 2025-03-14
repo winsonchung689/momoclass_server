@@ -37,9 +37,6 @@ public class WechatPayServiceImpl implements WechatPayService {
         // 微信公钥
         String publicKeyFromPath = Constants.PUBLIC_KEY_FROM_PATH;
         String publicKeyId = Constants.PUBLIC_KEY_ID;
-        // 平台证书
-        String platform_certificate = Constants.PLATFORM_CERTIFICATE_PATH;
-        String certificate_serial = Constants.CERTIFICATE_SERIAL;
 
         // 使用微信支付公钥的RSA配置
         Config config = new RSAPublicKeyConfig.Builder()

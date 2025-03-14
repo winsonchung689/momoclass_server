@@ -111,9 +111,9 @@ public class WechatPayController {
 		// 判断支付方式
 		JSONObject result = null;
 		if(mchid.equals(sub_mchid)){
-			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));;
+			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total)*100);;
 		}else{
-			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total));;
+			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total)*100);;
 		}
 
 		return result;
