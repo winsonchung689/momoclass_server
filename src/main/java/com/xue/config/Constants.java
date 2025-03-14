@@ -29,7 +29,7 @@ public class Constants {
     public static final String host_name = "https://api.mch.weixin.qq.com";
 
     // 商户序列号
-    public static final String mc_serial = "4086E2B39712045237246CE498261EE30A5A0AB6";
+    public static final String mchSerialNo = "4086E2B39712045237246CE498261EE30A5A0AB6";
 
     // V3 密钥
     public static final String apiV3Key = "91440104MABWT9T11F13527897733abc";
@@ -39,7 +39,7 @@ public class Constants {
 
     // 微信支付公钥
     public static final  String publicKeyFromPath ="/data/certificate/pub_key.pem";
-
+    // 微信支付公钥ID
     public static final  String publicKeyId ="PUB_KEY_ID_0117104857652025031400189800000640";
 
 

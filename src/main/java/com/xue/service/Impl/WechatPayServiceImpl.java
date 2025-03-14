@@ -29,11 +29,12 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
-        String mc_serial = Constants.mc_serial;
+        String mchSerialNo = Constants.mchSerialNo;
         String apiV3Key = Constants.apiV3Key;
         String privateKeyFromPath = Constants.privateKeyFromPath;
         String publicKeyFromPath = Constants.publicKeyFromPath;
         String publicKeyId = Constants.publicKeyId;
+        System.out.printf(mchid,mchSerialNo,apiV3Key);
 
         // 使用微信支付公钥的RSA配置
         Config config = new RSAPublicKeyConfig.Builder()
@@ -41,7 +42,7 @@ public class WechatPayServiceImpl implements WechatPayService {
                 .privateKeyFromPath(privateKeyFromPath)
                 .publicKeyFromPath(publicKeyFromPath)
                 .publicKeyId(publicKeyId)
-                .merchantSerialNumber(mc_serial)
+                .merchantSerialNumber(mchSerialNo)
                 .apiV3Key(apiV3Key)
                 .build();
 
@@ -73,14 +74,16 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
-        String mc_serial = Constants.mc_serial;
+        String mchSerialNo = Constants.mchSerialNo;
         String apiV3Key = Constants.apiV3Key;
 
         // 使用微信支付公钥的RSA配置
-        Config config = new RSAAutoCertificateConfig.Builder()
+        Config config = new RSAPublicKeyConfig.Builder()
                 .merchantId(mchid)
                 .privateKeyFromPath("/data/certificate/apiclient_key.pem")
-                .merchantSerialNumber(mc_serial)
+                .publicKeyFromPath("/Users/yourname/yourpath/pub_key.pem")
+                .publicKeyId("PUB_KEY_ID_00000000000000000000000000000000")
+                .merchantSerialNumber(mchSerialNo)
                 .apiV3Key(apiV3Key)
                 .build();
 
