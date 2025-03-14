@@ -1,5 +1,6 @@
 package com.xue.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.Merchant;
 import com.xue.entity.model.User;
 import com.xue.repository.dao.UserMapper;
@@ -89,9 +90,7 @@ public class WechatPayController {
 
 	@RequestMapping("/weChatPay")
 	@ResponseBody
-	public String weChatPay(HttpServletRequest request, HttpServletResponse response){
-		String result = null;
-
+	public JSONObject weChatPay(HttpServletRequest request, HttpServletResponse response){
 		String appid = request.getParameter("appid");
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
@@ -110,6 +109,7 @@ public class WechatPayController {
 		String sub_mchid = merchant.getSub_mchid();
 
 		// 判断支付方式
+		JSONObject result = null;
 		if(mchid.equals(sub_mchid)){
 			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total));;
 		}else{

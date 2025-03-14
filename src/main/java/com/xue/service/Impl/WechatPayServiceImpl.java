@@ -1,5 +1,6 @@
 package com.xue.service.Impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
@@ -27,7 +28,7 @@ public class WechatPayServiceImpl implements WechatPayService {
     private UserMapper dao;
 
     @Override
-    public String weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
+    public JSONObject weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
         String mchSerialNo = Constants.MC_SERIAL_NO;
@@ -70,12 +71,19 @@ public class WechatPayServiceImpl implements WechatPayService {
 
         // 获取 response
         com.wechat.pay.java.service.payments.jsapi.model.PrepayWithRequestPaymentResponse response = service.prepayWithRequestPayment(request);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("appId",response.getAppId());
+        jsonObject.put("timestamp",response.getTimeStamp());
+        jsonObject.put("nonceStr",response.getNonceStr());
+        jsonObject.put("packageVal",response.getPackageVal());
+        jsonObject.put("signType",response.getSignType());
+        jsonObject.put("paySign",response.getPaySign());
 
-        return response.toString();
+        return jsonObject();
     }
 
     @Override
-    public String weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
+    public JSONObject weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
         String mchSerialNo = Constants.MC_SERIAL_NO;
@@ -112,9 +120,16 @@ public class WechatPayServiceImpl implements WechatPayService {
         prepayRequest.setPayer(payer);
 
         // 获取response
-        PrepayWithRequestPaymentResponse prepayResponse = jsapiServiceExtension.prepayWithRequestPayment(prepayRequest,appid);
+        PrepayWithRequestPaymentResponse response = jsapiServiceExtension.prepayWithRequestPayment(prepayRequest,appid);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("appId",response.getAppId());
+        jsonObject.put("timestamp",response.getTimeStamp());
+        jsonObject.put("nonceStr",response.getNonceStr());
+        jsonObject.put("packageVal",response.getPackageVal());
+        jsonObject.put("signType",response.getSignType());
+        jsonObject.put("paySign",response.getPaySign());
 
-        return prepayResponse.toString();
+        return jsonObject;
     }
 
 
