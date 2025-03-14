@@ -108,7 +108,6 @@ public class WechatPayController {
 		Merchant merchant = merchants.get(0);
 		String mchid = merchant.getMchid();
 		String sub_mchid = merchant.getSub_mchid();
-		System.out.printf(mchid,sub_mchid);
 
 		// 判断支付方式
 		if(mchid.equals(sub_mchid)){
