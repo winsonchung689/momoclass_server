@@ -8,6 +8,7 @@ import com.wechat.pay.java.service.partnerpayments.jsapi.model.PrepayWithRequest
 import com.wechat.pay.java.service.payments.jsapi.model.Amount;
 import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
+import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.xue.config.Constants;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
@@ -29,12 +30,15 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
 
         String notify_url = Constants.notify_url;
-        String mchSerialNo = Constants.mchSerialNo;
-        String apiV3Key = Constants.apiV3Key;
-        String privateKeyFromPath = Constants.privateKeyFromPath;
-        String publicKeyFromPath = Constants.publicKeyFromPath;
-        String publicKeyId = Constants.publicKeyId;
-        System.out.printf(mchid,mchSerialNo,apiV3Key);
+        String mchSerialNo = Constants.MC_SERIAL_NO;
+        String apiV3Key = Constants.API_V3_KEY;
+        String privateKeyFromPath = Constants.PRIVATE_KEY_FROM_PATH;
+        // 微信公钥
+        String publicKeyFromPath = Constants.PUBLIC_KEY_FROM_PATH;
+        String publicKeyId = Constants.PUBLIC_KEY_ID;
+        // 平台证书
+        String platform_certificate = Constants.PLATFORM_CERTIFICATE_PATH;
+        String certificate_serial = Constants.CERTIFICATE_SERIAL;
 
         // 使用微信支付公钥的RSA配置
         Config config = new RSAPublicKeyConfig.Builder()
@@ -74,8 +78,8 @@ public class WechatPayServiceImpl implements WechatPayService {
     public String weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
-        String mchSerialNo = Constants.mchSerialNo;
-        String apiV3Key = Constants.apiV3Key;
+        String mchSerialNo = Constants.MC_SERIAL_NO;
+        String apiV3Key = Constants.API_V3_KEY;
 
         // 使用微信支付公钥的RSA配置
         Config config = new RSAPublicKeyConfig.Builder()
