@@ -79,7 +79,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         jsonObject.put("signType",response.getSignType());
         jsonObject.put("paySign",response.getPaySign());
 
-        return jsonObject();
+        return jsonObject;
     }
 
     @Override
