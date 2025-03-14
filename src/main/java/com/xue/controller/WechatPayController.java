@@ -103,18 +103,17 @@ public class WechatPayController {
 		String studio = user.getStudio();
 		String campus = user.getCampus();
 
-		// 查询 merchant
-		List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
-		Merchant merchant = merchants.get(0);
-		String mchid = merchant.getMchid();
-		String sub_mchid = merchant.getSub_mchid();
-
+		String mchid = "1710485765";
 		// 判断支付方式
 		JSONObject result = null;
 		if(type.equals("直接")){
-			mchid = "1710485765";
 			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total)*100);;
 		}else if(type.equals("服务")){
+			// 查询 merchant
+			List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+			Merchant merchant = merchants.get(0);
+			mchid = merchant.getMchid();
+			String sub_mchid = merchant.getSub_mchid();
 			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total)*100);;
 		}
 
