@@ -31,11 +31,16 @@ public class WechatPayServiceImpl implements WechatPayService {
         String notify_url = Constants.notify_url;
         String mc_serial = Constants.mc_serial;
         String apiV3Key = Constants.apiV3Key;
+        String privateKeyFromPath = Constants.privateKeyFromPath;
+        String publicKeyFromPath = Constants.publicKeyFromPath;
+        String publicKeyId = Constants.publicKeyId;
 
         // 使用微信支付公钥的RSA配置
-        Config config = new RSAAutoCertificateConfig.Builder()
+        Config config = new RSAPublicKeyConfig.Builder()
                 .merchantId(mchid)
-                .privateKeyFromPath("/data/certificate/apiclient_key.pem")
+                .privateKeyFromPath(privateKeyFromPath)
+                .publicKeyFromPath(publicKeyFromPath)
+                .publicKeyId(publicKeyId)
                 .merchantSerialNumber(mc_serial)
                 .apiV3Key(apiV3Key)
                 .build();
