@@ -5,6 +5,8 @@ public class Constants {
     public static final String appid = "wxa3dc1d41d6fa8284";
     public static final String secret = "fa2eb83ce18350429132b8c5ac11f43f";
 
+    public static final String admin_openid = "o25ly6whIE5oBYdDjc2M4afnxQmU";
+
     // 小桃子助手 公众号
     public static final String official_appid = "wxc79a69144e4fd233";
     public static final String official_secret = "3a0e2c3067c1df58bd92e4788371baeb";

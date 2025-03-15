@@ -8031,7 +8031,7 @@ public class LoginServiceImpl implements LoginService {
         try {
             if(page == 1){
                 List<User> list_init = dao.getUserByOpenidQr(openid_qr,0,10000);
-                if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
+                if(Constants.admin_openid.equals(openid_qr)){
                     list_init = dao.getUserByOpenidQrAll(0,10000);
                 }
                 for (int i = 0; i < list_init.size(); i++) {
@@ -8051,7 +8051,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             List<User> list = dao.getUserByOpenidQr(openid_qr,page_start,page_length);
-            if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid_qr)){
+            if(Constants.admin_openid.equals(openid_qr)){
                 list = dao.getUserByOpenidQrAll(page_start,page_length);
             }
 

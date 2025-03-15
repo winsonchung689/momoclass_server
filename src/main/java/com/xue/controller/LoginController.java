@@ -545,7 +545,7 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback("o25ly6whIE5oBYdDjc2M4afnxQmU",studio,expired_time_new,days.toString());
+			sendFeedback(Constants.admin_openid,studio,expired_time_new,days.toString());
 			// 通知客户
 			sendFeedback(openid,studio,expired_time_new,days.toString());
 		}else{
