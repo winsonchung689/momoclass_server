@@ -10,6 +10,7 @@ public class Constants {
     // 小桃子助手 公众号
     public static final String official_appid = "wxc79a69144e4fd233";
     public static final String official_secret = "3a0e2c3067c1df58bd92e4788371baeb";
+    public static final String official_admin_openid = "oFTmu6Z3Wg2hiAXMe13yGsz35opY";
 
     // 桃子易物 小程序
     public static final String order_appid = "wx80d88494062937dd";

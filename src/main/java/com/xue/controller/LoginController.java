@@ -15,6 +15,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -553,7 +554,7 @@ public class LoginController {
 			String token = loginService.getToken("MOMO_OFFICIAL");
 			String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			JSONObject queryJson = JSONObject.parseObject(model);
-			queryJson.put("touser","oFTmu6Z3Wg2hiAXMe13yGsz35opY");
+			queryJson.put("touser", Constants.official_admin_openid);
 			queryJson.getJSONObject("data").getJSONObject("thing16").put("value",studio+"_"+nick_name);
 			queryJson.getJSONObject("data").getJSONObject("thing17").put("value","金额" + amount +"元,续期" + days + "天" );
 			queryJson.getJSONObject("data").getJSONObject("short_thing5").put("value",mark);
