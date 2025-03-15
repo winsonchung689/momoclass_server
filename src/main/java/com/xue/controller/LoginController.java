@@ -527,6 +527,7 @@ public class LoginController {
 
 			dao.updateUserPayBoss(user_new);
 			dao.updateUserPay(user_new);
+			dao.updateUsertype(user_new);
 
 			// 入账
 			String book_mark = "月费";
@@ -543,9 +544,9 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback("o25ly6whIE5oBYdDjc2M4afnxQmU",expired_time_new,days.toString());
+			sendFeedback("o25ly6whIE5oBYdDjc2M4afnxQmU",studio,expired_time_new,days.toString());
 			// 通知客户
-			sendFeedback(openid,expired_time_new,days.toString());
+			sendFeedback(openid,studio,expired_time_new,days.toString());
 		}else{
 			// 发提现通知给管理员
 			String token = loginService.getToken("MOMO_OFFICIAL");
@@ -567,7 +568,7 @@ public class LoginController {
 	//续费成功通知
 	@RequestMapping("/sendFeedback")
 	@ResponseBody
-	public String sendFeedback(String openid,String expired_time,String days){
+	public String sendFeedback(String openid,String target_studio,String expired_time,String days){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
@@ -576,7 +577,7 @@ public class LoginController {
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String official_openid = user.getOfficial_openid();
-		String studio = user.getStudio();
+//		String studio = user.getStudio();
 
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");
@@ -587,7 +588,7 @@ public class LoginController {
 					String official_openid_get = official_list[j];
 					JSONObject queryJson = JSONObject.parseObject(model);
 					queryJson.put("touser",official_openid_get);
-					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",target_studio);
 					queryJson.getJSONObject("data").getJSONObject("thing4").put("value","续期" + days + "天" );
 					queryJson.getJSONObject("data").getJSONObject("character_string3").put("value","TO"+expired_time );
 					queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
