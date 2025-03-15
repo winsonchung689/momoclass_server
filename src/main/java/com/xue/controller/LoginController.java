@@ -524,6 +524,7 @@ public class LoginController {
 			user_new.setUser_type("老用户");
 			user_new.setRole("boss");
 			user_new.setDays(Math.toIntExact(days));
+			user_new.setOpenid(openid);
 
 			dao.updateUserPayBoss(user_new);
 			dao.updateUserPay(user_new);
