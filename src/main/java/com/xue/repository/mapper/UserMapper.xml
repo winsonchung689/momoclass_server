@@ -1289,7 +1289,7 @@
 
   <!-- 插入商户 -->
   <insert id="insertMerchant" parameterType="com.xue.entity.model.Merchant">
-    insert merchant(mchid,appid,openid,studio,campus,create_time,sub_mchid,sub_appid) values(#{mchid},#{appid},#{openid},#{studio},#{campus},#{create_time},#{sub_mchid},#{sub_appid})
+    insert merchant(mchid,appid,openid,studio,campus,create_time,sub_mchid,sub_appid,type) values(#{mchid},#{appid},#{openid},#{studio},#{campus},#{create_time},#{sub_mchid},#{sub_appid},#{type})
   </insert>
 
   <!-- 插入客户信息 -->

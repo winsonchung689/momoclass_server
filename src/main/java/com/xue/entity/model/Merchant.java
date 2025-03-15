@@ -21,7 +21,17 @@ public class Merchant {
 
     private String create_time;
 
+    private String type;
 
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getSub_appid() {
         return sub_appid;

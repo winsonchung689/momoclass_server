@@ -57,6 +57,7 @@ public class WechatPayController {
 		String openid = request.getParameter("openid");
 		String sub_mchid = request.getParameter("sub_mchid");
 		String sub_appid = request.getParameter("sub_appid");
+		String type = request.getParameter("type");
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String studio = user.getStudio();
@@ -72,6 +73,7 @@ public class WechatPayController {
 			merchant.setSub_appid(sub_appid);
 			merchant.setSub_mchid(sub_mchid);
 			merchant.setCreate_time(create_time);
+			merchant.setType(type);
 
 			dao.insertMerchant(merchant);
 		} catch (Exception e) {
@@ -95,7 +97,6 @@ public class WechatPayController {
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
-		String type = request.getParameter("type");
 
 		// 查询工作室
 		List<User> users = dao.getUserByOpenid(openid);
@@ -103,17 +104,24 @@ public class WechatPayController {
 		String studio = user.getStudio();
 		String campus = user.getCampus();
 
+		// 判断支付模式
+		String type = "商户平台";
 		String mchid = "1710485765";
-		// 判断支付方式
-		JSONObject result = null;
-		if(type.equals("直接")){
-			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total)*100);;
-		}else if(type.equals("服务")){
-			// 查询 merchant
-			List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+		String sub_mchid = "1710485765";
+		// 查询 merchant
+		List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+		if(merchants.size()>0){
 			Merchant merchant = merchants.get(0);
 			mchid = merchant.getMchid();
-			String sub_mchid = merchant.getSub_mchid();
+			sub_mchid = merchant.getSub_mchid();
+			type = merchant.getType();
+		}
+
+		// 判断支付方式
+		JSONObject result = null;
+		if(type.equals("商户平台")){
+			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total)*100);;
+		}else if(type.equals("服务商平台")){
 			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total)*100);;
 		}
 
