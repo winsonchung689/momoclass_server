@@ -27,10 +27,11 @@ public class Constants {
 
     public static final String host_name = "https://api.mch.weixin.qq.com";
 
+    //////////////////  商户平台 /////////////////////////
     // 商户序列号
     public static final String MC_SERIAL_NO = "4086E2B39712045237246CE498261EE30A5A0AB6";
 
-    // V3 密钥
+    // V3 密钥 与服务商相同
     public static final String API_V3_KEY = "91440104MABWT9T11F13527897733abc";
 
     // 商户api证书私钥
@@ -41,11 +42,20 @@ public class Constants {
     // 微信支付公钥ID
     public static final  String PUBLIC_KEY_ID ="PUB_KEY_ID_0117104857652025031400189800000640";
 
-    // 平台证书
-    public static final  String PLATFORM_CERTIFICATE_PATH ="/data/certificate/wechatpay_2C7E77EDE11C28CDC28D4B97596033490C6C8E02.pem";
+    //////////////////  服务商平台 /////////////////////////
+    // 服务商序列号
+    public static final String SER_MC_SERIAL_NO = "1823B0344E3E2FF41499D018080F7E226DB56806";
 
-    // 平台证书序列号
-    public static final String CERTIFICATE_SERIAL = "2C7E77EDE11C28CDC28D4B97596033490C6C8E02";
+    // 服务商api证书私钥
+    public static final  String SER_PRIVATE_KEY_FROM_PATH ="/data/certificate/ser_apiclient_key.pem";
+
+    // 微信支付公钥
+    public static final  String SER_PUBLIC_KEY_FROM_PATH ="/data/certificate/ser_pub_key.pem";
+
+    // 服务商公钥ID
+    public static final  String SER_PUBLIC_KEY_ID ="PUB_KEY_ID_0117106400212025031500218500002371";
+
+
 
 
 

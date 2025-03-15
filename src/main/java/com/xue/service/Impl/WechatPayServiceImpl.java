@@ -83,15 +83,19 @@ public class WechatPayServiceImpl implements WechatPayService {
     public JSONObject weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
 
         String notify_url = Constants.notify_url ;
-        String mchSerialNo = Constants.MC_SERIAL_NO;
+        String mchSerialNo = Constants.SER_MC_SERIAL_NO;
         String apiV3Key = Constants.API_V3_KEY;
+        String privateKeyFromPath = Constants.SER_PRIVATE_KEY_FROM_PATH;
+        // 微信公钥
+        String publicKeyFromPath = Constants.SER_PUBLIC_KEY_FROM_PATH;
+        String publicKeyId = Constants.SER_PUBLIC_KEY_ID;
 
         // 使用微信支付公钥的RSA配置
         Config config = new RSAPublicKeyConfig.Builder()
                 .merchantId(mchid)
-                .privateKeyFromPath("/data/certificate/apiclient_key.pem")
-                .publicKeyFromPath("/Users/yourname/yourpath/pub_key.pem")
-                .publicKeyId("PUB_KEY_ID_00000000000000000000000000000000")
+                .privateKeyFromPath(privateKeyFromPath)
+                .publicKeyFromPath(publicKeyFromPath)
+                .publicKeyId(publicKeyId)
                 .merchantSerialNumber(mchSerialNo)
                 .apiV3Key(apiV3Key)
                 .build();
