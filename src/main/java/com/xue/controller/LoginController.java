@@ -3271,6 +3271,7 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
+		// 获取用户信息
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
 		String nick_name = list_user.get(0).getNick_name();
@@ -3278,11 +3279,32 @@ public class LoginController {
 		if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
 			package_id = "0";
 		}
+		// 添加课包id
 		if (("0".equals(package_id))) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
 			if(lessonPackages.size()>0){
 				LessonPackage lessonPackage  = lessonPackages.get(0);
 				package_id = lessonPackage.getId();
+			}else {
+				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+				Lesson lesson = lessons.get(0);
+				String lesson_id= lesson.getId();
+				String related_id = lesson.getRelated_id();
+				String[] related_id_list = related_id.split(",");
+				for(int i=0;i < related_id_list.length; i++){
+					String id_get = related_id_list[i];
+					if(id_get != null && id_get != "" && !lesson_id.equals(id_get)) {
+						List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
+						Lesson lesson_get = lessons_get.get(0);
+						String student_name_get = lesson_get.getStudent_name();
+						String subject_get = lesson_get.getSubject();
+						List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get,studio,campus,subject_get);
+						if(lessonPackages_get.size()>0){
+							LessonPackage lessonPackage  = lessonPackages_get.get(0);
+							package_id = lessonPackage.getId();
+						}
+					}
+				}
 			}
 		}
 
