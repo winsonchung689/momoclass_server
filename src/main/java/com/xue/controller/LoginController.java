@@ -527,8 +527,12 @@ public class LoginController {
 			user_new.setDays(Math.toIntExact(days));
 			user_new.setOpenid(openid);
 
+			// 未过期老用户续费
 			dao.updateUserPayBoss(user_new);
+			// 过期老用户续费
 			dao.updateUserPay(user_new);
+
+			// 新用户续费
 			int new_client = dao.updateUsertype(user_new);
 			if(new_client > 0){
 				dao.updateUserMemberByOpenid(openid,"黄金会员");
