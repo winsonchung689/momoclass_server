@@ -529,7 +529,10 @@ public class LoginController {
 
 			dao.updateUserPayBoss(user_new);
 			dao.updateUserPay(user_new);
-			dao.updateUsertype(user_new);
+			int new_client = dao.updateUsertype(user_new);
+			if(new_client > 0){
+				dao.updateUserMemberByOpenid(openid,"黄金会员");
+			}
 
 			// 入账
 			String book_mark = "月费";
