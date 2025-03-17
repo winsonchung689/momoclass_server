@@ -86,7 +86,7 @@ public class LoginServiceImpl implements LoginService {
             String related_id = null;
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
-                    if(lessons.size()>0){
+                if(lessons.size()>0){
                         Lesson lesson_get = lessons.get(0);
                         total_amount = lesson_get.getTotal_amount();
                         if (total > 0) {
