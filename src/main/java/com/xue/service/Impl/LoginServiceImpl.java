@@ -3204,6 +3204,66 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getCardByStudent(String studio, String campus, String student_name) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DecimalFormat df = new DecimalFormat("0.00");
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        List<Card> cards = dao.getCardByStudent(studio,campus,student_name);
+        for (int i = 0; i < cards.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            Card line = cards.get(i);
+
+            String type = line.getType();
+            String mark = line.getMark();
+            String start_date = line.getStart_date();
+            String end_date = line.getEnd_date();
+            Float price = line.getPrice();
+            Float used_price = 0.0f;
+            Float left_price = 0.0f;
+
+            String status = "生效中";
+            try {
+                Date date = formatter.parse(end_date);
+                long end_timestamp = date.getTime();
+                long timestamp = new Date().getTime() - 60*60*24*1000;
+                if(end_timestamp < timestamp){
+                    status = "已过期";
+                }
+
+                String today_time = formatter.format(new Date());
+                Date today_dt = formatter.parse(today_time.substring(0,10));
+                Date start_date_dt = formatter.parse(start_date.substring(0,10));
+                Date end_date_dt = formatter.parse(end_date.substring(0,10));
+                long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
+                long used_time = today_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
+                used_price = price * used_time/total_time;
+                left_price = price - used_price;
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            String uuid = line.getUuid();
+            String id = line.getId();
+            String subject = line.getSubject();
+
+            jsonObject.put("type",type);
+            jsonObject.put("subject",subject);
+            jsonObject.put("mark",mark);
+            jsonObject.put("start_date",start_date);
+            jsonObject.put("end_date",end_date);
+            jsonObject.put("uuid",uuid);
+            jsonObject.put("id",id);
+            jsonObject.put("status",status);
+            jsonObject.put("price",df.format(price));
+            jsonObject.put("used_price",df.format(used_price));
+            jsonObject.put("left_price",df.format(left_price));
+            resul_list.add(jsonObject);
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getCard(String studio, String campus, String student_name,String subject) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DecimalFormat df = new DecimalFormat("0.00");
