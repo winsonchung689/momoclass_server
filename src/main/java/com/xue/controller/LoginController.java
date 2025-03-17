@@ -883,6 +883,7 @@ public class LoginController {
 			lessonPackage.setMark("线上续课");
 			lessonPackage.setStart_date(create_time);
 			lessonPackage.setEnd_date(create_time);
+			lessonPackage.setCreate_time(create_time);
 			lessonPackage.setNick_name("自助");
 
 			dao.insertLessonPackage(lessonPackage);
