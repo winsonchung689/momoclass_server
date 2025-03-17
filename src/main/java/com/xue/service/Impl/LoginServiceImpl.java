@@ -6914,10 +6914,16 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String id = line.getId();
+                int is_online = 0;
+                List<Merchant> merchants = dao.getMerchant(studio,campus,Constants.appid);
+                if(merchants.size()>0){
+                    is_online = 1;
+                }
 
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("is_open", is_open);
+                jsonObject.put("is_online", is_online);
                 jsonObject.put("campus", campus);
                 jsonObject.put("role", role);
                 jsonObject.put("student_name", student_name);
