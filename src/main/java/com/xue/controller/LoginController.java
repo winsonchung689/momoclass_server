@@ -902,7 +902,7 @@ public class LoginController {
 	public String buyCard(String gift_id, String student_name, String subject, String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String create_time = df.format(new Date());
-		List list = null;
+
 		try {
 			List<User> users =dao.getUser(openid);
 			User user = users.get(0);
@@ -911,14 +911,23 @@ public class LoginController {
 
 			List<GiftList> giftLists = dao.getGiftListById(gift_id);
 			GiftList giftList = giftLists.get(0);
-			Integer coins = giftList.getCoins();
 			Float price = giftList.getPrice();
 			String mark = giftList.getMark();
 			String type = giftList.getType();
 			String uuid = giftList.getUuids();
+			Integer coins = giftList.getCoins();
+
+			Calendar cal = Calendar.getInstance();
+			try {
+				cal.setTime(df.parse(create_time));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			cal.add(cal.DATE,coins);
+			String expired_time = df.format(cal.getTime());
+
 
 			Card card = new Card();
-			card.setCreate_time(create_time);
 			card.setStudio(studio);
 			card.setCampus(campus);
 			card.setSubject(subject);
@@ -927,7 +936,8 @@ public class LoginController {
 			card.setType(type);
 			card.setUuid(uuid);
 			card.setStart_date(create_time);
-			card.setEnd_date(create_time);
+			card.setEnd_date(expired_time);
+			card.setCreate_time(create_time);
 			card.setPrice(price);
 			card.setGift_id(Integer.parseInt(gift_id));
 
