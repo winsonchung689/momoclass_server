@@ -87,29 +87,29 @@ public class LoginServiceImpl implements LoginService {
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
                 if(lessons.size()>0){
-                        Lesson lesson_get = lessons.get(0);
-                        total_amount = lesson_get.getTotal_amount();
-                        if (total > 0) {
-                            total_amount = total;
-                        }
-                        left_amount = lesson_get.getLeft_amount();
-                        if (left > 0) {
-                            left_amount = left;
-                        }
-                        left_amount = left_amount - consume_lesson_amount;
-
-                        minus_amount = lesson_get.getMinus();
-                        if (minus > 0) {
-                            minus_amount = minus;
-                        }
-                        coins_amount = lesson_get.getCoins();
-                        if (coins > 0) {
-                            coins_amount = coins;
-                        }
-
-                        is_combine = lesson_get.getIs_combine();
-                        related_id = lesson_get.getRelated_id();
+                    Lesson lesson_get = lessons.get(0);
+                    total_amount = lesson_get.getTotal_amount();
+                    if (total > 0) {
+                        total_amount = total;
                     }
+                    left_amount = lesson_get.getLeft_amount();
+                    if (left > 0) {
+                        left_amount = left;
+                    }
+                    left_amount = left_amount - consume_lesson_amount;
+
+                    minus_amount = lesson_get.getMinus();
+                    if (minus > 0) {
+                        minus_amount = minus;
+                    }
+                    coins_amount = lesson_get.getCoins();
+                    if (coins > 0) {
+                        coins_amount = coins;
+                    }
+
+                    is_combine = lesson_get.getIs_combine();
+                    related_id = lesson_get.getRelated_id();
+                }
             }
             lesson.setStudent_name(student_name);
             lesson.setTotal_amount(total_amount + lessons_amount);
