@@ -1624,6 +1624,23 @@ public class LoginController {
 		return list;
 	}
 
+	//	按场景获取礼物清单
+	@RequestMapping("/getGiftListByCouponType")
+	@ResponseBody
+	public List getGiftListByCouponType(String openid,Integer coupon_type){
+		List list = null;
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+			list = loginService.getGiftListByCouponType(studio,campus,coupon_type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//获取得券名单
 	@RequestMapping("/getGiftByGiftId")
 	@ResponseBody

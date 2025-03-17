@@ -908,6 +908,8 @@ public interface UserMapper {
 
     List<GiftList> getGiftListById(String id);
 
+    List<GiftList> getGiftListByCouponType(String studio,String campus,Integer coupon_type);
+
     List<SignUp> getSignUpByPackageId(String student_name,String studio,String subject,String campus,String package_id);
 
     List<SignUp> getSignUpById(String id);

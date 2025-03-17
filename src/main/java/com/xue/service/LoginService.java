@@ -109,6 +109,8 @@ public interface LoginService {
 
     public List  getGiftList(String studio,String campus);
 
+    public List  getGiftListByCouponType(String studio,String campus,Integer coupon_type);
+
     public List  getGiftByGiftId(String gift_id,String studio,String campus);
 
     public List  getSignUpByAll(String studio,String openid);

@@ -776,6 +776,44 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getGiftListByCouponType(String studio, String campus, Integer coupon_type) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        List<GiftList> giftLists = dao.getGiftListByCouponType(studio,campus,coupon_type);
+        for (int i = 0; i < giftLists.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            GiftList line = giftLists.get(i);
+            //获取字段
+            String create_time = line.getCreate_time();
+            String gift_name = line.getGift_name();
+            String uuids = line.getUuids();
+            Integer coins = line.getCoins();
+            String id = line.getId();
+            String type = line.getType();
+            Float price = line.getPrice();
+            coupon_type = line.getCoupon_type();
+            String mark = line.getMark();
+            Integer amount = line.getAmount();
+            Integer send_type = line.getSend_type();
+
+            //json
+            jsonObject.put("id", id);
+            jsonObject.put("create_time", create_time);
+            jsonObject.put("gift_name", gift_name);
+            jsonObject.put("uuids", uuids);
+            jsonObject.put("coins", coins);
+            jsonObject.put("type", type);
+            jsonObject.put("price", price);
+            jsonObject.put("coupon_type", coupon_type);
+            jsonObject.put("mark", mark);
+            jsonObject.put("amount", amount);
+            jsonObject.put("send_type", send_type);
+            resul_list.add(jsonObject);
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getGiftByGiftId(String gift_id,String studio, String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
 
