@@ -2,13 +2,6 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wechat.pay.java.core.Config;
-import com.wechat.pay.java.core.RSAPublicKeyConfig;
-import com.wechat.pay.java.service.payments.jsapi.model.Payer;
-import com.wechat.pay.java.service.payments.jsapi.JsapiService;
-import com.wechat.pay.java.service.payments.jsapi.model.Amount;
-import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
-import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
 import com.xue.config.TokenCache;
 import com.xue.entity.model.*;
@@ -16,7 +9,6 @@ import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.WebPushService;
 import com.xue.util.HttpUtil;
-import com.xue.util.WechatPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -3383,6 +3375,19 @@ public class LoginServiceImpl implements LoginService {
             resul_list.add(jsonObject);
         }
         return resul_list;
+    }
+
+    @Override
+    public List buyLesson(String gift_id, String student_name, String subject, String openid) {
+
+        List<GiftList> giftLists = dao.getGiftListById(gift_id);
+        GiftList giftList = giftLists.get(0);
+        Integer coins = giftList.getCoins();
+        Float price = giftList.getPrice();
+
+
+
+        return null;
     }
 
     @Override

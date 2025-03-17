@@ -850,6 +850,48 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/buyLesson")
+	@ResponseBody
+	public List buyLesson(String gift_id, String student_name, String subject, String openid){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String create_time = df.format(new Date());
+		List list = null;
+		try {
+			List<User> users =dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+
+			List<GiftList> giftLists = dao.getGiftListById(gift_id);
+			GiftList giftList = giftLists.get(0);
+			Integer coins = giftList.getCoins();
+			Float price = giftList.getPrice();
+
+			List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
+			Lesson lesson = lessons.get(0);
+			loginService.updateLesson(lesson,(float)coins,0.0f,"全科目",campus);
+
+			LessonPackage lessonPackage = new LessonPackage();
+			lessonPackage.setCampus(campus);
+			lessonPackage.setStudio(studio);
+			lessonPackage.setStudent_name(student_name);
+			lessonPackage.setSubject(subject);
+			lessonPackage.setGive_lesson(0.0f);
+			lessonPackage.setAll_lesson((float)coins);
+			lessonPackage.setTotal_money(price);
+			lessonPackage.setDiscount_money(0.0f);
+			lessonPackage.setMark("线上续课");
+			lessonPackage.setStart_date(create_time);
+			lessonPackage.setEnd_date(create_time);
+			lessonPackage.setNick_name("自助");
+
+			dao.insertLessonPackage(lessonPackage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getMerchantByAppid")
 	@ResponseBody
 	public List getMerchantByAppid(String appid){
@@ -3150,6 +3192,10 @@ public class LoginController {
 		String start_date = request.getParameter("start_date");
 		String end_date = request.getParameter("end_date");
 		String price = request.getParameter("price");
+		String gift_id = request.getParameter("gift_id");
+		if(gift_id == null || gift_id.isEmpty() || "undefined".equals(gift_id)){
+			gift_id = "0";
+		}
 
 		try {
 			Card card = new Card();
@@ -3164,7 +3210,7 @@ public class LoginController {
 			card.setStart_date(start_date);
 			card.setEnd_date(end_date);
 			card.setPrice(Float.parseFloat(price));
-            card.setGift_id(0);
+            card.setGift_id(Integer.parseInt(gift_id));
 
 			dao.insertCard(card);
 		} catch (Exception e) {
