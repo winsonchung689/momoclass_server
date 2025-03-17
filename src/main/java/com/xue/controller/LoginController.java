@@ -1973,6 +1973,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCardByStudent")
+	@ResponseBody
+	public List getCard(String studio, String campus, String student_name){
+		List list = null;
+		try {
+			list = loginService.getCardByStudent(studio,campus,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getCardRecord")
 	@ResponseBody
 	public List getCardRecord(String openid,String student_name, String card_id,String subject){
