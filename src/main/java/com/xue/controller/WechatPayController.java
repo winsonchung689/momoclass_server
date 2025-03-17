@@ -97,6 +97,9 @@ public class WechatPayController {
 		String description = request.getParameter("description");
 		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
+		Float total_float = Float.parseFloat(total) * 100;
+		int total_int = (int)Math.floor(total_float);
+
 
 		// 查询工作室
 		List<User> users = dao.getUserByOpenid(openid);
@@ -120,9 +123,9 @@ public class WechatPayController {
 		// 判断支付方式
 		JSONObject result = null;
 		if(type.equals("商户平台")){
-			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,Integer.parseInt(total)*100);;
+			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,total_int);;
 		}else if(type.equals("服务商平台")){
-			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,Integer.parseInt(total)*100);;
+			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,total_int);;
 		}
 
 		return result;

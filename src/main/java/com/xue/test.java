@@ -21,30 +21,32 @@ public class test {
 
         String signatureStr = "aaaa" + "\n" + "timestamp" + "\n" ;
         System.out.println(signatureStr);
+        String amount = "0.1";
+        System.out.printf(String.valueOf(Float.parseFloat(amount)*100));
 
-        try {
-            Date date_start = fmt.parse("2025-01-12");
-            long start_timestamp = date_start.getTime();
-            Date date_end = fmt.parse("2023-01-17");
-            long end_timestamp = date_end.getTime();
-            String today_time = fmt.format(new Date());
-            Date today_dt = fmt.parse(today_time.substring(0,10));
-            long today_timestamp = today_dt.getTime();
-
-            System.out.println(start_timestamp);
-            System.out.println(end_timestamp);
-            System.out.println(today_timestamp);
-            if(today_timestamp >= start_timestamp ){
-                System.out.println("aaaa");
-            }
-
-            int aa = 6;
-            int bb= 7;
-            double count = (double)aa/bb;
-            System.out.println(count);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Date date_start = fmt.parse("2025-01-12");
+//            long start_timestamp = date_start.getTime();
+//            Date date_end = fmt.parse("2023-01-17");
+//            long end_timestamp = date_end.getTime();
+//            String today_time = fmt.format(new Date());
+//            Date today_dt = fmt.parse(today_time.substring(0,10));
+//            long today_timestamp = today_dt.getTime();
+//
+//            System.out.println(start_timestamp);
+//            System.out.println(end_timestamp);
+//            System.out.println(today_timestamp);
+//            if(today_timestamp >= start_timestamp ){
+//                System.out.println("aaaa");
+//            }
+//
+//            int aa = 6;
+//            int bb= 7;
+//            double count = (double)aa/bb;
+//            System.out.println(count);
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
     }
