@@ -6863,11 +6863,15 @@ public class LoginController {
 		String gift_name = request.getParameter("gift_name");
 		String uuids = request.getParameter("uuids");
 		String coins = request.getParameter("coins");
-		String type = request.getParameter("type");
 		String price = request.getParameter("price");
-		String coupon_type = request.getParameter("coupon_type");
-		String send_type = request.getParameter("send_type");
 
+		// 1 双发 2 单发
+		String send_type = request.getParameter("send_type");
+		// 1 礼品清单  2 登陆邀请 3 报名续费
+		String coupon_type = request.getParameter("coupon_type");
+		// 代金券 礼品券 卡类
+		String type = request.getParameter("type");
+		// 获取工作室
 		String openid = request.getParameter("openid");
 		List<User> users = dao.getUser(openid);
 		String campus = users.get(0).getCampus();
@@ -6875,7 +6879,6 @@ public class LoginController {
 
 		try {
 			GiftList giftList = new GiftList();
-
 			giftList.setGift_name(gift_name);
 			giftList.setCreate_time(create_time);
 			giftList.setStudio(studio);
