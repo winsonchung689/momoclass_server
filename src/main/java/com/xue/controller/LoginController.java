@@ -886,7 +886,11 @@ public class LoginController {
 			lessonPackage.setCreate_time(create_time);
 			lessonPackage.setNick_name("自助");
 
-			dao.insertLessonPackage(lessonPackage);
+			int res =  dao.insertLessonPackage(lessonPackage);
+			if(res == 1){
+				loginService.renewLessonRemind(student_name,studio,campus,subject,(float)coins);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
