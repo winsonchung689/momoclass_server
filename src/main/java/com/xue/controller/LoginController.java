@@ -852,7 +852,7 @@ public class LoginController {
 
 	@RequestMapping("/buyLesson")
 	@ResponseBody
-	public List buyLesson(String gift_id, String student_name, String subject, String openid){
+	public String buyLesson(String gift_id, String student_name, String subject, String openid){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String create_time = df.format(new Date());
 		List list = null;
@@ -889,7 +889,48 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/buyCard")
+	@ResponseBody
+	public String buyCard(String gift_id, String student_name, String subject, String openid){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String create_time = df.format(new Date());
+		List list = null;
+		try {
+			List<User> users =dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+
+			List<GiftList> giftLists = dao.getGiftListById(gift_id);
+			GiftList giftList = giftLists.get(0);
+			Integer coins = giftList.getCoins();
+			Float price = giftList.getPrice();
+			String mark = giftList.getMark();
+			String type = giftList.getType();
+			String uuid = giftList.getUuids();
+
+			Card card = new Card();
+			card.setCreate_time(create_time);
+			card.setStudio(studio);
+			card.setCampus(campus);
+			card.setSubject(subject);
+			card.setStudent_name(student_name);
+			card.setMark(mark);
+			card.setType(type);
+			card.setUuid(uuid);
+			card.setStart_date(create_time);
+			card.setEnd_date(create_time);
+			card.setPrice(price);
+			card.setGift_id(Integer.parseInt(gift_id));
+
+			dao.insertCard(card);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "push massage successfully";
 	}
 
 	@RequestMapping("/getMerchantByAppid")
