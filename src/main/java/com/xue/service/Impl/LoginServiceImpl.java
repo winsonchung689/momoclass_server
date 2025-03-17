@@ -3378,19 +3378,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List buyLesson(String gift_id, String student_name, String subject, String openid) {
-
-        List<GiftList> giftLists = dao.getGiftListById(gift_id);
-        GiftList giftList = giftLists.get(0);
-        Integer coins = giftList.getCoins();
-        Float price = giftList.getPrice();
-
-
-
-        return null;
-    }
-
-    @Override
     public List getPptMenu(String openid,Integer page,String category) {
         List<User> users = dao.getUser(openid);
         User user = users.get(0);
