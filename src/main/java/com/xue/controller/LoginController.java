@@ -6896,9 +6896,9 @@ public class LoginController {
 
 		// 1 双发 2 单发
 		String send_type = request.getParameter("send_type");
-		// 1 礼品清单  2 登陆邀请 3 报名续费
+		// 1 礼品清单 2 登陆邀请 3 年卡季卡
 		String coupon_type = request.getParameter("coupon_type");
-		// 代金券 礼品券 卡类
+		// 代金券 礼品券 年卡 季卡
 		String type = request.getParameter("type");
 		// 获取工作室
 		String openid = request.getParameter("openid");
