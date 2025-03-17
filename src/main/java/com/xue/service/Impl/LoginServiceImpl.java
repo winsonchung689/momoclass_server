@@ -3246,8 +3246,17 @@ public class LoginServiceImpl implements LoginService {
             String uuid = line.getUuid();
             String id = line.getId();
             String subject = line.getSubject();
+            Integer gift_id = line.getGift_id();
+            String gift_name = "无";
+            List<GiftList> giftLists = dao.getGiftListById(gift_id.toString());
+            if(giftLists.size()>0){
+                GiftList giftList = giftLists.get(0);
+                gift_name = giftList.getGift_name();
+                type = giftList.getType();
+            }
 
             jsonObject.put("type",type);
+            jsonObject.put("gift_name",gift_name);
             jsonObject.put("subject",subject);
             jsonObject.put("mark",mark);
             jsonObject.put("start_date",start_date);

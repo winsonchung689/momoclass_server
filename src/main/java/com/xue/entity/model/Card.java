@@ -27,7 +27,16 @@ public class Card {
 
     private Float price;
 
+    private Integer gift_id;
 
+
+    public Integer getGift_id() {
+        return gift_id;
+    }
+
+    public void setGift_id(Integer gift_id) {
+        this.gift_id = gift_id;
+    }
 
     public Float getPrice() {
         return price;

@@ -3164,6 +3164,7 @@ public class LoginController {
 			card.setStart_date(start_date);
 			card.setEnd_date(end_date);
 			card.setPrice(Float.parseFloat(price));
+            card.setGift_id(0);
 
 			dao.insertCard(card);
 		} catch (Exception e) {
