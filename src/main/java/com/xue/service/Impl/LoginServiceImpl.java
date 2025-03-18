@@ -10089,6 +10089,7 @@ public class LoginServiceImpl implements LoginService {
                 String photo = line.getPhoto();
                 String goods_type = line.getGoods_type();
                 String studio = line.getStudio();
+                Integer pay_type = line.getPay_type();
 
                 //json
                 jsonObject.put("studio", studio);
@@ -10105,6 +10106,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("seckill_price", seckill_price);
                 jsonObject.put("photo",photo);
                 jsonObject.put("goods_type",goods_type);
+                jsonObject.put("pay_type",pay_type);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
