@@ -4469,6 +4469,11 @@ public class LoginController {
 			List<GoodsList> goodslists = dao.getGoodsListById(goods_id);
 			GoodsList goodsList = goodslists.get(0);
 			String studio = goodsList.getStudio();
+			Integer pay_type = goodsList.getPay_type();
+			int status = 0;
+			if(pay_type == 1){
+				status =1;
+			}
 
 			Order order = new Order();
 			order.setNick_name(nick_name);
@@ -4484,6 +4489,7 @@ public class LoginController {
 			order.setAmount(Float.parseFloat(amount));
 			order.setCounts(Integer.parseInt(counts));
 			order.setSub_goods_id(sub_goods_id);
+			order.setStatus(status);
 
 			loginService.insertOrder(order);
 
