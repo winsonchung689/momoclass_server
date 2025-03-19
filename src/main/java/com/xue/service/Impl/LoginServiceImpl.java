@@ -8892,7 +8892,7 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("mark", mark);
-                    jsonObject.put("date_time", date_time);
+                    jsonObject.put("create_time", date_time);
                     resul_list.add(jsonObject);
                 }
 
@@ -9001,7 +9001,7 @@ public class LoginServiceImpl implements LoginService {
 
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("mark", mark);
-                    jsonObject.put("date_time", date_time);
+                    jsonObject.put("create_time", date_time);
                     resul_list.add(jsonObject);
                 }
 
