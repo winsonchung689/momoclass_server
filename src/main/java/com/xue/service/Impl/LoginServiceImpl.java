@@ -4237,10 +4237,15 @@ public class LoginServiceImpl implements LoginService {
                 String avartar_follow = null;
                 String student_name = null;
                 List<User> users1 = dao.getUserByOpenid(openid);
+                int is_new = 0;
                 if(users1.size()>0){
                     User user1 = users1.get(0);
                     student_name = user1.getStudent_name();
                     avartar_follow = user1.getAvatarurl();
+                    List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
+                    if(lessons.size()>0){
+                        is_new = 1;
+                    }
                 }
 
                 String status_get="已发货";
@@ -4251,6 +4256,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
 
                 jsonObject.put("id", id);
+                jsonObject.put("is_new", is_new);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
