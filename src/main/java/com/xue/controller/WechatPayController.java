@@ -83,6 +83,18 @@ public class WechatPayController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/updateWallet")
+	@ResponseBody
+	public int updateWallet(String order_no,Integer status){
+		try {
+			dao.updateWallet(order_no,status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 
 	@RequestMapping("/getWeChatPayNotify")
 	@ResponseBody
