@@ -107,7 +107,6 @@ public class WechatPayController {
 		return list;
 	}
 
-
 	@RequestMapping("/getWeChatPayNotify")
 	@ResponseBody
 	public void getWeChatPayNotify(){
