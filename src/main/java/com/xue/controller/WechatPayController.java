@@ -95,6 +95,18 @@ public class WechatPayController {
 		return 1;
 	}
 
+	@RequestMapping("/getWalletByStudio")
+	@ResponseBody
+	public List getWalletByStudio(String studio){
+		List list = null;
+		try {
+			list = wechatPayService.getWalletByStudio(studio);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	@RequestMapping("/getWeChatPayNotify")
 	@ResponseBody

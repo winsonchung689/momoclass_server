@@ -11,6 +11,7 @@ import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.xue.config.Constants;
+import com.xue.entity.model.PostComment;
 import com.xue.entity.model.User;
 import com.xue.entity.model.Wallet;
 import com.xue.repository.dao.UserMapper;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -181,6 +183,39 @@ public class WechatPayServiceImpl implements WechatPayService {
         dao.insertWallet(wallet);
 
         return jsonObject;
+    }
+
+    @Override
+    public List getWalletByStudio(String studio) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<Wallet> wallets = dao.getWalletByStudio(studio);
+            for (int i = 0; i < wallets.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Wallet line = wallets.get(i);
+                //获取字段
+                String order_no = line.getOrder_no();
+                String description = line.getDescription();
+                Integer amount = line.getAmount();
+                String type = line.getType();
+                Float rate = line.getRate();
+                Integer status = line.getStatus();
+                String create_time = line.getCreate_time();
+
+                jsonObject.put("order_no", order_no);
+                jsonObject.put("description", description);
+                jsonObject.put("amount", amount);
+                jsonObject.put("type", type);
+                jsonObject.put("rate",rate);
+                jsonObject.put("status", status);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resul_list;
     }
 
 
