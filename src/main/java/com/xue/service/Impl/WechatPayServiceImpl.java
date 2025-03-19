@@ -105,7 +105,9 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setStatus(0);
         wallet.setDescription(description);
         wallet.setIs_client(Integer.parseInt(is_client));
-        dao.insertWallet(wallet);
+        if(!"请录入工作室".equals(studio)){
+            dao.insertWallet(wallet);
+        }
 
         return jsonObject;
     }
@@ -182,7 +184,9 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setStatus(0);
         wallet.setDescription(description);
         wallet.setIs_client(1);
-        dao.insertWallet(wallet);
+        if(!"请录入工作室".equals(studio)){
+            dao.insertWallet(wallet);
+        }
 
         return jsonObject;
     }
