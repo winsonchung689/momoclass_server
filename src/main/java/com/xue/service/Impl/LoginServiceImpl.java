@@ -8667,8 +8667,8 @@ public class LoginServiceImpl implements LoginService {
                 while (!dateTime2.isBefore(dateTime1)){
                     JSONObject jsonObject = new JSONObject();
                     Float signCount = 0.0f;
-                    Float tryCount = 0.0f;
-                    Float leaveCount = 0.0f;
+                    Integer tryCount = 0;
+                    Integer leaveCount = 0;
                     Float lessonCount = 0.0f;
                     Float weekPrice = 0.0f;
                     Float all_lesson_count = 0.0f;
@@ -8724,15 +8724,15 @@ public class LoginServiceImpl implements LoginService {
                     }
 
 //                    试听
-                    List<AnalyzeCount> list1 = dao.getAnalyzeTryByMonth(studio,campus,dateTime2.toString().substring(0,7));
+                    List<Schedule> list1 = dao.getTryDetailByMonthStudent(studio,dateTime2.toString().substring(0,7),campus);
                     if(list1.size() > 0){
-                        tryCount = list1.get(0).getTry_count();
+                        tryCount = list1.size();
                     }
 
 //                    请假
-                    List<AnalyzeCount> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,dateTime2.toString().substring(0,7));
+                    List<Leave> list2 = dao.getAnalyzeLeaveByMonth(studio,campus,dateTime2.toString().substring(0,7));
                     if(list2.size() > 0){
-                        leaveCount = list2.get(0).getLeave_count();
+                        leaveCount = list2.size();
                     }
 
 //                    排课
@@ -8787,8 +8787,9 @@ public class LoginServiceImpl implements LoginService {
             subject_in = "全科目";
         }
 
+        //按月算
         if(weekday.length() == 7){
-            //按月算
+            // 出勤数
             if("出勤数".equals(type)){
                 //获取签到次数与课时
                 List<AnalyzeCount> list = null;
@@ -8879,8 +8880,27 @@ public class LoginServiceImpl implements LoginService {
                     resul_list.add(jsonObject);
                 }
             }
+
+            if("请假数".equals(type)){
+                List<Leave> leaves = dao.getAnalyzeLeaveByMonth(studio,campus,weekday);
+                for(int i=0;i< leaves.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Leave leave = leaves.get(i);
+                    String student_name = leave.getStudent_name();
+                    String mark = leave.getMark_leave();
+                    String date_time = leave.getDate_time();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("date_time", date_time);
+                    resul_list.add(jsonObject);
+                }
+
+            }
+
+        //按日算
         }else if(weekday.length() == 10){
-            //按日算
+
             if("出勤数".equals(type)){
                 //获取签到次数与课时
                 List<AnalyzeCount> list = null;
@@ -8968,6 +8988,23 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));
                     resul_list.add(jsonObject);
                 }
+            }
+
+            if("请假数".equals(type)){
+                List<Leave> leaves = dao.getLeaveRecordByDateAll(studio,campus,weekday);
+                for(int i=0;i< leaves.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Leave leave = leaves.get(i);
+                    String student_name = leave.getStudent_name();
+                    String mark = leave.getMark_leave();
+                    String date_time = leave.getDate_time();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("date_time", date_time);
+                    resul_list.add(jsonObject);
+                }
+
             }
         }
 

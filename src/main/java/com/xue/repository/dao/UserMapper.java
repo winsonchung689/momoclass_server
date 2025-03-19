@@ -136,7 +136,7 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeLeave(String studio,String campus,String create_time);
 
-    List<AnalyzeCount> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
+    List<Leave> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getAnalyzePackage(String studio,String campus,String create_time);
 
@@ -923,6 +923,8 @@ public interface UserMapper {
     List<Leave> getLeaveRecordByStatus(String student_name,String studio,String subject,String campus);
 
     List<Leave> getLeaveRecordByDate(String student_name,String studio,String subject,String campus,String create_time);
+
+    List<Leave> getLeaveRecordByDateAll(String studio,String campus,String date_time);
 
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
