@@ -108,6 +108,13 @@ public class WechatPayServiceImpl implements WechatPayService {
 
     @Override
     public JSONObject weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String create_time = df.format(new Date());
+
+        List<User> users = dao.getUserByOpenid(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 
         String notify_url = Constants.notify_url ;
         String mchSerialNo = Constants.SER_MC_SERIAL_NO;
@@ -157,6 +164,19 @@ public class WechatPayServiceImpl implements WechatPayService {
         jsonObject.put("signType",response.getSignType());
         jsonObject.put("paySign",response.getPaySign());
         jsonObject.put("order_no",prepayRequest.getOutTradeNo());
+
+        //插入wallet
+        Wallet wallet =new Wallet();
+        wallet.setOrder_no(prepayRequest.getOutTradeNo());
+        wallet.setStudio(studio);
+        wallet.setCampus(campus);
+        wallet.setAmount(total);
+        wallet.setCreate_time(create_time);
+        wallet.setType("收入");
+        wallet.setAppid(appid);
+        wallet.setRate(0.6f);
+        wallet.setStatus(0);
+        dao.insertWallet(wallet);
 
         return jsonObject;
     }
