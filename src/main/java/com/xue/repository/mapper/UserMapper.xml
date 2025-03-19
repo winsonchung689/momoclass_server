@@ -1514,6 +1514,11 @@
     update website set company=#{param2} where id =#{param1}  and delete_status = 0
   </update>
 
+  <!-- 更新订单状态 -->
+  <update id="updateWallet" parameterType="com.xue.entity.model.Wallet">
+    update wallet set status=#{param2} where order_no =#{param1} and delete_status = 0
+  </update>
+
   <!-- 更新礼品详情 -->
   <update id="updateGiftDetail" parameterType="com.xue.entity.model.GiftList">
     update gift_list set gift_name=#{gift_name},mark=#{mark},price=#{price},amount=#{amount} where id =#{id} and delete_status = 0

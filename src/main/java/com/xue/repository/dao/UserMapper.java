@@ -388,6 +388,8 @@ public interface UserMapper {
 
     int updateWebsiteCompany(String id,String company);
 
+    int updateWallet(String order_no,Integer status);
+
     int updateCardUuid(String id,String uuid);
 
     int updateGiftDetail(GiftList giftList);
