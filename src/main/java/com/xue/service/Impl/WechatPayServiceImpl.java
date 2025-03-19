@@ -75,6 +75,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         jsonObject.put("packageVal",response.getPackageVal());
         jsonObject.put("signType",response.getSignType());
         jsonObject.put("paySign",response.getPaySign());
+        jsonObject.put("order_no",request.getOutTradeNo());
 
         return jsonObject;
     }
@@ -129,6 +130,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         jsonObject.put("packageVal",response.getPackageVal());
         jsonObject.put("signType",response.getSignType());
         jsonObject.put("paySign",response.getPaySign());
+        jsonObject.put("order_no",prepayRequest.getOutTradeNo());
 
         return jsonObject;
     }
