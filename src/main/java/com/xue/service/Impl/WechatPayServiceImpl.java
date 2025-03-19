@@ -11,6 +11,8 @@ import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.xue.config.Constants;
+import com.xue.entity.model.User;
+import com.xue.entity.model.Wallet;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
 import com.xue.util.WechatPayUtil;
@@ -18,6 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class WechatPayServiceImpl implements WechatPayService {
@@ -29,6 +35,13 @@ public class WechatPayServiceImpl implements WechatPayService {
 
     @Override
     public JSONObject weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String create_time = df.format(new Date());
+
+        List<User> users = dao.getUserByOpenid(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 
         String notify_url = Constants.notify_url;
         String mchSerialNo = Constants.MC_SERIAL_NO;
@@ -76,6 +89,19 @@ public class WechatPayServiceImpl implements WechatPayService {
         jsonObject.put("signType",response.getSignType());
         jsonObject.put("paySign",response.getPaySign());
         jsonObject.put("order_no",request.getOutTradeNo());
+
+        //插入wallet
+        Wallet wallet =new Wallet();
+        wallet.setOrder_no(request.getOutTradeNo());
+        wallet.setStudio(studio);
+        wallet.setCampus(campus);
+        wallet.setAmount(total);
+        wallet.setCreate_time(create_time);
+        wallet.setType("收入");
+        wallet.setAppid(appid);
+        wallet.setRate(5.6f);
+        wallet.setStatus(0);
+        dao.insertWallet(wallet);
 
         return jsonObject;
     }

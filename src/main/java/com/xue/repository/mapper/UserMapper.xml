@@ -887,6 +887,11 @@
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
+  <!-- 插入交易记录 -->
+  <insert id="insertWallet" parameterType="com.xue.entity.model.Wallet">
+    insert wallet(order_no,studio,campus,amount,create_time,type,appid,rate,status) values(#{order_no},#{studio},#{campus},#{amount},#{create_time},#{type},#{appid},#{rate},#{status})
+  </insert>
+
   <insert id="insertAlbum" parameterType="com.xue.entity.model.Album">
     insert album(uuid,studio,campus,student_name,create_time) values(#{uuid},#{studio},#{campus},#{student_name},#{create_time})
   </insert>
