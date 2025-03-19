@@ -7,6 +7,8 @@ public class Wallet {
 
     private String order_no;
 
+    private String description;
+
     private String studio;
 
     private String campus;
@@ -55,6 +57,14 @@ public class Wallet {
 
     public void setOrder_no(String order_no) {
         this.order_no = order_no;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCampus() {

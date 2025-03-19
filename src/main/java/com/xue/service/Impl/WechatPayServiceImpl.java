@@ -101,6 +101,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setAppid(appid);
         wallet.setRate(5.6f);
         wallet.setStatus(0);
+        wallet.setDescription(description);
         dao.insertWallet(wallet);
 
         return jsonObject;
@@ -176,6 +177,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setAppid(appid);
         wallet.setRate(0.6f);
         wallet.setStatus(0);
+        wallet.setDescription(description);
         dao.insertWallet(wallet);
 
         return jsonObject;

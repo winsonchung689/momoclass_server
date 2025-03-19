@@ -892,7 +892,7 @@
 
   <!-- 插入交易记录 -->
   <insert id="insertWallet" parameterType="com.xue.entity.model.Wallet">
-    insert wallet(order_no,studio,campus,amount,create_time,type,appid,rate,status) values(#{order_no},#{studio},#{campus},#{amount},#{create_time},#{type},#{appid},#{rate},#{status})
+    insert wallet(order_no,studio,campus,amount,create_time,type,appid,rate,status,description) values(#{order_no},#{studio},#{campus},#{amount},#{create_time},#{type},#{appid},#{rate},#{status},#{description})
   </insert>
 
   <insert id="insertAlbum" parameterType="com.xue.entity.model.Album">
