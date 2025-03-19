@@ -25,7 +25,17 @@ public class Wallet {
 
     private Integer status;
 
+    private Integer is_client;
 
+
+
+    public Integer getIs_client() {
+        return is_client;
+    }
+
+    public void setIs_client(Integer is_client) {
+        this.is_client = is_client;
+    }
 
     public Integer getStatus() {
         return status;

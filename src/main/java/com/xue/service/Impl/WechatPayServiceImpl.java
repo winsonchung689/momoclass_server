@@ -36,7 +36,7 @@ public class WechatPayServiceImpl implements WechatPayService {
     private UserMapper dao;
 
     @Override
-    public JSONObject weChatPayDirect(String openid,String mchid,String appid,String description,Integer total) {
+    public JSONObject weChatPayDirect(String openid,String mchid,String appid,String description,Integer total,String is_client) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
@@ -104,6 +104,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setRate(5.6f);
         wallet.setStatus(0);
         wallet.setDescription(description);
+        wallet.setIs_client(Integer.parseInt(is_client));
         dao.insertWallet(wallet);
 
         return jsonObject;
@@ -180,6 +181,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setRate(0.6f);
         wallet.setStatus(0);
         wallet.setDescription(description);
+        wallet.setIs_client(1);
         dao.insertWallet(wallet);
 
         return jsonObject;

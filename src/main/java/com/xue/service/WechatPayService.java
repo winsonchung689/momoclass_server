@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface WechatPayService {
 
-    public JSONObject weChatPayDirect(String openid, String mchid, String appid, String description, Integer total);
+    public JSONObject weChatPayDirect(String openid, String mchid, String appid, String description, Integer total,String is_client);
 
     public JSONObject weChatPayPartner(String openid, String mchid, String sub_mchid, String appid, String description, Integer total);
 
