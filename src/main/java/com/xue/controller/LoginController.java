@@ -488,6 +488,8 @@ public class LoginController {
 		String studio = user.getStudio();
 		String nick_name = user.getNick_name();
 		String expired_time = user.getExpired_time();
+		String member = user.getMember();
+		String role = user.getRole();
 
 		if(("请录入工作室").equals(studio)){
 			return "no_studio";
@@ -533,8 +535,8 @@ public class LoginController {
 			dao.updateUserPay(user_new);
 
 			// 新用户续费
-			int new_client = dao.updateUsertype(user_new);
-			if(new_client > 0){
+			if("client".equals(role) && "自由会员".equals(member)){
+				dao.updateUsertype(user_new);
 				dao.updateUserMemberByOpenid(openid,"黄金会员");
 			}
 
