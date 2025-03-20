@@ -252,10 +252,17 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String avatarurl = line.getAvatarurl();
                 String nick_name = line.getNick_name();
                 String restaurant = line.getRestaurant();
+                String logo = line.getLogo();
+                List<RestaurantUser> restaurantUsers = dao.getRestaurantBossByShop(restaurant);
+                if(restaurantUsers.size()>0){
+                    RestaurantUser restaurantUser = restaurantUsers.get(0);
+                    logo = restaurantUser.getLogo();
+                }
+
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
                 openid = line.getOpenid();
-                String logo = line.getLogo();
+
                 Integer id = line.getId();
                 String role_name = "普通";
                 if("boss".equals(role)){

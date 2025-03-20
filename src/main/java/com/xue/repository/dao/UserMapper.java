@@ -438,6 +438,8 @@ public interface UserMapper {
 
     int updateRestaurantUser(RestaurantUser restaurantUser);
 
+    int updateRestaurantByBoss(RestaurantUser restaurantUser);
+
     int updateRestaurantByOpenid(RestaurantUser restaurantUser);
 
     int updateBookNickName(BookUser bookUser);
@@ -632,6 +634,8 @@ public interface UserMapper {
     List<RestaurantUser> getRestaurantUserAll();
 
     List<RestaurantUser> getRestaurantUserByShop(String restaurant);
+
+    List<RestaurantUser> getRestaurantBossByShop(String restaurant);
 
     List<RestaurantOrder> getRestaurantOrderByOpenid(String openid);
 
