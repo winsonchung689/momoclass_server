@@ -124,9 +124,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
                 int status = line.getStatus();
-                String status_cn = "去付款";
+                String status_cn = "去发货";
                 if(status==1){
-                    status_cn = "去发货";
+                    status_cn = "去完成";
                 }else if(status == 2){
                     status_cn = "已完成";
                 }
