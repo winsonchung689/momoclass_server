@@ -78,7 +78,7 @@ public class RestaurantController {
 	public JSONObject getQrCode(String id){
 		JSONObject jsonObject = new JSONObject();
 		String token = loginService.getToken("ORDER");
-		String scene = "&id=" + id;
+		String scene = "id=" + id;
 
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
