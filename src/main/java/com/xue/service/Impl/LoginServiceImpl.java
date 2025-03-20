@@ -4240,14 +4240,14 @@ public class LoginServiceImpl implements LoginService {
                 String avartar_follow = null;
                 String student_name = null;
                 List<User> users1 = dao.getUserByOpenid(openid);
-                int is_new = 0;
+                int is_new = 1;
                 if(users1.size()>0){
                     User user1 = users1.get(0);
                     student_name = user1.getStudent_name();
                     avartar_follow = user1.getAvatarurl();
                     List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
                     if(lessons.size()>0){
-                        is_new = 1;
+                        is_new = 0;
                     }
                 }
 
