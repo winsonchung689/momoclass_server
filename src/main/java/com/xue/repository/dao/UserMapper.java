@@ -438,6 +438,8 @@ public interface UserMapper {
 
     int updateRestaurantUser(RestaurantUser restaurantUser);
 
+    int updateRestaurantByOpenid(RestaurantUser restaurantUser);
+
     int updateBookNickName(BookUser bookUser);
 
     int updateBookLogo(BookUser bookUser);

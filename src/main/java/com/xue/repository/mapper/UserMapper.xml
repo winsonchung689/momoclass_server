@@ -1643,6 +1643,11 @@
     update restaurant_user set nick_name=#{nick_name},logo=#{logo},restaurant=#{restaurant},role=#{role},avatarurl=#{avatarurl},phone_number=#{phone_number},location=#{location} where openid = #{openid}
   </update>
 
+  <!--  更新用户商店-->
+  <update id="updateRestaurantByOpenid" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set restaurant=#{restaurant} where openid = #{openid}
+  </update>
+
   <!--  更新订单状态-->
   <update id="updateRestaurantOrderStatus" parameterType="com.xue.entity.model.RestaurantOrder">
     update restaurant_order set status=#{param2} where id = #{param1}
