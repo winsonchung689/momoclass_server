@@ -145,6 +145,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 if(menus.size()>0) {
                     food_image = menus.get(0).getFood_image();
                 }
+                String order_no = line.getOrder_no();
 
                 //json
                 jsonObject.put("food_image", food_image);
@@ -159,6 +160,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("id", id);
                 jsonObject.put("total_price", total_price);
+                jsonObject.put("order_no", order_no);
                 resul_list.add(jsonObject);
             }
 
