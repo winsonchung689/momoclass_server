@@ -4154,7 +4154,10 @@ public class LoginServiceImpl implements LoginService {
                 List<Order> success_orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = success_orders.size();
 
+                String order_no = line.getOrder_no();
+
                 jsonObject.put("id", id);
+                jsonObject.put("order_no", order_no);
                 jsonObject.put("sub_goods_name", sub_goods_name);
                 jsonObject.put("client_name", client_name);
                 jsonObject.put("client_student", client_student);
