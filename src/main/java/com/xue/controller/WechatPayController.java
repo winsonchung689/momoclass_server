@@ -1,7 +1,9 @@
 package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xue.config.Constants;
 import com.xue.entity.model.Merchant;
+import com.xue.entity.model.RestaurantUser;
 import com.xue.entity.model.User;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
@@ -126,10 +128,20 @@ public class WechatPayController {
 
 
 		// 查询工作室
-		List<User> users = dao.getUserByOpenid(openid);
-		User user = users.get(0);
-		String studio = user.getStudio();
-		String campus = user.getCampus();
+		String studio = null;
+		String campus = null;
+		if(appid.equals(Constants.appid)){
+			List<User> users = dao.getUserByOpenid(openid);
+			User user = users.get(0);
+			studio = user.getStudio();
+			campus = user.getCampus();
+		}else if(appid.equals(Constants.order_appid)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			studio = restaurantUser.getRestaurant();
+			campus = restaurantUser.getRestaurant();
+		}
+
 
 		// 判断支付模式
 		String type = "商户平台";
