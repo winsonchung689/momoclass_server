@@ -60,10 +60,21 @@ public class WechatPayController {
 		String sub_mchid = request.getParameter("sub_mchid");
 		String sub_appid = request.getParameter("sub_appid");
 		String type = request.getParameter("type");
-		List<User> users = dao.getUser(openid);
-		User user = users.get(0);
-		String studio = user.getStudio();
-		String campus = user.getCampus();
+
+		String studio = null;
+		String campus = null;
+		if(appid.equals(Constants.appid)){
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			studio = user.getStudio();
+			campus = user.getCampus();
+		}else if(appid.equals(Constants.order_appid)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			studio = restaurantUser.getRestaurant();
+			campus = restaurantUser.getRestaurant();
+		}
+
 
 		try {
 			Merchant merchant = new Merchant();
