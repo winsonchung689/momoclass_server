@@ -12,6 +12,7 @@ import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.xue.config.Constants;
 import com.xue.entity.model.PostComment;
+import com.xue.entity.model.RestaurantUser;
 import com.xue.entity.model.User;
 import com.xue.entity.model.Wallet;
 import com.xue.repository.dao.UserMapper;
@@ -40,10 +41,20 @@ public class WechatPayServiceImpl implements WechatPayService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
-        List<User> users = dao.getUserByOpenid(openid);
-        User user = users.get(0);
-        String studio = user.getStudio();
-        String campus = user.getCampus();
+        // 查询工作室
+        String studio = null;
+        String campus = null;
+        if(appid.equals(Constants.appid)){
+            List<User> users = dao.getUserByOpenid(openid);
+            User user = users.get(0);
+            studio = user.getStudio();
+            campus = user.getCampus();
+        }else if(appid.equals(Constants.order_appid)){
+            List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+            RestaurantUser restaurantUser = restaurantUsers.get(0);
+            studio = restaurantUser.getRestaurant();
+            campus = restaurantUser.getRestaurant();
+        }
 
         String notify_url = Constants.notify_url;
         String mchSerialNo = Constants.MC_SERIAL_NO;
@@ -117,10 +128,20 @@ public class WechatPayServiceImpl implements WechatPayService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
-        List<User> users = dao.getUserByOpenid(openid);
-        User user = users.get(0);
-        String studio = user.getStudio();
-        String campus = user.getCampus();
+        // 查询工作室
+        String studio = null;
+        String campus = null;
+        if(appid.equals(Constants.appid)){
+            List<User> users = dao.getUserByOpenid(openid);
+            User user = users.get(0);
+            studio = user.getStudio();
+            campus = user.getCampus();
+        }else if(appid.equals(Constants.order_appid)){
+            List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+            RestaurantUser restaurantUser = restaurantUsers.get(0);
+            studio = restaurantUser.getRestaurant();
+            campus = restaurantUser.getRestaurant();
+        }
 
         String notify_url = Constants.notify_url ;
         String mchSerialNo = Constants.SER_MC_SERIAL_NO;
