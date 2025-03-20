@@ -611,6 +611,8 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUser(String openid);
 
+    List<RestaurantUser> getRestaurantUserByOpenid(String openid);
+
     List<Wallet> getWalletByStudio(String studio);
 
     List<RestaurantUser> getRestaurantUserById(String id);

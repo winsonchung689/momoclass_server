@@ -69,7 +69,7 @@ public class RestaurantController {
 		restaurantUser.setCreate_time(create_time);
 		restaurantUser.setExpired_time(expired_time);
 
-		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUser(openid);
+		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
 		if(restaurantUsers1.size()>0){
 			dao.updateRestaurantByOpenid(restaurantUser);
 		}else {
