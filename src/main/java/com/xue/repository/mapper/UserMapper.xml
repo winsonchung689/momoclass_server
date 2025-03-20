@@ -1352,7 +1352,7 @@
   </select>
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
-    select * from restaurant_user where openid =#{param1} order by id desc limit 1
+    select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
   <select id="getWalletByStudio" parameterType="com.xue.entity.model.Wallet" resultMap="BaseWallet">
@@ -1645,7 +1645,7 @@
 
   <!--  更新用户商店-->
   <update id="updateRestaurantByOpenid" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set restaurant=#{restaurant},delete_status=1 where openid = #{openid}
+    update restaurant_user set restaurant=#{restaurant} where openid = #{openid}
   </update>
 
   <!--  更新订单状态-->
