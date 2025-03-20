@@ -4423,6 +4423,8 @@ public class LoginController {
 				amount = "0";
 			}
 
+			String order_no =  request.getParameter("order_no");
+
 			List<GoodsList> goodslists = dao.getGoodsListById(goods_id);
 			GoodsList goodsList = goodslists.get(0);
 			String studio = goodsList.getStudio();
@@ -4449,6 +4451,7 @@ public class LoginController {
 			order.setSub_goods_id(sub_goods_id);
 			order.setStatus(status);
 			order.setGoods_name(goods_name);
+			order.setOrder_no(order_no);
 
 			loginService.insertOrder(order);
 

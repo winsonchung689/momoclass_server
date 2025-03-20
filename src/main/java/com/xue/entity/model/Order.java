@@ -23,7 +23,16 @@ public class Order {
     private Float amount;
     private Float goods_price;
     private Integer status;
+    private String order_no;
 
+
+    public String getOrder_no() {
+        return order_no;
+    }
+
+    public void setOrder_no(String order_no) {
+        this.order_no = order_no;
+    }
 
     public Float getAmount() {
         return amount;
