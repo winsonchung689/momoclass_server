@@ -529,10 +529,19 @@ public class LoginController {
 			user_new.setDays(Math.toIntExact(days));
 			user_new.setOpenid(openid);
 
-			// 未过期老用户续费
-			dao.updateUserPayBoss(user_new);
-			// 过期老用户续费
-			dao.updateUserPay(user_new);
+			// 老用户续费
+			if(	!"自由会员".equals(member)){
+				dao.updateUserPayBoss(user_new);
+			}
+
+			// 未过期用户续费
+			if(!"client".equals(role)){
+				dao.updateUserPay(user_new);
+				if("自由会员".equals(member)){
+					dao.updateUserMemberByOpenid(openid,"黄金会员");
+				}
+			}
+
 
 			// 新用户续费
 			if("client".equals(role) && "自由会员".equals(member)){
@@ -541,10 +550,14 @@ public class LoginController {
 			}
 
 			// 入账
-			String book_mark = "月费";
-			if(Float.parseFloat(amount) > 300){
-				book_mark = "年费";
+			String book_mark = "月卡";
+			if(Float.parseFloat(amount) == 7){
+				book_mark = "7天卡";
 			}
+			if(Float.parseFloat(amount) > 300){
+				book_mark = "年卡";
+			}
+
 			Book book =new Book();
 			book.setStudio("大雄工作室");
 			book.setCampus("大雄工作室");
