@@ -336,6 +336,8 @@ public interface UserMapper {
 
     void deliverMyOrder(String id,Integer status);
 
+    void updateStatusByOrderNo(String order_no,Integer status);
+
     void deleteSignUpRecord(Integer id,String studio);
 
     void updateSignUpEndingByAll(String student_name,String studio,String create_time);
@@ -388,7 +390,7 @@ public interface UserMapper {
 
     int updateWebsiteCompany(String id,String company);
 
-    int updateWallet(String order_no,Integer status);
+    int updateWallet(String order_no,Integer status,String type);
 
     int updateCardUuid(String id,String uuid);
 

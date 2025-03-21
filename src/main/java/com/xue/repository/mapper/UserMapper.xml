@@ -408,6 +408,10 @@
     update `order` set status = #{param2} where id = #{param1};
   </select>
 
+  <select id="updateStatusByOrderNo" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
+    update `order` set status = #{param2} where order_no = #{param1};
+  </select>
+
   <!-- 获取详情 -->
   <select id="deleteComment" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
      delete from class_comment where id =#{param1} and studio =#{param2}
@@ -1528,7 +1532,7 @@
 
   <!-- 更新订单状态 -->
   <update id="updateWallet" parameterType="com.xue.entity.model.Wallet">
-    update wallet set status=#{param2} where order_no =#{param1} and delete_status = 0
+    update wallet set status=#{param2} where order_no =#{param1} and type =#{param3} and delete_status = 0
   </update>
 
   <!-- 更新礼品详情 -->

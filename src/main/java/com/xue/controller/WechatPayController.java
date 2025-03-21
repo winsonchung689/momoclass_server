@@ -98,9 +98,12 @@ public class WechatPayController {
 
 	@RequestMapping("/updateWallet")
 	@ResponseBody
-	public int updateWallet(String order_no,Integer status){
+	public int updateWallet(String order_no,Integer status,String type){
 		try {
-			dao.updateWallet(order_no,status);
+			dao.updateWallet(order_no,status,type);
+			if("退款".equals(type)){
+				dao.updateStatusByOrderNo(order_no,3);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -222,7 +225,7 @@ public class WechatPayController {
 		// 判断支付方式
 		JSONObject result = null;
 		if(type.equals("商户平台")){
-			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no,total_re_int);
+			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no);
 		}
 
 		return result;
