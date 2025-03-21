@@ -358,7 +358,7 @@ public interface UserMapper {
 
     void confirmSchedule(Integer id,String studio);
 
-    void deleteLesson(Integer id,String studio,String today_time);
+    void deleteLesson(String id,String studio,String today_time);
 
     void deleteLessonForever(String id,String studio);
 
