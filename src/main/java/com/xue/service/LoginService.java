@@ -95,7 +95,7 @@ public interface LoginService {
 
 	public int updateLesson(Lesson lesson,Float lessons_amount,Float consume_lesson_amount,String subject_new,String compus);
 
-    public int updateLessonRelated(Integer id,Integer related_id,String openid,String type);
+    public int updateLessonRelated(String id,Integer related_id,String openid,String type);
 
     public List  getDetails(Integer id);
 

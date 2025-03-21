@@ -1015,7 +1015,7 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/updateLessonRelated")
 	@ResponseBody
-	public int updateLessonRelated(Integer id, Integer related_id, String openid,String type){
+	public int updateLessonRelated(String id, Integer related_id, String openid,String type){
 		int  result = 0;
 		try {
 			result = loginService.updateLessonRelated(id,related_id,openid,type);
