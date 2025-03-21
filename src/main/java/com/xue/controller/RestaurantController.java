@@ -83,7 +83,7 @@ public class RestaurantController {
 		}
 
 		String role ="boss";
-		if("no_id".equals(id)){
+		if(!"no_id".equals(id)){
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
 			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			restaurant = restaurantUser.getRestaurant();
