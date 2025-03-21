@@ -3395,7 +3395,7 @@ public class LoginController {
 				String[] related_id_list = related_id.split(",");
 				for(int i=0;i < related_id_list.length; i++){
 					String id_get = related_id_list[i];
-					if(id_get != null && id_get != "" && !lesson_id.equals(id_get)) {
+					if(id_get != null && id_get != "" && !lesson_id.equals(id_get) && id_get != "no_id") {
 						List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
 						Lesson lesson_get = lessons_get.get(0);
 						String student_name_get = lesson_get.getStudent_name();
