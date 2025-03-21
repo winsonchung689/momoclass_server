@@ -4085,6 +4085,8 @@ public class LoginServiceImpl implements LoginService {
                     status = 1;
                 }else if ("已完成".equals(type)) {
                     status = 2;
+                }else if ("已退款".equals(type)) {
+                    status = 3;
                 }
                 list = dao.getAllOrderByType(studio,status,page_start,page_length);
             }
@@ -4119,13 +4121,11 @@ public class LoginServiceImpl implements LoginService {
                     client_student = user_get.getStudent_name();
                 }
 
-
                 List<User> leaders = dao.getUser(leader_id);
                 if(leaders.size() > 0){
                     User leader_user = leaders.get(0);
                     leader_name = leader_user.getNick_name();
                 }
-
 
                 List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
                 if(goodsLists.size()>0){
@@ -4155,7 +4155,6 @@ public class LoginServiceImpl implements LoginService {
 
                 List<Order> success_orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = success_orders.size();
-
                 String order_no = line.getOrder_no();
 
                 jsonObject.put("id", id);
