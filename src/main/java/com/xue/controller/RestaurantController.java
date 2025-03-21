@@ -59,19 +59,24 @@ public class RestaurantController {
 		if(id == null || id.isEmpty() || "undefined".equals(id)){
 			id = "no_id";
 		}
+
 		String openid = request.getParameter("openid");
+
 		String uuid = request.getParameter("uuid");
 		if(uuid == null || uuid.isEmpty() || "undefined".equals(uuid)){
 			id = "no_id";
 		}
+
 		String restaurant = request.getParameter("restaurant");
 		if(restaurant == null || restaurant.isEmpty() || "undefined".equals(restaurant)){
 			restaurant = "请录入商铺";
 		}
+
 		String phone_number = request.getParameter("phone_number");
 		if(phone_number == null || phone_number.isEmpty() || "undefined".equals(phone_number)){
 			phone_number = "未录入";
 		}
+
 		String nick_name = request.getParameter("boss_name");
 		if(nick_name == null || nick_name.isEmpty() || "undefined".equals(nick_name)){
 			nick_name = "微信用户";
