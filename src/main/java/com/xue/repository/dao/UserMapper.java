@@ -712,6 +712,8 @@ public interface UserMapper {
 
     List<Order> getOrderById(String id);
 
+    List<Wallet> getWalletByOrderNo(String order_no);
+
     List<Order> getAllOrderByStudio(String studio,Integer page_start,Integer page_length);
 
     List<Order> getAllOrderByOpenid(String openid,Integer page_start,Integer page_length);

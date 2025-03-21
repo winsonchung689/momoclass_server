@@ -185,10 +185,6 @@ public class WechatPayController {
 		String openid = request.getParameter("openid");
 		String order_no = request.getParameter("order_no");
 
-		String total = request.getParameter("total");
-		Float total_float = Float.parseFloat(total) * 100;
-		int total_int = (int)Math.floor(total_float);
-
 		String total_refund = request.getParameter("total_refund");
 		Float total_re_float = Float.parseFloat(total_refund) * 100;
 		int total_re_int = (int)Math.floor(total_re_float);
@@ -226,7 +222,7 @@ public class WechatPayController {
 		// 判断支付方式
 		JSONObject result = null;
 		if(type.equals("商户平台")){
-			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no,total_int,total_re_int);
+			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no,total_re_int);
 		}
 
 		return result;

@@ -1039,6 +1039,10 @@
     select * from `order` where id = #{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getWalletByOrderNo" parameterType="com.xue.entity.model.Wallet" resultMap="BaseWallet">
+    select * from wallet where order_no = #{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <!-- 查找全部订单 -->
   <select id="getAllOrderByStudio" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
     select * from `order` where studio = #{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3};

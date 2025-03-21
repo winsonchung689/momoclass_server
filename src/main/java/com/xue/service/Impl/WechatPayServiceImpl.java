@@ -16,13 +16,11 @@ import com.wechat.pay.java.service.refund.model.CreateRequest;
 import com.wechat.pay.java.service.refund.model.FundsFromItem;
 import com.wechat.pay.java.service.refund.model.Refund;
 import com.xue.config.Constants;
-import com.xue.entity.model.PostComment;
-import com.xue.entity.model.RestaurantUser;
-import com.xue.entity.model.User;
-import com.xue.entity.model.Wallet;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
 import com.xue.util.WechatPayUtil;
+import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -251,7 +249,7 @@ public class WechatPayServiceImpl implements WechatPayService {
     }
 
     @Override
-    public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no,Integer total,Integer total_refund) {
+    public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no,Integer total_refund) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
@@ -289,6 +287,10 @@ public class WechatPayServiceImpl implements WechatPayService {
                 .build();
 
         RefundService refundService = new RefundService.Builder().config(config).build();
+
+        List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
+        Wallet wallet_get = wallets.get(0);
+        Integer total = wallet_get.getAmount();
 
         CreateRequest request = new CreateRequest();
         AmountReq amountReq = new AmountReq();
