@@ -253,10 +253,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String nick_name = line.getNick_name();
                 String restaurant = line.getRestaurant();
                 String logo = line.getLogo();
+                String boss_name = null;
+                String boss_phone = null;
                 List<RestaurantUser> restaurantUsers = dao.getRestaurantBossByShop(restaurant);
                 if(restaurantUsers.size()>0){
                     RestaurantUser restaurantUser = restaurantUsers.get(0);
                     logo = restaurantUser.getLogo();
+                    boss_name = restaurantUser.getNick_name();
+                    boss_phone = restaurantUser.getPhone_number();
                 }
 
                 String create_time = line.getCreate_time();
@@ -284,6 +288,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("role_name",role_name);
                 jsonObject.put("phone_number",phone_number);
                 jsonObject.put("location",location);
+                jsonObject.put("boss_name",boss_name);
+                jsonObject.put("boss_phone",boss_phone);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
