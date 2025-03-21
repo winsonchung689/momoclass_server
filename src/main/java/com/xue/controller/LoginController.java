@@ -323,7 +323,7 @@ public class LoginController {
 
 		// 绑定码，type = 3，id = 学生表 id
 		if("3".equals(type)){
-			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
+			List<Lesson> lessons =dao.getLessonById(id);
 			Lesson lesson = lessons.get(0);
 			studio = lesson.getStudio();
 		}
@@ -2431,7 +2431,7 @@ public class LoginController {
 
 	@RequestMapping("/lessonTransferById")
 	@ResponseBody
-	public int lessonTransferById(Integer from_id,Integer to_id,Float trans_count,String openid ){
+	public int lessonTransferById(String from_id,String to_id,Float trans_count,String openid ){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String create_time = df.format(new Date());
 		List<User> users = dao.getUser(openid);
@@ -3396,14 +3396,16 @@ public class LoginController {
 				for(int i=0;i < related_id_list.length; i++){
 					String id_get = related_id_list[i];
 					if(id_get != null && id_get != "" && !lesson_id.equals(id_get) && id_get != "no_id") {
-						List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
-						Lesson lesson_get = lessons_get.get(0);
-						String student_name_get = lesson_get.getStudent_name();
-						String subject_get = lesson_get.getSubject();
-						List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get,studio,campus,subject_get);
-						if(lessonPackages_get.size()>0){
-							LessonPackage lessonPackage  = lessonPackages_get.get(0);
-							package_id = lessonPackage.getId();
+						List<Lesson> lessons_get = dao.getLessonById(id_get);
+						if(lessons_get.size()>0){
+							Lesson lesson_get = lessons_get.get(0);
+							String student_name_get = lesson_get.getStudent_name();
+							String subject_get = lesson_get.getSubject();
+							List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get,studio,campus,subject_get);
+							if(lessonPackages_get.size()>0){
+								LessonPackage lessonPackage  = lessonPackages_get.get(0);
+								package_id = lessonPackage.getId();
+							}
 						}
 					}
 				}
@@ -4204,7 +4206,7 @@ public class LoginController {
 
 		String modifyHead = request.getParameter("modifyHead");
 
-		List<Lesson> lessons = dao.getLessonById(Integer.parseInt(id));
+		List<Lesson> lessons = dao.getLessonById(id);
 		Lesson lesson = lessons.get(0);
 		String studio = lesson.getStudio();
 		String student_name = lesson.getStudent_name();
@@ -4259,12 +4261,14 @@ public class LoginController {
 						String[] related_id_list = related_id.split(",");
 						for(int j=0;j < related_id_list.length; j++){
 							String id_get = related_id_list[j];
-							List<Lesson> lessons1 = dao.getLessonById(Integer.parseInt(id_get));
-							Lesson lesson_get = lessons1.get(0);
-							String student_name_get = lesson_get.getStudent_name();
-							if(!student_name.equals(student_name_get)){
-								lesson.setStudent_name(student_name_get);
-								dao.updateLesson(lesson);
+							List<Lesson> lessons1 = dao.getLessonById(id_get);
+							if(lessons1.size()>0){
+								Lesson lesson_get = lessons1.get(0);
+								String student_name_get = lesson_get.getStudent_name();
+								if(!student_name.equals(student_name_get)){
+									lesson.setStudent_name(student_name_get);
+									dao.updateLesson(lesson);
+								}
 							}
 						}
 
@@ -4634,7 +4638,7 @@ public class LoginController {
 
 	@RequestMapping("/recoverLesson")
 	@ResponseBody
-	public int recoverLesson(Integer id,String studio,String openid,String type){
+	public int recoverLesson(String id,String studio,String openid,String type){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 		String today_time = df.format(new Date());
 		try {
@@ -6197,7 +6201,7 @@ public class LoginController {
 
 		// 绑定码
 		if("3".equals(type)){
-			List<Lesson> lessons =dao.getLessonById(Integer.parseInt(id));
+			List<Lesson> lessons =dao.getLessonById(id);
 			Lesson lesson = lessons.get(0);
 			studio = lesson.getStudio();
 			campus = lesson.getCampus();
@@ -6881,26 +6885,28 @@ public class LoginController {
 						for(int j=0;j < related_id_list.length; j++){
 							String id_get = related_id_list[j];
 							if(id_get != null && id_get != "") {
-								List<Lesson> lessons_get = dao.getLessonById(Integer.parseInt(id_get));
-								Lesson lesson_get = lessons_get.get(0);
-								String student_name_get = lesson_get.getStudent_name();
-								// 判定其他人
-								if (!student_name.equals(student_name_get)) {
-									String subject_get = lesson_get.getSubject();
-									Float minus_get = lesson_get.getMinus();
-									Float coins_get = lesson_get.getCoins();
+								List<Lesson> lessons_get = dao.getLessonById(id_get);
+								if(lessons_get.size()>0){
+									Lesson lesson_get = lessons_get.get(0);
+									String student_name_get = lesson_get.getStudent_name();
+									// 判定其他人
+									if (!student_name.equals(student_name_get)) {
+										String subject_get = lesson_get.getSubject();
+										Float minus_get = lesson_get.getMinus();
+										Float coins_get = lesson_get.getCoins();
 
-									Lesson lesson_re = new Lesson();
-									lesson_re.setStudent_name(student_name_get);
-									lesson_re.setLeft_amount(left_amount);
-									lesson_re.setTotal_amount(total_amount);
-									lesson_re.setStudio(studio);
-									lesson_re.setCampus(campus);
-									lesson_re.setMinus(minus_get);
-									lesson_re.setCoins(coins_get);
-									lesson_re.setSubject(subject_get);
+										Lesson lesson_re = new Lesson();
+										lesson_re.setStudent_name(student_name_get);
+										lesson_re.setLeft_amount(left_amount);
+										lesson_re.setTotal_amount(total_amount);
+										lesson_re.setStudio(studio);
+										lesson_re.setCampus(campus);
+										lesson_re.setMinus(minus_get);
+										lesson_re.setCoins(coins_get);
+										lesson_re.setSubject(subject_get);
 
-									dao.consumeLesson(lesson_re);
+										dao.consumeLesson(lesson_re);
+									}
 								}
 							}
 						}

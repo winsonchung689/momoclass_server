@@ -360,9 +360,9 @@ public interface UserMapper {
 
     void deleteLesson(Integer id,String studio,String today_time);
 
-    void deleteLessonForever(Integer id,String studio);
+    void deleteLessonForever(String id,String studio);
 
-    void recoverLesson(Integer id,String studio,String create_time);
+    void recoverLesson(String id,String studio,String create_time);
 
     void deleteLessonPackage(Integer id);
 
@@ -798,7 +798,7 @@ public interface UserMapper {
 
     List<Lesson> getCampusByStudio(String studio);
 
-    List<Lesson> getLessonById(Integer id);
+    List<Lesson> getLessonById(String id);
 
     List<AnalyzeCount> getLessonAllCountBySumUp(String studio,String campus,String create_time);
 
