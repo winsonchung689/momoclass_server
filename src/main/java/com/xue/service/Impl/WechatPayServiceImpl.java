@@ -10,6 +10,11 @@ import com.wechat.pay.java.service.payments.jsapi.model.Amount;
 import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
+import com.wechat.pay.java.service.refund.RefundService;
+import com.wechat.pay.java.service.refund.model.AmountReq;
+import com.wechat.pay.java.service.refund.model.CreateRequest;
+import com.wechat.pay.java.service.refund.model.FundsFromItem;
+import com.wechat.pay.java.service.refund.model.Refund;
 import com.xue.config.Constants;
 import com.xue.entity.model.PostComment;
 import com.xue.entity.model.RestaurantUser;
@@ -87,7 +92,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         request.setMchid(mchid);
         request.setDescription(description);
         request.setNotifyUrl(notify_url);
-        request.setOutTradeNo(WechatPayUtil.generateOrderNo());
+        request.setOutTradeNo(WechatPayUtil.generateOrderNo("order"));
         Payer payer = new Payer();
         payer.setOpenid(openid);
         request.setPayer(payer);
@@ -176,7 +181,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         prepayRequest.setSubMchid(sub_mchid);
         prepayRequest.setDescription(description);
         prepayRequest.setNotifyUrl(notify_url);
-        prepayRequest.setOutTradeNo(WechatPayUtil.generateOrderNo());
+        prepayRequest.setOutTradeNo(WechatPayUtil.generateOrderNo("order"));
         com.wechat.pay.java.service.partnerpayments.jsapi.model.Payer payer = new com.wechat.pay.java.service.partnerpayments.jsapi.model.Payer();
         payer.setSpOpenid(openid);
         prepayRequest.setPayer(payer);
@@ -243,6 +248,84 @@ public class WechatPayServiceImpl implements WechatPayService {
         }
 
         return resul_list;
+    }
+
+    @Override
+    public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no,Integer total,Integer total_refund) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String create_time = df.format(new Date());
+
+        // 查询工作室
+        String studio = null;
+        String campus = null;
+        if(appid.equals(Constants.appid)){
+            List<User> users = dao.getUserByOpenid(openid);
+            User user = users.get(0);
+            studio = user.getStudio();
+            campus = user.getCampus();
+        }else if(appid.equals(Constants.order_appid)){
+            List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+            RestaurantUser restaurantUser = restaurantUsers.get(0);
+            studio = restaurantUser.getRestaurant();
+            campus = restaurantUser.getRestaurant();
+        }
+
+        String notify_url = Constants.notify_url;
+        String mchSerialNo = Constants.MC_SERIAL_NO;
+        String apiV3Key = Constants.API_V3_KEY;
+        String privateKeyFromPath = Constants.PRIVATE_KEY_FROM_PATH;
+        // 微信公钥
+        String publicKeyFromPath = Constants.PUBLIC_KEY_FROM_PATH;
+        String publicKeyId = Constants.PUBLIC_KEY_ID;
+
+        // 使用微信支付公钥的RSA配置
+        Config config = new RSAPublicKeyConfig.Builder()
+                .merchantId(mchid)
+                .privateKeyFromPath(privateKeyFromPath)
+                .publicKeyFromPath(publicKeyFromPath)
+                .publicKeyId(publicKeyId)
+                .merchantSerialNumber(mchSerialNo)
+                .apiV3Key(apiV3Key)
+                .build();
+
+        RefundService refundService = new RefundService.Builder().config(config).build();
+
+        CreateRequest request = new CreateRequest();
+        AmountReq amountReq = new AmountReq();
+        amountReq.setTotal((long)total);
+        amountReq.setRefund((long)total_refund);
+        amountReq.setCurrency("CNY");
+        request.setAmount(amountReq);
+        request.setOutTradeNo(order_no);
+        request.setOutRefundNo(WechatPayUtil.generateOrderNo("refund"));
+        request.setReason("申请退款");
+
+        Refund refund = refundService.create(request);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("refund_no",refund.getOutRefundNo());
+        jsonObject.put("status",refund.getStatus());
+        jsonObject.put("order_no",refund.getOutTradeNo());
+        jsonObject.put("total_refund",refund.getAmount().getRefund());
+
+        //插入wallet
+        Wallet wallet =new Wallet();
+        wallet.setOrder_no(order_no);
+        wallet.setStudio(studio);
+        wallet.setCampus(campus);
+        wallet.setAmount(total_refund);
+        wallet.setCreate_time(create_time);
+        wallet.setType("退款");
+        wallet.setAppid(appid);
+        wallet.setRate(5.6f);
+        wallet.setStatus(0);
+        wallet.setDescription("客户退款");
+        wallet.setIs_client(1);
+        if(!"请录入工作室".equals(studio)){
+            dao.insertWallet(wallet);
+        }
+
+        return jsonObject;
     }
 
 

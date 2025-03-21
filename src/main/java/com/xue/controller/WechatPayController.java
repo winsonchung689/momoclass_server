@@ -177,6 +177,60 @@ public class WechatPayController {
 
 		return result;
 	}
+
+	@RequestMapping("/weChatPayRefund")
+	@ResponseBody
+	public JSONObject weChatPayRefund(HttpServletRequest request, HttpServletResponse response){
+		String appid = request.getParameter("appid");
+		String openid = request.getParameter("openid");
+		String order_no = request.getParameter("order_no");
+
+		String total = request.getParameter("total");
+		Float total_float = Float.parseFloat(total) * 100;
+		int total_int = (int)Math.floor(total_float);
+
+		String total_refund = request.getParameter("total_refund");
+		Float total_re_float = Float.parseFloat(total_refund) * 100;
+		int total_re_int = (int)Math.floor(total_re_float);
+
+
+		// 查询工作室
+		String studio = null;
+		String campus = null;
+		if(appid.equals(Constants.appid)){
+			List<User> users = dao.getUserByOpenid(openid);
+			User user = users.get(0);
+			studio = user.getStudio();
+			campus = user.getCampus();
+		}else if(appid.equals(Constants.order_appid)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			studio = restaurantUser.getRestaurant();
+			campus = restaurantUser.getRestaurant();
+		}
+
+
+		// 判断支付模式
+		String type = "商户平台";
+		String mchid = "1710485765";
+		String sub_mchid = "1710485765";
+		// 查询 merchant
+		List<Merchant> merchants =dao.getMerchant(studio,campus,appid);
+		if(merchants.size()>0){
+			Merchant merchant = merchants.get(0);
+			mchid = merchant.getMchid();
+			sub_mchid = merchant.getSub_mchid();
+			type = merchant.getType();
+		}
+
+		// 判断支付方式
+		JSONObject result = null;
+		if(type.equals("商户平台")){
+			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no,total_int,total_re_int);
+		}
+
+		return result;
+	}
 }
 	
 	

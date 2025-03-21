@@ -19,8 +19,8 @@ public class WechatPayUtil {
     }
 
     // 生成订单
-    public static String generateOrderNo() {
-        return "order_" + System.currentTimeMillis();
+    public static String generateOrderNo(String type) {
+        return type +"_" + System.currentTimeMillis();
     }
 
     // RSA签名
