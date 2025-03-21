@@ -4626,7 +4626,7 @@ public class LoginController {
 
 	@RequestMapping("/deleteLesson")
 	@ResponseBody
-	public int deleteLesson(Integer id,String role,String studio,String openid,String student_name){
+	public int deleteLesson(String id,String role,String studio,String openid,String student_name){
 		try {
 			loginService.deleteLesson(id,role,studio,openid,student_name);
 		} catch (Exception e) {

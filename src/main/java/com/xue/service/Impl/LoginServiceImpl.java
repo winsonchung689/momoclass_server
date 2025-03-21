@@ -183,11 +183,13 @@ public class LoginServiceImpl implements LoginService {
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
                             List<Lesson> lessons = dao.getLessonById(id_get);
-                            Lesson lesson_get = lessons.get(0);
-                            String student_name_get = lesson_get.getStudent_name();
-                            if(!student_name.equals(student_name_get)){
-                                lesson.setStudent_name(student_name_get);
-                                dao.updateLesson(lesson);
+                            if(lessons.size()>0){
+                                Lesson lesson_get = lessons.get(0);
+                                String student_name_get = lesson_get.getStudent_name();
+                                if(!student_name.equals(student_name_get)){
+                                    lesson.setStudent_name(student_name_get);
+                                    dao.updateLesson(lesson);
+                                }
                             }
                         }
 
@@ -2914,7 +2916,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int deleteLesson(Integer id, String role,String studio,String openid,String student_name) {
+    public int deleteLesson(String id, String role,String studio,String openid,String student_name) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String today_time = df.format(new Date());
         try {
