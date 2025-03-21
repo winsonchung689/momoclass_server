@@ -77,6 +77,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 if("boss".equals(role)){
                     role_name = "店长";
                 }
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
 
                 //json
                 jsonObject.put("id", id);
@@ -90,6 +92,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("openid",openid);
                 jsonObject.put("logo",logo);
                 jsonObject.put("role_name",role_name);
+                jsonObject.put("phone_number",phone_number);
+                jsonObject.put("location",location);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
