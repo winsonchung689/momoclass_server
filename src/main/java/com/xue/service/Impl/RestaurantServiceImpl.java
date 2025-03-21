@@ -37,7 +37,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private WebPushService webPushService;
 
     @Override
-    public List getRestaurantUserAll(String openid) {
+    public List getRestaurantUserAll(String openid,String type) {
         String role = null;
         String avatarurl = null;
         String nick_name = null;
@@ -53,9 +53,9 @@ public class RestaurantServiceImpl implements RestaurantService {
             RestaurantUser restaurant_get = restaurantUsers.get(0);
             String restaurant = restaurant_get.getRestaurant();
 
-            if("ougOI60Jjf6PkDHSI0mJDQ_129YM".equals(openid)){
+            if("platform".equals(type)){
                 list= dao.getRestaurantUserAll();
-            }else {
+            }else if("shop".equals(type)){
                 list = dao.getRestaurantUserByShop(restaurant);
             }
 

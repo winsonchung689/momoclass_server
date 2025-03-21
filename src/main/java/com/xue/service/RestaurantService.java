@@ -9,7 +9,7 @@ public interface RestaurantService {
 
     public List getRestaurantUser(String openid);
 
-    public List getRestaurantUserAll(String openid);
+    public List getRestaurantUserAll(String openid,String type);
 
     public List getRestaurantOrder(String openid,String type);
 
