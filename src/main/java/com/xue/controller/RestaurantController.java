@@ -51,23 +51,49 @@ public class RestaurantController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cal.add(cal.DATE,30);
+		cal.add(cal.DATE,365);
 		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
 		String id = request.getParameter("id");
+		if(id == null || id.isEmpty() || "undefined".equals(id)){
+			id = "no_id";
+		}
 		String openid = request.getParameter("openid");
+		String uuid = request.getParameter("uuid");
+		if(uuid == null || uuid.isEmpty() || "undefined".equals(uuid)){
+			id = "no_id";
+		}
+		String restaurant = request.getParameter("restaurant");
+		if(restaurant == null || restaurant.isEmpty() || "undefined".equals(restaurant)){
+			restaurant = "请录入商铺";
+		}
+		String phone_number = request.getParameter("phone_number");
+		if(phone_number == null || phone_number.isEmpty() || "undefined".equals(phone_number)){
+			phone_number = "未录入";
+		}
+		String nick_name = request.getParameter("boss_name");
+		if(nick_name == null || nick_name.isEmpty() || "undefined".equals(nick_name)){
+			nick_name = "微信用户";
+		}
 
-		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
-		RestaurantUser restaurantUser = restaurantUsers.get(0);
-		String restaurant = restaurantUser.getRestaurant();
+		String role ="boss";
+		if("no_id".equals(id)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			restaurant = restaurantUser.getRestaurant();
+			role = "client";
+		}
 
-		restaurantUser.setNick_name("微信用户");
-		restaurantUser.setRole("client");
+		RestaurantUser restaurantUser = new RestaurantUser();
+		restaurantUser.setNick_name(nick_name);
+		restaurantUser.setPhone_number(phone_number);
+		restaurantUser.setRole(role);
 		restaurantUser.setOpenid(openid);
 		restaurantUser.setRestaurant(restaurant);
 		restaurantUser.setCreate_time(create_time);
 		restaurantUser.setExpired_time(expired_time);
+		restaurantUser.setLogo(uuid);
 
 		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
 		if(restaurantUsers1.size()>0){
