@@ -4252,11 +4252,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                String status_get="已发货";
-                if(0==status){
-                    status_get="未发货";
-                }
-
                 String create_time = line.getCreate_time();
 
                 jsonObject.put("id", id);
@@ -4264,7 +4259,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
                 jsonObject.put("goods_price", goods_price);
-                jsonObject.put("status", status_get);
+                jsonObject.put("status", status);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
