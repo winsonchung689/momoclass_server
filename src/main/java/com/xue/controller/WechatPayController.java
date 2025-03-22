@@ -137,8 +137,8 @@ public class WechatPayController {
 		String total = request.getParameter("total");
 		String openid = request.getParameter("openid");
 		String is_client = request.getParameter("is_client");
-		Float total_float = Float.parseFloat(total) * 100;
-		int total_int = (int)Math.floor(total_float);
+		Float total_float = Float.parseFloat(total);
+		int total_int = Math.round(total_float * 100);
 
 
 		// 查询工作室
