@@ -133,6 +133,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                     status_cn = "去完成";
                 }else if(status == 2){
                     status_cn = "已完成";
+                }else if(status == 3){
+                    status_cn = "已退款";
                 }
 
                 String nick_name = null;
