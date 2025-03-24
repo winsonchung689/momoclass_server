@@ -300,15 +300,16 @@ public class WechatPayServiceImpl implements WechatPayService {
         CreateRequest request = new CreateRequest();
         AmountReq amountReq = new AmountReq();
         amountReq.setTotal((long)total);
-        amountReq.setRefund((long)total_refund_int);
+        amountReq.setRefund((long)total);
         amountReq.setCurrency("CNY");
         request.setAmount(amountReq);
         request.setOutTradeNo(order_no);
         request.setOutRefundNo(WechatPayUtil.generateOrderNo("refund"));
         request.setReason("申请退款");
 
+        // 创建访问链接
         Refund refund = refundService.create(request);
-
+        // 返回结果json
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("refund_no",refund.getOutRefundNo());
         jsonObject.put("status",refund.getStatus());
@@ -320,7 +321,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setOrder_no(order_no);
         wallet.setStudio(studio);
         wallet.setCampus(campus);
-        wallet.setAmount(total_refund_int);
+        wallet.setAmount(total);
         wallet.setCreate_time(create_time);
         wallet.setType("退款");
         wallet.setAppid(appid);
