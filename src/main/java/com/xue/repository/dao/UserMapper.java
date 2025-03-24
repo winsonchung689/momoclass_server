@@ -336,7 +336,7 @@ public interface UserMapper {
 
     void deliverMyOrder(String id,Integer status);
 
-    void updateStatusByOrderNo(String order_no,Integer status);
+    int updateStatusByOrderNo(String order_no,Integer status);
 
     void deleteSignUpRecord(Integer id,String studio);
 

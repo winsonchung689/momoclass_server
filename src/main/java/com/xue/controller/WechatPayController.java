@@ -2,9 +2,7 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xue.config.Constants;
-import com.xue.entity.model.Merchant;
-import com.xue.entity.model.RestaurantUser;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.WechatPayService;
 import com.xue.util.HttpUtil;
@@ -99,10 +97,32 @@ public class WechatPayController {
 	@RequestMapping("/updateWallet")
 	@ResponseBody
 	public int updateWallet(String order_no,Integer status,String type){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		try {
-			dao.updateWallet(order_no,status,type);
+			int res = 0;
+			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
+			Wallet wallet = wallets.get(0);
+			String studio = wallet.getStudio();
+			String campus = wallet.getCampus();
+			String mark = wallet.getDescription();
+			Integer amount = wallet.getAmount();
+
+			Book book =new Book();
+			book.setStudio(studio);
+			book.setCampus(campus);
+			book.setMark(mark);
+			book.setAmount((float)amount);
+			book.setType("收入");
+			book.setCreate_time(create_time);
+
+			res = dao.updateWallet(order_no,status,type);
 			if("退款".equals(type)){
-				dao.updateStatusByOrderNo(order_no,3);
+				res = dao.updateStatusByOrderNo(order_no,3);
+				book.setType("支出");
+			}
+			if(res >0){
+				dao.insertBook(book);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
