@@ -249,7 +249,7 @@ public class WechatPayServiceImpl implements WechatPayService {
     }
 
     @Override
-    public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no,String order_id) {
+    public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String create_time = df.format(new Date());
 
@@ -291,11 +291,6 @@ public class WechatPayServiceImpl implements WechatPayService {
         List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
         Wallet wallet_get = wallets.get(0);
         Integer total = wallet_get.getAmount();
-
-        List<Order> orders = dao.getOrderById(order_id);
-        Order order = orders.get(0);
-        Float total_refund = order.getAmount();
-        Integer total_refund_int = Math.round(total_refund*100);
 
         CreateRequest request = new CreateRequest();
         AmountReq amountReq = new AmountReq();

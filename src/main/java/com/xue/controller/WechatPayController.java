@@ -242,7 +242,7 @@ public class WechatPayController {
 		// 判断支付方式
 		JSONObject result = null;
 		if(type.equals("商户平台")){
-			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no,order_id);
+			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no);
 		}
 
 		return result;
