@@ -5156,6 +5156,12 @@ public class LoginController {
 				}
 
 //				课包处理
+				Float all_lesson = lessonPackage.getAll_lesson();
+				Float give_lesson = lessonPackage.getGive_lesson();
+				Float total_amount_get = lesson.getTotal_amount();
+				if(all_lesson == 0.0f && give_lesson == 0.0f){
+					lessonPackage.setAll_lesson(total_amount_get);
+				}
 				if (lessonPackage.getAll_lesson() != 0.0f){
 					List<LessonPackage> lessonPackages_list = dao.getLessonPackageByStudentSubjectBatch(student_name,studio,campus,subject);
 					if(lessonPackages_list.size()==0){
