@@ -216,10 +216,10 @@ public class WechatPayServiceImpl implements WechatPayService {
     }
 
     @Override
-    public List getWalletByStudio(String studio) {
+    public List getWalletByStudio(String studio,String appid) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Wallet> wallets = dao.getWalletByStudio(studio);
+            List<Wallet> wallets = dao.getWalletByStudio(studio,appid);
             for (int i = 0; i < wallets.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Wallet line = wallets.get(i);

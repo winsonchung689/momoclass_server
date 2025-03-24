@@ -1368,7 +1368,7 @@
   </select>
 
   <select id="getWalletByStudio" parameterType="com.xue.entity.model.Wallet" resultMap="BaseWallet">
-    select * from wallet where studio =#{param1} and is_client = 1 and delete_status = 0 order by create_time desc
+    select * from wallet where studio =#{param1} and appid =#{param2} and is_client = 1 and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getRestaurantUserById" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
