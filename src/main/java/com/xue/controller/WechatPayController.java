@@ -207,8 +207,6 @@ public class WechatPayController {
 		String appid = request.getParameter("appid");
 		String openid = request.getParameter("openid");
 		String order_no = request.getParameter("order_no");
-		String order_id = request.getParameter("order_id");
-
 
 		// 查询工作室
 		String studio = null;
