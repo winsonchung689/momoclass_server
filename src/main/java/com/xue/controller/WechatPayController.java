@@ -99,14 +99,16 @@ public class WechatPayController {
 	public int updateWallet(String order_no,Integer status,String type){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		int res = 0;
 		try {
-			int res = 0;
+
 			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
 			Wallet wallet = wallets.get(0);
 			String studio = wallet.getStudio();
 			String campus = wallet.getCampus();
 			String mark = wallet.getDescription();
 			Integer amount = wallet.getAmount();
+			String appid = wallet.getAppid();
 
 			Book book =new Book();
 			book.setStudio(studio);
@@ -117,18 +119,25 @@ public class WechatPayController {
 			book.setCreate_time(create_time);
 
 			res = dao.updateWallet(order_no,status,type);
-			if("退款".equals(type)){
-				res = dao.updateStatusByOrderNo(order_no,3);
-				book.setType("支出");
+			if(appid.equals(Constants.appid)){
+				if("退款".equals(type)){
+					res = dao.updateStatusByOrderNo(order_no,3);
+					book.setType("支出");
+				}
+				// 进账本
+				if(res >0){
+					dao.insertBook(book);
+				}
+			} else if (appid.equals(Constants.order_appid)) {
+				if("退款".equals(type)){
+					res = dao.updateRestaurantOrderByOrderNo(order_no,3);
+				}
 			}
-			if(res >0){
-				dao.insertBook(book);
-			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
 		}
-		return 1;
+		return res;
 	}
 
 	@RequestMapping("/getWalletByStudio")

@@ -450,6 +450,8 @@ public interface UserMapper {
 
     int updateRestaurantOrderStatus(String id,int status);
 
+    int updateRestaurantOrderByOrderNo(String order_no,int status);
+
     int updateBookRole(BookUser bookUser);
 
     int updateBookName(BookUser bookUser);
