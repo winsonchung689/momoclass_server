@@ -264,12 +264,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String logo = line.getLogo();
                 String boss_name = null;
                 String boss_phone = null;
+                String boss_info = null;
                 List<RestaurantUser> restaurantUsers = dao.getRestaurantBossByShop(restaurant);
                 if(restaurantUsers.size()>0){
                     RestaurantUser restaurantUser = restaurantUsers.get(0);
                     logo = restaurantUser.getLogo();
                     boss_name = restaurantUser.getNick_name();
                     boss_phone = restaurantUser.getPhone_number();
+                    boss_info = restaurantUser.getInfo();
                 }
 
                 int is_merchant = 0;
@@ -291,6 +293,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String location = line.getLocation();
 
                 //json
+                jsonObject.put("boss_info", boss_info);
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
                 jsonObject.put("avatarurl", avatarurl);

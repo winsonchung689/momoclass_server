@@ -391,6 +391,10 @@ public class RestaurantController {
 				restaurantUser.setLocation(content);
 				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
+			}else if("info".equals(type)){
+				restaurantUser.setInfo(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantUser(restaurantUser);
 			}
 
 		} catch (Exception e) {

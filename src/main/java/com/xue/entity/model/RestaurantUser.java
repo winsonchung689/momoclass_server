@@ -28,6 +28,18 @@ public class RestaurantUser {
 
     private String logo;
 
+    private String info;
+
+
+
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public String getLogo() {
         return logo;
