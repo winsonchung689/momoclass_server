@@ -325,6 +325,7 @@ public class LoginServiceImpl implements LoginService {
                 comment = line.getComment();
                 class_target = line.getClass_target();
 				studio = line.getStudio();
+                String campus = line.getCampus();
                 duration = line.getDuration();
 
                 positive = line.getPositive();
@@ -406,6 +407,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("uuids_c", uuids_c);
                 jsonObject.put("vuuid", vuuid);
                 jsonObject.put("create_time", create_time);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
                 resul_list.add(jsonObject);
             }
 
