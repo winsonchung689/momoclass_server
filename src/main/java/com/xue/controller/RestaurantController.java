@@ -38,6 +38,52 @@ public class RestaurantController {
 	@Autowired
 	private UserMapper dao;
 
+	@RequestMapping("/inviteUser")
+	@ResponseBody
+	public String inviteUser(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,365);
+		String expired_time = df.format(cal.getTime());
+
+		//获取用户名
+		String id = request.getParameter("id");
+		String openid = request.getParameter("openid");
+
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
+		RestaurantUser restaurantUser_get = restaurantUsers.get(0);
+		String restaurant = restaurantUser_get.getRestaurant();
+
+
+		RestaurantUser restaurantUser = new RestaurantUser();
+		restaurantUser.setNick_name("微信用户");
+		restaurantUser.setPhone_number("未录入");
+		restaurantUser.setRole("client");
+		restaurantUser.setOpenid(openid);
+		restaurantUser.setRestaurant(restaurant);
+		restaurantUser.setCreate_time(create_time);
+		restaurantUser.setExpired_time(expired_time);
+
+		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
+		if(restaurantUsers1.size()>0){
+			RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+			String role_get = restaurantUser1.getRole();
+			if(!"boss".equals(role_get)){
+				dao.updateRestaurantByOpenid(restaurantUser);
+			}
+		}else {
+			restaurantService.insertRestaurantUser(restaurantUser);
+		}
+
+		return "push massage successfully";
+	}
 
 	@RequestMapping("/insertRestaurantUser")
 	@ResponseBody
