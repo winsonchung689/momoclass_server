@@ -139,16 +139,22 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 String nick_name = null;
-                String food_image = null;
+                String phone_number = null;
+                String location = null;
                 String openid_get = line.getOpenid();
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
                 if(restaurantUser_get.size()>0){
-                    nick_name = restaurantUser_get.get(0).getNick_name();
+                    RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
+                    nick_name = restaurantUser1.getNick_name();
+                    phone_number = restaurantUser1.getPhone_number();
+                    location = restaurantUser1.getLocation();
                 }
                 String id = line.getId();
                 Float total_price = num * price ;
                 String goods_id = line.getGoods_id();
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
+
+                String food_image = null;
                 if(menus.size()>0) {
                     food_image = menus.get(0).getFood_image();
                 }
@@ -170,6 +176,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("id", id);
                 jsonObject.put("total_price", total_price);
                 jsonObject.put("order_no", order_no);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
                 resul_list.add(jsonObject);
             }
 
