@@ -272,10 +272,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                     boss_phone = restaurantUser.getPhone_number();
                 }
 
-                int is_merchat = 0;
+                int is_merchant = 0;
                 List<Merchant> merchants = dao.getMerchant(restaurant,restaurant,Constants.order_appid);
                 if(merchants.size()>0){
-                    is_merchat = 1;
+                    is_merchant = 1;
                 }
 
                 String create_time = line.getCreate_time();
@@ -305,7 +305,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("location",location);
                 jsonObject.put("boss_name",boss_name);
                 jsonObject.put("boss_phone",boss_phone);
-                jsonObject.put("is_merchat",is_merchat);
+                jsonObject.put("is_merchat",is_merchant);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
