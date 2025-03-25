@@ -27,7 +27,17 @@ public class RestaurantOrder {
 
     private String order_no;
 
+    private String order_img;
 
+
+
+    public String getOrder_img() {
+        return order_img;
+    }
+
+    public void setOrder_img(String order_img) {
+        this.order_img = order_img;
+    }
 
     public String getOrder_no() {
         return order_no;

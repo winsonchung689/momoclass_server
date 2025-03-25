@@ -454,6 +454,27 @@ public class RestaurantController {
 		return 1;
 	}
 
+	@RequestMapping("/updateRestaurantOrderDetail")
+	@ResponseBody
+	public int updateRestaurantOrderDetail(HttpServletRequest request, HttpServletResponse response){
+
+		// 字段
+		String id = request.getParameter("id");
+		String uuid = request.getParameter("uuid");
+		int res = 0;
+		try {
+			List<RestaurantOrder> restaurantOrders = dao.getRestaurantOrderById(id);
+			RestaurantOrder restaurantOrder = restaurantOrders.get(0);
+			restaurantOrder.setOrder_img(uuid);
+			res = dao.updateRestaurantOrderDetail(restaurantOrder);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return res;
+	}
+
+
 }
 	
 	

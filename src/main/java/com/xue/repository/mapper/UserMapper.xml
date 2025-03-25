@@ -1678,6 +1678,11 @@
     update restaurant_order set status=#{param2} where order_no = #{param1}
   </update>
 
+  <!--  更新订单内容-->
+  <update id="updateRestaurantOrderDetail" parameterType="com.xue.entity.model.RestaurantOrder">
+    update restaurant_order set order_img=#{order_img} where id = #{id}
+  </update>
+
   <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">
     update book_user set role=#{role} where openid = #{openid}
   </update>
