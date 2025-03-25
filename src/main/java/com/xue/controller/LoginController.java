@@ -6792,6 +6792,7 @@ public class LoginController {
 				user.setRemind_type(remind_type);
 				dao.updateHours(user);
 				dao.updateScheduleHours(studio,Integer.parseInt(value));
+				dao.updateArrangementHours(studio,Integer.parseInt(value));
 			}else if("单独提前".equals(remind_type)){
 				dao.changeScheduleHours(id,Integer.parseInt(value));
 			}
