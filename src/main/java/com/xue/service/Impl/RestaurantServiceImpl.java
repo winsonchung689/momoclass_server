@@ -10,6 +10,7 @@ import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
 import com.xue.entity.model.Menu;
+import com.xue.entity.model.Merchant;
 import com.xue.entity.model.RestaurantOrder;
 import com.xue.entity.model.RestaurantUser;
 import com.xue.repository.dao.UserMapper;
@@ -271,6 +272,12 @@ public class RestaurantServiceImpl implements RestaurantService {
                     boss_phone = restaurantUser.getPhone_number();
                 }
 
+                int is_merchat = 0;
+                List<Merchant> merchants = dao.getMerchant(restaurant,restaurant,Constants.order_appid);
+                if(merchants.size()>0){
+                    is_merchat = 1;
+                }
+
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
                 openid = line.getOpenid();
@@ -298,6 +305,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("location",location);
                 jsonObject.put("boss_name",boss_name);
                 jsonObject.put("boss_phone",boss_phone);
+                jsonObject.put("is_merchat",is_merchat);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
