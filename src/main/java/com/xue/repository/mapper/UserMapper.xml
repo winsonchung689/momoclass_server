@@ -408,7 +408,7 @@
     update `order` set status = #{param2} where id = #{param1};
   </select>
 
-  <select id="updateStatusByOrderNo" parameterType="com.xue.entity.model.Order" resultMap="BaseResultMap">
+  <select id="updateStatusByOrderNo" parameterType="com.xue.entity.model.Order">
     update `order` set status = #{param2} where order_no = #{param1};
   </select>
 
