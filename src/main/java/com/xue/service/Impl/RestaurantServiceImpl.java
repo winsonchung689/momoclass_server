@@ -285,9 +285,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 openid = line.getOpenid();
 
                 Integer id = line.getId();
-                String role_name = "普通";
+                String role_name = "顾客";
                 if("boss".equals(role)){
-                    role_name = "群主";
+                    role_name = "店长";
                 }
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
