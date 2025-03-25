@@ -114,7 +114,7 @@ public class WechatPayController {
 			book.setStudio(studio);
 			book.setCampus(campus);
 			book.setMark(mark);
-			book.setAmount((float)amount);
+			book.setAmount((float)amount/100);
 			book.setType("收入");
 			book.setCreate_time(create_time);
 
