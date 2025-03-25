@@ -118,16 +118,13 @@ public class WechatPayController {
 			book.setType("收入");
 			book.setCreate_time(create_time);
 
-			res = dao.updateWallet(order_no,status,type);
+			dao.updateWallet(order_no,status,type);
 			if(appid.equals(Constants.appid)){
 				if("退款".equals(type)){
-					res = dao.updateStatusByOrderNo(order_no,3);
+					dao.updateStatusByOrderNo(order_no,3);
 					book.setType("支出");
 				}
-				// 进账本
-				if(res >0){
-					dao.insertBook(book);
-				}
+				dao.insertBook(book);
 			} else if (appid.equals(Constants.order_appid)) {
 				if("退款".equals(type)){
 					res = dao.updateRestaurantOrderByOrderNo(order_no,3);
