@@ -418,15 +418,14 @@ public class RestaurantController {
 		String type = request.getParameter("type");
 
 		try {
-			Menu menu =new Menu();
+			List<Menu> menus = dao.getRestaurantMenuById(id);
+			Menu menu = menus.get(0);
 			if("food_image".equals(type)){
-				menu.setId(id);
 				menu.setFood_image(content);
 				dao.updateRestaurantMenu(menu);
 			}else if("delete".equals(type)){
 				dao.deleteRestaurantFood(Integer.parseInt(id));
 			}else if("price".equals(type)){
-				menu.setId(id);
 				menu.setPrice(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
 			}
