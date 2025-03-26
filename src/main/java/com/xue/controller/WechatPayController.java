@@ -198,7 +198,7 @@ public class WechatPayController {
 
 		// 判断支付方式
 		JSONObject result = null;
-		if(type.equals("商户平台")){
+		if(type.equals("商户平台") || "0".equals(is_client)){
 			result = wechatPayService.weChatPayDirect(openid,mchid,appid,description,total_int,is_client);
 		}else if(type.equals("服务商平台")){
 			result = wechatPayService.weChatPayPartner(openid,mchid,sub_mchid,appid,description,total_int);
