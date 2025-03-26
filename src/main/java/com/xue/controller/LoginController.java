@@ -693,7 +693,7 @@ public class LoginController {
 			List<User> users = dao.getUser(openid);
 			User user = users.get(0);
 			official_openid = user.getOfficial_openid();
-		} else if ("蓝桃易物".equals(mark)) {
+		} else if ("蓝桃续费".equals(mark)) {
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			official_openid = restaurantUser.getOfficial_openid();
