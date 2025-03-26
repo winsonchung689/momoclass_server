@@ -414,9 +414,7 @@ public class RestaurantController {
 
 		//获取文字
 		String content = request.getParameter("content");
-
 		String id = request.getParameter("id");
-
 		String type = request.getParameter("type");
 
 		try {
@@ -424,9 +422,14 @@ public class RestaurantController {
 				Menu menu =new Menu();
 				menu.setId(id);
 				menu.setFood_image(content);
-				dao.updateRestaurantMenuImage(menu);
+				dao.updateRestaurantMenu(menu);
 			}else if("delete".equals(type)){
 				dao.deleteRestaurantFood(Integer.parseInt(id));
+			}else if("price".equals(type)){
+				Menu menu =new Menu();
+				menu.setId(id);
+				menu.setPrice(Float.parseFloat(content));
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

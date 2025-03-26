@@ -462,7 +462,7 @@ public interface UserMapper {
 
     int updateBudget(BookUser bookUser);
 
-    int updateRestaurantMenuImage(Menu menu);
+    int updateRestaurantMenu(Menu menu);
 
     int deleteRestaurantOrder(int id);
 
