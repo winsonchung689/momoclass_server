@@ -345,6 +345,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantMenuById")
+	@ResponseBody
+	public List getRestaurantMenuById(String id){
+		List list = null;
+		try {
+			list = dao.getRestaurantMenuById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateRestaurantUser")
 	@ResponseBody
 	public int updateRestaurantUser(HttpServletRequest request, HttpServletResponse response){
