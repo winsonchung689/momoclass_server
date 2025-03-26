@@ -487,6 +487,11 @@ public class LoginController {
 		String restaurant = restaurantUser.getRestaurant();
 		String expired_time = restaurantUser.getExpired_time();
 
+		if(("请录入商铺").equals(restaurant)){
+			return "no_studio";
+		}
+
+
 		long diff = 0;
 		try {
 			Date date1 = df.parse(create_time);
