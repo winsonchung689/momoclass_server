@@ -299,14 +299,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer id = line.getId();
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
-
                 String role_name = "顾客";
+                long diff = 0;
                 if("boss".equals(role)){
                     role_name = "店长";
                     // 判断权限
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
                     String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-                    long diff = 0;
+
                     try {
                         Date date1 = df.parse(now_time);
                         Date date2 = df.parse(expired_time);
@@ -321,8 +321,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                     }
                 }
 
+                Integer days = line.getDays();
+
+
 
                 //json
+                jsonObject.put("diff", diff);
+                jsonObject.put("days", days);
                 jsonObject.put("boss_info", boss_info);
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
