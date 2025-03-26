@@ -473,6 +473,97 @@ public class LoginController {
 	}
 
 	//	获取token
+	@RequestMapping("/sendOrderPaymentNotice")
+	@ResponseBody
+	public String sendOrderPaymentNotice(String openid,String amount,Integer days,String mark){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String result = null;
+		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+		RestaurantUser restaurantUser = restaurantUsers.get(0);
+		String restaurant = restaurantUser.getRestaurant();
+		String expired_time = restaurantUser.getExpired_time();
+
+		long diff = 0;
+		try {
+			Date date1 = df.parse(create_time);
+			Date date2 = df.parse(expired_time);
+			diff = date2.getTime() - date1.getTime();
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
+		// 蓝桃续费
+		if("蓝桃续费".equals(mark)){
+			// 根据时间判断续期起点
+			try {
+				if(diff > 0){
+					cal.setTime(df.parse(expired_time));
+				}else {
+					cal.setTime(df.parse(create_time));
+				}
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+			cal.add(cal.DATE,days);
+			String expired_time_new = df.format(cal.getTime());
+
+			// 更新有效期
+			restaurantUser.setExpired_time(expired_time_new);
+			restaurantUser.setMember("付费会员");
+			restaurantUser.setRole("boss");
+			restaurantUser.setDays(Math.toIntExact(days));
+
+			// 老用户续费
+			dao.updateRestaurantUserByBoss(restaurantUser);
+
+			// 商户入驻
+			List<Merchant> merchants = dao.getMerchant(restaurant,restaurant,Constants.order_appid);
+			if(merchants.size() == 0){
+				Merchant merchant = new Merchant();
+				merchant.setType("商户平台");
+				merchant.setAppid(Constants.order_appid);
+				merchant.setSub_appid(Constants.order_appid);
+				merchant.setOpenid(openid);
+				merchant.setMchid(Constants.MCH_ID);
+				merchant.setSub_mchid(Constants.MCH_ID);
+				merchant.setCreate_time(create_time);
+				merchant.setStudio(restaurant);
+				merchant.setCampus(restaurant);
+				dao.insertMerchant(merchant);
+			}
+
+			// 入账
+			String book_mark = "半年卡";
+			if(days == 7){
+				book_mark = "7天卡";
+			}
+			if(days == 365){
+				book_mark = "全年卡";
+			}
+
+			Book book =new Book();
+			book.setStudio("大雄工作室");
+			book.setCampus("大雄工作室");
+			book.setType("收入");
+			book.setMark(restaurant + "_" + book_mark + "_" + days);
+			book.setAmount(Float.parseFloat(amount));
+			book.setCreate_time(create_time);
+			dao.insertBook(book);
+
+			// 通知管理员
+			sendFeedback(Constants.admin_openid,restaurant,expired_time_new,days.toString(),mark);
+			// 通知客户
+			sendFeedback(openid,restaurant,expired_time_new,days.toString(),mark);
+		}
+
+		return result;
+	}
+
 	@RequestMapping("/sendPaymentNotice")
 	@ResponseBody
 	public String sendPaymentNotice(String openid,String amount,Integer days,String mark){
@@ -568,9 +659,9 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback(Constants.admin_openid,studio,expired_time_new,days.toString());
+			sendFeedback(Constants.admin_openid,studio,expired_time_new,days.toString(),mark);
 			// 通知客户
-			sendFeedback(openid,studio,expired_time_new,days.toString());
+			sendFeedback(openid,studio,expired_time_new,days.toString(),mark);
 		}else{
 			// 发提现通知给管理员
 			String token = loginService.getToken("MOMO_OFFICIAL");
@@ -592,16 +683,22 @@ public class LoginController {
 	//续费成功通知
 	@RequestMapping("/sendFeedback")
 	@ResponseBody
-	public String sendFeedback(String openid,String target_studio,String expired_time,String days){
+	public String sendFeedback(String openid,String target_studio,String expired_time,String days,String mark){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());
 		String result = null;
 		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
-		List<User> users = dao.getUser(openid);
-		User user = users.get(0);
-		String official_openid = user.getOfficial_openid();
-//		String studio = user.getStudio();
+		String official_openid=null;
+		if("系统续费".equals(mark)){
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			official_openid = user.getOfficial_openid();
+		} else if ("蓝桃易物".equals(mark)) {
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			official_openid = restaurantUser.getOfficial_openid();
+		}
 
 		try {
 			String token = loginService.getToken("MOMO_OFFICIAL");

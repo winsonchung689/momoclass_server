@@ -30,6 +30,27 @@ public class RestaurantUser {
 
     private String info;
 
+    private Integer days;
+
+    private String member;
+
+
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
 
 
 

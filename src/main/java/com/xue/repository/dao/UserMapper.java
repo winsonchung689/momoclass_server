@@ -440,6 +440,8 @@ public interface UserMapper {
 
     int updateRestaurantUser(RestaurantUser restaurantUser);
 
+    int updateRestaurantUserByBoss(RestaurantUser restaurantUser);
+
     int updateRestaurantByBoss(RestaurantUser restaurantUser);
 
     int updateRestaurantByOpenid(RestaurantUser restaurantUser);

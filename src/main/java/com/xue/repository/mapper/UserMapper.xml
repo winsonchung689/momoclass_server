@@ -1659,6 +1659,11 @@
     update restaurant_user set info=#{info},nick_name=#{nick_name},logo=#{logo},restaurant=#{restaurant},role=#{role},avatarurl=#{avatarurl},phone_number=#{phone_number},location=#{location} where openid = #{openid}
   </update>
 
+  <!--  蓝桃续费-->
+  <update id="updateRestaurantUserByBoss" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set expired_time=#{expired_time},member=#{member},role=#{role},days=#{days} where openid = #{openid};
+  </update>
+
   <!--  更新商店用户信息-->
   <update id="updateRestaurantByBoss" parameterType="com.xue.entity.model.RestaurantUser">
     update restaurant_user set logo=#{logo} where restaurant = #{restaurant} and role ='boss'

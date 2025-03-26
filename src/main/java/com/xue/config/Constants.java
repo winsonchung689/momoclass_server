@@ -15,6 +15,7 @@ public class Constants {
     // 桃子易物 小程序
     public static final String order_appid = "wx80d88494062937dd";
     public static final String order_secret = "62cd844281fb25cf1b229aa771de9e8a";
+    public static final String order_admin_openid = "ougOI60Jjf6PkDHSI0mJDQ_129YM";
 
     // 账本 小程序
     public static final String book_appid = "wxc967c1cdf284df42";
@@ -58,7 +59,8 @@ public class Constants {
     // 服务商公钥ID
     public static final  String SER_PUBLIC_KEY_ID ="PUB_KEY_ID_0117106400212025031500218500002371";
 
-
+    // 商户号
+    public static final  String MCH_ID ="1710485765";
 
 
 

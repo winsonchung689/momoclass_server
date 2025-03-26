@@ -23,7 +23,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -264,8 +268,12 @@ public class RestaurantServiceImpl implements RestaurantService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantUser line = list.get(i);
+
                 //获取字段
+                String expired_time = line.getExpired_time();
                 String role = line.getRole();
+                String create_time = line.getCreate_time();
+                openid = line.getOpenid();
                 String avatarurl = line.getAvatarurl();
                 String nick_name = line.getNick_name();
                 String restaurant = line.getRestaurant();
@@ -288,17 +296,31 @@ public class RestaurantServiceImpl implements RestaurantService {
                     is_merchant = 1;
                 }
 
-                String create_time = line.getCreate_time();
-                String expired_time = line.getExpired_time();
-                openid = line.getOpenid();
-
                 Integer id = line.getId();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+
                 String role_name = "顾客";
                 if("boss".equals(role)){
                     role_name = "店长";
+                    // 判断权限
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                    String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+                    long diff = 0;
+                    try {
+                        Date date1 = df.parse(now_time);
+                        Date date2 = df.parse(expired_time);
+                        diff = date2.getTime() - date1.getTime();
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if(diff < 0){
+                        line.setRole("client");
+                        line.setDays(0);
+                        dao.updateRestaurantUserByBoss(line);
+                    }
                 }
-                String phone_number = line.getPhone_number();
-                String location = line.getLocation();
+
 
                 //json
                 jsonObject.put("boss_info", boss_info);
