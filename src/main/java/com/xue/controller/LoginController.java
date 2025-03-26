@@ -481,7 +481,6 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String result = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
@@ -556,7 +555,7 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback(Constants.admin_openid,restaurant,expired_time_new,days.toString(),mark);
+			sendFeedback(Constants.order_admin_openid,restaurant,expired_time_new,days.toString(),mark);
 			// 通知客户
 			sendFeedback(openid,restaurant,expired_time_new,days.toString(),mark);
 		}
