@@ -395,6 +395,9 @@ public class RestaurantController {
 				restaurantUser.setInfo(content);
 				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
+			}else if("expired_time".equals(type)){
+				restaurantUser.setExpired_time(content);
+				dao.updateRestaurantByBoss(restaurantUser);
 			}
 
 		} catch (Exception e) {

@@ -84,6 +84,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
+                String member = line.getMember();
 
                 //json
                 jsonObject.put("id", id);
@@ -99,6 +100,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("role_name",role_name);
                 jsonObject.put("phone_number",phone_number);
                 jsonObject.put("location",location);
+                jsonObject.put("member",member);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
