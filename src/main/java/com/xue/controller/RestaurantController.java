@@ -439,7 +439,11 @@ public class RestaurantController {
 			}else if("price".equals(type)){
 				menu.setPrice(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("introduce".equals(type)){
+				menu.setIntroduce(content);
+				dao.updateRestaurantMenu(menu);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
