@@ -194,6 +194,82 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public List getRestaurantOrderByDay(String date_time) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<RestaurantOrder> list = dao.getRestaurantOrderByDay(date_time);
+
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantOrder line = list.get(i);
+                //获取字段
+                String food_name = line.getFood_name();
+                String restaurant = line.getRestaurant();
+                String category = line.getCategory();
+                int num = line.getNum();
+                Float price = line.getPrice();
+                String create_time = line.getCreate_time();
+                int status = line.getStatus();
+                String status_cn = "去发货";
+                if(status==1){
+                    status_cn = "去完成";
+                }else if(status == 2){
+                    status_cn = "已完成";
+                }else if(status == 3){
+                    status_cn = "已退款";
+                }
+
+                String nick_name = null;
+                String phone_number = null;
+                String location = null;
+                String openid_get = line.getOpenid();
+                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
+                if(restaurantUser_get.size()>0){
+                    RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
+                    nick_name = restaurantUser1.getNick_name();
+                    phone_number = restaurantUser1.getPhone_number();
+                    location = restaurantUser1.getLocation();
+                }
+                String id = line.getId();
+                Float total_price = num * price ;
+                String goods_id = line.getGoods_id();
+                List<Menu> menus = dao.getRestaurantMenuById(goods_id);
+                String food_image = null;
+                if(menus.size()>0) {
+                    food_image = menus.get(0).getFood_image();
+                }
+
+                String order_no = line.getOrder_no();
+                String order_img = line.getOrder_img();
+
+                //json
+                jsonObject.put("order_img", order_img);
+                jsonObject.put("food_image", food_image);
+                jsonObject.put("food_name", food_name);
+                jsonObject.put("restaurant", restaurant);
+                jsonObject.put("category", category);
+                jsonObject.put("num", num);
+                jsonObject.put("price", price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("status", status);
+                jsonObject.put("status_cn", status_cn);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("id", id);
+                jsonObject.put("total_price", total_price);
+                jsonObject.put("order_no", order_no);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getRestaurantCategory(String restaurant) {
         List<Menu> list= null;
         List<JSONObject> resul_list = new ArrayList<>();

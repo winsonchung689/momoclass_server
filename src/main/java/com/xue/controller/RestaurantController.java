@@ -321,6 +321,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantOrderByDay")
+	@ResponseBody
+	public List getRestaurantOrderByDay(String date_time){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantOrderByDay(date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getRestaurantCategory")
 	@ResponseBody
 	public List getRestaurantCategory(String restaurant){
