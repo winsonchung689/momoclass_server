@@ -445,6 +445,12 @@ public class RestaurantController {
 			}else if("vuuid".equals(type)){
 				menu.setVuuid(content);
 				dao.updateRestaurantMenu(menu);
+			}else if("category".equals(type)){
+				menu.setCategory(content);
+				dao.updateRestaurantMenu(menu);
+			}else if("unit".equals(type)){
+				menu.setUnit(content);
+				dao.updateRestaurantMenu(menu);
 			}
 
 		} catch (Exception e) {
