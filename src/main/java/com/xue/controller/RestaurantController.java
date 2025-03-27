@@ -451,6 +451,9 @@ public class RestaurantController {
 			}else if("unit".equals(type)){
 				menu.setUnit(content);
 				dao.updateRestaurantMenu(menu);
+			}else if("food_name".equals(type)){
+				menu.setFood_name(content);
+				dao.updateRestaurantMenu(menu);
 			}
 
 		} catch (Exception e) {
