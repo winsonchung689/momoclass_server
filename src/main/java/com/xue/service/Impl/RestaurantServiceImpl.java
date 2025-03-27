@@ -232,6 +232,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String introduce = line.getIntroduce();
                 Float price = line.getPrice();
                 String id = line.getId();
+                String vuuid = line.getVuuid();
+                String unit = line.getUnit();
 
                 //json
                 jsonObject.put("category", category);
@@ -241,6 +243,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("price", price);
                 jsonObject.put("id", id);
                 jsonObject.put("num", 0);
+                jsonObject.put("vuuid", vuuid);
+                jsonObject.put("unit", unit);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
