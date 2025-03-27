@@ -383,9 +383,8 @@ public class RestaurantController {
 				restaurantUser.setLogo(content);
 				dao.updateRestaurantByBoss(restaurantUser);
 			}else if("restaurant".equals(type)){
-				restaurantUser.setRestaurant(content);
-				restaurantUser.setOpenid(openid);
-				dao.updateRestaurantUser(restaurantUser);
+				String old_name = restaurantUser.getRestaurant();
+				dao.updateRestaurantByAll(old_name,content);
 			}else if("role".equals(type)){
 				if("boss".equals(content)){
 					content = "client";

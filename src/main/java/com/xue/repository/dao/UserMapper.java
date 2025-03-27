@@ -440,6 +440,8 @@ public interface UserMapper {
 
     int updateRestaurantUser(RestaurantUser restaurantUser);
 
+    int updateRestaurantByAll(String old_name,String new_name);
+
     int updateRestaurantUserByBoss(RestaurantUser restaurantUser);
 
     int updateRestaurantByBoss(RestaurantUser restaurantUser);
