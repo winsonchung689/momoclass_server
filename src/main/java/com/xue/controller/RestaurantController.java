@@ -443,7 +443,7 @@ public class RestaurantController {
 				menu.setIntroduce(content);
 				dao.updateRestaurantMenu(menu);
 			}else if("vuuid".equals(type)){
-				menu.setIntroduce(content);
+				menu.setVuuid(content);
 				dao.updateRestaurantMenu(menu);
 			}
 
