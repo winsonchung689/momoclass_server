@@ -19,6 +19,17 @@ public class Menu {
 
     private String introduce;
 
+    private String vuuid;
+
+
+
+    public String getVuuid() {
+        return vuuid;
+    }
+
+    public void setVuuid(String vuuid) {
+        this.vuuid = vuuid;
+    }
 
     public String getIntroduce() {
         return introduce;
