@@ -7749,8 +7749,9 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 
 		try {
-			User user = new User();
-			user.setOpenid(openid);
+			List<User> users = dao.getUserByOpenid(openid);
+			User user = users.get(0);
+
 			user.setStudio(studio);
 			user.setCampus(studio);
 			dao.updateUserByOpenid(user);
