@@ -3866,6 +3866,9 @@ public class LoginController {
 		String id = request.getParameter("id");
 
 		try {
+			List<User> users = dao.getUserByOpenid(openid);
+			User user = users.get(0);
+
 			if("昵称".equals(type)){
 				dao.updateNewName(openid,content);
 			}else if("电话".equals(type)) {
@@ -3875,8 +3878,6 @@ public class LoginController {
 			}else if("更新学生".equals(type)){
 				dao.updateUserStudentByOpenid(content,id);
 			}else if("学生".equals(type)) {
-				List<User> users = dao.getUserByOpenid(openid);
-				User user = users.get(0);
 				String studio =user.getStudio();
 				List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid);
 				if(users1.size()>0){
@@ -3898,12 +3899,10 @@ public class LoginController {
 				dao.updateUserStudentByOpenid(student_name,id);
 				dao.updatePhoneNumber(openid,phone_number);
 			}else if("校区".equals(type)){
-				User user =new User();
 				user.setOpenid(openid);
 				user.setCampus(content);
 				dao.updateUserCampus(user);
 			}else if("工作室".equals(type)){
-				User user =new User();
 				user.setOpenid(openid);
 				user.setStudio(content);
 				user.setCampus(content);
@@ -6635,9 +6634,10 @@ public class LoginController {
 		String type = request.getParameter("type");
 
 		try {
+			List<User> users = dao.getUserByOpenid(openid_get);
+			User user = users.get(0);
 
 			if("校区".equals(type)){
-				User user =new User();
 				user.setOpenid(openid_get);
 				user.setCampus(campus);
 				dao.updateUserCampus(user);
@@ -6653,8 +6653,6 @@ public class LoginController {
 						if(i == 0){
 							dao.updateUserStudentByOpenid(name,id);
 						}else{
-							List<User> users = dao.getUser(openid);
-							User user = users.get(0);
 							user.setStudent_name(name);
 							String studio = user.getStudio();
 							int update_res = dao.updateUserDelete(user);
@@ -6666,15 +6664,12 @@ public class LoginController {
 				}
 
 			}else if("工作室".equals(type)){
-				User user =new User();
 				user.setOpenid(openid_get);
 				user.setStudio(campus);
 				dao.updateUserStudioByOpenid(user);
 			}else if("电话".equals(type)){
 				dao.updatePhoneNumber(openid_get,campus);
 			}else if("新孩".equals(type)){
-                List<User> users = dao.getUserByOpenid(openid_get);
-                User user = users.get(0);
                 String studio =user.getStudio();
                 List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid_get);
                 if(users1.size()>0){
