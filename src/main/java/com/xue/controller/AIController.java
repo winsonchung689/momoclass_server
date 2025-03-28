@@ -158,7 +158,7 @@ public class AIController {
 	// 直连图生图
 	@RequestMapping("/imgVariations")
 	@ResponseBody
-	public static String imgVariations(String uuid,String question){
+	public static String imgVariations(String uuid){
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		String filePath = "/data/imgs/imgfile.png";
 		String res = null;
@@ -180,7 +180,7 @@ public class AIController {
 
 			File file = new File(filePath);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/edits");
+			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/variations");
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			httpPost.setHeader("Authorization","Bearer " + OPENAI_API_KEY);
 
@@ -190,7 +190,6 @@ public class AIController {
 			builder.addTextBody("n", "1", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			builder.addTextBody("size", "1024x1024", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			builder.addTextBody("model", "dall-e-2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
-			builder.addTextBody("prompt", question, ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 
 			HttpEntity multipart = builder.build();
 			httpPost.setEntity(multipart);
@@ -269,11 +268,11 @@ public class AIController {
 
 	@RequestMapping("/momoImgVariations")
 	@ResponseBody
-	public static String momoImgVariations(String uuid,String question){
+	public static String momoImgVariations(String uuid){
 		String res = null;
 		System.out.println(uuid);
 		try {
-			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid + "&question=" + question;;
+			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (Exception e) {
