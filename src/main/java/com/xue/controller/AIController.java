@@ -180,7 +180,7 @@ public class AIController {
 
 			File file = new File(filePath);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/variations");
+			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/edits");
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 			httpPost.setHeader("Authorization","Bearer " + OPENAI_API_KEY);
 
