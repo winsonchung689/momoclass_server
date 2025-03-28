@@ -190,6 +190,8 @@ public class AIController {
 			builder.addTextBody("n", "1", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			builder.addTextBody("size", "1024x1024", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			builder.addTextBody("model", "dall-e-2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+			builder.addTextBody("prompt", "画一张吉卜力风格的图片", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+
 			HttpEntity multipart = builder.build();
 			httpPost.setEntity(multipart);
 			CloseableHttpResponse response = httpClient.execute(httpPost);
