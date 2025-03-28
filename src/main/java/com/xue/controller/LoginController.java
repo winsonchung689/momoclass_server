@@ -3870,13 +3870,16 @@ public class LoginController {
 			User user = users.get(0);
 
 			if("昵称".equals(type)){
-				dao.updateNewName(openid,content);
+				user.setNick_name(content);
+				dao.updateUserByOpenid(user);
 			}else if("电话".equals(type)) {
-				dao.updatePhoneNumber(openid,content);
+				user.setPhone_number(content);
+				dao.updateUserByOpenid(user);
 			}else if("地址".equals(type)) {
-				dao.updateLocation(openid,content);
+				user.setLocation(content);
+				dao.updateUserByOpenid(user);
 			}else if("更新学生".equals(type)){
-				dao.updateUserStudentByOpenid(content,id);
+				dao.updateUserStudentById(content,id);
 			}else if("学生".equals(type)) {
 				String studio =user.getStudio();
 				List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid);
@@ -3896,17 +3899,18 @@ public class LoginController {
 				String[] content_list = content.split("_");
 				String student_name = content_list[0];
 				String phone_number = content_list[1];
-				dao.updateUserStudentByOpenid(student_name,id);
-				dao.updatePhoneNumber(openid,phone_number);
+				dao.updateUserStudentById(student_name,id);
+				user.setPhone_number(phone_number);
+				dao.updateUserByOpenid(user);
 			}else if("校区".equals(type)){
 				user.setOpenid(openid);
 				user.setCampus(content);
-				dao.updateUserCampus(user);
+				dao.updateUserByOpenid(user);
 			}else if("工作室".equals(type)){
 				user.setOpenid(openid);
 				user.setStudio(content);
 				user.setCampus(content);
-				dao.updateUserStudioByOpenid(user);
+				dao.updateUserByOpenid(user);
 			}
 
 		} catch (Exception e) {
@@ -4592,7 +4596,9 @@ public class LoginController {
 
 				dao.insertUser(user);
 			}else{
-				dao.updatePhoneNumber(openid,phone_number);
+				User user = users.get(0);
+				user.setPhone_number(phone_number);
+				dao.updateUserByOpenid(user);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -6640,18 +6646,18 @@ public class LoginController {
 			if("校区".equals(type)){
 				user.setOpenid(openid_get);
 				user.setCampus(campus);
-				dao.updateUserCampus(user);
+				dao.updateUserByOpenid(user);
 			}else if("学生名".equals(type)){
 				String openid = openid_get.split("@")[0];
 				String id = openid_get.split("@")[1];
 				String[] student_list = campus.split(" ");
 				if(student_list.length == 1){
-					dao.updateUserStudentByOpenid(campus,id);
+					dao.updateUserStudentById(campus,id);
 				}else if(student_list.length > 1){
 					for(int i=0; i < student_list.length;i++){
 						String name = student_list[i];
 						if(i == 0){
-							dao.updateUserStudentByOpenid(name,id);
+							dao.updateUserStudentById(name,id);
 						}else{
 							user.setStudent_name(name);
 							String studio = user.getStudio();
@@ -6666,9 +6672,10 @@ public class LoginController {
 			}else if("工作室".equals(type)){
 				user.setOpenid(openid_get);
 				user.setStudio(campus);
-				dao.updateUserStudioByOpenid(user);
+				dao.updateUserByOpenid(user);
 			}else if("电话".equals(type)){
-				dao.updatePhoneNumber(openid_get,campus);
+				user.setPhone_number(campus);
+				dao.updateUserByOpenid(user);
 			}else if("新孩".equals(type)){
                 String studio =user.getStudio();
                 List<User> users1 = dao.getUserByStudentOpenid("no_name",studio,openid_get);
@@ -6685,7 +6692,8 @@ public class LoginController {
                     }
                 }
             }else if("微信".equals(type)){
-				dao.updateWechatId(openid_get,campus);
+				user.setWechat_id(campus);
+				dao.updateUserByOpenid(user);
 			}else if("会员".equals(type)){
 				dao.updateUserMemberByOpenid(openid_get,campus);
 			}
@@ -7745,8 +7753,7 @@ public class LoginController {
 			user.setOpenid(openid);
 			user.setStudio(studio);
 			user.setCampus(studio);
-			dao.updateUserStudioByOpenid(user);
-			dao.updateUserCampus(user);
+			dao.updateUserByOpenid(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

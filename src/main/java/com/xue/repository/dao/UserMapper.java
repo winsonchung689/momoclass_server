@@ -274,15 +274,7 @@ public interface UserMapper {
 
     void modifyOrderCutPrice(String goods_id,String leader_id,Float cut_price);
 
-    void updateLocation(String openid,String location);
-
-    void updatePhoneNumber(String openid,String phone_number);
-
-    void updateWechatId(String openid,String wechat_id);
-
     void updateUserStudentName(String openid,String student_name);
-
-    void updateNewName(String openid,String new_name);
 
     void updateContractText(String studio, String campus, String contract);
 
@@ -504,11 +496,9 @@ public interface UserMapper {
 
     int updateUsertype(User user);
 
-    int updateUserCampus(User user);
-
     int updateUserContract(String openid,Integer contract);
 
-    int updateUserStudioByOpenid(User user);
+    int updateUserByOpenid(User user);
 
     int updateUserStudio(String studio,String new_studio);
 
@@ -1054,7 +1044,7 @@ public interface UserMapper {
 
     int updateUserStudent(String student_name_new,String student_name,String studio,String campus,String openid);
 
-    int updateUserStudentByOpenid(String student_name,String id);
+    int updateUserStudentById(String student_name,String id);
 
     int updateUserExpired(String role,String studio,String role_old,String campus);
 

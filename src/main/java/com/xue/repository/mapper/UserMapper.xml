@@ -521,35 +521,17 @@
     update goods_list set expired_time =#{param4} where id =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
-  <update id="updateUserStudioByOpenid" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio},campus=#{campus} where openid=#{openid}
+  <!--  更改用户信息-->
+  <update id="updateUserByOpenid" parameterType="com.xue.entity.model.User">
+    update user set nick_name=#{nick_name},wechat_id=#{wechat_id},phone_number=#{phone_number},studio=#{studio},campus=#{campus},location=#{location} where openid=#{openid}
   </update>
 
-  <!-- 更新用户校区 -->
-  <update id="updateUserCampus" parameterType="com.xue.entity.model.User">
-    update user set campus=#{campus} where openid=#{openid}
+  <update id="updateUserMemberByOpenid" parameterType="com.xue.entity.model.User">
+    update user set member=#{param2} where openid=#{param1} and delete_status = 0
   </update>
-
-  <!-- 更改地址及电话号码 -->
-  <select id="updateLocation" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set location=#{param2} where openid =#{param1}
-  </select>
-
-  <select id="updatePhoneNumber" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set phone_number =#{param2} where openid =#{param1}
-  </select>
-
-  <select id="updateWechatId" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set wechat_id =#{param2} where openid =#{param1}
-  </select>
 
   <select id="updateUserStudentName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set student_name =#{param2} where openid =#{param1} and student_name ='no_name'
-  </select>
-
-  <!-- 更改用户名 -->
-  <select id="updateNewName" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
-    update user set nick_name =#{param2} where openid =#{param1}
   </select>
 
   <!-- 更新公约文字 -->
@@ -2506,7 +2488,7 @@
     update user set student_name=#{param1} where student_name=#{param2} and studio=#{param3} and campus =#{param4} and openid=#{param5}
   </update>
 
-  <update id="updateUserStudentByOpenid" parameterType="com.xue.entity.model.User">
+  <update id="updateUserStudentById" parameterType="com.xue.entity.model.User">
     update user set student_name=#{param1} where id =#{param2}
   </update>
 
@@ -2517,10 +2499,6 @@
 
   <update id="updateUserMember" parameterType="com.xue.entity.model.User">
     update user set member=#{param1} where studio=#{param2} and role in ('boss', 'teacher') and delete_status = 0
-  </update>
-
-  <update id="updateUserMemberByOpenid" parameterType="com.xue.entity.model.User">
-    update user set member=#{param2} where openid=#{param1} and delete_status = 0
   </update>
 
   <update id="updateUserRegion" parameterType="com.xue.entity.model.User">
