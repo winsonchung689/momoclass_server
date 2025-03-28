@@ -6237,16 +6237,22 @@ public class LoginController {
 		cal.add(cal.DATE,30);
 		String expired_time = df.format(cal.getTime());
 
-		//获取用户名
+		//获取手机
 		String phone_number = request.getParameter("phone_number");
 
+		//获取用户名
 		String nick_name = request.getParameter("nick_name");
         if(nick_name == null || nick_name.isEmpty() || "undefined".equals(nick_name)){
             nick_name = "微信用户";
         }
 
+		//获取工作室
 		String studio = request.getParameter("studio");
+		if(studio == null || studio.isEmpty() || "undefined".equals(studio)){
+			studio = "请录入工作室";
+		}
 
+		//获取校区
 		String campus = request.getParameter("campus");
 		if(campus == null || campus.isEmpty() || "undefined".equals(campus)){
 			campus = studio;
@@ -6258,12 +6264,6 @@ public class LoginController {
 			student_name = "no_name";
 		}
 
-		//获取角色
-		String role = request.getParameter("role");
-		if(role == null || role.isEmpty() || "undefined".equals(role)){
-			role = "client";
-		}
-
         //获取 openid
 		String openid = request.getParameter("openid");
 		if(openid == null || openid.isEmpty() || "undefined".equals(openid)){
@@ -6273,18 +6273,18 @@ public class LoginController {
 		//获取代理人 openid
 		String openid_qr = "noid";
 
+		// 获取类别
 		String type = request.getParameter("type");
 		if(type == null || type.isEmpty() || "undefined".equals(type)){
 			type = "0";
 		}
 
+		// 获取id
 		String id = request.getParameter("id");
 		if(id == null || id.isEmpty() || "undefined".equals(id)){
 			id = "noid";
 		}
 
-		studio = "请录入工作室";
-		campus = "请录入工作室";
 		// is_open 表示是否发券
 		Integer is_open =0;
 		String my_openid ="";
@@ -6317,6 +6317,7 @@ public class LoginController {
 			student_name = lesson.getStudent_name();
 			nick_name = student_name;
 		}
+
 		// 活动码
         if("4".equals(type)){
             List<GoodsList> goodsLists =dao.getGoodsListById(id);
