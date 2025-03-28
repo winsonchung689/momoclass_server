@@ -187,8 +187,9 @@ public class AIController {
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE); // 设置浏览器兼容模式
 			builder.addBinaryBody("image", file, ContentType.DEFAULT_BINARY, file.getName()); // 添加文件部分
-			builder.addTextBody("n", "2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+			builder.addTextBody("n", "1", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			builder.addTextBody("size", "1024x1024", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
+			builder.addTextBody("model", "dall-e-2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
 			HttpEntity multipart = builder.build();
 			httpPost.setEntity(multipart);
 			CloseableHttpResponse response = httpClient.execute(httpPost);
