@@ -3906,6 +3906,7 @@ public class LoginController {
 				User user =new User();
 				user.setOpenid(openid);
 				user.setStudio(content);
+				user.setCampus(content);
 				dao.updateUserStudioByOpenid(user);
 			}
 
