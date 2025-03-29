@@ -6631,7 +6631,7 @@ public class LoginServiceImpl implements LoginService {
                 String content =null;
                 String create_time = null;
                 String id = null;
-                String avatar = "https://www.momoclasss.xyz:443/file/uploadimages/fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                String avatar = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
                 String nick_name = "游客";
                 Integer comment_amount = 0;
                 Integer like_amount = 0;

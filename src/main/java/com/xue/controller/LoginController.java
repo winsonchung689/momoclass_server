@@ -6335,7 +6335,7 @@ public class LoginController {
 		//获取 avatarurl
 		String avatarurl = request.getParameter("avatarurl");
 		if(avatarurl == null || avatarurl.isEmpty() || "undefined".equals(avatarurl)){
-			avatarurl = "https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
+			avatarurl = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
 		}
 
 		List<User> list_send = dao.getUserSendTime(studio);
