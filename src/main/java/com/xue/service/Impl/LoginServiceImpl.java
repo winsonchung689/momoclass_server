@@ -3077,7 +3077,7 @@ public class LoginServiceImpl implements LoginService {
 
                     String avatar = user_init.getAvatarurl();
                     String[] avatar_list = avatar.split("/");
-                    if(avatar_list.length == 5){
+                    if(avatar_list.length >= 5){
                         String uuid = avatar_list[5];
                         user_init.setAvatarurl(uuid);
                         dao.updateUserByOpenid(user_init);
