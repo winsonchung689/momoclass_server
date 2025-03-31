@@ -221,16 +221,18 @@ public class HttpUtil {
         AutoUpdateCertificatesVerifier verifier;
         String media_id = null;
         try {
-            PrivateKey merchantPrivateKey = PemUtil.loadPrivateKey(
-                    new FileInputStream("/path/to/apiclient_key.pem"));
+            PrivateKey merchantPrivateKey = PemUtil.loadPrivateKey(new FileInputStream(Constants.SER_PRIVATE_KEY_FROM_PATH));
+            String mchSerialNo = Constants.MC_SERIAL_NO;
+            String mch_id = Constants.MCH_ID;
+            String apiV3key = Constants.API_V3_KEY;
 
             //使用自动更新的签名验证器，不需要传入证书
             verifier = new AutoUpdateCertificatesVerifier(
-                    new WechatPay2Credentials("mchId", new PrivateKeySigner("mchSerialNo", merchantPrivateKey)),
-                    "apiV3Key".getBytes("utf-8"));
+                    new WechatPay2Credentials(mch_id, new PrivateKeySigner(mchSerialNo, merchantPrivateKey)),
+                    apiV3key.getBytes("utf-8"));
 
             httpClient = WechatPayHttpClientBuilder.create()
-                    .withMerchant("mchId", "mchSerialNo", merchantPrivateKey)
+                    .withMerchant(mch_id, mchSerialNo, merchantPrivateKey)
                     .withValidator(new WechatPay2Validator(verifier))
                     .build();
         } catch (FileNotFoundException e) {
