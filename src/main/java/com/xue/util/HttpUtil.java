@@ -188,7 +188,7 @@ public class HttpUtil {
         httpPost.setHeader("Wechatpay-Serial", Constants.SER_PUBLIC_KEY_ID);
         httpPost.setHeader("Authorization", auth);
 
-        String prepay_id = null;
+        String applyment_id = null;
         CloseableHttpResponse response = httpClient.execute(httpPost);
         System.out.println(response);
 
@@ -197,9 +197,10 @@ public class HttpUtil {
             System.out.println(statusCode);
             if(statusCode == 200){
                 JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
-                prepay_id = object.getString("prepay_id");
-                System.out.println("suceess,resp code =" + statusCode + ",return body =" + prepay_id);
-                return prepay_id;
+                System.out.printf(response.getEntity().toString());
+                applyment_id = object.getString("applyment_id");
+                System.out.println("suceess,resp code =" + statusCode + ",return body =" + applyment_id);
+                return applyment_id;
             }else if(statusCode == 204){
                 System.out.println("suceess,return body =" + statusCode);
             }else {
