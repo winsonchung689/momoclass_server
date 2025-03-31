@@ -3074,14 +3074,6 @@ public class LoginServiceImpl implements LoginService {
                             dao.updateUserExpired("client",studio_get,role_get,campus_get);
                         }
                     }
-
-                    String avatar = user_init.getAvatarurl();
-                    String[] avatar_list = avatar.split("/");
-                    if(avatar_list.length >= 5){
-                        String uuid = avatar_list[5];
-                        user_init.setAvatarurl(uuid);
-                        dao.updateUserByOpenid(user_init);
-                    }
                 }
             }else {
                 list = dao.getUser(openid);
