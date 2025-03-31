@@ -14,4 +14,6 @@ public interface WechatPayService {
     public List  getWalletByStudio(String studio,String appid);
 
     public JSONObject weChatPayDirectRefund(String openid,String mchid,String appid,String order_no);
+
+    public JSONObject applymentForSub();
 }

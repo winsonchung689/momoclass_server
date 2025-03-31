@@ -7,6 +7,7 @@ import com.wechat.pay.contrib.apache.httpclient.auth.PrivateKeySigner;
 import com.wechat.pay.contrib.apache.httpclient.auth.WechatPay2Credentials;
 import com.wechat.pay.contrib.apache.httpclient.auth.WechatPay2Validator;
 import com.wechat.pay.contrib.apache.httpclient.util.PemUtil;
+import com.xue.config.Constants;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -158,7 +159,21 @@ public class HttpUtil {
         }
     }
 
-    public static String sendWeChatPayPost(String url,String body) throws IOException{
+    public static String applymentForSubPost(String url,String body) throws IOException{
+
+        long timestamp = System.currentTimeMillis()/1000;
+
+        String nonce_str = WechatPayUtil.generateNonceStr();
+
+        String orgSignText = "POST\n"
+                + "/v3/applyment4sub/applyment/\n"
+                + timestamp + "\n"
+                + nonce_str + "\n"
+                + body + "\n";
+
+        String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
+
+        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -170,6 +185,8 @@ public class HttpUtil {
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept","application/json");
         httpPost.setHeader("Content-Type","application/json");
+        httpPost.setHeader("Wechatpay-Serial", Constants.SER_PUBLIC_KEY_ID);
+        httpPost.setHeader("Authorization", auth);
 
         String prepay_id = null;
         CloseableHttpResponse response = httpClient.execute(httpPost);

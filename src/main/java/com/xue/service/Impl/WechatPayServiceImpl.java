@@ -331,5 +331,13 @@ public class WechatPayServiceImpl implements WechatPayService {
         return jsonObject;
     }
 
+    @Override
+    public JSONObject applymentForSub() {
+
+
+
+        return null;
+    }
+
 
 }
