@@ -253,9 +253,9 @@ public class WechatPayController {
 		return result;
 	}
 
-	@RequestMapping("/WechatPayApplymentForSub")
+	@RequestMapping("/wechatPayApplymentForSub")
 	@ResponseBody
-	public String WechatPayApplymentForSub(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String wechatPayApplymentForSub(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		JSONObject jsonObject = new JSONObject();
 		// 法人信息
