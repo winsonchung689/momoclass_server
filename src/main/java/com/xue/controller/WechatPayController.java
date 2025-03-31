@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -248,6 +249,72 @@ public class WechatPayController {
 		if(type.equals("商户平台")){
 			result = wechatPayService.weChatPayDirectRefund(openid,mchid,appid,order_no);
 		}
+
+		return result;
+	}
+
+	@RequestMapping("/WechatPayApplymentForSub")
+	@ResponseBody
+	public String WechatPayApplymentForSub(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		JSONObject jsonObject = new JSONObject();
+		// 法人信息
+		String contact_name = request.getParameter("contact_name");
+		String mobile_phone = request.getParameter("mobile_phone");
+		String contact_email = request.getParameter("contact_email");
+
+		JSONObject contact_info = new JSONObject();
+		contact_info.put("contact_name",contact_name);
+		contact_info.put("mobile_phone",mobile_phone);
+		contact_info.put("contact_email",contact_email);
+
+		// 主体资料
+		String id_card_name = request.getParameter("id_card_name");
+		String id_card_number = request.getParameter("id_card_number");
+		String card_period_begin = request.getParameter("card_period_begin");
+		String card_period_end = request.getParameter("card_period_end");
+		String id_card_copy = request.getParameter("id_card_copy");
+		String id_card_national = request.getParameter("id_card_national");
+
+		JSONObject identity_info = new JSONObject();
+		JSONObject id_card_info = new JSONObject();
+		id_card_info.put("id_card_name",id_card_name);
+		id_card_info.put("id_card_number",id_card_number);
+		id_card_info.put("card_period_begin",card_period_begin);
+		id_card_info.put("card_period_end",card_period_end);
+		id_card_info.put("id_card_copy",id_card_copy);
+		id_card_info.put("id_card_national",id_card_national);
+		identity_info.put("identity_info",id_card_info);
+
+		// 经营资料
+		String merchant_shortname = request.getParameter("merchant_shortname");
+		String service_phone = request.getParameter("service_phone");
+
+		JSONObject business_info = new JSONObject();
+		business_info.put("merchant_shortname",merchant_shortname);
+		business_info.put("service_phone",service_phone);
+		business_info.put("business_info",business_info);
+
+		// 结算银行账户
+		String bank_account_type = request.getParameter("bank_account_type");
+		String account_name = request.getParameter("account_name");
+		String account_bank = request.getParameter("account_bank");
+		String account_number = request.getParameter("account_number");
+
+		JSONObject bank_account_info = new JSONObject();
+		bank_account_info.put("bank_account_type",bank_account_type);
+		bank_account_info.put("account_name",account_name);
+		bank_account_info.put("account_bank",account_bank);
+		bank_account_info.put("account_number",account_number);
+
+		// 汇总参数
+		jsonObject.put("contact_info",contact_info);
+		jsonObject.put("identity_info",identity_info);
+		jsonObject.put("business_info",business_info);
+		jsonObject.put("bank_account_info",bank_account_info);
+
+		String url = "https://api.mch.weixin.qq.com/v3/applyment4sub/applyment/";
+		String result = HttpUtil.applymentForSubPost(url,jsonObject.toString());
 
 		return result;
 	}
