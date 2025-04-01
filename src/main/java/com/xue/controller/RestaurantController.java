@@ -129,15 +129,15 @@ public class RestaurantController {
 			nick_name = "微信用户";
 		}
 
+		RestaurantUser restaurantUser = new RestaurantUser();
 		String role ="boss";
 		if(!"no_id".equals(id)){
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
-			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			restaurantUser = restaurantUsers.get(0);
 			restaurant = restaurantUser.getRestaurant();
 			role = "client";
 		}
 
-		RestaurantUser restaurantUser = new RestaurantUser();
 		restaurantUser.setNick_name(nick_name);
 		restaurantUser.setPhone_number(phone_number);
 		restaurantUser.setRole(role);
