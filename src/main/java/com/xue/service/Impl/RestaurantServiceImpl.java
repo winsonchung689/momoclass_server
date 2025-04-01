@@ -427,6 +427,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("boss_name",boss_name);
                 jsonObject.put("boss_phone",boss_phone);
                 jsonObject.put("is_merchant",is_merchant);
+                jsonObject.put("is_free",is_free);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
