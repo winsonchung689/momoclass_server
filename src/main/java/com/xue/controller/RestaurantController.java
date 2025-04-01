@@ -476,8 +476,15 @@ public class RestaurantController {
 			}else if("food_name".equals(type)){
 				menu.setFood_name(content);
 				dao.updateRestaurantMenu(menu);
+			}else if("group_buy".equals(type)){
+				int new_group = 0;
+				Integer group_buy = menu.getGroup_buy();
+				if(group_buy == 0){
+					new_group = 1;
+				}
+				menu.setGroup_buy(new_group);
+				dao.updateRestaurantMenu(menu);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

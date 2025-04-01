@@ -23,6 +23,17 @@ public class Menu {
 
     private String unit;
 
+    private Integer group_buy;
+
+
+
+    public Integer getGroup_buy() {
+        return group_buy;
+    }
+
+    public void setGroup_buy(Integer group_buy) {
+        this.group_buy = group_buy;
+    }
 
     public String getUnit() {
         return unit;
