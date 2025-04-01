@@ -544,7 +544,7 @@ public class RestaurantController {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
-		int days = 30;
+		int days = 0;
 		cal.add(cal.DATE,days);
 		String expired_time = df.format(cal.getTime());
 
