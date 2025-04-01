@@ -521,6 +521,7 @@ public class LoginController {
 			restaurantUser.setMember("付费会员");
 			restaurantUser.setRole("boss");
 			restaurantUser.setDays(Math.toIntExact(days));
+			restaurantUser.setIs_free(0);
 
 			// 老用户续费
 			dao.updateRestaurantUserByBoss(restaurantUser);

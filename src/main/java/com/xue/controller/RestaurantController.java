@@ -547,7 +547,7 @@ public class RestaurantController {
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
 		String restaurant = restaurantUser.getRestaurant();
 
-		// 插入商户
+		// 商户入驻
 		Merchant merchant = new Merchant();
 		merchant.setAppid(Constants.order_appid);
 		merchant.setMchid(Constants.MCH_ID);
