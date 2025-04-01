@@ -34,7 +34,16 @@ public class RestaurantUser {
 
     private String member;
 
+    private Integer is_free;
 
+
+    public Integer getIs_free() {
+        return is_free;
+    }
+
+    public void setIs_free(Integer is_free) {
+        this.is_free = is_free;
+    }
 
     public Integer getDays() {
         return days;
@@ -51,8 +60,6 @@ public class RestaurantUser {
     public void setMember(String member) {
         this.member = member;
     }
-
-
 
     public String getInfo() {
         return info;

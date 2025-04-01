@@ -47,6 +47,8 @@ public class WechatPayServiceImpl implements WechatPayService {
         // 查询工作室
         String studio = null;
         String campus = null;
+        Integer is_free = 0;
+        Float rate = 5.6f;
         if(appid.equals(Constants.appid)){
             List<User> users = dao.getUserByOpenid(openid);
             User user = users.get(0);
@@ -57,6 +59,10 @@ public class WechatPayServiceImpl implements WechatPayService {
             RestaurantUser restaurantUser = restaurantUsers.get(0);
             studio = restaurantUser.getRestaurant();
             campus = restaurantUser.getRestaurant();
+            is_free = restaurantUser.getIs_free();
+            if(is_free == 1){
+                rate = 6.0f;
+            }
         }
 
         String notify_url = Constants.notify_url;
@@ -115,7 +121,7 @@ public class WechatPayServiceImpl implements WechatPayService {
         wallet.setCreate_time(create_time);
         wallet.setType("收入");
         wallet.setAppid(appid);
-        wallet.setRate(5.6f);
+        wallet.setRate(rate);
         wallet.setStatus(0);
         wallet.setDescription(description);
         wallet.setIs_client(Integer.parseInt(is_client));
