@@ -310,6 +310,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String id = line.getId();
                 String vuuid = line.getVuuid();
                 String unit = line.getUnit();
+                Integer group_buy = line.getGroup_buy();
 
                 //json
                 jsonObject.put("category", category);
@@ -321,6 +322,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("num", 0);
                 jsonObject.put("vuuid", vuuid);
                 jsonObject.put("unit", unit);
+                jsonObject.put("group_buy", group_buy);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
