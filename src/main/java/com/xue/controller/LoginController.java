@@ -560,9 +560,9 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback(Constants.order_admin_openid,restaurant,expired_time_new,days.toString(),mark);
+			loginService.sendFeedback(Constants.order_admin_openid,restaurant,expired_time_new,days.toString(),mark);
 			// 通知客户
-			sendFeedback(openid,restaurant,expired_time_new,days.toString(),mark);
+			loginService.sendFeedback(openid,restaurant,expired_time_new,days.toString(),mark);
 		}
 
 		return result;
@@ -663,9 +663,9 @@ public class LoginController {
 			dao.insertBook(book);
 
 			// 通知管理员
-			sendFeedback(Constants.admin_openid,studio,expired_time_new,days.toString(),mark);
+			loginService.sendFeedback(Constants.admin_openid,studio,expired_time_new,days.toString(),mark);
 			// 通知客户
-			sendFeedback(openid,studio,expired_time_new,days.toString(),mark);
+			loginService.sendFeedback(openid,studio,expired_time_new,days.toString(),mark);
 		}else{
 			// 发提现通知给管理员
 			String token = loginService.getToken("MOMO_OFFICIAL");
@@ -681,52 +681,6 @@ public class LoginController {
 			System.out.printf("MOMO_OFFICIAL_RES:" + result);
 		}
 
-		return result;
-	}
-
-	//续费成功通知
-	@RequestMapping("/sendFeedback")
-	@ResponseBody
-	public String sendFeedback(String openid,String target_studio,String expired_time,String days,String mark){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
-		String create_time = df.format(new Date());
-		String result = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"icj6FVVB2sdpUGbwLvZ3kYnLYMPTYTlXbwxCsXkQ7Hk\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing4\":{\"value\": \"A1\"},\"character_string3\":{\"value\": \"A1\"},\"time6\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-
-		String official_openid=null;
-		if("系统续费".equals(mark)){
-			List<User> users = dao.getUser(openid);
-			User user = users.get(0);
-			official_openid = user.getOfficial_openid();
-		} else if ("蓝桃续费".equals(mark)) {
-			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
-			RestaurantUser restaurantUser = restaurantUsers.get(0);
-			official_openid = restaurantUser.getOfficial_openid();
-		}
-
-		try {
-			String token = loginService.getToken("MOMO_OFFICIAL");
-			String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-			if(official_openid != null){
-				String[] official_list = official_openid.split(",");
-				for(int j=0;j<official_list.length;j++){
-					String official_openid_get = official_list[j];
-					JSONObject queryJson = JSONObject.parseObject(model);
-					queryJson.put("touser",official_openid_get);
-					queryJson.getJSONObject("data").getJSONObject("thing2").put("value",target_studio);
-					queryJson.getJSONObject("data").getJSONObject("thing4").put("value","续期" + days + "天" );
-					queryJson.getJSONObject("data").getJSONObject("character_string3").put("value","TO"+expired_time );
-					queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
-
-					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
-					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-					System.out.printf("MOMO_OFFICIAL_RES:" + result);
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return result;
 	}
 

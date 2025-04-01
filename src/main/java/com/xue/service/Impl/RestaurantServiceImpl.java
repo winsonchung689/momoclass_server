@@ -378,12 +378,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                     is_merchant = 1;
                 }
 
+                int is_free = line.getIs_free();
                 Integer id = line.getId();
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String role_name = "顾客";
                 long diff = 0;
-                if("boss".equals(role)){
+                if("boss".equals(role) && is_free == 0){
                     role_name = "店长";
                     // 判断权限
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式

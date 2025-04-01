@@ -279,6 +279,8 @@ public interface LoginService {
 
     public void sendBossPayRemind();
 
+    public String sendFeedback(String openid,String target_studio,String expired_time,String days,String mark);
+
     public String getToken(String app);
 
     public List getStudentByTeacher(String type,String openid,String duration_time,Integer page,String class_number);

@@ -2,6 +2,7 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xue.config.Constants;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
@@ -519,6 +520,57 @@ public class RestaurantController {
 		}
 
 		return res;
+	}
+
+	@RequestMapping("/freeOpenShop")
+	@ResponseBody
+	public int freeOpenShop(String openid){
+
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		Calendar cal = Calendar.getInstance();
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+		int days = 365;
+		cal.add(cal.DATE,days);
+		String expired_time = df.format(cal.getTime());
+
+		RestaurantUser restaurantUser = restaurantUsers.get(0);
+		String restaurant = restaurantUser.getRestaurant();
+
+		// 插入商户
+		Merchant merchant = new Merchant();
+		merchant.setAppid(Constants.order_appid);
+		merchant.setMchid(Constants.MCH_ID);
+		merchant.setOpenid(openid);
+		merchant.setStudio(restaurant);
+		merchant.setCampus(restaurant);
+		merchant.setSub_appid(Constants.order_appid);
+		merchant.setSub_mchid(Constants.MCH_ID);
+		merchant.setCreate_time(create_time);
+		merchant.setType("商户平台");
+		dao.insertMerchant(merchant);
+
+		// 开通权限
+		restaurantUser.setExpired_time(expired_time);
+		restaurantUser.setMember("免费会员");
+		restaurantUser.setRole("boss");
+		restaurantUser.setIs_free(1);
+		restaurantUser.setDays(days);
+
+		// 老用户续费
+		dao.updateRestaurantUserByBoss(restaurantUser);
+
+		// 通知管理员
+		loginService.sendFeedback(Constants.order_admin_openid,restaurant,expired_time,"365","蓝桃续费");
+		// 通知客户
+		loginService.sendFeedback(openid,restaurant,expired_time,"365","蓝桃续费");
+
+		return 1;
 	}
 
 

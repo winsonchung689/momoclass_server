@@ -1663,7 +1663,7 @@
 
   <!--  蓝桃续费-->
   <update id="updateRestaurantUserByBoss" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set expired_time=#{expired_time},member=#{member},role=#{role},days=#{days} where openid = #{openid};
+    update restaurant_user set expired_time=#{expired_time},member=#{member},role=#{role},days=#{days},is_free=#{is_free} where openid = #{openid};
   </update>
 
   <!--  更新商店用户信息-->
