@@ -1400,7 +1400,7 @@
   </select>
 
   <select id="getRestaurantBossByShop" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
-    select * from restaurant_user where restaurant =#{param1} and delete_status = 0 order by create_time limit 1;
+    select * from restaurant_user where restaurant =#{param1} and role = 'boss' and delete_status = 0 order by create_time limit 1;
   </select>
 
   <select id="getRestaurantOrderByOpenid" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
@@ -1653,7 +1653,7 @@
 
   <!--  更新商店用户信息-->
   <update id="updateRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set info=#{info},nick_name=#{nick_name},logo=#{logo},restaurant=#{restaurant},role=#{role},avatarurl=#{avatarurl},phone_number=#{phone_number},location=#{location} where openid = #{openid}
+    update restaurant_user set is_free=#{is_free},info=#{info},nick_name=#{nick_name},logo=#{logo},restaurant=#{restaurant},role=#{role},avatarurl=#{avatarurl},phone_number=#{phone_number},location=#{location} where openid = #{openid}
   </update>
 
   <!--  更新店名-->
