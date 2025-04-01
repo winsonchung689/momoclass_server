@@ -577,9 +577,9 @@ public class RestaurantController {
 			dao.updateRestaurantUserByBoss(restaurantUser);
 
 			// 通知管理员
-			loginService.sendFeedback(Constants.order_admin_openid,restaurant,expired_time,"365","蓝桃续费");
+			loginService.sendFeedback(Constants.order_admin_openid,restaurant,expired_time,"0","蓝桃续费");
 			// 通知客户
-			loginService.sendFeedback(openid,restaurant,expired_time,"365","蓝桃续费");
+			loginService.sendFeedback(openid,restaurant,expired_time,"0","蓝桃续费");
 		}
 
 		return 1;
