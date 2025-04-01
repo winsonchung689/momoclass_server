@@ -294,10 +294,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List getRestaurantMenu(String restaurant) {
-        List<Menu> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getRestaurantMenu(restaurant);
+            List<Menu> list = dao.getRestaurantMenu(restaurant);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Menu line = list.get(i);
@@ -311,6 +310,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String vuuid = line.getVuuid();
                 String unit = line.getUnit();
                 Integer group_buy = line.getGroup_buy();
+                Float group_price = line.getGroup_price();
 
                 //json
                 jsonObject.put("category", category);
@@ -323,6 +323,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("vuuid", vuuid);
                 jsonObject.put("unit", unit);
                 jsonObject.put("group_buy", group_buy);
+                jsonObject.put("group_price", group_price);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

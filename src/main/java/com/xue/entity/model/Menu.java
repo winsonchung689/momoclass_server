@@ -15,6 +15,8 @@ public class Menu {
 
     private Float price;
 
+    private Float group_price;
+
     private String create_time;
 
     private String introduce;
@@ -81,6 +83,14 @@ public class Menu {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Float getGroup_price() {
+        return group_price;
+    }
+
+    public void setGroup_price(Float group_price) {
+        this.group_price = group_price;
     }
 
     public String getId() {
