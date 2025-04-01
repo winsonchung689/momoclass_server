@@ -47,7 +47,6 @@ public class WechatPayServiceImpl implements WechatPayService {
         // 查询工作室
         String studio = null;
         String campus = null;
-        Integer is_free = 0;
         Float rate = 5.6f;
         if(appid.equals(Constants.appid)){
             List<User> users = dao.getUserByOpenid(openid);
@@ -59,7 +58,11 @@ public class WechatPayServiceImpl implements WechatPayService {
             RestaurantUser restaurantUser = restaurantUsers.get(0);
             studio = restaurantUser.getRestaurant();
             campus = restaurantUser.getRestaurant();
-            is_free = restaurantUser.getIs_free();
+
+            // 判断免费会员
+            List<RestaurantUser> restaurantUsers1 = dao.getRestaurantBossByShop(studio);
+            RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+            int is_free = restaurantUser1.getIs_free();
             if(is_free == 1){
                 rate = 6.0f;
             }
