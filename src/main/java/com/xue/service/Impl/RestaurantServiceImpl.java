@@ -347,7 +347,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List getRestaurantOrderByGoodsId(String goods_id, Integer group_buy) {
         List<JSONObject> resul_list = new ArrayList<>();
-
         try {
             List<RestaurantOrder> list = dao.getRestaurantOrderByGoodsId(goods_id,group_buy);
 
