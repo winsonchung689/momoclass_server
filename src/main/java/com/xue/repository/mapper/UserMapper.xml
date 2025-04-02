@@ -1836,7 +1836,7 @@
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
-    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no})
+    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy})
   </insert>
 
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">

@@ -246,6 +246,10 @@ public class RestaurantController {
 		String openid = request.getParameter("openid");
 		String goods_id = request.getParameter("goods_id");
 		String order_no = request.getParameter("order_no");
+		String group_by = request.getParameter("group_by");
+		if(group_by == null || group_by.isEmpty() || "undefined".equals(group_by)){
+			group_by = "0";
+		}
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
@@ -257,6 +261,7 @@ public class RestaurantController {
 		restaurantOrder.setOpenid(openid);
 		restaurantOrder.setGoods_id(goods_id);
 		restaurantOrder.setOrder_no(order_no);
+		restaurantOrder.setGroup_by(Integer.parseInt(group_by));
 		try {
 			dao.insertRestaurantOrder(restaurantOrder);
 		} catch (Exception e) {

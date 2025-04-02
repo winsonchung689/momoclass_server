@@ -29,7 +29,17 @@ public class RestaurantOrder {
 
     private String order_img;
 
+    private Integer group_by;
 
+
+
+    public Integer getGroup_by() {
+        return group_by;
+    }
+
+    public void setGroup_by(Integer group_by) {
+        this.group_by = group_by;
+    }
 
     public String getOrder_img() {
         return order_img;
