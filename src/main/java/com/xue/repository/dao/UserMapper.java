@@ -645,6 +645,8 @@ public interface UserMapper {
 
     List<RestaurantOrder> getRestaurantOrderById(String id);
 
+    List<RestaurantOrder> getRestaurantOrderByGoodsId(String goods_id,Integer group_by);
+
     List<RestaurantOrder> getRestaurantOrderByDay(String date_time);
 
     List<Menu> getRestaurantCategory(String restaurant);

@@ -1415,6 +1415,10 @@
     select * from restaurant_order where id =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantOrderByGoodsId" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where goods_id =#{param1} and group_buy=#{param2} and delete_status = 0 order by create_time desc
+  </select>
+
 
   <select id="getRestaurantOrderByDay" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
     select * from restaurant_order where date_format(create_time, '%Y-%m-%d') =#{param1} and delete_status = 0 order by create_time desc

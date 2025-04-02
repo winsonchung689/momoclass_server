@@ -331,6 +331,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantOrderByGoodsId")
+	@ResponseBody
+	public List getRestaurantOrderByGoodsId(String goods_id,Integer group_buy){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantOrderByGoodsId(goods_id,group_buy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getRestaurantOrderByDay")
 	@ResponseBody
 	public List getRestaurantOrderByDay(String date_time){

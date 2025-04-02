@@ -21,6 +21,8 @@ public interface RestaurantService {
 
     public int insertRestaurantUser(RestaurantUser restaurantUser);
 
+    public List getRestaurantOrderByGoodsId(String goods_id,Integer group_buy);
+
 
 
 }
