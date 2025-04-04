@@ -448,6 +448,10 @@ public class RestaurantController {
 			}else if("expired_time".equals(type)){
 				restaurantUser.setExpired_time(content);
 				dao.updateRestaurantByBoss(restaurantUser);
+			}else if("promise".equals(type)){
+				restaurantUser.setPromise(content);
+				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantUser(restaurantUser);
 			}
 
 		} catch (Exception e) {

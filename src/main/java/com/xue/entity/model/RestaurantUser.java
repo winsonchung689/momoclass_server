@@ -36,6 +36,17 @@ public class RestaurantUser {
 
     private Integer is_free;
 
+    private String promise;
+
+
+
+    public String getPromise() {
+        return promise;
+    }
+
+    public void setPromise(String promise) {
+        this.promise = promise;
+    }
 
     public Integer getIs_free() {
         return is_free;
