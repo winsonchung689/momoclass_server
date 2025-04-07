@@ -313,15 +313,17 @@ public class LoginController {
 		String token = loginService.getToken("MOMO");
 		String scene = "type="+ type + "&id=" + id;
 
-		// 登陆码 type = 1，id = boss 的 user 表 id；邀请码，id = boss 的 user 表 id
+		// 登陆码 type = 1，id = boss 的 user 表 id
+		// 邀请码 type = 2，id = boss 的 user 表 id
+		// 预约码 type = 5，id = boss 的 user 表 id
 		String studio = null;
-		if("1".equals(type) || "2".equals(type)){
+		if("1".equals(type) || "2".equals(type) || "5".equals(type)){
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
 			studio = user.getStudio();
 		}
 
-		// 绑定码，type = 3，id = 学生表 id
+		// 绑定码，type = 3，id = lesson 表 id
 		if("3".equals(type)){
 			List<Lesson> lessons =dao.getLessonById(id);
 			Lesson lesson = lessons.get(0);
@@ -342,6 +344,9 @@ public class LoginController {
 			String page = "pages/welcome/welcome";
 			if("4".equals(type)){
 				page = "pages/groupbuy/groupbuy";
+			}
+			if("5".equals(type)){
+				page = "pages/reservation/reservation";
 			}
 			param.put("page",page);
 			String json = JSON.toJSONString(param) ;
