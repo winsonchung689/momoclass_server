@@ -6833,7 +6833,6 @@ public class LoginServiceImpl implements LoginService {
     public String changeClass(String studio, Integer changeday, String duration, String class_number, Integer weekday,String subject,String campus) {
         Integer dayofweek_by= 0;
         List<JSONObject> resul_list = new ArrayList<>();
-        String limits = null;
         String add_date = null;
         String student_name = null;
         String student_type = null;
@@ -6854,6 +6853,19 @@ public class LoginServiceImpl implements LoginService {
                     if(changeday != weekday){
                         dao.insertArrangement(arrangement);
 
+                        // 插入选课老师
+                        String chooseLesson = "星期"+  weekday + "," + subject + "," + class_number + "," + duration ;
+                        String chooseLesso_new = "星期"+  changeday + "," + subject + "," + class_number + "," + duration ;
+                        List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                        for(int j =0;j < users.size();j++){
+                            User user = users.get(j);
+                            String lesson = user.getLessons();
+                            String new_lesson = lesson + "|" + chooseLesso_new;
+                            user.setLessons(new_lesson);
+                            updateBossLessons(user);
+                        }
+
+                        // 插入排课学生
                         try {
                             List<Schedule> schedule_list = dao.getScheduleDetail(dayofweek_by,duration,studio,class_number,subject,campus);
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式

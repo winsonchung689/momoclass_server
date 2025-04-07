@@ -1929,12 +1929,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/changeClass")
 	@ResponseBody
-	public String changeClass(String studio,String changeday,String duration,String class_number,String weekday,String subject,String openid){
+	public String changeClass(String studio,Integer changeday,String duration,String class_number,Integer weekday,String subject,String openid){
 		String result=null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			 result = loginService.changeClass(studio,Integer.parseInt(changeday),duration,class_number,Integer.parseInt(weekday),subject,campus);
+			 result = loginService.changeClass(studio,changeday,duration,class_number,weekday,subject,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
