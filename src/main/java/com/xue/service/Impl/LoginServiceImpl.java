@@ -1181,8 +1181,6 @@ public class LoginServiceImpl implements LoginService {
         }
 
         List<User> user_get= dao.getUser(openid);
-        String role = user_get.get(0).getRole();
-        Integer is_open = user_get.get(0).getIs_open();
         String campus = user_get.get(0).getCampus();
 
         try {
@@ -1494,22 +1492,25 @@ public class LoginServiceImpl implements LoginService {
                 String campus_get = lesson.getCampus();
                 Float total_amount = lesson.getTotal_amount();
                 Float left_amount = lesson.getLeft_amount();
+                Integer delete_status = lesson.getDelete_status();
                 if("已排课".equals(type) || "未排课".equals(type)){
                     List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
-                    if("已排课".equals(type) && schedules.size()>0){
+                    if("已排课".equals(type) && schedules.size()>0 && delete_status == 0){
                         jsonObject.put("student_name",student_name);
                         jsonObject.put("subject", subject_get);
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
+                        jsonObject.put("delete_status", delete_status);
                         resul_list.add(jsonObject);
 
-                    }else if("未排课".equals(type) && schedules.size() == 0){
+                    }else if("未排课".equals(type) && schedules.size() == 0 && delete_status == 0){
                         jsonObject.put("student_name",student_name);
                         jsonObject.put("subject", subject_get);
                         jsonObject.put("campus", campus_get);
                         jsonObject.put("total_amount", total_amount);
                         jsonObject.put("left_amount", left_amount);
+                        jsonObject.put("delete_status", delete_status);
                         resul_list.add(jsonObject);
                     }
                 }else if("月耗课".equals(type)){
