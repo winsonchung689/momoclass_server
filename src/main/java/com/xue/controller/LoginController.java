@@ -6256,7 +6256,7 @@ public class LoginController {
 		String my_openid ="";
 
 		// 登陆码
-		if("1".equals(type)){
+		if("1".equals(type) || "5".equals(type)){
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
 			studio = user.getStudio();
