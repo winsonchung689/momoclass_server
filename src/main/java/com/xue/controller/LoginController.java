@@ -690,6 +690,12 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/sendFeedback")
+	@ResponseBody
+	public void sendFeedback(String openid,String target_studio,String expired_time,String days,String mark){
+		loginService.sendFeedback(openid,target_studio,expired_time,days,mark);
+	}
+
 	//客户下单通知
 	@RequestMapping("/sendOrderNotice")
 	@ResponseBody
