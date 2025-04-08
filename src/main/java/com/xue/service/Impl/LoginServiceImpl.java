@@ -596,9 +596,18 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    e.printStackTrace();
                 }
+                String openid_get = line.getOpenid();
+                String teacher = "默认";
+                List<User> users_get = dao.getUserByOpenid(openid_get);
+                if(users_get.size() > 0){
+                    User user_get = users_get.get(0);
+                    teacher = user_get.getNick_name();
+                }
 
 
                 //json
+                jsonObject.put("openid", openid_get);
+                jsonObject.put("teacher", teacher);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("comment", comment);
