@@ -2029,7 +2029,7 @@ public class LoginController {
 	//	获取详情页
 	@RequestMapping("/getDetails")
 	@ResponseBody
-	public List getDetails(Integer id,String studio){
+	public List getDetails(Integer id){
 		List list = null;
 		try {
 			list = loginService.getDetails(id);
