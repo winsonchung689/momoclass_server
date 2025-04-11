@@ -4774,8 +4774,8 @@ public class LoginServiceImpl implements LoginService {
     public List getExhibition(String openid, String type,Integer page) {
         List<User> list_user = dao.getUser(openid);
         String studio = list_user.get(0).getStudio();
-        Integer page_start = (page - 1) * 4;
-        Integer page_length = 4;
+        Integer page_start = (page - 1) * 6;
+        Integer page_length = 6;
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> messages = dao.getExhibitionByType(studio,type,page_start, page_length);
 
