@@ -80,9 +80,9 @@ public class AIController {
 			params.put("frequency_penalty", 0.0);
 			params.put("presence_penalty", 0.6);
 
-			JSONArray stop = new JSONArray();
-			stop.add("<br>");
-			params.put("stop", stop);
+//			JSONArray stop = new JSONArray();
+//			stop.add("<br>");
+//			params.put("stop", stop);
 			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
@@ -117,9 +117,9 @@ public class AIController {
 //			params.put("frequency_penalty", 0.0);
 //			params.put("presence_penalty", 0.6);
 
-			JSONArray stop = new JSONArray();
-			stop.add("<br>");
-			params.put("stop", stop);
+//			JSONArray stop = new JSONArray();
+//			stop.add("<br>");
+//			params.put("stop", stop);
 			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
