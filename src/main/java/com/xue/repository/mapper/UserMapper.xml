@@ -753,12 +753,12 @@
 
   <!-- 获取课插班生 -->
   <select id="getTransfer" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and subject = #{param3} and campus= #{param4} and student_type ='transferred' and delete_status = 0 order by duration
+    select * from class_schedule where add_date = #{param1} and studio = #{param2} and subject = #{param3} and campus= #{param4} and student_type ='transferred' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取课插班生 -->
   <select id="getTransferAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select id,add_date,age,student_name,duration,create_time,studio,update_time,student_type,class_number,subject from class_schedule where add_date = #{param1} and studio = #{param2} and campus= #{param3} and student_type ='transferred' and delete_status = 0 order by duration
+    select * from class_schedule where add_date = #{param1} and studio = #{param2} and campus= #{param3} and student_type ='transferred' and delete_status = 0 order by duration
   </select>
 
   <!-- 获取账本 -->
@@ -2007,6 +2007,11 @@
   <!-- 获取总人数 -->
   <select id="getLessonAllCountByDay" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
     select count(distinct student_name) from class_schedule where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='ordinary' and is_try = 0 and delete_status = 0
+  </select>
+
+  <!-- 获取总人数 -->
+  <select id="getLessonAllCountByDayT" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(distinct student_name) from class_schedule where studio =#{param1} and add_date =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and student_type ='transfer' and delete_status = 0
   </select>
 
   <!-- 获取提醒状态 -->

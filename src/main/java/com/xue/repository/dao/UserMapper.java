@@ -804,6 +804,8 @@ public interface UserMapper {
 
     Integer getLessonAllCountByDay(String studio,Integer day,String duration,String class_number,String subject,String campus);
 
+    Integer getLessonAllCountByDayT(String studio,String add_date,String duration,String class_number,String subject,String campus);
+
     List<Lesson> getCampusByStudio(String studio);
 
     List<Lesson> getLessonById(String id);

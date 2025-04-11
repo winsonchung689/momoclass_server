@@ -2017,6 +2017,8 @@ public class LoginServiceImpl implements LoginService {
 
                 int classes_count = dao.getLessonAllCountByDay(studio,weekDay,duration,class_number,subject,campus);
 
+                int classes_count_t = dao.getLessonAllCountByDayT(studio,date_time,duration,class_number,subject,campus);
+
                 String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
 
                 String avatarurl = null;
@@ -2045,7 +2047,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("student_arranges", student_arranges);
                 jsonObject.put("student_leaves", student_leaves);
                 jsonObject.put("limits", limits);
-                jsonObject.put("classes_count", classes_count);
+                jsonObject.put("classes_count", classes_count+classes_count_t);
                 jsonObject.put("teachers", teachers);
                 jsonObject.put("book_stauts",book_stauts);
                 jsonObject.put("id",id);
