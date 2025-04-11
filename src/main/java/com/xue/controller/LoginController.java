@@ -6325,9 +6325,11 @@ public class LoginController {
 		int send_type = 1;
 		if(is_open > 0){
 			List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
-			GiftList giftList = giftLists.get(0);
-			gift_name = giftList.getGift_name();
-			send_type = giftList.getSend_type();
+			if(giftLists.size()>0){
+				GiftList giftList = giftLists.get(0);
+				gift_name = giftList.getGift_name();
+				send_type = giftList.getSend_type();
+			}
 		}
 
 		//插入礼物记录
