@@ -5807,6 +5807,7 @@ public class LoginController {
 						for(int j=0;j<users.size();j++){
 							User user = users.get(j);
 							String openid_get = user.getOpenid();
+							sendBookSuccess(openid,duration,student_name,add_date,class_number);
 							sendBookSuccess(openid_get,duration,student_name,add_date,class_number);
 						}
 					}
