@@ -160,7 +160,7 @@
   </select>
 
   <select id="getExhibitionByType" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak =#{param2} and studio =#{param1} and delete_status = 0 order by create_time,id desc limit #{param3},#{param4};
+    select * from class_comment where class_target_bak =#{param2} and studio =#{param1} and delete_status = 0 order by create_time desc,id desc limit #{param3},#{param4};
   </select>
 
   <!-- 获取全量发帖 -->
