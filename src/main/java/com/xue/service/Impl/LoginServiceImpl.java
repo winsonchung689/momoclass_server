@@ -4822,6 +4822,7 @@ public class LoginServiceImpl implements LoginService {
                 for(int j=0;j<uuids_list.length;j++){
                     JSONObject jsonObject = new JSONObject();
                     String uuids_get = uuids_list[j];
+                    jsonObject.put("rank", i + page_start + 1);
                     jsonObject.put("uuids",uuids_get);
                     jsonObject.put("vuuid",vuuid);
                     jsonObject.put("id",id);
