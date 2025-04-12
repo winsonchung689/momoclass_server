@@ -5801,15 +5801,20 @@ public class LoginController {
 							loginService.updateBossLessons(list_user);
 						}
 					}
+
 					//预约
 					if("星期8".equals(weekofday)){
-						List<User> users = dao.getBossByStudio(studio);
+						// 先发家长
+						sendBookSuccess(openid,duration,student_name,add_date,class_number);
+						// 后发选课老师
+						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
+						List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
 						for(int j=0;j<users.size();j++){
 							User user = users.get(j);
 							String openid_get = user.getOpenid();
-							sendBookSuccess(openid,duration,student_name,add_date,class_number);
 							sendBookSuccess(openid_get,duration,student_name,add_date,class_number);
 						}
+
 					}
 				}
 			}
