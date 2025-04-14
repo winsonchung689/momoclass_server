@@ -9,10 +9,7 @@ import com.wechat.pay.java.service.payments.jsapi.model.Payer;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
 import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
-import com.xue.entity.model.Menu;
-import com.xue.entity.model.Merchant;
-import com.xue.entity.model.RestaurantOrder;
-import com.xue.entity.model.RestaurantUser;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.RestaurantService;
 import com.xue.service.WebPushService;
@@ -184,6 +181,83 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("order_no", order_no);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getRestaurantOrderCmByOrderNo(String order_no) {
+        List<RestaurantOrder> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<RestaurantOrderCm> restaurantOrderCms = dao.getRestaurantOrderCmByOrderNo(order_no);
+            for (int i = 0; i < restaurantOrderCms.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantOrderCm line = restaurantOrderCms.get(i);
+                //获取字段
+                String comment = line.getComment();
+                String uuids = line.getUuids();
+                String create_time = line.getCreate_time();
+                String openid = line.getOpenid();
+                String nick_name = null;
+                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid);
+                if(restaurantUser_get.size()>0){
+                    RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
+                    nick_name = restaurantUser1.getNick_name();
+                }
+
+                //json
+                jsonObject.put("comment", comment);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("openid", openid);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("order_no", order_no);
+                jsonObject.put("nick_name", nick_name);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getRestaurantOrderCmByGoodsId(String goods_id) {
+        List<RestaurantOrder> list= null;
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<RestaurantOrderCm> restaurantOrderCms = dao.getRestaurantOrderCmByGoodsId(goods_id);
+            for (int i = 0; i < restaurantOrderCms.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantOrderCm line = restaurantOrderCms.get(i);
+                //获取字段
+                String comment = line.getComment();
+                String uuids = line.getUuids();
+                String create_time = line.getCreate_time();
+                String order_no = line.getOrder_no();
+                String openid = line.getOpenid();
+                String nick_name = null;
+                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid);
+                if(restaurantUser_get.size()>0){
+                    RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
+                    nick_name = restaurantUser1.getNick_name();
+                }
+
+                //json
+                jsonObject.put("comment", comment);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("openid", openid);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("order_no", order_no);
+                jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
             }
 

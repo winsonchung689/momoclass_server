@@ -13,6 +13,10 @@ public interface RestaurantService {
 
     public List getRestaurantOrder(String openid,String type);
 
+    public List getRestaurantOrderCmByOrderNo(String order_no);
+
+    public List getRestaurantOrderCmByGoodsId(String goods_id);
+
     public List getRestaurantOrderByDay(String date_time);
 
     public List getRestaurantCategory(String restaurant);

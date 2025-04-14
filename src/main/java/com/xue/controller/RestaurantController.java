@@ -271,6 +271,36 @@ public class RestaurantController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertRestaurantOrderCm")
+	@ResponseBody
+	public String insertRestaurantOrderCm(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String order_no = request.getParameter("order_no");
+		String openid = request.getParameter("openid");
+		String goods_id = request.getParameter("goods_id");
+		String comment = request.getParameter("comment");
+		String uuids = request.getParameter("uuids");
+
+
+		RestaurantOrderCm restaurantOrderCm =new RestaurantOrderCm();
+		restaurantOrderCm.setOrder_no(order_no);
+		restaurantOrderCm.setOpenid(openid);
+		restaurantOrderCm.setGoods_id(goods_id);
+		restaurantOrderCm.setComment(comment);
+		restaurantOrderCm.setUuids(uuids);
+		restaurantOrderCm.setCreate_time(create_time);
+
+		try {
+			dao.insertRestaurantOrderCm(restaurantOrderCm);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/getRestaurantUser")
 	@ResponseBody
 	public List getRestaurantUser(String openid){
@@ -325,6 +355,30 @@ public class RestaurantController {
 		List list = null;
 		try {
 			list = restaurantService.getRestaurantOrder(openid,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@RequestMapping("/getRestaurantOrderCmByOrderNo")
+	@ResponseBody
+	public List getRestaurantOrderCmByOrderNo(String order_no){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantOrderCmByOrderNo(order_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@RequestMapping("/getRestaurantOrderCmByGoodsId")
+	@ResponseBody
+	public List getRestaurantOrderCmByGoodsId(String goods_id){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantOrderCmByGoodsId(goods_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

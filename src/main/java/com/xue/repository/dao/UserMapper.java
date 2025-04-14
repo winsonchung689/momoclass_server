@@ -649,6 +649,10 @@ public interface UserMapper {
 
     List<RestaurantOrder> getRestaurantOrderByDay(String date_time);
 
+    List<RestaurantOrderCm> getRestaurantOrderCmByOrderNo(String order_no);
+
+    List<RestaurantOrderCm> getRestaurantOrderCmByGoodsId(String goods_id);
+
     List<Menu> getRestaurantCategory(String restaurant);
 
     List<Menu> getRestaurantMenu(String restaurant);
@@ -881,6 +885,9 @@ public interface UserMapper {
     int insertPptMenu(PptMenu pptMenu);
 
     int insertRestaurantOrder(RestaurantOrder restaurantOrder);
+
+
+    int insertRestaurantOrderCm(RestaurantOrderCm restaurantOrderCm);
 
     int insertLessonPackage(LessonPackage lessonPackage);
 

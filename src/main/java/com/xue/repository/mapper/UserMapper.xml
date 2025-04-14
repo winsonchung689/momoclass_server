@@ -33,6 +33,10 @@
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
 
+  <resultMap id="BaseRestaurantOrderCm" type="com.xue.entity.model.RestaurantOrderCm">
+    <result column="order_no" jdbcType="VARCHAR" property="order_no" />
+  </resultMap>
+
   <resultMap id="BaseRestaurantMenu" type="com.xue.entity.model.Menu">
     <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
@@ -1424,6 +1428,13 @@
     select * from restaurant_order where date_format(create_time, '%Y-%m-%d') =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantOrderCmByOrderNo" parameterType="com.xue.entity.model.RestaurantOrderCm" resultMap="BaseRestaurantOrderCm">
+    select * from restaurant_order_cm where order_no =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getRestaurantOrderCmByGoodsId" parameterType="com.xue.entity.model.RestaurantOrderCm" resultMap="BaseRestaurantOrderCm">
+    select * from restaurant_order_cm where goods_id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
 
   <select id="getRestaurantCategory" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
     select distinct category from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
@@ -1841,6 +1852,10 @@
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
     insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy})
+  </insert>
+
+  <insert id="insertRestaurantOrderCm" parameterType="com.xue.entity.model.RestaurantOrderCm">
+    insert restaurant_order_cm(order_no,openid,goods_id,create_time,comment,uuids) values(#{order_no},#{openid},#{goods_id},#{create_time},#{comment},#{uuids})
   </insert>
 
   <insert id="insertLessonPackage" parameterType="com.xue.entity.model.LessonPackage">
