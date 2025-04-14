@@ -460,6 +460,8 @@ public interface UserMapper {
 
     int deleteRestaurantOrder(int id);
 
+    int deleteRestaurantOrderCm(int id);
+
     int deleteRestaurantFood(int id);
 
     int deleteRestaurantUser(int id);

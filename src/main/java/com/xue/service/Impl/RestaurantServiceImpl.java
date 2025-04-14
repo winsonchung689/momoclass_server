@@ -211,8 +211,11 @@ public class RestaurantServiceImpl implements RestaurantService {
                     RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
                     nick_name = restaurantUser1.getNick_name();
                 }
+                String id = line.getId();
+
 
                 //json
+                jsonObject.put("id", id);
                 jsonObject.put("comment", comment);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("openid", openid);
@@ -250,8 +253,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                     RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
                     nick_name = restaurantUser1.getNick_name();
                 }
+                String id = line.getId();
 
                 //json
+                jsonObject.put("id", id);
                 jsonObject.put("comment", comment);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("openid", openid);
