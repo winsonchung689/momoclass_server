@@ -4708,7 +4708,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getAlbum(String student_name,String openid,Integer page) {
+    public List getAlbum(String student_name,String openid,Integer page,String type) {
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -4729,7 +4729,7 @@ public class LoginServiceImpl implements LoginService {
                 student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
 
-            List<Album> albums = dao.getAlbum(student_name,studio,campus,page_start,page_length);
+            List<Album> albums = dao.getAlbum(student_name,studio,campus,page_start,page_length,type);
             for(int i = 0;i< albums.size();i++){
                 JSONObject jsonObject = new JSONObject();
                 Album album = albums.get(i);

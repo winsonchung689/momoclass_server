@@ -1339,10 +1339,10 @@ public class LoginController {
 	// 获取相册
 	@RequestMapping("/getAlbum")
 	@ResponseBody
-	public List getAlbum(String student_name,String openid,Integer page){
+	public List getAlbum(String student_name,String openid,Integer page,String type){
 		List list = null;
 		try {
-			list = loginService.getAlbum(student_name,openid,page);
+			list = loginService.getAlbum(student_name,openid,page,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

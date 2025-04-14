@@ -15,7 +15,16 @@ public class Album {
 
     private String create_time;
 
+    private String type;
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getCampus() {
         return campus;
