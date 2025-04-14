@@ -542,6 +542,23 @@ public class RestaurantController {
 		return 1;
 	}
 
+	@RequestMapping("/getRestaurantOrderById")
+	@ResponseBody
+	public List getRestaurantOrderById(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String id = request.getParameter("id");
+
+		List<RestaurantOrder> restaurantOrders = null;
+		try {
+			restaurantOrders = dao.getRestaurantOrderById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return restaurantOrders;
+	}
+
 	@RequestMapping("/updateRestaurantOrderDetail")
 	@ResponseBody
 	public int updateRestaurantOrderDetail(HttpServletRequest request, HttpServletResponse response){
