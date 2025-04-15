@@ -3468,6 +3468,7 @@ public class LoginController {
 					Float lesson_left = all_lesson + give_lesson - package_sum;
 					if(lesson_left > 0){
 						package_id = package_id_get;
+						break;
 					}
 				}
 			}else {
@@ -3503,6 +3504,7 @@ public class LoginController {
 										Float lesson_left = all_lesson + give_lesson - package_sum;
 										if(lesson_left > 0){
 											package_id = package_id_get;
+											break;
 										}
 									}
 								}
