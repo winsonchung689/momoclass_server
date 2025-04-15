@@ -4752,10 +4752,13 @@ public class LoginServiceImpl implements LoginService {
                 Float price = album.getPrice();
                 String intro = album.getIntro();
                 int has_sale = 0;
-                List<Order> orders = dao.getOrderByGoodsId(id,type);
-                if(orders.size()>0){
-                    has_sale = 1;
+                if("趣卖".equals(type)){
+                    List<Order> orders = dao.getOrderByGoodsId(id,"趣卖画廊");
+                    if(orders.size()>0){
+                        has_sale = 1;
+                    }
                 }
+
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
