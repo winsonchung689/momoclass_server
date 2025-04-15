@@ -156,7 +156,7 @@
   </select>
 
   <select id="getAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseAlbum">
-    select * from album where student_name =#{param1} and studio = #{param2} and campus =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param4},#{param5};
+    select * from album where student_name =#{param1} and studio = #{param2} and campus =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6};
   </select>
 
   <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseContract">

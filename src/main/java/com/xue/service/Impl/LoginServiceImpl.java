@@ -4729,7 +4729,7 @@ public class LoginServiceImpl implements LoginService {
                 student_names = student_names.deleteCharAt(student_names.lastIndexOf(","));
             }
 
-            List<Album> albums = dao.getAlbum(student_name,studio,campus,page_start,page_length,type);
+            List<Album> albums = dao.getAlbum(student_name,studio,campus,type,page_start,page_length);
             for(int i = 0;i< albums.size();i++){
                 JSONObject jsonObject = new JSONObject();
                 Album album = albums.get(i);
