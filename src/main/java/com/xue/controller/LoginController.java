@@ -4579,8 +4579,7 @@ public class LoginController {
 			String goods_name = null;
 			int status = 0;
 			if("趣卖画廊".equals(type)){
-				String id = goods_id.split("_")[1];
-				List<Album> albums = dao.getAlbumById(id);
+				List<Album> albums = dao.getAlbumById(goods_id);
 				Album album = albums.get(0);
 				studio = album.getStudio();
 				goods_name = album.getName();
