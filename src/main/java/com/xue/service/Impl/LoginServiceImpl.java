@@ -4161,22 +4161,35 @@ public class LoginServiceImpl implements LoginService {
                     leader_name = leader_user.getNick_name();
                 }
 
-                List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-                if(goodsLists.size()>0){
-                    GoodsList goodsList = goodsLists.get(0);
-                    goods_name = goodsList.getGoods_name();
-                    goods_price = goodsList.getGoods_price();
-                    group_price = goodsList.getGroup_price();
-                    group_num = goodsList.getGroup_num();
-                    try {
-                        uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
-                    } catch (Exception e) {
+                type = line.getType();
+                if("趣卖画廊".equals(type)){
+                    List<Album> albums = dao.getAlbumById(goods_id);
+                    if(albums.size()>0){
+                        Album album = albums.get(0);
+                        goods_name = album.getName();
+                        goods_price = album.getPrice();
+                        uuids = album.getUuid();
+                    }
+                }else {
+                    List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+                    if(goodsLists.size()>0){
+                        GoodsList goodsList = goodsLists.get(0);
+                        goods_name = goodsList.getGoods_name();
+                        goods_price = goodsList.getGoods_price();
+                        group_price = goodsList.getGroup_price();
+                        group_num = goodsList.getGroup_num();
+                        try {
+                            uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
+                        } catch (Exception e) {
 //                    throw new RuntimeException(e);
+                        }
                     }
                 }
 
+
+
                 String create_time = line.getCreate_time();
-                type = line.getType();
+
                 Integer counts = line.getCounts();
                 Float amount = line.getAmount();
                 String sub_goods_id = line.getSub_goods_id();
