@@ -6153,40 +6153,39 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> users = dao.getUserByStudent(student_name,studio);
             if(users.size()>0){
-                User user = users.get(0);
-                String official_openid = user.getOfficial_openid();
+                for(int i=0;i<users.size();i++){
+                    User user = users.get(i);
+                    String official_openid = user.getOfficial_openid();
 
-                List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                total_amount = lessons_get.get(0).getTotal_amount();
-                left_amount = lessons_get.get(0).getLeft_amount();
+                    List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                    total_amount = lessons_get.get(0).getTotal_amount();
+                    left_amount = lessons_get.get(0).getLeft_amount();
+                    Float total_new = total_amount + lesson_amount;
+                    Float left_new = left_amount + lesson_amount;
 
-                Float total_new = total_amount + lesson_amount;
-                Float left_new = left_amount + lesson_amount;
+                    try {
+                        String token = getToken("MOMO_OFFICIAL");
+                        url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                        if(!"no_id".equals(official_openid)){
+                            String[] official_list = official_openid.split(",");
+                            for(int j=0;j<official_list.length;j++){
+                                String official_openid_get = official_list[j];
+                                JSONObject queryJson = JSONObject.parseObject(model);
+                                queryJson.put("touser",official_openid_get);
+                                queryJson.getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
+                                queryJson.getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
+                                queryJson.getJSONObject("data").getJSONObject("thing1").put("value","总" + total_new + "余"+ left_new + "");
 
-                try {
-                    String token = getToken("MOMO_OFFICIAL");
-                    url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                    if(!"no_id".equals(official_openid)){
-                        String[] official_list = official_openid.split(",");
-                        for(int j=0;j<official_list.length;j++){
-                            String official_openid_get = official_list[j];
-                            JSONObject queryJson = JSONObject.parseObject(model);
-                            queryJson.put("touser",official_openid_get);
-                            queryJson.getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
-                            queryJson.getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
-                            queryJson.getJSONObject("data").getJSONObject("thing1").put("value","总" + total_new + "余"+ left_new + "");
-
-                            System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
-                            result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
-                            System.out.printf("MOMO_OFFICIAL_RES:" + result);
+                                System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+                                result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                                System.out.printf("MOMO_OFFICIAL_RES:" + result);
+                            }
                         }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-
-
             }
 
         } catch (Exception e) {
