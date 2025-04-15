@@ -3917,6 +3917,32 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateAlbumById")
+	@ResponseBody
+	public int updateAlbumById(HttpServletRequest request, HttpServletResponse response){
+
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+		String id = request.getParameter("id");
+
+		try {
+			List<Album> albums = dao.getAlbumById(id);
+			Album album = albums.get(0);
+
+			if("名称".equals(type)){
+				album.setName(content);
+			}else if("简介".equals(type)) {
+				album.setIntro(content);
+			}else if("价格".equals(type)) {
+				album.setPrice(Float.parseFloat(content));
+			}
+			dao.updateAlbumById(album);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/updateCombine")
 	@ResponseBody
 	public int updateCombine(HttpServletRequest request, HttpServletResponse response){

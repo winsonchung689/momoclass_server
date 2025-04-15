@@ -19,6 +19,8 @@ public interface UserMapper {
 
     List<Album> getAlbum(String student_name,String studio,String campus,String type,Integer page_start,Integer page_length);
 
+    List<Album> getAlbumById(String id);
+
     List<Contract> getContract(String studio,String campus);
 
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);
@@ -415,6 +417,8 @@ public interface UserMapper {
     int updateLessonUrgePaymentById(String id,Integer urge_payment);
 
     int updateLessonLocationById(String id,String location);
+
+    int updateAlbumById(Album album);
 
     int updateLessonBirthdateById(String id,String birthdate);
 

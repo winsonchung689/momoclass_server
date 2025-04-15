@@ -159,6 +159,10 @@
     select * from album where student_name =#{param1} and studio = #{param2} and campus =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6};
   </select>
 
+  <select id="getAlbumById" parameterType="com.xue.entity.model.Album" resultMap="BaseAlbum">
+    select * from album where id = #{param1} and delete_status = 0
+  </select>
+
   <select id="getContract" parameterType="com.xue.entity.model.Contract" resultMap="BaseContract">
     select * from contract where studio = #{param1} and campus =#{param2} and delete_status = 0 order by create_time desc limit 1;
   </select>
@@ -1624,6 +1628,10 @@
 
   <update id="updateLessonLocationById" parameterType="com.xue.entity.model.Lesson">
     update lesson set location=#{param2} where id = #{param1}
+  </update>
+
+  <update id="updateAlbumById" parameterType="com.xue.entity.model.Album">
+    update album set name=#{name},price=#{price},intro=#{intro} where id = #{id}
   </update>
 
   <update id="updateLessonBirthdateById" parameterType="com.xue.entity.model.Lesson">
