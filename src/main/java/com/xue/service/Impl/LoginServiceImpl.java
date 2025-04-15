@@ -6154,7 +6154,7 @@ public class LoginServiceImpl implements LoginService {
             List<User> users = dao.getUserByStudent(student_name,studio);
             if(users.size()>0){
                 for(int i=0;i<users.size();i++){
-                    User user = users.get(i);
+                    User user = users.get(j);
                     String official_openid = user.getOfficial_openid();
 
                     List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
