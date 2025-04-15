@@ -4575,14 +4575,25 @@ public class LoginController {
 
 			String order_no =  request.getParameter("order_no");
 
-			List<GoodsList> goodslists = dao.getGoodsListById(goods_id);
-			GoodsList goodsList = goodslists.get(0);
-			String studio = goodsList.getStudio();
-			Integer pay_type = goodsList.getPay_type();
-			String goods_name = goodsList.getGoods_name();
+			String studio = null;
+			String goods_name = null;
 			int status = 0;
-			if(pay_type == 1){
-				status =1;
+			if("趣卖画廊".equals(type)){
+				String id = goods_id.split("_")[1];
+				List<Album> albums = dao.getAlbumById(id);
+				Album album = albums.get(0);
+				studio = album.getStudio();
+				goods_name = album.getName();
+				status = 1;
+			}else{
+				List<GoodsList> goodslists = dao.getGoodsListById(goods_id);
+				GoodsList goodsList = goodslists.get(0);
+				studio = goodsList.getStudio();
+				Integer pay_type = goodsList.getPay_type();
+				goods_name = goodsList.getGoods_name();
+				if(pay_type == 1){
+					status =1;
+				}
 			}
 
 			Order order = new Order();
