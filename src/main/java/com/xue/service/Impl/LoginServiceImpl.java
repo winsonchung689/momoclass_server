@@ -4751,6 +4751,11 @@ public class LoginServiceImpl implements LoginService {
                 String name = album.getName();
                 Float price = album.getPrice();
                 String intro = album.getIntro();
+                int has_sale = 0;
+                List<Order> orders = dao.getOrderByGoodsId(id,type);
+                if(orders.size()>0){
+                    has_sale = 1;
+                }
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
@@ -4758,6 +4763,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("name", name);
                 jsonObject.put("price", price);
                 jsonObject.put("intro", intro);
+                jsonObject.put("has_sale", has_sale);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
