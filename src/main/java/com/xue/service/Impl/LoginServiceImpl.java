@@ -4752,13 +4752,19 @@ public class LoginServiceImpl implements LoginService {
                 Float price = album.getPrice();
                 String intro = album.getIntro();
                 int has_sale = 0;
+                String nick_name = null;
+                String phone_number = null;
+                String location = null;
                 if("趣卖".equals(type)){
                     List<Order> orders = dao.getOrderByGoodsId(id,"趣卖画廊");
                     if(orders.size()>0){
                         has_sale = 1;
+                        Order order = orders.get(0);
+                        nick_name = order.getNick_name();
+                        phone_number = order.getPhone_number();
+                        location = order.getLocation();
                     }
                 }
-
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
@@ -4767,6 +4773,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("price", price);
                 jsonObject.put("intro", intro);
                 jsonObject.put("has_sale", has_sale);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
