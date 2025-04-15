@@ -6174,7 +6174,7 @@ public class LoginServiceImpl implements LoginService {
                             queryJson.put("touser",official_openid_get);
                             queryJson.getJSONObject("data").getJSONObject("thing2").put("value",student_name+"(" + subject + ")");
                             queryJson.getJSONObject("data").getJSONObject("thing3").put("value","成功续课" + lesson_amount + "课时");
-                            queryJson.getJSONObject("data").getJSONObject("thing1").put("value",studio + "(总" + total_new + "余"+ left_new + ")");
+                            queryJson.getJSONObject("data").getJSONObject("thing1").put("value","总" + total_new + "余"+ left_new + "");
 
                             System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
                             result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
