@@ -7071,6 +7071,10 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
+		String intro = request.getParameter("intro");
+		String price = request.getParameter("price");
+		String type = request.getParameter("type");
+		String name = request.getParameter("name");
 		String student_name = request.getParameter("student_name");
 		String uuid = request.getParameter("uuid");
 		String openid = request.getParameter("openid");
@@ -7085,6 +7089,10 @@ public class LoginController {
 			album.setStudent_name(student_name);
 			album.setUuid(uuid);
 			album.setCreate_time(create_time);
+			album.setType(type);
+			album.setName(name);
+			album.setIntro(intro);
+			album.setPrice(Float.parseFloat(price));
 
 			dao.insertAlbum(album);
 		} catch (Exception e) {

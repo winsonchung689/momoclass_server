@@ -895,7 +895,7 @@
   </insert>
 
   <insert id="insertAlbum" parameterType="com.xue.entity.model.Album">
-    insert album(uuid,studio,campus,student_name,create_time) values(#{uuid},#{studio},#{campus},#{student_name},#{create_time})
+    insert album(uuid,studio,campus,student_name,create_time,type,name,price) values(#{uuid},#{studio},#{campus},#{student_name},#{create_time},#{type},#{name},#{price})
   </insert>
 
   <!-- 插入网页信息 -->

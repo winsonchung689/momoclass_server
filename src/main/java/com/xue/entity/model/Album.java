@@ -19,6 +19,25 @@ public class Album {
 
     private String name;
 
+    private Float price;
+
+    private String intro;
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public String getName() {
         return name;

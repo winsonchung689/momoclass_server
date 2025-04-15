@@ -4735,10 +4735,16 @@ public class LoginServiceImpl implements LoginService {
                 Album album = albums.get(i);
                 String uuid = album.getUuid();
                 String id = album.getId();
+                String name = album.getName();
+                Float price = album.getPrice();
+                String intro = album.getIntro();
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
                 jsonObject.put("student_names", student_names);
+                jsonObject.put("name", name);
+                jsonObject.put("price", price);
+                jsonObject.put("intro", intro);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
