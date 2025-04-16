@@ -3792,31 +3792,22 @@ public class LoginController {
 		//获取课堂目标
 		String type = request.getParameter("type");
 
-		String studio = request.getParameter("studio");
-
 		String id = request.getParameter("id");
 
 		try {
 			List<Message> messages_get = dao.getDetails(Integer.parseInt(id));
-			Message message_get = messages_get.get(0);
-			String comment = message_get.getComment();
-			String class_target = message_get.getClass_target();
-			String create_time = message_get.getCreate_time();
+			Message message = messages_get.get(0);
 
-			Message message =new Message();
 			if("target".equals(type)){
-				class_target = content;
+				message.setClass_target(content);
 			}else if("comment".equals(type)){
-				comment = content;
+				message.setComment(content);
 			}else if("create_time".equals(type)){
-				create_time = content;
+				message.setCreate_time(content);
+			}else if("video".equals(type)){
+				message.setVuuid(content);
 			}
 
-			message.setComment(comment);
-			message.setClass_target(class_target);
-			message.setCreate_time(create_time);
-			message.setId(id);
-			message.setStudio(studio);
 			dao.updateComment(message);
 		} catch (Exception e) {
 			e.printStackTrace();
