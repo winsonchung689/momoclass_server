@@ -3488,8 +3488,8 @@ public class LoginController {
 								String subject_get = lesson_get.getSubject();
 								List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get, studio, campus, subject_get);
 								if (lessonPackages_get.size() > 0) {
-									for (int j = 0; j < lessonPackages.size(); j++) {
-										LessonPackage lessonPackage  = lessonPackages.get(j);
+									for (int j = 0; j < lessonPackages_get.size(); j++) {
+										LessonPackage lessonPackage  = lessonPackages_get.get(j);
 										String package_id_get = lessonPackage.getId();
 										Float all_lesson = lessonPackage.getAll_lesson();
 										Float give_lesson = lessonPackage.getGive_lesson();
@@ -6972,6 +6972,7 @@ public class LoginController {
 		if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
 			package_id = "0";
 		}
+
 		if (("0".equals(package_id))) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
 			if(lessonPackages.size()>0){
@@ -7011,8 +7012,8 @@ public class LoginController {
 								String subject_get = lesson_get.getSubject();
 								List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get, studio, campus, subject_get);
 								if (lessonPackages_get.size() > 0) {
-									for (int j = 0; j < lessonPackages.size(); j++) {
-										LessonPackage lessonPackage  = lessonPackages.get(j);
+									for (int j = 0; j < lessonPackages_get.size(); j++) {
+										LessonPackage lessonPackage  = lessonPackages_get.get(j);
 										String package_id_get = lessonPackage.getId();
 										Float all_lesson = lessonPackage.getAll_lesson();
 										Float give_lesson = lessonPackage.getGive_lesson();
