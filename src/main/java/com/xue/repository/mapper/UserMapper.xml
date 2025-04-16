@@ -1294,7 +1294,7 @@
 
   <!-- 更新课评 -->
   <update id="updateComment" parameterType="com.xue.entity.model.Message">
-    update class_comment set class_target=#{class_target},comment=#{comment},create_time=#{create_time} where id=#{id}
+    update class_comment set class_target=#{class_target},comment=#{comment},create_time=#{create_time},vuuid=#{vuuid} where id=#{id}
   </update>
 
   <!-- 更新课评 -->
