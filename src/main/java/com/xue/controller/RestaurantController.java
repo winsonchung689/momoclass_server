@@ -664,7 +664,7 @@ public class RestaurantController {
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
 		String restaurant = restaurantUser.getRestaurant();
 
-		if(!"请录入商铺".equals(restaurant)){
+		if(!"请录入商铺".equals(restaurant) && !"未录入".equals(restaurant)){
 			// 商户入驻
 			Merchant merchant = new Merchant();
 			merchant.setAppid(Constants.order_appid);
