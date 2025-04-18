@@ -1272,6 +1272,10 @@
     update class_comment set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4}
   </update>
 
+  <update id="updateCommentTargetBak" parameterType="com.xue.entity.model.Message">
+    update class_comment set class_target_bak='视频站' where studio =#{param1} and class_target_bak ='投票'
+  </update>
+
   <update id="updateGiftRecordName" parameterType="com.xue.entity.model.Gift">
     update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
   </update>

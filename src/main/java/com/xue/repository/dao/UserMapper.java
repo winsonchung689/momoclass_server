@@ -1049,6 +1049,8 @@ public interface UserMapper {
 
     int updateCommentName(String student_name_new,String student_name,String studio,String campus,String subject);
 
+    int updateCommentTargetBak(String studio);
+
     int updateGiftRecordName(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateLessonName(String student_name_new,String student_name,String studio,String campus,String subject);

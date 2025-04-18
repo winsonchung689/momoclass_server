@@ -4809,11 +4809,18 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getExhibition(String openid, String type,Integer page) {
+        List<JSONObject> resul_list = new ArrayList<>();
         List<User> list_user = dao.getUser(openid);
         String studio = list_user.get(0).getStudio();
         Integer page_start = (page - 1) * 20;
         Integer page_length = 20;
-        List<JSONObject> resul_list = new ArrayList<>();
+
+        // 作品转到展览处
+        if("回收".equals(type)){
+            dao.updateCommentTargetBak(studio);
+            return resul_list;
+        }
+
         List<Message> messages = dao.getExhibitionByType(studio,type,page_start, page_length);
 
         for (int i = 0; i < messages.size(); i++) {
