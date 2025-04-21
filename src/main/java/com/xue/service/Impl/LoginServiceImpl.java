@@ -7051,8 +7051,10 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
                 String v_uuid = line.getVuuid();
+                String class_target = line.getClass_target();
 
                 //json
+                jsonObject.put("class_target", class_target);
                 jsonObject.put("comment", comment);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time.substring(0,10));
