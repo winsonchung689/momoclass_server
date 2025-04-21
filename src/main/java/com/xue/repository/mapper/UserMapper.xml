@@ -155,6 +155,10 @@
       select * from class_comment where class_target_bak = #{param4} and studio = #{param1} and campus =#{param5} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
+  <select id="getAlbumByType" parameterType="com.xue.entity.model.Album" resultMap="BaseAlbum">
+    select * from album where studio = #{param2} and campus =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc,id asc limit #{param5},#{param6};
+  </select>
+
   <select id="getAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseAlbum">
     select * from album where student_name =#{param1} and studio = #{param2} and campus =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6};
   </select>

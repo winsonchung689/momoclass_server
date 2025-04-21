@@ -4743,6 +4743,9 @@ public class LoginServiceImpl implements LoginService {
             }
 
             List<Album> albums = dao.getAlbum(student_name,studio,campus,type,page_start,page_length);
+            if("全部".equals(student_name)){
+                albums = dao.getAlbumByType(studio,campus,type,page_start,page_length);
+            }
             for(int i = 0;i< albums.size();i++){
                 JSONObject jsonObject = new JSONObject();
                 Album album = albums.get(i);
@@ -4765,9 +4768,11 @@ public class LoginServiceImpl implements LoginService {
                         location = order.getLocation();
                     }
                 }
+                student_name = album.getStudent_name();
 
                 jsonObject.put("id", id);
                 jsonObject.put("uuid", uuid);
+                jsonObject.put("student_name", student_name);
                 jsonObject.put("student_names", student_names);
                 jsonObject.put("name", name);
                 jsonObject.put("price", price);

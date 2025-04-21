@@ -17,6 +17,9 @@ public interface UserMapper {
 
     List<Merchant> getMerchant(String studio,String campus,String appid);
 
+
+    List<Album> getAlbumByType(String studio,String campus,String type,Integer page_start,Integer page_length);
+
     List<Album> getAlbum(String student_name,String studio,String campus,String type,Integer page_start,Integer page_length);
 
     List<Album> getAlbumById(String id);
