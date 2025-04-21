@@ -163,8 +163,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
                 String order_no = line.getOrder_no();
                 String order_img = line.getOrder_img();
+                int shop_status = line.getShop_status();
 
                 //json
+                jsonObject.put("shop_status", shop_status);
                 jsonObject.put("order_img", order_img);
                 jsonObject.put("food_image", food_image);
                 jsonObject.put("food_name", food_name);
