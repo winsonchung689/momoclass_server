@@ -31,7 +31,16 @@ public class RestaurantOrder {
 
     private Integer group_buy;
 
+    private int shop_status;
 
+
+    public int getShop_status() {
+        return shop_status;
+    }
+
+    public void setShop_status(int shop_status) {
+        this.shop_status = shop_status;
+    }
 
     public Integer getGroup_buy() {
         return group_buy;

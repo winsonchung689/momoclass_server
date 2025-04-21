@@ -1709,7 +1709,7 @@
 
   <!--  更新订单状态-->
   <update id="updateRestaurantOrderStatus" parameterType="com.xue.entity.model.RestaurantOrder">
-    update restaurant_order set status=#{param2} where id = #{param1}
+    update restaurant_order set status=#{status},shop_status=#{shop_status} where id = #{id}
   </update>
 
   <update id="updateRestaurantOrderByOrderNo" parameterType="com.xue.entity.model.RestaurantOrder">

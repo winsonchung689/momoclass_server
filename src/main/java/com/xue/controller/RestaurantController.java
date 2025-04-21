@@ -589,18 +589,33 @@ public class RestaurantController {
 
 		//获取文字
 		String id = request.getParameter("id");
+		String type = request.getParameter("type");
 
 		try {
 			List<RestaurantOrder> restaurantOrders = dao.getRestaurantOrderById(id);
 			RestaurantOrder restaurantOrder = restaurantOrders.get(0);
-			int status = restaurantOrder.getStatus();
-			if(status == 0){
-				status = 1;
-			}else if(status == 1){
-				status =2;
+			if("订单状态".equals(type)){
+				int status = restaurantOrder.getStatus();
+				if(status == 0){
+					status = 1;
+				}else if(status == 1){
+					status =2;
+				}
+				restaurantOrder.setStatus(status);
 			}
 
-			dao.updateRestaurantOrderStatus(id,status);
+			if("接单状态".equals(type)){
+				int shop_status = restaurantOrder.getShop_status();
+				if(shop_status == 0){
+					shop_status = 1;
+				}else {
+					shop_status = 0;
+				}
+				restaurantOrder.setShop_status(shop_status);
+			}
+
+			dao.updateRestaurantOrderStatus(restaurantOrder);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
