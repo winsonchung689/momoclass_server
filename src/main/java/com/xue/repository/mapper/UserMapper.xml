@@ -1457,7 +1457,7 @@
   </select>
 
   <select id="getRestaurantMenuById" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
-    select * from restaurant_menu where id =#{param1} and delete_status = 0 order by category
+    select * from restaurant_menu where id =#{param1}
   </select>
 
   <select id="getUserSendTime" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
