@@ -2397,6 +2397,20 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getArrangementsByRepeat")
+	@ResponseBody
+	public List getArrangementsByRepeat(String studio,String openid){
+		List list = null;
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			list = loginService.getArrangementsByRepeat(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getArrangementClassType")
 	@ResponseBody
 	public Integer getArrangementClassType(String studio,String openid){

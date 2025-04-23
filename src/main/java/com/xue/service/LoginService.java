@@ -217,6 +217,8 @@ public interface LoginService {
 
     public List getArrangements(String studio,String campus);
 
+    public List getArrangementsByRepeat(String studio,String campus);
+
     public List getArrangementsByDate(String studio,String date_time,String campus);
 
     public List getCertificateModel(String class_name);
