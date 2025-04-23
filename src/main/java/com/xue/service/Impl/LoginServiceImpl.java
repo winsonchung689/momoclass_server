@@ -5574,6 +5574,8 @@ public class LoginServiceImpl implements LoginService {
                             String send_status = schedule.getSend_status();
                             String student_type = schedule.getStudent_type();
                             String add_date = schedule.getAdd_date();
+                            LocalDate localDate = LocalDate.parse(add_date);
+                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
                             if("统一提醒次日".equals(remindType)){
                                 // 跳过插班生
@@ -5605,12 +5607,6 @@ public class LoginServiceImpl implements LoginService {
 
                             // 课程设计
                             Integer choose = 0;
-                            Integer weekDayChoose = 0;
-                            if(weekDay == 1){
-                                weekDayChoose = 7;
-                            }else {
-                                weekDayChoose = weekDay -1;
-                            }
                             String upcoming = "未设";
                             List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                             if(arrangement_list.size()>0){
