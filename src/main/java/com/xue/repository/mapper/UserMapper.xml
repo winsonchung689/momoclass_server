@@ -1849,6 +1849,10 @@
     select * from schedule_arrangement where studio =#{param1} and delete_status = 0;
   </select>
 
+  <select id="getArrangementsByRepeat" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select * from schedule_arrangement where studio =#{param1} and is_repeat = 1 and delete_status = 0;
+  </select>
+
   <select id="getArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select * from schedule_arrangement where studio =#{param1} and id =#{param2} and delete_status = 0
   </select>

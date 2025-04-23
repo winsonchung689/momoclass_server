@@ -19,35 +19,15 @@ public class test {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        String signatureStr = "aaaa" + "\n" + "timestamp" + "\n" ;
-        System.out.println(signatureStr);
-        String amount = "0.1";
-        System.out.printf(String.valueOf(Float.parseFloat(amount)*100));
+        Calendar cal_today = Calendar.getInstance();
+        cal_today.add(Calendar.DATE,+1);
+        int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+        System.out.println(weekDay_today);
 
-//        try {
-//            Date date_start = fmt.parse("2025-01-12");
-//            long start_timestamp = date_start.getTime();
-//            Date date_end = fmt.parse("2023-01-17");
-//            long end_timestamp = date_end.getTime();
-//            String today_time = fmt.format(new Date());
-//            Date today_dt = fmt.parse(today_time.substring(0,10));
-//            long today_timestamp = today_dt.getTime();
-//
-//            System.out.println(start_timestamp);
-//            System.out.println(end_timestamp);
-//            System.out.println(today_timestamp);
-//            if(today_timestamp >= start_timestamp ){
-//                System.out.println("aaaa");
-//            }
-//
-//            int aa = 6;
-//            int bb= 7;
-//            double count = (double)aa/bb;
-//            System.out.println(count);
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-
+        String dateString = "2025-04-24";
+        LocalDate date = LocalDate.parse(dateString);
+        int dayofweek = date.getDayOfWeek().getValue();
+        System.out.printf( "aa:" + dayofweek);
 
     }
 

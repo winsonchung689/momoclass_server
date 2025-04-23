@@ -725,6 +725,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementsByStudio(String studio);
 
+    List<Arrangement> getArrangementsByRepeat(String studio);
+
     List<Order> getOrderByGoodsId(String goods_id,String type);
 
     List<Order> getOrderByGoodsLeader(String goods_id,String leader_id,String type);

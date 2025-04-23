@@ -5443,32 +5443,89 @@ public class LoginServiceImpl implements LoginService {
                 Integer weekDay = 0;
                 String date_time = null;
                 List<Schedule> list_schedule = new ArrayList<>();
+                List<Schedule> list_schedule_re = new ArrayList<>();
                 //上课通知
                 if(!"no_name".equals(student_name)){
+                    // 查找每天重复的课程
+                    List<Arrangement> arrangements_re = dao.getArrangementsByRepeat(studio);
+                    int weekofday = 0;
+                    if(arrangements_re.size()>0){
+                        for(int index = 0;index < arrangements_re.size();index++){
+                            Arrangement arrangement = arrangements_re.get(index);
+                            Integer dayofweek =Integer.parseInt(arrangement.getDayofweek());
+                            int dayofweek_in = 0;
+                            if(dayofweek == 7){
+                                dayofweek_in = 1;
+                            }else {
+                                dayofweek_in = dayofweek + 1;
+                            }
+                            String repeat_week = arrangement.getRepeat_week();
+                            List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
+                            String repeat_duration = arrangement.getRepeat_duration();
+                            String repeat_end = repeat_duration.split(",")[1];
+                            // 判断是否在期内
+                            Long compare = 10L;
+                            try {
+                                Date today_dt = df.parse(now_date.substring(0,10));
+                                Date expired_dt = df.parse(repeat_end);
+                                Long day2 = expired_dt.getTime();
+                                Long day1 = today_dt.getTime();
+                                compare = (day2 - day1)/(24*3600*1000);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if(compare > 0){
+                                if("统一提醒次日".equals(remindType)){
+                                    if(weekDay_tomorrow==1){
+                                        weekofday = 7;
+                                    }else {
+                                        weekofday = weekDay_tomorrow - 1;
+                                    }
+                                    if(repeat_week_list.contains(weekofday)){
+                                        String duration = arrangement.getDuration();
+                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
+                                        list_schedule_re.addAll(list_schedule_get);
+                                    }
+
+                                }else if("提前N小时提醒".equals(remindType)){
+                                    if(weekDay_today==1){
+                                        weekofday = 7;
+                                    }else {
+                                        weekofday = weekDay_today - 1;
+                                    }
+                                    if(repeat_week_list.contains(weekofday)){
+                                        String duration = arrangement.getDuration();
+                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
+                                        list_schedule_re.addAll(list_schedule_get);
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                    }
+
                     // 通知分类
                     if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
                         weekDay = weekDay_tomorrow;
                         date_time = df.format(cal_tomorrow.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+                        list_schedule.addAll(list_schedule_re);
                     }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
                         date_time = df.format(cal_today.getTime());
                         List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                        list_schedule.addAll(list_schedule_re);
                         for(int j = 0;j < schedules.size();j++){
                             Schedule schedule = schedules.get(j);
                             Integer hours_get = schedule.getHours();
                             String class_number = schedule.getClass_number();
                             String duration = schedule.getDuration();
                             String subject = schedule.getSubject();
-
-
-                            // 获取课程表
-                            Integer weekDayChoose = 0;
-                            if(weekDay == 1){
-                                weekDayChoose = 7;
-                            }else {
-                                weekDayChoose = weekDay -1;
-                            }
+                            String add_date = schedule.getAdd_date();
+                            LocalDate localDate = LocalDate.parse(add_date);
+                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
                             List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                             if(arrangements.size()>0){
                                 Arrangement arrangement = arrangements.get(0);
@@ -5491,6 +5548,13 @@ public class LoginServiceImpl implements LoginService {
                             }
                             String duration_st = hour_st + ":" + minute_st;
 
+                            // 获取课程表时间
+                            Integer week_day = 0;
+                            if(weekDayChoose == 7){
+                                week_day = 1;
+                            }else {
+                                week_day = weekDayChoose + 1;
+                            }
                             List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
                             if(schedules_tmp.size()>0){
                                 list_schedule = schedules_tmp;
