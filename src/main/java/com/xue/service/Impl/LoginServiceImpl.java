@@ -5448,7 +5448,7 @@ public class LoginServiceImpl implements LoginService {
                 if(!"no_name".equals(student_name)){
                     // 查找每天重复的课程
                     List<Arrangement> arrangements_re = dao.getArrangementsByRepeat(studio);
-                    int weekofday = 0;
+                    Integer weekofday = 0;
                     if(arrangements_re.size()>0){
                         for(int index = 0;index < arrangements_re.size();index++){
                             Arrangement arrangement = arrangements_re.get(index);
@@ -5481,7 +5481,7 @@ public class LoginServiceImpl implements LoginService {
                                     }else {
                                         weekofday = weekDay_tomorrow - 1;
                                     }
-                                    if(repeat_week_list.contains(weekofday)){
+                                    if(repeat_week_list.contains(weekofday.toString())){
                                         String duration = arrangement.getDuration();
                                         List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
                                         list_schedule_re.addAll(list_schedule_get);
@@ -5493,7 +5493,7 @@ public class LoginServiceImpl implements LoginService {
                                     }else {
                                         weekofday = weekDay_today - 1;
                                     }
-                                    if(repeat_week_list.contains(weekofday)){
+                                    if(repeat_week_list.contains(weekofday.toString())){
                                         String duration = arrangement.getDuration();
                                         List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
                                         list_schedule_re.addAll(list_schedule_get);
