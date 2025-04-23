@@ -5463,6 +5463,8 @@ public class LoginServiceImpl implements LoginService {
                             List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
                             String repeat_duration = arrangement.getRepeat_duration();
                             String repeat_end = repeat_duration.split(",")[1];
+                            String duration = arrangement.getDuration();
+                            String duration_start = duration.split("-")[0];
                             // 判断是否在期内
                             Long compare = 10L;
                             try {
@@ -5482,8 +5484,7 @@ public class LoginServiceImpl implements LoginService {
                                         weekofday = weekDay_tomorrow - 1;
                                     }
                                     if(repeat_week_list.contains(weekofday.toString())){
-                                        String duration = arrangement.getDuration();
-                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
+                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start);
                                         list_schedule_re.addAll(list_schedule_get);
                                     }
 
@@ -5494,8 +5495,7 @@ public class LoginServiceImpl implements LoginService {
                                         weekofday = weekDay_today - 1;
                                     }
                                     if(repeat_week_list.contains(weekofday.toString())){
-                                        String duration = arrangement.getDuration();
-                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration);
+                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start);
                                         list_schedule_re.addAll(list_schedule_get);
                                     }
 
