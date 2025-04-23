@@ -5555,7 +5555,7 @@ public class LoginServiceImpl implements LoginService {
                             }else {
                                 week_day = weekDayChoose + 1;
                             }
-                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(weekDay_today,studio,student_name,campus,duration_st);
+                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(week_day,studio,student_name,campus,duration_st);
                             if(schedules_tmp.size()>0){
                                 list_schedule = schedules_tmp;
                             }
