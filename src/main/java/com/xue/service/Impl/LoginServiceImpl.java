@@ -4152,6 +4152,8 @@ public class LoginServiceImpl implements LoginService {
                 duration = line.getDuration();
                 subject = line.getSubject();
                 int is_repeat = line.getIs_repeat();
+                String repeat_week = line.getRepeat_week();
+                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
 
                 String repeat_duration = line.getRepeat_duration();
                 String[] repeat_duration_list = repeat_duration.split(",");
@@ -4175,7 +4177,9 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }else if(is_repeat == 1){
                     if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
-                        resul_list.add(item);
+                        if(repeat_week_list.contains(weekofday.toString())){
+                            resul_list.add(item);
+                        }
                     }
                 }
             }
