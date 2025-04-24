@@ -3378,16 +3378,18 @@ public class LoginServiceImpl implements LoginService {
                 long timestamp = new Date().getTime() - 60*60*24*1000;
                 if(end_timestamp < timestamp){
                     status = "已过期";
+                    used_price = price;
+                    left_price = 0.0f;
+                }else {
+                    String today_time = formatter.format(new Date());
+                    Date today_dt = formatter.parse(today_time.substring(0, 10));
+                    Date start_date_dt = formatter.parse(start_date.substring(0, 10));
+                    Date end_date_dt = formatter.parse(end_date.substring(0, 10));
+                    long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60 * 60 * 24 * 1000;
+                    long used_time = today_dt.getTime() - start_date_dt.getTime() + 60 * 60 * 24 * 1000;
+                    used_price = price * used_time / total_time;
+                    left_price = price - used_price;
                 }
-
-                String today_time = formatter.format(new Date());
-                Date today_dt = formatter.parse(today_time.substring(0,10));
-                Date start_date_dt = formatter.parse(start_date.substring(0,10));
-                Date end_date_dt = formatter.parse(end_date.substring(0,10));
-                long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
-                long used_time = today_dt.getTime() - start_date_dt.getTime() + 60*60*24*1000;
-                used_price = price * used_time/total_time;
-                left_price = price - used_price;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

@@ -2110,7 +2110,7 @@ public class LoginController {
 
 	@RequestMapping("/getCardByStudent")
 	@ResponseBody
-	public List getCard(String studio, String campus, String student_name){
+	public List getCardByStudent(String studio, String campus, String student_name){
 		List list = null;
 		try {
 			list = loginService.getCardByStudent(studio,campus,student_name);
