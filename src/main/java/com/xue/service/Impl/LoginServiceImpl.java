@@ -1978,6 +1978,8 @@ public class LoginServiceImpl implements LoginService {
                 Integer is_reserved = line.getIs_reserved();
                 Integer days = line.getDays();
                 Integer in_repeat = line.getIs_repeat();
+                String repeat_week = line.getRepeat_week();
+
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -2056,6 +2058,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
                 jsonObject.put("upcoming",upcoming);
                 jsonObject.put("in_repeat",in_repeat);
+                jsonObject.put("repeat_week",repeat_week);
                 jsonObject.put("avatarurl",avatarurl);
                 resul_list.add(jsonObject);
             }
