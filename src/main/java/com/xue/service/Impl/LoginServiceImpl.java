@@ -1977,9 +1977,9 @@ public class LoginServiceImpl implements LoginService {
                 String upcoming = line.getUpcoming();
                 Integer is_reserved = line.getIs_reserved();
                 Integer days = line.getDays();
-                Integer in_repeat = line.getIs_repeat();
+                Integer is_repeat = line.getIs_repeat();
                 String repeat_week = line.getRepeat_week();
-
+                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
 
                 StringBuilder student_names = new StringBuilder();
                 StringBuilder student_arranges = new StringBuilder();
@@ -2057,10 +2057,15 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("book_stauts",book_stauts);
                 jsonObject.put("id",id);
                 jsonObject.put("upcoming",upcoming);
-                jsonObject.put("in_repeat",in_repeat);
+                jsonObject.put("is_repeat",is_repeat);
                 jsonObject.put("repeat_week",repeat_week);
                 jsonObject.put("avatarurl",avatarurl);
-                resul_list.add(jsonObject);
+                if(is_repeat == 1 && repeat_week_list.contains(weekofday)){
+                    resul_list.add(jsonObject);
+                }else if(is_repeat == 0){
+                    resul_list.add(jsonObject);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
