@@ -1961,6 +1961,9 @@ public class LoginServiceImpl implements LoginService {
             }
 
             List<Arrangement> list = dao.getArrangementByDay(studio,weekofday,campus);
+            List<Arrangement> repeat_list = dao.getArrangementByRepeat(studio,campus);
+            list.addAll(repeat_list);
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Arrangement line = list.get(i);
