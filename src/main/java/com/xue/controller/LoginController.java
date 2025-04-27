@@ -5760,13 +5760,13 @@ public class LoginController {
 
 		//获取日期
 		String add_date = request.getParameter("add_date");
-
 		//获年龄段
 		String age = request.getParameter("age");
 		//获取名字
 		String student_name = request.getParameter("student_name");
 		//获取时间段
 		String duration = request.getParameter("duration");
+		String id = request.getParameter("id");
 
 		String openid = request.getParameter("openid");
 		List<User> list_users = dao.getUser(openid);
@@ -5879,10 +5879,13 @@ public class LoginController {
 
 					//预约
 					if("星期8".equals(weekofday)){
+						List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
+						Arrangement arrangement = arrangements.get(0);
+						String dayofweek_get = arrangement.getDayofweek();
 						// 先发家长
 						sendBookSuccess(openid,duration,student_name,add_date,class_number);
 						// 后发选课老师
-						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
+						String chooseLesson = "星期"+  dayofweek_get + "," + subject + "," + class_number + "," + duration ;
 						List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
 						for(int j=0;j<users.size();j++){
 							User user = users.get(j);
