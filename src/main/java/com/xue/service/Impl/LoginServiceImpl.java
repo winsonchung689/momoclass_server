@@ -2042,6 +2042,21 @@ public class LoginServiceImpl implements LoginService {
 
                 }
 
+                String repeat_duration = line.getRepeat_duration();
+                String[] repeat_duration_list = repeat_duration.split(",");
+                String start_date = "2025-01-01";
+                String end_date = "2025-01-01";
+                if(repeat_duration_list.length ==2){
+                    start_date = repeat_duration_list[0];
+                    end_date = repeat_duration_list[1];
+                }
+                Date date_start = fmt.parse(start_date);
+                long start_timestamp = date_start.getTime();
+                Date date_end = fmt.parse(end_date);
+                long end_timestamp = date_end.getTime();
+                Date today_dt = fmt.parse(date_time);
+                long today_timestamp = today_dt.getTime();
+
                 jsonObject.put("days", days);
                 jsonObject.put("is_reserved", is_reserved);
                 jsonObject.put("dayofweek", dayofweek);
@@ -2060,8 +2075,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_repeat",is_repeat);
                 jsonObject.put("repeat_week",repeat_week);
                 jsonObject.put("avatarurl",avatarurl);
-                if(is_repeat == 1 && repeat_week_list.contains(weekofday)){
-                    resul_list.add(jsonObject);
+
+                if(is_repeat == 1 && repeat_week_list.contains(weekofday.toString())){
+                    if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
+                        resul_list.add(jsonObject);
+                    }
                 }else if(is_repeat == 0){
                     resul_list.add(jsonObject);
                 }
