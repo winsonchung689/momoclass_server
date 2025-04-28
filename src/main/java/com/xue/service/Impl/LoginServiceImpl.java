@@ -3929,6 +3929,8 @@ public class LoginServiceImpl implements LoginService {
     public List getArrangements(String studio,String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            Integer classes_count_all=dao.getClassesCountAll(studio,campus);
+            Integer classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
             List<Arrangement> list = dao.getArrangements(studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -3977,7 +3979,9 @@ public class LoginServiceImpl implements LoginService {
                 }
                 classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
 
-                String item = "星期"+dayofweek+ "," + class_number + "," + duration + "," + subject;
+                String item = "星期" + dayofweek + "," + class_number + "," + duration + "," + subject;
+                String week_item = "星期"+dayofweek;
+
                 // 选课
                 try {
                     String lesson_string = "星期" + dayofweek + "," + subject + "," + class_number + "," + duration;
@@ -4004,9 +4008,18 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                String repeat_week = line.getRepeat_week();
                 int class_type = line.getClass_type();
+                String repeat_week = line.getRepeat_week();
+                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
 
+                int repeat_show = 0;
+                if(repeat_week_list.contains(dayofweek)){
+                    repeat_show = 1;
+                }
+
+                jsonObject.put("week_item", week_item);
+                jsonObject.put("classes_count_all",classes_count_all);
+                jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
                 jsonObject.put("start_date", start_date);
                 jsonObject.put("end_date", end_date);
                 jsonObject.put("is_reserved", is_reserved);
@@ -4016,6 +4029,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("duration", duration);
                 jsonObject.put("limits", limits);
                 jsonObject.put("is_repeat", is_repeat);
+                jsonObject.put("repeat_show", repeat_show);
                 jsonObject.put("repeat_duration", repeat_duration);
                 jsonObject.put("classes_count", classes_count);
                 jsonObject.put("dayofweek",dayofweek);
