@@ -5648,7 +5648,6 @@ public class LoginServiceImpl implements LoginService {
                                         List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start);
                                         list_schedule_re.addAll(list_schedule_get);
                                     }
-
                                 }else if("提前N小时提醒".equals(remindType)){
                                     if(weekDay_today==1){
                                         weekofday = 7;
@@ -5662,7 +5661,6 @@ public class LoginServiceImpl implements LoginService {
 
                                 }
                             }
-
                         }
 
                     }
@@ -5692,7 +5690,6 @@ public class LoginServiceImpl implements LoginService {
                                 Arrangement arrangement = arrangements.get(0);
                                 hours_get = arrangement.getHours();
                             }
-
 
                             //获取提前时间
                             Calendar cal_today_get = Calendar.getInstance();
@@ -5726,6 +5723,12 @@ public class LoginServiceImpl implements LoginService {
                     // 向家长发送通知
                     if(list_schedule.size() > 0 && weekDay > 0){
                         for (int j = 0; j < list_schedule.size(); j++) {
+                            Integer weekDay_ta = 0;
+                            if(weekDay==1){
+                                weekDay_ta = 7;
+                            }else {
+                                weekDay_ta = weekDay - 1;
+                            }
                             Schedule schedule = list_schedule.get(j);
                             String duration = schedule.getDuration();
                             String class_number = schedule.getClass_number();
@@ -5745,7 +5748,6 @@ public class LoginServiceImpl implements LoginService {
                                         send_status = now_date;
                                     }
                                 }
-
                                 // 跳过请假生
                                 List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,tm_date);
                                 if(leaves.size()>0){
@@ -5758,7 +5760,6 @@ public class LoginServiceImpl implements LoginService {
                                         send_status = now_date;
                                     }
                                 }
-
                                 // 跳过请假生
                                 List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,td_date);
                                 if(leaves.size()>0){
@@ -5769,11 +5770,18 @@ public class LoginServiceImpl implements LoginService {
                             // 课程设计
                             Integer choose = 0;
                             String upcoming = "未设";
+                            Integer is_repeat = 0;
                             List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                             if(arrangement_list.size()>0){
                                 Arrangement arrangement = arrangement_list.get(0);
                                 upcoming = arrangement.getUpcoming();
                                 remind = arrangement.getRemind();
+                                is_repeat = arrangement.getIs_repeat();
+                                String repeat_week = arrangement.getRepeat_week();
+                                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
+                                if(is_repeat == 1 && !repeat_week_list.contains(weekDay_ta.toString())){
+                                    send_status = now_date;
+                                }
                             }
 
                             // 判断是否已发
