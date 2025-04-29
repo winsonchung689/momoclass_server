@@ -730,7 +730,7 @@
   </select>
 
   <select id="getScheduleByUserDurationSt" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and SUBSTRING(duration, 1, 5)= #{param5} and delete_status = 0 order by duration,subject,class_number
+    select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and student_name = #{param3} and campus = #{param4} and SUBSTRING(duration, 1, 5) between #{param5} and #{param6} and delete_status = 0 order by duration,subject,class_number
   </select>
 
   <!-- 获取课程表 -->

@@ -19,7 +19,9 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -5626,6 +5628,7 @@ public class LoginServiceImpl implements LoginService {
                             String repeat_end = repeat_duration.split(",")[1];
                             String duration = arrangement.getDuration();
                             String duration_start = duration.split("-")[0];
+
                             // 判断是否在期内
                             Long compare = 10L;
                             try {
@@ -5644,25 +5647,19 @@ public class LoginServiceImpl implements LoginService {
                                     }else {
                                         weekofday = weekDay_tomorrow - 1;
                                     }
-                                    if(repeat_week_list.contains(weekofday.toString())){
-                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start);
-                                        list_schedule_re.addAll(list_schedule_get);
-                                    }
                                 }else if("提前N小时提醒".equals(remindType)){
                                     if(weekDay_today==1){
                                         weekofday = 7;
                                     }else {
                                         weekofday = weekDay_today - 1;
                                     }
-                                    if(repeat_week_list.contains(weekofday.toString())){
-                                        List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start);
-                                        list_schedule_re.addAll(list_schedule_get);
-                                    }
-
+                                }
+                                if(repeat_week_list.contains(weekofday.toString())){
+                                    List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start);
+                                    list_schedule_re.addAll(list_schedule_get);
                                 }
                             }
                         }
-
                     }
 
                     // 通知分类
@@ -5704,7 +5701,10 @@ public class LoginServiceImpl implements LoginService {
                             if(minute < 10 ){
                                 minute_st = "0" + minute_st;
                             }
-                            String duration_st = hour_st + ":" + minute_st;
+                            String duration_ed = hour_st + ":" + minute_st;
+                            LocalTime time = LocalTime.of(hour, minute);
+                            Duration fiveMinutes = Duration.ofMinutes(3);
+                            LocalTime duration_st = time.minus(fiveMinutes);
 
                             // 获取课程表时间
                             Integer week_day = 0;
@@ -5713,7 +5713,7 @@ public class LoginServiceImpl implements LoginService {
                             }else {
                                 week_day = weekDayChoose + 1;
                             }
-                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(week_day,studio,student_name,campus,duration_st);
+                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(week_day,studio,student_name,campus,duration_st.toString(),duration_ed);
                             if(schedules_tmp.size()>0){
                                 list_schedule = schedules_tmp;
                             }
