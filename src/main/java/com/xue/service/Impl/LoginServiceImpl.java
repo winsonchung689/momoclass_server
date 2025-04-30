@@ -7400,7 +7400,7 @@ public class LoginServiceImpl implements LoginService {
             String campus = user.getCampus();
             String studio = user.getStudio();
 
-            List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, 0, 100000,campus);
+            List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, 0, 1000,campus);
             for (int i = 0; i < communicateRecords.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord communicateRecord = communicateRecords.get(i);
