@@ -7413,8 +7413,14 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = communicateRecord.getPhone_number();
                 String teacher = communicateRecord.getTeacher();
                 String id = communicateRecord.getId();
+                String status = "未报课";
+                List<Lesson> lessons = dao.getLessonByName(student_name,studio,campus);
+                if(lessons.size() > 0){
+                    status = "已报课";
+                }
 
                 //json
+                jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("phone_number",phone_number);
@@ -7424,11 +7430,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id",id);
 
                 if(!student_list.contains(student_name)){
-                    List<Lesson> lessons = dao.getLessonByName(student_name,studio,campus);
-                    if(lessons.size() == 0){
-                        resul_list.add(jsonObject);
-                        student_list.add(student_name);
-                    }
+                    resul_list.add(jsonObject);
+                    student_list.add(student_name);
                 }
             }
         } catch (Exception e) {
