@@ -13,6 +13,10 @@ public class CommunicateRecord {
 
     private String openid;
 
+    private String teacher;
+
+    private String nick_name;
+
     private String create_time;
 
     private String campus;
@@ -24,6 +28,22 @@ public class CommunicateRecord {
     private Integer status;
 
 
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getNick_name() {
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
 
     public Integer getStatus() {
         return status;

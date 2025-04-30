@@ -5731,22 +5731,49 @@ public class LoginController {
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
-		}else if("沟通记录".equals(class_target)){
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/insertCommunicateRecord")
+	@ResponseBody
+	public String insertCommunicateRecord(HttpServletRequest request, HttpServletResponse response) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String student_name = request.getParameter("student_name");
+		String phone_number = request.getParameter("phone_number");
+		String teacher = request.getParameter("teacher");
+		String content = request.getParameter("content");
+		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
+
+
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+			String nick_name = user.getNick_name();
+
 			CommunicateRecord communicateRecord = new CommunicateRecord();
-			communicateRecord.setStudent_name(student_name);
 			communicateRecord.setStudio(studio);
 			communicateRecord.setCampus(campus);
+			communicateRecord.setStudent_name(student_name);
 			communicateRecord.setContent(content);
-			communicateRecord.setOpenid(nick_name);
+			communicateRecord.setOpenid(openid);
+			communicateRecord.setNick_name(nick_name);
 			communicateRecord.setCreate_time(create_time);
 			communicateRecord.setUuids(uuids);
 			communicateRecord.setPhone_number(phone_number);
-			try {
-				dao.insertCommunicateRecord(communicateRecord);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+			communicateRecord.setTeacher(teacher);
+
+			dao.insertCommunicateRecord(communicateRecord);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
+
 
 		return "push massage successfully";
 	}
