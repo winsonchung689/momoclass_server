@@ -7425,7 +7425,7 @@ public class LoginServiceImpl implements LoginService {
 
                 if(!student_list.contains(student_name)){
                     List<Lesson> lessons = dao.getLessonByName(student_name,studio,campus);
-                    if(lessons.size() > 0){
+                    if(lessons.size() == 0){
                         resul_list.add(jsonObject);
                         student_list.add(student_name);
                     }
