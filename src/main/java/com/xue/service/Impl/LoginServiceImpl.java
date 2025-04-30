@@ -7735,6 +7735,7 @@ public class LoginServiceImpl implements LoginService {
                 String teacher = line.getTeacher();
 
                 //json
+                jsonObject.put("teacher", teacher);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
