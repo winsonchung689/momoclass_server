@@ -7732,6 +7732,7 @@ public class LoginServiceImpl implements LoginService {
                 if(status == 1){
                     status_cn = "已完成";
                 }
+                String teacher = line.getTeacher();
 
                 //json
                 jsonObject.put("student_name", student_name);
