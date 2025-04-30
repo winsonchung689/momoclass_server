@@ -5107,6 +5107,71 @@ public class LoginController {
 		}
 	}
 
+	@RequestMapping("/client_batch")
+	@ResponseBody
+	public String client_batch(String studio,String openid) throws IOException{
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+		String path = "/data";
+		String path_1 = path +"/uploadexcel/" + studio.replace("/","") ;
+		java.io.File myFilePath = new java.io.File(path_1);
+		String[] tempList = myFilePath.list();
+		File temp = new File(path_1 + "/" + tempList[0]);
+
+		try {
+			List<User> list_user = dao.getUser(openid);
+			String campus = list_user.get(0).getCampus();
+			String nick_name = list_user.get(0).getNick_name();
+			String student_name = null;
+			String content = "未沟通";
+			String uuids = "no_id";
+			String phone_number = "无";
+			String teacher = "无";
+
+			Workbook book=Workbook.getWorkbook(temp);
+			Sheet sheet=book.getSheet(0);
+			for(int i=1;i<sheet.getRows();i++){
+				Cell cell_get=sheet.getCell(0, i);
+				try {
+					if(!cell_get.getContents().isEmpty()){
+						for(int j=0;j<sheet.getColumns();j++){
+							Cell cell=sheet.getCell(j, i);
+							if(0==j){
+								student_name = cell.getContents();
+							}else if(1==j){
+								phone_number = cell.getContents();
+							}else if(2==j){
+								teacher =cell.getContents();
+							}
+						}
+
+						CommunicateRecord communicateRecord = new CommunicateRecord();
+						communicateRecord.setStudio(studio);
+						communicateRecord.setCampus(campus);
+						communicateRecord.setStudent_name(student_name);
+						communicateRecord.setContent(content);
+						communicateRecord.setOpenid(openid);
+						communicateRecord.setNick_name(nick_name);
+						communicateRecord.setCreate_time(create_time);
+						communicateRecord.setUuids(uuids);
+						communicateRecord.setPhone_number(phone_number);
+						communicateRecord.setTeacher(teacher);
+
+						dao.insertCommunicateRecord(communicateRecord);
+					}
+				} catch (NumberFormatException e) {
+//					throw new RuntimeException(e);
+				}
+			}
+
+		} catch (BiffException e) {
+			throw new RuntimeException(e);
+		}
+
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/submit_batch")
 	@ResponseBody
 	public String submit_batch(String studio,String openid) throws IOException{
