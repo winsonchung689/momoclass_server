@@ -7768,10 +7768,20 @@ public class LoginServiceImpl implements LoginService {
                 String content = line.getContent();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
-                String nick_name = line.getOpenid();
+                String nick_name = line.getNick_name();
                 String uuids = line.getUuids();
+                String status_cn = "沟通中";
+                Integer status = line.getStatus();
+                if(status == 1){
+                    status_cn = "已完成";
+                }
+                String teacher = line.getTeacher();
+                String phone_number = line.getPhone_number();
 
                 //json
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("status_cn", status_cn);
+                jsonObject.put("teacher", teacher);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
