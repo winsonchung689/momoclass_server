@@ -5779,6 +5779,25 @@ public class LoginServiceImpl implements LoginService {
                                 is_repeat = arrangement.getIs_repeat();
                                 String repeat_week = arrangement.getRepeat_week();
                                 List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
+                                String repeat_duration = arrangement.getRepeat_duration();
+                                String repeat_end = repeat_duration.split(",")[1];
+
+                                // 判断是否在期内
+                                Long compare = 10L;
+                                try {
+                                    Date today_dt = df.parse(now_date.substring(0,10));
+                                    Date expired_dt = df.parse(repeat_end);
+                                    Long day2 = expired_dt.getTime();
+                                    Long day1 = today_dt.getTime();
+                                    compare = (day2 - day1)/(24*3600*1000);
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                if(compare < 0 && is_repeat == 1){
+                                    send_status = now_date;
+                                }
+
                                 if(is_repeat == 1 && !repeat_week_list.contains(weekDay_ta.toString())){
                                     send_status = now_date;
                                 }
