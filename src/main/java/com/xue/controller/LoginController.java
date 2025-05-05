@@ -4247,11 +4247,13 @@ public class LoginController {
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
 
 		try {
+			List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+			CommunicateRecord communicateRecord = communicateRecords.get(0);
 			if("记录".equals(type)){
-				dao.updateCommunicateContent(id,content);
+				communicateRecord.setContent(content);
+				dao.updateCommunicateDetail(communicateRecord);
 			}else if("新增图片".equals(type)){
-				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
-				String uuids_get = communicateRecords.get(0).getUuids();
+				String uuids_get = communicateRecord.getUuids();
 				if(uuids_get != null){
 					if(uuids_get.length() > 5){
 						uuids = uuids_get + "," + uuids;
@@ -4263,8 +4265,7 @@ public class LoginController {
 					dao.updateCommunicateUuids(id,uuids);
 				}
 			}else if("删除图片".equals(type)){
-				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
-				String uuids_get = communicateRecords.get(0).getUuids();
+				String uuids_get = communicateRecord.getUuids();
 				if(uuids_get != null){
 					String[] result = uuids_get.split(",");
 					List<String> list_new = new ArrayList<>();
@@ -4276,15 +4277,16 @@ public class LoginController {
 					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
 				}
 			}else if("电话".equals(type)){
-				dao.updateCommunicatePhoneNumber(id,content);
+				communicateRecord.setPhone_number(content);
+				dao.updateCommunicateDetail(communicateRecord);
 			}else if("状态".equals(type)){
-				List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
-				Integer status = communicateRecords.get(0).getStatus();
+				Integer status = communicateRecord.getStatus();
 				int status_new = 1;
 				if(status == 1){
 					status_new = 0;
 				}
-				dao.updateCommunicateStatus(id,status_new);
+				communicateRecord.setStatus(status_new);
+				dao.updateCommunicateDetail(communicateRecord);
 			}
 
 		} catch (Exception e) {

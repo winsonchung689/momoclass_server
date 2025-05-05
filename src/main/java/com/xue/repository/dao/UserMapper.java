@@ -483,13 +483,9 @@ public interface UserMapper {
 
     int updateClassSendStatusByStudio(String studio,String send_status);
 
-    int updateCommunicateContent(String id,String content);
-
-    int updateCommunicatePhoneNumber(String id,String phone_number);
+    int updateCommunicateDetail(CommunicateRecord communicateRecord);
 
     int updateCommunicateUuids(String id,String uuids);
-
-    int updateCommunicateStatus(String id,Integer status);
 
     int updateBossLessons(User user);
 

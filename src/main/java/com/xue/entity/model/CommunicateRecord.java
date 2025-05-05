@@ -27,7 +27,17 @@ public class CommunicateRecord {
 
     private Integer status;
 
+    private String type;
 
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTeacher() {
         return teacher;
