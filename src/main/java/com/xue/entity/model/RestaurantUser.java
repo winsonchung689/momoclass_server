@@ -8,6 +8,8 @@ public class RestaurantUser {
 
     private String openid;
 
+    private String inviter_openid;
+
     private String create_time;
 
     private String expired_time;
@@ -39,6 +41,14 @@ public class RestaurantUser {
     private String promise;
 
 
+
+    public String getInviter_openid() {
+        return inviter_openid;
+    }
+
+    public void setInviter_openid(String inviter_openid) {
+        this.inviter_openid = inviter_openid;
+    }
 
     public String getPromise() {
         return promise;

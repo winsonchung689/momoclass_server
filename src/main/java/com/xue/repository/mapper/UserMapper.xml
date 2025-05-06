@@ -1122,6 +1122,10 @@
     select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2} and coupon_type =#{param3} order by create_time desc
   </select>
 
+  <select id="getGiftListByType" parameterType="com.xue.entity.model.GiftList" resultMap="BaseGiftList">
+    select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2} and coupon_type =#{param3} and type =#{param4} order by create_time desc
+  </select>
+
   <!-- 查找礼物清单 -->
   <select id="getGiftList" parameterType="com.xue.entity.model.GiftList" resultMap="BaseGiftList">
     select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2}  order by create_time desc
@@ -1331,7 +1335,7 @@
   </insert>
 
   <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
-    insert restaurant_user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time,phone_number,logo) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time},#{phone_number},#{logo})
+    insert restaurant_user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time,phone_number,logo,inviter_openid) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time},#{phone_number},#{logo},#{inviter_openid})
   </insert>
 
   <insert id="insertCard" parameterType="com.xue.entity.model.Card">
