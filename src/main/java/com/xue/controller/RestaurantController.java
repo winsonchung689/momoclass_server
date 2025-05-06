@@ -295,7 +295,7 @@ public class RestaurantController {
 
 			// 赠券
 			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
-			if(wallets.size() == 0){
+			if(wallets.size() == 1){
 				List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 				RestaurantUser restaurantUser = restaurantUsers.get(0);
 				String inviter_openid = restaurantUser.getInviter_openid();
