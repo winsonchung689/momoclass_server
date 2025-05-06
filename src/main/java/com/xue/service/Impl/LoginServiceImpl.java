@@ -11059,7 +11059,7 @@ public class LoginServiceImpl implements LoginService {
                     if("未设".equals(upcoming)){
                         upcoming = class_number;
                     }
-                    queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",upcoming);
+                    queryJson2.getJSONObject("data").getJSONObject("thing2").put("value",class_number);
 
                     System.out.printf("param:" + queryJson2.toJSONString());
                     String result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
