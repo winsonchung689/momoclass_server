@@ -550,7 +550,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String location = line.getLocation();
                 String role_name = "顾客";
                 long diff = 0;
-                if("boss".equals(role) && is_free == 0){
+                if("boss".equals(role)){
                     role_name = "店长";
                     // 判断权限
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
