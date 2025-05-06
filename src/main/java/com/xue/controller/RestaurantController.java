@@ -118,6 +118,46 @@ public class RestaurantController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertRestaurantGift")
+	@ResponseBody
+	public String insertRestaurantGift(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String gift_id = request.getParameter("gift_id");
+
+		try {
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+
+			List<GiftList> giftLists = dao.getGiftListById(gift_id);
+			GiftList giftList = giftLists.get(0);
+
+			Gift gift = new Gift();
+			gift.setPrice(giftList.getPrice());
+			gift.setUuids(giftList.getUuids());
+			gift.setStudent_name(restaurantUser.getNick_name());
+			gift.setGift_name(giftList.getGift_name());
+			gift.setGift_amount(1);
+			gift.setCreate_time(create_time);
+			gift.setExpired_time(create_time);
+			gift.setStudio(restaurantUser.getRestaurant());
+			gift.setCampus(restaurantUser.getRestaurant());
+			gift.setStatus(0);
+			gift.setGift_id(giftList.getId());
+			gift.setOpenid(openid);
+			gift.setType(giftList.getType());
+			loginService.insertGift(gift);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
+
 	@RequestMapping("/insertRestaurantUser")
 	@ResponseBody
 	public String insertRestaurantUser(HttpServletRequest request, HttpServletResponse response){
