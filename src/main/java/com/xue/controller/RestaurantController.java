@@ -89,7 +89,7 @@ public class RestaurantController {
 		}else {
 			restaurantService.insertRestaurantUser(restaurantUser);
 			// 赠券
-			if("no_id".equals(inviter_openid)){
+			if(!"no_id".equals(inviter_openid)){
 				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 				RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
 				List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"邀请券");
@@ -299,7 +299,7 @@ public class RestaurantController {
 				List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 				RestaurantUser restaurantUser = restaurantUsers.get(0);
 				String inviter_openid = restaurantUser.getInviter_openid();
-				if("no_id".equals(inviter_openid)){
+				if(!"no_id".equals(inviter_openid)){
 					List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 					RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
 					List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"回赠券");
