@@ -1060,6 +1060,11 @@ public class LoginServiceImpl implements LoginService {
                     List<Gift> list1 = dao.getGiftByOpenid(openid_get,studio,campus);
                     list.addAll(list1);
                 }
+            }else if(coupon_type == 4){
+                List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+                RestaurantUser restaurantUser = restaurantUsers.get(0);
+                String restaurant = restaurantUser.getRestaurant();
+                list = dao.getGiftByOpenid(openid, restaurant,restaurant);
             }
 
             for (int i = 0; i < list.size(); i++) {
