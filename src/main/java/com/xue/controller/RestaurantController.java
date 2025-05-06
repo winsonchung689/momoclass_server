@@ -319,7 +319,7 @@ public class RestaurantController {
 						gift.setStatus(0);
 						gift.setGift_id(giftList.getId());
 						gift.setOpenid(inviter_openid);
-						gift.setType("邀请券");
+						gift.setType("回赠券");
 						loginService.insertGift(gift);
 					}
 				}
