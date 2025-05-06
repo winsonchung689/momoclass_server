@@ -1765,10 +1765,20 @@ public class LoginController {
 	public List getGiftListByCouponType(String openid,Integer coupon_type){
 		List list = null;
 		try {
-			List<User> users = dao.getUser(openid);
-			User user = users.get(0);
-			String studio = user.getStudio();
-			String campus = user.getCampus();
+			String studio = null;
+			String campus = null;
+			if("4".equals(coupon_type)){
+				List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+				RestaurantUser restaurantUser = restaurantUsers.get(0);
+				studio = restaurantUser.getRestaurant();
+				campus = restaurantUser.getRestaurant();
+			}else{
+				List<User> users = dao.getUser(openid);
+				User user = users.get(0);
+				studio = user.getStudio();
+				campus = user.getCampus();
+			}
+
 			list = loginService.getGiftListByCouponType(studio,campus,coupon_type);
 		} catch (Exception e) {
 			e.printStackTrace();
