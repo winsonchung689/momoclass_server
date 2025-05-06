@@ -485,6 +485,8 @@ public interface UserMapper {
 
     int updateCommunicateDetail(CommunicateRecord communicateRecord);
 
+    int updateCommunicateType(String student_name,String type);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);

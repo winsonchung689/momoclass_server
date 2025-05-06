@@ -4290,8 +4290,8 @@ public class LoginController {
 				communicateRecord.setStatus(status_new);
 				dao.updateCommunicateDetail(communicateRecord);
 			}else if("类型".equals(type)){
-				communicateRecord.setType(content);
-				dao.updateCommunicateDetail(communicateRecord);
+				String student_name = communicateRecord.getStudent_name();
+				dao.updateCommunicateType(student_name,content);
 			}
 
 		} catch (Exception e) {

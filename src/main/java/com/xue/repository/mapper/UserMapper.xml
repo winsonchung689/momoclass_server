@@ -1778,6 +1778,10 @@
     update communicate_record set content=#{content},type=#{type},phone_number=#{phone_number},uuids=#{uuids},status=#{status} where id =#{id}
   </update>
 
+  <update id="updateCommunicateType" parameterType="com.xue.entity.model.CommunicateRecord">
+    update communicate_record set type=#{param2} where student_name =#{param1}
+  </update>
+
   <!-- 更新选课 -->
   <update id="updateBossLessons" parameterType="com.xue.entity.model.User">
     update user set lessons=#{lessons} where openid = #{openid}
