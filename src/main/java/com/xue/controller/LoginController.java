@@ -7319,15 +7319,27 @@ public class LoginController {
 
 		// 1 双发 2 单发
 		String send_type = request.getParameter("send_type");
-		// 1 礼品清单 2 登陆邀请 3 年卡季卡
+		// 1 礼品清单 2 登陆邀请 3 年卡季卡 4 蓝桃易物
 		String coupon_type = request.getParameter("coupon_type");
 		// 代金券 礼品券 年卡 季卡
 		String type = request.getParameter("type");
-		// 获取工作室
 		String openid = request.getParameter("openid");
-		List<User> users = dao.getUser(openid);
-		String campus = users.get(0).getCampus();
-		String studio = users.get(0).getStudio();
+
+		// 获取工作室
+		String studio = null;
+		String campus = null;
+		if("4".equals(coupon_type)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			studio = restaurantUser.getRestaurant();
+			campus = restaurantUser.getRestaurant();
+		}else{
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			studio = user.getStudio();
+			campus = user.getCampus();
+		}
+
 
 		try {
 			GiftList giftList = new GiftList();
