@@ -7437,8 +7437,10 @@ public class LoginServiceImpl implements LoginService {
                 if(lessons.size() > 0){
                     status = "已报课";
                 }
+                String type = communicateRecord.getType();
 
                 //json
+                jsonObject.put("type", type);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
