@@ -1767,7 +1767,7 @@ public class LoginController {
 		try {
 			String studio = null;
 			String campus = null;
-			if("4".equals(coupon_type)){
+			if(4 == coupon_type){
 				List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 				RestaurantUser restaurantUser = restaurantUsers.get(0);
 				studio = restaurantUser.getRestaurant();
