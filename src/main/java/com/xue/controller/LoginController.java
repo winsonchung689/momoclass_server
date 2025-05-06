@@ -4257,13 +4257,14 @@ public class LoginController {
 				if(uuids_get != null){
 					if(uuids_get.length() > 5){
 						uuids = uuids_get + "," + uuids;
-						dao.updateCommunicateUuids(id,uuids);
+						communicateRecord.setUuids(uuids);
 					}else{
-						dao.updateCommunicateUuids(id,uuids);
+						communicateRecord.setUuids(uuids);
 					}
 				}else{
-					dao.updateCommunicateUuids(id,uuids);
+					communicateRecord.setUuids(uuids);
 				}
+				dao.updateCommunicateDetail(communicateRecord);
 			}else if("删除图片".equals(type)){
 				String uuids_get = communicateRecord.getUuids();
 				if(uuids_get != null){
@@ -4274,7 +4275,8 @@ public class LoginController {
 							list_new.add(result[i]);
 						}
 					}
-					dao.updateCommunicateUuids(id,list_new.toString().replace(" ","").replace("[","").replace("]",""));
+					communicateRecord.setUuids(list_new.toString().replace(" ","").replace("[","").replace("]",""));
+					dao.updateCommunicateDetail(communicateRecord);
 				}
 			}else if("电话".equals(type)){
 				communicateRecord.setPhone_number(content);
@@ -4286,6 +4288,9 @@ public class LoginController {
 					status_new = 0;
 				}
 				communicateRecord.setStatus(status_new);
+				dao.updateCommunicateDetail(communicateRecord);
+			}else if("类型".equals(type)){
+				communicateRecord.setType(content);
 				dao.updateCommunicateDetail(communicateRecord);
 			}
 
