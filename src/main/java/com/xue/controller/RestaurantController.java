@@ -88,7 +88,7 @@ public class RestaurantController {
 			}
 		}else {
 			restaurantService.insertRestaurantUser(restaurantUser);
-
+			// 赠券
 			if("no_id".equals(inviter_openid)){
 				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 				RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
