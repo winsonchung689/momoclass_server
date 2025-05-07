@@ -5735,7 +5735,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     // 向家长发送通知
-                    if(list_schedule.size() > 0 && weekDay > 0){
+                    if(list_schedule.size() > 0 && weekDay > 0 && !"no_id".equals(official_openid)){
                         for (int j = 0; j < list_schedule.size(); j++) {
                             Integer weekDay_ta = 0;
                             if(weekDay==1){
