@@ -3037,8 +3037,6 @@ public class LoginServiceImpl implements LoginService {
     public int updateUser(User user) {
         int result = 0;
         try {
-            String openid = user.getOpenid();
-            String nick_name = user.getNick_name();
             String studio = user.getStudio();
             String role = user.getRole();
 //            String md5 = DigestUtils.md5Hex(nick_name + studio);

@@ -1609,7 +1609,7 @@
 
   <!-- 更新工作室 -->
   <update id="updateUser" parameterType="com.xue.entity.model.User">
-    update user set studio=#{studio},campus=#{campus} where openid = #{openid} and delete_status = 0
+    update user set studio=#{studio},campus=#{campus},remind_type=#{remind_type},send_time=#{send_time},hours=#{hours} where openid = #{openid} and delete_status = 0
   </update>
 
   <update id="updateOpenidById" parameterType="com.xue.entity.model.User">
