@@ -164,8 +164,15 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String order_no = line.getOrder_no();
                 String order_img = line.getOrder_img();
                 int shop_status = line.getShop_status();
+                List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
+                Integer amount = 0;
+                if(wallets.size()>0){
+                    Wallet wallet = wallets.get(0);
+                    amount = wallet.getAmount();
+                }
 
                 //json
+                jsonObject.put("amount", amount);
                 jsonObject.put("shop_status", shop_status);
                 jsonObject.put("order_img", order_img);
                 jsonObject.put("food_image", food_image);
