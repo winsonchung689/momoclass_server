@@ -777,7 +777,7 @@ public class LoginController {
 						queryJson2.put("touser",official_openid_get);
 						queryJson2.getJSONObject("data").getJSONObject("thing1").put("value",studentname);
 						queryJson2.getJSONObject("data").getJSONObject("time3").put("value",remindDay + " " + duration.split("-")[0]);
-						queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number+"("+studio+")");
+						queryJson2.getJSONObject("data").getJSONObject("thing2").put("value", class_number);
 
 						System.out.println("json2:" + queryJson2.toJSONString());
 						result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
