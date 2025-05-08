@@ -5960,6 +5960,12 @@ public class LoginController {
 					// 判断课表
 					List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration,subject,campus);
 					if(arrangement_list.size() == 0){
+						int is_repeat = 0;
+						String repeat_week = "1,2,3,4,5,6,7";
+						if("transferred".equals(student_type)){
+							is_repeat = 1;
+							repeat_week = dayofweek.toString();
+						}
 						Arrangement arrangement =new Arrangement();
 						arrangement.setDayofweek(dayofweek.toString());
 						arrangement.setClass_number(class_number);
@@ -5968,11 +5974,11 @@ public class LoginController {
 						arrangement.setStudio(studio);
 						arrangement.setSubject(subject);
 						arrangement.setCampus(campus);
-						arrangement.setIs_repeat(0);
+						arrangement.setIs_repeat(is_repeat);
 						arrangement.setHours(hours);
 						arrangement.setRemind(1);
-						arrangement.setRepeat_duration("2025-01-01,2025-01-01");
-						arrangement.setRepeat_week("1,2,3,4,5,6,7");
+						arrangement.setRepeat_duration(add_date + "," + add_date);
+						arrangement.setRepeat_week(repeat_week);
 						arrangement.setClass_type(0);
 						loginService.insertArrangement(arrangement);
 						// 判断选课
