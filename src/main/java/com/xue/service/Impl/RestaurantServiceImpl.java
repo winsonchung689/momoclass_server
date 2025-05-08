@@ -295,9 +295,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List getRestaurantOrderByDay(String date_time) {
         List<JSONObject> resul_list = new ArrayList<>();
+        String start_time = date_time.split("_")[0];
+        String end_time = date_time.split("_")[1];
 
         try {
-            List<RestaurantOrder> list = dao.getRestaurantOrderByDay(date_time);
+            List<RestaurantOrder> list = dao.getRestaurantOrderByDay(start_time,end_time);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);

@@ -652,7 +652,7 @@ public interface UserMapper {
 
     List<RestaurantOrder> getRestaurantOrderByGoodsId(String goods_id,Integer group_by);
 
-    List<RestaurantOrder> getRestaurantOrderByDay(String date_time);
+    List<RestaurantOrder> getRestaurantOrderByDay(String start_time,String end_time);
 
     List<RestaurantOrderCm> getRestaurantOrderCmByOrderNo(String order_no);
 

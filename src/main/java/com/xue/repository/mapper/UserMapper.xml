@@ -1440,7 +1440,7 @@
 
 
   <select id="getRestaurantOrderByDay" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
-    select * from restaurant_order where date_format(create_time, '%Y-%m-%d') =#{param1} and delete_status = 0 order by create_time desc
+    select * from restaurant_order where date_format(create_time, '%Y-%m-%d') between #{param1} and #{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getRestaurantOrderCmByOrderNo" parameterType="com.xue.entity.model.RestaurantOrderCm" resultMap="BaseRestaurantOrderCm">
