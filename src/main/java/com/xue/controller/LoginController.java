@@ -5909,30 +5909,44 @@ public class LoginController {
 		Integer status = 1;
 		Integer dayofweek = 0;
 
-		if("ordinary".equals(student_type)){
-			if(weekofday.equals("星期1")){
+
+		if(weekofday.equals("星期1")){
+			if("ordinary".equals(student_type)){
 				add_date = "2022-05-02";
-				dayofweek = 1;
-			}else if(weekofday.equals("星期2")){
-				add_date = "2022-05-03";
-				dayofweek = 2;
-			}else if(weekofday.equals("星期3")){
-				add_date = "2022-05-04";
-				dayofweek = 3;
-			}else if(weekofday.equals("星期4")){
-				add_date = "2022-05-05";
-				dayofweek = 4;
-			}else if(weekofday.equals("星期5")){
-				add_date = "2022-05-06";
-				dayofweek = 5;
-			}else if(weekofday.equals("星期6")){
-				add_date = "2022-05-07";
-				dayofweek = 6;
-			}else if(weekofday.equals("星期7")){
-				add_date = "2022-05-08";
-				dayofweek = 7;
 			}
+			dayofweek = 1;
+		}else if(weekofday.equals("星期2")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-03";
+			}
+			dayofweek = 2;
+		}else if(weekofday.equals("星期3")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-04";
+			}
+			dayofweek = 3;
+		}else if(weekofday.equals("星期4")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-05";
+			}
+			dayofweek = 4;
+		}else if(weekofday.equals("星期5")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-06";
+			}
+			dayofweek = 5;
+		}else if(weekofday.equals("星期6")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-07";
+			}
+			dayofweek = 6;
+		}else if(weekofday.equals("星期7")){
+			if("ordinary".equals(student_type)){
+				add_date = "2022-05-08";
+			}
+			dayofweek = 7;
 		}
+
 
 		Schedule schedule =new Schedule();
 		List<String> list = Arrays.asList(student_name.split(" "));
