@@ -82,6 +82,15 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String member = line.getMember();
+                String inviter_openid = line.getInviter_openid();
+                List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(inviter_openid);
+                String inviter_name = "no_name";
+                String inviter_phone = "未录入";
+                if(restaurantUsers1.size()>0){
+                    RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+                    inviter_name = restaurantUser1.getNick_name();
+                    inviter_phone = restaurantUser1.getPhone_number();
+                }
 
                 //json
                 jsonObject.put("id", id);
@@ -98,6 +107,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("phone_number",phone_number);
                 jsonObject.put("location",location);
                 jsonObject.put("member",member);
+                jsonObject.put("inviter_name", inviter_name);
+                jsonObject.put("inviter_phone", inviter_phone);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
@@ -287,7 +298,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         try {
             List<RestaurantOrder> list = dao.getRestaurantOrderByDay(date_time);
-
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);
@@ -311,6 +321,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String nick_name = null;
                 String phone_number = null;
                 String location = null;
+                String inviter_openid = "no_id";
+                String inviter_name = "no_name";
+                String inviter_phone = "未录入";
                 String openid_get = line.getOpenid();
                 List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
                 if(restaurantUser_get.size()>0){
@@ -318,7 +331,15 @@ public class RestaurantServiceImpl implements RestaurantService {
                     nick_name = restaurantUser1.getNick_name();
                     phone_number = restaurantUser1.getPhone_number();
                     location = restaurantUser1.getLocation();
+                    inviter_openid = restaurantUser1.getInviter_openid();
+                    List<RestaurantUser> restaurantUsers_invite = dao.getRestaurantUser(inviter_openid);
+                    if(restaurantUsers_invite.size() > 0){
+                        RestaurantUser restaurantUser_invite = restaurantUsers_invite.get(0);
+                        inviter_name = restaurantUser_invite.getNick_name();
+                        inviter_phone = restaurantUser_invite.getPhone_number();
+                    }
                 }
+
                 String id = line.getId();
                 Float total_price = num * price ;
                 String goods_id = line.getGoods_id();
@@ -339,6 +360,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 //json
+                jsonObject.put("inviter_name", inviter_name);
+                jsonObject.put("inviter_phone", inviter_phone);
                 jsonObject.put("amount", amount);
                 jsonObject.put("shop_status", shop_status);
                 jsonObject.put("order_img", order_img);
