@@ -5863,7 +5863,7 @@ public class LoginController {
 	//	推送
 	@RequestMapping("/insertSchedule")
 	@ResponseBody
-	public String insertSchedule(HttpServletRequest request, HttpServletResponse response){
+	public synchronized String insertSchedule(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
