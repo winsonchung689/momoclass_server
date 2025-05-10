@@ -702,6 +702,9 @@ public class RestaurantController {
 			}else if("group_price".equals(type)){
 				menu.setGroup_price(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("group_limit".equals(type)){
+				menu.setGroup_limit(Integer.parseInt(content));
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

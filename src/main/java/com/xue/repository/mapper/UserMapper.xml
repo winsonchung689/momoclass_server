@@ -1737,7 +1737,7 @@
   </update>
 
   <update id="updateRestaurantMenu" parameterType="com.xue.entity.model.Menu">
-    update restaurant_menu set group_price=#{group_price},group_buy=#{group_buy},food_name=#{food_name},category=#{category},unit=#{unit},food_image=#{food_image},price=#{price},introduce=#{introduce},vuuid=#{vuuid} where id = #{id}
+    update restaurant_menu set group_limit=#{group_limit},group_price=#{group_price},group_buy=#{group_buy},food_name=#{food_name},category=#{category},unit=#{unit},food_image=#{food_image},price=#{price},introduce=#{introduce},vuuid=#{vuuid} where id = #{id}
   </update>
 
   <update id="deleteRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
