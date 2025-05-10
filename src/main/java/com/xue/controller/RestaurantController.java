@@ -82,11 +82,32 @@ public class RestaurantController {
 		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
 		if(restaurantUsers1.size()>0){
 			RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
-			String role_get = restaurantUser1.getRole();
-			if(!"boss".equals(role_get)){
+			String role = restaurantUser1.getRole();
+			String shop_history = restaurantUser1.getShop_history();
+			String nick_name = restaurantUser1.getNick_name();
+			String phone_number = restaurantUser1.getPhone_number();
+			String location = restaurantUser1.getLocation();
+			String logo = restaurantUser1.getLogo();
+			String inviter_openid_get = restaurantUser1.getInviter_openid();
+			if(!"boss".equals(role)){
+				String[] shop_history_list =shop_history.split(",");
+				List<String> shop_history_arrays = Arrays.asList(shop_history_list);
+				String shop_history_new = shop_history;
+				if(!shop_history_arrays.contains(restaurant)){
+					shop_history_new = shop_history + "," + restaurant;
+
+				}
+
+				restaurantUser.setShop_history(shop_history_new);
+				restaurantUser.setNick_name(nick_name);
+				restaurantUser.setPhone_number(phone_number);
+				restaurantUser.setLocation(location);
+				restaurantUser.setLogo(logo);
+				restaurantUser.setInviter_openid(inviter_openid_get);
 				dao.updateRestaurantByOpenid(restaurantUser);
 			}
 		}else {
+			restaurantUser.setShop_history(restaurant);
 			restaurantService.insertRestaurantUser(restaurantUser);
 			// 赠券
 			if(!"no_id".equals(inviter_openid)){

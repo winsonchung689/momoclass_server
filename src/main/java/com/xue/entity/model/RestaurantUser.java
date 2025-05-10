@@ -40,7 +40,17 @@ public class RestaurantUser {
 
     private String promise;
 
+    private String shop_history;
 
+
+
+    public String getShop_history() {
+        return shop_history;
+    }
+
+    public void setShop_history(String shop_history) {
+        this.shop_history = shop_history;
+    }
 
     public String getInviter_openid() {
         return inviter_openid;

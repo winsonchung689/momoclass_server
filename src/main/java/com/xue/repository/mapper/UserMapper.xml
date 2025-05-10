@@ -1335,7 +1335,7 @@
   </insert>
 
   <insert id="insertRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">
-    insert restaurant_user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time,phone_number,logo,inviter_openid) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time},#{phone_number},#{logo},#{inviter_openid})
+    insert restaurant_user(nick_name,role,openid,create_time,avatarurl,restaurant,expired_time,phone_number,logo,inviter_openid,shop_history) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{restaurant},#{expired_time},#{phone_number},#{logo},#{inviter_openid},#{shop_history})
   </insert>
 
   <insert id="insertCard" parameterType="com.xue.entity.model.Card">
@@ -1707,7 +1707,7 @@
 
   <!--  更新用户商店-->
   <update id="updateRestaurantByOpenid" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set restaurant=#{restaurant},nick_name=#{nick_name},role=#{role},phone_number=#{phone_number},logo=#{logo},expired_time=#{expired_time},delete_status=0 where openid = #{openid}
+    update restaurant_user set shop_history=#{shop_history},restaurant=#{restaurant},nick_name=#{nick_name},role=#{role},phone_number=#{phone_number},logo=#{logo},expired_time=#{expired_time},delete_status=0 where openid = #{openid}
   </update>
 
   <!--  更新订单状态-->
