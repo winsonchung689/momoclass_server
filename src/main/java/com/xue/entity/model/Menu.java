@@ -27,7 +27,17 @@ public class Menu {
 
     private Integer group_buy;
 
+    private Integer group_limit;
 
+
+
+    public Integer getGroup_limit() {
+        return group_limit;
+    }
+
+    public void setGroup_limit(Integer group_limit) {
+        this.group_limit = group_limit;
+    }
 
     public Integer getGroup_buy() {
         return group_buy;
