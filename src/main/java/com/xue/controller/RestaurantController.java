@@ -203,15 +203,16 @@ public class RestaurantController {
 			nick_name = "微信用户";
 		}
 
-		RestaurantUser restaurantUser = new RestaurantUser();
+
 		String role ="boss";
 		if(!"no_id".equals(id)){
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
-			restaurantUser = restaurantUsers.get(0);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			restaurant = restaurantUser.getRestaurant();
 			role = "client";
 		}
 
+		RestaurantUser restaurantUser = new RestaurantUser();
 		restaurantUser.setNick_name(nick_name);
 		restaurantUser.setPhone_number(phone_number);
 		restaurantUser.setRole(role);
@@ -221,8 +222,8 @@ public class RestaurantController {
 		restaurantUser.setExpired_time(expired_time);
 		restaurantUser.setLogo(uuid);
 
-		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
-		if(restaurantUsers1.size()>0){
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+		if(restaurantUsers.size()>0){
 			dao.updateRestaurantByOpenid(restaurantUser);
 		}else {
 			restaurantService.insertRestaurantUser(restaurantUser);
