@@ -188,7 +188,9 @@ public class RestaurantController {
 
 		String restaurant = request.getParameter("restaurant");
 		if(restaurant == null || restaurant.isEmpty() || "undefined".equals(restaurant)){
-			restaurant = "请录入商铺";
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid("ougOI60Jjf6PkDHSI0mJDQ_129YM");
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			restaurant = restaurantUser.getRestaurant();
 		}
 
 		String phone_number = request.getParameter("phone_number");
