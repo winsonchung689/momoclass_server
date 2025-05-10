@@ -610,10 +610,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 Integer days = line.getDays();
-
-
+                String shop_history = line.getShop_history();
 
                 //json
+                jsonObject.put("shop_history", shop_history);
                 jsonObject.put("boss_promise", boss_promise);
                 jsonObject.put("diff", diff);
                 jsonObject.put("days", days);
