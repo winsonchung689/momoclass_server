@@ -9714,7 +9714,7 @@ public class LoginServiceImpl implements LoginService {
                                             consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                         }
                                     }else if(is_combine_re == 1){
-                                        consume_lesson_re = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
+                                        consume_lesson_re = dao.getAllSignUpByStudentCombine(studio, campus, student_name_get);
                                         if(consume_lesson_re == null){
                                             consume_lesson_re = 0.0f;
                                         }
