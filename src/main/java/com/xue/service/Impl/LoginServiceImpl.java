@@ -9708,8 +9708,8 @@ public class LoginServiceImpl implements LoginService {
 
                                 if (!student_name.equals(student_name_get)) {
                                     Float consume_lesson_re = 0.0f;
-                                    List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
                                     if(is_combine_re == 0){
+                                        List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
                                         if (signUps1.size() > 0) {
                                             consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                         }
