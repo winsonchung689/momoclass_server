@@ -9681,7 +9681,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("请假数".equals(type)){
-                List<Leave> leaves = dao.getAnalyzeLeaveByMonth(studio,campus,weekday);
+                List<Leave> leaves = dao.getAnalyzeLeaveByYear(studio,campus,weekday);
                 for(int i=0;i< leaves.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Leave leave = leaves.get(i);
