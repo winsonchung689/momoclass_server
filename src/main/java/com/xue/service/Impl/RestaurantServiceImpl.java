@@ -434,8 +434,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer group_buy = line.getGroup_buy();
                 Float group_price = line.getGroup_price();
                 Integer group_limit = line.getGroup_limit();
+                String open_time = line.getOpen_time();
 
                 //json
+                jsonObject.put("open_time", open_time);
                 jsonObject.put("group_limit", group_limit);
                 jsonObject.put("category", category);
                 jsonObject.put("food_name", food_name);

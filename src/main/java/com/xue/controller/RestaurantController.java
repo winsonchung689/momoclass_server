@@ -705,6 +705,9 @@ public class RestaurantController {
 			}else if("group_limit".equals(type)){
 				menu.setGroup_limit(Integer.parseInt(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("open_time".equals(type)){
+				menu.setOpen_time(content);
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

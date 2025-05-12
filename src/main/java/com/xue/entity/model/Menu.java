@@ -29,7 +29,16 @@ public class Menu {
 
     private Integer group_limit;
 
+    private String open_time;
 
+
+    public String getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(String open_time) {
+        this.open_time = open_time;
+    }
 
     public Integer getGroup_limit() {
         return group_limit;
