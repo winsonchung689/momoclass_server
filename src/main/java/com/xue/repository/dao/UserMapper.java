@@ -121,7 +121,11 @@ public interface UserMapper {
 
     List<AnalyzeCount> getAnalyzeSignUpByMonthByStudent(String studio,String campus,String start_date,String end_date);
 
+    List<AnalyzeCount> getAnalyzeSignUpByYearByStudent(String studio,String campus,String start_date,String end_date);
+
     List<AnalyzeCount> getAnalyzeSignUpByMonthBySubject(String studio,String campus,String subject,String start_date,String end_date);
+
+    List<AnalyzeCount> getAnalyzeSignUpByYearBySubject(String studio,String campus,String subject,String start_date,String end_date);
 
     List<SignUp> getAnalyzeSignUpDetail(String studio,String campus,String create_time);
 
@@ -131,9 +135,15 @@ public interface UserMapper {
 
     List<SignUp> getAnalyzeSignUpDetailByMonth(String studio,String campus,String create_time);
 
+    List<SignUp> getAnalyzeSignUpDetailByYear(String studio,String campus,String create_time);
+
+    List<SignUp> getAnalyzeSignUpDetailByYearByStudent(String studio,String campus,String create_time,String student_name);
+
     List<SignUp> getAnalyzeSignUpDetailByMonthByStudent(String studio,String campus,String create_time,String student_name);
 
     List<SignUp> getAnalyzeSignUpDetailByMonthBySubject(String studio,String campus,String subject,String create_time,String student_name);
+
+    List<SignUp> getAnalyzeSignUpDetailByMYearBySubject(String studio,String campus,String subject,String create_time,String student_name);
 
     List<AnalyzeCount> getAnalyzeTry(String studio,String campus,String create_time);
 
@@ -143,9 +153,13 @@ public interface UserMapper {
 
     List<Leave> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
 
+    List<Leave> getAnalyzeLeaveByYear(String studio,String campus,String create_time);
+
     List<AnalyzeCount> getAnalyzePackage(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getAnalyzePackageByMonth(String studio,String campus,String create_time);
+
+    List<AnalyzeCount> getAnalyzePackageByYear(String studio,String campus,String create_time);
 
     List<BookCount> getBookByYear(String studio,String campus);
 
@@ -989,6 +1003,8 @@ public interface UserMapper {
     List<SignUp> getSignUpDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 
     List<Schedule> getTryDetailByMonthStudent(String studio,String date_time,String campus);
+
+    List<Schedule> getTryDetailByYearStudent(String studio,String date_time,String campus);
 
     List<Leave> getLeaveDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 

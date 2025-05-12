@@ -823,9 +823,16 @@
     select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} group by student_name
   </select>
 
-
   <select id="getAnalyzeSignUpByMonthByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param3} and #{param4} group by student_name
+  </select>
+
+  <select id="getAnalyzeSignUpByYearByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y') between #{param3} and #{param4} group by student_name
+  </select>
+
+  <select id="getAnalyzeSignUpByYearBySubject" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m') between #{param4} and #{param5} group by student_name
   </select>
 
   <select id="getAnalyzeSignUpByMonthBySubject" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
@@ -848,13 +855,26 @@
     select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3}  order by create_time desc
   </select>
 
+  <select id="getAnalyzeSignUpDetailByYear" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y')=#{param3}  order by create_time desc
+  </select>
+
   <select id="getAnalyzeSignUpDetailByMonthByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param3} and student_name=#{param4} order by create_time desc
+  </select>
+
+  <select id="getAnalyzeSignUpDetailByYearByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and  date_format(create_time, '%Y')=#{param3} and student_name=#{param4} order by create_time desc
   </select>
 
   <select id="getAnalyzeSignUpDetailByMonthBySubject" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and  date_format(create_time, '%Y-%m')=#{param4} and student_name=#{param5} order by create_time desc
   </select>
+
+  <select id="getAnalyzeSignUpDetailByMYearBySubject" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and  date_format(create_time, '%Y')=#{param4} and student_name=#{param5} order by create_time desc
+  </select>
+
 
   <select id="getAnalyzeTry" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select create_time,count(1) try_count from class_schedule where studio = #{param1} and campus =#{param2} and delete_status = 0 and is_try = 1 and create_time=#{param3}  group by create_time order by create_time desc
@@ -868,6 +888,10 @@
     select date_time create_time,count(1) leave_count from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_time=#{param3}  group by date_time order by date_time desc
   </select>
 
+  <select id="getAnalyzeLeaveByYear" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseLeave">
+    select *  from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time,'%Y')=#{param3}
+  </select>
+
   <select id="getAnalyzeLeaveByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseLeave">
     select *  from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time,'%Y-%m')=#{param3}
   </select>
@@ -878,6 +902,10 @@
 
   <select id="getAnalyzePackageByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select date_format(create_time,'%Y-%m') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y-%m')=#{param3} group by date_format(create_time,'%Y-%m')
+  </select>
+
+  <select id="getAnalyzePackageByYear" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
+    select date_format(create_time,'%Y') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y')=#{param3} group by date_format(create_time,'%Y')
   </select>
 
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
@@ -1203,6 +1231,10 @@
 
   <select id="getTryDetailByMonthStudent" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where delete_status = 0 and studio = #{param1} and date_format(create_time,'%Y-%m') =#{param2} and campus =#{param3} and is_try = 1 order by create_time
+  </select>
+
+  <select id="getTryDetailByYearStudent" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select * from class_schedule where delete_status = 0 and studio = #{param1} and date_format(create_time,'%Y') =#{param2} and campus =#{param3} and is_try = 1 order by create_time
   </select>
 
   <select id="getLeaveDetailByMonthStudent" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
