@@ -232,9 +232,18 @@ public class RestaurantServiceImpl implements RestaurantService {
                     nick_name = restaurantUser1.getNick_name();
                 }
                 String id = line.getId();
+                String goods_id = line.getGoods_id();
+                List<Menu> menus = dao.getRestaurantMenuById(goods_id);
+                String food_image = null;
+                if(menus.size()>0) {
+                    Menu menu = menus.get(0);
+                    food_image = menu.getFood_image();
+                }
+
 
 
                 //json
+                jsonObject.put("food_image", food_image);
                 jsonObject.put("id", id);
                 jsonObject.put("comment", comment);
                 jsonObject.put("uuids", uuids);
