@@ -347,8 +347,11 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String goods_id = line.getGoods_id();
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
                 String food_image = null;
+                String unit = null;
                 if(menus.size()>0) {
-                    food_image = menus.get(0).getFood_image();
+                    Menu menu = menus.get(0);
+                    food_image = menu.getFood_image();
+                    unit = menu.getUnit();
                 }
 
                 String order_no = line.getOrder_no();
@@ -362,6 +365,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 //json
+                jsonObject.put("unit", unit);
                 jsonObject.put("inviter_name", inviter_name);
                 jsonObject.put("inviter_phone", inviter_phone);
                 jsonObject.put("amount", amount);
