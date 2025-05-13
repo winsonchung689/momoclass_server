@@ -240,8 +240,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                     food_image = menu.getFood_image();
                 }
 
-
-
                 //json
                 jsonObject.put("food_image", food_image);
                 jsonObject.put("id", id);
