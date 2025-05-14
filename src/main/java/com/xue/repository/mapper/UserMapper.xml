@@ -1160,7 +1160,7 @@
   </select>
 
   <select id="getGiftListById" parameterType="com.xue.entity.model.GiftList" resultMap="BaseGiftList">
-    select * from gift_list where delete_status = 0 and id = #{param1} order by create_time desc
+    select * from gift_list where id = #{param1}
   </select>
 
   <!-- 按课包id查找签到记录 -->
@@ -1170,7 +1170,7 @@
 
   <!-- 按id查找签到记录 -->
   <select id="getSignUpById" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    select * from sign_up_record where id =#{param1} and delete_status = 0
+    select * from sign_up_record where id = #{param1}
   </select>
 
   <!-- 查找全部签到记录 -->
