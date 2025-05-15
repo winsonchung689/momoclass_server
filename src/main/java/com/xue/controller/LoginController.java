@@ -7677,7 +7677,9 @@ public class LoginController {
 				lessonPackage.setNick_name(nick_name);
 				dao.insertLessonPackage(lessonPackage);
 
-				if(lesson.getTotal_amount() - lesson.getLeft_amount() > 0.0f){
+				// 插入录前消课
+				Float count = lesson.getTotal_amount() - lesson.getLeft_amount();
+				if(count > 0.0f){
 					SignUp signUp = new SignUp();
 					signUp.setStudio(studio);
 					signUp.setSign_time(create_time);
@@ -7692,8 +7694,10 @@ public class LoginController {
 					signUp.setSubject(subject);
 					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
 					if(signUps_list.size()==0){
-						signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
+						signUp.setCount(count);
 						loginService.insertSignUp(signUp);
+					}else{
+						dao.updateSignUpByBacth(count,studio,student_name,subject,campus);
 					}
 				}
 			}
