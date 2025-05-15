@@ -6211,7 +6211,7 @@ public class LoginServiceImpl implements LoginService {
 
                     // 时间内的实际出勤数
                     List<SignUp> signUps = dao.getSignUpByBetween(student_name,studio,campus,subject,date_start,date_end);
-                    Integer all_ups = signUps.size();
+                    Integer all_up = signUps.size();
 
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);
@@ -6224,7 +6224,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("count", count);
                     jsonObject.put("all_count", all_count);
                     jsonObject.put("price", df1.format(price));
-                    jsonObject.put("all_ups", all_ups);
+                    jsonObject.put("all_up", all_up);
                     if(student_name.length() >0){
                         if("全部".equals(class_number)){
                             resul_list.add(jsonObject);
