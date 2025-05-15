@@ -140,10 +140,10 @@ public class WechatPayController {
 
 	@RequestMapping("/getWalletByStudio")
 	@ResponseBody
-	public List getWalletByStudio(String studio,String appid){
+	public List getWalletByStudio(String studio,String appid,String duration){
 		List list = null;
 		try {
-			list = wechatPayService.getWalletByStudio(studio,appid);
+			list = wechatPayService.getWalletByStudio(studio,appid,duration);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

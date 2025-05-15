@@ -636,7 +636,7 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantUserByOpenid(String openid);
 
-    List<Wallet> getWalletByStudio(String studio,String appid);
+    List<Wallet> getWalletByStudio(String studio,String appid,String start_time,String end_time);
 
     List<RestaurantUser> getRestaurantUserById(String id);
 
