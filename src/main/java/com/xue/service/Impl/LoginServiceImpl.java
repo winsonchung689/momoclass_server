@@ -6222,7 +6222,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("create_time", create_time);
                     jsonObject.put("mark", mark);
                     jsonObject.put("count", count);
-                    jsonObject.put("all_count", all_count);
+                    jsonObject.put("all_count", Math.round(all_count));
                     jsonObject.put("price", df1.format(price));
                     jsonObject.put("all_up", all_up);
                     if(student_name.length() >0){
