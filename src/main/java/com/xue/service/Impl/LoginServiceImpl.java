@@ -6199,13 +6199,19 @@ public class LoginServiceImpl implements LoginService {
                     //计算应出勤
                     List<Schedule> schedules = dao.getScheduleByStudent(studio,campus,subject,student_name);
                     int week_count = schedules.size();
+                    // 单天平均
                     double day_count  =  (double) week_count/7;
-                    // 日期差
+
+                    // 日期内的应出勤数
                     Date date1 = sdf.parse(date_start);
                     Date date2 = sdf.parse(date_end);
                     long diff = date2.getTime() - date1.getTime();
                     long days = diff / (1000 * 60 * 60 * 24);
                     double all_count = day_count * Math.round(days);
+
+                    // 时间内的实际出勤数
+                    List<SignUp> signUps = dao.getSignUpByBetween(student_name,studio,campus,subject,date_start,date_end);
+                    Integer all_ups = signUps.size();
 
                     jsonObject.put("studio", studio);
                     jsonObject.put("subject", subject);
@@ -6218,6 +6224,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("count", count);
                     jsonObject.put("all_count", all_count);
                     jsonObject.put("price", df1.format(price));
+                    jsonObject.put("all_ups", all_ups);
                     if(student_name.length() >0){
                         if("全部".equals(class_number)){
                             resul_list.add(jsonObject);
