@@ -205,7 +205,7 @@ public interface LoginService {
 
     public List getBookUser(String openid);
 
-    public List getBBookDetail(String openid,String date_time,String book_name);
+    public List getBBookDetail(String openid,String duration,String book_name);
 
     public List getUserByNickName(String nickName);
 

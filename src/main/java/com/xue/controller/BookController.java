@@ -103,10 +103,10 @@ public class BookController {
 
 	@RequestMapping("/getBBookDetail")
 	@ResponseBody
-	public List getBBookDetail(String openid,String date_time,String book_name){
+	public List getBBookDetail(String openid,String duration,String book_name){
 		List list = null;
 		try {
-			list = loginService.getBBookDetail(openid,date_time,book_name);
+			list = loginService.getBBookDetail(openid,duration,book_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

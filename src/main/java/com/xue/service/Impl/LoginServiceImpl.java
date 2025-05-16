@@ -3770,24 +3770,15 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getBBookDetail(String openid,String date_time,String book_name) {
+    public List getBBookDetail(String openid,String duration,String book_name) {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer consume = 0;
 
         try {
-            consume = dao.getBookSumByMonth(openid,book_name,date_time.substring(0,7));
-            if(consume == null){
-                consume = 0;
-            }
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("consume", consume);
-            resul_list.add(jsonObject);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            list = dao.getBBookDetail(openid,date_time,book_name);
+            String start_date = duration.split("_")[0];
+            String end_date = duration.split("_")[1];
+
+            list = dao.getBBookDetail(openid,start_date,end_date,book_name);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 BookDetail line = list.get(i);
