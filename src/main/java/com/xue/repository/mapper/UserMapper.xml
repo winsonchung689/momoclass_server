@@ -1894,7 +1894,7 @@
   </insert>
 
   <insert id="insertRestaurantMenu" parameterType="com.xue.entity.model.Menu">
-    insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time})
+    insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time,unit) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time},#{unit})
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">

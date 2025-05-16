@@ -305,6 +305,7 @@ public class RestaurantController {
 		String category = request.getParameter("category");
 		String introduce = request.getParameter("introduce");
 		String price = request.getParameter("price");
+		String unit = request.getParameter("unit");
 
 
 		Menu menu =new Menu();
@@ -315,6 +316,7 @@ public class RestaurantController {
 		menu.setIntroduce(introduce);
 		menu.setPrice(Float.parseFloat(price));
 		menu.setCreate_time(create_time);
+		menu.setUnit(unit);
 		try {
 			dao.insertRestaurantMenu(menu);
 		} catch (Exception e) {
