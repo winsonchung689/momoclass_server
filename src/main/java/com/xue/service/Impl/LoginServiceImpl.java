@@ -3778,7 +3778,7 @@ public class LoginServiceImpl implements LoginService {
             String start_date = duration.split("_")[0];
             String end_date = duration.split("_")[1];
 
-            list = dao.getBBookDetail(openid,start_date,end_date,book_name);
+            list = dao.getBBookDetail(start_date,end_date,book_name);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 BookDetail line = list.get(i);
