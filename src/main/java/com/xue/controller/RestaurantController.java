@@ -350,6 +350,7 @@ public class RestaurantController {
 			shippingFee.setAdditional_weight(Integer.parseInt(additional_weight));
 			shippingFee.setPreservation_fee(Integer.parseInt(preservation_fee));
 			shippingFee.setRestaurant(restaurant);
+			shippingFee.setCreate_time(create_time);
 
 			dao.insertShippingFee(shippingFee);
 		} catch (Exception e) {
