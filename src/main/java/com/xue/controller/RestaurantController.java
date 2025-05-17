@@ -484,6 +484,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantUserAll")
+	@ResponseBody
+	public List getRestaurantUserAll(String restaurant){
+		List list = null;
+		try {
+			list = dao.getRestaurantShippingFee(restaurant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/deleteRestaurantUser")
 	@ResponseBody
 	public int deleteRestaurantUser(Integer id){

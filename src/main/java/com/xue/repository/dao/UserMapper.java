@@ -333,7 +333,6 @@ public interface UserMapper {
 
     void deleteUser(Integer id);
 
-
     void deleteShippingFee(Integer id);
 
     void deleteAlbum(Integer id);
@@ -638,6 +637,8 @@ public interface UserMapper {
     List<CardRecord> getCardRecord(String student_name,String card_id,String studio,String campus,String subject);
 
     List<RestaurantUser> getRestaurantUser(String openid);
+
+    List<ShippingFee> getRestaurantShippingFee(String restaurant);
 
     List<RestaurantUser> getRestaurantUserByOpenid(String openid);
 
