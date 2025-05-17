@@ -484,9 +484,9 @@ public class RestaurantController {
 		return list;
 	}
 
-	@RequestMapping("/getRestaurantUserAll")
+	@RequestMapping("/getRestaurantShippingFee")
 	@ResponseBody
-	public List getRestaurantUserAll(String restaurant){
+	public List getRestaurantShippingFee(String restaurant){
 		List list = null;
 		try {
 			list = dao.getRestaurantShippingFee(restaurant);
