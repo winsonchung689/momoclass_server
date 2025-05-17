@@ -212,6 +212,8 @@ public interface UserMapper {
     //插入
     int insertBook(Book book);
 
+    int insertShippingFee(ShippingFee shippingFee);
+
     int insertWallet(Wallet wallet);
 
     int insertWebsite(Website website);
@@ -330,6 +332,9 @@ public interface UserMapper {
     void deleteNotice(Integer id);
 
     void deleteUser(Integer id);
+
+
+    void deleteShippingFee(Integer id);
 
     void deleteAlbum(Integer id);
 

@@ -133,7 +133,9 @@
   <resultMap id="BaseWallet" type="com.xue.entity.model.Wallet">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
-
+  <resultMap id="BaseShippingFee" type="com.xue.entity.model.ShippingFee">
+    <result column="region" jdbcType="VARCHAR" property="region" />
+  </resultMap>
 
   <!-- 获取全部appid商户 -->
   <select id="getMerchantByAppid" parameterType="com.xue.entity.model.Merchant" resultMap="BaseMerchant">
@@ -382,6 +384,11 @@
   <!-- 删除详情 -->
   <select id="deleteUser" parameterType="com.xue.entity.model.User" resultMap="BaseResultMap">
     update user set delete_status = 1 where id = #{param1};
+  </select>
+
+  <!-- 删除运费-->
+  <select id="deleteShippingFee" parameterType="com.xue.entity.model.ShippingFee" resultMap="BaseShippingFee">
+    update shipping_fee set delete_status = 1 where id = #{param1};
   </select>
 
   <!-- 删除相册 -->
@@ -925,6 +932,11 @@
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
   </insert>
 
+  <!-- 插入账运费 -->
+  <insert id="insertShippingFee" parameterType="com.xue.entity.model.ShippingFee">
+    insert shipping_fee(region,first_weight_1,first_weight_2,first_weight_5,additional_weight,preservation_fee,create_time,restaurant) values(#{region},#{first_weight_1},#{first_weight_2},#{first_weight_5},#{additional_weight},#{preservation_fee},#{create_time},#{restaurant})
+  </insert>
+
   <!-- 插入交易记录 -->
   <insert id="insertWallet" parameterType="com.xue.entity.model.Wallet">
     insert wallet(order_no,studio,campus,amount,create_time,type,appid,rate,status,description,is_client) values(#{order_no},#{studio},#{campus},#{amount},#{create_time},#{type},#{appid},#{rate},#{status},#{description},#{is_client})
@@ -1404,6 +1416,10 @@
 
   <select id="getRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
+  </select>
+
+  <select id="getRestaurantShippingFee" parameterType="com.xue.entity.model.ShippingFee" resultMap="BaseShippingFee">
+    select * from shipping_fee where restaurant =#{param1} and delete_status = 0 order by region
   </select>
 
   <select id="getRestaurantUserByOpenid" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">

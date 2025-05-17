@@ -326,6 +326,39 @@ public class RestaurantController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertShippingFee")
+	@ResponseBody
+	public String insertShippingFee(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String region = request.getParameter("region");
+		String first_weight_1 = request.getParameter("first_weight_1");
+		String first_weight_2 = request.getParameter("first_weight_2");
+		String first_weight_5 = request.getParameter("first_weight_5");
+		String additional_weight = request.getParameter("additional_weight");
+		String preservation_fee = request.getParameter("preservation_fee");
+		String restaurant = request.getParameter("restaurant");
+
+		try {
+
+			ShippingFee shippingFee =new ShippingFee();
+			shippingFee.setRegion(region);
+			shippingFee.setFirst_weight_1(Integer.parseInt(first_weight_1));
+			shippingFee.setFirst_weight_2(Integer.parseInt(first_weight_2));
+			shippingFee.setFirst_weight_5(Integer.parseInt(first_weight_5));
+			shippingFee.setAdditional_weight(Integer.parseInt(additional_weight));
+			shippingFee.setPreservation_fee(Integer.parseInt(preservation_fee));
+			shippingFee.setRestaurant(restaurant);
+
+			dao.insertShippingFee(shippingFee);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/insertRestaurantOrder")
 	@ResponseBody
 	public String insertRestaurantOrder(HttpServletRequest request, HttpServletResponse response){
@@ -456,6 +489,18 @@ public class RestaurantController {
 	public int deleteRestaurantUser(Integer id){
 		try {
 			dao.deleteRestaurantUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	@RequestMapping("/deleteShippingFee")
+	@ResponseBody
+	public int deleteShippingFee(Integer id){
+		try {
+			dao.deleteShippingFee(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
