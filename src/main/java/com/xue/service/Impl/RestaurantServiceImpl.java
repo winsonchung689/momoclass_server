@@ -151,7 +151,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }else if(status == 3){
                     status_cn = "已退款";
                 }
-
                 String nick_name = null;
                 String phone_number = null;
                 String location = null;
@@ -167,7 +166,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Float total_price = num * price ;
                 String goods_id = line.getGoods_id();
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
-
                 String food_image = null;
                 if(menus.size()>0) {
                     food_image = menus.get(0).getFood_image();
@@ -181,8 +179,12 @@ public class RestaurantServiceImpl implements RestaurantService {
                     Wallet wallet = wallets.get(0);
                     amount = wallet.getAmount();
                 }
+                String region = line.getRegion();
+                Float shipping_fee = line.getShipping_fee();
 
                 //json
+                jsonObject.put("region", region);
+                jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("amount", amount);
                 jsonObject.put("shop_status", shop_status);
                 jsonObject.put("order_img", order_img);
@@ -371,7 +373,12 @@ public class RestaurantServiceImpl implements RestaurantService {
                     amount = wallet.getAmount();
                 }
 
+                String region = line.getRegion();
+                Float shipping_fee = line.getShipping_fee();
+
                 //json
+                jsonObject.put("region", region);
+                jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("unit", unit);
                 jsonObject.put("inviter_name", inviter_name);
                 jsonObject.put("inviter_phone", inviter_phone);
