@@ -33,6 +33,27 @@ public class RestaurantOrder {
 
     private int shop_status;
 
+    private String region;
+
+    private Float shipping_fee;
+
+
+
+    public Float getShipping_fee() {
+        return shipping_fee;
+    }
+
+    public void setShipping_fee(Float shipping_fee) {
+        this.shipping_fee = shipping_fee;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     public int getShop_status() {
         return shop_status;

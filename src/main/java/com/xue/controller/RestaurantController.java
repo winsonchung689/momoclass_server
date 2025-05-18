@@ -378,6 +378,8 @@ public class RestaurantController {
 		if(group_buy == null || group_buy.isEmpty() || "undefined".equals(group_buy)){
 			group_buy = "0";
 		}
+		String region = request.getParameter("region");
+		String shipping_fee = request.getParameter("shipping_fee");
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
@@ -390,6 +392,8 @@ public class RestaurantController {
 		restaurantOrder.setGoods_id(goods_id);
 		restaurantOrder.setOrder_no(order_no);
 		restaurantOrder.setGroup_buy(Integer.parseInt(group_buy));
+		restaurantOrder.setRegion(region);
+		restaurantOrder.setShipping_fee(Float.parseFloat(shipping_fee));
 		try {
 			dao.insertRestaurantOrder(restaurantOrder);
 

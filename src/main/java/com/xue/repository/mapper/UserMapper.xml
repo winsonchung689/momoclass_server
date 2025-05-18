@@ -1918,7 +1918,7 @@
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
-    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy})
+    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee})
   </insert>
 
   <insert id="insertRestaurantOrderCm" parameterType="com.xue.entity.model.RestaurantOrderCm">
