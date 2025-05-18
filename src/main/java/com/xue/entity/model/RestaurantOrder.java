@@ -37,16 +37,16 @@ public class RestaurantOrder {
 
     private Float shipping_fee;
 
-    private String discount_str;
+    private String discount_ids;
 
 
 
-    public String getDiscount_str() {
-        return discount_str;
+    public String getDiscount_ids() {
+        return discount_ids;
     }
 
-    public void setDiscount_str(String discount_str) {
-        this.discount_str = discount_str;
+    public void setDiscount_ids(String discount_ids) {
+        this.discount_ids = discount_ids;
     }
 
     public Float getShipping_fee() {
