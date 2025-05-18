@@ -380,6 +380,7 @@ public class RestaurantController {
 		}
 		String region = request.getParameter("region");
 		String shipping_fee = request.getParameter("shipping_fee");
+		String discount_str = request.getParameter("discount_str");
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
@@ -394,6 +395,8 @@ public class RestaurantController {
 		restaurantOrder.setGroup_buy(Integer.parseInt(group_buy));
 		restaurantOrder.setRegion(region);
 		restaurantOrder.setShipping_fee(Float.parseFloat(shipping_fee));
+		restaurantOrder.setDiscount_str(discount_str);
+
 		try {
 			dao.insertRestaurantOrder(restaurantOrder);
 
