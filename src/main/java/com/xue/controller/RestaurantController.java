@@ -379,7 +379,13 @@ public class RestaurantController {
 			group_buy = "0";
 		}
 		String region = request.getParameter("region");
+		if(region == null || region.isEmpty() || "undefined".equals(region)){
+			region = "未录入";
+		}
 		String shipping_fee = request.getParameter("shipping_fee");
+		if(shipping_fee == null || shipping_fee.isEmpty() || "undefined".equals(shipping_fee)){
+			shipping_fee = "0";
+		}
 		String discount_ids = request.getParameter("discount_ids");
 		if(discount_ids == null || discount_ids.isEmpty() || "undefined".equals(discount_ids)){
 			discount_ids = "no_id";
