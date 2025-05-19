@@ -191,8 +191,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                         Gift gift = gifts.get(0);
                         String gift_name = gift.getGift_name();
                         Float gift_price = gift.getPrice();
-                        coupons.append(gift_name + ":" + gift_price);
-                        coupons.append(";");
+                        coupons.append(gift_name + "：" + gift_price);
+                        coupons.append("；");
                     }
                 }
 
@@ -400,8 +400,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                         Gift gift = gifts.get(0);
                         String gift_name = gift.getGift_name();
                         Float gift_price = gift.getPrice();
-                        coupons.append(gift_name + ":" + gift_price);
-                        coupons.append(";");
+                        coupons.append(gift_name + "：" + gift_price);
+                        coupons.append("；");
                     }
                 }
 
@@ -578,8 +578,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                         Gift gift = gifts.get(0);
                         String gift_name = gift.getGift_name();
                         Float gift_price = gift.getPrice();
-                        coupons.append(gift_name + ":" + gift_price);
-                        coupons.append(";");
+                        coupons.append(gift_name + "：" + gift_price);
+                        coupons.append("；");
                     }
 
                 }
