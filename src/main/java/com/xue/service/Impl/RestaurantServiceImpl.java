@@ -381,11 +381,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                 for(int j=0;j<discount_ids_list.length;j++){
                     String gift_id = discount_ids_list[j];
                     List<Gift> gifts = dao.getGiftById(gift_id);
-                    Gift gift = gifts.get(0);
-                    String gift_name = gift.getGift_name();
-                    Float gift_price = gift.getPrice();
-                    coupons.append(gift_name + ":" + gift_price);
-                    coupons.append(";");
+                    if(gifts.size()>0){
+                        Gift gift = gifts.get(0);
+                        String gift_name = gift.getGift_name();
+                        Float gift_price = gift.getPrice();
+                        coupons.append(gift_name + ":" + gift_price);
+                        coupons.append(";");
+                    }
                 }
 
                 //json
@@ -557,11 +559,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                 for(int j=0;j<discount_ids_list.length;j++){
                     String gift_id = discount_ids_list[j];
                     List<Gift> gifts = dao.getGiftById(gift_id);
-                    Gift gift = gifts.get(0);
-                    String gift_name = gift.getGift_name();
-                    Float gift_price = gift.getPrice();
-                    coupons.append(gift_name + ":" + gift_price);
-                    coupons.append(";");
+                    if(gifts.size()>0){
+                        Gift gift = gifts.get(0);
+                        String gift_name = gift.getGift_name();
+                        Float gift_price = gift.getPrice();
+                        coupons.append(gift_name + ":" + gift_price);
+                        coupons.append(";");
+                    }
+
                 }
 
 
