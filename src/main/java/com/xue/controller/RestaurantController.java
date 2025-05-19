@@ -381,6 +381,9 @@ public class RestaurantController {
 		String region = request.getParameter("region");
 		String shipping_fee = request.getParameter("shipping_fee");
 		String discount_ids = request.getParameter("discount_ids");
+		if(discount_ids == null || discount_ids.isEmpty() || "undefined".equals(discount_ids)){
+			discount_ids = "no_id";
+		}
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
