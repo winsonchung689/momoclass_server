@@ -181,8 +181,23 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
                 String region = line.getRegion();
                 Float shipping_fee = line.getShipping_fee();
+                String discount_ids = line.getDiscount_ids();
+                String[] discount_ids_list = discount_ids.split(",");
+                StringBuffer coupons = new StringBuffer();
+                for(int j=0;j<discount_ids_list.length;j++){
+                    String gift_id = discount_ids_list[j];
+                    List<Gift> gifts = dao.getGiftById(gift_id);
+                    if(gifts.size()>0){
+                        Gift gift = gifts.get(0);
+                        String gift_name = gift.getGift_name();
+                        Float gift_price = gift.getPrice();
+                        coupons.append(gift_name + ":" + gift_price);
+                        coupons.append(";");
+                    }
+                }
 
                 //json
+                jsonObject.put("coupons", coupons);
                 jsonObject.put("region", region);
                 jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("amount", amount);
