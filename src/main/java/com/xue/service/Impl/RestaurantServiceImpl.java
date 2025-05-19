@@ -375,8 +375,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 
                 String region = line.getRegion();
                 Float shipping_fee = line.getShipping_fee();
+                String discount_ids = line.getDiscount_ids();
+                String[] discount_ids_list = discount_ids.split(",");
+                StringBuffer coupons = new StringBuffer();
+                for(int j=0;j<discount_ids_list.length;j++){
+                    String gift_id = discount_ids_list[j];
+                    List<Gift> gifts = dao.getGiftById(gift_id);
+                    Gift gift = gifts.get(0);
+                    String gift_name = gift.getGift_name();
+                    Float gift_price = gift.getPrice();
+                    coupons.append(gift_name + ":" + gift_price);
+                    coupons.append(";");
+                }
 
                 //json
+                jsonObject.put("coupons", coupons);
                 jsonObject.put("region", region);
                 jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("unit", unit);
@@ -538,8 +551,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 
                 String order_no = line.getOrder_no();
                 String order_img = line.getOrder_img();
+                String discount_ids = line.getDiscount_ids();
+                String[] discount_ids_list = discount_ids.split(",");
+                StringBuffer coupons = new StringBuffer();
+                for(int j=0;j<discount_ids_list.length;j++){
+                    String gift_id = discount_ids_list[j];
+                    List<Gift> gifts = dao.getGiftById(gift_id);
+                    Gift gift = gifts.get(0);
+                    String gift_name = gift.getGift_name();
+                    Float gift_price = gift.getPrice();
+                    coupons.append(gift_name + ":" + gift_price);
+                    coupons.append(";");
+                }
+
 
                 //json
+                jsonObject.put("coupons", coupons);
                 jsonObject.put("order_img", order_img);
                 jsonObject.put("food_image", food_image);
                 jsonObject.put("food_name", food_name);
