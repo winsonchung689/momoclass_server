@@ -224,7 +224,6 @@ public class RestaurantController {
 			nick_name = "微信用户";
 		}
 
-
 		String role ="boss";
 		if(!"no_id".equals(id)){
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
