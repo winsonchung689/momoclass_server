@@ -1,6 +1,7 @@
 package com.xue.util;
 
-import com.wechat.pay.java.core.util.PemUtil;
+import com.wechat.pay.contrib.apache.httpclient.util.PemUtil;
+import com.xue.config.Constants;
 import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.util.Base64Utils;
 
@@ -8,6 +9,8 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
@@ -33,9 +36,9 @@ public class WechatPayUtil {
     public static String generateSignature(String signatureStr,String privateKeyPath){
 
         try {
-            PrivateKey merchantPrivatekey = PemUtil.loadPrivateKeyFromPath(privateKeyPath);
+            PrivateKey privateKey = PemUtil.loadPrivateKey(new FileInputStream(privateKeyPath));
             Signature signature = Signature.getInstance("SHA256withRSA");
-            signature.initSign(merchantPrivatekey);
+            signature.initSign(privateKey);
             signature.update(signatureStr.getBytes(StandardCharsets.UTF_8));
             return Base64Utils.encodeToString(signature.sign());
         } catch (NoSuchAlgorithmException e) {
@@ -43,6 +46,8 @@ public class WechatPayUtil {
         } catch (InvalidKeyException e) {
             throw new RuntimeException(e);
         } catch (SignatureException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
