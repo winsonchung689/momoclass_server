@@ -268,7 +268,7 @@ public class HttpUtil {
         String url= "https://api.mch.weixin.qq.com/v3/applyment4sub/applyment/applyment_id/" + applyment_id;
         long timestamp = System.currentTimeMillis()/1000;
         String nonce_str = WechatPayUtil.generateNonceStr();
-        String orgSignText = "POST\n"
+        String orgSignText = "GET\n"
                 + "/v3/applyment4sub/applyment/\n"
                 + timestamp + "\n"
                 + nonce_str + "\n"
