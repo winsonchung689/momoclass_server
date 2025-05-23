@@ -280,7 +280,6 @@ public class HttpUtil {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 创建httppost
         HttpGet httpGet = new HttpGet(url);
-
         httpGet.setHeader("Accept","application/json");
         httpGet.setHeader("Authorization", auth);
 
