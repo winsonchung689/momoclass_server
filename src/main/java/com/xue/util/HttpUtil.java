@@ -179,12 +179,14 @@ public class HttpUtil {
         HttpPost httpPost = new HttpPost (url);
 
         StringEntity entity = new StringEntity(body,"UTF-8");
+        entity.setContentEncoding("UTF-8");
         entity.setContentType("application/json");
-        httpPost.setEntity(entity);
+
         httpPost.setHeader("Accept","application/json");
         httpPost.setHeader("Content-Type","application/json");
-        httpPost.setHeader("Wechatpay-Serial", Constants.SER_PUBLIC_KEY_ID);
+        httpPost.setHeader("Wechatpay-Serial", Constants.SER_MC_SERIAL_NO);
         httpPost.setHeader("Authorization", auth);
+        httpPost.setEntity(entity);
 
         String applyment_id = null;
         CloseableHttpResponse response = httpClient.execute(httpPost);
