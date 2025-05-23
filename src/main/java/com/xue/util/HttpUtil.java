@@ -174,7 +174,7 @@ public class HttpUtil {
 
         String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
 
-        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.SER_MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
+        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -225,8 +225,8 @@ public class HttpUtil {
         String media_id = null;
         try {
             PrivateKey merchantPrivateKey = PemUtil.loadPrivateKey(new FileInputStream(Constants.SER_PRIVATE_KEY_FROM_PATH));
-            String mchSerialNo = Constants.SER_MC_SERIAL_NO;
-            String mch_id = Constants.SER_MCH_ID;
+            String mchSerialNo = Constants.MC_SERIAL_NO;
+            String mch_id = Constants.MCH_ID;
             String apiV3key = Constants.API_V3_KEY;
 
             //使用自动更新的签名验证器，不需要传入证书
