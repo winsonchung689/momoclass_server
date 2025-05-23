@@ -13,6 +13,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -261,32 +262,29 @@ public class HttpUtil {
         return media_id;
     }
 
-    public static String updateMerchantStatus(String body) throws URISyntaxException, IOException {
+    public static String updateMerchantStatus(String applyment_id) throws URISyntaxException, IOException {
         String applyment_state_msg = null;
 
-        String url= "https://api.mch.weixin.qq.com/v3/applyment4sub/applyment/applyment_id/";
+        String url= "https://api.mch.weixin.qq.com/v3/applyment4sub/applyment/applyment_id/" + applyment_id;
         long timestamp = System.currentTimeMillis()/1000;
         String nonce_str = WechatPayUtil.generateNonceStr();
         String orgSignText = "POST\n"
                 + "/v3/applyment4sub/applyment/\n"
                 + timestamp + "\n"
                 + nonce_str + "\n"
-                + body + "\n";
+                + applyment_id + "\n";
         String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
         String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 创建httppost
-        HttpPost httpPost = new HttpPost (url);
+        HttpGet httpGet = new HttpGet(url);
 
-        StringEntity entity = new StringEntity(body,"UTF-8");
-        entity.setContentType("application/json");
-        httpPost.setEntity(entity);
-        httpPost.setHeader("Accept","application/json");
-        httpPost.setHeader("Authorization", auth);
+        httpGet.setHeader("Accept","application/json");
+        httpGet.setHeader("Authorization", auth);
 
-        CloseableHttpResponse response = httpClient.execute(httpPost);
+        CloseableHttpResponse response = httpClient.execute(httpGet);
         System.out.println(response);
 
         try {
@@ -296,7 +294,7 @@ public class HttpUtil {
                 JSONObject object = JSONObject.parseObject(EntityUtils.toString(response.getEntity()));
                 System.out.printf(response.getEntity().toString());
                 applyment_state_msg = object.getString("applyment_state_msg");
-                System.out.println("suceess,resp code =" + statusCode + ",return body =" + body);
+                System.out.println("suceess,resp code =" + statusCode + ",return applyment_state_msg =" + applyment_state_msg);
             }else if(statusCode == 204){
                 System.out.println("suceess,return body =" + statusCode);
             }else {

@@ -318,6 +318,21 @@ public class WechatPayController {
 
 		return result;
 	}
+
+	@RequestMapping("/updateMerchantStatus")
+	@ResponseBody
+	public String updateMerchantStatus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		String applyment_id = request.getParameter("applyment_id");
+		String result = null;
+		try {
+			result = HttpUtil.updateMerchantStatus(applyment_id);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+
+		return result;
+	}
 }
 	
 	
