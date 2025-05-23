@@ -46,6 +46,10 @@ public class Constants {
     // 微信支付公钥ID
     public static final  String PUBLIC_KEY_ID ="PUB_KEY_ID_0117104857652025031400189800000640";
 
+    // 商户号
+    public static final  String MCH_ID ="1710485765";
+
+
     //////////////////  服务商平台 /////////////////////////
     // 服务商序列号
     public static final String SER_MC_SERIAL_NO = "1823B0344E3E2FF41499D018080F7E226DB56806";
@@ -59,8 +63,8 @@ public class Constants {
     // 服务商公钥ID
     public static final  String SER_PUBLIC_KEY_ID ="PUB_KEY_ID_0117106400212025031500218500002371";
 
-    // 商户号
-    public static final  String MCH_ID ="1710485765";
+    // 服务商户号
+    public static final  String SER_MCH_ID ="1710640021";
 
 
 

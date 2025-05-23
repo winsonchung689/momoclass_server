@@ -163,9 +163,7 @@ public class HttpUtil {
     public static String applymentForSubPost(String url,String body) throws IOException{
 
         long timestamp = System.currentTimeMillis()/1000;
-
         String nonce_str = WechatPayUtil.generateNonceStr();
-
         String orgSignText = "POST\n"
                 + "/v3/applyment4sub/applyment/\n"
                 + timestamp + "\n"
@@ -173,8 +171,7 @@ public class HttpUtil {
                 + body + "\n";
 
         String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
-
-        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
+        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.SER_MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -274,7 +271,7 @@ public class HttpUtil {
                 + nonce_str + "\n"
                 + "\n";
         String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
-        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
+        String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.SER_MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
         CloseableHttpClient httpClient = HttpClients.createDefault();
