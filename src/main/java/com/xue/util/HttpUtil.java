@@ -172,7 +172,7 @@ public class HttpUtil {
                 + nonce_str + "\n"
                 + body + "\n";
 
-        PrivateKey privateKey = PemUtil.loadPrivateKey(new ClassPathResource("ser_apiclient_key.pem").getInputStream());
+        PrivateKey privateKey = PemUtil.loadPrivateKey(new FileInputStream(Constants.SER_PRIVATE_KEY_FROM_PATH));
 
         String signature = WechatPayUtil.rsaEncryptOAEP(orgSignText,privateKey);
 
