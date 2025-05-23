@@ -225,8 +225,8 @@ public class HttpUtil {
         String media_id = null;
         try {
             PrivateKey merchantPrivateKey = PemUtil.loadPrivateKey(new FileInputStream(Constants.SER_PRIVATE_KEY_FROM_PATH));
-            String mchSerialNo = Constants.MC_SERIAL_NO;
-            String mch_id = Constants.MCH_ID;
+            String mchSerialNo = Constants.SER_MC_SERIAL_NO;
+            String mch_id = Constants.SER_MCH_ID;
             String apiV3key = Constants.API_V3_KEY;
 
             //使用自动更新的签名验证器，不需要传入证书
