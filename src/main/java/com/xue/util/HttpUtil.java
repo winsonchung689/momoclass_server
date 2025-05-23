@@ -269,10 +269,10 @@ public class HttpUtil {
         long timestamp = System.currentTimeMillis()/1000;
         String nonce_str = WechatPayUtil.generateNonceStr();
         String orgSignText = "GET\n"
-                + "/v3/applyment4sub/applyment/\n"
+                +  url + "\n"
                 + timestamp + "\n"
                 + nonce_str + "\n"
-                + applyment_id + "\n";
+                + "\n";
         String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
         String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
