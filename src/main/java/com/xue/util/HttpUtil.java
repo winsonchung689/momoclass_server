@@ -23,7 +23,9 @@ import org.apache.http.util.EntityUtils;
 import com.wechat.pay.contrib.apache.httpclient.WechatPayHttpClientBuilder;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.springframework.core.io.ClassPathResource;
 
+import javax.crypto.IllegalBlockSizeException;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.Charset;
@@ -160,7 +162,7 @@ public class HttpUtil {
         }
     }
 
-    public static String applymentForSubPost(String url,String body) throws IOException{
+    public static String applymentForSubPost(String url,String body) throws IOException, IllegalBlockSizeException {
 
         long timestamp = System.currentTimeMillis()/1000;
         String nonce_str = WechatPayUtil.generateNonceStr();
@@ -170,7 +172,10 @@ public class HttpUtil {
                 + nonce_str + "\n"
                 + body + "\n";
 
-        String signature = WechatPayUtil.generateSignature(orgSignText,Constants.SER_PRIVATE_KEY_FROM_PATH);
+        PrivateKey privateKey = PemUtil.loadPrivateKey(new ClassPathResource(Constants.SER_PRIVATE_KEY_FROM_PATH).getInputStream());
+
+        String signature = WechatPayUtil.rsaEncryptOAEP(orgSignText,privateKey);
+
         String auth = "WECHATPAY2-SHA256-RSA2048 " + "mchid=\"" + Constants.SER_MCH_ID + "\",nonce_str=\"" + nonce_str + "\",timestamp=\"" + timestamp + "\",serial_no=\"" + Constants.SER_MC_SERIAL_NO + "\",signature=\"" + signature + "\"";
 
         // 创建默认的httpClient实例。
@@ -178,15 +183,15 @@ public class HttpUtil {
         // 创建httppost
         HttpPost httpPost = new HttpPost (url);
 
-        StringEntity entity = new StringEntity(body,"UTF-8");
-        entity.setContentEncoding("UTF-8");
+        StringEntity entity = new StringEntity(body,"utf-8");
         entity.setContentType("application/json");
+        httpPost.setEntity(entity);
 
         httpPost.setHeader("Accept","application/json");
         httpPost.setHeader("Content-Type","application/json");
         httpPost.setHeader("Wechatpay-Serial", Constants.SER_MC_SERIAL_NO);
         httpPost.setHeader("Authorization", auth);
-        httpPost.setEntity(entity);
+
 
         String applyment_id = null;
         CloseableHttpResponse response = httpClient.execute(httpPost);

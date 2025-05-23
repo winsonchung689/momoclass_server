@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.crypto.IllegalBlockSizeException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -255,7 +256,7 @@ public class WechatPayController {
 
 	@RequestMapping("/wechatPayApplymentForSub")
 	@ResponseBody
-	public String wechatPayApplymentForSub(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String wechatPayApplymentForSub(HttpServletRequest request, HttpServletResponse response) throws IOException, IllegalBlockSizeException {
 
 		JSONObject jsonObject = new JSONObject();
 		// 法人信息
