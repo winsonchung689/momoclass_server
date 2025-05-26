@@ -1624,12 +1624,12 @@ public class LoginController {
 
 
 	//	获取全部
-	@RequestMapping("/getSearchComment")
+	@RequestMapping("/getCommentLikeStudent")
 	@ResponseBody
-	public List getSearchComment(String openid,String content,String duration){
+	public List getCommentLikeStudent(String openid,String content,String duration){
 		List list = null;
 		try {
-			list = loginService.getSearchComment(openid,content,duration);
+			list = loginService.getCommentLikeStudent(openid,content,duration);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

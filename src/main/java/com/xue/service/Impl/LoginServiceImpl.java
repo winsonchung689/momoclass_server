@@ -562,7 +562,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSearchComment(String openid,String content,String duration) {
+    public List getCommentLikeStudent(String openid,String content,String duration) {
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> users = dao.getUserByOpenid(openid);
         User user = users.get(0);
@@ -605,7 +605,7 @@ public class LoginServiceImpl implements LoginService {
                     User user_get = users_get.get(0);
                     teacher = user_get.getNick_name();
                 }
-                String uuids = line.getUuids();
+                String uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");;
 
                 //json
                 jsonObject.put("openid", openid_get);
