@@ -414,9 +414,11 @@ public class RestaurantController {
 			List<Menu> menus = dao.getRestaurantMenuById(goods_id);
 			Menu menu = menus.get(0);
 			Integer inventory = menu.getInventory();
-			inventory = inventory - 1;
-			menu.setInventory(inventory);
-			dao.updateRestaurantMenu(menu);
+			if(inventory > 0){
+				inventory = inventory - 1;
+				menu.setInventory(inventory);
+				dao.updateRestaurantMenu(menu);
+			}
 
 			// 赠券
 			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
