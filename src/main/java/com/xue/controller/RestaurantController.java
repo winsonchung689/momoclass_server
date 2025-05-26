@@ -415,7 +415,7 @@ public class RestaurantController {
 			Menu menu = menus.get(0);
 			Integer inventory = menu.getInventory();
 			if(inventory > 0){
-				inventory = inventory - 1;
+				inventory = inventory - Integer.parseInt(num);
 				menu.setInventory(inventory);
 				dao.updateRestaurantMenu(menu);
 			}
