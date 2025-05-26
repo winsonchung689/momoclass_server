@@ -607,7 +607,6 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String uuids = line.getUuids();
 
-
                 //json
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("teacher", teacher);
