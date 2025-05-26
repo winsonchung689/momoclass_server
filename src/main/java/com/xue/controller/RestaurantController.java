@@ -407,7 +407,16 @@ public class RestaurantController {
 		restaurantOrder.setDiscount_ids(discount_ids);
 
 		try {
+			// 插入订单
 			dao.insertRestaurantOrder(restaurantOrder);
+
+			// 更新库存
+			List<Menu> menus = dao.getRestaurantMenuById(goods_id);
+			Menu menu = menus.get(0);
+			Integer inventory = menu.getInventory();
+			inventory = inventory - 1;
+			menu.setInventory(inventory);
+			dao.updateRestaurantMenu(menu);
 
 			// 赠券
 			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
@@ -783,6 +792,9 @@ public class RestaurantController {
 				dao.updateRestaurantMenu(menu);
 			}else if("open_time".equals(type)){
 				menu.setOpen_time(content);
+				dao.updateRestaurantMenu(menu);
+			}else if("inventory".equals(type)){
+				menu.setInventory(Integer.parseInt(content));
 				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {

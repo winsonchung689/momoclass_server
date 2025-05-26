@@ -31,6 +31,16 @@ public class Menu {
 
     private String open_time;
 
+    private Integer inventory;
+
+
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
+    }
 
     public String getOpen_time() {
         return open_time;
