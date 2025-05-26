@@ -562,17 +562,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSearch(String student_name, String studio,Integer page,String class_target,String campus) {
-        String comment = null;
-        String class_name = null;
-        String id = null;
-        String create_time = null;
-        Integer page_start = (page - 1) * 7;
-        Integer page_length = 7;
+    public List getSearchComment(String openid,String content,String duration) {
         List<JSONObject> resul_list = new ArrayList<>();
+        List<User> users = dao.getUserByOpenid(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
+        String start_date = duration.split("_")[0];
+        String end_date = duration.split("_")[1];
 
         try {
-            List<Message> list = dao.getSearch(student_name, studio,page_start,page_length,class_target,campus);
+            List<Message> list = dao.getCommentLikeStudent(content,studio,campus,start_date,end_date);
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
@@ -580,12 +580,12 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
-                student_name = line.getStudent_name();
-                class_name = line.getClass_name();
-                comment = line.getComment();
-                class_target = line.getClass_target();
-                id = line.getId();
-                create_time = line.getCreate_time();
+                String student_name = line.getStudent_name();
+                String class_name = line.getClass_name();
+                String comment = line.getComment();
+                String class_target = line.getClass_target();
+                String id = line.getId();
+                String create_time = line.getCreate_time();
 
                 try {
                     List<Lesson> lessons = dao.getLessonByName(student_name, studio,campus);
@@ -605,6 +605,7 @@ public class LoginServiceImpl implements LoginService {
                     User user_get = users_get.get(0);
                     teacher = user_get.getNick_name();
                 }
+                String uuids = line.getUuids();
 
 
                 //json
@@ -619,6 +620,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("percent", percent);
                 jsonObject.put("left", left);
                 jsonObject.put("total",total);
+                jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
             }
 

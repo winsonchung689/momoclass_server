@@ -1624,14 +1624,12 @@ public class LoginController {
 
 
 	//	获取全部
-	@RequestMapping("/getSearch")
+	@RequestMapping("/getSearchComment")
 	@ResponseBody
-	public List getSearch(String student_name,String studio,Integer page,String class_target,String openid){
+	public List getSearchComment(String openid,String content,String duration){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getSearch(student_name,studio,page,class_target,campus);
+			list = loginService.getSearchComment(openid,content,duration);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

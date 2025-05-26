@@ -101,7 +101,7 @@ public interface LoginService {
 
     public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid,String class_target);
 
-    public List  getSearch(String student_name,String studio,Integer page,String class_target,String campus);
+    public List  getSearchComment(String openid,String content,String duration);
 
     public List  getSignUp(String student_name,String studio,String subject,String openid);
 

@@ -184,7 +184,7 @@ public interface UserMapper {
     List<Message> getMamaShare(Integer page_start,Integer page_end);
 
     //获取
-    List<Message> getSearch(String student_name,String studio,Integer page_start,Integer page_end,String class_target,String campus);
+    List<Message> getCommentLikeStudent(String student_name,String studio,String campus,String start_date,String end_date);
 
     //获取详情
     List<Message> getDetails(Integer id);
