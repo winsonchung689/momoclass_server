@@ -2636,5 +2636,9 @@
     update user set subject=#{param2} where studio=#{param1}
   </update>
 
+  <update id="updateRestaurantLocationId" parameterType="com.xue.entity.model.RestaurantUser">
+    update restaurant_user set location_id=#{param2} where openid=#{param1}
+  </update>
+
 
 </mapper>

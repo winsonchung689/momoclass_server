@@ -900,6 +900,23 @@ public class RestaurantController {
 		return 1;
 	}
 
+	@RequestMapping("/updateRestaurantLocationId")
+	@ResponseBody
+	public int updateRestaurantLocationId(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String openid = request.getParameter("openid");
+		String location_id = request.getParameter("location_id");
+
+		try {
+			dao.updateRestaurantLocationId(openid,location_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+	}
+
 	@RequestMapping("/getRestaurantOrderById")
 	@ResponseBody
 	public List getRestaurantOrderById(HttpServletRequest request, HttpServletResponse response){
