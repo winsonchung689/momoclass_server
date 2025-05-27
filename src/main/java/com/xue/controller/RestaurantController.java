@@ -366,7 +366,6 @@ public class RestaurantController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		String location_id = request.getParameter("location_id");
 		String restaurant = request.getParameter("restaurant");
 		String food_name = request.getParameter("food_name");
 		String category = request.getParameter("category");
@@ -392,6 +391,10 @@ public class RestaurantController {
 			discount_ids = "no_id";
 		}
 
+		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
+		RestaurantUser restaurantUser = restaurantUsers.get(0);
+		Integer location_id = restaurantUser.getLocation_id();
+
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
 		restaurantOrder.setFood_name(food_name);
@@ -406,7 +409,7 @@ public class RestaurantController {
 		restaurantOrder.setRegion(region);
 		restaurantOrder.setShipping_fee(Float.parseFloat(shipping_fee));
 		restaurantOrder.setDiscount_ids(discount_ids);
-		restaurantOrder.setLocation_id(Integer.parseInt(location_id));
+		restaurantOrder.setLocation_id(location_id);
 
 		try {
 			// 插入订单
@@ -425,8 +428,6 @@ public class RestaurantController {
 			// 赠券
 			List<Wallet> wallets = dao.getWalletByOrderNo(order_no);
 			if(wallets.size() == 1){
-				List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
-				RestaurantUser restaurantUser = restaurantUsers.get(0);
 				String inviter_openid = restaurantUser.getInviter_openid();
 				if(!"no_id".equals(inviter_openid)){
 					List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
