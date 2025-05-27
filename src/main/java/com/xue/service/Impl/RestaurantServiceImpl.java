@@ -748,7 +748,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 //json
-                jsonObject.put("location", location);
+                jsonObject.put("location_id", location_id);
                 jsonObject.put("shop_history", shop_history);
                 jsonObject.put("boss_promise", boss_promise);
                 jsonObject.put("diff", diff);
