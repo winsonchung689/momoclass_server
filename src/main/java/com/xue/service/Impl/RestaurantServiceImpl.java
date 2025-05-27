@@ -231,6 +231,36 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public List getRestaurantLocation(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(openid);
+            for (int i = 0; i < restaurantLocations.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                RestaurantLocation line = restaurantLocations.get(i);
+
+                //获取字段
+                String nick_name = line.getNick_name();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+                String create_time = line.getCreate_time();
+
+                //json
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getRestaurantOrderCmByOrderNo(String order_no) {
         List<RestaurantOrder> list= null;
         List<JSONObject> resul_list = new ArrayList<>();

@@ -487,6 +487,8 @@ public interface UserMapper {
 
     int deleteRestaurantOrderCm(int id);
 
+    int deleteRestaurantLocation(int id);
+
     int deleteRestaurantFood(int id);
 
     int deleteRestaurantUser(int id);
@@ -637,6 +639,8 @@ public interface UserMapper {
     List<CardRecord> getCardRecord(String student_name,String card_id,String studio,String campus,String subject);
 
     List<RestaurantUser> getRestaurantUser(String openid);
+
+    List<RestaurantLocation> getRestaurantLocation(String openid);
 
     List<ShippingFee> getRestaurantShippingFee(String restaurant);
 
@@ -913,6 +917,7 @@ public interface UserMapper {
 
     int insertRestaurantOrder(RestaurantOrder restaurantOrder);
 
+    int insertRestaurantLocation(RestaurantLocation restaurantLocation);
 
     int insertRestaurantOrderCm(RestaurantOrderCm restaurantOrderCm);
 

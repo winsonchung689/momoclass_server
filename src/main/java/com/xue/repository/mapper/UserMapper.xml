@@ -33,6 +33,10 @@
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
 
+  <resultMap id="BaseRestaurantLocation" type="com.xue.entity.model.RestaurantLocation">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+
   <resultMap id="BaseRestaurantOrderCm" type="com.xue.entity.model.RestaurantOrderCm">
     <result column="order_no" jdbcType="VARCHAR" property="order_no" />
   </resultMap>
@@ -1418,6 +1422,10 @@
     select * from restaurant_user where openid =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getRestaurantLocation" parameterType="com.xue.entity.model.RestaurantLocation" resultMap="BaseRestaurantLocation">
+    select * from restaurant_location where openid =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getRestaurantShippingFee" parameterType="com.xue.entity.model.ShippingFee" resultMap="BaseShippingFee">
     select * from shipping_fee where restaurant =#{param1} and delete_status = 0 order by region
   </select>
@@ -1796,6 +1804,10 @@
     update restaurant_order_cm set delete_status = 1 where id = #{param1}
   </update>
 
+  <update id="deleteRestaurantLocation" parameterType="com.xue.entity.model.RestaurantLocation">
+    update restaurant_location set delete_status = 1 where id = #{param1}
+  </update>
+
   <update id="deleteRestaurantFood" parameterType="com.xue.entity.model.Menu">
     update restaurant_menu set delete_status = 1 where id = #{param1}
   </update>
@@ -1919,6 +1931,10 @@
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
     insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee,discount_ids) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee},#{discount_ids})
+  </insert>
+
+  <insert id="insertRestaurantLocation" parameterType="com.xue.entity.model.RestaurantLocation">
+    insert restaurant_location(openid,phone_number,location,create_time,nick_name) values(#{openid},#{phone_number},#{location},#{create_time},#{nick_name})
   </insert>
 
   <insert id="insertRestaurantOrderCm" parameterType="com.xue.entity.model.RestaurantOrderCm">

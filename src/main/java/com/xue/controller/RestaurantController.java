@@ -458,6 +458,35 @@ public class RestaurantController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertRestaurantLocation")
+	@ResponseBody
+	public String insertRestaurantLocation(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String nick_name = request.getParameter("nick_name");
+		String phone_number = request.getParameter("phone_number");
+		String location = request.getParameter("location");
+
+		RestaurantLocation restaurantLocation =new RestaurantLocation();
+		restaurantLocation.setOpenid(openid);
+		restaurantLocation.setNick_name(nick_name);
+		restaurantLocation.setPhone_number(phone_number);
+		restaurantLocation.setLocation(location);
+		restaurantLocation.setCreate_time(create_time);
+
+		try {
+			// 插入订单
+			dao.insertRestaurantLocation(restaurantLocation);
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/insertRestaurantOrderCm")
 	@ResponseBody
 	public String insertRestaurantOrderCm(HttpServletRequest request, HttpServletResponse response){
@@ -578,6 +607,18 @@ public class RestaurantController {
 		List list = null;
 		try {
 			list = restaurantService.getRestaurantOrder(openid,type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@RequestMapping("/getRestaurantLocation")
+	@ResponseBody
+	public List getRestaurantLocation(String openid){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantLocation(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
