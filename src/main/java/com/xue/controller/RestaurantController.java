@@ -740,11 +740,9 @@ public class RestaurantController {
 			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			if("avatarurl".equals(type)){
 				restaurantUser.setAvatarurl(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("nickName".equals(type)){
 				restaurantUser.setNick_name(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("logo".equals(type)){
 				restaurantUser.setLogo(content);
@@ -768,26 +766,24 @@ public class RestaurantController {
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("phone_number".equals(type)){
 				restaurantUser.setPhone_number(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("location".equals(type)){
 				restaurantUser.setLocation(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("info".equals(type)){
 				restaurantUser.setInfo(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("expired_time".equals(type)){
 				restaurantUser.setExpired_time(content);
 				dao.updateRestaurantByBoss(restaurantUser);
 			}else if("promise".equals(type)){
 				restaurantUser.setPromise(content);
-				restaurantUser.setOpenid(openid);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("restaurant_change".equals(type)){
 				restaurantUser.setRestaurant(content);
-				restaurantUser.setOpenid(openid);
+				dao.updateRestaurantUser(restaurantUser);
+			}else if("location_id".equals(type)){
+				restaurantUser.setLocation_id(Integer.parseInt(content));
 				dao.updateRestaurantUser(restaurantUser);
 			}
 
