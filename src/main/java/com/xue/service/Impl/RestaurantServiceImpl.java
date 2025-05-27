@@ -255,8 +255,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String create_time = line.getCreate_time();
+                String id = line.getId();
 
                 //json
+                jsonObject.put("location_id", id);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
