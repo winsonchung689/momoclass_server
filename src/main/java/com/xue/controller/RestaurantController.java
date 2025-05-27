@@ -565,6 +565,18 @@ public class RestaurantController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteRestaurantLocation")
+	@ResponseBody
+	public int deleteRestaurantLocation(Integer id){
+		try {
+			dao.deleteRestaurantLocation(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteShippingFee")
 	@ResponseBody
 	public int deleteShippingFee(Integer id){
