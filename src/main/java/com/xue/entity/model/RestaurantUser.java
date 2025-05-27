@@ -42,7 +42,17 @@ public class RestaurantUser {
 
     private String shop_history;
 
+    private int location_id;
 
+
+
+    public Integer getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(Integer location_id) {
+        this.location_id = location_id;
+    }
 
     public String getShop_history() {
         return shop_history;

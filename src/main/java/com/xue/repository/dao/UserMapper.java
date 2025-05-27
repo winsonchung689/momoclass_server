@@ -642,6 +642,8 @@ public interface UserMapper {
 
     List<RestaurantLocation> getRestaurantLocation(String openid);
 
+    List<RestaurantLocation> getRestaurantLocationById(Integer id);
+
     List<ShippingFee> getRestaurantShippingFee(String restaurant);
 
     List<RestaurantUser> getRestaurantUserByOpenid(String openid);

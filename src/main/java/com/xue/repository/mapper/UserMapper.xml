@@ -1426,6 +1426,10 @@
     select * from restaurant_location where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantLocationById" parameterType="com.xue.entity.model.RestaurantLocation" resultMap="BaseRestaurantLocation">
+    select * from restaurant_location where id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getRestaurantShippingFee" parameterType="com.xue.entity.model.ShippingFee" resultMap="BaseShippingFee">
     select * from shipping_fee where restaurant =#{param1} and delete_status = 0 order by region
   </select>
@@ -1930,7 +1934,7 @@
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
-    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee,discount_ids) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee},#{discount_ids})
+    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee,discount_ids,location_id) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee},#{discount_ids},#{location_id})
   </insert>
 
   <insert id="insertRestaurantLocation" parameterType="com.xue.entity.model.RestaurantLocation">

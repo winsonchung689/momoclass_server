@@ -399,6 +399,15 @@ public class RestaurantServiceImpl implements RestaurantService {
                     }
                 }
 
+                Integer location_id = line.getLocation_id();
+                if(location_id != 0){
+                    List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+                    RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                    nick_name = restaurantLocation.getNick_name();
+                    phone_number = restaurantLocation.getPhone_number();
+                    location = restaurantLocation.getLocation();
+                }
+
                 String id = line.getId();
                 Float total_price = num * price ;
                 String goods_id = line.getGoods_id();
@@ -719,8 +728,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 
                 Integer days = line.getDays();
                 String shop_history = line.getShop_history();
+                Integer location_id = line.getLocation_id();
+                if(location_id != 0 ){
+                    List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+                    RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                    nick_name = restaurantLocation.getNick_name();
+                    phone_number = restaurantLocation.getPhone_number();
+                    location = restaurantLocation.getLocation();
+                }
 
                 //json
+                jsonObject.put("location", location);
                 jsonObject.put("shop_history", shop_history);
                 jsonObject.put("boss_promise", boss_promise);
                 jsonObject.put("diff", diff);

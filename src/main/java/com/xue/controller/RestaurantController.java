@@ -366,6 +366,7 @@ public class RestaurantController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
+		String location_id = request.getParameter("location_id");
 		String restaurant = request.getParameter("restaurant");
 		String food_name = request.getParameter("food_name");
 		String category = request.getParameter("category");
@@ -405,6 +406,7 @@ public class RestaurantController {
 		restaurantOrder.setRegion(region);
 		restaurantOrder.setShipping_fee(Float.parseFloat(shipping_fee));
 		restaurantOrder.setDiscount_ids(discount_ids);
+		restaurantOrder.setLocation_id(Integer.parseInt(location_id));
 
 		try {
 			// 插入订单
