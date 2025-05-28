@@ -370,7 +370,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<JSONObject> resul_list = new ArrayList<>();
         String start_time = date_time.split("_")[0];
         String end_time = date_time.split("_")[1];
-        String title = "支付时间,订单号,订单信息,电话";
+        String title = "支付时间,类别,订单号,订单信息,电话";
         List<String> data_list = new ArrayList<>();
         String restaurant = null;
 
