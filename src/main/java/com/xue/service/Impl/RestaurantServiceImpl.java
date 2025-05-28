@@ -496,9 +496,11 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("location", location);
                 resul_list.add(jsonObject);
 
-                String order_detail =  food_name + "_" + unit + "_" + nick_name + "_" + phone_number + "_" + location;
+                String order_detail =  food_name + "_" + unit + "_" + nick_name + "_" + phone_number + "_" + location + "_" + status_cn;
                 String data_line = create_time + "," + order_no + "," + order_detail + "," + phone_number;
-                data_list.add(data_line);
+                if(shop_status == 1 ){
+                    data_list.add(data_line);
+                }
             }
 
             loginService.downloadByOpenid(restaurant,"ougOI60Jjf6PkDHSI0mJDQ_129YM",data_list,title,"day_order");
