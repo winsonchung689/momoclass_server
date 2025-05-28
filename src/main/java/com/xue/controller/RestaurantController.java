@@ -454,6 +454,21 @@ public class RestaurantController {
 					}
 				}
 			}
+
+			// 验卷
+			if("no_id".equals(discount_ids)){
+				String[] discount_ids_list = discount_ids.split(",");
+				for (int i = 0; i < discount_ids_list.length; i++) {
+					String coupon_id = discount_ids_list[i];
+					List<Gift> gifts = dao.getGiftById(coupon_id);
+					if(gifts.size()>0){
+						Gift gift = gifts.get(0);
+						gift.setStatus(2);
+						dao.updateGift(gift);
+					}
+				}
+			}
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
