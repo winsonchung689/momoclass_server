@@ -496,7 +496,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("location", location);
                 resul_list.add(jsonObject);
 
-                String order_detail = nick_name + "_" + phone_number + "_" + location;
+                String order_detail =  food_name + "_" + unit + "_" + nick_name + "_" + phone_number + "_" + location;
                 String data_line = create_time + "," + order_no + "," + order_detail + "," + phone_number;
                 data_list.add(data_line);
             }
