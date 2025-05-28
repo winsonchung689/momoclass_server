@@ -11,6 +11,7 @@ import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
 import com.xue.config.Constants;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
+import com.xue.service.LoginService;
 import com.xue.service.RestaurantService;
 import com.xue.service.WebPushService;
 import com.xue.service.WechatPayService;
@@ -37,6 +38,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private WebPushService webPushService;
+
+    @Autowired
+    private LoginService loginService;
 
     @Override
     public List getRestaurantUserAll(String openid,String type) {
@@ -366,6 +370,9 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<JSONObject> resul_list = new ArrayList<>();
         String start_time = date_time.split("_")[0];
         String end_time = date_time.split("_")[1];
+        String title = "支付时间,订单号,订单信息,电话";
+        List<String> data_list = new ArrayList<>();
+        String restaurant = null;
 
         try {
             List<RestaurantOrder> list = dao.getRestaurantOrderByDay(start_time,end_time);
@@ -374,7 +381,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 RestaurantOrder line = list.get(i);
                 //获取字段
                 String food_name = line.getFood_name();
-                String restaurant = line.getRestaurant();
+                restaurant = line.getRestaurant();
                 String category = line.getCategory();
                 int num = line.getNum();
                 Float price = line.getPrice();
@@ -488,8 +495,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
                 resul_list.add(jsonObject);
+
+                String order_detail = nick_name + ";\n" + phone_number + ";\n" + location;
+                String data_line = create_time + "," + order_no + "," + order_detail + "," + phone_number;
+                data_list.add(data_line);
             }
 
+            loginService.downloadByOpenid(restaurant,"ougOI60Jjf6PkDHSI0mJDQ_129YM",data_list,title,"day_order");
         } catch (Exception e) {
             e.printStackTrace();
         }
