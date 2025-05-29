@@ -41,7 +41,17 @@ public class RestaurantOrder {
 
     private int location_id;
 
+    private String mark;
 
+
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
 
     public int getLocation_id() {
         return location_id;

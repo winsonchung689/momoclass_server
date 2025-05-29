@@ -965,6 +965,8 @@ public class RestaurantController {
 				restaurantOrder.setOrder_img(content);
 			}else if("goods_id".equals(type)){
 				restaurantOrder.setGoods_id(content);
+			}else if("mark".equals(type)){
+				restaurantOrder.setMark(content);
 			}
 
 			res = dao.updateRestaurantOrderDetail(restaurantOrder);

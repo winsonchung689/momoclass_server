@@ -1781,7 +1781,7 @@
 
   <!--  更新订单内容-->
   <update id="updateRestaurantOrderDetail" parameterType="com.xue.entity.model.RestaurantOrder">
-    update restaurant_order set order_img=#{order_img},goods_id=#{goods_id} where id = #{id}
+    update restaurant_order set order_img=#{order_img},goods_id=#{goods_id},mark=#{mark} where id = #{id}
   </update>
 
   <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">
