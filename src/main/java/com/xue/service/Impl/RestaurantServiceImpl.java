@@ -506,7 +506,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
                 String order_detail =   food_name + "_" + unit + "_" + nick_name + "_" + phone_number + "_" + location + "_" + status_cn;
                 String data_line = create_time + "," + category + "," + order_no + "," + order_detail + "," + phone_number + "," + status_cn + "," + mark;
-                if(shop_status == 1 ){
+                if(shop_status == 1 && "去发货".equals(status_cn)){
                     data_list.add(data_line);
                 }
             }
