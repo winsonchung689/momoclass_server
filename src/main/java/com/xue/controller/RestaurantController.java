@@ -954,12 +954,19 @@ public class RestaurantController {
 
 		// 字段
 		String id = request.getParameter("id");
-		String uuid = request.getParameter("uuid");
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+
 		int res = 0;
 		try {
 			List<RestaurantOrder> restaurantOrders = dao.getRestaurantOrderById(id);
 			RestaurantOrder restaurantOrder = restaurantOrders.get(0);
-			restaurantOrder.setOrder_img(uuid);
+			if("order_img".equals(type)){
+				restaurantOrder.setOrder_img(content);
+			}else if("goods_id".equals(type)){
+				restaurantOrder.setGoods_id(content);
+			}
+
 			res = dao.updateRestaurantOrderDetail(restaurantOrder);
 		} catch (Exception e) {
 			e.printStackTrace();

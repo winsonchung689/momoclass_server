@@ -139,8 +139,8 @@ public class RestaurantServiceImpl implements RestaurantService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);
+
                 //获取字段
-                String food_name = line.getFood_name();
                 restaurant = line.getRestaurant();
                 String category = line.getCategory();
                 int num = line.getNum();
@@ -182,9 +182,11 @@ public class RestaurantServiceImpl implements RestaurantService {
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
                 String food_image = null;
                 String unit = null;
+                String food_name = null;
                 if(menus.size()>0) {
                     food_image = menus.get(0).getFood_image();
                     unit = menus.get(0).getUnit();
+                    food_name = menus.get(0).getFood_name();
                 }
                 String order_no = line.getOrder_no();
                 String order_img = line.getOrder_img();
@@ -380,7 +382,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);
                 //获取字段
-                String food_name = line.getFood_name();
                 restaurant = line.getRestaurant();
                 String category = line.getCategory();
                 int num = line.getNum();
@@ -433,10 +434,12 @@ public class RestaurantServiceImpl implements RestaurantService {
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
                 String food_image = null;
                 String unit = null;
+                String food_name = null;
                 if(menus.size()>0) {
                     Menu menu = menus.get(0);
                     food_image = menu.getFood_image();
                     unit = menu.getUnit();
+                    food_name = menu.getFood_name();
                 }
 
                 String order_no = line.getOrder_no();
@@ -601,7 +604,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);
                 //获取字段
-                String food_name = line.getFood_name();
                 String restaurant = line.getRestaurant();
                 String category = line.getCategory();
                 int num = line.getNum();
@@ -636,8 +638,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 goods_id = line.getGoods_id();
                 List<Menu> menus = dao.getRestaurantMenuById(goods_id);
                 String food_image = null;
+                String food_name = null;
                 if(menus.size()>0) {
                     food_image = menus.get(0).getFood_image();
+                    food_name = menus.get(0).getFood_name();
                 }
 
                 String order_no = line.getOrder_no();
