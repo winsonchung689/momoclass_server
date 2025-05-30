@@ -398,14 +398,17 @@ public class RestaurantController {
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
 		Integer location_id = restaurantUser.getLocation_id();
-		List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
-		if(restaurantLocations.size() > 0){
+		nick_name = restaurantUser.getNick_name();
+		phone_number = restaurantUser.getPhone_number();
+		location = restaurantUser.getLocation();
+
+		if(location_id != 0){
+			List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
 			RestaurantLocation restaurantLocation = restaurantLocations.get(0);
 			location = restaurantLocation.getLocation();
 			phone_number = restaurantLocation.getPhone_number();
 			nick_name = restaurantLocation.getNick_name();
 		}
-
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
