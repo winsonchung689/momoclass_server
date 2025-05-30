@@ -1944,7 +1944,7 @@
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
-    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee,discount_ids,location_id) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee},#{discount_ids},#{location_id})
+    insert restaurant_order(restaurant,food_name,category,num,price,create_time,openid,goods_id,order_no,group_buy,region,shipping_fee,discount_ids,location_id,nick_name,phone_number,location) values(#{restaurant},#{food_name},#{category},#{num},#{price},#{create_time},#{openid},#{goods_id},#{order_no},#{group_buy},#{region},#{shipping_fee},#{discount_ids},#{location_id},#{nick_name},#{phone_number},#{location})
   </insert>
 
   <insert id="insertRestaurantLocation" parameterType="com.xue.entity.model.RestaurantLocation">
