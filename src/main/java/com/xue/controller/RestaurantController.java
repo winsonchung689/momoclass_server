@@ -814,7 +814,6 @@ public class RestaurantController {
 					restaurantLocation.setPhone_number(content);
 					dao.updateRestaurantLocationDetail(restaurantLocation);
 				}
-
 			}else if("location".equals(type)){
 				if("0".equals(location_id)){
 					restaurantUser.setLocation(content);
