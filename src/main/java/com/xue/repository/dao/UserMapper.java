@@ -1124,6 +1124,8 @@ public interface UserMapper {
 
     int updateRestaurantLocationId(String openid,String location_id);
 
+    int updateRestaurantLocationDetail(RestaurantLocation restaurantLocation);
+
     List<Lesson> getLessonByName(String student_name,String studio,String campus);
 
     List<Lesson> getLessonByNameSubject(String student_name,String studio,String subject,String campus);

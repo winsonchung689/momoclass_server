@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.stream.Location;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -763,10 +764,9 @@ public class RestaurantController {
 
 		//获取文字
 		String content = request.getParameter("content");
-
 		String openid = request.getParameter("openid");
-
 		String type = request.getParameter("type");
+		String location_id = request.getParameter("location_id");
 
 		try {
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
@@ -775,8 +775,15 @@ public class RestaurantController {
 				restaurantUser.setAvatarurl(content);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("nickName".equals(type)){
-				restaurantUser.setNick_name(content);
-				dao.updateRestaurantUser(restaurantUser);
+				if("0".equals(location_id)){
+					restaurantUser.setNick_name(content);
+					dao.updateRestaurantUser(restaurantUser);
+				}else {
+					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(location_id);
+					RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+					restaurantLocation.setNick_name(content);
+					dao.updateRestaurantLocationDetail(restaurantLocation);
+				}
 			}else if("logo".equals(type)){
 				restaurantUser.setLogo(content);
 				dao.updateRestaurantByBoss(restaurantUser);
@@ -798,11 +805,26 @@ public class RestaurantController {
 				restaurantUser.setIs_free(restaurantUser1.getIs_free());
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("phone_number".equals(type)){
-				restaurantUser.setPhone_number(content);
-				dao.updateRestaurantUser(restaurantUser);
+				if("0".equals(location_id)){
+					restaurantUser.setPhone_number(content);
+					dao.updateRestaurantUser(restaurantUser);
+				}else {
+					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(location_id);
+					RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+					restaurantLocation.setPhone_number(content);
+					dao.updateRestaurantLocationDetail(restaurantLocation);
+				}
+
 			}else if("location".equals(type)){
-				restaurantUser.setLocation(content);
-				dao.updateRestaurantUser(restaurantUser);
+				if("0".equals(location_id)){
+					restaurantUser.setLocation(content);
+					dao.updateRestaurantUser(restaurantUser);
+				}else {
+					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(location_id);
+					RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+					restaurantLocation.setLocation(content);
+					dao.updateRestaurantLocationDetail(restaurantLocation);
+				}
 			}else if("info".equals(type)){
 				restaurantUser.setInfo(content);
 				dao.updateRestaurantUser(restaurantUser);

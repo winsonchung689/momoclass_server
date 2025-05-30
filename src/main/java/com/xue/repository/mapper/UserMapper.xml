@@ -2654,5 +2654,8 @@
     update restaurant_user set location_id=#{param2} where openid=#{param1}
   </update>
 
+  <update id="updateRestaurantLocationDetail" parameterType="com.xue.entity.model.RestaurantLocation">
+    update restaurant_location set phone_number=#{phone_number},location=#{location},nick_name=#{nick_name} where id=#{id}
+  </update>
 
 </mapper>
