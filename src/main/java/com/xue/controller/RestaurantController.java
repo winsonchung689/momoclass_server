@@ -1003,13 +1003,11 @@ public class RestaurantController {
 			if("order_img".equals(type)){
 				restaurantOrder.setOrder_img(content);
 			}else if("goods_id".equals(type)){
-				restaurantOrder.setGoods_id(content);
 				List<Menu> menus = dao.getRestaurantMenuById(content);
-				if(menus.size()>0){
-					Menu menu = menus.get(0);
-					String category = menu.getCategory();
-					restaurantOrder.setCategory(category);
-				}
+				Menu menu = menus.get(0);
+				String category = menu.getCategory();
+				restaurantOrder.setCategory(category);
+				restaurantOrder.setGoods_id(content);
 			}else if("mark".equals(type)){
 				restaurantOrder.setMark(content);
 			}
