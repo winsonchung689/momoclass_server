@@ -819,7 +819,7 @@ public class RestaurantController {
 					restaurantUser.setLocation(content);
 					dao.updateRestaurantUser(restaurantUser);
 				}else {
-					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(location_id);
+					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(Integer.parseInt(location_id));
 					RestaurantLocation restaurantLocation = restaurantLocations.get(0);
 					restaurantLocation.setLocation(content);
 					dao.updateRestaurantLocationDetail(restaurantLocation);
