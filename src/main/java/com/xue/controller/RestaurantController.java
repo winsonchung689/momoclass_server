@@ -809,7 +809,7 @@ public class RestaurantController {
 					restaurantUser.setPhone_number(content);
 					dao.updateRestaurantUser(restaurantUser);
 				}else {
-					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocation(location_id);
+					List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(Integer.parseInt(location_id));
 					RestaurantLocation restaurantLocation = restaurantLocations.get(0);
 					restaurantLocation.setPhone_number(content);
 					dao.updateRestaurantLocationDetail(restaurantLocation);
