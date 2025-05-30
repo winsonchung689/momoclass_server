@@ -977,6 +977,30 @@ public class RestaurantController {
 		return res;
 	}
 
+	@RequestMapping("/updateRestaurantOrderCm")
+	@ResponseBody
+	public int updateRestaurantOrderCm(HttpServletRequest request, HttpServletResponse response){
+
+		// 字段
+		String id = request.getParameter("id");
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+
+		int res = 0;
+		try {
+			List<RestaurantOrderCm> restaurantOrderCms = dao.getRestaurantOrderCmById(id);
+			RestaurantOrderCm restaurantOrderCm = restaurantOrderCms.get(0);
+			if("comment".equals(type)){
+				restaurantOrderCm.setComment(content);
+			}
+			res = dao.updateRestaurantOrderCm(restaurantOrderCm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return res;
+	}
+
 	@RequestMapping("/freeOpenShop")
 	@ResponseBody
 	public int freeOpenShop(String openid){

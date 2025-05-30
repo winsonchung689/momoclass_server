@@ -1511,6 +1511,11 @@
     select * from restaurant_order_cm where goods_id =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantOrderCmById" parameterType="com.xue.entity.model.RestaurantOrderCm" resultMap="BaseRestaurantOrderCm">
+    select * from restaurant_order_cm where id =#{param1} order by create_time desc
+  </select>
+
+
   <select id="getRestaurantCategory" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
     select distinct category from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
   </select>
@@ -1782,6 +1787,11 @@
   <!--  更新订单内容-->
   <update id="updateRestaurantOrderDetail" parameterType="com.xue.entity.model.RestaurantOrder">
     update restaurant_order set order_img=#{order_img},goods_id=#{goods_id},mark=#{mark} where id = #{id}
+  </update>
+
+  <!--  更新客户评论内容-->
+  <update id="updateRestaurantOrderCm" parameterType="com.xue.entity.model.RestaurantOrderCm">
+    update restaurant_order_cm set comment=#{comment} where id =#{id}
   </update>
 
   <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">

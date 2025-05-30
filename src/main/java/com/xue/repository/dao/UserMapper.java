@@ -473,6 +473,8 @@ public interface UserMapper {
 
     int updateRestaurantOrderDetail(RestaurantOrder restaurantOrder);
 
+    int updateRestaurantOrderCm(RestaurantOrderCm restaurantOrderCm);
+
     int updateRestaurantOrderByOrderNo(String order_no,int status);
 
     int updateBookRole(BookUser bookUser);
@@ -683,6 +685,9 @@ public interface UserMapper {
     List<RestaurantOrderCm> getRestaurantOrderCmByOrderNo(String order_no);
 
     List<RestaurantOrderCm> getRestaurantOrderCmByGoodsId(String goods_id);
+
+
+    List<RestaurantOrderCm> getRestaurantOrderCmById(String id);
 
     List<Menu> getRestaurantCategory(String restaurant);
 
