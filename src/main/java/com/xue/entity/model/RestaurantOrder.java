@@ -43,7 +43,37 @@ public class RestaurantOrder {
 
     private String mark;
 
+    private String location;
 
+    private String phone_number;
+
+    private String nick_name;
+
+
+
+    public String getNick_name() {
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getMark() {
         return mark;

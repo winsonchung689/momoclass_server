@@ -391,9 +391,21 @@ public class RestaurantController {
 			discount_ids = "no_id";
 		}
 
+
+		String location = null;
+		String phone_number = null;
+		String nick_name = null;
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 		RestaurantUser restaurantUser = restaurantUsers.get(0);
 		Integer location_id = restaurantUser.getLocation_id();
+		List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+		if(restaurantLocations.size() > 0){
+			RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+			location = restaurantLocation.getLocation();
+			phone_number = restaurantLocation.getPhone_number();
+			nick_name = restaurantLocation.getNick_name();
+		}
+
 
 		RestaurantOrder restaurantOrder =new RestaurantOrder();
 		restaurantOrder.setRestaurant(restaurant);
@@ -410,6 +422,9 @@ public class RestaurantController {
 		restaurantOrder.setShipping_fee(Float.parseFloat(shipping_fee));
 		restaurantOrder.setDiscount_ids(discount_ids);
 		restaurantOrder.setLocation_id(location_id);
+		restaurantOrder.setNick_name(nick_name);
+		restaurantOrder.setPhone_number(phone_number);
+		restaurantOrder.setLocation(location);
 
 		try {
 			// 插入订单
