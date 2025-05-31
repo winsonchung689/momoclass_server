@@ -1167,7 +1167,7 @@
   </select>
 
   <select id="getGiftListByType" parameterType="com.xue.entity.model.GiftList" resultMap="BaseGiftList">
-    select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2} and coupon_type =#{param3} and type =#{param4} order by create_time desc
+    select * from gift_list where delete_status = 0 and studio = #{param1} and campus = #{param2} and coupon_type =#{param3} and type =#{param4} and price =#{param5} order by create_time desc
   </select>
 
   <!-- 查找礼物清单 -->
