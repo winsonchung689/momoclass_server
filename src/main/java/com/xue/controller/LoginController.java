@@ -4868,7 +4868,7 @@ public class LoginController {
 		}else if("AI问答".equals(class_target)){
 			p_path = path +"/uploadAIAsk/"+ uuid + ".png";
 		}else if("发货单".equals(class_target)){
-			p_path = path +"/uploadimages/"+ original_name + ".png";
+			p_path = path +"/uploadimages/"+ original_name;
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
             bak_path = path_bak +"/uploadimages/"+ uuid + ".png";
