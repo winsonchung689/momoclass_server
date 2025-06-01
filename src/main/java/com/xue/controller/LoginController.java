@@ -4871,6 +4871,8 @@ public class LoginController {
 
 		//保存图片
 		try {
+			String original_name = multipartFile.getOriginalFilename();
+			System.out.println(original_name);
 			multipartFile.transferTo(new File(p_path));
             // 备份数据
 			if(!"AI问答".equals(class_target)){
