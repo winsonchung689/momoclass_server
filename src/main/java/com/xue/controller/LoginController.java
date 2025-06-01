@@ -4849,6 +4849,7 @@ public class LoginController {
 		MultipartFile multipartFile = req.getFile("photo");
 		String class_name =  request.getParameter("class_name");
 		String class_target =  request.getParameter("class_target");
+		String original_name = multipartFile.getOriginalFilename();
 
 		//获取类路径
 		String p_path = null;
@@ -4864,6 +4865,8 @@ public class LoginController {
             bak_path = path_bak +"/uploadMP3/"+ uuid + ".mp3";
 		}else if("AI问答".equals(class_target)){
 			p_path = path +"/uploadAIAsk/"+ uuid + ".png";
+		}else if("发货单".equals(class_target)){
+			p_path = path +"/uploadimages/"+ uuid + ".png" + "_" + original_name;
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
             bak_path = path_bak +"/uploadimages/"+ uuid + ".png";
@@ -4871,8 +4874,6 @@ public class LoginController {
 
 		//保存图片
 		try {
-			String original_name = multipartFile.getOriginalFilename();
-			System.out.println(original_name);
 			multipartFile.transferTo(new File(p_path));
             // 备份数据
 			if(!"AI问答".equals(class_target)){
@@ -4881,7 +4882,7 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return p_path;
+		return p_path + "_" + original_name;
 	}
 
 	//	推送图片
