@@ -4852,6 +4852,7 @@ public class LoginController {
 		String original_name = multipartFile.getOriginalFilename();
 
 		//获取类路径
+		String res = null;
 		String p_path = null;
         String bak_path = null;
 		String path = "/data/disk";
@@ -4866,7 +4867,7 @@ public class LoginController {
 		}else if("AI问答".equals(class_target)){
 			p_path = path +"/uploadAIAsk/"+ uuid + ".png";
 		}else if("发货单".equals(class_target)){
-			p_path = path +"/uploadimages/"+ uuid + ".png" + "_" + original_name;
+			p_path = path +"/uploadimages/"+ uuid + ".png";
 		}else {
 			p_path = path +"/uploadimages/"+ uuid + ".png";
             bak_path = path_bak +"/uploadimages/"+ uuid + ".png";
@@ -4882,7 +4883,14 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return p_path;
+
+		if("发货单".equals(class_target)){
+			res = path + "_" + original_name;
+		}else {
+			res = p_path;
+		}
+
+		return res;
 	}
 
 	//	推送图片
