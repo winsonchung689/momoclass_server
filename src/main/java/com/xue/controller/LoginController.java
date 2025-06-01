@@ -4882,7 +4882,7 @@ public class LoginController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return p_path + "_" + original_name;
+		return p_path;
 	}
 
 	//	推送图片
