@@ -224,8 +224,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 String mark = line.getMark();
+                String sf_order_no = line.getSf_order_no();
 
                 //json
+                jsonObject.put("sf_order_no", sf_order_no);
                 jsonObject.put("mark", mark);
                 jsonObject.put("unit", unit);
                 jsonObject.put("coupons", coupons);
@@ -384,7 +386,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         List<JSONObject> resul_list = new ArrayList<>();
         String start_time = date_time.split("_")[0];
         String end_time = date_time.split("_")[1];
-        String title = "支付时间,类别,单位,数量,订单号,地区,订单信息,电话,状态,备注";
+        String title = "支付时间,类别,单位,数量,订单号,地区,订单信息,电话,状态,备注,顺丰单号";
         List<String> data_list = new ArrayList<>();
         String restaurant = null;
 
@@ -484,8 +486,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 String  mark = line.getMark();
+                String sf_order_no = line.getSf_order_no();
 
                 //json
+                jsonObject.put("sf_order_no", sf_order_no);
                 jsonObject.put("mark", mark);
                 jsonObject.put("coupons", coupons);
                 jsonObject.put("region", region);
@@ -514,7 +518,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 resul_list.add(jsonObject);
 
                 String order_detail =   food_name + "_" + unit + "_" + num + "_" + nick_name + "_" + phone_number + "_" + location + "_" + status_cn;
-                String data_line = create_time + "," + category + "," + unit + "," + num + "," + order_no + "," + region + "," + order_detail + "," + phone_number + "," + status_cn + "," + mark;
+                String data_line = create_time + "," + category + "," + unit + "," + num + "," + order_no + "," + region + "," + order_detail + "," + phone_number + "," + status_cn + "," + mark + "," + sf_order_no;
                 if(shop_status == 1 && "去发货".equals(status_cn)){
                     data_list.add(data_line);
                 }

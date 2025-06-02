@@ -27,6 +27,8 @@ public class RestaurantOrder {
 
     private String order_no;
 
+    private String sf_order_no;
+
     private String order_img;
 
     private Integer group_buy;
@@ -145,6 +147,14 @@ public class RestaurantOrder {
 
     public void setOrder_no(String order_no) {
         this.order_no = order_no;
+    }
+
+    public String getSf_order_no() {
+        return sf_order_no;
+    }
+
+    public void setSf_order_no(String sf_order_no) {
+        this.sf_order_no = sf_order_no;
     }
 
     public String getGoods_id() {

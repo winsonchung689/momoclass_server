@@ -1010,6 +1010,8 @@ public class RestaurantController {
 				restaurantOrder.setGoods_id(content);
 			}else if("mark".equals(type)){
 				restaurantOrder.setMark(content);
+			}else if("sf_order_no".equals(type)){
+				restaurantOrder.setSf_order_no(content);
 			}
 
 			res = dao.updateRestaurantOrderDetail(restaurantOrder);

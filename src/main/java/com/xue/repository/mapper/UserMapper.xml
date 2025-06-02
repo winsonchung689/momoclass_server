@@ -1786,7 +1786,7 @@
 
   <!--  更新订单内容-->
   <update id="updateRestaurantOrderDetail" parameterType="com.xue.entity.model.RestaurantOrder">
-    update restaurant_order set order_img=#{order_img},goods_id=#{goods_id},mark=#{mark},category=#{category} where id = #{id}
+    update restaurant_order set sf_order_no=#{sf_order_no},order_img=#{order_img},goods_id=#{goods_id},mark=#{mark},category=#{category} where id = #{id}
   </update>
 
   <!--  更新客户评论内容-->
