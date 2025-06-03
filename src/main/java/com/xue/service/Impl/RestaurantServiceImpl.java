@@ -534,6 +534,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 if(shop_status == 1 && "去发货".equals(status_cn)){
                     data_list.add(data_line);
                 }
+                if(!"未录入".equals(sf_order_no)){
+                    data_list.add(data_line);
+                }
             }
 
             loginService.downloadByOpenid(restaurant,"ougOI60Jjf6PkDHSI0mJDQ_129YM",data_list,title,"day_order");
