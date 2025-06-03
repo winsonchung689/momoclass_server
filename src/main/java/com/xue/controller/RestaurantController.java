@@ -907,6 +907,9 @@ public class RestaurantController {
 			}else if("inventory".equals(type)){
 				menu.setInventory(Integer.parseInt(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("discount".equals(type)){
+				menu.setDiscount(Float.parseFloat(content));
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

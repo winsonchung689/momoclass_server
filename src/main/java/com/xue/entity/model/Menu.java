@@ -17,6 +17,8 @@ public class Menu {
 
     private Float group_price;
 
+    private Float discount;
+
     private String create_time;
 
     private String introduce;
@@ -33,6 +35,15 @@ public class Menu {
 
     private Integer inventory;
 
+
+
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
+    }
 
     public Integer getInventory() {
         return inventory;
