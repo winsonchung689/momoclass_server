@@ -539,7 +539,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
             }
 
-            loginService.downloadByOpenid(restaurant,"ougOI60Jjf6PkDHSI0mJDQ_129YM",data_list,title,"day_order");
+            loginService.downloadByOpenid(restaurant,restaurant,data_list,title,"day_order");
         } catch (Exception e) {
             e.printStackTrace();
         }
