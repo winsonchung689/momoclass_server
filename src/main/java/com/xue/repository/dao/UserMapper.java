@@ -672,6 +672,8 @@ public interface UserMapper {
 
     List<RestaurantUser> getRestaurantBossByShop(String restaurant);
 
+    List<RestaurantOrder> getRestaurantOrderByLike(String restaurant,String content);
+
     List<RestaurantOrder> getRestaurantOrderByOpenid(String openid);
 
     List<RestaurantOrder> getRestaurantOrderByOpenidStatus(String openid,Integer status);

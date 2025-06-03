@@ -1482,6 +1482,10 @@
     select * from restaurant_user where restaurant =#{param1} and role = 'boss' and delete_status = 0 order by create_time limit 1;
   </select>
 
+  <select id="getRestaurantOrderByLike" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where restaurant =#{param1} and (order_no like "%"#{param2}"%" or phone_number like "%"#{param2}"%" or nick_name like "%"#{param2}"%" or location like "%"#{param2}"%")  and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getRestaurantOrderByOpenid" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
     select * from restaurant_order where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>

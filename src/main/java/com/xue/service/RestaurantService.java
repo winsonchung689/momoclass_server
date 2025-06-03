@@ -21,6 +21,8 @@ public interface RestaurantService {
 
     public List getRestaurantOrderByDay(String date_time);
 
+    public List getRestaurantOrderByLike(String restaurant,String content);
+
     public List getRestaurantCategory(String restaurant);
 
     public List getRestaurantMenu(String restaurant);

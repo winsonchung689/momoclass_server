@@ -722,6 +722,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantOrderByLike")
+	@ResponseBody
+	public List getRestaurantOrderByLike(String restaurant,String content){
+		List list = null;
+		try {
+			list = restaurantService.getRestaurantOrderByLike(restaurant,content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getRestaurantCategory")
 	@ResponseBody
 	public List getRestaurantCategory(String restaurant){
