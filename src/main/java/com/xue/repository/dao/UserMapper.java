@@ -674,7 +674,13 @@ public interface UserMapper {
 
     List<RestaurantOrder> getRestaurantOrderByOpenid(String openid);
 
+    List<RestaurantOrder> getRestaurantOrderByOpenidStatus(String openid,Integer status);
+
     List<RestaurantOrder> getRestaurantOrderByShop(String restaurant);
+
+    List<RestaurantOrder> getRestaurantOrderByShopByPage(String restaurant,Integer page_start,Integer page_length);
+
+    List<RestaurantOrder> getRestaurantOrderByShopByStatus(String restaurant,Integer status,Integer page_start,Integer page_length);
 
     List<RestaurantOrder> getRestaurantOrderById(String id);
 

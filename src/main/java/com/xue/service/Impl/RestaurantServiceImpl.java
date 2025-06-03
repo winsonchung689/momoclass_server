@@ -122,18 +122,30 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List getRestaurantOrder(String openid, String type) {
+    public List getRestaurantOrder(String openid, Integer page,String status) {
         List<RestaurantOrder> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
+        Integer page_start = 0;
+        Integer page_length = 0;
+        page_start = (page - 1) * 20;
+        page_length = 20;
 
         try {
             List<RestaurantUser> restaurantUser = dao.getRestaurantUser(openid);
             String restaurant = restaurantUser.get(0).getRestaurant();
             String role = restaurantUser.get(0).getRole();
             if ("boss".equals(role)) {
-                list = dao.getRestaurantOrderByShop(restaurant);
+                if("all".equals(status)){
+                    list = dao.getRestaurantOrderByShopByPage(restaurant,page_start,page_length);
+                }else {
+                    list = dao.getRestaurantOrderByShopByStatus(restaurant,Integer.parseInt(status),page_start,page_length);
+                }
             }else {
-                list = dao.getRestaurantOrderByOpenid(openid);
+                if("all".equals(status)){
+                    list = dao.getRestaurantOrderByOpenid(openid);
+                }else {
+                    list = dao.getRestaurantOrderByOpenidStatus(openid,Integer.parseInt(status));
+                }
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -152,13 +164,13 @@ public class RestaurantServiceImpl implements RestaurantService {
                 int num = line.getNum();
                 Float price = line.getPrice();
                 String create_time = line.getCreate_time();
-                int status = line.getStatus();
+                int status_get = line.getStatus();
                 String status_cn = "去发货";
-                if(status==1){
+                if(status_get==1){
                     status_cn = "去完成";
-                }else if(status == 2){
+                }else if(status_get == 2){
                     status_cn = "已完成";
-                }else if(status == 3){
+                }else if(status_get == 3){
                     status_cn = "已退款";
                 }
 
@@ -243,7 +255,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 jsonObject.put("num", num);
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
-                jsonObject.put("status", status);
+                jsonObject.put("status", status_get);
                 jsonObject.put("status_cn", status_cn);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("id", id);

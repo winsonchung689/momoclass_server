@@ -11,7 +11,7 @@ public interface RestaurantService {
 
     public List getRestaurantUserAll(String openid,String type);
 
-    public List getRestaurantOrder(String openid,String type);
+    public List getRestaurantOrder(String openid,Integer page,String status);
 
     public List getRestaurantLocation(String openid);
 

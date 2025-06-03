@@ -652,10 +652,10 @@ public class RestaurantController {
 
 	@RequestMapping("/getRestaurantOrder")
 	@ResponseBody
-	public List getRestaurantOrder(String openid,String type){
+	public List getRestaurantOrder(String openid,Integer page,String status){
 		List list = null;
 		try {
-			list = restaurantService.getRestaurantOrder(openid,type);
+			list = restaurantService.getRestaurantOrder(openid,page,status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1486,8 +1486,20 @@
     select * from restaurant_order where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getRestaurantOrderByOpenidStatus" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where openid =#{param1} and status =#{param2}  and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getRestaurantOrderByShop" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
     select * from restaurant_order where restaurant =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getRestaurantOrderByShopByPage" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where restaurant =#{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param3}
+  </select>
+
+  <select id="getRestaurantOrderByShopByStatus" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
+    select * from restaurant_order where restaurant =#{param1} and status =#{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4}
   </select>
 
   <select id="getRestaurantOrderById" parameterType="com.xue.entity.model.RestaurantOrder" resultMap="BaseRestaurantOrder">
