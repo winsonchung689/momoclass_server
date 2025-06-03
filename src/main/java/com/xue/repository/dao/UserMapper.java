@@ -988,7 +988,7 @@ public interface UserMapper {
 
     List<SignUp> getSignUpById(String id);
 
-    List<SignUp> getSignUpByAll(String studio,String campus);
+    List<SignUp> getSignUpByAllByDuration(String studio,String campus,String date_start,String date_end);
 
     List<SignUp> getSignUpByBacth(String student_name,String studio,String subject,String campus);
 

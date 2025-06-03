@@ -5084,11 +5084,12 @@ public class LoginController {
 		String openid =  request.getParameter("openid");
 		String studio =  request.getParameter("studio");
 		String type =  request.getParameter("type");
+		String duration =  request.getParameter("duration_time");
 		studio = studio.replace("/","");
 		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
 
 		if("all_sign".equals(type)){
-			loginService.getSignUpByAll(studio,openid);
+			loginService.getSignUpByAll(studio,openid,duration);
 		}
 
 		if("all_lesson".equals(type)){

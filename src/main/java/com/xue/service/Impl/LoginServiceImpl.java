@@ -932,12 +932,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByAll(String studio, String openid) {
+    public List getSignUpByAll(String studio, String openid,String duration) {
         String create_time = null;
         String sign_time = null;
         String id = null;
         String mark = null;
-        String duration = null;
         Float count = 0.0f;
         Integer ending_status_get = 0;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -947,7 +946,10 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<User> user_get= dao.getUser(openid);
             String campus = user_get.get(0).getCampus();
-            List<SignUp> list = dao.getSignUpByAll(studio,campus);
+
+            String date_start = duration.split("_")[0];
+            String date_end = duration.split("_")[1];
+            List<SignUp> list = dao.getSignUpByAllByDuration(studio,campus,date_start,date_end);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SignUp line = list.get(i);
@@ -956,7 +958,7 @@ public class LoginServiceImpl implements LoginService {
                 sign_time = line.getSign_time();
                 id = line.getId();
                 mark = line.getMark();
-                duration = line.getDuration();
+                String duration_get = line.getDuration();
                 count = line.getCount();
                 String student_name = line.getStudent_name();
                 String subject = line.getSubject();
@@ -984,14 +986,14 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("sign_time", sign_time.substring(0,10));
                 jsonObject.put("rank", rank);
                 jsonObject.put("mark", mark);
-                jsonObject.put("duration", duration);
+                jsonObject.put("duration", duration_get);
                 jsonObject.put("count", count);
                 jsonObject.put("subject", subject);
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
                 resul_list.add(jsonObject);
 
-                String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
+                String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration_get + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
                 data_list.add(data_line);
             }
             downloadByOpenid(studio,openid,data_list,title,"all_sign");
