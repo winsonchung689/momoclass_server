@@ -114,7 +114,7 @@ public class RestaurantController {
 			if(!"no_id".equals(inviter_openid)){
 				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 				RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
-				List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"邀请券",3);
+				List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"邀请券",10);
 				if(giftLists.size() > 0){
 					GiftList giftList = giftLists.get(0);
 
@@ -451,7 +451,7 @@ public class RestaurantController {
 				if(!"no_id".equals(inviter_openid)){
 					List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 					RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
-					List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"回赠券",5);
+					List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"回赠券",10);
 					if(giftLists.size() > 0){
 						GiftList giftList = giftLists.get(0);
 
