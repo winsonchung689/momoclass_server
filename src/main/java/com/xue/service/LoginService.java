@@ -115,7 +115,7 @@ public interface LoginService {
 
     public List  getGiftByGiftId(String gift_id,String studio,String campus);
 
-    public List  getSignUpByAll(String studio,String openid,String duration);
+    public List  getSignUpByAll(String studio,String openid,String duration,String type,String student_name,String subject);
 
     public List  getLessonPackageByAll(String studio,String openid);
 

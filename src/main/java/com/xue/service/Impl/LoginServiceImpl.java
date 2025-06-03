@@ -932,7 +932,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByAll(String studio, String openid,String duration) {
+    public List getSignUpByAll(String studio,String openid,String duration,String type,String student_name,String subject) {
         String create_time = null;
         String sign_time = null;
         String id = null;
@@ -942,17 +942,23 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         String title = "序号,学生名,科目,上课日,时间段,签到日,备注,课时,状态,结课";
         List<String> data_list = new ArrayList<>();
+        List<SignUp> signUps = new ArrayList<>();
 
         try {
             List<User> user_get= dao.getUser(openid);
             String campus = user_get.get(0).getCampus();
-
             String date_start = duration.split("_")[0];
             String date_end = duration.split("_")[1];
-            List<SignUp> list = dao.getSignUpByAllByDuration(studio,campus,date_start,date_end);
-            for (int i = 0; i < list.size(); i++) {
+
+            if("all_sign".equals(type)){
+                signUps = dao.getSignUpByAllByDuration(studio,campus,date_start,date_end);
+            }else if("single_sign".equals(type)){
+                signUps = dao.getSignUpByBetween(student_name,studio,campus,subject,date_start,date_end);
+            }
+
+            for (int i = 0; i < signUps.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
-                SignUp line = list.get(i);
+                SignUp line = signUps.get(i);
                 //获取字段
                 create_time = line.getCreate_time();
                 sign_time = line.getSign_time();
@@ -960,8 +966,8 @@ public class LoginServiceImpl implements LoginService {
                 mark = line.getMark();
                 String duration_get = line.getDuration();
                 count = line.getCount();
-                String student_name = line.getStudent_name();
-                String subject = line.getSubject();
+                String student_name_get = line.getStudent_name();
+                String subject_get = line.getSubject();
                 ending_status_get = line.getEnding_status();
                 String ending_status = "未结";
                 if(ending_status_get == 1){
@@ -979,24 +985,25 @@ public class LoginServiceImpl implements LoginService {
                     status = "提前签";
                 }
                 int rank = i+1;
+
                 //json
                 jsonObject.put("id", id);
-                jsonObject.put("student_name", student_name);
+                jsonObject.put("student_name", student_name_get);
                 jsonObject.put("create_time", create_time.substring(0,10));
                 jsonObject.put("sign_time", sign_time.substring(0,10));
                 jsonObject.put("rank", rank);
                 jsonObject.put("mark", mark);
                 jsonObject.put("duration", duration_get);
                 jsonObject.put("count", count);
-                jsonObject.put("subject", subject);
+                jsonObject.put("subject", subject_get);
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
                 resul_list.add(jsonObject);
 
-                String data_line = rank + "," + student_name + "," + subject + "," + create_time.substring(0,10) + "," + duration_get + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
+                String data_line = rank + "," + student_name_get + "," + subject_get + "," + create_time.substring(0,10) + "," + duration_get + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
                 data_list.add(data_line);
             }
-            downloadByOpenid(studio,openid,data_list,title,"all_sign");
+            downloadByOpenid(studio,openid,data_list,title,type);
         } catch (Exception e) {
             e.printStackTrace();
         }

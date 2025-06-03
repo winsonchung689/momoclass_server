@@ -5082,14 +5082,16 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getDownloadDataByType(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String openid =  request.getParameter("openid");
+		String student_name =  request.getParameter("student_name");
+		String subject =  request.getParameter("subject");
 		String studio =  request.getParameter("studio");
 		String type =  request.getParameter("type");
 		String duration =  request.getParameter("duration_time");
 		studio = studio.replace("/","");
 		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
 
-		if("all_sign".equals(type)){
-			loginService.getSignUpByAll(studio,openid,duration);
+		if("all_sign".equals(type) || "single_sign".equals(type)){
+			loginService.getSignUpByAll(studio,openid,duration,type,student_name,subject);
 		}
 
 		if("all_lesson".equals(type)){
