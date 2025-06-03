@@ -767,6 +767,9 @@ public class RestaurantController {
 		String openid = request.getParameter("openid");
 		String type = request.getParameter("type");
 		String location_id = request.getParameter("location_id");
+		if(location_id == null || location_id.isEmpty() || "undefined".equals(location_id)){
+			location_id = "0";
+		}
 
 		try {
 			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
