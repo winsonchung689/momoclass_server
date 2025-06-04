@@ -448,10 +448,12 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer location_id = line.getLocation_id();
                 if(location_id != 0){
                     List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
-                    RestaurantLocation restaurantLocation = restaurantLocations.get(0);
-                    nick_name = restaurantLocation.getNick_name();
-                    phone_number = restaurantLocation.getPhone_number();
-                    location = restaurantLocation.getLocation();
+                    if(restaurantLocations.size() > 0){
+                        RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                        nick_name = restaurantLocation.getNick_name();
+                        phone_number = restaurantLocation.getPhone_number();
+                        location = restaurantLocation.getLocation();
+                    }
                 }
 
                 String id = line.getId();
