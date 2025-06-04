@@ -712,10 +712,10 @@ public class RestaurantController {
 
 	@RequestMapping("/getRestaurantOrderByDay")
 	@ResponseBody
-	public List getRestaurantOrderByDay(String date_time){
+	public List getRestaurantOrderByDay(String date_time,String openid){
 		List list = null;
 		try {
-			list = restaurantService.getRestaurantOrderByDay(date_time);
+			list = restaurantService.getRestaurantOrderByDay(date_time,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

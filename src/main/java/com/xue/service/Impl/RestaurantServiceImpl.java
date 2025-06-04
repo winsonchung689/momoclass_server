@@ -394,7 +394,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List getRestaurantOrderByDay(String date_time) {
+    public List getRestaurantOrderByDay(String date_time,String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         String start_time = date_time.split("_")[0];
         String end_time = date_time.split("_")[1];
@@ -539,7 +539,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
             }
 
-            loginService.downloadByOpenid(restaurant,restaurant,data_list,title,"day_order");
+            loginService.downloadByOpenid(restaurant,openid,data_list,title,"day_order");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,7 +19,7 @@ public interface RestaurantService {
 
     public List getRestaurantOrderCmByGoodsId(String goods_id);
 
-    public List getRestaurantOrderByDay(String date_time);
+    public List getRestaurantOrderByDay(String date_time,String openid);
 
     public List getRestaurantOrderByLike(String restaurant,String content);
 
