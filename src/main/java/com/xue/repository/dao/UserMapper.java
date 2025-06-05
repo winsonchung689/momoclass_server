@@ -102,9 +102,10 @@ public interface UserMapper {
     //获取
     List<Schedule> getTransferAll(String date_time,String studio,String campus);
 
-    List<Book> getBookDetail(String studio,String create_time,String type,String start_date);
+    List<Book> getAccountBookDetail(String studio,String create_time,String type,String start_date);
 
     List<Book> getBookByStudio(String studio);
+
     List<Book> getBookDetailAll(String studio,String create_time,String start_date);
 
     List<Book> getBookDetailByMark(String studio,String create_time,String start_date);

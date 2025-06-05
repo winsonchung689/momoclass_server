@@ -4680,7 +4680,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getBookDetail(String studio, String create_time, String type,String start_date) {
+    public List getAccountBookDetail(String studio, String create_time, String type,String start_date) {
         List<Book> list =null;
         String mark = null;
         Float amount = 0.0f;
@@ -4690,7 +4690,7 @@ public class LoginServiceImpl implements LoginService {
             if("all".equals(type)){
                 list = dao.getBookDetailAll(studio,create_time,start_date);
             }else {
-                list = dao.getBookDetail(studio,create_time,type,start_date);
+                list = dao.getAccountBookDetail(studio,create_time,type,start_date);
             }
 
             for (int i = 0; i < list.size(); i++) {
