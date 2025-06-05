@@ -455,6 +455,9 @@ public interface UserMapper {
 
     int updateBookDetailBookName(String book_name_old,String book_name_new);
 
+
+    int updateBookDetailById(BookDetail bookDetail);
+
     int updateRestaurantUser(RestaurantUser restaurantUser);
 
     int updateRestaurantByAll(String old_name,String new_name);
@@ -901,6 +904,9 @@ public interface UserMapper {
     Integer getBookSumByMonth(String openid,String book_name,String create_time);
 
     List<BookDetail> getBookDetailByMonth(String openid,String book_name,String create_time);
+
+
+    List<BookDetail> getBookDetailById(String id);
 
     Integer getClassesCountBySubjectLesson(String studio,String subject,String campus);
 

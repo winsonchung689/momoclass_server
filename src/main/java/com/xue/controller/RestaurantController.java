@@ -971,6 +971,31 @@ public class RestaurantController {
 		return 1;
 	}
 
+	@RequestMapping("/updateBookDetailById")
+	@ResponseBody
+	public int updateBookDetailById(HttpServletRequest request, HttpServletResponse response){
+
+		//获取文字
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
+		try {
+			List<BookDetail> bookDetails = dao.getBookDetailById(id);
+			BookDetail bookDetail = bookDetails.get(0);
+			if("mark".equals(type)){
+				bookDetail.setMark(content);
+			}else if("amount".equals(type)){
+				bookDetail.setAmount(Float.parseFloat(content));
+			}
+			dao.updateBookDetailById(bookDetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+	}
+
 	@RequestMapping("/updateRestaurantLocationId")
 	@ResponseBody
 	public int updateRestaurantLocationId(HttpServletRequest request, HttpServletResponse response){
