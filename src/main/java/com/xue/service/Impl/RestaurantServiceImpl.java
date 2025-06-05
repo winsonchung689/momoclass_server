@@ -123,6 +123,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List getRestaurantOrder(String openid, Integer page,String status) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         List<RestaurantOrder> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = 0;
@@ -173,6 +174,18 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }else if(status_get == 3){
                     status_cn = "已退款";
                 }
+
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date create_time_dt = df.parse(create_time.substring(0,10));
+//                int compare = today_dt.compareTo(create_time_dt);
+                long diff = today_dt.getTime() -  create_time_dt.getTime();
+                long days = diff / (24*60*60*1000);
+                if(status_get == 1 && days > 3){
+                    line.setStatus(2);
+                    dao.updateRestaurantOrderStatus(line);
+                }
+
 
                 Integer location_id = line.getLocation_id();
                 String openid_get = line.getOpenid();
