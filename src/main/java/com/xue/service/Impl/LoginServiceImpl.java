@@ -3280,7 +3280,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("all_days", 0);
                 jsonObject.put("amount", 0);
                 if(!openid.equals("all")) {
-                    List<Book> books = dao.getBookByStudio(studio);
+                    List<Book> books = dao.getAccountBookByStudio(studio);
                     if(books.size()>0){
                         String mark = books.get(0).getMark();
                         Float amount = books.get(0).getAmount();
@@ -4688,7 +4688,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             if("all".equals(type)){
-                list = dao.getBookDetailAll(studio,create_time,start_date);
+                list = dao.getAccountBookDetailAll(studio,create_time,start_date);
             }else {
                 list = dao.getAccountBookDetail(studio,create_time,type,start_date);
             }
@@ -8686,7 +8686,7 @@ public class LoginServiceImpl implements LoginService {
                 String studio = line.getStudio();
                 int number = 0;
                 String pay_type ="未续费";
-                List<Book> books = dao.getBookDetailByMark(studio,now_time,"2024-01-01");
+                List<Book> books = dao.getAccountBookDetailByMark(studio,now_time,"2024-01-01");
                 for(int j=0; j < books.size();j++){
                     String mark = books.get(j).getMark();
                     String type = books.get(j).getType();
@@ -8808,7 +8808,7 @@ public class LoginServiceImpl implements LoginService {
 
                 int number = 0;
                 String pay_type ="未续费";
-                List<Book> books = dao.getBookDetailByMark(studio,today_time,"2024-01-01");
+                List<Book> books = dao.getAccountBookDetailByMark(studio,today_time,"2024-01-01");
                 for(int j=0; j < books.size();j++){
                     String mark = books.get(j).getMark();
                     String type = books.get(j).getType();
