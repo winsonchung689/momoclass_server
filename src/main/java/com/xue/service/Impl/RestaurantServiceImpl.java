@@ -447,39 +447,34 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String inviter_name = "no_name";
                 String inviter_phone = "未录入";
                 String openid_get = line.getOpenid();
-                List<RestaurantUser> restaurantUser_get = dao.getRestaurantUser(openid_get);
-                if(restaurantUser_get.size()>0){
-                    RestaurantUser restaurantUser1 = restaurantUser_get.get(0);
-                    nick_name = restaurantUser1.getNick_name();
-                    phone_number = restaurantUser1.getPhone_number();
-                    location = restaurantUser1.getLocation();
-                    inviter_openid = restaurantUser1.getInviter_openid();
+                Integer location_id = line.getLocation_id();
+                List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid_get);
+                if(restaurantUsers.size()>0){
+                    RestaurantUser restaurantUser = restaurantUsers.get(0);
+                    // 地址电话
+                    if ("无".equals(location)){
+                        if(location_id == 0){
+                            nick_name = restaurantUser.getNick_name();
+                            phone_number = restaurantUser.getPhone_number();
+                            location = restaurantUser.getLocation();
+                        }else{
+                            List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+                            if(restaurantLocations.size() > 0){
+                                RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                                nick_name = restaurantLocation.getNick_name();
+                                phone_number = restaurantLocation.getPhone_number();
+                                location = restaurantLocation.getLocation();
+                            }
+                        }
+                    }
+
+                    // 邀请人
+                    inviter_openid = restaurantUser.getInviter_openid();
                     List<RestaurantUser> restaurantUsers_invite = dao.getRestaurantUser(inviter_openid);
                     if(restaurantUsers_invite.size() > 0){
                         RestaurantUser restaurantUser_invite = restaurantUsers_invite.get(0);
                         inviter_name = restaurantUser_invite.getNick_name();
                         inviter_phone = restaurantUser_invite.getPhone_number();
-                    }
-                }
-
-                Integer location_id = line.getLocation_id();
-                if( "无".equals(location)){
-                    if(location_id == 0){
-                        List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUser(openid_get);
-                        if(restaurantUsers1.size() > 0){
-                            RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
-                            nick_name = restaurantUser1.getNick_name();
-                            phone_number = restaurantUser1.getPhone_number();
-                            location = restaurantUser1.getLocation();
-                        }
-                    }else{
-                        List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
-                        if(restaurantLocations.size() > 0){
-                            RestaurantLocation restaurantLocation = restaurantLocations.get(0);
-                            nick_name = restaurantLocation.getNick_name();
-                            phone_number = restaurantLocation.getPhone_number();
-                            location = restaurantLocation.getLocation();
-                        }
                     }
                 }
 
