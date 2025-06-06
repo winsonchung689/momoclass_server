@@ -418,9 +418,16 @@ public class RestaurantServiceImpl implements RestaurantService {
         try {
             List<RestaurantOrder> list = dao.getRestaurantOrderByDay(start_time,end_time);
             for (int i = 0; i < list.size(); i++) {
+                String nick_name = null;
+                String phone_number = null;
+                String location = null;
                 JSONObject jsonObject = new JSONObject();
                 RestaurantOrder line = list.get(i);
+
                 //获取字段
+                nick_name = line.getNick_name();
+                phone_number = line.getPhone_number();
+                location = line.getLocation();
                 restaurant = line.getRestaurant();
                 String category = line.getCategory();
                 int num = line.getNum();
@@ -436,9 +443,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                     status_cn = "已退款";
                 }
 
-                String nick_name = null;
-                String phone_number = null;
-                String location = null;
                 String inviter_openid = "no_id";
                 String inviter_name = "no_name";
                 String inviter_phone = "未录入";
@@ -459,13 +463,23 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 Integer location_id = line.getLocation_id();
-                if(location_id != 0){
-                    List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
-                    if(restaurantLocations.size() > 0){
-                        RestaurantLocation restaurantLocation = restaurantLocations.get(0);
-                        nick_name = restaurantLocation.getNick_name();
-                        phone_number = restaurantLocation.getPhone_number();
-                        location = restaurantLocation.getLocation();
+                if( "无".equals(location)){
+                    if(location_id == 0){
+                        List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUser(openid_get);
+                        if(restaurantUsers1.size() > 0){
+                            RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+                            nick_name = restaurantUser1.getNick_name();
+                            phone_number = restaurantUser1.getPhone_number();
+                            location = restaurantUser1.getLocation();
+                        }
+                    }else{
+                        List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+                        if(restaurantLocations.size() > 0){
+                            RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                            nick_name = restaurantLocation.getNick_name();
+                            phone_number = restaurantLocation.getPhone_number();
+                            location = restaurantLocation.getLocation();
+                        }
                     }
                 }
 
