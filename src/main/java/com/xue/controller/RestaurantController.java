@@ -256,7 +256,7 @@ public class RestaurantController {
 
 	@RequestMapping("/shareShopQrCode")
 	@ResponseBody
-	public JSONObject getQrCode(String id){
+	public JSONObject shareShopQrCode(String id){
 		JSONObject jsonObject = new JSONObject();
 		String token = loginService.getToken("ORDER");
 		String scene = "id=" + id;
