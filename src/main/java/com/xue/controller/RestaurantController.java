@@ -65,7 +65,7 @@ public class RestaurantController {
 
 		String openid = request.getParameter("openid");
 		String inviter_openid = "no_id";
-		String restaurant = "请录入商铺";
+		String restaurant = "荔乡杂货铺";
 
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
 		if(restaurantUsers.size()>0){
