@@ -60,6 +60,7 @@ public class RestaurantController {
 		String[] id_list = id.split("_");
 		String gift_id = "no_id";
 		if(id_list.length>1){
+			id = id_list[0];
 			gift_id = id_list[1];
 		}
 
@@ -143,7 +144,7 @@ public class RestaurantController {
 		}
 
 		// 扫码赠券
-		if("no_id".equals(gift_id)){
+		if(!"no_id".equals(gift_id)){
 			List<RestaurantUser> restaurantUsers2 = dao.getRestaurantUserByOpenid(openid);
 			RestaurantUser restaurantUser2 = restaurantUsers2.get(0);
 			String nick_name_get  = restaurantUser2.getNick_name();
