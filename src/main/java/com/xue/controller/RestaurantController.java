@@ -57,9 +57,14 @@ public class RestaurantController {
 
 		//获取用户名
 		String id = request.getParameter("id");
+		String[] id_list = id.split("_");
+		String gift_id = "no_id";
+		if(id_list.length>1){
+			gift_id = id_list[1];
+		}
+
 		String openid = request.getParameter("openid");
 		String inviter_openid = "no_id";
-
 		String restaurant = "请录入商铺";
 
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserById(id);
@@ -110,7 +115,7 @@ public class RestaurantController {
 		}else {
 			restaurantUser.setShop_history(restaurant);
 			restaurantService.insertRestaurantUser(restaurantUser);
-			// 赠券
+			// 邀请赠券
 			if(!"no_id".equals(inviter_openid)){
 				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
 				RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
@@ -137,6 +142,36 @@ public class RestaurantController {
 			}
 		}
 
+		// 扫码赠券
+		if("no_id".equals(gift_id)){
+			List<RestaurantUser> restaurantUsers2 = dao.getRestaurantUserByOpenid(openid);
+			RestaurantUser restaurantUser2 = restaurantUsers2.get(0);
+			String nick_name_get  = restaurantUser2.getNick_name();
+			String restaurant_get = restaurantUser2.getRestaurant();
+			List<GiftList> giftLists = dao.getGiftListById(gift_id);
+			if(giftLists.size() > 0){
+				GiftList giftList = giftLists.get(0);
+
+				Gift gift = new Gift();
+				gift.setPrice(giftList.getPrice());
+				gift.setUuids(giftList.getUuids());
+				gift.setStudent_name(nick_name_get);
+				gift.setGift_name(giftList.getGift_name());
+				gift.setGift_amount(1);
+				gift.setCreate_time(create_time);
+				gift.setExpired_time(create_time);
+				gift.setStudio(restaurant_get);
+				gift.setCampus(restaurant_get);
+				gift.setStatus(0);
+				gift.setGift_id(giftList.getId());
+				gift.setOpenid(openid);
+				gift.setType("扫码券");
+				List<Gift> gifts = dao.getGiftByOpenidGiftid(openid,gift_id);
+				if(gifts.size() == 0){
+					loginService.insertGift(gift);
+				}
+			}
+		}
 		return "push massage successfully";
 	}
 
