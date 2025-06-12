@@ -32,7 +32,7 @@ public class Gift {
     private String type;
 
 
-    public String gettType() {
+    public String getType() {
         return type;
     }
 

@@ -1103,7 +1103,7 @@ public class LoginServiceImpl implements LoginService {
                 Date expired_time_dt = df.parse(expired_time);
                 int compare = now_time_dt.compareTo(expired_time_dt);
 
-                String type = line.gettType();
+                String type = line.getType();
                 Float price = line.getPrice();
                 String uuids = line.getUuids();
                 Integer coupon_type_get = 1;
@@ -1112,7 +1112,7 @@ public class LoginServiceImpl implements LoginService {
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
                     GiftList giftList = giftLists.get(0);
-                    type = giftList.getType();
+//                    type = giftList.getType();
                     price = giftList.getPrice();
                     uuids = giftList.getUuids();
                     coupon_type_get = giftList.getCoupon_type();
