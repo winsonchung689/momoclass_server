@@ -170,6 +170,9 @@ public class RestaurantController {
 				List<Gift> gifts = dao.getGiftByOpenidGiftid(openid,gift_id);
 				if(gifts.size() == 0){
 					loginService.insertGift(gift);
+					Integer amount = giftList.getAmount();
+					giftList.setAmount(amount + 1);
+					dao.updateGiftDetail(giftList);
 				}
 			}
 		}
