@@ -5087,6 +5087,10 @@ public class LoginController {
 		String studio =  request.getParameter("studio");
 		String type =  request.getParameter("type");
 		String duration =  request.getParameter("duration_time");
+		if(duration == null || duration.isEmpty() || "undefined".equals(duration)){
+			duration = "2001-01-01_2100-01-01";
+		}
+
 		studio = studio.replace("/","");
 		String path = "/data/downloadData/"+ studio + "/"+ openid + "/"+ type + ".xls" ;
 
