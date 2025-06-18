@@ -225,6 +225,8 @@ public interface LoginService {
 
     public List getAllOrderByType(String openid,String type,Integer page);
 
+    public List getOrderByStudioLike(String openid,String content);
+
     public List getOrderByGoodsId(String goods_id,String type);
 
     public List getFrameModel(String studio,Integer page,String class_target,String campus);

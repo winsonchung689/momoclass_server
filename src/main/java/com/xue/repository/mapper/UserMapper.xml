@@ -1107,6 +1107,10 @@
     select * from `order` where studio =#{param1} and status =#{param2} and delete_status = 0 order by create_time desc limit #{param3},#{param4};
   </select>
 
+  <select id="getOrderByStudioLike" parameterType="com.xue.entity.model.Order" resultMap="BaseOrder">
+    select * from `order` where studio = #{param1} and (order_no like "%"#{param2}"%" or phone_number like "%"#{param2}"%" or nick_name like "%"#{param2}"%" or location like "%"#{param2}"%") and delete_status = 0 order by create_time desc;
+  </select>
+
   <!-- 查找课程表 -->
   <select id="getArrangementAll" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
     select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and campus =#{param3} and delete_status = 0 order by duration

@@ -780,6 +780,8 @@ public interface UserMapper {
 
     List<Order> getAllOrderByType(String studio,Integer status,Integer page_start,Integer page_length);
 
+    List<Order> getOrderByStudioLike(String studio,String content);
+
     List<Arrangement> getArrangementsByDate(String studio);
 
     List<Message> getCertificateModel(String class_name);

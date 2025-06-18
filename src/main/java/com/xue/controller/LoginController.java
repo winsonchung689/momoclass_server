@@ -2506,6 +2506,7 @@ public class LoginController {
 		return list;
 	}
 
+
 	@RequestMapping("/getOrderByGoodsId")
 	@ResponseBody
 	public List getOrderByGoodsId(String goods_id,String type){

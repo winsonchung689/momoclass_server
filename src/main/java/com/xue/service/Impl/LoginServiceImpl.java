@@ -4255,7 +4255,6 @@ public class LoginServiceImpl implements LoginService {
         byte[] photo = null;
         List<byte[]> resul_list = new ArrayList<>();
         try {
-
             List<Message> list = dao.getCertificateModel(class_name);
             for (int i = 0; i < list.size(); i++) {
                 Message line = list.get(i);
@@ -4341,6 +4340,130 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 type = line.getType();
+                if("趣卖画廊".equals(type)){
+                    List<Album> albums = dao.getAlbumById(goods_id);
+                    if(albums.size()>0){
+                        Album album = albums.get(0);
+                        goods_name = album.getName();
+                        goods_price = album.getPrice();
+                        uuids = album.getUuid();
+                    }
+                }else {
+                    List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+                    if(goodsLists.size()>0){
+                        GoodsList goodsList = goodsLists.get(0);
+                        goods_name = goodsList.getGoods_name();
+                        goods_price = goodsList.getGoods_price();
+                        group_price = goodsList.getGroup_price();
+                        group_num = goodsList.getGroup_num();
+                        try {
+                            uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
+                        } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                        }
+                    }
+                }
+
+
+
+                String create_time = line.getCreate_time();
+
+                Integer counts = line.getCounts();
+                Float amount = line.getAmount();
+                String sub_goods_id = line.getSub_goods_id();
+                List<GoodsList> goodsLists1 = dao.getGoodsListById(sub_goods_id);
+                String sub_goods_name = "无";
+                if(goodsLists1.size()>0){
+                    GoodsList goodsList1 = goodsLists1.get(0);
+                    sub_goods_name  = goodsList1.getGoods_name();
+                }
+
+                List<Order> success_orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
+                int group_sum = success_orders.size();
+                String order_no = line.getOrder_no();
+
+                jsonObject.put("id", id);
+                jsonObject.put("order_no", order_no);
+                jsonObject.put("sub_goods_name", sub_goods_name);
+                jsonObject.put("client_name", client_name);
+                jsonObject.put("client_student", client_student);
+                jsonObject.put("goods_id", goods_id);
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("openid", openid);
+                jsonObject.put("group_price", group_price);
+                jsonObject.put("leader_id", leader_id);
+                jsonObject.put("leader", leader_name);
+                jsonObject.put("group_role", group_role);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
+                jsonObject.put("type", type);
+                jsonObject.put("counts", counts);
+                jsonObject.put("amount", amount);
+                jsonObject.put("status", status);
+
+                //json
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getOrderByStudioLike(String openid, String content) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+
+            List<User> users = dao.getUser(openid);
+            User user = users.get(0);
+            String studio = user.getStudio();
+            List<Order> list = dao.getOrderByStudioLike(studio,content);
+
+            for (int i = 0; i < list.size(); i++) {
+                Float group_price = 0.0f;
+                Integer group_num = 0;
+                String uuids = null;
+                String leader_name = null;
+                JSONObject jsonObject = new JSONObject();
+                Order line = list.get(i);
+
+                //获取字段
+                String id = line.getId();
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                Integer status = line.getStatus();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+                String nick_name = line.getNick_name();
+                String goods_id = line.getGoods_id();
+                String group_role = line.getGroup_role();
+                String leader_id = line.getLeader_id();
+                openid = line.getOpenid();
+                String client_name = null;
+                String client_student = null;
+                List<User> users_get = dao.getUser(openid);
+                if(users_get.size()>0){
+                    User user_get = users_get.get(0);
+                    client_name = user_get.getNick_name();
+                    client_student = user_get.getStudent_name();
+                }
+
+                List<User> leaders = dao.getUser(leader_id);
+                if(leaders.size() > 0){
+                    User leader_user = leaders.get(0);
+                    leader_name = leader_user.getNick_name();
+                }
+
+                String type = line.getType();
                 if("趣卖画廊".equals(type)){
                     List<Album> albums = dao.getAlbumById(goods_id);
                     if(albums.size()>0){
