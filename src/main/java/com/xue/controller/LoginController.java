@@ -2506,6 +2506,17 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getOrderByStudioLike")
+	@ResponseBody
+	public List getOrderByStudioLike(String openid,String content){
+		List list = null;
+		try {
+			list = loginService.getOrderByStudioLike(openid,content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	@RequestMapping("/getOrderByGoodsId")
 	@ResponseBody
