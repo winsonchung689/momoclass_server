@@ -4488,10 +4488,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-
-
                 String create_time = line.getCreate_time();
-
                 Integer counts = line.getCounts();
                 Float amount = line.getAmount();
                 String sub_goods_id = line.getSub_goods_id();
@@ -4501,7 +4498,6 @@ public class LoginServiceImpl implements LoginService {
                     GoodsList goodsList1 = goodsLists1.get(0);
                     sub_goods_name  = goodsList1.getGoods_name();
                 }
-
                 List<Order> success_orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = success_orders.size();
                 String order_no = line.getOrder_no();
