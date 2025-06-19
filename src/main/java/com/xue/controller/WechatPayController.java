@@ -126,7 +126,7 @@ public class WechatPayController {
 					dao.updateStatusByOrderNo(order_no,3);
 					book.setType("支出");
 				}
-				dao.insertBook(book);
+//				dao.insertBook(book);
 			} else if (appid.equals(Constants.order_appid)) {
 				if("退款".equals(type)){
 					res = dao.updateRestaurantOrderByOrderNo(order_no,3);
