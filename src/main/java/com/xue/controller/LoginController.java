@@ -496,7 +496,6 @@ public class LoginController {
 			return "no_studio";
 		}
 
-
 		long diff = 0;
 		try {
 			Date date1 = df.parse(create_time);
