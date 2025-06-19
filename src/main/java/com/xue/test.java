@@ -25,11 +25,14 @@ public class test {
 
         LocalTime time = LocalTime.of(10, Integer.parseInt("01"));
         int aa = Integer.parseInt("01");
-        System.out.printf("aa:" + aa);
+//        System.out.printf("aa:" + aa);
         Duration fiveMinutes = Duration.ofMinutes(3);
         LocalTime duration_end = time.minus(fiveMinutes);
-        System.out.printf("duration_end:" + duration_end.toString());
-
+//        System.out.printf("duration_end:" + duration_end.toString());
+        String mark = "小桃子续费111";
+        if (mark.contains("小桃子续费")) {
+            System.out.println("支出");
+        }
 
     }
 

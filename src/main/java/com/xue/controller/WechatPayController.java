@@ -126,6 +126,9 @@ public class WechatPayController {
 					dao.updateStatusByOrderNo(order_no,3);
 					book.setType("支出");
 				}
+				if (mark.contains("小桃子续费")) {
+					book.setType("支出");
+				}
 				dao.insertBook(book);
 			} else if (appid.equals(Constants.order_appid)) {
 				if("退款".equals(type)){
