@@ -961,6 +961,14 @@ public class RestaurantController {
 			}else if("discount".equals(type)){
 				menu.setDiscount(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("for_coupon".equals(type)){
+				Integer for_coupon_get = menu.getFor_coupon();
+				Integer for_coupon = 1;
+				if(for_coupon_get == 1){
+					for_coupon = 0;
+				}
+				menu.setFor_coupon(for_coupon);
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

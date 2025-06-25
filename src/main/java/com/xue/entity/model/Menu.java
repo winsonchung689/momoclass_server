@@ -35,7 +35,16 @@ public class Menu {
 
     private Integer inventory;
 
+    private Integer for_coupon;
 
+
+    public Integer getFor_coupon() {
+        return for_coupon;
+    }
+
+    public void setFor_coupon(Integer for_coupon) {
+        this.for_coupon = for_coupon;
+    }
 
     public Float getDiscount() {
         return discount;
