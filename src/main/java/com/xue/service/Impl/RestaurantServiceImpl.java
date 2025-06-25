@@ -753,8 +753,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String open_time = line.getOpen_time();
                 Integer inventory = line.getInventory();
                 Float discount = line.getDiscount();
+                Integer for_coupon = line.getFor_coupon();
 
                 //json
+                jsonObject.put("for_coupon", for_coupon);
                 jsonObject.put("discount", discount);
                 jsonObject.put("inventory", inventory);
                 jsonObject.put("open_time", open_time);
