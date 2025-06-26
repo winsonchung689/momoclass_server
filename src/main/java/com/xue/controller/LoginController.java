@@ -1980,6 +1980,9 @@ public class LoginController {
 	@RequestMapping("/modifyGoodsIntro")
 	@ResponseBody
 	public String modifyGoodsIntro(String goods_id,String goods_intro_modify,String openid,String type){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String create_time = df.format(new Date());
+
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
@@ -2031,6 +2034,19 @@ public class LoginController {
 				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
 			}else if("pay_type".equals(type)){
 				dao.modifyGoodsPayType(goods_id,studio,campus,goods_intro_modify);
+				List<Merchant> merchants = dao.getMerchant(studio,campus,Constants.appid);
+				if(merchants.size() == 0){
+					Merchant merchant = new Merchant();
+					merchant.setStudio(studio);
+					merchant.setCampus(campus);
+					merchant.setOpenid(openid);
+					merchant.setSub_appid(Constants.appid);
+					merchant.setSub_mchid(Constants.appid);
+					merchant.setCreate_time(create_time);
+					merchant.setType("商户平台");
+
+					dao.insertMerchant(merchant);
+				}
 			}
 
 		} catch (Exception e) {
