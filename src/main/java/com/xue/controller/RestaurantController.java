@@ -1167,7 +1167,10 @@ public class RestaurantController {
 			merchant.setSub_mchid(Constants.MCH_ID);
 			merchant.setCreate_time(create_time);
 			merchant.setType("商户平台");
-			dao.insertMerchant(merchant);
+			List<Merchant> merchants = dao.getMerchant(restaurant,restaurant,Constants.order_appid);
+			if(merchants.size() == 0){
+				dao.insertMerchant(merchant);
+			}
 
 			// 开通权限
 			restaurantUser.setExpired_time(expired_time);
