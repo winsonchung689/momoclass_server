@@ -85,6 +85,7 @@ public class RestaurantController {
 		restaurantUser.setCreate_time(create_time);
 		restaurantUser.setExpired_time(expired_time);
 		restaurantUser.setInviter_openid(inviter_openid);
+		restaurantUser.setShop_history(restaurant);
 
 		List<RestaurantUser> restaurantUsers1 = dao.getRestaurantUserByOpenid(openid);
 		if(restaurantUsers1.size()>0){
@@ -282,6 +283,7 @@ public class RestaurantController {
 		restaurantUser.setExpired_time(expired_time);
 		restaurantUser.setLogo(uuid);
 		restaurantUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
+		restaurantUser.setShop_history(restaurant);
 
 		List<RestaurantUser> restaurantUsers = dao.getRestaurantUserByOpenid(openid);
 		if(restaurantUsers.size()>0){
