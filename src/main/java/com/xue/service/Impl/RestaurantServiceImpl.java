@@ -912,6 +912,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 String boss_phone = null;
                 String boss_info = null;
                 String boss_promise = null;
+                Integer boss_coupon = 0;
                 List<RestaurantUser> restaurantUsers = dao.getRestaurantBossByShop(restaurant);
                 if(restaurantUsers.size()>0){
                     RestaurantUser restaurantUser = restaurantUsers.get(0);
@@ -920,6 +921,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                     boss_phone = restaurantUser.getPhone_number();
                     boss_info = restaurantUser.getInfo();
                     boss_promise = restaurantUser.getPromise();
+                    boss_coupon = restaurantUser.getCoupon_id();
                 }
 
                 int is_merchant = 0;
@@ -966,6 +968,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 //json
+                jsonObject.put("boss_coupon", boss_coupon);
                 jsonObject.put("location_id", location_id);
                 jsonObject.put("shop_history", shop_history);
                 jsonObject.put("boss_promise", boss_promise);
