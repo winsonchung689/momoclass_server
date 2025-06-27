@@ -886,13 +886,13 @@ public class RestaurantController {
 				}
 			}else if("info".equals(type)){
 				restaurantUser.setInfo(content);
-				dao.updateRestaurantUser(restaurantUser);
+				dao.updateRestaurantByBoss(restaurantUser);
 			}else if("expired_time".equals(type)){
 				restaurantUser.setExpired_time(content);
 				dao.updateRestaurantByBoss(restaurantUser);
 			}else if("promise".equals(type)){
 				restaurantUser.setPromise(content);
-				dao.updateRestaurantUser(restaurantUser);
+				dao.updateRestaurantByBoss(restaurantUser);
 			}else if("restaurant_change".equals(type)){
 				restaurantUser.setRestaurant(content);
 				dao.updateRestaurantUser(restaurantUser);
