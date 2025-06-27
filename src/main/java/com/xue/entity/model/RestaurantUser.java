@@ -44,7 +44,17 @@ public class RestaurantUser {
 
     private int location_id;
 
+    private Integer coupon_id;
 
+
+
+    public Integer getCoupon_id() {
+        return coupon_id;
+    }
+
+    public void setCoupon_id(Integer coupon_id) {
+        this.coupon_id = coupon_id;
+    }
 
     public Integer getLocation_id() {
         return location_id;
