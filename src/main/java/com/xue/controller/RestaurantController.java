@@ -119,9 +119,10 @@ public class RestaurantController {
 			restaurantService.insertRestaurantUser(restaurantUser);
 			// 邀请赠券
 			if(!"no_id".equals(inviter_openid)){
-				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantUserByOpenid(inviter_openid);
+				List<RestaurantUser> restaurantUsers_get = dao.getRestaurantBossByShop(restaurant);
 				RestaurantUser restaurantUser1 = restaurantUsers_get.get(0);
-				List<GiftList> giftLists = dao.getGiftListByType(restaurant,restaurant,4,"邀请券",10);
+				Integer coupon_id = restaurantUser1.getCoupon_id();
+				List<GiftList> giftLists = dao.getGiftListById(coupon_id.toString());
 				if(giftLists.size() > 0){
 					GiftList giftList = giftLists.get(0);
 
