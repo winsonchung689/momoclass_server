@@ -4141,6 +4141,8 @@ public class LoginController {
 			giftList.setPrice(Float.parseFloat(content));
 		}else if("库存".equals(type)){
 			giftList.setAmount(Integer.parseInt(content));
+		}else if("积分".equals(type)){
+			giftList.setCoins(Integer.parseInt(content));
 		}
 		dao.updateGiftDetail(giftList);
 
