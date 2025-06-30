@@ -2709,7 +2709,8 @@ public class LoginServiceImpl implements LoginService {
                         list_new.add(result[i]);
                     }
                 }
-                dao.updateUuids(id,studio,list_new.toString().replace(" ",""));
+                String vuuid = list.get(0).getVuuid();
+                dao.updateUuids(id,studio,list_new.toString().replace(" ",""),vuuid);
 
                 // 删除图片
                 try {
