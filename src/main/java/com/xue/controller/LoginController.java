@@ -5607,7 +5607,7 @@ public class LoginController {
 				for(int i =0;i<result2.length;i++){
 					list_new.add(result2[i]);
 				}
-				dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+				dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),"no_id");
 			}
 		}else{
 			try {
@@ -5668,7 +5668,7 @@ public class LoginController {
 				}else{
 					if("uuids".equals(type)){
 						message.setUuids(content);
-						dao.updateUuids(Integer.parseInt(id),studio,content);
+						dao.updateUuids(Integer.parseInt(id),studio,content,"no_id");
 					}else if("comment".equals(type)){
 						message.setComment(content);
 						dao.updateComment(message);
