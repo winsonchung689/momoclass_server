@@ -4165,6 +4165,8 @@ public class LoginController {
 
 		String uuids = request.getParameter("uuids");
 
+		String vuuid = request.getParameter("vuuid");
+
 		List<String> list_new = new ArrayList<>();
 		String[] uuids_get_list = null;
 		String[] uuids_c_get_list = null;
@@ -4195,7 +4197,7 @@ public class LoginController {
 							list_new.add(uuids_get_list[i]);
 						}
 					}
-					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),vuuid);
 				}
 
 				if("课后作业".equals(class_target)){

@@ -252,7 +252,7 @@ public interface UserMapper {
 
     void deleteCommunicateRecord(Integer id,String studio);
 
-    void updateUuids(Integer id,String studio,String uuids);
+    void updateUuids(Integer id,String studio,String uuids,String vuuid);
 
     void updateBookMark(Integer id,String mark);
 

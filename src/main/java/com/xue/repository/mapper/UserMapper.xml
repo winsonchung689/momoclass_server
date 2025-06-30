@@ -466,7 +466,7 @@
 
   <!-- 获取详情 -->
   <select id="updateUuids" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    update class_comment set uuids =#{param3} where id =#{param1} and studio =#{param2}
+    update class_comment set uuids =#{param3},vuuid =#{param4} where id =#{param1} and studio =#{param2}
   </select>
 
   <!-- 获取详情 -->
