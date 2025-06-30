@@ -2685,8 +2685,9 @@ public class LoginServiceImpl implements LoginService {
     public int deleteUuids(Integer id, String role,String studio,String openid,String uuid) {
         try {
             List<Message> list = dao.getUuidById(id);
-            String class_target_bak = list.get(0).getClass_target_bak();
-            String studio_get = list.get(0).getStudio();
+            Message message = list.get(0);
+            String class_target_bak = message.getClass_target_bak();
+            String studio_get = message.getStudio();
             if("冲刺".equals(class_target_bak) || "网课".equals(class_target_bak) || "同城".equals(class_target_bak) ||"数学".equals(class_target_bak) || "英语".equals(class_target_bak) || "语文".equals(class_target_bak) || "视频站".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
 
@@ -2701,7 +2702,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("课评".equals(class_target_bak) || "环境".equals(class_target_bak) || "课程体系".equals(class_target_bak) || "广告".equals(class_target_bak)){
-                String uuids = list.get(0).getUuids().replace("\"","").replace("[","").replace("]","");
+                String uuids = message.getUuids().replace("\"","").replace("[","").replace("]","");
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
                 for(int i =0;i<result.length;i++){
@@ -2709,7 +2710,7 @@ public class LoginServiceImpl implements LoginService {
                         list_new.add(result[i]);
                     }
                 }
-                String vuuid = list.get(0).getVuuid();
+                String vuuid = message.getVuuid();
                 dao.updateUuids(id,studio,list_new.toString().replace(" ",""),vuuid);
 
                 // 删除图片
@@ -2722,7 +2723,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
             }else if ("课后作业".equals(class_target_bak)){
-                String uuids = list.get(0).getUuids_c().replace("\"","").replace("[","").replace("]","");
+                String uuids = message.getUuids_c().replace("\"","").replace("[","").replace("]","");
                 String[] result = uuids.split(",");
                 List<String> list_new = new ArrayList<>();
                 for(int i =0;i<result.length;i++){

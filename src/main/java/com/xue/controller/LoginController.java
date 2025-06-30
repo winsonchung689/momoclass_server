@@ -4183,9 +4183,10 @@ public class LoginController {
 		String uuids_add =null;
 		try {
 			List<Message> list = dao.getUuidById(Integer.parseInt(id));
+			Message message = list.get(0);
 			if(list.size()>0){
-				uuids_get = list.get(0).getUuids();
-				uuids_c_get = list.get(0).getUuids_c();
+				uuids_get = message.getUuids();
+				uuids_c_get = message.getUuids_c();
 
 				if(uuids.length()>0){
 					uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
