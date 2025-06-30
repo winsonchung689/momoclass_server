@@ -4192,7 +4192,9 @@ public class LoginController {
 					uuids_add = uuids.replace("\"","").replace("[","").replace("]","");
 					uuids_add_list = uuids_add.split(",");
 					for(int i =0;i<uuids_add_list.length;i++){
-						list_new.add(uuids_add_list[i]);
+						if(uuids_get_list[i].length() > 0){
+							list_new.add(uuids_add_list[i]);
+						}
 					}
 				}
 
@@ -4201,7 +4203,9 @@ public class LoginController {
 						uuids_get = uuids_get.replace("\"","").replace("[","").replace("]","");
 						uuids_get_list = uuids_get.split(",");
 						for(int i =0;i<uuids_get_list.length;i++){
-							list_new.add(uuids_get_list[i]);
+							if(uuids_get_list[i].length() > 0){
+								list_new.add(uuids_get_list[i]);
+							}
 						}
 					}
 					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),vuuid);
