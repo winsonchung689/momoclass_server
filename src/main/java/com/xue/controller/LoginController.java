@@ -4160,17 +4160,17 @@ public class LoginController {
 
 		String id = request.getParameter("id");
 		if(id == null || id.isEmpty() || "undefined".equals(id)){
-			id = "noid";
+			id = "0";
 		}
 
 		String uuids = request.getParameter("uuids");
 		if(uuids == null || uuids.isEmpty() || "undefined".equals(uuids)){
-			id = "noid";
+			uuids = "noid";
 		}
 
 		String vuuid = request.getParameter("vuuid");
 		if(vuuid == null || vuuid.isEmpty() || "undefined".equals(vuuid)){
-			id = "noid";
+			vuuid = "noid";
 		}
 
 		List<String> list_new = new ArrayList<>();
