@@ -1466,7 +1466,7 @@ public class LoginServiceImpl implements LoginService {
                                     int loss = classes_count - sign_count - leaves.size();
                                     String result = class_number + ":" + loss + "人未签" ;
 
-                                    if(sign_count< classes_count){
+                                    if(loss > 0){
                                         schedule_status.append(result);
                                         schedule_status.append(",");
                                     }
