@@ -1462,7 +1462,8 @@ public class LoginServiceImpl implements LoginService {
                                 if(openid_get.equals(openid)){
                                     int classes_count = dao.getLessonAllCountByDay(studio,dayOfWeek,duration,class_number,subject,campus);
                                     int sign_count = dao.getSignUpCountByDay(studio,dateString+" 00:00:00",duration,class_number,campus,subject);
-                                    int loss = classes_count - sign_count;
+                                    List<Leave> leaves = dao.getLeaveRecordByDuration(studio,campus,dateString,duration);
+                                    int loss = classes_count - sign_count - leaves.size();
                                     String result = class_number + ":" + loss + "人未签" ;
 
                                     if(sign_count< classes_count){

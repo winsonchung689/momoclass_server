@@ -1012,6 +1012,8 @@ public interface UserMapper {
 
     List<Leave> getLeaveRecordByDateAll(String studio,String campus,String date_time);
 
+    List<Leave> getLeaveRecordByDuration(String studio,String campus,String date_time,String duration);
+
     List<SignUp> getStudentByTeacher(String studio,String teacher);
 
     List<SignUp> getStudentByTeacherByDuration(String studio,String teacher,String date_start,String date_end);

@@ -1136,6 +1136,11 @@
     select * from leave_record where studio =#{param1} and campus =#{param2} and date_time =#{param3} and leave_type = '请假' and delete_status = 0 order by date_time desc
   </select>
 
+  <!-- 按天查找请假记录 -->
+  <select id="getLeaveRecordByDuration" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
+    select * from leave_record where studio =#{param1} and campus =#{param2} and date_time =#{param3} and leave_type = '请假' and delete_status = 0 order by date_time desc
+  </select>
+
   <select id="getLeaveRecordById" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
     select * from leave_record where id =#{param1} and delete_status = 0
   </select>
