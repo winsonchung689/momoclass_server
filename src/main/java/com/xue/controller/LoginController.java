@@ -4187,6 +4187,11 @@ public class LoginController {
 			if(list.size()>0){
 				uuids_get = message.getUuids();
 				uuids_c_get = message.getUuids_c();
+				String vuuid_get = message.getVuuid();
+				if(!"noid".equals(vuuid)){
+					vuuid_get = vuuid;
+				}
+
 
 				// 优先处理新图
 				if(uuids.length()>0){
@@ -4205,12 +4210,10 @@ public class LoginController {
 						uuids_get = uuids_get.replace("\"","").replace("[","").replace("]","");
 						uuids_get_list = uuids_get.split(",");
 						for(int i =0;i<uuids_get_list.length;i++){
-							if(uuids_get_list[i].length() > 0){
-								list_new.add(uuids_get_list[i]);
-							}
+							list_new.add(uuids_get_list[i]);
 						}
 					}
-					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),vuuid);
+					dao.updateUuids(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),vuuid_get);
 				}
 
 				// 处理课评
