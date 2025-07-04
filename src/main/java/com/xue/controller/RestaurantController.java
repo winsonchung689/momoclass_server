@@ -382,6 +382,7 @@ public class RestaurantController {
 		String additional_weight = request.getParameter("additional_weight");
 		String preservation_fee = request.getParameter("preservation_fee");
 		String restaurant = request.getParameter("restaurant");
+		String type = request.getParameter("type");
 
 		try {
 
@@ -394,6 +395,7 @@ public class RestaurantController {
 			shippingFee.setPreservation_fee(Integer.parseInt(preservation_fee));
 			shippingFee.setRestaurant(restaurant);
 			shippingFee.setCreate_time(create_time);
+			shippingFee.setType(type);
 
 			dao.insertShippingFee(shippingFee);
 		} catch (Exception e) {
