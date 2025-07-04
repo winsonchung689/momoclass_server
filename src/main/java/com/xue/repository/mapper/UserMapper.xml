@@ -938,7 +938,7 @@
 
   <!-- 插入账运费 -->
   <insert id="insertShippingFee" parameterType="com.xue.entity.model.ShippingFee">
-    insert shipping_fee(region,first_weight_1,first_weight_2,first_weight_5,additional_weight,preservation_fee,create_time,restaurant) values(#{region},#{first_weight_1},#{first_weight_2},#{first_weight_5},#{additional_weight},#{preservation_fee},#{create_time},#{restaurant})
+    insert shipping_fee(type,region,first_weight_1,first_weight_2,first_weight_5,additional_weight,preservation_fee,create_time,restaurant) values(#{type},#{region},#{first_weight_1},#{first_weight_2},#{first_weight_5},#{additional_weight},#{preservation_fee},#{create_time},#{restaurant})
   </insert>
 
   <!-- 插入交易记录 -->
