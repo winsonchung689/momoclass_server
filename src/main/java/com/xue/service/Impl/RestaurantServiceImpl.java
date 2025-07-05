@@ -791,6 +791,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                             if("10斤".equals(unit)){
                                 shipping_fee = (float) (first_weight_5 + preservation_fee + 10);
                             }
+                            break;
                         }else{
                             shipping_fee = 0.0f;
                             region = "全国";

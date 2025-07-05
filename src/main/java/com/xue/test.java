@@ -29,8 +29,8 @@ public class test {
         Duration fiveMinutes = Duration.ofMinutes(3);
         LocalTime duration_end = time.minus(fiveMinutes);
 //        System.out.printf("duration_end:" + duration_end.toString());
-        String mark = "小桃子续费111";
-        if (mark.contains("小桃子续费")) {
+        String mark = "山西省大同市平城区亨宇写字楼后院办公室";
+        if (mark.contains("山西")) {
             System.out.println("支出");
         }
 
