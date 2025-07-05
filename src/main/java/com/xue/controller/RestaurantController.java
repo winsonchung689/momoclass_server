@@ -977,6 +977,14 @@ public class RestaurantController {
 				}
 				menu.setFor_coupon(for_coupon);
 				dao.updateRestaurantMenu(menu);
+			}else if("is_dynamic".equals(type)){
+				Integer is_dynamic_get = menu.getIs_dynamic();
+				Integer is_dynamic = 1;
+				if(is_dynamic_get == 1){
+					is_dynamic = 0;
+				}
+				menu.setIs_dynamic(is_dynamic);
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
