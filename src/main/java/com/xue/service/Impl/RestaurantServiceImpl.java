@@ -793,7 +793,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                             }
                         }else{
                             shipping_fee = 0.0f;
-                            region_cn = "广东";
+                            region_cn = "全国";
                         }
                     }
                 }
