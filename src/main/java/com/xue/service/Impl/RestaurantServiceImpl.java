@@ -769,7 +769,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer is_dynamic = line.getIs_dynamic();
                 String dynamic_type = line.getDynamic_type();
                 Float shipping_fee = line.getShipping_fee();
-                String region_cn = "广东";
+                String region_cn = "全国";
                 if(is_dynamic == 1){
                     List<ShippingFee> shippingFees = dao.getRestaurantShippingFee(restaurant,dynamic_type);
                     for(int j = 0;j < shippingFees.size();j++){
