@@ -799,6 +799,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
 
                 //json
+                jsonObject.put("is_dynamic", is_dynamic);
                 jsonObject.put("dynamic_type", dynamic_type);
                 jsonObject.put("region", region);
                 jsonObject.put("shipping_fee", shipping_fee);
