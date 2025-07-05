@@ -627,7 +627,7 @@ public class RestaurantController {
 	public List getRestaurantShippingFee(String restaurant){
 		List list = null;
 		try {
-			list = dao.getRestaurantShippingFee(restaurant);
+			list = dao.getRestaurantShippingFee(restaurant,"荔枝");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -792,10 +792,10 @@ public class RestaurantController {
 
 	@RequestMapping("/getRestaurantMenu")
 	@ResponseBody
-	public List getRestaurantMenu(String restaurant){
+	public List getRestaurantMenu(String restaurant,String openid){
 		List list = null;
 		try {
-			list = restaurantService.getRestaurantMenu(restaurant);
+			list = restaurantService.getRestaurantMenu(restaurant,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

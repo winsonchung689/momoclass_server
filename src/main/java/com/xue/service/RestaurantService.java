@@ -25,7 +25,7 @@ public interface RestaurantService {
 
     public List getRestaurantCategory(String restaurant);
 
-    public List getRestaurantMenu(String restaurant);
+    public List getRestaurantMenu(String restaurant,String openid);
 
     public int insertRestaurantUser(RestaurantUser restaurantUser);
 

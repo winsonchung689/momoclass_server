@@ -731,9 +731,21 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List getRestaurantMenu(String restaurant) {
+    public List getRestaurantMenu(String restaurant,String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            // 获取地址
+            List<RestaurantUser> users = dao.getRestaurantUser(openid);
+            RestaurantUser restaurantUser = users.get(0);
+            String location = restaurantUser.getLocation();
+            Integer location_id = restaurantUser.getLocation_id();
+            if(location_id != 0 ){
+                List<RestaurantLocation> restaurantLocations = dao.getRestaurantLocationById(location_id);
+                RestaurantLocation restaurantLocation = restaurantLocations.get(0);
+                location = restaurantLocation.getLocation();
+            }
+
+
             List<Menu> list = dao.getRestaurantMenu(restaurant);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -754,8 +766,42 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer inventory = line.getInventory();
                 Float discount = line.getDiscount();
                 Integer for_coupon = line.getFor_coupon();
+                Integer is_dynamic = line.getIs_dynamic();
+                String dynamic_type = line.getDynamic_type();
+                Float shipping_fee = line.getShipping_fee();
+                String region_cn = "广东";
+                if(is_dynamic == 1){
+                    List<ShippingFee> shippingFees = dao.getRestaurantShippingFee(restaurant,dynamic_type);
+                    for(int j = 0;j < shippingFees.size();j++){
+                        ShippingFee shippingFee = shippingFees.get(j);
+                        String region = shippingFee.getRegion();
+                        Integer first_weight_1 = shippingFee.getFirst_weight_1();
+                        Integer first_weight_2 = shippingFee.getFirst_weight_2();
+                        Integer first_weight_5 = shippingFee.getFirst_weight_5();
+                        Integer additional_weight = shippingFee.getAdditional_weight();
+                        Integer preservation_fee = shippingFee.getPreservation_fee();
+                        if(location.contains(region)){
+                            region_cn = region;
+                            if("3斤".equals(unit)){
+                                shipping_fee = (float) (first_weight_1 + 0.5 * additional_weight + preservation_fee + 6);
+                            }
+                            if("5斤".equals(unit)){
+                                shipping_fee = (float) (first_weight_2 + 0.5 * additional_weight + preservation_fee + 8);
+                            }
+                            if("10斤".equals(unit)){
+                                shipping_fee = (float) (first_weight_5 + preservation_fee + 10);
+                            }
+                        }else{
+                            shipping_fee = 0.0f;
+                            region_cn = "广东";
+                        }
+                    }
+                }
 
                 //json
+                jsonObject.put("dynamic_type", dynamic_type);
+                jsonObject.put("region_cn", region_cn);
+                jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("for_coupon", for_coupon);
                 jsonObject.put("discount", discount);
                 jsonObject.put("inventory", inventory);

@@ -1440,7 +1440,7 @@
   </select>
 
   <select id="getRestaurantShippingFee" parameterType="com.xue.entity.model.ShippingFee" resultMap="BaseShippingFee">
-    select * from shipping_fee where restaurant =#{param1} and delete_status = 0 order by region
+    select * from shipping_fee where restaurant =#{param1} and type =#{param2} and delete_status = 0 order by region
   </select>
 
   <select id="getRestaurantUserByOpenid" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
