@@ -769,19 +769,19 @@ public class RestaurantServiceImpl implements RestaurantService {
                 Integer is_dynamic = line.getIs_dynamic();
                 String dynamic_type = line.getDynamic_type();
                 Float shipping_fee = line.getShipping_fee();
-                String region_cn = "全国";
+                String region = "全国";
                 if(is_dynamic == 1){
                     List<ShippingFee> shippingFees = dao.getRestaurantShippingFee(restaurant,dynamic_type);
                     for(int j = 0;j < shippingFees.size();j++){
                         ShippingFee shippingFee = shippingFees.get(j);
-                        String region = shippingFee.getRegion();
+                        String region_get = shippingFee.getRegion();
                         Integer first_weight_1 = shippingFee.getFirst_weight_1();
                         Integer first_weight_2 = shippingFee.getFirst_weight_2();
                         Integer first_weight_5 = shippingFee.getFirst_weight_5();
                         Integer additional_weight = shippingFee.getAdditional_weight();
                         Integer preservation_fee = shippingFee.getPreservation_fee();
-                        if(location.contains(region)){
-                            region_cn = region;
+                        if(location.contains(region_get)){
+                            region = region_get;
                             if("3斤".equals(unit)){
                                 shipping_fee = (float) (first_weight_1 + 0.5 * additional_weight + preservation_fee + 6);
                             }
@@ -793,14 +793,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                             }
                         }else{
                             shipping_fee = 0.0f;
-                            region_cn = "全国";
+                            region = "全国";
                         }
                     }
                 }
 
                 //json
                 jsonObject.put("dynamic_type", dynamic_type);
-                jsonObject.put("region_cn", region_cn);
+                jsonObject.put("region", region);
                 jsonObject.put("shipping_fee", shipping_fee);
                 jsonObject.put("for_coupon", for_coupon);
                 jsonObject.put("discount", discount);
