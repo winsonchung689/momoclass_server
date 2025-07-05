@@ -988,6 +988,9 @@ public class RestaurantController {
 			}else if("shipping_fee".equals(type)){
 				menu.setShipping_fee(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
+			}else if("dynamic_type".equals(type)){
+				menu.setDynamic_type(content);
+				dao.updateRestaurantMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
