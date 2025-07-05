@@ -37,6 +37,37 @@ public class Menu {
 
     private Integer for_coupon;
 
+    private Integer is_dynamic;
+
+    private String dynamic_type;
+
+    private Float shipping_fee;
+
+
+
+    public Float getShipping_fee() {
+        return shipping_fee;
+    }
+
+    public void setShipping_fee(Float shipping_fee) {
+        this.shipping_fee = shipping_fee;
+    }
+
+    public String getDynamic_type() {
+        return dynamic_type;
+    }
+
+    public void setDynamic_type(String dynamic_type) {
+        this.dynamic_type = dynamic_type;
+    }
+
+    public Integer getIs_dynamic() {
+        return is_dynamic;
+    }
+
+    public void setIs_dynamic(Integer is_dynamic) {
+        this.is_dynamic = is_dynamic;
+    }
 
     public Integer getFor_coupon() {
         return for_coupon;
