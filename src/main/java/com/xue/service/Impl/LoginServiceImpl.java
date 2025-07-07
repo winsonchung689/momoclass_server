@@ -6809,8 +6809,10 @@ public class LoginServiceImpl implements LoginService {
                 if(end_status == 1){
                     jsonObject.put("end_status", "已结课");
                 }
+                int is_first = line.getIs_first();
 
                 //json
+                jsonObject.put("is_first", is_first);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_money", total_money);
                 jsonObject.put("discount_money", discount_money);
