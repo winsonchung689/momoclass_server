@@ -5612,34 +5612,50 @@ public class LoginServiceImpl implements LoginService {
         LessonPackage lessonPackage = lessonPackages.get(0);
         try {
             if("课包原价".equals(type)){
-                result = dao.updateLessonPackageTotalMoney(id,content);
+                lessonPackage.setTotal_money(Float.parseFloat(content));
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("优惠金额".equals(type)){
-                result = dao.updateLessonPackageDiscountMoney(id,content);
+                lessonPackage.setDiscount_money(Float.parseFloat(content));
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("结课状态".equals(type)){
                 int end_status = lessonPackage.getEnd_status();
                 int status = 1;
                 if(end_status == 1 ){
                     status = 0;
                 }
-                result = dao.updateLessonPackageEndStatus(id,status);
+                lessonPackage.setEnd_status(status);
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("备注".equals(type)){
-                result = dao.updateLessonPackageMark(id,content);
+                lessonPackage.setMark(content);
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("原课时".equals(type)){
-                result = dao.updateLessonPackageAllLesson(id,Float.parseFloat(content));
+                lessonPackage.setAll_lesson(Float.parseFloat(content));
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("赠课时".equals(type)){
-                result = dao.updateLessonPackageGiveLesson(id,Float.parseFloat(content));
+                lessonPackage.setGive_lesson(Float.parseFloat(content));
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("报课时间".equals(type)){
-                result = dao.updateLessonPackageStartDate(id,content);
+                lessonPackage.setStart_date(content);
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("有效期至".equals(type)){
-                result = dao.updateLessonPackageEndDate(id,content);
+                lessonPackage.setEnd_date(content);
+                dao.updateLessonPackageDetail(lessonPackage);
             }else if("分拆".equals(type)){
                 dao.updateLessonPackageGiveLesson(id,0.0f);
-
                 lessonPackage.setTotal_money(0.0f);
                 lessonPackage.setDiscount_money(0.0f);
                 lessonPackage.setAll_lesson(0.0f);
                 dao.insertLessonPackage(lessonPackage);
+            }else if("优先指定".equals(type)){
+                int is_first_get = lessonPackage.getIs_first();
+                int is_first = 1;
+                if(is_first_get == 1 ){
+                    is_first = 0;
+                }
+                lessonPackage.setIs_first(is_first);
+                dao.updateLessonPackageDetail(lessonPackage);
             }
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);
