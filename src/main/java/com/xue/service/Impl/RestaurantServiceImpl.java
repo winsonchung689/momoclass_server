@@ -794,7 +794,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                             break;
                         }else{
                             shipping_fee = 0.0f;
-                            region = "全国";
+                            region = "广东";
                         }
                     }
                 }
