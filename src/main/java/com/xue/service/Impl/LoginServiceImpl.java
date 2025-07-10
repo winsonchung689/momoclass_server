@@ -3264,8 +3264,10 @@ public class LoginServiceImpl implements LoginService {
                 Integer contract = line.getContract();
                 String unionid = line.getUnionid();
                 Integer is_open = line.getIs_open();
+                Integer is_studentmg = line.getIs_studentmg();
 
                 //json
+                jsonObject.put("is_studentmg", is_studentmg);
                 jsonObject.put("unionid", unionid);
                 jsonObject.put("role", role);
                 if(!openid.equals("all") && student_name.equals("no_name") && role.equals("client")){

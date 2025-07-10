@@ -44,6 +44,8 @@ public class User {
 
     private Integer contract;
 
+    private Integer is_studentmg;
+
     private String phone_number;
 
     private String location;
@@ -90,6 +92,15 @@ public class User {
 
     private String wechat_id;
 
+
+
+    public Integer getIs_studentmg() {
+        return is_studentmg;
+    }
+
+    public void setIs_studentmg(Integer is_studentmg) {
+        this.is_studentmg = is_studentmg;
+    }
 
     public String getWechat_id() {
         return wechat_id;

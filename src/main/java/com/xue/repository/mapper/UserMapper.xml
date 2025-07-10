@@ -546,7 +546,7 @@
 
   <!--  更改用户信息-->
   <update id="updateUserByOpenid" parameterType="com.xue.entity.model.User">
-    update user set avatarurl=#{avatarurl},nick_name=#{nick_name},wechat_id=#{wechat_id},phone_number=#{phone_number},studio=#{studio},campus=#{campus},location=#{location} where openid=#{openid}
+    update user set is_studentmg=#{is_studentmg},avatarurl=#{avatarurl},nick_name=#{nick_name},wechat_id=#{wechat_id},phone_number=#{phone_number},studio=#{studio},campus=#{campus},location=#{location} where openid=#{openid}
   </update>
 
   <update id="updateUserMemberByOpenid" parameterType="com.xue.entity.model.User">

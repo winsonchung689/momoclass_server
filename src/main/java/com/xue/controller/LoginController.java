@@ -3896,9 +3896,9 @@ public class LoginController {
 
 	}
 
-	@RequestMapping("/updateLocation")
+	@RequestMapping("/updateUserDetail")
 	@ResponseBody
-	public int updateLocation(HttpServletRequest request, HttpServletResponse response){
+	public int updateUserDetail(HttpServletRequest request, HttpServletResponse response){
 
 		String openid = request.getParameter("openid");
 		String type = request.getParameter("type");
@@ -3950,6 +3950,14 @@ public class LoginController {
 				user.setOpenid(openid);
 				user.setStudio(content);
 				user.setCampus(content);
+				dao.updateUserByOpenid(user);
+			} else if("is_studentmg".equals(type)){
+				Integer is_studentmg_get = user.getIs_studentmg();
+				Integer is_student = 1;
+				if(is_studentmg_get == 1){
+					is_student = 0;
+				}
+				user.setIs_studentmg(is_student);
 				dao.updateUserByOpenid(user);
 			}
 
