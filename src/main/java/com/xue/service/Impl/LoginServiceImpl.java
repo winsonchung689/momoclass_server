@@ -8902,6 +8902,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("no_try", no_try);
                 jsonObject.put("no_paid", no_paid);
                 jsonObject.put("has_paid", has_paid);
+                jsonObject.put("has_expired", has_expired);
                 jsonObject.put("pay_type", pay_type);
                 jsonObject.put("number", number);
                 resul_list.add(jsonObject);
