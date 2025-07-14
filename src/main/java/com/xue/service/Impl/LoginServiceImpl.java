@@ -8793,6 +8793,7 @@ public class LoginServiceImpl implements LoginService {
         Integer no_try = 0;
         Integer no_paid = 0;
         Integer has_paid = 0;
+        Integer has_expired = 0;
 
         try {
             if(page == 1){
@@ -8804,12 +8805,19 @@ public class LoginServiceImpl implements LoginService {
                     User line = list_init.get(i);
                     int is_paid = line.getIs_paid();
                     String user_type = line.getUser_type();
+                    String expired_time = line.getExpired_time();
+                    String today_time = df.format(new Date());
+                    Date today_dt = df.parse(today_time.substring(0,10));
+                    Date expired_time_dt = df.parse(expired_time.substring(0,10));
+                    int compare = today_dt.compareTo(expired_time_dt);
 
                     all_sum = all_sum + 1;
                     if(is_paid == 1){
                         has_paid = has_paid + 1;
                     }else if(is_paid == 0 && "新用户".equals(user_type)){
                         no_try = no_try + 1;
+                    }else if(compare > 0 && "老用户".equals(user_type)){
+                        has_expired = has_expired + 1;
                     }else{
                         no_paid = no_paid + 1;
                     }
