@@ -4345,7 +4345,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 type = line.getType();
-                if("趣卖画廊".equals(type)){
+                if("跳蚤市场".equals(type)){
                     List<Album> albums = dao.getAlbumById(goods_id);
                     if(albums.size()>0){
                         Album album = albums.get(0);
@@ -4469,7 +4469,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String type = line.getType();
-                if("趣卖画廊".equals(type)){
+                if("跳蚤市场".equals(type)){
                     List<Album> albums = dao.getAlbumById(goods_id);
                     if(albums.size()>0){
                         Album album = albums.get(0);
@@ -5065,7 +5065,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = null;
                 String location = null;
                 if("趣卖".equals(type)){
-                    List<Order> orders = dao.getOrderByGoodsId(id,"趣卖画廊");
+                    List<Order> orders = dao.getOrderByGoodsId(id,"跳蚤市场");
                     if(orders.size()>0){
                         has_sale = 1;
                         Order order = orders.get(0);
