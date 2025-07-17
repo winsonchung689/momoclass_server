@@ -10078,10 +10078,7 @@ public class LoginServiceImpl implements LoginService {
                             // 优先课包余课
                             if(j == 0){
                                 String package_id_get = lessonPackage.getId();
-                                Float all_lesson_get = lessonPackage.getAll_lesson();
-                                Float give_lesson_get = lessonPackage.getGive_lesson();
-                                String subject_gett = lessonPackage.getSubject();
-                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_gett,campus,package_id_get);
+                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_get,campus,package_id_get);
                                 Float package_sum = 0.0f;
                                 if(signUps.size()>0){
                                     for (int k = 0; k < signUps.size(); k++) {
@@ -10089,7 +10086,7 @@ public class LoginServiceImpl implements LoginService {
                                         package_sum = package_sum + count;
                                     }
                                 }
-                                appoint_left = all_lesson_get + give_lesson_get - package_sum;
+                                appoint_left = all_lesson + give_lesson - package_sum;
                             }
                         }
                     }
