@@ -10080,7 +10080,8 @@ public class LoginServiceImpl implements LoginService {
                                 String package_id_get = lessonPackage.getId();
                                 Float all_lesson_get = lessonPackage.getAll_lesson();
                                 Float give_lesson_get = lessonPackage.getGive_lesson();
-                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+                                String subject_gett = lessonPackage.getSubject();
+                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_gett,campus,package_id_get);
                                 Float package_sum = 0.0f;
                                 if(signUps.size()>0){
                                     for (int k = 0; k < signUps.size(); k++) {
