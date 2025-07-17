@@ -10063,6 +10063,8 @@ public class LoginServiceImpl implements LoginService {
                     urge_payment_status = "关";
                 }
 
+                Float appoint_left = 0.0f;
+
                 try {
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
                     if(lessonPackages.size()>0){
@@ -10072,6 +10074,20 @@ public class LoginServiceImpl implements LoginService {
                             discount_money = discount_money + lessonPackage.getDiscount_money();
                             all_lesson = all_lesson + lessonPackage.getAll_lesson();
                             give_lesson = give_lesson + lessonPackage.getGive_lesson();
+
+                            // 优先课包余课
+                            if(j == 0){
+                                String package_id_get = lessonPackage.getId();
+                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+                                Float package_sum = 0.0f;
+                                if(signUps.size()>0){
+                                    for (int k = 0; k < signUps.size(); k++) {
+                                        Float count = signUps.get(k).getCount();
+                                        package_sum = package_sum + count;
+                                    }
+                                }
+                                appoint_left = all_lesson + give_lesson - package_sum;
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -10143,6 +10159,7 @@ public class LoginServiceImpl implements LoginService {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
+                jsonObject.put("appoint_left", appoint_left);
                 jsonObject.put("school", school);
                 jsonObject.put("urge_payment_status",urge_payment_status);
                 jsonObject.put("location", location);
