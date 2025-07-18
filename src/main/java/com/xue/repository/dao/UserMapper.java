@@ -154,6 +154,8 @@ public interface UserMapper {
 
     List<Leave> getAnalyzeLeaveByMonth(String studio,String campus,String create_time);
 
+    List<LessonPackage> getLessonPackageByMonth(String studio,String campus,String create_time);
+
     List<Leave> getAnalyzeLeaveByYear(String studio,String campus,String create_time);
 
     List<AnalyzeCount> getAnalyzePackage(String studio,String campus,String create_time);

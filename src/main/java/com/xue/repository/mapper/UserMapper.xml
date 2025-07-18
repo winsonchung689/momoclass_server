@@ -907,6 +907,10 @@
     select *  from leave_record where studio = #{param1} and campus =#{param2} and delete_status = 0 and leave_type = '请假' and date_format(date_time,'%Y-%m')=#{param3}
   </select>
 
+  <select id="getLessonPackageByMonth" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
+    select *  from lesson_package where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(date_time,'%Y-%m')=#{param3}
+  </select>
+
   <select id="getAnalyzePackage" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select date_format(create_time,'%Y-%m-%d') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y-%m-%d')=#{param3} group by date_format(create_time,'%Y-%m-%d')
   </select>

@@ -9635,6 +9635,31 @@ public class LoginServiceImpl implements LoginService {
 
             }
 
+            if("续费数".equals(type)){
+                List<LessonPackage> lessonPackages = dao.getLessonPackageByMonth(studio,campus,weekday);
+                for(int i=0;i< lessonPackages.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    LessonPackage lessonPackage = lessonPackages.get(i);
+                    String student_name = lessonPackage.getStudent_name();
+                    Float total_money = lessonPackage.getTotal_money();
+                    Float discount_money = lessonPackage.getDiscount_money();
+                    Float all_lesson = lessonPackage.getAll_lesson();
+                    Float give_lesson = lessonPackage.getGive_lesson();
+                    String mark = lessonPackage.getMark();
+                    String create_time = lessonPackage.getCreate_time();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_money", total_money);
+                    jsonObject.put("discount_money", discount_money);
+                    jsonObject.put("all_lesson", all_lesson);
+                    jsonObject.put("give_lesson", give_lesson);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("create_time", create_time);
+                    resul_list.add(jsonObject);
+                }
+
+            }
+
         //按日算
         }else if(weekday.length() == 10){
 
@@ -9742,6 +9767,30 @@ public class LoginServiceImpl implements LoginService {
                     resul_list.add(jsonObject);
                 }
 
+            }
+
+            if("续费数".equals(type)) {
+                List<LessonPackage> lessonPackages = dao.getLessonPackageByDurationAll(studio, campus, weekday, weekday);
+                for (int i = 0; i < lessonPackages.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    LessonPackage lessonPackage = lessonPackages.get(i);
+                    String student_name = lessonPackage.getStudent_name();
+                    Float total_money = lessonPackage.getTotal_money();
+                    Float discount_money = lessonPackage.getDiscount_money();
+                    Float all_lesson = lessonPackage.getAll_lesson();
+                    Float give_lesson = lessonPackage.getGive_lesson();
+                    String mark = lessonPackage.getMark();
+                    String create_time = lessonPackage.getCreate_time();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_money", total_money);
+                    jsonObject.put("discount_money", discount_money);
+                    jsonObject.put("all_lesson", all_lesson);
+                    jsonObject.put("give_lesson", give_lesson);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("create_time", create_time);
+                    resul_list.add(jsonObject);
+                }
             }
 
         // 按年算
@@ -9854,6 +9903,30 @@ public class LoginServiceImpl implements LoginService {
                     resul_list.add(jsonObject);
                 }
 
+            }
+
+            if("续费数".equals(type)) {
+                List<LessonPackage> lessonPackages = dao.getLessonPackageByDurationAll(studio, campus, weekday+"-01-01", weekday+"-12-31");
+                for (int i = 0; i < lessonPackages.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    LessonPackage lessonPackage = lessonPackages.get(i);
+                    String student_name = lessonPackage.getStudent_name();
+                    Float total_money = lessonPackage.getTotal_money();
+                    Float discount_money = lessonPackage.getDiscount_money();
+                    Float all_lesson = lessonPackage.getAll_lesson();
+                    Float give_lesson = lessonPackage.getGive_lesson();
+                    String mark = lessonPackage.getMark();
+                    String create_time = lessonPackage.getCreate_time();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_money", total_money);
+                    jsonObject.put("discount_money", discount_money);
+                    jsonObject.put("all_lesson", all_lesson);
+                    jsonObject.put("give_lesson", give_lesson);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("create_time", create_time);
+                    resul_list.add(jsonObject);
+                }
             }
         }
 
