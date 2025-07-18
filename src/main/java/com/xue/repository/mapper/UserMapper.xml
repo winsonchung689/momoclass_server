@@ -908,7 +908,7 @@
   </select>
 
   <select id="getLessonPackageByMonth" parameterType="com.xue.entity.model.LessonPackage" resultMap="BaseLessonPackage">
-    select *  from lesson_package where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(date_time,'%Y-%m')=#{param3}
+    select *  from lesson_package where studio = #{param1} and campus =#{param2} and delete_status = 0 and date_format(create_time,'%Y-%m')=#{param3}
   </select>
 
   <select id="getAnalyzePackage" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
