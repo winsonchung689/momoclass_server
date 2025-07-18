@@ -916,11 +916,11 @@
   </select>
 
   <select id="getAnalyzePackageByMonth" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time,'%Y-%m') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y-%m')=#{param3} group by date_format(create_time,'%Y-%m')
+    select date_format(create_time,'%Y-%m') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money-discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y-%m')=#{param3} group by date_format(create_time,'%Y-%m')
   </select>
 
   <select id="getAnalyzePackageByYear" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select date_format(create_time,'%Y') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money+discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y')=#{param3} group by date_format(create_time,'%Y')
+    select date_format(create_time,'%Y') create_time,count(1) package_count,sum(all_lesson+give_lesson) package_sum_l,sum(total_money-discount_money) package_sum_m from lesson_package where studio = #{param1} and campus =#{param2} and mark not like '%转让%' and delete_status = 0 and date_format(create_time,'%Y')=#{param3} group by date_format(create_time,'%Y')
   </select>
 
   <select id="getBookByYear" parameterType="com.xue.entity.model.BookCount" resultMap="BaseBookCount">
