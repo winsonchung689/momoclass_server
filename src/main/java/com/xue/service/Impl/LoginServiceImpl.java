@@ -9517,9 +9517,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getAnalyzeDetailWeek(String studio, String type, String weekday,String campus,String subject_in) {
+        // 定义日期格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         List<JSONObject> resul_list = new ArrayList<>();
-
         if(subject_in == null || subject_in.isEmpty() || "undefined".equals(subject_in)){
             subject_in = "全科目";
         }
@@ -9770,7 +9771,14 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("续费数".equals(type)) {
-                List<LessonPackage> lessonPackages = dao.getLessonPackageByDurationAll(studio, campus, weekday, weekday);
+                // 解析日期字符串
+                LocalDate date = LocalDate.parse(weekday, formatter);
+                // 增加一天
+                LocalDate newDate = date.plusDays(1);
+                // 格式化日期为字符串
+                String formattedDate = newDate.format(formatter);
+
+                List<LessonPackage> lessonPackages = dao.getLessonPackageByDurationAll(studio, campus, weekday, formattedDate);
                 for (int i = 0; i < lessonPackages.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     LessonPackage lessonPackage = lessonPackages.get(i);
