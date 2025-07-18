@@ -568,6 +568,7 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
+        String role = user.getRole();
         String start_date = duration.split("_")[0];
         String end_date = duration.split("_")[1];
 
@@ -607,6 +608,8 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");;
 
+                List<User> users1 = dao.getUserByStudentOpenid(student_name,studio,openid);
+
                 //json
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("teacher", teacher);
@@ -620,7 +623,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left", left);
                 jsonObject.put("total",total);
                 jsonObject.put("uuids",uuids);
-                resul_list.add(jsonObject);
+                if("boss".equals(role) || "teacher".equals(role) || users1.size()>0){
+                    resul_list.add(jsonObject);
+                }
             }
 
         } catch (Exception e) {
