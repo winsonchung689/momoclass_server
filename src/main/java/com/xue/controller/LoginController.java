@@ -95,10 +95,10 @@ public class LoginController {
 
 	@RequestMapping("/sendConsumeLesson")
 	@ResponseBody
-	public String sendConsumeLesson(String openid,String consume_lesson_amount,String student_name,String subject){
+	public String sendConsumeLesson(String openid,String consume_lesson_amount,String student_name,String subject,String date_time){
 		String result = null;
 		String url_send = null;
-		String model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4D6MI0A6Vc7eV33zAdq1Kew\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		String model ="{\"touser\":\"openid\",\"template_id\":\"cxL6AZ7ROg7aAlcDDi5M4KZLkzNy1bQRT8wxBbfzAww\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"time5\":{\"value\": \"AA\"},\"thing2\":{\"value\": \"AA\"},\"short_thing3\":{\"value\": \"A1\"},\"short_thing4\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
@@ -122,6 +122,7 @@ public class LoginController {
 				String official_openid_get = official_list[j];
 				JSONObject queryJson = JSONObject.parseObject(model);
 				queryJson.put("touser",official_openid_get);
+				queryJson.getJSONObject("data").getJSONObject("time5").put("value",date_time);
 				queryJson.getJSONObject("data").getJSONObject("thing2").put("value",subject+"_"+student_name);
 				queryJson.getJSONObject("data").getJSONObject("short_thing3").put("value",consume_lesson_amount+"课时");
 				queryJson.getJSONObject("data").getJSONObject("short_thing4").put("value",left_amount+"课时");
@@ -7354,9 +7355,10 @@ public class LoginController {
 					}
 
 					// 小程序
-					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject);
+					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject,date_time);
 				}
-				sendConsumeLesson(openid,consume_lesson_amount,student_name,subject);
+
+				sendConsumeLesson(openid,consume_lesson_amount,student_name,subject,date_time);
 			}
 		}
 
