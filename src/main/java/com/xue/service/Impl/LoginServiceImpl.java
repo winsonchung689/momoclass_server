@@ -11043,6 +11043,8 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getGoodsList(studio,page_start,page_length,goods_type);
             }else if(type.equals("search")){
                 list = dao.getGoodsListSearch(studio,page_start,page_length,content,goods_type);
+            }else if(type.equals("all")){
+                list = dao.getGoodsList(studio,0,1000,goods_type);
             }
 
             for (int i = 0; i < list.size(); i++) {
