@@ -808,7 +808,9 @@ public class LoginServiceImpl implements LoginService {
                 String duration = line.getDuration();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
+                String teacher = line.getTeacher();
 
+                jsonObject.put("teacher",teacher);
                 jsonObject.put("mark",mark);
                 jsonObject.put("duration",duration);
                 jsonObject.put("id",id);
