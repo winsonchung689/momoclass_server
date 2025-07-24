@@ -2623,10 +2623,10 @@ public class LoginController {
 
 	@RequestMapping("/getPptMenu")
 	@ResponseBody
-	public List getPptMenu(String openid,Integer page,String category){
+	public List getPptMenu(String openid,Integer page,String category,String type){
 		List list = null;
 		try {
-			list = loginService.getPptMenu(openid,page,category);
+			list = loginService.getPptMenu(openid,page,category,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
