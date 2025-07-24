@@ -1460,7 +1460,7 @@
   </select>
 
   <select id="getPptMenu" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
-    select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and delete_status = 0 order by create_time desc limit #{param4},#{param5}
+    select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6}
   </select>
 
   <select id="getPptMenuById" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
@@ -1468,7 +1468,7 @@
   </select>
 
   <select id="getPptMenuCategory" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
-    select category from ppt_menu where studio =#{param1} and campus =#{param2} and delete_status = 0 group by category
+    select category from ppt_menu where studio =#{param1} and campus =#{param2} and type =#{param3} and delete_status = 0 group by category
   </select>
 
   <select id="getBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">

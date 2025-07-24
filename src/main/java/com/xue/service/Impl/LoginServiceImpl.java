@@ -3536,7 +3536,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getPptMenu(String openid,Integer page,String category) {
+    public List getPptMenu(String openid,Integer page,String category,String type) {
         List<User> users = dao.getUser(openid);
         User user = users.get(0);
         String studio = user.getStudio();
@@ -3550,7 +3550,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             // 获取类目
-            List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus);
+            List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus,type);
             if(pptMenus.size()>0){
                 StringBuffer category_all = new StringBuffer();
                 // 获取类目
@@ -3571,7 +3571,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //明细
-                List<PptMenu> list = dao.getPptMenu(studio,campus,category,page_start,page_length);
+                List<PptMenu> list = dao.getPptMenu(studio,campus,category,type,page_start,page_length);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject jsonObject = new JSONObject();
                     PptMenu line = list.get(i);
