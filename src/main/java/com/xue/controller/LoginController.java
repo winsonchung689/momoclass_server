@@ -4859,16 +4859,14 @@ public class LoginController {
 		return 1;
 	}
 
-	@RequestMapping("/deleteFile")
+	@RequestMapping("/deleteFileByType")
 	@ResponseBody
-	public int deleteFile(String type,String file_name){
+	public int deleteFileByType(String type,String file_name,String studio){
 		try {
-			String img_path = "/data/uploadimages/" ;
-			String excel_path = "/data/uploadexcel/";
-			String path = img_path;
-			if("excel".equals(type)){
-				path = excel_path;
-			}
+			studio = studio.replace("/","");
+			//获取类路径
+			String path = "/data/upload" + type + "/" + studio;
+//			String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
 
 			File temp = new File(path, file_name);
 			temp.delete();
