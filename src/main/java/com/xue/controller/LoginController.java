@@ -4865,8 +4865,7 @@ public class LoginController {
 		try {
 			studio = studio.replace("/","");
 			//获取类路径
-			String path = "/data/upload" + type + "/" + studio;
-//			String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
+			String path = "/data/disk/upload" + type + "/" + studio;
 
 			File temp = new File(path, file_name);
 			temp.delete();
@@ -5127,8 +5126,8 @@ public class LoginController {
 		studio = studio.replace("/","");
 
 		//获取类路径
-		String path = "/data/upload" + type + "/" + studio;
-		String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
+		String path = "/data/disk/upload" + type + "/" + studio;
+		String file_path = "/data/disk/upload" + type + "/" + studio +"/"+ file_name;
 
 		try {
 			java.io.File myFilePath = new java.io.File(path);
@@ -5154,7 +5153,7 @@ public class LoginController {
 		studio = studio.replace("/","");
 
 		//获取类路径
-		String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
+		String file_path = "/data/disk/upload" + type + "/" + studio +"/"+ file_name;
 
 		File file = new File(file_path);
 		if(file.exists()){
