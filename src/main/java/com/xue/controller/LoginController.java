@@ -5145,6 +5145,29 @@ public class LoginController {
 		return file_path;
 	}
 
+	@RequestMapping("/downloadFileByType")
+	@ResponseBody
+	public ResponseEntity<byte[]> downloadFileByType(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String file_name =  request.getParameter("file_name");
+		String studio =  request.getParameter("studio");
+		String type =  request.getParameter("type");
+		studio = studio.replace("/","");
+
+		//获取类路径
+		String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
+
+		File file = new File(file_path);
+		if(file.exists()){
+			org.springframework.http.HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", file.getName());
+			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
+		}else{
+			System.out.println("文件不存在,请重试...");
+			return null;
+		}
+	}
+
 
 	@RequestMapping("/get_file")
 	@ResponseBody
