@@ -4859,6 +4859,26 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteFile")
+	@ResponseBody
+	public int deleteFile(String type,String file_name){
+		try {
+			String img_path = "/data/uploadimages/" ;
+			String excel_path = "/data/uploadexcel/";
+			String path = img_path;
+			if("excel".equals(type)){
+				path = excel_path;
+			}
+
+			File temp = new File(path, file_name);
+			temp.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/recoverLesson")
 	@ResponseBody
 	public int recoverLesson(String id,String studio,String openid,String type){
@@ -5070,9 +5090,8 @@ public class LoginController {
 		studio = studio.replace("/","");
 
 		//获取类路径
-		String path = "/data";
-		String path_1 = path + "/uploadexcel/" + studio;
-		String p_path = path +"/uploadexcel/" + studio +"/"+ file_name;
+		String path_1 = "/data/uploadexcel/" + studio;
+		String p_path = "/data/uploadexcel/" + studio +"/"+ file_name;
 
 
 		try {
@@ -5096,6 +5115,38 @@ public class LoginController {
 
 		return p_path;
 	}
+
+	@RequestMapping("/uploadFileByType")
+	@ResponseBody
+	public String uploadFileByType(HttpServletRequest request, HttpServletResponse response){
+
+		//获取图片
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile multipartFile = req.getFile("file");
+		String file_name =  request.getParameter("file_name");
+		String studio =  request.getParameter("studio");
+		String type =  request.getParameter("type");
+		studio = studio.replace("/","");
+
+		//获取类路径
+		String path = "/data/upload" + type + "/" + studio;
+		String file_path = "/data/upload" + type + "/" + studio +"/"+ file_name;
+
+		try {
+			java.io.File myFilePath = new java.io.File(path);
+			if(!myFilePath.exists()){
+				myFilePath.mkdir();
+			}
+
+			multipartFile.transferTo(new File(file_path));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return file_path;
+	}
+
 
 	@RequestMapping("/get_file")
 	@ResponseBody
