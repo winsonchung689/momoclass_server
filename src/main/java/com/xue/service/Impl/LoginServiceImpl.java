@@ -8192,8 +8192,6 @@ public class LoginServiceImpl implements LoginService {
         Integer abnormal_lesson = 0;
         Integer abnormal_package = 0;
         DecimalFormat df = new DecimalFormat("0.00");
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM");//
-//        String month_date = df1.format(new Date());
 
         try {
             if(subject.equals("全科目")){
