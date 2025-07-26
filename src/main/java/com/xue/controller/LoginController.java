@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -5077,9 +5078,10 @@ public class LoginController {
 					}
 				}
 				// 计算平均单价
-				Float pirce = (total-disc)/(all_lesson + give_lesson);
+				Float price = (total-disc)/(all_lesson + give_lesson);
 
-				bw.write(subject+","+student_name+","+total_amount+","+left_amount+","+points+","+pirce);
+				DecimalFormat df = new DecimalFormat("0.00");
+				bw.write(subject+","+student_name+","+total_amount+","+left_amount+","+points+","+df.format(price));
 				bw.newLine();
 			}
 
