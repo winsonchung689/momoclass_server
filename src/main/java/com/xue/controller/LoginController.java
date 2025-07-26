@@ -4744,9 +4744,6 @@ public class LoginController {
 			String price =  request.getParameter("price");
 			String type =  request.getParameter("type");
             String size =  request.getParameter("size");
-            if(size == null || size.isEmpty() || "undefined".equals(size)){
-                size = "0";
-            }
 
 			PptMenu pptMenu = new PptMenu();
 			pptMenu.setStudio(studio);
