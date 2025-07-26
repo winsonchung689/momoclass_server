@@ -1377,7 +1377,7 @@
 
   <!-- 更新ppt -->
   <update id="updatePptMenu" parameterType="com.xue.entity.model.PptMenu">
-    update ppt_menu set size=#{size},ppt_name=#{ppt_name},category=#{category},introduce=#{introduce},uuids=#{uuids} where id=#{id}
+    update ppt_menu set ppt_name=#{ppt_name},category=#{category},introduce=#{introduce},uuids=#{uuids} where id=#{id}
   </update>
 
   <!-- 更新课时 -->
