@@ -4750,7 +4750,6 @@ public class LoginController {
 			pptMenu.setPrice(Float.parseFloat(price));
 			pptMenu.setUuid(uuid);
 			pptMenu.setType(type);
-            pptMenu.setSize(Integer.parseInt(size));
 
 			dao.insertPptMenu(pptMenu);
 		} catch (Exception e) {
