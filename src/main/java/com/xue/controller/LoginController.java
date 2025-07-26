@@ -4265,7 +4265,13 @@ public class LoginController {
 				pptMenu.setIntroduce(content);
 			}else if ("图片".equals(type)) {
 				pptMenu.setUuids(content);
-			}
+			}else if ("文件".equals(type)) {
+                String[] list = content.split("_");
+                String uuids = list[0];
+                String size = list[1];
+                pptMenu.setUuids(uuids);
+                pptMenu.setSize(Integer.parseInt(size));
+            }
 
 			dao.updatePptMenu(pptMenu);
 		} catch (Exception e) {
@@ -4737,6 +4743,10 @@ public class LoginController {
 			String category =  request.getParameter("category");
 			String price =  request.getParameter("price");
 			String type =  request.getParameter("type");
+            String size =  request.getParameter("size");
+            if(size == null || size.isEmpty() || "undefined".equals(size)){
+                size = "0";
+            }
 
 			PptMenu pptMenu = new PptMenu();
 			pptMenu.setStudio(studio);
@@ -4749,6 +4759,7 @@ public class LoginController {
 			pptMenu.setPrice(Float.parseFloat(price));
 			pptMenu.setUuid(uuid);
 			pptMenu.setType(type);
+            pptMenu.setSize(Integer.parseInt(size));
 
 			dao.insertPptMenu(pptMenu);
 		} catch (Exception e) {
