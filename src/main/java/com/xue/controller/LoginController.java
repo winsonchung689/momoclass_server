@@ -4265,13 +4265,7 @@ public class LoginController {
 				pptMenu.setIntroduce(content);
 			}else if ("图片".equals(type)) {
 				pptMenu.setUuids(content);
-			}else if ("文件".equals(type)) {
-                String[] list = content.split("_");
-                String uuids = list[0];
-                String size = list[1];
-                pptMenu.setUuids(uuids);
-                pptMenu.setSize(Integer.parseInt(size));
-            }
+			}
 
 			dao.updatePptMenu(pptMenu);
 		} catch (Exception e) {
