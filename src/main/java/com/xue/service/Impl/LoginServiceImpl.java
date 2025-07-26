@@ -3619,9 +3619,13 @@ public class LoginServiceImpl implements LoginService {
                 String uuid = line.getUuid();
                 String create_time = line.getCreate_time();
                 String introduce = line.getIntroduce();
+                String studio = line.getStudio();
+                String campus = line.getCampus();
 
                 //json
                 jsonObject.put("id", id);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
                 jsonObject.put("ppt_name", ppt_name);
                 jsonObject.put("category", category);
                 jsonObject.put("uuids", uuids);
