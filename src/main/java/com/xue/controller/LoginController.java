@@ -5024,15 +5024,62 @@ public class LoginController {
 			String campus = list_user.get(0).getCampus();
 			List<Lesson> lessons = dao.getLesson(studio,campus);
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
-			bw.write("科目,学生名,总课时,余课时,积分");
+			bw.write("科目,学生名,总课时,余课时,积分,单价");
 			bw.newLine();
 			for(int i=0; i<lessons.size(); i++){
-				String subject = lessons.get(i).getSubject();
-				String student_name = lessons.get(i).getStudent_name();
-				String total_amount = lessons.get(i).getTotal_amount().toString();
-				String left_amount = lessons.get(i).getLeft_amount().toString();
-				String points = lessons.get(i).getPoints().toString();
-				bw.write(subject+","+student_name+","+total_amount+","+left_amount+","+points);
+				Lesson lesson  = lessons.get(i);
+				String subject = lesson.getSubject();
+				String student_name = lesson.getStudent_name();
+				String total_amount = lesson.getTotal_amount().toString();
+				String left_amount = lesson.getLeft_amount().toString();
+				String points = lesson.getPoints().toString();
+				Integer is_combine = lesson.getIs_combine();
+				String related_id = lesson.getRelated_id();
+
+				Float total = 0.0f;
+				Float disc = 0.0f;
+				Float all_lesson = 0.0f;
+				Float give_lesson = 0.0f;
+				List<LessonPackage> lessonPackages = null;
+				// 判断课包是否合并
+				if(is_combine == 0){
+					lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+				}else if (is_combine == 1){
+					lessonPackages = dao.getLessonPackageByStudentCombine(student_name,studio,campus);
+				}
+				// 寻找其他关联课包
+				if(!"no_id".equals(related_id)){
+					String[] related_id_list = related_id.split(",");
+					for(int j=0;j < related_id_list.length; j++){
+						String id_get = related_id_list[j];
+						if(id_get != null && id_get != "") {
+							List<Lesson> lessons_re = dao.getLessonById(id_get);
+							if(lessons_re.size()>0){
+								Lesson lesson_re = lessons_re.get(0);
+								String student_name_get = lesson_re.getStudent_name();
+								String subject_re = lesson_re.getSubject();
+								if (!student_name.equals(student_name_get)) {
+									List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
+									lessonPackages.addAll(lessonPackages_re);
+								}
+							}
+						}
+					}
+				}
+				// 课包汇总
+				if(lessonPackages.size()>0){
+					for(int j = 0; j < lessonPackages.size(); j++){
+						LessonPackage lessonPackage = lessonPackages.get(j);
+						total = total + lessonPackage.getTotal_money();
+						disc = disc + lessonPackage.getDiscount_money();
+						all_lesson = all_lesson + lessonPackage.getAll_lesson();
+						give_lesson = give_lesson + lessonPackage.getGive_lesson();
+					}
+				}
+				// 计算平均单价
+				Float pirce = (total-disc)/(all_lesson + give_lesson);
+
+				bw.write(subject+","+student_name+","+total_amount+","+left_amount+","+points+","+pirce);
 				bw.newLine();
 			}
 
