@@ -8263,6 +8263,7 @@ public class LoginServiceImpl implements LoginService {
                     Float consume_lesson_get = 0.0f;
                     Float lesson_gap = total_amount - left_amount;
 
+                    // 计算消耗课时
                     if (is_combine == 0) {
                         List<SignUp> signUps = dao.getSignUp(student_name_all,studio,subject_get,campus);
                         if(signUps.size() > 0) {
@@ -8276,7 +8277,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
 
-                    // 判断寻找其他关联课时
+                    // 计算找其他关联消耗课时
                     if(!"no_id".equals(related_id)){
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
@@ -8325,7 +8326,7 @@ public class LoginServiceImpl implements LoginService {
                         abnormal_package = abnormal_package + 1;
                     }
 
-                    Float price = (total-disc)/total_amount;
+                    Float price = (total-disc)/(all_lesson+give_lesson);
                     Float left_single = price * left_amount;
                     total_money = total_money + (total-disc);
                     left_money = left_money + left_single;
@@ -8350,16 +8351,20 @@ public class LoginServiceImpl implements LoginService {
                         Float left_amount = lesson.getLeft_amount();
                         Float total = 0.0f;
                         Float disc = 0.0f;
+                        Float all_lesson = 0.0f;
+                        Float give_lesson = 0.0f;
                         List<LessonPackage> lessonPackages1 = dao.getLessonPackageByStudentSubject(student_name_all,studio,campus,subject);
                         if(lessonPackages1.size()>0){
                             for(int j = 0; j < lessonPackages1.size(); j++){
                                 LessonPackage lessonPackage = lessonPackages1.get(j);
                                 total = total + lessonPackage.getTotal_money();
                                 disc = disc + lessonPackage.getDiscount_money();
+                                all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                                give_lesson = give_lesson + lessonPackage.getGive_lesson();
                             }
                         }
 
-                        Float price = (total-disc)/total_amount;
+                        Float price = (total-disc)/(all_lesson+give_lesson);
                         Float left_single = price * left_amount;
                         total_money = total_money + (total-disc);
                         left_money = left_money + left_single;
