@@ -3574,7 +3574,7 @@ public class LoginServiceImpl implements LoginService {
                         String uuids = pptMenu.getUuids();
                         if("library".equals(type)){
                             size_limit = pptMenu.getSize_limit();
-                            String[] uuids_list = uuids.split("$");
+                            String[] uuids_list = uuids.split("\\$");
                             String size = uuids_list[1];
                             used_size = used_size + Float.parseFloat(size)/1024/1024/1024;
                         }
@@ -3601,7 +3601,7 @@ public class LoginServiceImpl implements LoginService {
                     String uuids_get = line.getUuids();
                     Float single_size = 0.0f;
                     if("library".equals(type)){
-                        String[] uuids_list = uuids_get.split("$");
+                        String[] uuids_list = uuids_get.split("\\$");
                         String size_get = uuids_list[1];
                         single_size = single_size + Float.parseFloat(size_get)/1024/1024/1024;
                     }
