@@ -19,6 +19,8 @@ public class PptMenu {
 
     private Float price;
 
+    private Float size_limit;
+
     private String create_time;
 
     private String introduce;
@@ -26,6 +28,13 @@ public class PptMenu {
     private String type;
 
 
+    public Float getSize_limit() {
+        return size_limit;
+    }
+
+    public void setSize_limit(Float size_limit) {
+        this.size_limit = size_limit;
+    }
 
     public String getType() {
         return type;

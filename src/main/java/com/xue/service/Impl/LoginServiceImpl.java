@@ -3552,11 +3552,16 @@ public class LoginServiceImpl implements LoginService {
             // 获取类目
             List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus,type);
             if(pptMenus.size()>0){
+                Float used_size = 0.0f;
+                Float size_limit = 0.0f;
+
                 StringBuffer category_all = new StringBuffer();
                 // 获取类目
                 if(page == 1){
                     for(int i=0;i < pptMenus.size();i++){
-                        String category_get = pptMenus.get(i).getCategory();
+                        PptMenu pptMenu = pptMenus.get(i);
+                        // 获取类目
+                        String category_get = pptMenu.getCategory();
                         if(category == null || category.isEmpty() || "undefined".equals(category)){
                             if(i == 0){
                                 category = category_get;
@@ -3564,6 +3569,16 @@ public class LoginServiceImpl implements LoginService {
                         }
                         category_all.append(category_get);
                         category_all.append(",");
+
+                        // 统计空间
+                        String uuids = pptMenu.getUuids();
+                        if("library".equals(type)){
+                            size_limit = pptMenu.getSize_limit();
+                            String[] uuids_list = uuids.split("\\$");
+                            String size = uuids_list[1];
+                            used_size = used_size + Float.parseFloat(size)/1024/1024/1024;
+                        }
+
                     }
                     if(category_all.length()>0) {
                         category_all = category_all.deleteCharAt(category_all.lastIndexOf(","));
@@ -3583,8 +3598,18 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = line.getCreate_time();
                     String introduce = line.getIntroduce();
                     String id = line.getId();
+                    String uuids_get = line.getUuids();
+                    Float single_size = 0.0f;
+                    if("library".equals(type)){
+                        String[] uuids_list = uuids_get.split("\\$");
+                        String size_get = uuids_list[1];
+                        single_size = single_size + Float.parseFloat(size_get)/1024/1024/1024;
+                    }
 
                     //json
+                    jsonObject.put("single_size", single_size);
+                    jsonObject.put("size_limit", size_limit);
+                    jsonObject.put("used_size", used_size);
                     jsonObject.put("id", id);
                     jsonObject.put("ppt_name", ppt_name);
                     jsonObject.put("category", category);

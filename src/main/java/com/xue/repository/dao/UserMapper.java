@@ -525,7 +525,9 @@ public interface UserMapper {
 
     int updateDetailPhoto(Message message);
 
-    int updatePptMenu(PptMenu pptMenu);
+    int updatePptMenuById(PptMenu pptMenu);
+
+    int updatePptMenuSizeByStudioType(PptMenu pptMenu);
 
     int updateUsertype(User user);
 

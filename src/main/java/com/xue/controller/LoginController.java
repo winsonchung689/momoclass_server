@@ -4260,15 +4260,21 @@ public class LoginController {
 			PptMenu pptMenu = pptMenus.get(0);
 			if("名称".equals(type)){
 				pptMenu.setPpt_name(content);
+				dao.updatePptMenuById(pptMenu);
 			} else if ("类别".equals(type)) {
 				pptMenu.setCategory(content);
+				dao.updatePptMenuById(pptMenu);
 			}else if ("简介".equals(type)) {
 				pptMenu.setIntroduce(content);
+				dao.updatePptMenuById(pptMenu);
 			}else if ("图片".equals(type)) {
 				pptMenu.setUuids(content);
+				dao.updatePptMenuById(pptMenu);
+			}else if ("size_limit".equals(type)) {
+				pptMenu.setSize_limit(Float.parseFloat(content));
+				dao.updatePptMenuSizeByStudioType(pptMenu);
 			}
 
-			dao.updatePptMenu(pptMenu);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
