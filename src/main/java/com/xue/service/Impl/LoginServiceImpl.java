@@ -3619,9 +3619,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("uuid", uuid);
                     jsonObject.put("introduce", introduce);
                     jsonObject.put("create_time", create_time);
-                    if(i==0){
-                        jsonObject.put("category_all", category_all);
-                    }
+                    jsonObject.put("category_all", category_all);
                     resul_list.add(jsonObject);
                 }
             }
