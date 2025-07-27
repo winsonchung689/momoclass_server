@@ -3553,8 +3553,6 @@ public class LoginServiceImpl implements LoginService {
             List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus,type);
             if(pptMenus.size()>0){
                 Float used_size = 0.0f;
-                Float size_limit = 0.0f;
-
                 StringBuffer category_all = new StringBuffer();
                 // 获取类目
                 if(page == 1){
@@ -3576,7 +3574,6 @@ public class LoginServiceImpl implements LoginService {
                         // 统计空间
                         String uuids = pptMenu.getUuids();
                         if("library".equals(type)){
-                            size_limit = pptMenu.getSize_limit();
                             String[] uuids_list = uuids.split("\\$");
                             System.out.println(uuids_list);
                             String size = uuids_list[1];
@@ -3609,6 +3606,7 @@ public class LoginServiceImpl implements LoginService {
                         String size_get = uuids_list[1];
                         single_size = single_size + Float.parseFloat(size_get)/1024/1024/1024;
                     }
+                    Float size_limit = line.getSize_limit();
 
                     //json
                     jsonObject.put("single_size", single_size);
