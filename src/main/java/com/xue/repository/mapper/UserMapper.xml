@@ -1473,7 +1473,7 @@
   </select>
 
   <select id="getPptMenuCategory" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
-    select category,size_limit from ppt_menu where studio =#{param1} and campus =#{param2} and type =#{param3} and delete_status = 0 group by category,size_limit
+    select * from ppt_menu where studio =#{param1} and campus =#{param2} and type =#{param3} and delete_status = 0
   </select>
 
   <select id="getBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">

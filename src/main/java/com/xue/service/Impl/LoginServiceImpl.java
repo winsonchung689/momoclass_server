@@ -3565,15 +3565,18 @@ public class LoginServiceImpl implements LoginService {
                         if(category == null || category.isEmpty() || "undefined".equals(category)){
                             if(i == 0){
                                 category = category_get;
+                                size_limit = pptMenu.getSize_limit();
                             }
                         }
-                        category_all.append(category_get);
-                        category_all.append(",");
+                        if(category_all.indexOf(category_get)<0){
+                            category_all.append(category_get);
+                            category_all.append(",");
+                        }
+
 
                         // 统计空间
                         String uuids = pptMenu.getUuids();
                         if("library".equals(type)){
-                            size_limit = pptMenu.getSize_limit();
                             String[] uuids_list = uuids.split("\\$");
                             System.out.println(uuids_list);
                             String size = uuids_list[1];
