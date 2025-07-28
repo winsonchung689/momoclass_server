@@ -4784,18 +4784,12 @@ public class LoginController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		try {
-			String openid =  request.getParameter("openid");
-			List<User> users =dao.getUser(openid);
-			User user = users.get(0);
-			String studio = user.getStudio();
-			String campus = user.getCampus();
-
 			String menu_id = request.getParameter("menu_id");
 			String file_name = request.getParameter("file_name");
 			String size =  request.getParameter("size");
 
 			Library library = new Library();
-			library.setMenu_id(studio);
+			library.setMenu_id(menu_id);
 			library.setFile_name(file_name);
 			library.setSize(Float.parseFloat(size));
 			library.setCreate_time(create_time);

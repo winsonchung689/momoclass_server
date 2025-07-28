@@ -3559,6 +3559,7 @@ public class LoginServiceImpl implements LoginService {
                     for(int i=0;i < pptMenus.size();i++){
                         PptMenu pptMenu = pptMenus.get(i);
                         // 获取类目
+                        String id = pptMenu.getId();
                         String category_get = pptMenu.getCategory();
                         if(category == null || category.isEmpty() || "undefined".equals(category)){
                             if(i == 0){
@@ -3574,10 +3575,12 @@ public class LoginServiceImpl implements LoginService {
                         // 统计空间
                         String uuids = pptMenu.getUuids();
                         if("library".equals(type)){
-                            String[] uuids_list = uuids.split("\\$");
-                            System.out.println(uuids_list);
-                            String size = uuids_list[1];
-                            used_size = used_size + Float.parseFloat(size)/1024/1024/1024;
+                            List<Library> libraries = dao.getLibraryByMenuId(id);
+                            for(int j=0;i < libraries.size();j++){
+                                Library library = libraries.get(j);
+                                Float size = library.getSize();
+                                used_size = used_size + size/1024/1024/1024;
+                            }
                         }
 
                     }
@@ -3602,9 +3605,12 @@ public class LoginServiceImpl implements LoginService {
                     String uuids_get = line.getUuids();
                     Float single_size = 0.0f;
                     if("library".equals(type)){
-                        String[] uuids_list = uuids_get.split("\\$");
-                        String size_get = uuids_list[1];
-                        single_size = single_size + Float.parseFloat(size_get)/1024/1024/1024;
+                        List<Library> libraries = dao.getLibraryByMenuId(id);
+                        for(int j=0;i < libraries.size();j++){
+                            Library library = libraries.get(j);
+                            Float size = library.getSize();
+                            single_size = single_size + size/1024/1024/1024;
+                        }
                     }
                     Float size_limit = line.getSize_limit();
 
