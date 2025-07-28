@@ -938,6 +938,8 @@ public interface UserMapper {
 
     int insertRestaurantMenu(Menu menu);
 
+    int insertLibrary(Library library);
+
     int insertPptMenu(PptMenu pptMenu);
 
     int insertRestaurantOrder(RestaurantOrder restaurantOrder);

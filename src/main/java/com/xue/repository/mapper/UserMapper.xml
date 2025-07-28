@@ -46,6 +46,10 @@
   </resultMap>
 
   <resultMap id="BasePptMenu" type="com.xue.entity.model.PptMenu">
+    <result column="menu_id" jdbcType="VARCHAR" property="menu_id" />
+  </resultMap>
+
+  <resultMap id="BaseLibrary" type="com.xue.entity.model.Library">
     <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
 
@@ -1468,6 +1472,10 @@
     select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6}
   </select>
 
+  <select id="getLibrary" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
+    select * from library where menu_id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getPptMenuById" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
     select * from ppt_menu where id =#{param1} and delete_status = 0 order by create_time
   </select>
@@ -1979,6 +1987,10 @@
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
     insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time,uuid,type) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time},#{uuid},#{type})
+  </insert>
+
+  <insert id="insertLibrary" parameterType="com.xue.entity.model.Library">
+    insert library(menu_id,file_name,size,create_time) values(#{menu_id},#{file_name},#{size},#{create_time})
   </insert>
 
   <insert id="insertRestaurantOrder" parameterType="com.xue.entity.model.RestaurantOrder">
