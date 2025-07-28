@@ -761,7 +761,7 @@
 
   <!-- 获取课程表 -->
   <select id="getScheduleByClassTransferred" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where add_date = #{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus= #{param6} and delete_status = 0 and student_type ='transferred' order by duration
+    select * from class_schedule where add_date = #{param1} and duration = #{param2} and studio= #{param3} and class_number= #{param4} and subject= #{param5} and campus= #{param6} and delete_status = 0 and (student_type ='transferred' or is_try = 1) order by duration
   </select>
 
   <!-- 获取课程表 -->

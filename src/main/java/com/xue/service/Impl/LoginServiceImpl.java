@@ -2280,7 +2280,6 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
         Integer weekDay=0;
-        Integer weekofday=0;
         String mark = null;
         Integer remind=0;
         String student_type=null;
