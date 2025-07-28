@@ -3602,7 +3602,6 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = line.getCreate_time();
                     String introduce = line.getIntroduce();
                     String id = line.getId();
-                    String uuids_get = line.getUuids();
                     Float single_size = 0.0f;
                     if("library".equals(type)){
                         List<Library> libraries = dao.getLibraryByMenuId(id);
