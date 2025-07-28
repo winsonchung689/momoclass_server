@@ -3574,7 +3574,7 @@ public class LoginServiceImpl implements LoginService {
                         // 统计空间
                         if("library".equals(type)){
                             List<Library> libraries = dao.getLibraryByMenuId(id);
-                            for(int j=0;i < libraries.size();j++){
+                            for(int j=0;j < libraries.size();j++){
                                 Library library = libraries.get(j);
                                 Float size = library.getSize();
                                 used_size = used_size + size/1024/1024/1024;
