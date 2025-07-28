@@ -3571,9 +3571,7 @@ public class LoginServiceImpl implements LoginService {
                             category_all.append(",");
                         }
 
-
                         // 统计空间
-                        String uuids = pptMenu.getUuids();
                         if("library".equals(type)){
                             List<Library> libraries = dao.getLibraryByMenuId(id);
                             for(int j=0;i < libraries.size();j++){
