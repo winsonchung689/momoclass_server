@@ -503,6 +503,8 @@ public interface UserMapper {
 
     int deletePptMenu(int id);
 
+    int deleteLibraryId(String id);
+
     int updateUserDelete(User user);
 
     int updateUserBackUrl(User user);

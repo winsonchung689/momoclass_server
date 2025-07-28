@@ -4905,7 +4905,7 @@ public class LoginController {
 
 	@RequestMapping("/deleteFileByType")
 	@ResponseBody
-	public int deleteFileByType(String type,String file_name,String studio){
+	public int deleteFileByType(String type,String file_name,String studio,String library_id){
 		try {
 			studio = studio.replace("/","");
 			//获取类路径
@@ -4913,6 +4913,8 @@ public class LoginController {
 
 			File temp = new File(path, file_name);
 			temp.delete();
+
+			dao.deleteLibraryId(library_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
