@@ -3603,7 +3603,7 @@ public class LoginServiceImpl implements LoginService {
                     Float single_size = 0.0f;
                     if("library".equals(type)){
                         List<Library> libraries = dao.getLibraryByMenuId(id);
-                        for(int j=0;i < libraries.size();j++){
+                        for(int j=0;j < libraries.size();j++){
                             Library library = libraries.get(j);
                             Float size = library.getSize();
                             single_size = single_size + size/1024/1024/1024;
