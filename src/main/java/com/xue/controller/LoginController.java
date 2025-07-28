@@ -2622,6 +2622,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getLibraryByMenuId")
+	@ResponseBody
+	public List getLibraryByMenuId(String menu_id){
+		List list = null;
+		try {
+			list = dao.getLibraryByMenuId(menu_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getPptMenu")
 	@ResponseBody
 	public List getPptMenu(String openid,Integer page,String category,String type){

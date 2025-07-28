@@ -1472,7 +1472,7 @@
     select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6}
   </select>
 
-  <select id="getLibrary" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
+  <select id="getLibraryByMenuId" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
     select * from library where menu_id =#{param1} and delete_status = 0 order by create_time desc
   </select>
 

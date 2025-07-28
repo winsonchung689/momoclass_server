@@ -666,6 +666,8 @@ public interface UserMapper {
 
     List<PptMenu> getPptMenuById(String id);
 
+    List<Library> getLibraryByMenuId(String menu_id);
+
     List<PptMenu> getPptMenuCategory(String studio,String campus,String type);
 
     List<BookUser> getBookUser(String openid);
