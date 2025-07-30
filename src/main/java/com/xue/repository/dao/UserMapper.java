@@ -940,6 +940,8 @@ public interface UserMapper {
 
     int insertNote(Note note);
 
+    int insertExamination(Examination examination);
+
     int insertCard(Card card);
 
     int insertCardRecord(CardRecord cardRecord);

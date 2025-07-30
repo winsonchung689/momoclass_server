@@ -3343,6 +3343,40 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/insertExamination")
+	@ResponseBody
+	public int insertExamination(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		List<User> users = dao.getUser(openid);
+		String campus = users.get(0).getCampus();
+		String studio = users.get(0).getStudio();
+
+		String student_name = request.getParameter("student_name");
+		String subject = request.getParameter("subject");
+		String title = request.getParameter("title");
+		String score = request.getParameter("score");
+
+		try {
+			Examination examination = new Examination();
+			examination.setCreate_time(create_time);
+			examination.setStudio(studio);
+			examination.setCampus(campus);
+			examination.setStudent_name(student_name);
+			examination.setSubject(subject);
+			examination.setTitle(title);
+			examination.setScore(Float.parseFloat(score));
+			dao.insertExamination(examination);
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/insertCard")
 	@ResponseBody
 	public int insertCard(HttpServletRequest request, HttpServletResponse response){
