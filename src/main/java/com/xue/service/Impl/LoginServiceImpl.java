@@ -3682,7 +3682,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String student_name_get = line.getStudent_name();
                 String subject = line.getSubject();
-                String tile = line.getTitle();
+                String title = line.getTitle();
                 String create_time = line.getCreate_time();
                 studio = line.getStudio();
                 campus = line.getCampus();
@@ -3693,7 +3693,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
                 jsonObject.put("student_name", student_name_get);
-                jsonObject.put("tile", tile);
+                jsonObject.put("title", title);
                 jsonObject.put("subject", subject);
                 jsonObject.put("score", score);
                 jsonObject.put("create_time", create_time);
