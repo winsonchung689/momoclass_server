@@ -332,7 +332,6 @@ public interface UserMapper {
 
     void deleteNote(Integer id);
 
-
     void deleteExamination(Integer id);
 
     void deleteNotice(Integer id);
