@@ -399,6 +399,11 @@
     delete from class_note where id = #{param1};
   </select>
 
+  <!-- 删除成绩 -->
+  <select id="deleteExamination" parameterType="com.xue.entity.model.Examination" resultMap="BaseResultMap">
+    update examination set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除通知 -->
   <select id="deleteNotice" parameterType="com.xue.entity.model.Announcement" resultMap="BaseResultMap">
     delete from announcement where id = #{param1};
