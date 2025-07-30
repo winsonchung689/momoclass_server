@@ -4749,6 +4749,7 @@ public class LoginController {
 			User user = users.get(0);
 			String studio = user.getStudio();
 			String campus = user.getCampus();
+
 			String ppt_name =  request.getParameter("ppt_name");
 			String uuid =  request.getParameter("uuid");
 			String uuids =  request.getParameter("uuids");
@@ -4757,6 +4758,13 @@ public class LoginController {
 			String price =  request.getParameter("price");
 			String type =  request.getParameter("type");
             String size =  request.getParameter("size");
+
+			Float size_limit = 0.0f;
+			List<PptMenu> pptMenus = dao.getPptMenuCategory(studio,campus,type);
+			if(pptMenus.size() > 0){
+				PptMenu pptMenu = pptMenus.get(0);
+				size_limit = pptMenu.getSize_limit();
+			}
 
 			PptMenu pptMenu = new PptMenu();
 			pptMenu.setStudio(studio);
@@ -4769,6 +4777,7 @@ public class LoginController {
 			pptMenu.setPrice(Float.parseFloat(price));
 			pptMenu.setUuid(uuid);
 			pptMenu.setType(type);
+			pptMenu.setSize_limit(size_limit);
 
 			dao.insertPptMenu(pptMenu);
 		} catch (Exception e) {
