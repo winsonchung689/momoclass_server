@@ -144,6 +144,21 @@
   <resultMap id="BaseShippingFee" type="com.xue.entity.model.ShippingFee">
     <result column="region" jdbcType="VARCHAR" property="region" />
   </resultMap>
+  <resultMap id="BaseExamination" type="com.xue.entity.model.Examination">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
+
+
+
+  <!-- 获取全部成绩 -->
+  <select id="getExaminationByStudio" parameterType="com.xue.entity.model.Examination" resultMap="BaseExamination">
+    select * from examination where studio =#{param1} and campus =#{param2} and delete_status = 0;
+  </select>
+
+  <!-- 获取全部成绩 -->
+  <select id="getExaminationByStudentName" parameterType="com.xue.entity.model.Examination" resultMap="BaseExamination">
+    select * from examination where studio =#{param1} and campus =#{param2} and student_name =#{param3} and delete_status = 0;
+  </select>
 
   <!-- 获取全部appid商户 -->
   <select id="getMerchantByAppid" parameterType="com.xue.entity.model.Merchant" resultMap="BaseMerchant">
@@ -1991,6 +2006,10 @@
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
     insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time,uuid,type,size_limit) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time},#{uuid},#{type},#{size_limit})
+  </insert>
+
+  <insert id="insertExamination" parameterType="com.xue.entity.model.Examination">
+    insert examination(studio,campus,student_name,subject,title,score,create_time) values(#{studio},#{campus},#{student_name},#{subject},#{title},#{score},#{create_time})
   </insert>
 
   <insert id="insertLibrary" parameterType="com.xue.entity.model.Library">

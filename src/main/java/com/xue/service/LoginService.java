@@ -203,6 +203,8 @@ public interface LoginService {
 
     public List getPptMenuById(String id);
 
+    public List getExaminationByStudentName(String studio,String campus,String student_name);
+
     public List getBookUser(String openid);
 
     public List getBBookDetail(String openid,String duration,String book_name);

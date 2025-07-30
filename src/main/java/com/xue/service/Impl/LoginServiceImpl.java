@@ -3668,6 +3668,44 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getExaminationByStudentName(String studio, String campus, String student_name) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<Examination> list = dao.getExaminationByStudentName(studio,campus,student_name);
+            if("all".equals(student_name)){
+                list = dao.getExaminationByStudio(studio,campus);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Examination line = list.get(i);
+                //获取字段
+                String id = line.getId();
+                String student_name_get = line.getStudent_name();
+                String subject = line.getSubject();
+                String tile = line.getTitle();
+                String create_time = line.getCreate_time();
+                studio = line.getStudio();
+                campus = line.getCampus();
+                Float score = line.getScore();
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
+                jsonObject.put("student_name", student_name_get);
+                jsonObject.put("tile", tile);
+                jsonObject.put("subject", subject);
+                jsonObject.put("score", score);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getUserByNickName(String nickName) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String role = null;

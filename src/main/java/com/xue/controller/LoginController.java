@@ -2622,6 +2622,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getExaminationByStudentName")
+	@ResponseBody
+	public List getExaminationByStudentName(String studio, String campus, String student_name){
+		List list = null;
+		try {
+			list = loginService.getExaminationByStudentName(studio,campus,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getLibraryByMenuId")
 	@ResponseBody
 	public List getLibraryByMenuId(String menu_id){

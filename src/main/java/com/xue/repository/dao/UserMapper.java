@@ -676,6 +676,10 @@ public interface UserMapper {
 
     List<BookUser> getBookUserById(String id);
 
+    List<Examination> getExaminationByStudio(String studio,String campus);
+
+    List<Examination> getExaminationByStudentName(String studio,String campus,String student_name);
+
     List<BookDetail> getBBookDetail(String start_date,String end_date,String book_name);
 
     List<RestaurantUser> getRestaurantUserAll();
