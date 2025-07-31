@@ -3668,12 +3668,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getExaminationByStudentName(String studio, String campus, String student_name) {
+    public List getExaminationByStudentName(String studio, String campus, String student_name,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Examination> list = dao.getExaminationByStudentName(studio,campus,student_name);
+            List<Examination> list = dao.getExaminationByStudentName(studio,campus,student_name,type);
             if("all".equals(student_name)){
-                list = dao.getExaminationByStudio(studio,campus);
+                list = dao.getExaminationByStudio(studio,campus,type);
             }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();

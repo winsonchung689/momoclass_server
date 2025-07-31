@@ -2624,7 +2624,7 @@ public class LoginController {
 
 	@RequestMapping("/getExaminationByStudentName")
 	@ResponseBody
-	public List getExaminationByStudentName(String openid){
+	public List getExaminationByStudentName(String openid,String type){
 		List list = null;
 		try {
 			List<User> users = dao.getUser(openid);
@@ -2637,7 +2637,7 @@ public class LoginController {
 				student_name = user.getStudent_name();
 			}
 
-			list = loginService.getExaminationByStudentName(studio,campus,student_name);
+			list = loginService.getExaminationByStudentName(studio,campus,student_name,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
