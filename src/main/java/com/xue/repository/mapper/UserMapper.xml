@@ -2014,7 +2014,7 @@
   </insert>
 
   <insert id="insertExamination" parameterType="com.xue.entity.model.Examination">
-    insert examination(studio,campus,student_name,subject,title,score,create_time,uuid) values(#{studio},#{campus},#{student_name},#{subject},#{title},#{score},#{create_time},#{uuid})
+    insert examination(studio,campus,student_name,subject,title,score,create_time,uuid,type) values(#{studio},#{campus},#{student_name},#{subject},#{title},#{score},#{create_time},#{uuid},#{type})
   </insert>
 
   <insert id="insertLibrary" parameterType="com.xue.entity.model.Library">
