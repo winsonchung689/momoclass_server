@@ -63,9 +63,9 @@ public class WechatPayServiceImpl implements WechatPayService {
             List<RestaurantUser> restaurantUsers1 = dao.getRestaurantBossByShop(studio);
             RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
             int is_free = restaurantUser1.getIs_free();
-            rate = 8.0f;
+            rate = 1.0f;
             if(is_free == 1){
-                rate = 10.0f;
+                rate = 5.6f;
             }
         }
 
