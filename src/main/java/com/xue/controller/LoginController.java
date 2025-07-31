@@ -3380,6 +3380,7 @@ public class LoginController {
 		String subject = request.getParameter("subject");
 		String title = request.getParameter("title");
 		String score = request.getParameter("score");
+		String uuid = request.getParameter("uuid");
 
 		try {
 			Examination examination = new Examination();
@@ -3390,6 +3391,8 @@ public class LoginController {
 			examination.setSubject(subject);
 			examination.setTitle(title);
 			examination.setScore(Float.parseFloat(score));
+			examination.setUuid(uuid);
+
 			dao.insertExamination(examination);
 		} catch (Exception e) {
 //			throw new RuntimeException(e);
