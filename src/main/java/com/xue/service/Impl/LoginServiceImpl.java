@@ -3687,8 +3687,10 @@ public class LoginServiceImpl implements LoginService {
                 studio = line.getStudio();
                 campus = line.getCampus();
                 Float score = line.getScore();
+                String uuid = line.getUuid();
 
                 //json
+                jsonObject.put("uuid", uuid);
                 jsonObject.put("id", id);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
