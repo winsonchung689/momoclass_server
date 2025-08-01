@@ -1731,7 +1731,19 @@ public class LoginServiceImpl implements LoginService {
                 String subject_get = line.getSubject();
                 String create_time = line.getCreate_time();
 
+                String button = "通知";
+                List<Departure> departures = dao.getDepartureRecordByStudent(studio,campus,student_name);
+                if(departures.size()>0){
+                    Departure departure = departures.get(0);
+                    String create_time_get = departure.getCreate_time();
+                    if(date_time.equals(create_time_get.substring(0,10))){
+                        button = "已通知";
+                    }
+
+                }
+
                 jsonObject.put("id", id);
+                jsonObject.put("button", button);
                 jsonObject.put("add_date", add_date);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("duration", duration);
@@ -3432,8 +3444,16 @@ public class LoginServiceImpl implements LoginService {
                 String class_number = line.getClass_number();
                 String mark = line.getMark();
                 String create_time = line.getCreate_time();
+                Integer status = line.getStatus();
+                String status_cn = "已离校";
+                if(status == 1){
+                    status_cn = "已到家";
+                }
+
 
                 //json
+                jsonObject.put("status", status);
+                jsonObject.put("status_cn", status_cn);
                 jsonObject.put("id", id);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
