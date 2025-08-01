@@ -5931,6 +5931,49 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public void sendDepartureNotice(String student_name, String studio) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
+        String create_time = df.format(new Date());
+        String result = null;
+        String url_send = null;
+        String model ="{\"touser\":\"openid\",\"template_id\":\"izSojc8jwoAlxi5Cia0z5oE6sMspB8PpNkI--zIsaOs\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing3\":{\"value\": \"AA\"},\"thing2\":{\"value\": \"A1\"},\"time1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+        String token = getToken("MOMO_OFFICIAL");
+
+
+        try {
+            List<User> list = dao.getUserByStudent(student_name,studio);
+            for (int i = 0; i < list.size(); i++) {
+                User user_get = list.get(i);
+                String official_openid = user_get.getOfficial_openid();
+                String openid_get = user_get.getOpenid();
+                url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                if(official_openid != null){
+                    String[] official_list = official_openid.split(",");
+                    for(int j=0;j<official_list.length;j++){
+                        String official_openid_get = official_list[j];
+                        JSONObject queryJson = JSONObject.parseObject(model);
+                        queryJson.put("touser",official_openid_get);
+                        queryJson.getJSONObject("data").getJSONObject("thing3").put("value",student_name);
+                        queryJson.getJSONObject("data").getJSONObject("thing2").put("value",studio);
+                        queryJson.getJSONObject("data").getJSONObject("time6").put("value",create_time);
+                        queryJson.getJSONObject("miniprogram").put("pagepath","/pages/departure/departure?studio=" + studio + "&openid=" + openid_get);
+
+                        System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
+                        result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
+                        System.out.printf("MOMO_OFFICIAL_RES:" + result);
+                    }
+                }
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
     public void sendBossPayRemind() {
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");

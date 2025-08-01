@@ -285,6 +285,8 @@ public interface LoginService {
 
     public void sendClassRemind();
 
+    public void sendDepartureNotice(String student_name,String studio);
+
     public void sendBossPayRemind();
 
     public String sendFeedback(String openid,String target_studio,String expired_time,String days,String mark);
