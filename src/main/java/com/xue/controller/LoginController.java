@@ -1429,10 +1429,10 @@ public class LoginController {
 	//	获取课程表
 	@RequestMapping("/getSchedule")
 	@ResponseBody
-	public List getSchedule(String date_time,String studio,String subject,String openid,String test){
+	public List getSchedule(String date_time,String studio,String subject,String openid){
 		List list = null;
 		try {
-			list = loginService.getSchedule(date_time,studio,subject,openid,test);
+			list = loginService.getSchedule(date_time,studio,subject,openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

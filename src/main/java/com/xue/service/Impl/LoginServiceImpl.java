@@ -1691,281 +1691,54 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSchedule(String date_time, String studio,String subject,String openid,String test) {
-        String add_date = null;
-        String age = null;
-        String student_name = null;
-        String duration = null;
-        String create_time = null;
-        String id = null;
-        String update_time = null;
+    public List getSchedule(String date_time, String studio,String subject,String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat fmt_m = new SimpleDateFormat("yyyy-MM");
-        Date d = null;
-        String class_number = null;
-        Integer weekDay=0;
-        Integer weekofday=0;
-        String mark = null;
-        Float sign_counts=0.0f;
-        Float sign_counts_get=0.0f;
         List<Schedule> list_tra=null;
-        Integer remind=0;
-        List<User> list_user = dao.getUser(openid);
-        String campus = list_user.get(0).getCampus();
 
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
 
-        if(subject.equals("全科目")){
-            sign_counts_get = dao.getSignUpByMonthAll(studio, date_time.substring(0,7),campus);
-        }else {
-            sign_counts_get = dao.getSignUpByMonth(studio, subject,date_time.substring(0,7),campus);
-        }
-        JSONObject jsonObject_1 = new JSONObject();
-        if(sign_counts_get!=null){
-            sign_counts=sign_counts_get;
-        }
-        jsonObject_1.put("sign_counts", sign_counts);
-        resul_list.add(jsonObject_1);
-
-        // 获取常规学生
+        // 获取学生
         try {
-            d = fmt.parse(date_time);
+            Date d = fmt.parse(date_time);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
-            weekDay = cal.get(Calendar.DAY_OF_WEEK);
+            Integer weekDay = cal.get(Calendar.DAY_OF_WEEK);
 
             List<Schedule> list=null;
             if(subject.equals("全科目")){
                 list = dao.getScheduleAll(weekDay, studio,campus);
                 list_tra = dao.getTransferAll(date_time, studio,campus);
+                list.addAll(list_tra);
             }else {
                 list = dao.getSchedule(weekDay, studio,subject,campus);
                 list_tra = dao.getTransfer(date_time, studio,subject,campus);
+                list.addAll(list_tra);
             }
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Schedule line = list.get(i);
+
                 //获取字段
-                add_date = line.getAdd_date();
-                age = line.getAge();
-                student_name = line.getStudent_name();
-                duration = line.getDuration();
-                id = line.getId();
-                create_time = line.getCreate_time();
-                update_time = line.getUpdate_time();
-                class_number = line.getClass_number();
-                subject = line.getSubject();
-                remind = line.getRemind();
-                String role = "visit";
-                String lesson_string = null;
-                List<String> list_2 = null;
-                Integer contains = 0;
-                try {
-                    if(openid != null){
-                        User user_get= dao.getUser(openid).get(0);
-                        String lessons_string = user_get.getLessons();
-                        role = user_get.getRole();
-                        String[] list_1 =lessons_string.split("\\|");
-                        if(weekDay == 1){
-                            weekofday = 7 ;
-                        }else {
-                            weekofday = weekDay - 1;
-                        }
-                        lesson_string = "星期" + weekofday + "," + subject + "," + class_number + "," + duration;
-                        list_2 = Arrays.asList(list_1);
-                        if(list_2.contains(lesson_string)){
-                            contains = 1;
-                        }
-                    }
-                } catch (Exception e) {
-//                    e.printStackTrace();
-                }
-                if( contains == 1 || "1".equals(test) || "client".equals(role)) {
-                    jsonObject.put("subject", subject);
-                    jsonObject.put("class_number", class_number);
-                    jsonObject.put("comment_status", "课评");
-                    jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                    List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus,"课评");
-                    if (messages.size() >= 1) {
-                        if (messages.get(0).getDuration().equals("00:00-00:00")) {
-                            jsonObject.put("comment_status", "已课评");
-                            jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                        } else {
-                            List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
-                            if (messagesDuration.size() == 1) {
-                                jsonObject.put("comment_status", "已课评");
-                                jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                            }
-                        }
-                    }
+                String id = line.getId();
+                String add_date = line.getAdd_date();
+                String student_name = line.getStudent_name();
+                String duration = line.getDuration();
+                String class_number = line.getClass_number();
+                String subject_get = line.getSubject();
+                String create_time = line.getCreate_time();
 
-                    //json
-                    List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                    Float left = 0.0f;
-                    Float total = 0.0f;
-                    if (lessons.size() > 0) {
-                        Lesson lesson = lessons.get(0);
-                        left = lesson.getLeft_amount();
-                        total = lesson.getTotal_amount();
-                        jsonObject.put("left", left);
-                        jsonObject.put("total", total);
-                        jsonObject.put("add_date", add_date);
-                        jsonObject.put("age", age);
-                        jsonObject.put("student_name", student_name);
-                        jsonObject.put("duration", duration);
-                        jsonObject.put("create_time", create_time.substring(0, 10));
-                        jsonObject.put("id", id);
-                        jsonObject.put("update_time", update_time.substring(0, 10));
-                        jsonObject.put("leave_color", "rgb(157, 162, 165)");
-                        jsonObject.put("sign_color", "rgb(157, 162, 165)");
-                        jsonObject.put("remind",remind);
+                jsonObject.put("id", id);
+                jsonObject.put("add_date", add_date);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("duration", duration);
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("subject", subject_get);
+                jsonObject.put("create_time", create_time);
 
-                        jsonObject.put("sign_up", "签到");
-                        jsonObject.put("mark", "备注");
-                        List<SignUp> signUps = dao.getSignUpByDate(student_name, studio, date_time + " 00:00:00",campus,subject);
-                        if (signUps.size() >= 1) {
-                            if (signUps.get(0).getDuration().equals("00:00-00:00")) {
-                                jsonObject.put("sign_up", "已签到");
-                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                mark = signUps.get(0).getMark();
-                                jsonObject.put("mark", mark);
-
-                            } else {
-                                List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name, studio, date_time + " 00:00:00", duration,campus,subject);
-                                if (signUpsDuration.size() == 1) {
-                                    jsonObject.put("sign_up", "已签到");
-                                    jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                    mark = signUpsDuration.get(0).getMark();
-                                    jsonObject.put("mark", mark);
-                                }
-                            }
-                        }
-
-                        jsonObject.put("leave", "请假");
-                        List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
-                        if (leaves.size() == 1) {
-                            String leave_type = leaves.get(0).getLeave_type();
-                            jsonObject.put("leave", "已请假");
-                            if (leave_type.equals("旷课")) {
-                                jsonObject.put("leave", "已旷课");
-                            }
-                            jsonObject.put("leave_color", "rgb(218, 144, 84)");
-                        }
-
-                        resul_list.add(jsonObject);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // 获取插班生
-        try {
-            for (int i = 0; i < list_tra.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                Schedule line = list_tra.get(i);
-                //获取字段
-                add_date = line.getAdd_date();
-                age = line.getAge();
-                student_name = line.getStudent_name();
-                duration = line.getDuration();
-                id = line.getId();
-                create_time = line.getCreate_time();
-                update_time = line.getUpdate_time();
-                class_number = line.getClass_number();
-                subject = line.getSubject();
-                jsonObject.put("subject", subject);
-                jsonObject.put("class_number","无班号(插班生)");
-                if(class_number.length()>0){
-                    jsonObject.put("class_number", class_number+"(插班生)");
-                }
-
-                jsonObject.put("comment_status", "课评");
-                jsonObject.put("comment_color", "rgb(157, 162, 165)");
-                List<Message> messages = dao.getCommentByDate(student_name,studio,date_time,campus,"课评");
-                if (messages.size()>=1){
-                    if(messages.get(0).getDuration().equals("00:00-00:00")){
-                        jsonObject.put("comment_status", "已课评");
-                        jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                    }else {
-                        List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
-                        if (messagesDuration.size() == 1) {
-                            jsonObject.put("comment_status", "已课评");
-                            jsonObject.put("comment_color", "rgba(162, 106, 214, 0.849)");
-                        }
-                    }
-                }
-
-                //json
-                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                Float left = 0.0f;
-                Float total = 0.0f;
-                if(lessons.size()>0){
-                    Lesson lesson = lessons.get(0);
-                    left = lesson.getLeft_amount();
-                    total = lesson.getTotal_amount();
-                    jsonObject.put("left", left);
-                    jsonObject.put("total", total);
-                    jsonObject.put("add_date", add_date);
-                    jsonObject.put("age", age);
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("duration", duration);
-                    jsonObject.put("create_time", create_time.substring(0,10));
-                    jsonObject.put("id", id);
-                    jsonObject.put("update_time", update_time.substring(0,10));
-                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
-                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
-
-                    jsonObject.put("sign_up", "签到");
-                    jsonObject.put("mark", "备注");
-                    List<SignUp> signUps = dao.getSignUpByDate(student_name,studio,date_time + " 00:00:00",campus,subject);
-                    if(signUps.size()>=1){
-                        if(signUps.get(0).getDuration().equals("00:00-00:00")){
-                            jsonObject.put("sign_up", "已签到");
-                            jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                            mark = signUps.get(0).getMark();
-                            jsonObject.put("mark", mark);
-
-                        }else {
-                            List<SignUp> signUpsDuration = dao.getSignUpByDateDuration(student_name,studio,date_time+" 00:00:00",duration,campus,subject);
-                            if(signUpsDuration.size()==1){
-                                jsonObject.put("sign_up", "已签到");
-                                jsonObject.put("sign_color", "rgba(55, 188, 221, 0.849)");
-                                mark = signUpsDuration.get(0).getMark();
-                                jsonObject.put("mark", mark);
-                            }
-                        }
-                    }
-
-                    jsonObject.put("leave", "请假");
-                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
-                    if(leaves.size()==1){
-                        String leave_type = leaves.get(0).getLeave_type();
-                        jsonObject.put("leave", "已请假");
-                        if (leave_type.equals("旷课")){
-                            jsonObject.put("leave", "已旷课");
-                        }
-                        jsonObject.put("leave_color", "rgb(218, 144, 84)");
-                    }
-
-                }else {
-                    jsonObject.put("left", 0);
-                    jsonObject.put("total", 0);
-                    jsonObject.put("add_date", add_date);
-                    jsonObject.put("age", age);
-                    jsonObject.put("student_name", student_name);
-                    jsonObject.put("duration", duration);
-                    jsonObject.put("create_time", create_time.substring(0,10));
-                    jsonObject.put("id", id);
-                    jsonObject.put("update_time", update_time.substring(0,10));
-                    jsonObject.put("leave_color", "rgb(157, 162, 165)");
-                    jsonObject.put("sign_color", "rgb(157, 162, 165)");
-                    jsonObject.put("sign_up", "试听生");
-                    jsonObject.put("mark", "试听生");
-                    jsonObject.put("leave", "试听生");
-                }
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
