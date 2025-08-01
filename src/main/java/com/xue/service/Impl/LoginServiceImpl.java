@@ -3405,6 +3405,52 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getDepartureByOpenid(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<User> users = dao.getUserByOpenid(openid);
+            User user = users.get(0);
+            String studio = user.getStudio();
+            String campus = user.getCampus();
+            String role = user.getRole();
+            String student_name = user.getStudent_name();
+
+
+            List<Departure> list = dao.getDepartureRecordByStudio(studio,campus);
+            if("client".equals(role)){
+                list = dao.getDepartureRecordByStudent(studio,campus,student_name);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Departure line = list.get(i);
+
+                //获取字段
+                String id = line.getId();
+                String student_name_get = line.getStudent_name();
+                String subject = line.getSubject();
+                String class_number = line.getClass_number();
+                String mark = line.getMark();
+                String create_time = line.getCreate_time();
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
+                jsonObject.put("student_name", student_name_get);
+                jsonObject.put("subject", subject);
+                jsonObject.put("class_number", class_number);
+                jsonObject.put("mark", mark);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getPptMenuById(String id) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {

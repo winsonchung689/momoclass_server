@@ -2622,6 +2622,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getDepartureByOpenid")
+	@ResponseBody
+	public List getDepartureByOpenid(String openid){
+		List list = null;
+		try {
+			list = loginService.getDepartureByOpenid(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getExaminationByStudentName")
 	@ResponseBody
 	public List getExaminationByStudentName(String openid,String type){
@@ -4853,6 +4865,40 @@ public class LoginController {
 			pptMenu.setSize_limit(size_limit);
 
 			dao.insertPptMenu(pptMenu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
+	@RequestMapping("/insertDeparture")
+	@ResponseBody
+	public int insertDeparture(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			String openid =  request.getParameter("openid");
+			List<User> users =dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+
+			String student_name =  request.getParameter("student_name");
+			String subject =  request.getParameter("subject");
+			String class_number =  request.getParameter("class_number");
+			String mark =  request.getParameter("mark");
+
+			Departure departure = new Departure();
+			departure.setStudio(studio);
+			departure.setCampus(campus);
+			departure.setStudent_name(student_name);
+			departure.setSubject(subject);
+			departure.setClass_number(class_number);
+			departure.setMark(mark);
+			departure.setCreate_time(create_time);
+
+			dao.insertDeparture(departure);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

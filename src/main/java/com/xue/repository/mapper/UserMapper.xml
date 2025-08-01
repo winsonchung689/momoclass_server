@@ -49,6 +49,10 @@
     <result column="menu_id" jdbcType="VARCHAR" property="menu_id" />
   </resultMap>
 
+  <resultMap id="BaseDeparture" type="com.xue.entity.model.Departure">
+    <result column="studio" jdbcType="VARCHAR" property="studio" />
+  </resultMap>
+
   <resultMap id="BaseLibrary" type="com.xue.entity.model.Library">
     <result column="category" jdbcType="VARCHAR" property="category" />
   </resultMap>
@@ -959,6 +963,10 @@
     insert points_record(student_name,create_time,studio,mark,points,subject,campus) values(#{student_name},#{create_time},#{studio},#{mark},#{points},#{subject},#{campus})
   </insert>
 
+  <insert id="insertDeparture" parameterType="com.xue.entity.model.Departure">
+    insert departure_record(studio,campus,student_name,subject,class_number,mark,create_time) values(#{studio},#{campus},#{student_name},#{subject},#{class_number},#{mark},#{create_time})
+  </insert>
+
   <!-- 插入账单 -->
   <insert id="insertBook" parameterType="com.xue.entity.model.Book">
     insert account_book(studio,type,mark,amount,create_time,campus) values(#{studio},#{type},#{mark},#{amount},#{create_time},#{campus})
@@ -1498,6 +1506,14 @@
 
   <select id="getPptMenuById" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
     select * from ppt_menu where id =#{param1} and delete_status = 0 order by create_time
+  </select>
+
+  <select id="getDepartureRecordByStudio" parameterType="com.xue.entity.model.Departure" resultMap="BaseDeparture">
+    select * from departure_record where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time
+  </select>
+
+  <select id="getDepartureRecordByStudent" parameterType="com.xue.entity.model.Departure" resultMap="BaseDeparture">
+    select * from departure_record where studio =#{param1} and campus =#{param2} and student_name =#{param3} and delete_status = 0 order by create_time
   </select>
 
   <select id="getPptMenuCategory" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">

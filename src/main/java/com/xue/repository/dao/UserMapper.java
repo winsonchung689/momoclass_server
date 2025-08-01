@@ -402,6 +402,9 @@ public interface UserMapper {
     int insertAlbum(Album album);
 
     int insertPointsRecord(Points points);
+
+    int insertDeparture(Departure departure);
+
     int updateUser(User user);
 
     int updateWebsiteUuids(String id,String uuids);
@@ -669,6 +672,10 @@ public interface UserMapper {
     List<PptMenu> getPptMenu(String studio,String campus,String category,String type,Integer page_start,Integer page_length);
 
     List<PptMenu> getPptMenuById(String id);
+
+    List<Departure> getDepartureRecordByStudio(String studio,String campus);
+
+    List<Departure> getDepartureRecordByStudent(String studio,String campus,String student_name);
 
     List<Library> getLibraryByMenuId(String menu_id);
 

@@ -201,6 +201,8 @@ public interface LoginService {
 
     public List getPptMenu(String openid,Integer page,String category,String type);
 
+    public List getDepartureByOpenid(String openid);
+
     public List getPptMenuById(String id);
 
     public List getExaminationByStudentName(String studio,String campus,String student_name,String type);
