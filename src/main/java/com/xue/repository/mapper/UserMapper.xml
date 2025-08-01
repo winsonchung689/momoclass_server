@@ -1509,11 +1509,11 @@
   </select>
 
   <select id="getDepartureRecordByStudio" parameterType="com.xue.entity.model.Departure" resultMap="BaseDeparture">
-    select * from departure_record where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time
+    select * from departure_record where studio =#{param1} and campus =#{param2} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getDepartureRecordByStudent" parameterType="com.xue.entity.model.Departure" resultMap="BaseDeparture">
-    select * from departure_record where studio =#{param1} and campus =#{param2} and student_name =#{param3} and delete_status = 0 order by create_time
+    select * from departure_record where studio =#{param1} and campus =#{param2} and student_name =#{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getPptMenuCategory" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
