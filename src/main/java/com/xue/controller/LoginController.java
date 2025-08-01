@@ -2732,6 +2732,18 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteDepartureRecord")
+	@ResponseBody
+	public int deleteDepartureRecord(Integer id){
+		try {
+			dao.deleteDepartureRecord(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteExamination")
 	@ResponseBody
 	public int deleteExamination(Integer id){
