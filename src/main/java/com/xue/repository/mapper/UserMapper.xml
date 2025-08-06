@@ -1603,7 +1603,7 @@
   </select>
 
   <select id="getRestaurantMenuDelete" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
-    select * from restaurant_menu where restaurant =#{param1} and delete_status = 1 order by category
+    select * from restaurant_menu where restaurant =#{param1} and delete_status = 1 order by create_time desc
   </select>
 
   <select id="getRestaurantMenuById" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
