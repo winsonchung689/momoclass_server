@@ -1602,6 +1602,10 @@
     select * from restaurant_menu where restaurant =#{param1} and delete_status = 0 order by category
   </select>
 
+  <select id="getRestaurantMenuDelete" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
+    select * from restaurant_menu where restaurant =#{param1} and delete_status = 1 order by category
+  </select>
+
   <select id="getRestaurantMenuById" parameterType="com.xue.entity.model.Menu" resultMap="BaseRestaurantMenu">
     select * from restaurant_menu where id =#{param1}
   </select>
@@ -1910,6 +1914,10 @@
 
   <update id="deleteRestaurantFood" parameterType="com.xue.entity.model.Menu">
     update restaurant_menu set delete_status = 1 where id = #{param1}
+  </update>
+
+  <update id="recoverRestaurantFood" parameterType="com.xue.entity.model.Menu">
+    update restaurant_menu set delete_status = 0 where id = #{param1}
   </update>
 
   <update id="deleteRestaurantUser" parameterType="com.xue.entity.model.RestaurantUser">

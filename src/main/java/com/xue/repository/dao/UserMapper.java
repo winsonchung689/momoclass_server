@@ -506,6 +506,8 @@ public interface UserMapper {
 
     int deleteRestaurantFood(int id);
 
+    int recoverRestaurantFood(int id);
+
     int deleteRestaurantUser(int id);
 
     int deletePptMenu(int id);
@@ -727,6 +729,8 @@ public interface UserMapper {
     List<Menu> getRestaurantCategory(String restaurant);
 
     List<Menu> getRestaurantMenu(String restaurant);
+
+    List<Menu> getRestaurantMenuDelete(String restaurant);
 
     List<Menu> getRestaurantMenuById(String goods_id);
 

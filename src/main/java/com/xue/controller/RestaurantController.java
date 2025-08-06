@@ -802,6 +802,18 @@ public class RestaurantController {
 		return list;
 	}
 
+	@RequestMapping("/getRestaurantMenuDelete")
+	@ResponseBody
+	public List getRestaurantMenuDelete(String restaurant){
+		List list = null;
+		try {
+			list = dao.getRestaurantMenuDelete(restaurant);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getRestaurantMenuById")
 	@ResponseBody
 	public List getRestaurantMenuById(String id){
@@ -928,6 +940,8 @@ public class RestaurantController {
 				dao.updateRestaurantMenu(menu);
 			}else if("delete".equals(type)){
 				dao.deleteRestaurantFood(Integer.parseInt(id));
+			}else if("recover".equals(type)){
+				dao.recoverRestaurantFood(Integer.parseInt(id));
 			}else if("price".equals(type)){
 				menu.setPrice(Float.parseFloat(content));
 				dao.updateRestaurantMenu(menu);
