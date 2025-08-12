@@ -99,6 +99,8 @@ public interface UserMapper {
 
     List<Schedule> getScheduleByClassTransferred(String add_date,String duration,String studio,String class_number,String subject,String campus);
 
+    List<Schedule> getScheduleByWeek(Integer weekDay);
+
     //获取
     List<Schedule> getTransferAll(String date_time,String studio,String campus);
 

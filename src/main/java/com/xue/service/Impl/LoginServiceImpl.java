@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.io.*;
 import java.sql.Timestamp;
@@ -35,6 +36,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private WebPushService webPushService;
+
 
     @Override
     public int push(Message message) {
@@ -5949,6 +5951,146 @@ public class LoginServiceImpl implements LoginService {
             }
         }
     }
+
+    @Override
+    public void produceClassRemindRedis() {
+        Jedis jedis = new Jedis("localhost", 6379);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
+
+        List<User> list = dao.getAllUser();
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                User user = list.get(i);
+                String official_openid = user.getOfficial_openid();
+                String studio = user.getStudio();
+                String student_name = user.getStudent_name();
+                String send_time = user.getSend_time();
+                String subscription = user.getSubscription();
+                String remindType = user.getRemind_type();
+                Integer hours = user.getHours();
+                String campus = user.getCampus();
+                String openid = user.getOpenid();
+
+                //获取提前时间
+                Calendar cal_today = Calendar.getInstance();
+                cal_today.add(Calendar.HOUR_OF_DAY,hours);
+                int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+                long td_time = cal_today.getTimeInMillis();
+                String td_date = df.format(td_time);
+
+                //获取统一时间
+                Calendar cal_tomorrow = Calendar.getInstance();
+                cal_tomorrow.add(Calendar.DATE,+1);
+                Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
+                long tm_time = cal_tomorrow.getTimeInMillis();
+                String tm_date = df.format(tm_time);
+
+                //获取当前时间
+                Date date =new Date();
+                long timestamp = date.getTime();
+                String now_date = df_now.format(date).split(" ")[0];
+                String now_time = df_now.format(date).split(" ")[1];
+
+                //获取发送时间戳
+                long timestamp_start = 0l;
+                long timestamp_end = 0l;
+                try {
+                    Date date_now = df_now.parse(now_date + " " + send_time);
+                    timestamp_start = date_now.getTime();
+                    timestamp_end = timestamp_start + 3*60*1000;
+                } catch (ParseException e) {
+                    //                throw new RuntimeException(e);
+                }
+
+                Integer weekDay = 0;
+                String date_time = null;
+                List<Schedule> list_schedule = new ArrayList<>();
+                List<Schedule> list_schedule_re = new ArrayList<>();
+                //上课通知
+                if(!"no_name".equals(student_name)){
+                    // 通知分类
+                    if("统一提醒次日".equals(remindType)){
+                        weekDay = weekDay_tomorrow;
+                        date_time = df.format(cal_tomorrow.getTime());
+                        list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+                        list_schedule.addAll(list_schedule_re);
+                    }else if("提前N小时提醒".equals(remindType) && hours > 0){
+                        weekDay = weekDay_today;
+                        date_time = df.format(cal_today.getTime());
+                        List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                        list_schedule.addAll(list_schedule_re);
+                    }
+
+                    // 向redis写入队列
+                    if(list_schedule.size() > 0 && weekDay > 0){
+                        for (int j = 0; j < list_schedule.size(); j++) {
+                            Schedule schedule = list_schedule.get(j);
+                            String duration = schedule.getDuration().replace("：",":");
+                            String subject = schedule.getSubject();
+                            String id = schedule.getId();
+                            String send_status = schedule.getSend_status();
+                            String student_type = schedule.getStudent_type();
+                            String add_date = schedule.getAdd_date();
+                            LocalDate localDate = LocalDate.parse(add_date);
+                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
+                            Integer hours_prev = schedule.getHours();
+
+                            if("统一提醒次日".equals(remindType)){
+                                // 跳过插班生
+                                if("transferred".equals(student_type)){
+                                    if(!tm_date.equals(add_date)){
+                                        send_status = now_date;
+                                    }
+                                }
+                                // 跳过请假生
+                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,tm_date);
+                                if(leaves.size()>0){
+                                    send_status = now_date;
+                                }
+                            }else if("提前N小时提醒".equals(remindType)){
+                                // 跳过插班生
+                                if("transferred".equals(student_type)){
+                                    if(!td_date.equals(add_date)){
+                                        send_status = now_date;
+                                    }
+                                }
+                                // 跳过请假生
+                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,td_date);
+                                if(leaves.size()>0){
+                                    send_status = now_date;
+                                }
+                            }
+
+                            // 判断是否已发
+                            if(!send_status.equals(now_date)){
+                                String taskData = null;
+                                if("统一提醒次日".equals(remindType)){
+                                    taskData = remindType+","+openid+","+id+","+timestamp_start/1000;
+                                }else if("提前N小时提醒".equals(remindType)){
+                                    String today_str = now_date + " " + duration.split("-")[0]+":00";
+                                    Date today_str_date = df_now.parse(today_str);
+                                    Calendar today_str_cl = Calendar.getInstance();
+                                    today_str_cl.setTime(today_str_date);
+                                    today_str_cl.add(Calendar.HOUR,-hours_prev);
+                                    timestamp_start = today_str_cl.getTimeInMillis();
+                                    taskData = remindType+","+openid+","+id+","+timestamp_start/1000;
+                                }
+                                jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                            }
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }finally {
+                jedis.close();
+            }
+        }
+
+    }
+
 
     @Override
     public void sendDepartureNotice(String student_name, String studio) {

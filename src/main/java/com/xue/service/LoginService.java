@@ -285,6 +285,8 @@ public interface LoginService {
 
     public void sendClassRemind();
 
+    public void produceClassRemindRedis();
+
     public void sendDepartureNotice(String student_name,String studio);
 
     public void sendBossPayRemind();
