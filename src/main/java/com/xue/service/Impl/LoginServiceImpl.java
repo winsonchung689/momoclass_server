@@ -6068,8 +6068,6 @@ public class LoginServiceImpl implements LoginService {
                                     timestamp_start = today_str_cl.getTimeInMillis();
                                     taskData = "today"+","+openid+","+id+","+timestamp_start/1000;
                                 }
-                                System.out.println("taskData：" + taskData);
-                                System.out.println("timestamp_start:" + timestamp_start);
                                 jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                             }
                         }
@@ -6081,6 +6079,27 @@ public class LoginServiceImpl implements LoginService {
             }finally {
                 jedis.close();
             }
+        }
+
+    }
+
+    @Override
+    public void consumeClassRemindRedis() {
+        Jedis jedis = new Jedis("139.199.226.187", 6379);
+        // 获取时间
+        Date date =new Date();
+        long timestamp = date.getTime()/1000;
+        List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
+        for(int i=0;i<result.size();i++){
+            String item = result.get(i);
+            String[] item_list = item.split(",");
+            String remind_type = item_list[0];
+            String openid = item_list[1];
+            String schedule_id = item_list[2];
+            String score = item_list[3];
+
+            
+
         }
 
     }
