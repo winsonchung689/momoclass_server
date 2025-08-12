@@ -43,8 +43,8 @@ public class SpringbootLoginApplication {
 
 	// 注意：AI发布需要注释掉所有定时任务
 	@Scheduled(cron = "0 */1 * * * ?")
-	public void sendClassRemind(){
-//		loginService.sendClassRemind();
+	public void sendClassPayRemind(){
+		loginService.sendClassPayRemind();
 	}
 
 	@Scheduled(cron = "0 */1 * * * ?")

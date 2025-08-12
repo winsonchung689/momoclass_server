@@ -5624,7 +5624,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void sendClassRemind() {
+    public void sendClassPayRemind() {
         List<String> apps = new ArrayList<>();
         apps.add("MOMO_OFFICIAL");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -5683,239 +5683,240 @@ public class LoginServiceImpl implements LoginService {
                 List<Schedule> list_schedule = new ArrayList<>();
                 List<Schedule> list_schedule_re = new ArrayList<>();
                 //上课通知
-                if(!"no_name".equals(student_name)){
-                    // 查找每天重复的课程
-                    List<Arrangement> arrangements_re = dao.getArrangementsByRepeat(studio,campus);
-                    Integer weekofday = 0;
-                    if(arrangements_re.size()>0){
-                        for(int index = 0;index < arrangements_re.size();index++){
-                            Arrangement arrangement = arrangements_re.get(index);
-                            Integer dayofweek =Integer.parseInt(arrangement.getDayofweek());
-                            int dayofweek_in = 0;
-                            if(dayofweek == 7){
-                                dayofweek_in = 1;
-                            }else {
-                                dayofweek_in = dayofweek + 1;
-                            }
-                            String repeat_week = arrangement.getRepeat_week();
-                            List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
-                            String repeat_duration = arrangement.getRepeat_duration();
-                            String repeat_end = repeat_duration.split(",")[1];
-                            String duration = arrangement.getDuration();
-                            String duration_start = duration.split("-")[0];
-
-                            // 判断是否在期内
-                            Long compare = 10L;
-                            try {
-                                Date today_dt = df.parse(now_date.substring(0,10));
-                                Date expired_dt = df.parse(repeat_end);
-                                Long day2 = expired_dt.getTime();
-                                Long day1 = today_dt.getTime();
-                                compare = (day2 - day1)/(24*3600*1000);
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
-                            }
-                            if(compare > 0){
-                                if("统一提醒次日".equals(remindType)){
-                                    if(weekDay_tomorrow==1){
-                                        weekofday = 7;
-                                    }else {
-                                        weekofday = weekDay_tomorrow - 1;
-                                    }
-                                }else if("提前N小时提醒".equals(remindType)){
-                                    if(weekDay_today==1){
-                                        weekofday = 7;
-                                    }else {
-                                        weekofday = weekDay_today - 1;
-                                    }
-                                }
-                                if(repeat_week_list.contains(weekofday.toString())){
-                                    List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start);
-                                    list_schedule_re.addAll(list_schedule_get);
-                                }
-                            }
-                        }
-                    }
-
-                    // 通知分类
-                    if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
-                        weekDay = weekDay_tomorrow;
-                        date_time = df.format(cal_tomorrow.getTime());
-                        list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
-                        list_schedule.addAll(list_schedule_re);
-                    }else if("提前N小时提醒".equals(remindType) && hours > 0){
-                        weekDay = weekDay_today;
-                        date_time = df.format(cal_today.getTime());
-                        List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
-                        list_schedule.addAll(list_schedule_re);
-                        for(int j = 0;j < schedules.size();j++){
-                            Schedule schedule = schedules.get(j);
-                            Integer hours_get = schedule.getHours();
-                            String class_number = schedule.getClass_number();
-                            String duration = schedule.getDuration();
-                            String subject = schedule.getSubject();
-                            String add_date = schedule.getAdd_date();
-                            LocalDate localDate = LocalDate.parse(add_date);
-                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
-                            List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
-                            if(arrangements.size()>0){
-                                Arrangement arrangement = arrangements.get(0);
-                                hours_get = arrangement.getHours();
-                            }
-
-                            //获取提前时间
-                            Calendar cal_today_get = Calendar.getInstance();
-                            cal_today_get.add(Calendar.HOUR_OF_DAY,hours_get);
-                            int hour = cal_today_get.get(Calendar.HOUR_OF_DAY);
-                            int minute = cal_today_get.get(Calendar.MINUTE);
-                            String hour_st = Integer.toString(hour);
-                            String minute_st = Integer.toString(minute);
-                            if(hour < 10 ){
-                                hour_st = "0" + hour_st;
-                            }
-                            if(minute < 10 ){
-                                minute_st = "0" + minute_st;
-                            }
-                            String duration_ed = hour_st + ":" + minute_st;
-                            LocalTime time = LocalTime.of(hour, minute);
-                            Duration fiveMinutes = Duration.ofMinutes(3);
-                            LocalTime duration_st = time.minus(fiveMinutes);
-
-                            // 获取课程表时间
-                            Integer week_day = 0;
-                            if(weekDayChoose == 7){
-                                week_day = 1;
-                            }else {
-                                week_day = weekDayChoose + 1;
-                            }
-                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(week_day,studio,student_name,campus,duration_st.toString(),duration_ed);
-                            if(schedules_tmp.size()>0){
-                                list_schedule = schedules_tmp;
-                            }
-                        }
-                    }
-
-                    // 向家长发送通知
-                    if(list_schedule.size() > 0 && weekDay > 0 && !"no_id".equals(official_openid)){
-                        for (int j = 0; j < list_schedule.size(); j++) {
-                            Integer weekDay_ta = 0;
-                            if(weekDay==1){
-                                weekDay_ta = 7;
-                            }else {
-                                weekDay_ta = weekDay - 1;
-                            }
-                            Schedule schedule = list_schedule.get(j);
-                            String duration = schedule.getDuration();
-                            String class_number = schedule.getClass_number();
-                            String subject = schedule.getSubject();
-                            Integer remind = schedule.getRemind();
-                            String id = schedule.getId();
-                            String send_status = schedule.getSend_status();
-                            String student_type = schedule.getStudent_type();
-                            String add_date = schedule.getAdd_date();
-                            LocalDate localDate = LocalDate.parse(add_date);
-                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
-
-                            if("统一提醒次日".equals(remindType)){
-                                // 跳过插班生
-                                if("transferred".equals(student_type)){
-                                    if(!tm_date.equals(add_date)){
-                                        send_status = now_date;
-                                    }
-                                }
-                                // 跳过请假生
-                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,tm_date);
-                                if(leaves.size()>0){
-                                    send_status = now_date;
-                                }
-                            }else if("提前N小时提醒".equals(remindType)){
-                                // 跳过插班生
-                                if("transferred".equals(student_type)){
-                                    if(!td_date.equals(add_date)){
-                                        send_status = now_date;
-                                    }
-                                }
-                                // 跳过请假生
-                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,td_date);
-                                if(leaves.size()>0){
-                                    send_status = now_date;
-                                }
-                            }
-
-                            // 课程设计
-                            Integer choose = 0;
-                            String upcoming = "未设";
-                            Integer is_repeat = 0;
-                            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
-                            if(arrangement_list.size()>0){
-                                Arrangement arrangement = arrangement_list.get(0);
-                                upcoming = arrangement.getUpcoming();
-                                remind = arrangement.getRemind();
-                                is_repeat = arrangement.getIs_repeat();
-                                String repeat_week = arrangement.getRepeat_week();
-                                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
-                                String repeat_duration = arrangement.getRepeat_duration();
-                                String repeat_end = repeat_duration.split(",")[1];
-
-                                // 判断是否在期内
-                                Long compare = 10L;
-                                try {
-                                    Date today_dt = df.parse(now_date.substring(0,10));
-                                    Date expired_dt = df.parse(repeat_end);
-                                    Long day2 = expired_dt.getTime();
-                                    Long day1 = today_dt.getTime();
-                                    compare = (day2 - day1)/(24*3600*1000);
-                                } catch (ParseException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                                if(compare < 0 && is_repeat == 1){
-                                    send_status = now_date;
-                                }
-
-                                if(is_repeat == 1 && !repeat_week_list.contains(weekDay_ta.toString())){
-                                    send_status = now_date;
-                                }
-                            }
-
-                            // 判断是否已发
-                            if(!send_status.equals(now_date)){
-                                //选课老师上课通知
-                                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-                                if(users.size()>0 && remind == 1){
-                                    choose = 1;
-                                    for(int ui=0;ui<users.size();ui++){
-                                        User user_teacher = users.get(ui);
-                                        String openid_get = user_teacher.getOpenid();
-                                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-                                    }
-                                }
-
-                                //学生家长上课通知
-                                if(remind == 1 && choose == 1){
-                                    //小程序公众号通知
-                                    classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-
-                                    //pwa版上课通知
-                                    try {
-                                        if(subscription != null){
-                                            JSONObject payload = new JSONObject();
-                                            payload.put("title",studio);
-                                            payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
-                                            String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
-                                            System.out.printf("status:" + status);
-                                        }
-                                    } catch (Exception e) {
-    //                                    throw new RuntimeException(e);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+//                if(!"no_name".equals(student_name)){
+//                    // 查找每天重复的课程
+//                    List<Arrangement> arrangements_re = dao.getArrangementsByRepeat(studio,campus);
+//                    Integer weekofday = 0;
+//                    if(arrangements_re.size()>0){
+//                        for(int index = 0;index < arrangements_re.size();index++){
+//                            Arrangement arrangement = arrangements_re.get(index);
+//                            Integer dayofweek =Integer.parseInt(arrangement.getDayofweek());
+//                            int dayofweek_in = 0;
+//                            if(dayofweek == 7){
+//                                dayofweek_in = 1;
+//                            }else {
+//                                dayofweek_in = dayofweek + 1;
+//                            }
+//                            String repeat_week = arrangement.getRepeat_week();
+//                            List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
+//                            String repeat_duration = arrangement.getRepeat_duration();
+//                            String repeat_end = repeat_duration.split(",")[1];
+//                            String duration = arrangement.getDuration();
+//                            String duration_start = duration.split("-")[0];
+//
+//                            // 判断是否在期内
+//                            Long compare = 10L;
+//                            try {
+//                                Date today_dt = df.parse(now_date.substring(0,10));
+//                                Date expired_dt = df.parse(repeat_end);
+//                                Long day2 = expired_dt.getTime();
+//                                Long day1 = today_dt.getTime();
+//                                compare = (day2 - day1)/(24*3600*1000);
+//                            } catch (ParseException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            if(compare > 0){
+//                                if("统一提醒次日".equals(remindType)){
+//                                    if(weekDay_tomorrow==1){
+//                                        weekofday = 7;
+//                                    }else {
+//                                        weekofday = weekDay_tomorrow - 1;
+//                                    }
+//                                }else if("提前N小时提醒".equals(remindType)){
+//                                    if(weekDay_today==1){
+//                                        weekofday = 7;
+//                                    }else {
+//                                        weekofday = weekDay_today - 1;
+//                                    }
+//                                }
+//                                if(repeat_week_list.contains(weekofday.toString())){
+//                                    List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start);
+//                                    list_schedule_re.addAll(list_schedule_get);
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    // 通知分类
+//                    if("统一提醒次日".equals(remindType) && timestamp >= timestamp_start && timestamp <=timestamp_end){
+//                        weekDay = weekDay_tomorrow;
+//                        date_time = df.format(cal_tomorrow.getTime());
+//                        list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+//                        list_schedule.addAll(list_schedule_re);
+//                    }else if("提前N小时提醒".equals(remindType) && hours > 0){
+//                        weekDay = weekDay_today;
+//                        date_time = df.format(cal_today.getTime());
+//                        List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+//                        list_schedule.addAll(list_schedule_re);
+//                        for(int j = 0;j < schedules.size();j++){
+//                            Schedule schedule = schedules.get(j);
+//                            Integer hours_get = schedule.getHours();
+//                            String class_number = schedule.getClass_number();
+//                            String duration = schedule.getDuration();
+//                            String subject = schedule.getSubject();
+//                            String add_date = schedule.getAdd_date();
+//                            LocalDate localDate = LocalDate.parse(add_date);
+//                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
+//                            List<Arrangement> arrangements = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+//                            if(arrangements.size()>0){
+//                                Arrangement arrangement = arrangements.get(0);
+//                                hours_get = arrangement.getHours();
+//                            }
+//
+//                            //获取提前时间
+//                            Calendar cal_today_get = Calendar.getInstance();
+//                            cal_today_get.add(Calendar.HOUR_OF_DAY,hours_get);
+//                            int hour = cal_today_get.get(Calendar.HOUR_OF_DAY);
+//                            int minute = cal_today_get.get(Calendar.MINUTE);
+//                            String hour_st = Integer.toString(hour);
+//                            String minute_st = Integer.toString(minute);
+//                            if(hour < 10 ){
+//                                hour_st = "0" + hour_st;
+//                            }
+//                            if(minute < 10 ){
+//                                minute_st = "0" + minute_st;
+//                            }
+//                            String duration_ed = hour_st + ":" + minute_st;
+//                            LocalTime time = LocalTime.of(hour, minute);
+//                            Duration fiveMinutes = Duration.ofMinutes(3);
+//                            LocalTime duration_st = time.minus(fiveMinutes);
+//
+//                            // 获取课程表时间
+//                            Integer week_day = 0;
+//                            if(weekDayChoose == 7){
+//                                week_day = 1;
+//                            }else {
+//                                week_day = weekDayChoose + 1;
+//                            }
+//                            List<Schedule> schedules_tmp = dao.getScheduleByUserDurationSt(week_day,studio,student_name,campus,duration_st.toString(),duration_ed);
+//                            if(schedules_tmp.size()>0){
+//                                list_schedule = schedules_tmp;
+//                            }
+//                        }
+//                    }
+//
+//                    // 向家长发送通知
+//                    if(list_schedule.size() > 0 && weekDay > 0 && !"no_id".equals(official_openid)){
+//                        for (int j = 0; j < list_schedule.size(); j++) {
+//                            Integer weekDay_ta = 0;
+//                            if(weekDay==1){
+//                                weekDay_ta = 7;
+//                            }else {
+//                                weekDay_ta = weekDay - 1;
+//                            }
+//                            Schedule schedule = list_schedule.get(j);
+//                            String duration = schedule.getDuration();
+//                            String class_number = schedule.getClass_number();
+//                            String subject = schedule.getSubject();
+//                            Integer remind = schedule.getRemind();
+//                            String id = schedule.getId();
+//                            String send_status = schedule.getSend_status();
+//                            String student_type = schedule.getStudent_type();
+//                            String add_date = schedule.getAdd_date();
+//                            LocalDate localDate = LocalDate.parse(add_date);
+//                            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
+//
+//                            if("统一提醒次日".equals(remindType)){
+//                                // 跳过插班生
+//                                if("transferred".equals(student_type)){
+//                                    if(!tm_date.equals(add_date)){
+//                                        send_status = now_date;
+//                                    }
+//                                }
+//                                // 跳过请假生
+//                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,tm_date);
+//                                if(leaves.size()>0){
+//                                    send_status = now_date;
+//                                }
+//                            }else if("提前N小时提醒".equals(remindType)){
+//                                // 跳过插班生
+//                                if("transferred".equals(student_type)){
+//                                    if(!td_date.equals(add_date)){
+//                                        send_status = now_date;
+//                                    }
+//                                }
+//                                // 跳过请假生
+//                                List<Leave> leaves = dao.getLeaveRecordByDate(student_name,studio,subject,campus,td_date);
+//                                if(leaves.size()>0){
+//                                    send_status = now_date;
+//                                }
+//                            }
+//
+//                            // 课程设计
+//                            Integer choose = 0;
+//                            String upcoming = "未设";
+//                            Integer is_repeat = 0;
+//                            List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
+//                            if(arrangement_list.size()>0){
+//                                Arrangement arrangement = arrangement_list.get(0);
+//                                upcoming = arrangement.getUpcoming();
+//                                remind = arrangement.getRemind();
+//                                is_repeat = arrangement.getIs_repeat();
+//                                String repeat_week = arrangement.getRepeat_week();
+//                                List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
+//                                String repeat_duration = arrangement.getRepeat_duration();
+//                                String repeat_end = repeat_duration.split(",")[1];
+//
+//                                // 判断是否在期内
+//                                Long compare = 10L;
+//                                try {
+//                                    Date today_dt = df.parse(now_date.substring(0,10));
+//                                    Date expired_dt = df.parse(repeat_end);
+//                                    Long day2 = expired_dt.getTime();
+//                                    Long day1 = today_dt.getTime();
+//                                    compare = (day2 - day1)/(24*3600*1000);
+//                                } catch (ParseException e) {
+//                                    throw new RuntimeException(e);
+//                                }
+//
+//                                if(compare < 0 && is_repeat == 1){
+//                                    send_status = now_date;
+//                                }
+//
+//                                if(is_repeat == 1 && !repeat_week_list.contains(weekDay_ta.toString())){
+//                                    send_status = now_date;
+//                                }
+//                            }
+//
+//                            // 判断是否已发
+//                            if(!send_status.equals(now_date)){
+//                                //选课老师上课通知
+//                                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+//                                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+//                                if(users.size()>0 && remind == 1){
+//                                    choose = 1;
+//                                    for(int ui=0;ui<users.size();ui++){
+//                                        User user_teacher = users.get(ui);
+//                                        String openid_get = user_teacher.getOpenid();
+//                                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+//                                    }
+//                                }
+//
+//                                //学生家长上课通知
+//                                if(remind == 1 && choose == 1){
+//                                    //小程序公众号通知
+//                                    classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+//
+//                                    //pwa版上课通知
+//                                    try {
+//                                        if(subscription != null){
+//                                            JSONObject payload = new JSONObject();
+//                                            payload.put("title",studio);
+//                                            payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+//                                            String status = webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+//                                            System.out.printf("status:" + status);
+//                                        }
+//                                    } catch (Exception e) {
+//    //                                    throw new RuntimeException(e);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
 
                 //续课通知
+
                 if(!"no_name".equals(student_name)) {
                     List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
                     if (lessons.size() > 0) {
@@ -5946,6 +5947,7 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
