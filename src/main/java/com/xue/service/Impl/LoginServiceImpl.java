@@ -6062,7 +6062,7 @@ public class LoginServiceImpl implements LoginService {
                             if(!send_status.equals(now_date)){
                                 String taskData = null;
                                 if("统一提醒次日".equals(remindType)){
-                                    taskData = remindType+","+openid+","+id+","+timestamp_start/1000;
+                                    taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000;
                                 }else if("提前N小时提醒".equals(remindType)){
                                     String today_str = now_date + " " + duration.split("-")[0]+":00";
                                     Date today_str_date = df_now.parse(today_str);
@@ -6070,7 +6070,7 @@ public class LoginServiceImpl implements LoginService {
                                     today_str_cl.setTime(today_str_date);
                                     today_str_cl.add(Calendar.HOUR,-hours_prev);
                                     timestamp_start = today_str_cl.getTimeInMillis();
-                                    taskData = remindType+","+openid+","+id+","+timestamp_start/1000;
+                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000;
                                 }
                                 System.out.println("taskData：" + taskData);
                                 jedis.zadd("delay_queue",timestamp_start/1000,taskData);
