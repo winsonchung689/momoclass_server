@@ -6072,7 +6072,8 @@ public class LoginServiceImpl implements LoginService {
                                     timestamp_start = today_str_cl.getTimeInMillis();
                                     taskData = "today"+","+openid+","+id+","+timestamp_start/1000;
                                 }
-//                                System.out.println("taskData：" + taskData);
+                                System.out.println("taskData：" + taskData);
+                                System.out.println("timestamp_start:" + timestamp_start);
                                 jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                             }
                         }
