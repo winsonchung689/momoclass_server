@@ -23,16 +23,10 @@ public class test {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        LocalTime time = LocalTime.of(10, Integer.parseInt("01"));
-        int aa = Integer.parseInt("01");
-//        System.out.printf("aa:" + aa);
-        Duration fiveMinutes = Duration.ofMinutes(3);
-        LocalTime duration_end = time.minus(fiveMinutes);
-//        System.out.printf("duration_end:" + duration_end.toString());
-        String mark = "山西省大同市平城区亨宇写字楼后院办公室";
-        if (mark.contains("山西")) {
-            System.out.println("支出");
-        }
+        Calendar cal_today = Calendar.getInstance();
+        int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+
+        System.out.println(weekDay_today);
 
     }
 

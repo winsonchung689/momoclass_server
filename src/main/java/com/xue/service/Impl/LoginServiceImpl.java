@@ -5643,7 +5643,6 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取提前时间
                 Calendar cal_today = Calendar.getInstance();
-                cal_today.add(Calendar.HOUR_OF_DAY,hours);
                 int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
                 long td_time = cal_today.getTimeInMillis();
                 String td_date = df.format(td_time);
@@ -5657,7 +5656,7 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取当前时间
                 Date date =new Date();
-                String now_date = df_now.format(date).split(" ")[0];
+                String now_date = df.format(date);
 
                 //获取发送时间戳
                 String date_time = null;
@@ -5899,17 +5898,17 @@ public class LoginServiceImpl implements LoginService {
                 int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
 
                 // 家长接收成功后反馈给选课老师
-//                if(res == 1){
-//                    String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-//                    List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
-//                    if(teacher_users.size()>0){
-//                        for(int j=0;j<teacher_users.size();j++){
-//                            User user_teacher = teacher_users.get(j);
-//                            String openid_get = user_teacher.getOpenid();
-//                            classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-//                        }
-//                    }
-//                }
+                if(res == 1){
+                    String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                    List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
+                    if(teacher_users.size()>0){
+                        for(int j=0;j<teacher_users.size();j++){
+                            User user_teacher = teacher_users.get(j);
+                            String openid_get = user_teacher.getOpenid();
+                            classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                        }
+                    }
+                }
 
                 // pwa版上课通知
                 try {
