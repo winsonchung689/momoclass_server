@@ -5962,11 +5962,9 @@ public class LoginServiceImpl implements LoginService {
         for (int i = 0; i < list.size(); i++) {
             try {
                 User user = list.get(i);
-                String official_openid = user.getOfficial_openid();
                 String studio = user.getStudio();
                 String student_name = user.getStudent_name();
                 String send_time = user.getSend_time();
-                String subscription = user.getSubscription();
                 String remindType = user.getRemind_type();
                 Integer hours = user.getHours();
                 String campus = user.getCampus();
@@ -5988,11 +5986,10 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取当前时间
                 Date date =new Date();
-                long timestamp = date.getTime();
                 String now_date = df_now.format(date).split(" ")[0];
-                String now_time = df_now.format(date).split(" ")[1];
 
                 //获取发送时间戳
+                String date_time = null;
                 long timestamp_start = 0l;
                 try {
                     Date date_now = df_now.parse(now_date + " " + send_time);
@@ -6008,9 +6005,11 @@ public class LoginServiceImpl implements LoginService {
                     // 通知分类
                     if("统一提醒次日".equals(remindType)){
                         weekDay = weekDay_tomorrow;
+                        date_time = df.format(cal_tomorrow.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
                     }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
+                        date_time = df.format(cal_today.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
                     }
 
@@ -6027,6 +6026,7 @@ public class LoginServiceImpl implements LoginService {
                             LocalDate localDate = LocalDate.parse(add_date);
                             Integer weekDayChoose = localDate.getDayOfWeek().getValue();
                             Integer hours_prev = schedule.getHours();
+                            Integer remind = schedule.getRemind();
 
                             if("统一提醒次日".equals(remindType)){
                                 // 跳过插班生
@@ -6055,7 +6055,7 @@ public class LoginServiceImpl implements LoginService {
                             }
 
                             // 判断是否已发
-                            if(!send_status.equals(now_date)){
+                            if(!send_status.equals(now_date) && remind == 1){
                                 String taskData = null;
                                 if("统一提醒次日".equals(remindType)){
                                     taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000;
@@ -6066,7 +6066,7 @@ public class LoginServiceImpl implements LoginService {
                                     today_str_cl.setTime(today_str_date);
                                     today_str_cl.add(Calendar.HOUR,-hours_prev);
                                     timestamp_start = today_str_cl.getTimeInMillis();
-                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000;
+                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+date_time;
                                 }
                                 jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                             }
@@ -6085,10 +6085,14 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void consumeClassRemindRedis() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
         Jedis jedis = new Jedis("139.199.226.187", 6379);
         // 获取时间
         Date date =new Date();
         long timestamp = date.getTime()/1000;
+        String now_date = df.format(date);
+
         List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
         for(int i=0;i<result.size();i++){
             String item = result.get(i);
@@ -6097,9 +6101,42 @@ public class LoginServiceImpl implements LoginService {
             String openid = item_list[1];
             String schedule_id = item_list[2];
             String score = item_list[3];
+            String date_time = item_list[4];
 
-            
+            List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(schedule_id));
+            Schedule schedule = schedules.get(0);
+            String student_name = schedule.getStudent_name();
+            String studio = schedule.getStudio();
+            String subject = schedule.getSubject();
+            String class_number = schedule.getClass_number();
+            String duration = schedule.getDuration();
+            String upcoming = schedule.getUpcoming();
+            String id = schedule.getId();
+            String add_date = schedule.getAdd_date();
+            LocalDate localDate = LocalDate.parse(add_date);
+            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
+            //选课老师上课通知
+            int choose = 0;
+            String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+            List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+            if(users.size()>0){
+                choose = 1;
+                for(int ui=0;ui<users.size();ui++){
+                    User user_teacher = users.get(ui);
+                    String openid_get = user_teacher.getOpenid();
+                    classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                }
+            }
+
+            // 向家长发送通知
+            if(choose == 1){
+                classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+            }
+
+
+            // 删除已处理任务
+            jedis.zrem("delay_queue",item);
         }
 
     }
