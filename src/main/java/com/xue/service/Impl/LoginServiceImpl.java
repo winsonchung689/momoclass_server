@@ -5994,19 +5994,15 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取发送时间戳
                 long timestamp_start = 0l;
-                long timestamp_end = 0l;
                 try {
                     Date date_now = df_now.parse(now_date + " " + send_time);
                     timestamp_start = date_now.getTime();
-                    timestamp_end = timestamp_start + 3*60*1000;
                 } catch (ParseException e) {
                     //                throw new RuntimeException(e);
                 }
 
                 Integer weekDay = 0;
-                String date_time = null;
                 List<Schedule> list_schedule = new ArrayList<>();
-                List<Schedule> list_schedule_re = new ArrayList<>();
                 //上课通知
                 if(!"no_name".equals(student_name)){
                     // 通知分类
