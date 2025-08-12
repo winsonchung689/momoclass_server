@@ -5624,63 +5624,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void sendClassPayRemind() {
-        List<String> apps = new ArrayList<>();
-        apps.add("MOMO_OFFICIAL");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-
-        List<User> list = dao.getAllUser();
-        for (int i = 0; i < list.size(); i++) {
-            try {
-                User user = list.get(i);
-                String official_openid = user.getOfficial_openid();
-                String studio = user.getStudio();
-                String student_name = user.getStudent_name();
-                String send_time = user.getSend_time();
-                String campus = user.getCampus();
-
-                String now_time = df_now.format(new Date()).split(" ")[1];
-
-                //续课通知
-                if(!"no_name".equals(student_name)) {
-                    List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
-                    if (lessons.size() > 0) {
-                        for (int j = 0; j < lessons.size(); j++) {
-                            Lesson lesson = lessons.get(j);
-                            Float left_amount = lesson.getLeft_amount();
-                            String subject = lesson.getSubject();
-                            String student_lesson = lesson.getStudent_name();
-                            String student_split = student_lesson.split("_")[0];
-                            Integer urge_payment = lesson.getUrge_payment();
-                            if (student_split.equals(student_name) && left_amount <= 2 && send_time.equals(now_time) && urge_payment == 0) {
-                                String token = getToken("MOMO_OFFICIAL");
-                                String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-                                String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
-                                if (!"no_id".equals(official_openid)) {
-                                    String[] official_list = official_openid.split(",");
-                                    for (int k = 0; k < official_list.length; k++) {
-                                        String official_openid_get = official_list[k];
-                                        JSONObject queryJson2 = JSONObject.parseObject(model);
-                                        queryJson2.put("touser", official_openid_get);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
-                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
-                                        HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @Override
     public void produceClassRemindRedis() {
         Jedis jedis = new Jedis("139.199.226.187", 6379);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -5928,6 +5871,11 @@ public class LoginServiceImpl implements LoginService {
                 String[] item_list = item.split(",");
                 String remind_type = item_list[0];
                 String openid = item_list[1];
+                List<User> users = dao.getUserByOpenid(openid);
+                User user = users.get(0);
+                String subscription = user.getSubscription();
+                String official_openid = user.getOfficial_openid();
+
                 String schedule_id = item_list[2];
                 String score = item_list[3];
                 String date_time = item_list[4];
@@ -5936,6 +5884,7 @@ public class LoginServiceImpl implements LoginService {
                 Schedule schedule = schedules.get(0);
                 String student_name = schedule.getStudent_name();
                 String studio = schedule.getStudio();
+                String campus = schedule.getCampus();
                 String subject = schedule.getSubject();
                 String class_number = schedule.getClass_number();
                 String duration = schedule.getDuration();
@@ -5952,10 +5901,10 @@ public class LoginServiceImpl implements LoginService {
                 // 家长接收成功后反馈给选课老师
                 if(res == 1){
                     String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                    List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-                    if(users.size()>0){
-                        for(int j=0;j<users.size();j++){
-                            User user_teacher = users.get(j);
+                    List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
+                    if(teacher_users.size()>0){
+                        for(int j=0;j<teacher_users.size();j++){
+                            User user_teacher = teacher_users.get(j);
                             String openid_get = user_teacher.getOpenid();
                             classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
                         }
@@ -5966,8 +5915,6 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     String publickey = Constants.publickey;
                     String privatekey = Constants.privatekey;
-                    List<User> users = dao.getUserByOpenid(openid);
-                    String subscription = users.get(0).getSubscription();
                     if(subscription != null){
                         JSONObject payload = new JSONObject();
                         payload.put("title",studio);
@@ -5976,6 +5923,34 @@ public class LoginServiceImpl implements LoginService {
                     }
                 } catch (Exception e) {
 //                                    throw new RuntimeException(e);
+                }
+
+                List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
+                if (lessons.size() > 0) {
+                    for (int j = 0; j < lessons.size(); j++) {
+                        Lesson lesson = lessons.get(j);
+                        Float left_amount = lesson.getLeft_amount();
+                        String student_lesson = lesson.getStudent_name();
+                        String student_split = student_lesson.split("_")[0];
+                        Integer urge_payment = lesson.getUrge_payment();
+                        if (student_split.equals(student_name) && left_amount <= 2 && urge_payment == 0) {
+                            String token = getToken("MOMO_OFFICIAL");
+                            String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+                            String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+                            if (!"no_id".equals(official_openid)) {
+                                String[] official_list = official_openid.split(",");
+                                for (int k = 0; k < official_list.length; k++) {
+                                    String official_openid_get = official_list[k];
+                                    JSONObject queryJson2 = JSONObject.parseObject(model);
+                                    queryJson2.put("touser", official_openid_get);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
+                                    queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                    HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                }
+                            }
+                        }
+                    }
                 }
 
 
@@ -5989,7 +5964,6 @@ public class LoginServiceImpl implements LoginService {
         }
 
     }
-
 
     @Override
     public void sendDepartureNotice(String student_name, String studio) {

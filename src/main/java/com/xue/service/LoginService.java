@@ -283,8 +283,6 @@ public interface LoginService {
 
     public int updateCoinsByStudio(String studio,String openid,Float number,String type);
 
-    public void sendClassPayRemind();
-
     public void produceClassRemindRedis();
 
     public void consumeClassRemindRedis();
