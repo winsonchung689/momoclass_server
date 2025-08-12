@@ -6012,14 +6012,10 @@ public class LoginServiceImpl implements LoginService {
                     // 通知分类
                     if("统一提醒次日".equals(remindType)){
                         weekDay = weekDay_tomorrow;
-                        date_time = df.format(cal_tomorrow.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
-                        list_schedule.addAll(list_schedule_re);
                     }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
-                        date_time = df.format(cal_today.getTime());
-                        List<Schedule> schedules = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
-                        list_schedule.addAll(list_schedule_re);
+                        list_schedule = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
                     }
 
                     // 向redis写入队列

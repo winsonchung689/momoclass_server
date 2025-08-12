@@ -62,6 +62,11 @@ public class SpringbootLoginApplication {
 		loginService.updateCoinsLevel();
 	}
 
+	@Scheduled(cron = "0 0 13 * * ?")
+	public void produceClassRemindRedis(){
+		loginService.produceClassRemindRedis();
+	}
+
 	@Bean
 	public ConfigurableServletWebServerFactory webServerFactory() {
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
