@@ -6058,7 +6058,7 @@ public class LoginServiceImpl implements LoginService {
                             if(!send_status.equals(now_date) && remind == 1){
                                 String taskData = null;
                                 if("统一提醒次日".equals(remindType)){
-                                    taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000;
+                                    taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000+","+date_time;
                                 }else if("提前N小时提醒".equals(remindType)){
                                     String today_str = now_date + " " + duration.split("-")[0]+":00";
                                     Date today_str_date = df_now.parse(today_str);
