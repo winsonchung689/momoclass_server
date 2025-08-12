@@ -6120,19 +6120,19 @@ public class LoginServiceImpl implements LoginService {
 
                 //选课老师上课通知
                 int choose = 0;
-                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-                if(users.size()>0){
-                    choose = 1;
-                    for(int ui=0;ui<users.size();ui++){
-                        User user_teacher = users.get(ui);
-                        String openid_get = user_teacher.getOpenid();
-                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-                    }
-                }
+//                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+//                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+//                if(users.size()>0){
+//                    choose = 1;
+//                    for(int ui=0;ui<users.size();ui++){
+//                        User user_teacher = users.get(ui);
+//                        String openid_get = user_teacher.getOpenid();
+//                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+//                    }
+//                }
 
                 // 向家长发送通知
-                if(choose == 1){
+                if(choose == 0){
                     classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
                 }
 
