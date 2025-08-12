@@ -62,9 +62,14 @@ public class SpringbootLoginApplication {
 		loginService.updateCoinsLevel();
 	}
 
-	@Scheduled(cron = "0 0 14 * * ?")
+	@Scheduled(cron = "0 */5 * * * ?")
 	public void produceClassRemindRedis(){
 		loginService.produceClassRemindRedis();
+	}
+
+	@Scheduled(cron = "0 */1 * * * ?")
+	public void consumeClassRemindRedis(){
+		loginService.consumeClassRemindRedis();
 	}
 
 	@Bean

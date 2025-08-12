@@ -6093,50 +6093,56 @@ public class LoginServiceImpl implements LoginService {
         long timestamp = date.getTime()/1000;
         String now_date = df.format(date);
 
-        List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
-        for(int i=0;i<result.size();i++){
-            String item = result.get(i);
-            String[] item_list = item.split(",");
-            String remind_type = item_list[0];
-            String openid = item_list[1];
-            String schedule_id = item_list[2];
-            String score = item_list[3];
-            String date_time = item_list[4];
+        try {
+            List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
+            for(int i=0;i<result.size();i++){
+                String item = result.get(i);
+                String[] item_list = item.split(",");
+                String remind_type = item_list[0];
+                String openid = item_list[1];
+                String schedule_id = item_list[2];
+                String score = item_list[3];
+                String date_time = item_list[4];
 
-            List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(schedule_id));
-            Schedule schedule = schedules.get(0);
-            String student_name = schedule.getStudent_name();
-            String studio = schedule.getStudio();
-            String subject = schedule.getSubject();
-            String class_number = schedule.getClass_number();
-            String duration = schedule.getDuration();
-            String upcoming = schedule.getUpcoming();
-            String id = schedule.getId();
-            String add_date = schedule.getAdd_date();
-            LocalDate localDate = LocalDate.parse(add_date);
-            Integer weekDayChoose = localDate.getDayOfWeek().getValue();
+                List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(schedule_id));
+                Schedule schedule = schedules.get(0);
+                String student_name = schedule.getStudent_name();
+                String studio = schedule.getStudio();
+                String subject = schedule.getSubject();
+                String class_number = schedule.getClass_number();
+                String duration = schedule.getDuration();
+                String upcoming = schedule.getUpcoming();
+                String id = schedule.getId();
+                String add_date = schedule.getAdd_date();
+                LocalDate localDate = LocalDate.parse(add_date);
+                Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-            //选课老师上课通知
-            int choose = 0;
-            String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-            List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-            if(users.size()>0){
-                choose = 1;
-                for(int ui=0;ui<users.size();ui++){
-                    User user_teacher = users.get(ui);
-                    String openid_get = user_teacher.getOpenid();
-                    classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                //选课老师上课通知
+                int choose = 0;
+                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                if(users.size()>0){
+                    choose = 1;
+                    for(int ui=0;ui<users.size();ui++){
+                        User user_teacher = users.get(ui);
+                        String openid_get = user_teacher.getOpenid();
+                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                    }
                 }
+
+                // 向家长发送通知
+                if(choose == 1){
+                    classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                }
+
+
+                // 删除已处理任务
+                jedis.zrem("delay_queue",item);
             }
-
-            // 向家长发送通知
-            if(choose == 1){
-                classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-            }
-
-
-            // 删除已处理任务
-            jedis.zrem("delay_queue",item);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        } finally {
+            jedis.close();
         }
 
     }
