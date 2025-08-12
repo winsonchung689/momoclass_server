@@ -6219,22 +6219,37 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate localDate = LocalDate.parse(add_date);
                 Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-                //选课老师上课通知
-                int choose = 0;
-//                String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-//                List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-//                if(users.size()>0){
-//                    choose = 1;
-//                    for(int ui=0;ui<users.size();ui++){
-//                        User user_teacher = users.get(ui);
-//                        String openid_get = user_teacher.getOpenid();
-//                        classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-//                    }
-//                }
 
                 // 向家长发送通知
-                if(choose == 0){
-                    classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+
+                // 家长接收成功后反馈给选课老师
+                if(res == 1){
+                    String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                    List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+                    if(users.size()>0){
+                        for(int j=0;j<users.size();j++){
+                            User user_teacher = users.get(j);
+                            String openid_get = user_teacher.getOpenid();
+                            classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                        }
+                    }
+                }
+
+                // pwa版上课通知
+                try {
+                    String publickey = Constants.publickey;
+                    String privatekey = Constants.privatekey;
+                    List<User> users = dao.getUserByOpenid(openid);
+                    String subscription = users.get(0).getSubscription();
+                    if(subscription != null){
+                        JSONObject payload = new JSONObject();
+                        payload.put("title",studio);
+                        payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+                        webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                    }
+                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
                 }
 
 
@@ -11799,8 +11814,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String classRemind(String openid, String student_name, String studio, String subject,String class_number, String duration, String date_time, String upcoming,String id,String now_date) {
+    public Integer classRemind(String openid, String student_name, String studio, String subject,String class_number, String duration, String date_time, String upcoming,String id,String now_date) {
 
+        Integer res = 0;
         String tample ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
         String token = getToken("MOMO_OFFICIAL");
         String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
@@ -11838,13 +11854,14 @@ public class LoginServiceImpl implements LoginService {
                     // 更新通知状态
                     if("client".equals(role)){
                         dao.updateClassSendStatus(id,now_date);
+                        res = 1;
                     }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        return null;
+        return res;
     }
 
 

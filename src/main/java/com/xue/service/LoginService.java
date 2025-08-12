@@ -319,7 +319,7 @@ public interface LoginService {
 
     public List getPointsRecordByMonth(String type,String openid,String student_name,String subject,String month);
 
-    public String classRemind(String official_openid_boss, String student_name, String studio, String subject,String class_number, String duration, String date_time, String upcoming,String id,String now_date);
+    public Integer classRemind(String official_openid_boss, String student_name, String studio, String subject,String class_number, String duration, String date_time, String upcoming,String id,String now_date);
 
 
 }
