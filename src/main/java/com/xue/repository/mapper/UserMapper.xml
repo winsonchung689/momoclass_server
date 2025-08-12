@@ -731,7 +731,6 @@
     select * from class_schedule where id=#{param1}
   </select>
 
-
   <select id="getScheduleCheck" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where student_type ='transferred' and add_date=#{param1} and duration = #{param2} and class_number = #{param3} and subject =#{param4} and studio =#{param5} and campus =#{param6} and student_name =#{param7} and delete_status = 0
   </select>
@@ -739,7 +738,6 @@
   <select id="getScheduleByDuration" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where add_date=#{param1} and duration = #{param2} and class_number = #{param3} and subject =#{param4} and studio =#{param5} and campus =#{param6} and delete_status = 0
   </select>
-
 
   <select id="getScheduleCheckArrangement" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where student_type= 'ordinary' and dayofweek(add_date)=#{param1} and duration = #{param2} and class_number = #{param3} and subject =#{param4} and studio =#{param5} and campus =#{param6} and student_name =#{param7} and delete_status = 0
