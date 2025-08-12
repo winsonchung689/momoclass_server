@@ -5925,6 +5925,7 @@ public class LoginServiceImpl implements LoginService {
 //                                    throw new RuntimeException(e);
                 }
 
+                // 催续费通知
                 List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
                 if (lessons.size() > 0) {
                     for (int j = 0; j < lessons.size(); j++) {
