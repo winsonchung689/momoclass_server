@@ -24,6 +24,7 @@ public class test {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Calendar cal_today = Calendar.getInstance();
+        cal_today.add(Calendar.DATE,+1);
         int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
 
         System.out.println(weekDay_today);
