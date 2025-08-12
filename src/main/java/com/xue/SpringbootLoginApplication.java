@@ -59,7 +59,7 @@ public class SpringbootLoginApplication {
 
 	@Scheduled(cron = "0 0 2 * * ?")
 	public void produceClassRemindRedis(){
-		loginService.produceClassRemindRedis();
+		loginService.produceClassRemindRedis("none","all");
 	}
 
 	@Scheduled(cron = "0 */1 * * * ?")

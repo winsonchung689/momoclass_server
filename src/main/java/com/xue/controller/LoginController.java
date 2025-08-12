@@ -7406,7 +7406,7 @@ public class LoginController {
 				dao.changeScheduleHours(id,Integer.parseInt(value));
 			}
 			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
-//			loginService.produceClassRemindRedis();
+			loginService.produceClassRemindRedis(studio,"single");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

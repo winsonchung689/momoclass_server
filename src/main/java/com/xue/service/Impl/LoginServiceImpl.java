@@ -5624,7 +5624,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void produceClassRemindRedis() {
+    public void produceClassRemindRedis(String studio_in,String type) {
         Jedis jedis = new Jedis("139.199.226.187", 6379);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
@@ -5837,7 +5837,9 @@ public class LoginServiceImpl implements LoginService {
                                     timestamp_start = today_str_cl.getTimeInMillis();
                                     taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+date_time;
                                 }
-                                jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                                if("all".equals(type) || studio.equals(studio_in)){
+                                    jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                                }
                             }
                         }
                     }
