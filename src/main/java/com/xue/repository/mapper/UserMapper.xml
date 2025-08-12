@@ -746,11 +746,6 @@
   </select>
 
   <!-- 获取课程表 -->
-  <select id="getScheduleByWeek" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where dayofweek(add_date)=#{param1} and student_type ='ordinary' and delete_status = 0
-  </select>
-
-  <!-- 获取课程表 -->
   <select id="getScheduleAll" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where dayofweek(add_date)=#{param1} and studio = #{param2} and campus =#{param3} and student_type ='ordinary' and delete_status = 0 order by duration,subject,class_number
   </select>
