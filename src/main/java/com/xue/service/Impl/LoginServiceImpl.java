@@ -8822,7 +8822,7 @@ public class LoginServiceImpl implements LoginService {
                     if(studio.equals(studio_get) && "收入".equals(type)){
                         number += 1;
                         if("未续费".equals(pay_type)){
-                            pay_type = books.get(0).getMark().split("_")[1];
+                            pay_type = mark.split("_")[1];
                         }
                     }
                 }
