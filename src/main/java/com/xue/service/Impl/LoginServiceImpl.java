@@ -4557,7 +4557,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getFrameModel(String studio,Integer page,String class_target,String campus) {
-        byte[] photo = null;
         String class_name = null;
         String id = null;
         String uuids = null;
@@ -8820,9 +8819,11 @@ public class LoginServiceImpl implements LoginService {
                     String mark = books.get(j).getMark();
                     String type = books.get(j).getType();
                     String studio_get = mark.split("_")[0];
-                    pay_type = books.get(0).getMark().split("_")[1];
                     if(studio.equals(studio_get) && "收入".equals(type)){
                         number += 1;
+                        if("未续费".equals(pay_type)){
+                            pay_type = books.get(0).getMark().split("_")[1];
+                        }
                     }
                 }
 
