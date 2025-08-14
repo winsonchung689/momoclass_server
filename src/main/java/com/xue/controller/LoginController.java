@@ -7405,8 +7405,8 @@ public class LoginController {
 			}else if("单独提前".equals(remind_type)){
 				dao.changeScheduleHours(id,Integer.parseInt(value));
 			}
-			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
-			loginService.produceClassRemindRedis(studio,"single");
+//			dao.updateClassSendStatusByStudio(studio,"2023-01-01");
+//			loginService.produceClassRemindRedis(studio,"single");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
