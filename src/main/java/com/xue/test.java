@@ -31,14 +31,25 @@ public class test {
         System.out.println(td_time);
         System.out.println(td_date);
 
-        Calendar cal_tomorrow = Calendar.getInstance();
-        cal_tomorrow.add(Calendar.HOUR,-23);
-        Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
-        long tm_time = cal_tomorrow.getTimeInMillis();
-        String tm_date = df.format(tm_time);
+        try {
+            String send_day = "2025-08-15" + " " + "10:00:00";
+            Date send_date = df_now.parse(send_day);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(send_date);
+            calendar.add(Calendar.HOUR,-5);
+            long timestamp_start = calendar.getTimeInMillis();
+            String timestamp_start_str = df.format(timestamp_start);
 
-        System.out.println(tm_time);
-        System.out.println(tm_date);
+            System.out.println(timestamp_start);
+            if(!td_date.equals(timestamp_start_str)){
+                System.out.println(timestamp_start_str);
+            }
+
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
 
 
     }
