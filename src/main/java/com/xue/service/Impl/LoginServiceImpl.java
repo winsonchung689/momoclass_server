@@ -5719,6 +5719,9 @@ public class LoginServiceImpl implements LoginService {
                                 }
                                 if(repeat_week_list.contains(weekofday.toString())){
                                     List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start);
+                                    for(int idx = 0; idx < list_schedule_get.size(); idx++){
+                                        list_schedule_get.get(idx).setUpcoming(td_date);
+                                    }
                                     list_schedule_re.addAll(list_schedule_get);
                                 }
                             }
