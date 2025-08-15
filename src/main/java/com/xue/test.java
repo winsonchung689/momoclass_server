@@ -24,10 +24,22 @@ public class test {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Calendar cal_today = Calendar.getInstance();
-        cal_today.add(Calendar.DATE,+1);
         int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+        long td_time = cal_today.getTimeInMillis();
+        String td_date = df.format(td_time);
 
-        System.out.println(weekDay_today);
+        System.out.println(td_time);
+        System.out.println(td_date);
+
+        Calendar cal_tomorrow = Calendar.getInstance();
+        cal_tomorrow.add(Calendar.HOUR,-23);
+        Integer weekDay_tomorrow = cal_tomorrow.get(Calendar.DAY_OF_WEEK);
+        long tm_time = cal_tomorrow.getTimeInMillis();
+        String tm_date = df.format(tm_time);
+
+        System.out.println(tm_time);
+        System.out.println(tm_date);
+
 
     }
 

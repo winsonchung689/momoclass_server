@@ -5658,7 +5658,7 @@ public class LoginServiceImpl implements LoginService {
                 String now_date = df.format(date);
 
                 //获取发送时间戳
-                String date_time = null;
+//                String date_time = null;
                 long timestamp_start = 0l;
                 try {
                     Date date_now = df_now.parse(now_date + " " + send_time);
@@ -5728,14 +5728,26 @@ public class LoginServiceImpl implements LoginService {
                     // 通知分类
                     if("统一提醒次日".equals(remindType)){
                         weekDay = weekDay_tomorrow;
-                        date_time = df.format(cal_tomorrow.getTime());
+//                        date_time = df.format(cal_tomorrow.getTime());
                         list_schedule = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
                         list_schedule.addAll(list_schedule_re);
                     }else if("提前N小时提醒".equals(remindType) && hours > 0){
                         weekDay = weekDay_today;
-                        date_time = df.format(cal_today.getTime());
+//                        date_time = df.format(cal_today.getTime());
+
+                        // 今天的课程
                         list_schedule = dao.getScheduleByUser(weekDay_today,studio,student_name,campus);
+                        for(int ii = 0; ii < list_schedule.size(); ii++){
+                            list_schedule.get(ii).setUpcoming(td_date);
+                        }
                         list_schedule.addAll(list_schedule_re);
+
+                        // 明天的课程
+                        List<Schedule> list_schedule_tm = dao.getScheduleByUser(weekDay_tomorrow,studio,student_name,campus);
+                        for(int jj = 0; jj < list_schedule_tm.size(); jj++){
+                            list_schedule_tm.get(jj).setUpcoming(tm_date);
+                        }
+                        list_schedule.addAll(list_schedule_tm);
                     }
 
                     // 向redis写入队列
@@ -5753,6 +5765,7 @@ public class LoginServiceImpl implements LoginService {
                             Integer hours_prev = schedule.getHours();
                             Integer remind = schedule.getRemind();
                             String class_number = schedule.getClass_number();
+                            String upComing = schedule.getUpcoming();
 
                             if("统一提醒次日".equals(remindType)){
                                 // 跳过插班生
@@ -5781,13 +5794,10 @@ public class LoginServiceImpl implements LoginService {
                             }
 
                             // 课程设计
-                            Integer choose = 0;
-                            String upcoming = "未设";
                             Integer is_repeat = 0;
                             List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                             if(arrangement_list.size()>0){
                                 Arrangement arrangement = arrangement_list.get(0);
-                                upcoming = arrangement.getUpcoming();
                                 remind = arrangement.getRemind();
                                 is_repeat = arrangement.getIs_repeat();
                                 String repeat_week = arrangement.getRepeat_week();
@@ -5826,18 +5836,21 @@ public class LoginServiceImpl implements LoginService {
                             if(!send_status.equals(now_date) && remind == 1){
                                 String taskData = null;
                                 if("统一提醒次日".equals(remindType)){
-                                    taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000+","+date_time;
+                                    taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000+","+tm_date;
                                 }else if("提前N小时提醒".equals(remindType)){
-                                    String today_str = now_date + " " + duration.split("-")[0]+":00";
-                                    Date today_str_date = df_now.parse(today_str);
-                                    Calendar today_str_cl = Calendar.getInstance();
-                                    today_str_cl.setTime(today_str_date);
-                                    today_str_cl.add(Calendar.HOUR,-hours_prev);
-                                    timestamp_start = today_str_cl.getTimeInMillis();
-                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+date_time;
+                                    String send_day = upComing + " " + duration.split("-")[0]+":00";
+                                    Date send_date = df_now.parse(send_day);
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(send_date);
+                                    calendar.add(Calendar.HOUR,-hours_prev);
+                                    timestamp_start = calendar.getTimeInMillis();
+                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+upComing;
                                 }
                                 if("all".equals(type) || studio.equals(studio_in)){
-                                    jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                                    String timestamp_start_str = df.format(timestamp_start);
+                                    if(timestamp_start_str.equals(td_date)){
+                                        jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                                    }
                                 }
                             }
                         }
