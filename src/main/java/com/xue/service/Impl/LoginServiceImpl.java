@@ -5803,6 +5803,7 @@ public class LoginServiceImpl implements LoginService {
                                 Arrangement arrangement = arrangement_list.get(0);
                                 remind = arrangement.getRemind();
                                 is_repeat = arrangement.getIs_repeat();
+                                hours_prev = arrangement.getHours();
                                 String repeat_week = arrangement.getRepeat_week();
                                 List<String> repeat_week_list = Arrays.asList(repeat_week.split(","));
                                 String repeat_duration = arrangement.getRepeat_duration();
