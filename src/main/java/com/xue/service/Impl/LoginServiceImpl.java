@@ -5846,6 +5846,7 @@ public class LoginServiceImpl implements LoginService {
                                     timestamp_start = calendar.getTimeInMillis();
                                     taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+upComing;
                                 }
+
                                 if("all".equals(type) || studio.equals(studio_in)){
                                     String timestamp_start_str = df.format(timestamp_start);
                                     if(timestamp_start_str.equals(td_date)){
