@@ -536,6 +536,8 @@ public interface UserMapper {
 
     int updateDetailPhoto(Message message);
 
+    int updateLibraryDetailById(Library library);
+
     int updatePptMenuById(PptMenu pptMenu);
 
     int updatePptMenuSizeByStudioType(PptMenu pptMenu);
@@ -676,6 +678,8 @@ public interface UserMapper {
     List<PptMenu> getPptMenu(String studio,String campus,String category,String type,Integer page_start,Integer page_length);
 
     List<PptMenu> getPptMenuById(String id);
+
+    List<Library> getLibraryById(String id);
 
     List<Departure> getDepartureRecordByStudio(String studio,String campus);
 

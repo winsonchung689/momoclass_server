@@ -1405,6 +1405,11 @@
     update class_comment set photo=#{photo},uuids=#{uuids} where id=#{id} and studio = #{studio}
   </update>
 
+  <!-- 更新课件封面 -->
+  <update id="updateLibraryDetailById" parameterType="com.xue.entity.model.Library">
+    update library set uuid=#{uuid} where id=#{id}
+  </update>
+
   <!-- 更新ppt -->
   <update id="updatePptMenuById" parameterType="com.xue.entity.model.PptMenu">
     update ppt_menu set ppt_name=#{ppt_name},category=#{category},introduce=#{introduce},uuids=#{uuids} where id=#{id}
@@ -1497,6 +1502,11 @@
   <select id="getPptMenu" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
     select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6}
   </select>
+
+  <select id="getLibraryById" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
+    select * from library where id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
 
   <select id="getLibraryByMenuId" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
     select * from library where menu_id =#{param1} and delete_status = 0 order by create_time desc

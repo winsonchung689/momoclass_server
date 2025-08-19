@@ -4339,6 +4339,30 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateLibraryDetailById")
+	@ResponseBody
+	public int updateLibraryDetailById(HttpServletRequest request, HttpServletResponse response){
+
+		//获取参数
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+		String id = request.getParameter("id");
+
+		try {
+			List<Library> libraries = dao.getLibraryById(id);
+			Library library = libraries.get(0);
+			if("uuid".equals(type)){
+				library.setUuid(content);
+			}
+			dao.updateLibraryDetailById(library);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/updateBackUrl")
 	@ResponseBody
 	public int updateBackUrl(HttpServletRequest request, HttpServletResponse response){
