@@ -1412,7 +1412,7 @@
 
   <!-- 更新ppt -->
   <update id="updatePptMenuById" parameterType="com.xue.entity.model.PptMenu">
-    update ppt_menu set ppt_name=#{ppt_name},category=#{category},introduce=#{introduce},uuids=#{uuids} where id=#{id}
+    update ppt_menu set uuid=#{uuid},ppt_name=#{ppt_name},category=#{category},introduce=#{introduce},uuids=#{uuids} where id=#{id}
   </update>
 
   <!-- 更新ppt -->

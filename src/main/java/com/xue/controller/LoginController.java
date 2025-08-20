@@ -4329,6 +4329,9 @@ public class LoginController {
 			}else if ("size_limit".equals(type)) {
 				pptMenu.setSize_limit(Float.parseFloat(content));
 				dao.updatePptMenuSizeByStudioType(pptMenu);
+			}else if ("uuid".equals(type)) {
+				pptMenu.setUuid(content);
+				dao.updatePptMenuById(pptMenu);
 			}
 
 		} catch (Exception e) {
