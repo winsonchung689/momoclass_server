@@ -1937,7 +1937,7 @@
   </update>
 
   <update id="deleteLibraryId" parameterType="com.xue.entity.model.Library">
-    update library set delete_status = 1 where id = #{param1}
+    delete from library  where id = #{param1}
   </update>
 
   <!-- 恢复已删除用户 -->
