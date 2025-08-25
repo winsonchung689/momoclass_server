@@ -5144,7 +5144,7 @@ public class LoginController {
 		String p_path = null;
 		UUID uuid = UUID.randomUUID();
 		p_path = path +"/uploadVideo/"+ studio + "/" + uuid + ".mp4";
-        String bak_path = "/databak_bucket/uploadVideo/"+ studio + "/" + uuid + ".mp4";
+        String bak_path = "/databak_bucket/uploadVideo/all_video/"+ uuid + ".mp4";
 
 		//保存图片
 		try {
