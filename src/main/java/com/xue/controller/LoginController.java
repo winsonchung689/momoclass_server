@@ -5456,9 +5456,10 @@ public class LoginController {
 
 	@RequestMapping("/downloadFile")
 	@ResponseBody
-	public ResponseEntity<byte[]> get_frame(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ResponseEntity<byte[]> downloadFile(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
-		String path = "/data/disk/uploadteach/"+ file_name;
+		String studio =  request.getParameter("studio");
+		String path = "/data/disk/uploadteach/"+ studio + "/" + file_name;
 		File file = new File(path);
 		if(file.exists()){
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
