@@ -3657,10 +3657,9 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
         String date_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-        List<BookUser> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            list = dao.getBookUser(openid);
+            List<BookUser>  list = dao.getBookUser(openid);
             for (int i = 0; i < list.size(); i++) {
                 Float budget = 0.0f;
                 JSONObject jsonObject = new JSONObject();
@@ -3681,10 +3680,12 @@ public class LoginServiceImpl implements LoginService {
                     role_name = "永久会员";
                 }
                 Integer consume = 0;
+                String location = line.getLocation();
 
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
+                jsonObject.put("location", location);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("create_time", create_time);
