@@ -476,10 +476,6 @@ public interface UserMapper {
 
     int updateRestaurantByOpenid(RestaurantUser restaurantUser);
 
-    int updateBookNickName(BookUser bookUser);
-
-    int updateBookLogo(BookUser bookUser);
-
     int updateRestaurantOrderStatus(RestaurantOrder restaurantOrder);
 
     int updateRestaurantOrderDetail(RestaurantOrder restaurantOrder);
@@ -487,12 +483,6 @@ public interface UserMapper {
     int updateRestaurantOrderCm(RestaurantOrderCm restaurantOrderCm);
 
     int updateRestaurantOrderByOrderNo(String order_no,int status);
-
-    int updateBookRole(BookUser bookUser);
-
-    int updateBookName(BookUser bookUser);
-
-    int updateBudget(BookUser bookUser);
 
     int updateRestaurantMenu(Menu menu);
 
@@ -519,8 +509,6 @@ public interface UserMapper {
     int updateUserBackUrl(User user);
 
     int updateClassSendStatus(String id,String send_status);
-
-    int updateClassSendStatusByStudio(String studio,String send_status);
 
     int updateCommunicateDetail(CommunicateRecord communicateRecord);
 

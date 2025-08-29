@@ -116,7 +116,7 @@ public class BookController {
 			}else if("book_name".equals(type)){
 				bookUser.setBook_name(content);
 			}
-			dao.updateBookNickName(bookUser);
+			dao.updateBookUserDetail(bookUser);
 
 		} catch (Exception e) {
 			e.printStackTrace();

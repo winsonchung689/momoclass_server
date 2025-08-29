@@ -1828,20 +1828,12 @@
     update book_user set location=#{location},avatarurl=#{avatarurl},nick_name=#{nick_name},book_name=#{book_name},logo=#{logo} where id = #{id}
   </update>
 
-  <update id="updateBookNickName" parameterType="com.xue.entity.model.BookUser">
-    update book_user set nick_name=#{nick_name} where openid = #{openid}
-  </update>
-
   <update id="updateBookDetailBookName" parameterType="com.xue.entity.model.BookDetail">
     update book_detail set book_name=#{param2} where book_name = #{param1}
   </update>
 
   <update id="updateBookDetailById" parameterType="com.xue.entity.model.BookDetail">
     update book_detail set mark=#{mark},amount=#{amount} where id = #{id}
-  </update>
-
-  <update id="updateBookLogo" parameterType="com.xue.entity.model.BookUser">
-    update book_user set logo=#{logo} where openid = #{openid}
   </update>
 
   <!--  更新商店用户信息-->
@@ -1886,18 +1878,6 @@
   <!--  更新客户评论内容-->
   <update id="updateRestaurantOrderCm" parameterType="com.xue.entity.model.RestaurantOrderCm">
     update restaurant_order_cm set comment=#{comment} where id =#{id}
-  </update>
-
-  <update id="updateBookRole" parameterType="com.xue.entity.model.BookUser">
-    update book_user set role=#{role} where openid = #{openid}
-  </update>
-
-  <update id="updateBookName" parameterType="com.xue.entity.model.BookUser">
-    update book_user set book_name=#{book_name} where id = #{id}
-  </update>
-
-  <update id="updateBudget" parameterType="com.xue.entity.model.BookUser">
-    update book_user set budget=#{budget} where id = #{id}
   </update>
 
   <update id="updateRestaurantMenu" parameterType="com.xue.entity.model.Menu">
@@ -1951,10 +1931,6 @@
 
   <update id="updateClassSendStatus" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set send_status=#{param2} where id = #{param1} and delete_status=0
-  </update>
-
-  <update id="updateClassSendStatusByStudio" parameterType="com.xue.entity.model.Schedule">
-    update class_schedule set send_status=#{param2} where studio = #{param1} and delete_status=0
   </update>
 
   <update id="updateCommunicateDetail" parameterType="com.xue.entity.model.CommunicateRecord">
