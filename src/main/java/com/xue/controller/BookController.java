@@ -115,7 +115,10 @@ public class BookController {
 				bookUser.setRole(role);
 			}else if("book_name".equals(type)){
 				bookUser.setBook_name(content);
+			}else if("location".equals(type)){
+				bookUser.setLocation(content);
 			}
+
 			dao.updateBookUserDetail(bookUser);
 
 		} catch (Exception e) {
