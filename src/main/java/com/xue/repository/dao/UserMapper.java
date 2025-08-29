@@ -459,7 +459,7 @@ public interface UserMapper {
 
     int updateLessonRelatedById(Integer id,String related_id,Float total_amount,Float left_amount);
 
-    int updateBookAvatar(BookUser bookUser);
+    int updateBookUserDetail(BookUser bookUser);
 
     int updateBookDetailBookName(String book_name_old,String book_name_new);
 

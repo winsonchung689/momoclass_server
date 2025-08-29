@@ -1824,8 +1824,8 @@
     update lesson set related_id=#{param2},total_amount=#{param3},left_amount=#{param4} where id = #{param1}
   </update>
 
-  <update id="updateBookAvatar" parameterType="com.xue.entity.model.BookUser">
-    update book_user set avatarurl=#{avatarurl} where openid = #{openid}
+  <update id="updateBookUserDetail" parameterType="com.xue.entity.model.BookUser">
+    update book_user set location=#{location},avatarurl=#{avatarurl},nick_name=#{nick_name},book_name=#{book_name},logo=#{logo} where id = #{id}
   </update>
 
   <update id="updateBookNickName" parameterType="com.xue.entity.model.BookUser">

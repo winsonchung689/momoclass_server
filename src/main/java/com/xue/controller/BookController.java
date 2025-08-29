@@ -92,59 +92,31 @@ public class BookController {
 	@RequestMapping("/updateBookUser")
 	@ResponseBody
 	public int updateBookUser(HttpServletRequest request, HttpServletResponse response){
-
 		//获取文字
 		String content = request.getParameter("content");
-
-		String openid = request.getParameter("openid");
-
+		String id = request.getParameter("id");
 		String type = request.getParameter("type");
 
-
 		try {
+			List<BookUser> bookUsers = dao.getBookUserById(id);
+			BookUser bookUser = bookUsers.get(0);
+
 			if("avatarurl".equals(type)){
-				BookUser bookUser =new BookUser();
 				bookUser.setAvatarurl(content);
-				bookUser.setOpenid(openid);
-				dao.updateBookAvatar(bookUser);
-			}else if("nickName".equals(type)){
-				BookUser bookUser =new BookUser();
+			}else if("nick_name".equals(type)){
 				bookUser.setNick_name(content);
-				bookUser.setOpenid(openid);
-				dao.updateBookNickName(bookUser);
 			}else if("logo".equals(type)){
-				BookUser bookUser =new BookUser();
 				bookUser.setLogo(content);
-				bookUser.setOpenid(openid);
-				dao.updateBookLogo(bookUser);
 			}else if("role".equals(type)){
-				BookUser bookUser =new BookUser();
+				String role = "boss";
 				if("boss".equals(content)){
-					content = "client";
-				}else {
-					content = "boss";
+					role = "client";
 				}
-				bookUser.setRole(content);
-				bookUser.setOpenid(openid);
-				dao.updateBookRole(bookUser);
+				bookUser.setRole(role);
 			}else if("book_name".equals(type)){
-				String id = request.getParameter("id");
-				BookUser bookUser =new BookUser();
 				bookUser.setBook_name(content);
-				bookUser.setId(Integer.parseInt(id));
-				List<BookUser> bookUsers =dao.getBookUserById(id);
-				String book_name_get = bookUsers.get(0).getBook_name();
-				if(!book_name_get.equals(content)){
-					dao.updateBookName(bookUser);
-					dao.updateBookDetailBookName(book_name_get,content);
-				}
-			}else if("budget".equals(type)){
-				String id = request.getParameter("id");
-				BookUser bookUser =new BookUser();
-				bookUser.setBudget(Float.parseFloat(content));
-				bookUser.setId(Integer.parseInt(id));
-				dao.updateBudget(bookUser);
 			}
+			dao.updateBookNickName(bookUser);
 
 		} catch (Exception e) {
 			e.printStackTrace();
