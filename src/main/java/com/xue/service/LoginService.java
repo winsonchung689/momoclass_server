@@ -179,8 +179,6 @@ public interface LoginService {
 
     public int  deleteLesson(String id,String role,String studio,String openid,String student_name);
 
-    public int insertBookUser(BookUser bookUser);
-
     public int updateUser(User user);
 
     public int updateBossLessons(User user);

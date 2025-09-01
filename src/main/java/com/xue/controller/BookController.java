@@ -56,8 +56,9 @@ public class BookController {
 		bookUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
 		bookUser.setCreate_time(create_time);
 		bookUser.setExpired_time(create_time);
+		bookUser.setOpenid_qr("no_id");
 
-		loginService.insertBookUser(bookUser);
+		dao.insertBookUser(bookUser);
 
 		return "push massage successfully";
 	}
@@ -282,6 +283,49 @@ public class BookController {
 		}
 
 		return jsonObject;
+	}
+
+	@RequestMapping("/inviteSpaceUser")
+	@ResponseBody
+	public String inviteUser(HttpServletRequest request, HttpServletResponse response){
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		try {
+			cal.setTime(df.parse(create_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cal.add(cal.DATE,30);
+		String expired_time = df.format(cal.getTime());
+
+		//获取用户名
+		String id = request.getParameter("id");
+
+		String openid = request.getParameter("openid");
+		String openid_qr = "no_id";
+		String book_name = "未录入";
+
+		List<BookUser> bookUsers = dao.getBookUserById(id);
+		if(bookUsers.size()>0){
+			BookUser bookUser_get = bookUsers.get(0);
+			book_name = bookUser_get.getBook_name();
+			openid_qr = bookUser_get.getOpenid();
+		}
+
+
+		BookUser bookUser = new BookUser();
+		bookUser.setNick_name("微信用户");
+		bookUser.setRole("client");
+		bookUser.setOpenid(openid);
+		bookUser.setBook_name(book_name);
+		bookUser.setCreate_time(create_time);
+		bookUser.setOpenid_qr(openid_qr);
+		bookUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
+
+		dao.insertBookUser(bookUser);
+		return "push massage successfully";
 	}
 
 }

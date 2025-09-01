@@ -2829,18 +2829,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int insertBookUser(BookUser bookUser) {
-        int result = 0;
-        try {
-            result = dao.insertBookUser(bookUser);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return result;
-    }
-
-    @Override
     public int updateUser(User user) {
         int result = 0;
         try {
