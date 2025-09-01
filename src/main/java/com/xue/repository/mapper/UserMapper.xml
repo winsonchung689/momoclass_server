@@ -2705,7 +2705,7 @@
   </update>
 
   <update id="updateSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
-    update lesson set uuids=#{uuids},intro=#{intro} where openid=#{openid}
+    update space_teacher set uuids=#{uuids},intro=#{intro} where openid=#{openid}
   </update>
 
   <update id="updateLeaveTimes" parameterType="com.xue.entity.model.Lesson">
