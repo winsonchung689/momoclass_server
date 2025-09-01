@@ -15,6 +15,9 @@ public interface UserMapper {
 
     List<Merchant> getMerchantByAppid(String appid);
 
+
+    List<SpaceTeacher> getSpaceTeacher(String openid);
+
     List<Merchant> getMerchant(String studio,String campus,String appid);
 
     List<Album> getAlbumByType(String studio,String campus,String type,Integer page_start,Integer page_length);
@@ -213,6 +216,8 @@ public interface UserMapper {
 
     //插入
     int insertBook(Book book);
+
+    int insertSpaceTeacher(SpaceTeacher spaceTeacher);
 
     int insertShippingFee(ShippingFee shippingFee);
 

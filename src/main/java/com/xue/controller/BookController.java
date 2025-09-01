@@ -3,6 +3,7 @@ package com.xue.controller;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
+import com.xue.service.SpaceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class BookController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private SpaceService spaceService;
 
 	@Autowired
 	private UserMapper dao;
@@ -171,6 +175,45 @@ public class BookController {
 		}
 		return 1;
 	}
+
+	@RequestMapping("/insertSpaceTeacher")
+	@ResponseBody
+	public String insertSpaceTeacher(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String uuids = request.getParameter("uuids");
+		String intro = request.getParameter("intro");
+
+		SpaceTeacher spaceTeacher =new SpaceTeacher();
+		spaceTeacher.setOpenid(openid);
+		spaceTeacher.setUuids(uuids);
+		spaceTeacher.setIntro(intro);
+		spaceTeacher.setCreate_time(create_time);
+
+
+		try {
+			dao.insertSpaceTeacher(spaceTeacher);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/getBookUser")
+	@ResponseBody
+	public List getSpaceTeacher(String openid){
+		List list = null;
+		try {
+			list = spaceService.getSpaceTeacher(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 }
 	

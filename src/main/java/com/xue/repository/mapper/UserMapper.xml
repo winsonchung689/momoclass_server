@@ -151,7 +151,9 @@
   <resultMap id="BaseExamination" type="com.xue.entity.model.Examination">
     <result column="studio" jdbcType="VARCHAR" property="studio" />
   </resultMap>
-
+  <resultMap id="BaseSpaceTeacher" type="com.xue.entity.model.SpaceTeacher">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
 
 
   <!-- 获取全部成绩 -->
@@ -2021,6 +2023,10 @@
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time,unit) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time},#{unit})
   </insert>
 
+  <insert id="insertSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
+    insert space_teacher(openid,uuids,intro,create_time) values(#{openid},#{uuids},#{intro},#{create_time})
+  </insert>
+
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
     insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time,uuid,type,size_limit) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time},#{uuid},#{type},#{size_limit})
   </insert>
@@ -2223,6 +2229,10 @@
 
   <select id="getLessonById" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
     select * from lesson where id =#{param1};
+  </select>
+
+  <select id="getSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher" resultMap="BaseSpaceTeacher">
+    select * from space_teacher where openid =#{param1};
   </select>
 
   <!-- 获取总人数 -->
