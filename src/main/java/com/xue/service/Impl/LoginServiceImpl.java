@@ -6092,6 +6092,8 @@ public class LoginServiceImpl implements LoginService {
         String secret = Constants.secret;
         String order_appid = Constants.order_appid;
         String order_secret = Constants.order_secret;
+        String book_appid = Constants.book_appid;
+        String book_secret = Constants.book_secret;
         String official_appid = Constants.official_appid;
         String official_secret = Constants.official_secret;
         String url = "https://api.weixin.qq.com/cgi-bin/token";
@@ -6102,6 +6104,8 @@ public class LoginServiceImpl implements LoginService {
             param = "appid=" + appid + "&secret=" + secret + "&grant_type=client_credential";
         }else if("MOMO_OFFICIAL".equals(app)){
             param = "appid=" + official_appid + "&secret=" + official_secret + "&grant_type=client_credential";
+        }else if ("BOOK".equals(app)){
+            param = "appid=" + book_appid + "&secret=" + book_secret + "&grant_type=client_credential";
         }
 
         try {

@@ -1,9 +1,13 @@
 package com.xue.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.service.SpaceService;
+import com.xue.util.HttpUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class BookController {
@@ -239,6 +244,45 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/shareSpaceQrCode")
+	@ResponseBody
+	public JSONObject shareSpaceQrCode(String id){
+		JSONObject jsonObject = new JSONObject();
+		String token = loginService.getToken("BOOK");
+		String scene = "id=" + id;
+
+		List<BookUser> bookUsers = dao.getBookUserById(id);
+		BookUser bookUser = bookUsers.get(0);
+		String book_name = bookUser.getBook_name();
+
+		try {
+			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
+			Map<String,String> param = new HashMap<>() ;
+			param.put("scene",scene);
+			param.put("page","pages/welcome/welcome");
+			String json = JSON.toJSONString(param) ;
+			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
+			byte[] bytes = new byte[inputStream.available()];
+			inputStream.read(bytes);
+			String imageString = Base64.getEncoder().encodeToString(bytes);
+
+			// 上传二维码
+			String book_name_md5 = DigestUtils.md5Hex(book_name + "space" + id );
+			String serverPath = "/data/uploadRr";
+			String fileName = book_name_md5 + ".png";
+			File file = new File(serverPath, fileName);
+			try (FileOutputStream fos = new FileOutputStream(file)) {
+				fos.write(bytes);
+			}
+
+			jsonObject.put("imageString", imageString);
+			jsonObject.put("fileName", fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return jsonObject;
+	}
 
 }
 	
