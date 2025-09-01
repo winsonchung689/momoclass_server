@@ -227,7 +227,7 @@ public class BookController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/getBookUser")
+	@RequestMapping("/getSpaceTeacher")
 	@ResponseBody
 	public List getSpaceTeacher(String openid){
 		List list = null;
