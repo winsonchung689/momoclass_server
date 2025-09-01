@@ -131,6 +131,31 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/updateSpaceTeacher")
+	@ResponseBody
+	public int updateSpaceTeacher(HttpServletRequest request, HttpServletResponse response){
+		//获取文字
+		String openid = request.getParameter("openid");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
+		try {
+			List<SpaceTeacher> spaceTeachers = dao.getSpaceTeacher(openid);
+			SpaceTeacher spaceTeacher = spaceTeachers.get(0);
+
+			if("intro".equals(type)){
+				spaceTeacher.setIntro(content);
+			}else if("uuids".equals(type)){
+				spaceTeacher.setUuids(content);
+			}
+
+			dao.updateSpaceTeacher(spaceTeacher);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/insertBookDetail")
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){

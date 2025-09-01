@@ -2704,6 +2704,10 @@
     update lesson set final_time=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
 
+  <update id="updateSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
+    update lesson set uuids=#{uuids},intro=#{intro} where openid=#{openid}
+  </update>
+
   <update id="updateLeaveTimes" parameterType="com.xue.entity.model.Lesson">
     update lesson set leave_times=#{param3} where studio=#{param1} and campus =#{param2}
   </update>
