@@ -8,5 +8,7 @@ public interface SpaceService {
 
     public List getSpaceTeacher(String openid);
 
+    public List getBookUser(String openid);
+
 
 }

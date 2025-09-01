@@ -8,6 +8,8 @@ public class BookUser {
 
     private String openid;
 
+    private String openid_qr;
+
     private String create_time;
 
     private String expired_time;
@@ -29,6 +31,8 @@ public class BookUser {
     private String book_name;
 
     private Float budget;
+
+
 
 
     public Float getBudget() {
@@ -134,6 +138,15 @@ public class BookUser {
     public void setOpenid(String openid) {
         this.openid = openid;
     }
+
+    public String getOpenid_qr() {
+        return openid_qr;
+    }
+
+    public void setOpenid_qr(String openid_qr) {
+        this.openid_qr = openid_qr;
+    }
+
 
     public String getCreate_time() {
         return create_time;

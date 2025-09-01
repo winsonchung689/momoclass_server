@@ -62,7 +62,7 @@ public class BookController {
 	public List getBookUser(String openid){
 		List list = null;
 		try {
-			list = loginService.getBookUser(openid);
+			list = spaceService.getBookUser(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

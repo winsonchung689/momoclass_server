@@ -3653,58 +3653,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getBookUser(String openid) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
-        String date_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-
-        List<JSONObject> resul_list = new ArrayList<>();
-        try {
-            List<BookUser>  list = dao.getBookUser(openid);
-            for (int i = 0; i < list.size(); i++) {
-                Float budget = 0.0f;
-                JSONObject jsonObject = new JSONObject();
-                BookUser line = list.get(i);
-                //获取字段
-                String role = line.getRole();
-                String avatarurl = line.getAvatarurl();
-                String nick_name = line.getNick_name();
-                String create_time = line.getCreate_time();
-                String expired_time = line.getExpired_time();
-                String book_name = line.getBook_name();
-                budget = line.getBudget();
-                openid = line.getOpenid();
-                String logo = line.getLogo();
-                int id = line.getId();
-                String role_name = "普通会员";
-                if("boss".equals(role)){
-                    role_name = "永久会员";
-                }
-                Integer consume = 0;
-                String location = line.getLocation();
-
-                //json
-                jsonObject.put("id", id);
-                jsonObject.put("role", role);
-                jsonObject.put("location", location);
-                jsonObject.put("avatarurl", avatarurl);
-                jsonObject.put("nick_name", nick_name);
-                jsonObject.put("create_time", create_time);
-                jsonObject.put("expired_time", expired_time);
-                jsonObject.put("openid",openid);
-                jsonObject.put("logo",logo);
-                jsonObject.put("role_name",role_name);
-                jsonObject.put("book_name",book_name);
-                jsonObject.put("budget",budget);
-                jsonObject.put("consume",consume);
-                resul_list.add(jsonObject);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resul_list;
-    }
-
-    @Override
     public List getBBookDetail(String openid,String duration,String book_name) {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
