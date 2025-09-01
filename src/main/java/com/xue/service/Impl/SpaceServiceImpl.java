@@ -103,6 +103,7 @@ public class SpaceServiceImpl implements SpaceService {
                 jsonObject.put("openid",openid);
                 jsonObject.put("logo",logo);
                 jsonObject.put("book_name",book_name);
+                jsonObject.put("openid_qr",openid_qr);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
