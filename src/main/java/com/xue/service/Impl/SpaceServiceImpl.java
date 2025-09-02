@@ -181,5 +181,48 @@ public class SpaceServiceImpl implements SpaceService {
         return resul_list;
     }
 
+    @Override
+    public List getSpaceOrder(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<SpaceOrder> spaceOrders = dao.getSpaceOrderByOpenid(openid);
+            List<BookUser> bookUsers = dao.getBookUser(openid);
+            BookUser bookUser = bookUsers.get(0);
+            String role = bookUser.getRole();
+            if("boss".equals(role)){
+                spaceOrders = dao.getSpaceOrderByOpenidQr(openid);
+            }
+
+            for (int i = 0; i < spaceOrders.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SpaceOrder line = spaceOrders.get(i);
+                //获取字段
+                Integer status = line.getStatus();
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String lesson_id = line.getLesson_id();
+                List<SpaceLesson> spaceLessons = dao.getSpaceLessonById(lesson_id);
+                SpaceLesson spaceLesson = spaceLessons.get(0);
+                String name = spaceLesson.getName();
+                String subject = spaceLesson.getSubject();
+                String price = spaceLesson.getPrice();
+
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("openid", openid);
+                jsonObject.put("name", name);
+                jsonObject.put("subject", subject);
+                jsonObject.put("price", price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("status", status);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
 
 }

@@ -14,5 +14,7 @@ public interface SpaceService {
 
     public List getSpaceLesson(String openid);
 
+    public List getSpaceOrder(String openid);
+
 
 }

@@ -17,8 +17,13 @@ public interface UserMapper {
 
     List<SpaceCases> getSpaceCases(String openid);
 
-
     List<SpaceCases> getSpaceCasesById(String id);
+
+    List<SpaceOrder> getSpaceOrderByOpenidQr(String openid_qr);
+
+    List<SpaceOrder> getSpaceOrderByOpenid(String openid);
+
+    List<SpaceLesson> getSpaceLessonById(String id);
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
 
@@ -222,7 +227,10 @@ public interface UserMapper {
 
     //插入
     int insertBook(Book book);
+
     int insertSpaceTeacher(SpaceTeacher spaceTeacher);
+
+    int insertSpaceOrder(SpaceOrder spaceOrder);
 
     int insertSpaceCases(SpaceCases spaceCases);
 
@@ -354,7 +362,6 @@ public interface UserMapper {
     void deleteShippingFee(Integer id);
 
     void deleteSpaceCases(Integer id);
-
 
     void deleteSpaceLesson(Integer id);
 

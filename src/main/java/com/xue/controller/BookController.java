@@ -266,6 +266,31 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertSpaceOrder")
+	@ResponseBody
+	public String insertSpaceOrder(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String openid_qr = request.getParameter("openid_qr");
+		String lesson_id = request.getParameter("lesson_id");
+
+		SpaceOrder spaceOrder =new SpaceOrder();
+		spaceOrder.setOpenid(openid);
+		spaceOrder.setOpenid_qr(openid_qr);
+		spaceOrder.setLesson_id(lesson_id);
+		spaceOrder.setCreate_time(create_time);
+
+		try {
+			dao.insertSpaceOrder(spaceOrder);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/insertSpaceCases")
 	@ResponseBody
 	public String insertSpaceCases(HttpServletRequest request, HttpServletResponse response){

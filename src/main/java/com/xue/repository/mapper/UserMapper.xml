@@ -160,6 +160,10 @@
   <resultMap id="BaseSpaceLesson" type="com.xue.entity.model.SpaceLesson">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
+  <resultMap id="BaseSpaceOrder" type="com.xue.entity.model.SpaceOrder">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+
 
 
   <!-- 获取全部成绩 -->
@@ -2039,6 +2043,10 @@
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time,unit) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time},#{unit})
   </insert>
 
+  <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
+    insert space_teacher(openid,lesson_id,create_time,openid_qr) values(#{openid},#{lesson_id},#{create_time},#{openid_qr})
+  </insert>
+
   <insert id="insertSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
     insert space_teacher(openid,uuids,intro,create_time) values(#{openid},#{uuids},#{intro},#{create_time})
   </insert>
@@ -2270,6 +2278,19 @@
   <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
     select * from space_cases where id =#{param1}
   </select>
+
+  <select id="getSpaceOrderByOpenidQr" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
+    select * from space_order where openid_qr =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getSpaceOrderByOpenid" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
+    select * from space_order where openid =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getSpaceLessonById" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
+    select * from space_lesson where id =#{param1} and delete_status = 0
+  </select>
+
 
   <!-- 获取总人数 -->
   <select id="getLessonAllCountBySumUp" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
