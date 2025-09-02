@@ -127,7 +127,10 @@ public class BookController {
 				bookUser.setBook_name(content);
 			}else if("location".equals(type)){
 				bookUser.setLocation(content);
+			}else if("phone_number".equals(type)){
+				bookUser.setPhone_number(content);
 			}
+
 
 			dao.updateBookUserDetail(bookUser);
 
