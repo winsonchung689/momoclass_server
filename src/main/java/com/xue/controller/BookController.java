@@ -162,9 +162,9 @@ public class BookController {
 		return 1;
 	}
 
-	@RequestMapping("/getSpaceCasesById")
+	@RequestMapping("/updateSpaceCases")
 	@ResponseBody
-	public int getSpaceCasesById(HttpServletRequest request, HttpServletResponse response){
+	public int updateSpaceCases(HttpServletRequest request, HttpServletResponse response){
 		//获取文字
 		String id = request.getParameter("id");
 		String type = request.getParameter("type");
