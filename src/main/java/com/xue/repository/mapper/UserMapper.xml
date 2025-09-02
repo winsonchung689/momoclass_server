@@ -2031,7 +2031,7 @@
   </insert>
 
   <insert id="insertSpaceCases" parameterType="com.xue.entity.model.SpaceCases">
-    insert space_teacher(openid,student_name,uuids,intro,create_time,subject) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time},#{subject})
+    insert space_cases(openid,student_name,uuids,intro,create_time,subject) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time},#{subject})
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
