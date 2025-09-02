@@ -22,6 +22,9 @@ public interface UserMapper {
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
 
+
+    List<SpaceLesson> getSpaceLesson(String openid);
+
     List<Merchant> getMerchant(String studio,String campus,String appid);
 
     List<Album> getAlbumByType(String studio,String campus,String type,Integer page_start,Integer page_length);

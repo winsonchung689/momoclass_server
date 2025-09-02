@@ -150,5 +150,36 @@ public class SpaceServiceImpl implements SpaceService {
         return resul_list;
     }
 
+    @Override
+    public List getSpaceLesson(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<SpaceLesson> spaceLessons = dao.getSpaceLesson(openid);
+            for (int i = 0; i < spaceLessons.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SpaceLesson line = spaceLessons.get(i);
+                //获取字段
+                String id = line.getId();
+                String name = line.getName();
+                String subject = line.getSubject();
+                String price = line.getPrice();
+                String create_time = line.getCreate_time();
+                openid = line.getOpenid();
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("openid", openid);
+                jsonObject.put("name", name);
+                jsonObject.put("price", price);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
 
 }

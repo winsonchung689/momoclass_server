@@ -12,5 +12,7 @@ public interface SpaceService {
 
     public List getSpaceCases(String openid);
 
+    public List getSpaceLesson(String openid);
+
 
 }
