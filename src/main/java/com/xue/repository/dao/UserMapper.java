@@ -349,6 +349,9 @@ public interface UserMapper {
 
     void deleteShippingFee(Integer id);
 
+
+    void deleteSpaceCases(Integer id);
+
     void deleteAlbum(Integer id);
 
     void deleteMerchant(Integer id);

@@ -428,6 +428,11 @@
     update shipping_fee set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除案例-->
+  <select id="deleteSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
+    update space_cases set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除相册 -->
   <select id="deleteAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseResultMap">
     update album set delete_status = 1 where id = #{param1};
@@ -2243,11 +2248,11 @@
   </select>
 
   <select id="getSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
-    select * from space_cases where openid =#{param1};
+    select * from space_cases where openid =#{param1} and delete_status = 0;
   </select>
 
   <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
-    select * from space_cases where id =#{param1};
+    select * from space_cases where id =#{param1}
   </select>
 
 
