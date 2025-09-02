@@ -2243,11 +2243,11 @@
   </select>
 
   <select id="getSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
-    select * from space_teacher where openid =#{param1};
+    select * from space_cases where openid =#{param1};
   </select>
 
   <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
-    select * from space_teacher where id =#{param1};
+    select * from space_cases where id =#{param1};
   </select>
 
 
