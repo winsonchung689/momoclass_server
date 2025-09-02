@@ -22,7 +22,6 @@ public interface UserMapper {
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
 
-
     List<SpaceLesson> getSpaceLesson(String openid);
 
     List<Merchant> getMerchant(String studio,String campus,String appid);
@@ -355,6 +354,9 @@ public interface UserMapper {
     void deleteShippingFee(Integer id);
 
     void deleteSpaceCases(Integer id);
+
+
+    void deleteSpaceLesson(Integer id);
 
     void deleteAlbum(Integer id);
 

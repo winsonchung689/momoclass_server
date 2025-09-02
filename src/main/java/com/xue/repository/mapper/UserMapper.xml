@@ -436,6 +436,11 @@
     update space_cases set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除课程-->
+  <select id="deleteSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
+    update space_lesson set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除相册 -->
   <select id="deleteAlbum" parameterType="com.xue.entity.model.Album" resultMap="BaseResultMap">
     update album set delete_status = 1 where id = #{param1};

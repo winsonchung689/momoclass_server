@@ -453,6 +453,18 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteSpaceLesson")
+	@ResponseBody
+	public int deleteSpaceLesson(Integer id){
+		try {
+			dao.deleteSpaceLesson(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 }
 	
 	
