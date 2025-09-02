@@ -233,6 +233,33 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertSpaceCases")
+	@ResponseBody
+	public String insertSpaceCases(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String student_name = request.getParameter("student_name");
+		String uuids = request.getParameter("uuids");
+		String intro = request.getParameter("intro");
+
+		SpaceCases spaceCases =new SpaceCases();
+		spaceCases.setOpenid(openid);
+		spaceCases.setStudent_name(student_name);
+		spaceCases.setUuids(uuids);
+		spaceCases.setIntro(intro);
+		spaceCases.setCreate_time(create_time);
+
+		try {
+			dao.insertSpaceCases(spaceCases);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/getSpaceTeacher")
 	@ResponseBody
 	public List getSpaceTeacher(String openid){

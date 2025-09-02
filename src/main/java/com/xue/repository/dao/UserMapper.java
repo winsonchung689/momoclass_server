@@ -219,6 +219,8 @@ public interface UserMapper {
 
     int insertSpaceTeacher(SpaceTeacher spaceTeacher);
 
+    int insertSpaceCases(SpaceCases spaceCases);
+
     int insertShippingFee(ShippingFee shippingFee);
 
     int insertWallet(Wallet wallet);

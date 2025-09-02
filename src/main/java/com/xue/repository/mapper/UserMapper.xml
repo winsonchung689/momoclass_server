@@ -154,6 +154,9 @@
   <resultMap id="BaseSpaceTeacher" type="com.xue.entity.model.SpaceTeacher">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
+  <resultMap id="BaseSpaceCases" type="com.xue.entity.model.SpaceCases">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
 
 
   <!-- 获取全部成绩 -->
@@ -2025,6 +2028,10 @@
 
   <insert id="insertSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
     insert space_teacher(openid,uuids,intro,create_time) values(#{openid},#{uuids},#{intro},#{create_time})
+  </insert>
+
+  <insert id="insertSpaceCases" parameterType="com.xue.entity.model.SpaceCases">
+    insert space_teacher(openid,student_name,uuids,intro,create_time) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time})
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
