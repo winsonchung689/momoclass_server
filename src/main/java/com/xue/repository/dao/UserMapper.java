@@ -17,6 +17,9 @@ public interface UserMapper {
 
     List<SpaceCases> getSpaceCases(String openid);
 
+
+    List<SpaceCases> getSpaceCasesById(String id);
+
     List<SpaceTeacher> getSpaceTeacher(String openid);
 
     List<Merchant> getMerchant(String studio,String campus,String appid);
@@ -1108,6 +1111,8 @@ public interface UserMapper {
     int updateFinalTime(String studio,String campus,String final_time);
 
     int updateSpaceTeacher(SpaceTeacher spaceTeacher);
+
+    int updateSpaceCases(SpaceCases spaceCases);
 
     int updateLeaveTimes(String studio,String campus,String leave_times);
 

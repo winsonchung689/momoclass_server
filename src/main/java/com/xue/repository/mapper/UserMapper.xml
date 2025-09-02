@@ -2246,6 +2246,11 @@
     select * from space_teacher where openid =#{param1};
   </select>
 
+  <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
+    select * from space_teacher where id =#{param1};
+  </select>
+
+
   <!-- 获取总人数 -->
   <select id="getLessonAllCountBySumUp" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
     select count(student_name) lesson_count from class_schedule where studio =#{param1} and student_type ='ordinary' and campus =#{param2} and dayofweek(add_date)=dayofweek(#{param3}) and delete_status = 0
@@ -2717,6 +2722,10 @@
 
   <update id="updateSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
     update space_teacher set uuids=#{uuids},intro=#{intro} where openid=#{openid}
+  </update>
+
+  <update id="updateSpaceCases" parameterType="com.xue.entity.model.SpaceTeacher">
+    update space_cases set uuids=#{uuids},intro=#{intro} where id=#{id}
   </update>
 
   <update id="updateLeaveTimes" parameterType="com.xue.entity.model.Lesson">

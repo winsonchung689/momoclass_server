@@ -162,6 +162,31 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/getSpaceCasesById")
+	@ResponseBody
+	public int getSpaceCasesById(HttpServletRequest request, HttpServletResponse response){
+		//获取文字
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
+		try {
+			List<SpaceCases> spaceCasess = dao.getSpaceCasesById(id);
+			SpaceCases SpaceCases = spaceCasess.get(0);
+
+			if("intro".equals(type)){
+				SpaceCases.setIntro(content);
+			}else if("uuids".equals(type)){
+				SpaceCases.setUuids(content);
+			}
+
+			dao.updateSpaceCases(SpaceCases);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/insertBookDetail")
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){
