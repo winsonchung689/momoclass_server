@@ -2039,6 +2039,10 @@
     insert space_cases(openid,student_name,uuids,intro,create_time,subject) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time},#{subject})
   </insert>
 
+  <insert id="insertSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson">
+    insert space_lesson(openid,name,subject,price,create_time) values(#{openid},#{name},#{subject},#{price},#{create_time})
+  </insert>
+
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
     insert ppt_menu(studio,campus,ppt_name,uuids,category,introduce,price,create_time,uuid,type,size_limit) values(#{studio},#{campus},#{ppt_name},#{uuids},#{category},#{introduce},#{price},#{create_time},#{uuid},#{type},#{size_limit})
   </insert>

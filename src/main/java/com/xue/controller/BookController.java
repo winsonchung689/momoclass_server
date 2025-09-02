@@ -295,6 +295,33 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertSpaceLesson")
+	@ResponseBody
+	public String insertSpaceLesson(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String name = request.getParameter("name");
+		String subject = request.getParameter("subject");
+		String price = request.getParameter("price");
+
+		SpaceLesson spaceLesson =new SpaceLesson();
+		spaceLesson.setOpenid(openid);
+		spaceLesson.setName(name);
+		spaceLesson.setPrice(price);
+		spaceLesson.setSubject(subject);
+		spaceLesson.setCreate_time(create_time);
+
+		try {
+			dao.insertSpaceLesson(spaceLesson);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/getSpaceTeacher")
 	@ResponseBody
 	public List getSpaceTeacher(String openid){
