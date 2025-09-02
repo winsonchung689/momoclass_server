@@ -80,6 +80,10 @@ public class SpaceServiceImpl implements SpaceService {
                 String logo = line.getLogo();
                 int id = line.getId();
                 String location = line.getLocation();
+                String student_name = line.getStudent_name();
+                String phone_number = line.getPhone_number();
+                String my_nick = line.getNick_name();
+                String my_avatarurl = line.getAvatarurl();
 
                 String openid_qr = line.getOpenid_qr();
                 if(!"boss".equals(role)){
@@ -89,12 +93,17 @@ public class SpaceServiceImpl implements SpaceService {
                     nick_name = bookUser.getNick_name();
                     location = bookUser.getLocation();
                     book_name = bookUser.getBook_name();
+                    avatarurl = bookUser.getPhone_number();
                 }
 
 
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("my_nick", my_nick);
+                jsonObject.put("my_avatarurl", my_avatarurl);
                 jsonObject.put("location", location);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("nick_name", nick_name);
