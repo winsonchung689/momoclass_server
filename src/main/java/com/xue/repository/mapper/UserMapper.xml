@@ -2031,7 +2031,7 @@
   </insert>
 
   <insert id="insertSpaceCases" parameterType="com.xue.entity.model.SpaceCases">
-    insert space_teacher(openid,student_name,uuids,intro,create_time) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time})
+    insert space_teacher(openid,student_name,uuids,intro,create_time,subject) values(#{openid},#{student_name},#{uuids},#{intro},#{create_time},#{subject})
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
@@ -2239,6 +2239,10 @@
   </select>
 
   <select id="getSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher" resultMap="BaseSpaceTeacher">
+    select * from space_teacher where openid =#{param1};
+  </select>
+
+  <select id="getSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
     select * from space_teacher where openid =#{param1};
   </select>
 

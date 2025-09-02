@@ -243,6 +243,7 @@ public class BookController {
 		String student_name = request.getParameter("student_name");
 		String uuids = request.getParameter("uuids");
 		String intro = request.getParameter("intro");
+		String subject = request.getParameter("subject");
 
 		SpaceCases spaceCases =new SpaceCases();
 		spaceCases.setOpenid(openid);
@@ -250,6 +251,7 @@ public class BookController {
 		spaceCases.setUuids(uuids);
 		spaceCases.setIntro(intro);
 		spaceCases.setCreate_time(create_time);
+		spaceCases.setSubject(subject);
 
 		try {
 			dao.insertSpaceCases(spaceCases);

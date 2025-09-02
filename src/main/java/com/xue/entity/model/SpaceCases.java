@@ -9,6 +9,8 @@ public class SpaceCases {
 
     private String student_name;
 
+    private String subject;
+
     private String uuids;
 
     private String intro;
@@ -17,6 +19,13 @@ public class SpaceCases {
 
 
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     public String getStudent_name() {
         return student_name;

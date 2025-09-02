@@ -2,10 +2,7 @@ package com.xue.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xue.config.Constants;
-import com.xue.entity.model.BookUser;
-import com.xue.entity.model.Merchant;
-import com.xue.entity.model.SpaceTeacher;
-import com.xue.entity.model.User;
+import com.xue.entity.model.*;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.SpaceService;
 import org.slf4j.Logger;
@@ -55,7 +52,6 @@ public class SpaceServiceImpl implements SpaceService {
         }
         return resul_list;
     }
-
 
     @Override
     public List getBookUser(String openid) {
@@ -113,6 +109,39 @@ public class SpaceServiceImpl implements SpaceService {
                 jsonObject.put("logo",logo);
                 jsonObject.put("book_name",book_name);
                 jsonObject.put("openid_qr",openid_qr);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getSpaceCases(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<SpaceCases> spaceCases = dao.getSpaceCases(openid);
+            for (int i = 0; i < spaceCases.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SpaceCases line = spaceCases.get(i);
+                //获取字段
+                String id = line.getId();
+                String uuids = line.getUuids();
+                String intro = line.getIntro();
+                String create_time = line.getCreate_time();
+                openid = line.getOpenid();
+                String student_name = line.getStudent_name();
+                String subject = line.getSubject();
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("openid", openid);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("intro", intro);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {

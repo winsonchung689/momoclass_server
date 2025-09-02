@@ -15,6 +15,7 @@ public interface UserMapper {
 
     List<Merchant> getMerchantByAppid(String appid);
 
+    List<SpaceCases> getSpaceCases(String openid);
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
 
@@ -216,7 +217,6 @@ public interface UserMapper {
 
     //插入
     int insertBook(Book book);
-
     int insertSpaceTeacher(SpaceTeacher spaceTeacher);
 
     int insertSpaceCases(SpaceCases spaceCases);
