@@ -398,6 +398,18 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/deleteSpaceCases")
+	@ResponseBody
+	public int deleteSpaceCases(Integer id){
+		try {
+			dao.deleteSpaceCases(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 }
 	
 	
