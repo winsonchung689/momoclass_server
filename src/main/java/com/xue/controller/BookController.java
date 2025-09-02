@@ -129,8 +129,9 @@ public class BookController {
 				bookUser.setLocation(content);
 			}else if("phone_number".equals(type)){
 				bookUser.setPhone_number(content);
+			}else if("student_name".equals(type)){
+				bookUser.setStudent_name(content);
 			}
-
 
 			dao.updateBookUserDetail(bookUser);
 
