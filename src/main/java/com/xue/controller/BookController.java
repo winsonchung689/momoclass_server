@@ -178,6 +178,10 @@ public class BookController {
 				SpaceCases.setIntro(content);
 			}else if("uuids".equals(type)){
 				SpaceCases.setUuids(content);
+			}else if("student_name".equals(type)){
+				SpaceCases.setStudent_name(content);
+			}else if("subject".equals(type)){
+				SpaceCases.setSubject(content);
 			}
 
 			dao.updateSpaceCases(SpaceCases);
