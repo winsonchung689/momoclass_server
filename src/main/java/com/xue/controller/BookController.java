@@ -274,6 +274,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getSpaceCases")
+	@ResponseBody
+	public List getSpaceCases(String openid){
+		List list = null;
+		try {
+			list = spaceService.getSpaceCases(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/shareSpaceQrCode")
 	@ResponseBody
 	public JSONObject shareSpaceQrCode(String id){
