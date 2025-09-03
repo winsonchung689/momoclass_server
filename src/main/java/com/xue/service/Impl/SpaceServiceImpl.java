@@ -211,10 +211,15 @@ public class SpaceServiceImpl implements SpaceService {
                 BookUser bookUser1 = bookUsers1.get(0);
                 String nick_name = bookUser1.getNick_name();
                 String student_name = bookUser1.getStudent_name();
-
+                String phone_number = bookUser1.getPhone_number();
+                String status_cn = "未支付";
+                if(status == 1){
+                    status_cn = "已支付";
+                }
 
                 //json
                 jsonObject.put("id", id);
+                jsonObject.put("status_cn", status_cn);
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("name", name);
                 jsonObject.put("subject", subject);
@@ -223,6 +228,7 @@ public class SpaceServiceImpl implements SpaceService {
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
+                jsonObject.put("phone_number", phone_number);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
