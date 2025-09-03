@@ -75,6 +75,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getBookUserByOpenidQr")
+	@ResponseBody
+	public List getBookUserByOpenidQr(String openid){
+		List list = null;
+		try {
+			list = dao.getBookUserByOpenidQr(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getBBookDetail")
 	@ResponseBody
 	public List getBBookDetail(String openid,String duration,String book_name){

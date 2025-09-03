@@ -708,6 +708,8 @@ public interface UserMapper {
 
     List<BookUser> getBookUserById(String id);
 
+    List<BookUser> getBookUserByOpenidQr(String openid_qr);
+
     List<Examination> getExaminationByStudio(String studio,String campus,String type);
 
     List<Examination> getExaminationByStudentName(String studio,String campus,String student_name,String type);
