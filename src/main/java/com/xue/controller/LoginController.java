@@ -5403,7 +5403,7 @@ public class LoginController {
 	public ResponseEntity<byte[]> get_download(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String file_name =  request.getParameter("file_name");
 		String studio =  request.getParameter("studio");
-		studio = studio.replace("/","");
+//		studio = studio.replace("/","");
 		String path = "/data";
 		String p_path = path +"/downloadLesson/"+ studio+"/" +file_name;
 		File file = new File(p_path);
