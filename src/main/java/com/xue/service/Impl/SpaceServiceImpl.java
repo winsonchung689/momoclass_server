@@ -206,16 +206,23 @@ public class SpaceServiceImpl implements SpaceService {
                 String name = spaceLesson.getName();
                 String subject = spaceLesson.getSubject();
                 String price = spaceLesson.getPrice();
+                String openid_get = line.getOpenid();
+                List<BookUser> bookUsers1 = dao.getBookUser(openid_get);
+                BookUser bookUser1 = bookUsers1.get(0);
+                String nick_name = bookUser1.getNick_name();
+                String student_name = bookUser1.getStudent_name();
 
 
                 //json
                 jsonObject.put("id", id);
-                jsonObject.put("openid", openid);
+                jsonObject.put("openid", openid_get);
                 jsonObject.put("name", name);
                 jsonObject.put("subject", subject);
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("student_name", student_name);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
