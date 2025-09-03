@@ -2287,6 +2287,10 @@
     select * from space_order where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getSpaceOrderId" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
+    select * from space_order where id =#{param1}
+  </select>
+
   <select id="getSpaceLessonById" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
     select * from space_lesson where id =#{param1} and delete_status = 0
   </select>
@@ -2763,6 +2767,10 @@
 
   <update id="updateSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
     update space_teacher set uuids=#{uuids},intro=#{intro} where openid=#{openid}
+  </update>
+
+  <update id="updateSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
+    update space_order set status=#{status} where id=#{id}
   </update>
 
   <update id="updateSpaceCases" parameterType="com.xue.entity.model.SpaceCases">

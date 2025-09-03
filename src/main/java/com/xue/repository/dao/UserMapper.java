@@ -23,6 +23,8 @@ public interface UserMapper {
 
     List<SpaceOrder> getSpaceOrderByOpenid(String openid);
 
+    List<SpaceOrder> getSpaceOrderId(String id);
+
     List<SpaceLesson> getSpaceLessonById(String id);
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
@@ -1127,6 +1129,8 @@ public interface UserMapper {
     int updateFinalTime(String studio,String campus,String final_time);
 
     int updateSpaceTeacher(SpaceTeacher spaceTeacher);
+
+    int updateSpaceOrder(SpaceOrder spaceOrder);
 
     int updateSpaceCases(SpaceCases spaceCases);
 
