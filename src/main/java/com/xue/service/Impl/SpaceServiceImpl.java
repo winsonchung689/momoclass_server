@@ -89,7 +89,7 @@ public class SpaceServiceImpl implements SpaceService {
                     nick_name = bookUser.getNick_name();
                     location = bookUser.getLocation();
                     book_name = bookUser.getBook_name();
-                    avatarurl = bookUser.getPhone_number();
+                    avatarurl = bookUser.getAvatarurl();
                 }
 
 
