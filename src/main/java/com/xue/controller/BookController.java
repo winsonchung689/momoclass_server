@@ -56,7 +56,7 @@ public class BookController {
 		bookUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
 		bookUser.setCreate_time(create_time);
 		bookUser.setExpired_time(create_time);
-		bookUser.setOpenid_qr("no_id");
+		bookUser.setOpenid_qr(openid);
 
 		dao.insertBookUser(bookUser);
 
