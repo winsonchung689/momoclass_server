@@ -5401,12 +5401,8 @@ public class LoginController {
 	@RequestMapping("/get_download")
 	@ResponseBody
 	public ResponseEntity<byte[]> get_download(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String file_name =  request.getParameter("file_name");
-		String studio =  request.getParameter("studio");
-//		studio = studio.replace("/","");
-		String path = "/data";
-		String p_path = path +"/downloadLesson/"+ studio+"/" +file_name;
-		File file = new File(p_path);
+		String path =  request.getParameter("path");
+		File file = new File(path);
 		if(file.exists()){
 			org.springframework.http.HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
