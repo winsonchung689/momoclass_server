@@ -143,6 +143,8 @@ public class BookController {
 				bookUser.setPhone_number(content);
 			}else if("student_name".equals(type)){
 				bookUser.setStudent_name(content);
+			}else if("expired_time".equals(type)){
+				bookUser.setExpired_time(content);
 			}
 
 			dao.updateBookUserDetail(bookUser);
