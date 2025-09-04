@@ -4399,6 +4399,8 @@ public class LoginController {
 				library.setIs_public(new_public);
 			}else if("limit_size".equals(type)){
 				library.setLimit_size(Float.parseFloat(content));
+			}else if("subject".equals(type)){
+				library.setSubject(content);
 			}
 
 			dao.updateLibraryDetailById(library);
