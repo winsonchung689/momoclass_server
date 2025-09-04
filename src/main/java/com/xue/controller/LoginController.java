@@ -435,26 +435,26 @@ public class LoginController {
 
 		String result = null;
 
-		List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
-		RestaurantUser restaurantUser = restaurantUsers.get(0);
-		String restaurant = restaurantUser.getRestaurant();
-		String expired_time = restaurantUser.getExpired_time();
-
-		if(("请录入商铺").equals(restaurant)){
-			return "no_studio";
-		}
-
-		long diff = 0;
-		try {
-			Date date1 = df.parse(create_time);
-			Date date2 = df.parse(expired_time);
-			diff = date2.getTime() - date1.getTime();
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-
 		// 蓝桃续费
 		if("蓝桃续费".equals(mark)){
+			List<RestaurantUser> restaurantUsers = dao.getRestaurantUser(openid);
+			RestaurantUser restaurantUser = restaurantUsers.get(0);
+			String restaurant = restaurantUser.getRestaurant();
+			String expired_time = restaurantUser.getExpired_time();
+
+			if(("请录入商铺").equals(restaurant)){
+				return "no_studio";
+			}
+
+			long diff = 0;
+			try {
+				Date date1 = df.parse(create_time);
+				Date date2 = df.parse(expired_time);
+				diff = date2.getTime() - date1.getTime();
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+
 			// 根据时间判断续期起点
 			try {
 				if(diff > 0){
@@ -516,6 +516,40 @@ public class LoginController {
 			loginService.sendFeedback(Constants.order_admin_openid,restaurant,expired_time_new,days.toString(),mark);
 			// 通知客户
 			loginService.sendFeedback(openid,restaurant,expired_time_new,days.toString(),mark);
+		}
+		// 桃子空间
+		if("桃空续费".equals(mark)){
+
+			List<BookUser> bookUsers = dao.getBookUser(openid);
+			BookUser bookUser = bookUsers.get(0);
+			String expired_time = bookUser.getExpired_time();
+
+			long diff = 0;
+			try {
+				Date date1 = df.parse(create_time);
+				Date date2 = df.parse(expired_time);
+				diff = date2.getTime() - date1.getTime();
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+
+			// 根据时间判断续期起点
+			try {
+				if(diff > 0){
+					cal.setTime(df.parse(expired_time));
+				}else {
+					cal.setTime(df.parse(create_time));
+				}
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+			cal.add(cal.DATE,days);
+			String expired_time_new = df.format(cal.getTime());
+
+			bookUser.setExpired_time(expired_time_new);
+			bookUser.setRole("boss");
+
+			dao.updateBookUserDetail(bookUser);
 		}
 
 		return result;
