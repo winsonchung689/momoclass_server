@@ -4357,11 +4357,11 @@ public class LoginController {
 			if("uuid".equals(type)){
 				library.setUuid(content);
 			}else if("is_public".equals(type)){
-				String new_public = "0";
+				int new_public = 1;
 				if("1".equals(content)){
-					new_public = "1";
+					new_public = 0;
 				}
-				library.setIs_public(Integer.parseInt(content));
+				library.setIs_public(new_public);
 			}else if("limit_size".equals(type)){
 				library.setLimit_size(Float.parseFloat(content));
 			}
