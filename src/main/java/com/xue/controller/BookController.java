@@ -541,7 +541,7 @@ public class BookController {
 
 	@RequestMapping("/getLibraryByPublic")
 	@ResponseBody
-	public List getLibraryByPublic(String menu_id){
+	public List getLibraryByPublic(String is_public){
 		List list = null;
 		try {
 			list = dao.getLibraryByPublic(1);
