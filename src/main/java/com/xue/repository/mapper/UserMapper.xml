@@ -1429,7 +1429,7 @@
 
   <!-- 更新课件封面 -->
   <update id="updateLibraryDetailById" parameterType="com.xue.entity.model.Library">
-    update library set limit_size=#{limit_size},is_public=#{is_public},uuid=#{uuid} where id=#{id}
+    update library set subject=#{subject},limit_size=#{limit_size},is_public=#{is_public},uuid=#{uuid} where id=#{id}
   </update>
 
   <!-- 更新ppt -->
