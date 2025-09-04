@@ -55,7 +55,7 @@ public class SpaceServiceImpl implements SpaceService {
 
     @Override
     public List getBookUser(String openid) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String date_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
         List<JSONObject> resul_list = new ArrayList<>();
@@ -71,6 +71,16 @@ public class SpaceServiceImpl implements SpaceService {
                 String nick_name = line.getNick_name();
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
+
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date expired_dt = df.parse(expired_time.substring(0,10));
+                int compare = today_dt.compareTo(expired_dt);
+                if(role.equals("boss") && compare > 0){
+                    line.setRole("client");
+                    dao.updateBookUserDetail(line);
+                }
+
                 String book_name = line.getBook_name();
                 openid = line.getOpenid();
                 String logo = line.getLogo();
