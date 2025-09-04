@@ -10878,12 +10878,19 @@ public class LoginServiceImpl implements LoginService {
 
 
         try {
-            if("全科目".equals(subject)){
-                list = dao.getLessonInName(studio,student_names.toString(),page_start,page_length,campus);
+            if (length>1) {
+                if("全科目".equals(subject)){
+                    list = dao.getLessonInName(studio,student_names.toString(),page_start,page_length,campus);
+                }else {
+                    list = dao.getLessonInNameBySubject(studio,student_names.toString(),page_start,page_length,subject,campus);
+                }
             }else {
-                list = dao.getLessonInNameBySubject(studio,student_names.toString(),page_start,page_length,subject,campus);
+                if("全科目".equals(subject)){
+                    list = dao.getLessonLikeName(studio,student_name,campus);
+                }else {
+                    list = dao.getLessonLikeNameBySubject(studio,student_name,subject,campus);
+                }
             }
-
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
