@@ -484,7 +484,7 @@ public class BookController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cal.add(cal.DATE,0);
+		cal.add(cal.DATE,30);
 		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
