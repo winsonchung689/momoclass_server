@@ -4356,7 +4356,16 @@ public class LoginController {
 			Library library = libraries.get(0);
 			if("uuid".equals(type)){
 				library.setUuid(content);
+			}else if("is_public".equals(type)){
+				String new_public = "0";
+				if("1".equals(content)){
+					new_public = "1";
+				}
+				library.setIs_public(Integer.parseInt(content));
+			}else if("limit_size".equals(type)){
+				library.setLimit_size(Float.parseFloat(content));
 			}
+
 			dao.updateLibraryDetailById(library);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
