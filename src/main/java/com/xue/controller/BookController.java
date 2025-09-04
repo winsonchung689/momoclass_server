@@ -484,7 +484,7 @@ public class BookController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		cal.add(cal.DATE,30);
+		cal.add(cal.DATE,0);
 		String expired_time = df.format(cal.getTime());
 
 		//获取用户名
@@ -510,6 +510,7 @@ public class BookController {
 		bookUser.setCreate_time(create_time);
 		bookUser.setOpenid_qr(openid_qr);
 		bookUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
+		bookUser.setExpired_time(expired_time);
 
 		dao.insertBookUser(bookUser);
 		return "push massage successfully";
