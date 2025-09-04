@@ -512,7 +512,11 @@ public class BookController {
 		bookUser.setAvatarurl("525addcc-03e8-427f-944a-ac4ff38383b3.png");
 		bookUser.setExpired_time(expired_time);
 
-		dao.insertBookUser(bookUser);
+		List<BookUser> bookUsers1 = dao.getBookUser(openid);
+		if(bookUsers1.size() == 0){
+			dao.insertBookUser(bookUser);
+		}
+
 		return "push massage successfully";
 	}
 
