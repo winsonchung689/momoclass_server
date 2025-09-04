@@ -539,6 +539,18 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/getLibraryByPublic")
+	@ResponseBody
+	public List getLibraryByPublic(String menu_id){
+		List list = null;
+		try {
+			list = dao.getLibraryByPublic(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }
 	
 	

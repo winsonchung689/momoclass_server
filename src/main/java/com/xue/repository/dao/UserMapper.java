@@ -694,7 +694,10 @@ public interface UserMapper {
 
     List<PptMenu> getPptMenuById(String id);
 
+
     List<Library> getLibraryById(String id);
+
+    List<Library> getLibraryByPublic(Integer is_public);
 
     List<Departure> getDepartureRecordByStudio(String studio,String campus);
 

@@ -15,7 +15,19 @@ public class Library {
 
     private String uuid;
 
+    private Integer is_public;
 
+    private Float limit_size;
+
+
+
+    public Integer getIs_public() {
+        return is_public;
+    }
+
+    public void setIs_public(Integer is_public) {
+        this.is_public = is_public;
+    }
 
     public String getUuid() {
         return uuid;
@@ -63,6 +75,14 @@ public class Library {
 
     public void setSize(Float size) {
         this.size = size;
+    }
+
+    public Float getLimit_size() {
+        return limit_size;
+    }
+
+    public void setLimit_size(Float limit_size) {
+        this.limit_size = limit_size;
     }
     
 }
