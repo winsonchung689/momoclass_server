@@ -126,6 +126,7 @@ public class WechatPayController {
 					dao.updateStatusByOrderNo(order_no,3);
 					book.setType("支出");
 				}
+
 				if (mark.contains("小桃子续费")) {
 					book.setType("支出");
 				}
