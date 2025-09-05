@@ -100,6 +100,7 @@ public class SpaceServiceImpl implements SpaceService {
                     location = bookUser.getLocation();
                     book_name = bookUser.getBook_name();
                     avatarurl = bookUser.getAvatarurl();
+                    id = bookUser.getId();
                 }
 
 
