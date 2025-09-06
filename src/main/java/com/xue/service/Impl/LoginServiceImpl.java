@@ -5790,7 +5790,7 @@ public class LoginServiceImpl implements LoginService {
 
                                 if("all".equals(type) || studio.equals(studio_in)){
                                     String timestamp_start_str = df.format(timestamp_start);
-                                    if(timestamp_start_str.equals(td_date)){
+                                    if(timestamp_start_str.equals(td_date) && timestamp_start >= td_time){
                                         jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                                     }
                                 }
@@ -5822,7 +5822,6 @@ public class LoginServiceImpl implements LoginService {
             List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
             for(int i=0;i<result.size();i++){
                 String item = result.get(i);
-                System.out.println("item:" + item);
                 String[] item_list = item.split(",");
                 String remind_type = item_list[0];
                 String openid = item_list[1];
