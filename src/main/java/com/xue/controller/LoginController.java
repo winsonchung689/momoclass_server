@@ -4669,6 +4669,10 @@ public class LoginController {
 				student_name = "无学生";
 			}
 
+			if (duration == null || duration.isEmpty() || "undefined".equals(duration)){
+				duration = "00:00-00:00";
+			}
+
 			List<User> users = dao.getUser(openid);
 			User user = users.get(0);
 			String campus = user.getCampus();
@@ -6257,15 +6261,19 @@ public class LoginController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
-		//获取日期
-		String add_date = request.getParameter("add_date");
-		//获年龄段
-		String age = request.getParameter("age");
-		//获取名字
-		String student_name = request.getParameter("student_name");
-		//获取时间段
-		String duration = request.getParameter("duration");
+		// 获取ID
 		String id = request.getParameter("id");
+		// 获取日期
+		String add_date = request.getParameter("add_date");
+		// 获年龄段
+		String age = request.getParameter("age");
+		// 获取名字
+		String student_name = request.getParameter("student_name");
+		// 获取时间段
+		String duration = request.getParameter("duration");
+		if (duration == null || duration.isEmpty() || "undefined".equals(duration)){
+			duration = "00:00-00:00";
+		}
 
 		String openid = request.getParameter("openid");
 		List<User> list_users = dao.getUser(openid);
@@ -6273,7 +6281,7 @@ public class LoginController {
 		String campus = list_user.getCampus();
 		int hours = list_user.getHours();
 
-		//获取学生类型
+		// 获取学生类型
 		String student_type = request.getParameter("student_type");
 
 		String studio = request.getParameter("studio");
