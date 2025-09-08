@@ -41,7 +41,7 @@ public class SpringbootLoginApplication {
 		SpringApplication.run(SpringbootLoginApplication.class, args);
 	}
 
-	// 注意：AI发布需要注释掉所有定时任务
+	// 注意：AI发布需要注释掉所有定时任务 1.秒 2.分钟 3.小时 4.日期 5.月份 6.星期（0和7都代表周日）
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void sendBossPayRemind(){
 		loginService.sendBossPayRemind();
@@ -57,7 +57,7 @@ public class SpringbootLoginApplication {
 		loginService.updateCoinsLevel();
 	}
 
-	@Scheduled(cron = "0 0 * * * ?")
+	@Scheduled(cron = "0 45 * * * ?")
 	public void produceClassRemindRedis(){
 		loginService.produceClassRemindRedis("none","all");
 	}
