@@ -5920,7 +5920,7 @@ public class LoginServiceImpl implements LoginService {
                             }
                         }
 
-                        // 催续费通知 优先课包余课时
+                        // 优先课包余课时
                         List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
                         if(lessonPackages.size() > 0){
                             LessonPackage lessonPackage = lessonPackages.get(0);
