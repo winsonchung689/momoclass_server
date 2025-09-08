@@ -5771,6 +5771,8 @@ public class LoginServiceImpl implements LoginService {
                                 if(is_repeat == 1 && !repeat_week_list.contains(weekDay_ta.toString())){
                                     send_status = now_date;
                                 }
+                            }else{
+                                remind = 0;
                             }
 
                             // 判断是否已发
