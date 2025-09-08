@@ -5884,30 +5884,65 @@ public class LoginServiceImpl implements LoginService {
                 if (lessons.size() > 0) {
                     for (int j = 0; j < lessons.size(); j++) {
                         Lesson lesson = lessons.get(j);
+                        String subject_get = lesson.getSubject();
                         Float left_amount = lesson.getLeft_amount();
                         String student_lesson = lesson.getStudent_name();
                         String student_split = student_lesson.split("_")[0];
                         Integer urge_payment = lesson.getUrge_payment();
+
+                        String token = getToken("MOMO_OFFICIAL");
+                        String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+                        String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
+
+                        // 余课时通知
                         if (student_split.equals(student_name) && left_amount <= 2 && urge_payment == 0) {
-                            String token = getToken("MOMO_OFFICIAL");
-                            String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
-                            String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
                             if (!"no_id".equals(official_openid)) {
                                 String[] official_list = official_openid.split(",");
                                 for (int k = 0; k < official_list.length; k++) {
                                     String official_openid_get = official_list[k];
                                     JSONObject queryJson2 = JSONObject.parseObject(model);
                                     queryJson2.put("touser", official_openid_get);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get);
                                     queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
                                     queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                     HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                 }
                             }
                         }
+
+                        // 催续费通知 优先课包余课时
+                        List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
+                        if(lessonPackages.size() > 0){
+                            LessonPackage lessonPackage = lessonPackages.get(0);
+                            String package_id = lessonPackage.getId();
+                            Float all_lesson = lessonPackage.getAll_lesson();
+                            Float give_lesson = lessonPackage.getGive_lesson();
+                            List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_get,campus,package_id);
+                            Float package_sum = 0.0f;
+                            if(signUps.size()>0){
+                                for (int idx = 0; idx < signUps.size(); idx++) {
+                                    Float count = signUps.get(idx).getCount();
+                                    package_sum = package_sum + count;
+                                }
+                            }
+                            Float lesson_left = all_lesson + give_lesson - package_sum;
+                            if(student_split.equals(student_name) && lesson_left <= 2 && urge_payment == 0){
+                                if (!"no_id".equals(official_openid)) {
+                                    String[] official_list = official_openid.split(",");
+                                    for (int k = 0; k < official_list.length; k++) {
+                                        String official_openid_get = official_list[k];
+                                        JSONObject queryJson2 = JSONObject.parseObject(model);
+                                        queryJson2.put("touser", official_openid_get);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_在用课包");
+                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + lesson_left + "课时");
+                                        queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                        HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-
 
                 // 删除已处理任务
                 jedis.zrem("delay_queue",item);
