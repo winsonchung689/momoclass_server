@@ -5779,13 +5779,21 @@ public class LoginServiceImpl implements LoginService {
                                 if("统一提醒次日".equals(remindType)){
                                     taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000+","+tm_date;
                                 }else if("提前N小时提醒".equals(remindType)){
-                                    String send_day = upComing + " " + duration.split("-")[0]+":00";
-                                    Date send_date = df_now.parse(send_day);
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.setTime(send_date);
-                                    calendar.add(Calendar.HOUR,-hours_prev);
-                                    timestamp_start = calendar.getTimeInMillis();
-                                    taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+upComing;
+                                    String[] duration_list = duration.split("-");
+                                    if(duration_list.length == 2){
+                                        String class_start = duration_list[0];
+                                        try {
+                                            String send_day = upComing + " " + class_start+":00";
+                                            Date send_date = df_now.parse(send_day);
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(send_date);
+                                            calendar.add(Calendar.HOUR,-hours_prev);
+                                            timestamp_start = calendar.getTimeInMillis();
+                                            taskData = "today"+","+openid+","+id+","+timestamp_start/1000+","+upComing;
+                                        } catch (ParseException e) {
+//                                            throw new RuntimeException(e);
+                                        }
+                                    }
                                 }
 
                                 if("all".equals(type) || studio.equals(studio_in)){
