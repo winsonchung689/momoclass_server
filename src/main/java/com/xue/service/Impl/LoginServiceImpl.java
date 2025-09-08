@@ -5912,8 +5912,8 @@ public class LoginServiceImpl implements LoginService {
                                     String official_openid_get = official_list[k];
                                     JSONObject queryJson2 = JSONObject.parseObject(model);
                                     queryJson2.put("touser", official_openid_get);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get);
-                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + left_amount + "课时");
+                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
                                     queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                     HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                 }
@@ -5943,8 +5943,8 @@ public class LoginServiceImpl implements LoginService {
                                         String official_openid_get = official_list[k];
                                         JSONObject queryJson2 = JSONObject.parseObject(model);
                                         queryJson2.put("touser", official_openid_get);
-                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_在用课包");
-                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", student_lesson + "剩下" + lesson_left + "课时");
+                                        queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
+                                        queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "在用课包剩下" + lesson_left + "课时");
                                         queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                         HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                     }
