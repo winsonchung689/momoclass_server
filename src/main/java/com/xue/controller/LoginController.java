@@ -2738,8 +2738,9 @@ public class LoginController {
 			CommunicateRecord communicateRecord = communicateRecords.get(0);
 			String studio = communicateRecord.getStudio();
 			String campus = communicateRecord.getCampus();
+			String student_name = communicateRecord.getStudent_name();
 
-			dao.deleteCommunicateRecordByStudent(id,studio,campus);
+			dao.deleteCommunicateRecordByStudent(student_name,studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
