@@ -5549,6 +5549,9 @@ public class LoginController {
 			String uuids = "no_id";
 			String phone_number = "无";
 			String teacher = "无";
+			String age = "无";
+			String subject = "无";
+			String birthday = "无";
 
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
@@ -5559,10 +5562,16 @@ public class LoginController {
 						for(int j=0;j<sheet.getColumns();j++){
 							Cell cell=sheet.getCell(j, i);
 							if(0==j){
-								student_name = cell.getContents();
+								subject = cell.getContents();
 							}else if(1==j){
-								phone_number = cell.getContents();
+								student_name = cell.getContents();
 							}else if(2==j){
+								age =cell.getContents();
+							}else if(3==j){
+								birthday =cell.getContents();
+							}else if(4==j){
+								phone_number =cell.getContents();
+							}else if(5==j){
 								teacher =cell.getContents();
 							}
 						}
@@ -5578,6 +5587,9 @@ public class LoginController {
 						communicateRecord.setUuids(uuids);
 						communicateRecord.setPhone_number(phone_number);
 						communicateRecord.setTeacher(teacher);
+						communicateRecord.setSubject(subject);
+						communicateRecord.setAge(age);
+						communicateRecord.setBirthday(birthday);
 
 						dao.insertCommunicateRecord(communicateRecord);
 					}
@@ -6235,7 +6247,9 @@ public class LoginController {
 		String teacher = request.getParameter("teacher");
 		String content = request.getParameter("content");
 		String uuids = request.getParameter("uuids").replace("\"","").replace("[","").replace("]","");
-
+		String age = request.getParameter("age");
+		String subject = request.getParameter("subject");
+		String birthday = request.getParameter("birthday");
 
 		try {
 			List<User> users = dao.getUser(openid);
@@ -6255,6 +6269,10 @@ public class LoginController {
 			communicateRecord.setUuids(uuids);
 			communicateRecord.setPhone_number(phone_number);
 			communicateRecord.setTeacher(teacher);
+			communicateRecord.setAge(age);
+			communicateRecord.setSubject(subject);
+			communicateRecord.setBirthday(birthday);
+
 
 			dao.insertCommunicateRecord(communicateRecord);
 		} catch (Exception e) {

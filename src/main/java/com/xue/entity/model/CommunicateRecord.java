@@ -29,7 +29,37 @@ public class CommunicateRecord {
 
     private String type;
 
+    private String age;
 
+    private String subject;
+
+    private String birthday;
+
+
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getType() {
         return type;

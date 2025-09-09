@@ -7581,6 +7581,9 @@ public class LoginServiceImpl implements LoginService {
                     status = "已报课";
                 }
                 String type = communicateRecord.getType();
+                String age = communicateRecord.getAge();
+                String subject = communicateRecord.getSubject();
+                String birthday = communicateRecord.getBirthday();
 
                 //json
                 jsonObject.put("type", type);

@@ -1026,7 +1026,7 @@
 
   <!-- 插入沟通记录 -->
   <insert id="insertCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord">
-    insert communicate_record(student_name,studio,campus,content,openid,create_time,uuids,phone_number,teacher,nick_name) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time},#{uuids},#{phone_number},#{teacher},#{nick_name})
+    insert communicate_record(student_name,studio,campus,content,openid,create_time,uuids,phone_number,teacher,nick_name,age,subject,birthday) values(#{student_name},#{studio},#{campus},#{content},#{openid},#{create_time},#{uuids},#{phone_number},#{teacher},#{nick_name},#{age},#{subject},#{birthday})
   </insert>
 
   <!-- 插入课评 -->
