@@ -195,7 +195,7 @@ public interface UserMapper {
 
     List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
 
-    List<CommunicateRecord> getCommunicateByStudent(String studio,String item,String campus);
+    List<CommunicateRecord> getCommunicateByStudent(String studio,String campus,String item);
 
     List<CommunicateRecord> getCommunicateById(String id);
 
@@ -275,7 +275,9 @@ public interface UserMapper {
 
     void deleteBookDetail(Integer id,String studio);
 
-    void deleteCommunicateRecord(Integer id,String studio);
+    void deleteCommunicateRecord(Integer id);
+
+    void deleteCommunicateRecordByStudent(String id,String studio,String campus);
 
     void updateUuids(Integer id,String studio,String uuids,String vuuid);
 

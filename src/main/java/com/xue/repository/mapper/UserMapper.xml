@@ -282,7 +282,7 @@
   </select>
 
   <select id="getCommunicateByStudent" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
-    select * from communicate_record where delete_status = 0 and studio =#{param1} and student_name = #{param2} and campus =#{param3} order by create_time desc desc;
+    select * from communicate_record where delete_status = 0 and studio =#{param1} and campus =#{param2} and student_name = #{param3} order by create_time desc;
   </select>
 
   <select id="getCommunicateById" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
@@ -506,12 +506,16 @@
 
 
   <!-- 删除账单 -->
-  <select id="deleteBookDetail" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
+  <select id="deleteBookDetail" parameterType="com.xue.entity.model.Book" resultMap="BaseResultMap">
     update account_book set delete_status = 1 where id =#{param1} and studio =#{param2}
   </select>
 
-  <select id="deleteCommunicateRecord" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    update communicate_record set delete_status = 1 where id =#{param1} and studio =#{param2}
+  <select id="deleteCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseResultMap">
+    update communicate_record set delete_status = 1 where id =#{param1}
+  </select>
+
+  <select id="deleteCommunicateRecordByStudent" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseResultMap">
+    update communicate_record set delete_status = 1 where student_name =#{param1} and studio =#{param2} and campus =#{param3}
   </select>
 
   <!-- 获取详情 -->

@@ -2720,16 +2720,26 @@ public class LoginController {
 
 	@RequestMapping("/deleteCommunicateRecord")
 	@ResponseBody
-	public int deleteCommunicateRecord(Integer id,String studio,String openid){
+	public int deleteCommunicateRecord(Integer id){
 		try {
-			List<User> list = dao.getUser(openid);
-			String studio_get = list.get(0).getStudio();
+			dao.deleteCommunicateRecord(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 
-			if (studio_get.equals(studio)) {
-				dao.deleteCommunicateRecord(id,studio);
-			}else {
-				logger.error("it's not your studio, could not delete!");
-			}
+	@RequestMapping("/deleteCommunicateRecordByStudent")
+	@ResponseBody
+	public int deleteCommunicateRecordByStudent(String id){
+		try {
+			List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+			CommunicateRecord communicateRecord = communicateRecords.get(0);
+			String studio = communicateRecord.getStudio();
+			String campus = communicateRecord.getCampus();
+
+			dao.deleteCommunicateRecordByStudent(id,studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
