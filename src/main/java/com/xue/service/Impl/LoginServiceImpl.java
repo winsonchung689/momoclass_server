@@ -7595,6 +7595,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("openid",openid_get);
                 jsonObject.put("id",id);
+                jsonObject.put("age",age);
+                jsonObject.put("subject",subject);
+                jsonObject.put("birthday",birthday);
+
 
                 if(!student_list.contains(student_name)){
                     resul_list.add(jsonObject);
