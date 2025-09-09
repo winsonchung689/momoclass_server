@@ -195,7 +195,7 @@ public interface UserMapper {
 
     List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
 
-    List<CommunicateRecord> getCommunicateLike(String studio,String item,String campus);
+    List<CommunicateRecord> getCommunicateByStudent(String studio,String item,String campus);
 
     List<CommunicateRecord> getCommunicateById(String id);
 

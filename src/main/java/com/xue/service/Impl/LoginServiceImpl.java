@@ -7929,7 +7929,7 @@ public class LoginServiceImpl implements LoginService {
     public List getCommunicateLike(String studio,String item,String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<CommunicateRecord> list = dao.getCommunicateLike(studio, item, campus);
+            List<CommunicateRecord> list = dao.getCommunicateByStudent(studio, item, campus);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord line = list.get(i);
