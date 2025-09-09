@@ -4503,6 +4503,21 @@ public class LoginController {
 			}else if("类型".equals(type)){
 				String student_name = communicateRecord.getStudent_name();
 				dao.updateCommunicateType(student_name,content);
+			}else if("学生名".equals(type)){
+				communicateRecord.setStudent_name(content);
+				dao.updateCommunicateDetail(communicateRecord);
+			}else if("科目".equals(type)){
+				communicateRecord.setSubject(content);
+				dao.updateCommunicateDetail(communicateRecord);
+			}else if("电话".equals(type)){
+				communicateRecord.setPhone_number(content);
+				dao.updateCommunicateDetail(communicateRecord);
+			}else if("年龄".equals(type)){
+				communicateRecord.setAge(content);
+				dao.updateCommunicateDetail(communicateRecord);
+			}else if("出生日期".equals(type)){
+				communicateRecord.setBirthday(content);
+				dao.updateCommunicateDetail(communicateRecord);
 			}
 
 		} catch (Exception e) {
