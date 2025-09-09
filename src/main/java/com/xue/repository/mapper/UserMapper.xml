@@ -278,7 +278,7 @@
   </select>
 
   <select id="getCommunicateRecordByPhone" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
-    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and phone_number =#{param3}
+    select distinct student_name,phone_number from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and phone_number =#{param3}
   </select>
 
   <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
