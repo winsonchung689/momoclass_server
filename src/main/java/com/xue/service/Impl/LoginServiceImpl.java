@@ -7573,6 +7573,10 @@ public class LoginServiceImpl implements LoginService {
                 String openid_get = communicateRecord.getOpenid();
                 String nick_name = communicateRecord.getNick_name();
                 String phone_number = communicateRecord.getPhone_number();
+
+                List<CommunicateRecord> communicateRecords1 = dao.getCommunicateRecordByPhone(studio,campus,phone_number);
+                Integer phone_count = communicateRecords1.size();
+
                 String teacher = communicateRecord.getTeacher();
                 String id = communicateRecord.getId();
                 String status = "未报课";
@@ -7598,7 +7602,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("age",age);
                 jsonObject.put("subject",subject);
                 jsonObject.put("birthday",birthday);
-
+                jsonObject.put("phone_count",phone_count);
 
                 if(!student_list.contains(student_name)){
                     resul_list.add(jsonObject);

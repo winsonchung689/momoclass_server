@@ -277,6 +277,10 @@
     select * from class_comment where class_target_bak ='网课' and openid =#{param1}  and delete_status = 0
   </select>
 
+  <select id="getCommunicateRecordByPhone" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and phone_number =#{param3}
+  </select>
+
   <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
