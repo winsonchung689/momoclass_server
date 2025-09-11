@@ -7595,6 +7595,7 @@ public class LoginServiceImpl implements LoginService {
                 String birthday = communicateRecord.getBirthday();
 
                 //json
+                jsonObject.put("rank", page_length*page + i + 1);
                 jsonObject.put("type", type);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
