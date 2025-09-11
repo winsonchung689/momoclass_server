@@ -11321,25 +11321,35 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getRating(String studio,String student_name,Integer page,String subject,String openid) {
-        Float total_amount = 0.0f;
-        Float left_amount = 0.0f;
-        String create_time = null;
-        String id = null;
-        Float percent = 0.0f;
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
-        List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
-        String subject_get = null;
-        Integer dayofweek_by = 0;
 
-        List<User> list_user = dao.getUser(openid);
-        User user_r = list_user.get(0);
-        String campus = user_r.getCampus();
-        String role = user_r.getRole();
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
+        String role = user.getRole();
+
+        List<String> student_list = new ArrayList<>();
+        for (int idx = 0; idx < users.size(); idx++) {
+            User line = users.get(idx);
+            String student_name_get = line.getStudent_name();
+            List<Lesson> lessons = dao.getLessonByName(student_name_get,studio,campus);
+            if(lessons.size()>0){
+                for(int ii = 0;ii < lessons.size(); ii ++){
+                    Lesson lesson = lessons.get(ii);
+                    String student_lesson = lesson.getStudent_name();
+                    String student_split = student_lesson.split("_")[0];
+                    if(student_split.equals(student_name_get)){
+                        student_list.add(student_split);
+                    }
+                }
+            }
+        }
 
         try {
-            if(student_name.equals("all")){
+            List<Lesson> list = null;
+            if("boss".equals(role) || "teacher".equals(role)){
                 if(subject.equals("全科目")){
                     list = dao.getRating(studio,page_start,page_length,campus);
                 }else {
@@ -11360,12 +11370,12 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 Integer point_status = line.getPoint_status();
                 student_name = line.getStudent_name();
-                total_amount = line.getTotal_amount();
-                left_amount = line.getLeft_amount();
-                percent = (float) Math.round(left_amount * 100 / total_amount);
-                id = line.getId();
-                create_time = line.getCreate_time();
-                subject_get = line.getSubject();
+                Float total_amount = line.getTotal_amount();
+                Float left_amount = line.getLeft_amount();
+                Float percent = (float) Math.round(left_amount * 100 / total_amount);
+                String id = line.getId();
+                String create_time = line.getCreate_time();
+                String subject_get = line.getSubject();
                 Float points = 0.0f;
                 List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
                 if(points1.size()>0){
@@ -11393,10 +11403,13 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject_get", subject_get);
                 jsonObject.put("point_status", point_status);
                 jsonObject.put("uuid", uuid);
-                resul_list.add(jsonObject);
 
+                if("client".equals(role) && student_list.contains(student_name)){
+                    resul_list.add(jsonObject);
+                }else{
+                    resul_list.add(jsonObject);
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
