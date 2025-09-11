@@ -4532,6 +4532,9 @@ public class LoginController {
 			}else if("出生日期".equals(type)){
 				communicateRecord.setBirthday(content);
 				dao.updateCommunicateDetail(communicateRecord);
+			}else if("备注".equals(type)){
+				communicateRecord.setMark(content);
+				dao.updateCommunicateDetail(communicateRecord);
 			}
 
 		} catch (Exception e) {
