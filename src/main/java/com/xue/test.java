@@ -27,8 +27,10 @@ public class test {
         int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
         long td_time = cal_today.getTimeInMillis();
         String td_date = df.format(td_time);
+        LocalDate localDate = LocalDate.parse("2025-09-11");
+        Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-        System.out.println(td_time);
+        System.out.println(weekDayChoose);
         System.out.println(td_date);
 
         try {
