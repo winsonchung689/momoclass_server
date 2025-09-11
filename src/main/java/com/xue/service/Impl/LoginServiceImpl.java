@@ -7555,7 +7555,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getNewUserByPage(String openid,Integer page) {
+    public List getNewUserByPage(String openid,Integer page,String type) {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
@@ -7567,9 +7567,15 @@ public class LoginServiceImpl implements LoginService {
             String studio = user.getStudio();
 
             List<CommunicateRecord> communicateRecords_all = dao.getCommunicateRecordByAll(studio,campus);
+            if(!"全部".equals(type)){
+                communicateRecords_all = dao.getCommunicateRecordByType(studio,campus,type);
+            }
             int all_counts = communicateRecords_all.size();
 
             List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, page_start, page_length,campus);
+            if(!"全部".equals(type)){
+                communicateRecords = dao.getCommunicateRecordByPageType(studio,page_start,page_length,campus,type);
+            }
             for (int i = 0; i < communicateRecords.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord communicateRecord = communicateRecords.get(i);
@@ -7591,14 +7597,14 @@ public class LoginServiceImpl implements LoginService {
                 if(lessons.size() > 0){
                     status = "已报课";
                 }
-                String type = communicateRecord.getType();
+                String type_get = communicateRecord.getType();
                 String age = communicateRecord.getAge();
                 String subject = communicateRecord.getSubject();
                 String birthday = communicateRecord.getBirthday();
 
                 //json
                 jsonObject.put("rank", page_start + i + 1);
-                jsonObject.put("type", type);
+                jsonObject.put("type", type_get);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);

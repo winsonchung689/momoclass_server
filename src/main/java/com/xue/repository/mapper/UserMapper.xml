@@ -285,8 +285,16 @@
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2}
   </select>
 
+  <select id="getCommunicateRecordByType" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and type =#{param3}
+  </select>
+
   <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
+  </select>
+
+  <select id="getCommunicateRecordByPageType" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} and type =#{param5} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <select id="getCommunicateByStudent" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">

@@ -2180,10 +2180,10 @@ public class LoginController {
 	//	获取新用户
 	@RequestMapping("/getNewUserByPage")
 	@ResponseBody
-	public List getNewUserByPage(String openid,Integer page){
+	public List getNewUserByPage(String openid,Integer page,String type){
 		List list = null;
 		try {
-			list = loginService.getNewUserByPage(openid,page);
+			list = loginService.getNewUserByPage(openid,page,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
