@@ -7601,9 +7601,11 @@ public class LoginServiceImpl implements LoginService {
                 String age = communicateRecord.getAge();
                 String subject = communicateRecord.getSubject();
                 String birthday = communicateRecord.getBirthday();
+                String mark = communicateRecord.getMark();
 
                 //json
                 jsonObject.put("rank", page_start + i + 1);
+                jsonObject.put("mark", mark);
                 jsonObject.put("type", type_get);
                 jsonObject.put("status", status);
                 jsonObject.put("nick_name", nick_name);
@@ -7977,9 +7979,11 @@ public class LoginServiceImpl implements LoginService {
                 String age = line.getAge();
                 String subject = line.getSubject();
                 String birthday = line.getBirthday();
+                String mark = line.getMark();
 
 
                 //json
+                jsonObject.put("mark", mark);
                 jsonObject.put("type", type_get);
                 jsonObject.put("age", age);
                 jsonObject.put("subject", subject);

@@ -5581,6 +5581,7 @@ public class LoginController {
 			String age = "无";
 			String subject = "无";
 			String birthday = "无";
+			String mark = "无";
 
 			Workbook book=Workbook.getWorkbook(temp);
 			Sheet sheet=book.getSheet(0);
@@ -5602,6 +5603,8 @@ public class LoginController {
 								phone_number =cell.getContents();
 							}else if(5==j){
 								teacher =cell.getContents();
+							}else if(6==j){
+								mark =cell.getContents();
 							}
 						}
 
@@ -5619,6 +5622,7 @@ public class LoginController {
 						communicateRecord.setSubject(subject);
 						communicateRecord.setAge(age);
 						communicateRecord.setBirthday(birthday);
+						communicateRecord.setMark(mark);
 
 						dao.insertCommunicateRecord(communicateRecord);
 					}

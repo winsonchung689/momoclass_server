@@ -35,7 +35,16 @@ public class CommunicateRecord {
 
     private String birthday;
 
+    private String mark;
 
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
 
     public String getBirthday() {
         return birthday;
