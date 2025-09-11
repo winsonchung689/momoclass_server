@@ -5639,7 +5639,7 @@ public class LoginServiceImpl implements LoginService {
                             } catch (ParseException e) {
                                 throw new RuntimeException(e);
                             }
-                            if(compare > 0){
+                            if(compare >= 0){
                                 if("统一提醒次日".equals(remindType)){
                                     if(weekDay_tomorrow==1){
                                         weekofday = 7;
