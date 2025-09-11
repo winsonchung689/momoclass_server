@@ -293,6 +293,10 @@
     select * from communicate_record where delete_status = 0 and studio =#{param1} and campus =#{param2} and student_name = #{param3} order by create_time desc;
   </select>
 
+  <select id="getCommunicateByLike" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio =#{param1} and campus =#{param2} and (student_name like "%"#{param3}"%" or phone_number like "%"#{param3}"%") order by create_time desc;
+  </select>
+
   <select id="getCommunicateById" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where id =#{param1} ;
   </select>

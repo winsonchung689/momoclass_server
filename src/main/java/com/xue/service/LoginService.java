@@ -37,6 +37,8 @@ public interface LoginService {
 
     public List  getCommunicateLike(String studio,String item,String campus);
 
+    public List  getCommunicateByStudent(String studio,String campus,String student_name);
+
     public List  getMamaShare(Integer page);
 
     public List  getLesson(String studio,String student_name,String subject,String campus);

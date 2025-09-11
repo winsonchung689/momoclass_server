@@ -201,6 +201,8 @@ public interface UserMapper {
 
     List<CommunicateRecord> getCommunicateByStudent(String studio,String campus,String item);
 
+    List<CommunicateRecord> getCommunicateByLike(String studio,String campus,String item);
+
     List<CommunicateRecord> getCommunicateById(String id);
 
     List<Message> getMamaShare(Integer page_start,Integer page_end);

@@ -7946,7 +7946,7 @@ public class LoginServiceImpl implements LoginService {
     public List getCommunicateLike(String studio,String item,String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<CommunicateRecord> list = dao.getCommunicateByStudent(studio,campus,item);
+            List<CommunicateRecord> list = dao.getCommunicateByLike(studio,campus,item);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord line = list.get(i);
@@ -7986,6 +7986,49 @@ public class LoginServiceImpl implements LoginService {
         return resul_list;
     }
 
+    @Override
+    public List getCommunicateByStudent(String studio,String campus,String student_name) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<CommunicateRecord> list = dao.getCommunicateByStudent(studio,campus,student_name);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                CommunicateRecord line = list.get(i);
+                //获取字段
+                String student_name_get = line.getStudent_name();
+                String content = line.getContent();
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String nick_name = line.getNick_name();
+                String uuids = line.getUuids();
+                String status_cn = "沟通中";
+                Integer status = line.getStatus();
+                if(status == 1){
+                    status_cn = "已完成";
+                }
+                String teacher = line.getTeacher();
+                String phone_number = line.getPhone_number();
+
+                //json
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("status_cn", status_cn);
+                jsonObject.put("teacher", teacher);
+                jsonObject.put("student_name", student_name_get);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
+                jsonObject.put("content", content);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("nick_name",nick_name);
+                jsonObject.put("uuids",uuids);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
     @Override
     public List getMamaShare(Integer page) {
         byte[] photo = null;
