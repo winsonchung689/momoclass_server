@@ -97,7 +97,7 @@ public interface UserMapper {
 
     List<Schedule> getScheduleByUser(Integer date_time,String studio,String student_name,String campus);
 
-    List<Schedule> getScheduleByUserDurationSt(Integer date_time,String studio,String student_name,String campus,String duration_st,String duration_ed);
+    List<Schedule> getScheduleByUserDurationSt(Integer date_time,String studio,String student_name,String campus,String duration_st,String duration_ed,String class_number,String subject);
 
     List<Schedule> getSchedule(Integer date_time,String studio,String subject,String campus);
 

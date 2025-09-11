@@ -5627,6 +5627,8 @@ public class LoginServiceImpl implements LoginService {
                             String repeat_end = repeat_duration.split(",")[1];
                             String duration = arrangement.getDuration();
                             String duration_start = duration.split("-")[0];
+                            String subject = arrangement.getSubject();
+                            String class_number = arrangement.getClass_number();
 
                             // 判断是否在期内
                             Long compare = 0L;
@@ -5654,7 +5656,7 @@ public class LoginServiceImpl implements LoginService {
                                     }
                                 }
                                 if(repeat_week_list.contains(weekofday.toString())){
-                                    List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start);
+                                    List<Schedule> list_schedule_get = dao.getScheduleByUserDurationSt(dayofweek_in,studio,student_name,campus,duration_start,duration_start,class_number,subject);
                                     for(int idx = 0; idx < list_schedule_get.size(); idx++){
                                         list_schedule_get.get(idx).setUpcoming(td_date);
                                     }
