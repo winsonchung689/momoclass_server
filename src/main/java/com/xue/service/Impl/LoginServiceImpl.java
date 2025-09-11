@@ -11383,7 +11383,6 @@ public class LoginServiceImpl implements LoginService {
                         Float point = points1.get(j).getPoints();
                         points = points + point;
                     }
-
                 }
 
                 String uuid = line.getUuid();
@@ -11406,7 +11405,7 @@ public class LoginServiceImpl implements LoginService {
 
                 if("client".equals(role) && student_list.contains(student_name)){
                     resul_list.add(jsonObject);
-                }else{
+                }else if("boss".equals(role) || "teacher".equals(role)){
                     resul_list.add(jsonObject);
                 }
             }
