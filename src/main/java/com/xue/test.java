@@ -27,27 +27,25 @@ public class test {
         int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
         long td_time = cal_today.getTimeInMillis();
         String td_date = df.format(td_time);
-        LocalDate localDate = LocalDate.parse("2025-09-11");
+        LocalDate localDate = LocalDate.parse("2022-05-08");
         Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-        System.out.println(weekDayChoose);
+        System.out.println(weekDay_today);
         System.out.println(td_date);
 
+        Long compare = 10L;
         try {
-            String send_day = "2025-08-15" + " " + "10:00:00";
-            Date send_date = df_now.parse(send_day);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(send_date);
-            calendar.add(Calendar.HOUR,-5);
-            long timestamp_start = calendar.getTimeInMillis();
-            String timestamp_start_str = df.format(timestamp_start);
-
-            System.out.println(timestamp_start);
-            if(!td_date.equals(timestamp_start_str)){
-                System.out.println(timestamp_start_str);
+            Date today_dt = df.parse("2025-09-11");
+            Date expired_dt = df.parse("2025-01-01");
+            Long day2 = expired_dt.getTime();
+            Long day1 = today_dt.getTime();
+            compare = (day2 - day1)/(24*3600*1000);
+            System.out.println(day2);
+            System.out.println(day1);
+            System.out.println(compare);
+            if(compare > 0){
+                System.out.printf("aa");
             }
-
-
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

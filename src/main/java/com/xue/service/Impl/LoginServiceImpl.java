@@ -5595,7 +5595,6 @@ public class LoginServiceImpl implements LoginService {
                 String now_date = df.format(date);
 
                 //获取发送时间戳
-//                String date_time = null;
                 long timestamp_start = 0l;
                 try {
                     Date date_now = df_now.parse(now_date + " " + send_time);
@@ -5630,7 +5629,7 @@ public class LoginServiceImpl implements LoginService {
                             String duration_start = duration.split("-")[0];
 
                             // 判断是否在期内
-                            Long compare = 10L;
+                            Long compare = 0L;
                             try {
                                 Date today_dt = df.parse(now_date.substring(0,10));
                                 Date expired_dt = df.parse(repeat_end);
