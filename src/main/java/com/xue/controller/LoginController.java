@@ -6305,7 +6305,7 @@ public class LoginController {
 			communicateRecord.setAge(age);
 			communicateRecord.setSubject(subject);
 			communicateRecord.setBirthday(birthday);
-
+			communicateRecord.setMark("无");
 
 			dao.insertCommunicateRecord(communicateRecord);
 		} catch (Exception e) {
