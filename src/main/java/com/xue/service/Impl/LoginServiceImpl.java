@@ -7970,8 +7970,21 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String teacher = line.getTeacher();
                 String phone_number = line.getPhone_number();
+                List<CommunicateRecord> communicateRecords1 = dao.getCommunicateRecordByPhone(studio,campus,phone_number);
+                Integer phone_count = communicateRecords1.size();
+
+                String type_get = line.getType();
+                String age = line.getAge();
+                String subject = line.getSubject();
+                String birthday = line.getBirthday();
+
 
                 //json
+                jsonObject.put("type", type_get);
+                jsonObject.put("age", age);
+                jsonObject.put("subject", subject);
+                jsonObject.put("birthday", birthday);
+                jsonObject.put("phone_count", phone_count);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("status_cn", status_cn);
                 jsonObject.put("teacher", teacher);
@@ -8014,8 +8027,16 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String teacher = line.getTeacher();
                 String phone_number = line.getPhone_number();
+                String type_get = line.getType();
+                String age = line.getAge();
+                String subject = line.getSubject();
+                String birthday = line.getBirthday();
 
                 //json
+                jsonObject.put("birthday", birthday);
+                jsonObject.put("type", type_get);
+                jsonObject.put("age", age);
+                jsonObject.put("subject", subject);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("status_cn", status_cn);
                 jsonObject.put("teacher", teacher);
