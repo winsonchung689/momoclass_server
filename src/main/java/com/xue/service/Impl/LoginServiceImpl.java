@@ -7553,16 +7553,21 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getNewUser(String openid) {
+    public List getNewUserByPage(String openid,Integer page) {
         List<JSONObject> resul_list = new ArrayList<>();
-        List<String> student_list = new ArrayList<>();
+        Integer page_start = (page - 1) * 10;
+        Integer page_length = 10;
+
         try {
             List<User> users = dao.getUser(openid);
             User user = users.get(0);
             String campus = user.getCampus();
             String studio = user.getStudio();
 
-            List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, 0, 1000,campus);
+            List<CommunicateRecord> communicateRecords_all = dao.getCommunicateRecordByAll(studio,campus);
+            int all_counts = communicateRecords_all.size();
+
+            List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, page_start, page_length,campus);
             for (int i = 0; i < communicateRecords.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord communicateRecord = communicateRecords.get(i);
@@ -7603,11 +7608,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject",subject);
                 jsonObject.put("birthday",birthday);
                 jsonObject.put("phone_count",phone_count);
+                jsonObject.put("all_counts",all_counts);
 
-                if(!student_list.contains(student_name)){
-                    resul_list.add(jsonObject);
-                    student_list.add(student_name);
-                }
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();

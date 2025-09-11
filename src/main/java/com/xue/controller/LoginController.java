@@ -2164,12 +2164,12 @@ public class LoginController {
 	}
 
 	//	获取新用户
-	@RequestMapping("/getNewUser")
+	@RequestMapping("/getNewUserByPage")
 	@ResponseBody
-	public List getNewUser(String openid){
+	public List getNewUserByPage(String openid,Integer page){
 		List list = null;
 		try {
-			list = loginService.getNewUser(openid);
+			list = loginService.getNewUserByPage(openid,page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

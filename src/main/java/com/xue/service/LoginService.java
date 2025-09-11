@@ -23,7 +23,7 @@ public interface LoginService {
 
     public List  getUserByOpenid(String openid);
 
-    public List  getNewUser(String openid);
+    public List  getNewUserByPage(String openid,Integer page);
 
     public List  getContract(String openid);
 
