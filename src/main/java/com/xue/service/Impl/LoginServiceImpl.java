@@ -11369,7 +11369,7 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 Integer point_status = line.getPoint_status();
-                student_name = line.getStudent_name();
+                String student_name_get = line.getStudent_name();
                 Float total_amount = line.getTotal_amount();
                 Float left_amount = line.getLeft_amount();
                 Float percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -11377,7 +11377,7 @@ public class LoginServiceImpl implements LoginService {
                 String create_time = line.getCreate_time();
                 String subject_get = line.getSubject();
                 Float points = 0.0f;
-                List<Points> points1 = dao.getPointsRecordByStudent(student_name,studio,campus,subject_get,"2000-01-01","2100-01-01");
+                List<Points> points1 = dao.getPointsRecordByStudent(student_name_get,studio,campus,subject_get,"2000-01-01","2100-01-01");
                 if(points1.size()>0){
                     for(int j = 0; j < points1.size(); j++){
                         Float point = points1.get(j).getPoints();
@@ -11391,7 +11391,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
-                jsonObject.put("student_name", student_name);
+                jsonObject.put("student_name", student_name_get);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
                 jsonObject.put("id", id);
@@ -11403,7 +11403,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("point_status", point_status);
                 jsonObject.put("uuid", uuid);
 
-                if("client".equals(role) && student_list.contains(student_name)){
+                if("client".equals(role) && student_list.contains(student_name_get)){
                     resul_list.add(jsonObject);
                 }else if("boss".equals(role) || "teacher".equals(role)){
                     resul_list.add(jsonObject);
