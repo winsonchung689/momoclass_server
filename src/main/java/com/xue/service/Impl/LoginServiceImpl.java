@@ -11357,9 +11357,9 @@ public class LoginServiceImpl implements LoginService {
                 }
             }else {
                 if(subject.equals("全科目")){
-                    list = dao.getRatingByName(studio,student_name,page_start,page_length);
+                    list = dao.getLessonInName(studio,student_name,page_start,page_length,campus);
                 }else {
-                    list = dao.getRatingByNameBySubject(studio,student_name,page_start,page_length,subject);
+                    list = dao.getLessonInNameBySubject(studio,student_name,page_start,page_length,subject,campus);
                 }
             }
 
