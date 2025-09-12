@@ -11325,7 +11325,7 @@ public class LoginServiceImpl implements LoginService {
         Integer page_length = 10;
         List<JSONObject> resul_list = new ArrayList<>();
 
-        List<User> users = dao.getUser(openid);
+        List<User> users = dao.getUserByOpenid(openid);
         User user = users.get(0);
         String campus = user.getCampus();
         String role = user.getRole();
