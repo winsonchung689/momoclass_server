@@ -1536,6 +1536,22 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getCommunicateRecordAllTeacher")
+	@ResponseBody
+	public List getCommunicateRecordAllTeacher(String openid){
+		List list = null;
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+			list = dao.getCommunicateRecordAllTeacher(studio,campus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getCommunicateRecord")
 	@ResponseBody
 	public List getCommunicateRecord(String studio,Integer page,String openid){

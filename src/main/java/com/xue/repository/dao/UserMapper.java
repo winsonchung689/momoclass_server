@@ -211,6 +211,8 @@ public interface UserMapper {
 
     List<CommunicateRecord> getCommunicateRecordByPhone(String studio,String campus,String phone_number);
 
+    List<CommunicateRecord> getCommunicateRecordAllTeacher(String studio,String campus);
+
     List<CommunicateRecord> getCommunicateByStudent(String studio,String campus,String item);
 
     List<CommunicateRecord> getCommunicateByLike(String studio,String campus,String item);
