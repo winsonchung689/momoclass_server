@@ -4554,6 +4554,9 @@ public class LoginController {
 			}else if("备注".equals(type)){
 				communicateRecord.setMark(content);
 				dao.updateCommunicateDetail(communicateRecord);
+			}else if("负责人".equals(type)){
+				communicateRecord.setTeacher(content);
+				dao.updateCommunicateDetail(communicateRecord);
 			}
 
 		} catch (Exception e) {
