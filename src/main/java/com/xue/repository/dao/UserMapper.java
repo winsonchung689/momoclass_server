@@ -193,14 +193,21 @@ public interface UserMapper {
 
     List<Message> getOnlineTeacherByOpenid(String openid);
 
-    List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
+    List<CommunicateRecord> getCommunicateRecordTeacher(String studio,Integer page_start,Integer page_end,String campus,String teacher);
 
+    List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);
 
     List<CommunicateRecord> getCommunicateRecordByPageType(String studio,Integer page_start,Integer page_end,String campus,String type);
 
+    List<CommunicateRecord> getCommunicateRecordByPageTypeTeacher(String studio,Integer page_start,Integer page_end,String campus,String type,String teacher);
+
     List<CommunicateRecord> getCommunicateRecordByAll(String studio,String campus);
 
+    List<CommunicateRecord> getCommunicateRecordByAllTeacher(String studio,String campus,String teacher);
+
     List<CommunicateRecord> getCommunicateRecordByType(String studio,String campus,String type);
+
+    List<CommunicateRecord> getCommunicateRecordByTypeTeacher(String studio,String campus,String type,String teacher);
 
     List<CommunicateRecord> getCommunicateRecordByPhone(String studio,String campus,String phone_number);
 

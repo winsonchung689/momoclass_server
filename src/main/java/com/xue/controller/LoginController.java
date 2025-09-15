@@ -2180,10 +2180,13 @@ public class LoginController {
 	//	获取新用户
 	@RequestMapping("/getNewUserByPage")
 	@ResponseBody
-	public List getNewUserByPage(String openid,Integer page,String type){
+	public List getNewUserByPage(String openid,Integer page,String type,String teacher){
 		List list = null;
+		if(teacher == null || teacher.isEmpty() || "undefined".equals(teacher)){
+			teacher = "全部";
+		}
 		try {
-			list = loginService.getNewUserByPage(openid,page,type);
+			list = loginService.getNewUserByPage(openid,page,type,teacher);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

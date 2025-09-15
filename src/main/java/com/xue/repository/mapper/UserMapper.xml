@@ -281,16 +281,32 @@
     select distinct student_name,phone_number from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and phone_number =#{param3}
   </select>
 
+  <select id="getCommunicateRecordByAllTeacher" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and teacher =#{param3}
+  </select>
+
   <select id="getCommunicateRecordByAll" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2}
+  </select>
+
+  <select id="getCommunicateRecordByTypeTeacher" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and type =#{param3} and teacher =#{param4}
   </select>
 
   <select id="getCommunicateRecordByType" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and type =#{param3}
   </select>
 
+  <select id="getCommunicateRecordTeacher" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} and teacher =#{param5} order by create_time desc,id asc limit #{param2},#{param3};
+  </select>
+
   <select id="getCommunicateRecord" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
+  </select>
+
+  <select id="getCommunicateRecordByPageTypeTeacher" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
+    select * from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param4} and type =#{param5} and teacher =#{param6} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
   <select id="getCommunicateRecordByPageType" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">

@@ -7556,7 +7556,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getNewUserByPage(String openid,Integer page,String type) {
+    public List getNewUserByPage(String openid,Integer page,String type,String teacher) {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
@@ -7567,16 +7567,32 @@ public class LoginServiceImpl implements LoginService {
             String campus = user.getCampus();
             String studio = user.getStudio();
 
+            // 计算记录数
             List<CommunicateRecord> communicateRecords_all = dao.getCommunicateRecordByAll(studio,campus);
+            if(!"全部".equals(teacher)){
+                communicateRecords_all = dao.getCommunicateRecordByAllTeacher(studio,campus,teacher);
+            }
             if(!"全部".equals(type)){
                 communicateRecords_all = dao.getCommunicateRecordByType(studio,campus,type);
+                if(!"全部".equals(teacher)){
+                    communicateRecords_all = dao.getCommunicateRecordByTypeTeacher(studio,campus,type,teacher);
+                }
             }
             int all_counts = communicateRecords_all.size();
 
+            // 获取记录数
             List<CommunicateRecord> communicateRecords = dao.getCommunicateRecord(studio, page_start, page_length,campus);
+            if(!"全部".equals(teacher)){
+                communicateRecords = dao.getCommunicateRecordTeacher(studio,page_start,page_length,campus,teacher);
+            }
             if(!"全部".equals(type)){
                 communicateRecords = dao.getCommunicateRecordByPageType(studio,page_start,page_length,campus,type);
+                if(!"全部".equals(teacher)){
+                    communicateRecords = dao.getCommunicateRecordByPageTypeTeacher(studio,page_start,page_length,campus,type,teacher);
+                }
             }
+
+
             for (int i = 0; i < communicateRecords.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 CommunicateRecord communicateRecord = communicateRecords.get(i);
@@ -7591,7 +7607,7 @@ public class LoginServiceImpl implements LoginService {
                 List<CommunicateRecord> communicateRecords1 = dao.getCommunicateRecordByPhone(studio,campus,phone_number);
                 Integer phone_count = communicateRecords1.size();
 
-                String teacher = communicateRecord.getTeacher();
+                String teacher_get = communicateRecord.getTeacher();
                 String id = communicateRecord.getId();
                 String status = "未报课";
                 List<Lesson> lessons = dao.getLessonByName(student_name,studio,campus);
@@ -7612,7 +7628,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("phone_number",phone_number);
-                jsonObject.put("teacher",teacher);
+                jsonObject.put("teacher",teacher_get);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("openid",openid_get);
                 jsonObject.put("id",id);
