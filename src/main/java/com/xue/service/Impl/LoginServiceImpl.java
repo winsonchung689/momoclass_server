@@ -7972,11 +7972,6 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<CommunicateRecord> list = dao.getCommunicateByLike(studio,campus,item);
-            if("导出".equals(item)){
-                list = dao.getCommunicateRecordByAll(studio,campus);
-            }
-            String title = "序号,科目,学生名,年龄,出生日期,家长电话,负责老师,备注";
-            List<String> data_list = new ArrayList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -8024,13 +8019,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name",nick_name);
                 jsonObject.put("uuids",uuids);
                 resul_list.add(jsonObject);
-
-                if("导出".equals(item)){
-                    String data_line = i  + "," + subject + "," + student_name + "," + age + "," + birthday + "," + phone_number + "," + teacher  + "," + mark;
-                    data_list.add(data_line);
-                }
             }
-            downloadByOpenid(studio,"o25ly6whIE5oBYdDjc2M4afnxQmU",data_list,title,"communicate");
         } catch (Exception e) {
             e.printStackTrace();
         }
