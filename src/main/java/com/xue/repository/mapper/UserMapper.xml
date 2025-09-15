@@ -2014,6 +2014,10 @@
     update communicate_record set type=#{param2} where student_name =#{param1}
   </update>
 
+  <update id="updateCommunicateNewTeacher" parameterType="com.xue.entity.model.CommunicateRecord">
+    update communicate_record set teacher=#{param1} where studio =#{param2} and campus =#{param3} and teacher =#{param4} order by create_time desc limit #{param5}
+  </update>
+
   <!-- 更新选课 -->
   <update id="updateBossLessons" parameterType="com.xue.entity.model.User">
     update user set lessons=#{lessons} where openid = #{openid}

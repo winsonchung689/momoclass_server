@@ -4480,6 +4480,28 @@ public class LoginController {
 
 	}
 
+	@RequestMapping("/updateCommunicateNewTeacher")
+	@ResponseBody
+	public int updateCommunicateNewTeacher(HttpServletRequest request, HttpServletResponse response){
+		String id = request.getParameter("id");
+		String new_teacher = request.getParameter("new_teacher");
+		String counts = request.getParameter("counts");
+
+		try {
+			List<CommunicateRecord> communicateRecords = dao.getCommunicateById(id);
+			CommunicateRecord communicateRecord = communicateRecords.get(0);
+			String studio = communicateRecord.getStudio();
+			String campus = communicateRecord.getCampus();
+			String teacher = communicateRecord.getTeacher();
+
+			dao.updateCommunicateNewTeacher(new_teacher,studio,campus,teacher,Integer.parseInt(counts));
+		} catch (NumberFormatException e) {
+			throw new RuntimeException(e);
+		}
+
+		return 1;
+	}
+
 	@RequestMapping("/updateCommunicate")
 	@ResponseBody
 	public int updateCommunicate(HttpServletRequest request, HttpServletResponse response){

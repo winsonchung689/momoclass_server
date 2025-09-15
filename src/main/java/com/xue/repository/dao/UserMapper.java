@@ -563,6 +563,8 @@ public interface UserMapper {
 
     int updateCommunicateType(String student_name,String type);
 
+    int updateCommunicateNewTeacher(String new_teacher,String studio,String campus,String teacher,Integer counts);
+
     int updateBossLessons(User user);
 
     int updateSchedule(Schedule schedule);
