@@ -6455,82 +6455,77 @@ public class LoginController {
 			dayofweek = 7;
 		}
 
-
 		Schedule schedule =new Schedule();
-		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
-			for (int i=0; i < list.size();i++){
-				String list_student = list.get(i);
-				schedule.setAdd_date(add_date);
-				schedule.setAge(age);
-				schedule.setStudent_name(list_student);
-				schedule.setDuration(duration);
-				schedule.setCreate_time(create_time);
-				schedule.setUpdate_time(create_time);
-				schedule.setStudio(studio);
-				schedule.setStudent_type(student_type);
-				schedule.setStatus(status);
-				schedule.setClass_number(class_number);
-				schedule.setSubject(subject);
-				schedule.setIs_try(Integer.parseInt(is_try));
-				schedule.setCampus(campus);
-				schedule.setHours(hours);
-				schedule.setRemind(1);
-				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
-				if(check_schedule.size()==0){
-					loginService.insertSchedule(schedule);
-					// 判断课表
-					List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration,subject,campus);
-					if(arrangement_list.size() == 0){
-						int is_repeat = 0;
-						String repeat_week = "1,2,3,4,5,6,7";
-						if("transferred".equals(student_type)){
-							is_repeat = 1;
-							repeat_week = dayofweek.toString();
-						}
-						Arrangement arrangement =new Arrangement();
-						arrangement.setDayofweek(dayofweek.toString());
-						arrangement.setClass_number(class_number);
-						arrangement.setDuration(duration);
-						arrangement.setLimits("0");
-						arrangement.setStudio(studio);
-						arrangement.setSubject(subject);
-						arrangement.setCampus(campus);
-						arrangement.setIs_repeat(is_repeat);
-						arrangement.setHours(hours);
-						arrangement.setRemind(1);
-						arrangement.setRepeat_duration(add_date + "," + add_date);
-						arrangement.setRepeat_week(repeat_week);
-						arrangement.setClass_type(0);
-						loginService.insertArrangement(arrangement);
-						// 判断选课
-						String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
-						List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-						if(users.size() == 0){
-							String lesson = list_user.getLessons();
-							String new_lesson = lesson + "|" + chooseLesson;
-							list_user.setLessons(new_lesson);
-							loginService.updateBossLessons(list_user);
-						}
+			schedule.setAdd_date(add_date);
+			schedule.setAge(age);
+			schedule.setStudent_name(student_name);
+			schedule.setDuration(duration);
+			schedule.setCreate_time(create_time);
+			schedule.setUpdate_time(create_time);
+			schedule.setStudio(studio);
+			schedule.setStudent_type(student_type);
+			schedule.setStatus(status);
+			schedule.setClass_number(class_number);
+			schedule.setSubject(subject);
+			schedule.setIs_try(Integer.parseInt(is_try));
+			schedule.setCampus(campus);
+			schedule.setHours(hours);
+			schedule.setRemind(1);
+			List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,student_name);
+			if(check_schedule.size()==0){
+				loginService.insertSchedule(schedule);
+				// 判断课表
+				List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration,subject,campus);
+				if(arrangement_list.size() == 0){
+					int is_repeat = 0;
+					String repeat_week = "1,2,3,4,5,6,7";
+					if("transferred".equals(student_type)){
+						is_repeat = 1;
+						repeat_week = dayofweek.toString();
+					}
+					Arrangement arrangement =new Arrangement();
+					arrangement.setDayofweek(dayofweek.toString());
+					arrangement.setClass_number(class_number);
+					arrangement.setDuration(duration);
+					arrangement.setLimits("0");
+					arrangement.setStudio(studio);
+					arrangement.setSubject(subject);
+					arrangement.setCampus(campus);
+					arrangement.setIs_repeat(is_repeat);
+					arrangement.setHours(hours);
+					arrangement.setRemind(1);
+					arrangement.setRepeat_duration(add_date + "," + add_date);
+					arrangement.setRepeat_week(repeat_week);
+					arrangement.setClass_type(0);
+					loginService.insertArrangement(arrangement);
+					// 判断选课
+					String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
+					List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+					if(users.size() == 0){
+						String lesson = list_user.getLessons();
+						String new_lesson = lesson + "|" + chooseLesson;
+						list_user.setLessons(new_lesson);
+						loginService.updateBossLessons(list_user);
+					}
+				}
+
+				//预约
+				if("星期8".equals(weekofday)){
+					List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
+					Arrangement arrangement = arrangements.get(0);
+					String dayofweek_get = arrangement.getDayofweek();
+					// 先发家长
+					sendBookSuccess(openid,duration,student_name,add_date,class_number);
+					// 后发选课老师
+					String chooseLesson = "星期"+  dayofweek_get + "," + subject + "," + class_number + "," + duration ;
+					List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
+					for(int j=0;j<users.size();j++){
+						User user = users.get(j);
+						String openid_get = user.getOpenid();
+						sendBookSuccess(openid_get,duration,student_name,add_date,class_number);
 					}
 
-					//预约
-					if("星期8".equals(weekofday)){
-						List<Arrangement> arrangements = dao.getArrangementById(studio,Integer.parseInt(id));
-						Arrangement arrangement = arrangements.get(0);
-						String dayofweek_get = arrangement.getDayofweek();
-						// 先发家长
-						sendBookSuccess(openid,duration,student_name,add_date,class_number);
-						// 后发选课老师
-						String chooseLesson = "星期"+  dayofweek_get + "," + subject + "," + class_number + "," + duration ;
-						List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-						for(int j=0;j<users.size();j++){
-							User user = users.get(j);
-							String openid_get = user.getOpenid();
-							sendBookSuccess(openid_get,duration,student_name,add_date,class_number);
-						}
-
-					}
 				}
 			}
 		} catch (Exception e) {
@@ -6882,31 +6877,26 @@ public class LoginController {
 //			throw new RuntimeException(e);
 		}
 
-
 		Schedule schedule =new Schedule();
-		List<String> list = Arrays.asList(student_name.split(" "));
 		try {
-			for (int i=0; i < list.size();i++){
-				String list_student = list.get(i);
-				schedule.setAdd_date(add_date);
-				schedule.setAge("3-6");
-				schedule.setStudent_name(list_student);
-				schedule.setDuration(duration);
-				schedule.setCreate_time(create_time);
-				schedule.setUpdate_time(create_time);
-				schedule.setStudio(studio);
-				schedule.setClass_number(class_number);
-				schedule.setStudent_type(student_type);
-				schedule.setStatus(Integer.parseInt(status));
-				schedule.setSubject(subject);
-				schedule.setCampus(campus);
-				schedule.setRemind(remind);
-				schedule.setIs_try(Integer.parseInt(is_try));
-				schedule.setHours(hours);
-				List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,list_student);
-				if(check_schedule.size()==0){
-					loginService.insertSchedule(schedule);
-				}
+			schedule.setAdd_date(add_date);
+			schedule.setAge("3-6");
+			schedule.setStudent_name(student_name);
+			schedule.setDuration(duration);
+			schedule.setCreate_time(create_time);
+			schedule.setUpdate_time(create_time);
+			schedule.setStudio(studio);
+			schedule.setClass_number(class_number);
+			schedule.setStudent_type(student_type);
+			schedule.setStatus(Integer.parseInt(status));
+			schedule.setSubject(subject);
+			schedule.setCampus(campus);
+			schedule.setRemind(remind);
+			schedule.setIs_try(Integer.parseInt(is_try));
+			schedule.setHours(hours);
+			List<Schedule> check_schedule = dao.getScheduleCheck(add_date,duration,class_number,subject,studio,campus,student_name);
+			if(check_schedule.size()==0){
+				loginService.insertSchedule(schedule);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
