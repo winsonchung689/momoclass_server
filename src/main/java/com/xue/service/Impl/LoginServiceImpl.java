@@ -6198,6 +6198,8 @@ public class LoginServiceImpl implements LoginService {
             Integer sign_sum = 0;
             String title = "科目,名字,班号,上课日,签到日,备注,课时,课均单价";
             List<String> data_list = new ArrayList<>();
+
+            // 总计
             if(page == 1){
                 if("普通".equals(type)){
                     // 签到记录相关计算
@@ -6211,6 +6213,7 @@ public class LoginServiceImpl implements LoginService {
                         String sign_time = line.getSign_time();
                         String mark = line.getMark();
                         String class_number_get = line.getClass_number();
+                        String package_id = line.getPackage_id();
 
                         Float total_money = 0.0f;
                         Float discount_money = 0.0f;
@@ -6221,13 +6224,7 @@ public class LoginServiceImpl implements LoginService {
 
                         // 计算金额
                         try {
-                            List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus);
-                            if(lessons.size()>0){
-                                Lesson lesson = lessons.get(0);
-                                price = lesson.getPrice();
-                            }
-
-                            List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                            List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
                             if(lessonPackages.size()>0){
                                 for(int j = 0; j < lessonPackages.size(); j++){
                                     LessonPackage lessonPackage = lessonPackages.get(j);
@@ -6276,7 +6273,8 @@ public class LoginServiceImpl implements LoginService {
                 resul_list.add(jsonObject_all);
                 downloadByOpenid(studio,openid,data_list,title,"form");
             }
-            //普通签到
+
+            // 签到明细
             if("普通".equals(type)){
                 List<SignUp> list_detail = dao.getStudentByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
                 for (int j = 0; j < list_detail.size(); j++) {
@@ -6290,6 +6288,8 @@ public class LoginServiceImpl implements LoginService {
                     Float count = line.getCount();
                     String campus_get = line.getCampus();
                     String class_number_get = line.getClass_number();
+                    String package_id = line.getPackage_id();
+
                     Float price = 0.0f;
                     Float total_money = 0.0f;
                     Float discount_money = 0.0f;
@@ -6297,12 +6297,7 @@ public class LoginServiceImpl implements LoginService {
                     Float given_lesson = 0.0f;
 
                     // 计算单价
-                    List<Lesson> lessons = dao.getLessonByNameSubjectAll(student_name,studio,subject,campus_get);
-                    if(lessons.size()>0){
-                        Lesson lesson = lessons.get(0);
-                        price = lesson.getPrice();
-                    }
-                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus_get,subject);
+                    List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
                     if(lessonPackages.size()>0){
                         for(int k = 0; k < lessonPackages.size(); k++){
                             LessonPackage lessonPackage = lessonPackages.get(k);
@@ -6356,7 +6351,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
             }
-            //卡签
             if("卡签".equals(type)){
                 List<CardRecord> list_detail = dao.getCardRecordByTeacherByDurationByPage(studio,nick_name,date_start,date_end,page_start,page_length);
                 for(int j = 0;j<list_detail.size();j++){
