@@ -9280,7 +9280,7 @@ public class LoginServiceImpl implements LoginService {
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
@@ -9395,7 +9395,7 @@ public class LoginServiceImpl implements LoginService {
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
@@ -9513,7 +9513,7 @@ public class LoginServiceImpl implements LoginService {
                             try {
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
@@ -9649,7 +9649,7 @@ public class LoginServiceImpl implements LoginService {
                                 //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
@@ -9784,8 +9784,7 @@ public class LoginServiceImpl implements LoginService {
                                 //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float total_amount = lessons.get(0).getTotal_amount();
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
@@ -9925,7 +9924,7 @@ public class LoginServiceImpl implements LoginService {
                                 //获取课时数
                                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
                                 if(lessons.size()>0){
-                                    Float price = lessons.get(0).getPrice();
+                                    Float price = 0.0f;
                                     Float total_money = 0.0f;
                                     Float dis_money = 0.0f;
                                     Float all_lesson = 0.0f;
