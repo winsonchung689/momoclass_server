@@ -8691,7 +8691,7 @@ public class LoginServiceImpl implements LoginService {
 
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
 
                 DecimalFormat df = new DecimalFormat("0.00");
@@ -10212,7 +10212,7 @@ public class LoginServiceImpl implements LoginService {
                 String age = line.getAge();
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
                 String school = line.getSchool();
                 String location = line.getLocation();
@@ -10506,7 +10506,7 @@ public class LoginServiceImpl implements LoginService {
 
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
 
                 DecimalFormat df = new DecimalFormat("0.00");
@@ -10778,7 +10778,7 @@ public class LoginServiceImpl implements LoginService {
                 String related_id = line.getRelated_id();
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
 
                 String combine = "分";
@@ -11070,7 +11070,7 @@ public class LoginServiceImpl implements LoginService {
 
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
                 Integer point_status = line.getPoint_status();
 
@@ -11396,7 +11396,7 @@ public class LoginServiceImpl implements LoginService {
 
                 String uuid = line.getUuid();
                 if("no_id".equals(uuid)){
-                    uuid = "fa8a634a-40c2-412a-9a95-2bd8d5ba5675.png";
+                    uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
 
                 //json
