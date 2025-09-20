@@ -723,9 +723,6 @@ public class LoginController {
 					System.out.printf("MOMO_OFFICIAL_RES:" + result);
 				}
 			}
-
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
