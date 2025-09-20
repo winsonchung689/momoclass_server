@@ -5859,8 +5859,9 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate localDate = LocalDate.parse(add_date);
                 Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
+                List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
                 List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
-                if(arrangement_list.size()>0){
+                if(arrangement_list.size() > 0 && leaves.size() == 0){
                     // 向家长发送通知
                     int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
 
