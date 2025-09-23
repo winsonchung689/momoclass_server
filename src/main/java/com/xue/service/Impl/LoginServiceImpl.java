@@ -8871,8 +8871,8 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<JSONObject> resul_list = new ArrayList<>();
-        Integer page_start = (page - 1) * 50;
-        Integer page_length = 50;
+        Integer page_start = (page - 1) * 100;
+        Integer page_length = 100;
         Integer all_sum = 0;
         Integer no_try = 0;
         Integer no_paid = 0;
