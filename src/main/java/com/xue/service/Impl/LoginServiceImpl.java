@@ -5862,34 +5862,36 @@ public class LoginServiceImpl implements LoginService {
                 List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
                 List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                 if(arrangement_list.size() > 0 && leaves.size() == 0){
-                    // 向家长发送通知
-                    int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
-
-                    // 家长接收成功后反馈给选课老师
-                    if(res == 1){
-                        String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
-                        List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
-                        if(teacher_users.size()>0){
-                            for(int j=0;j<teacher_users.size();j++){
-                                User user_teacher = teacher_users.get(j);
-                                String openid_get = user_teacher.getOpenid();
-                                classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                    Arrangement arrangement = arrangement_list.get(0);
+                    Integer remind = arrangement.getRemind();
+                    if(remind == 1){
+                        // 向家长发送通知
+                        int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                        // 家长接收成功后反馈给选课老师
+                        if(res == 1){
+                            String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
+                            List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
+                            if(teacher_users.size()>0){
+                                for(int j=0;j<teacher_users.size();j++){
+                                    User user_teacher = teacher_users.get(j);
+                                    String openid_get = user_teacher.getOpenid();
+                                    classRemind(openid_get,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
+                                }
                             }
                         }
-                    }
-
-                    // pwa版上课通知
-                    try {
-                        String publickey = Constants.publickey;
-                        String privatekey = Constants.privatekey;
-                        if(subscription != null){
-                            JSONObject payload = new JSONObject();
-                            payload.put("title",studio);
-                            payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
-                            webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                        // pwa版上课通知
+                        try {
+                            String publickey = Constants.publickey;
+                            String privatekey = Constants.privatekey;
+                            if(subscription != null){
+                                JSONObject payload = new JSONObject();
+                                payload.put("title",studio);
+                                payload.put("message","上课日期:"+ date_time +"\n上课时间:"+ duration + "\n班号:" + class_number + "\n学生名:" + student_name );
+                                webPushService.sendNotification(subscription,publickey,privatekey,payload.toString());
+                            }
+                        } catch (Exception e) {
+        //                                    throw new RuntimeException(e);
                         }
-                    } catch (Exception e) {
-    //                                    throw new RuntimeException(e);
                     }
 
                     // 催续费通知
