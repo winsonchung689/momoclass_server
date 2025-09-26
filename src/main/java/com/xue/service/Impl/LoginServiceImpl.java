@@ -3315,10 +3315,14 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
+        if("music".equals(type)){
+            studio = "大雄工作室";
+            campus = "大雄工作室";
+        }
 
         Integer page_start = 0;
         Integer page_length = 0;
-        page_start = (page - 1) * 4;
+        page_start = (page - 1) * 6;
         page_length = 6;
 
         List<JSONObject> resul_list = new ArrayList<>();
