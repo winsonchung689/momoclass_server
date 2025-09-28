@@ -4660,6 +4660,8 @@ public class LoginController {
 				dao.updateScheduleName(content,student_name,studio,campus,subject);
 				dao.updateSignUpRecordName(content,student_name,studio,campus,subject);
 				dao.updateLessonPackageName(content,student_name,studio,campus,subject);
+				dao.updateCommentName(content,student_name,studio,campus,subject);
+				dao.updateGiftRecordName(content,student_name,studio,campus,subject);
 			}else if("电话".equals(modifyHead)){
 				dao.updateLessonPhoneNumberById(id,content);
 			}else if("催缴".equals(modifyHead)){
