@@ -5868,6 +5868,18 @@ public class LoginServiceImpl implements LoginService {
                 if(arrangement_list.size() > 0 && leaves.size() == 0){
                     Arrangement arrangement = arrangement_list.get(0);
                     Integer remind = arrangement.getRemind();
+
+                    // 判断是否暂停
+                    List<User> bosses =dao.getBossByStudioOnly(studio);
+                    if(bosses.size()>0){
+                        User boss = bosses.get(0);
+                        String remindType = boss.getRemind_type();
+                        if("暂停上课提醒".equals(remindType)){
+                            remind = 0;
+                        }
+                    }
+
+                    // 发送通知
                     if(remind == 1){
                         // 向家长发送通知
                         int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
