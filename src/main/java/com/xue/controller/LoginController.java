@@ -3988,6 +3988,8 @@ public class LoginController {
 				message.setCreate_time(content);
 			}else if("video".equals(type)){
 				message.setVuuid(content);
+			}else if("class_name".equals(type)){
+				message.setClass_name(content);
 			}
 
 			dao.updateComment(message);
