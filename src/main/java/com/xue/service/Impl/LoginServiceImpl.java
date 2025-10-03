@@ -5877,6 +5877,8 @@ public class LoginServiceImpl implements LoginService {
                         if("暂停上课提醒".equals(remindType)){
                             remind = 0;
                         }
+                    }else{
+                        remind = 0;
                     }
 
                     // 发送通知
