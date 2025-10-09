@@ -256,7 +256,7 @@ public class SpaceServiceImpl implements SpaceService {
             List<BookDetail> bookDetails = dao.getBookDetailByMonth(openid,date_time.substring(0,7));
             Float month_hours = 0.0f;
             Float month_amount = 0.0f;
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < bookDetails.size(); i++) {
                 BookDetail bookDetail = bookDetails.get(i);
                 Float hours = bookDetail.getHours();
                 Float amount = bookDetail.getAmount();
