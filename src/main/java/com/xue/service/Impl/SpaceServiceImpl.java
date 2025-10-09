@@ -253,6 +253,18 @@ public class SpaceServiceImpl implements SpaceService {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            List<BookDetail> bookDetails = dao.getBookDetailByMonth(openid,date_time.substring(0,7));
+            Float month_hours = 0.0f;
+            Float month_amount = 0.0f;
+            for (int i = 0; i < list.size(); i++) {
+                BookDetail bookDetail = bookDetails.get(i);
+                Float hours = bookDetail.getHours();
+                Float amount = bookDetail.getAmount();
+                month_hours = month_hours + hours;
+                month_amount = month_amount + amount;
+            }
+
+
             list = dao.getWorkingDetail(openid,date_time);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -267,6 +279,8 @@ public class SpaceServiceImpl implements SpaceService {
                 Float hours = line.getHours();
 
                 //json
+                jsonObject.put("month_hours", month_hours);
+                jsonObject.put("month_amount", month_amount);
                 jsonObject.put("hours", hours);
                 jsonObject.put("type", type);
                 jsonObject.put("item", item);

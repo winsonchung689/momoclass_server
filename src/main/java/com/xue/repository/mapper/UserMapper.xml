@@ -2447,7 +2447,7 @@
   </select>
 
   <select id="getBookDetailByMonth" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
-    select * from book_detail where openid =#{param1} and book_name =#{param2} and date_format(create_time,'%Y-%m') =#{param3} and delete_status = 0 order by create_time desc limit 1000
+    select * from book_detail where openid =#{param1} and date_format(create_time,'%Y-%m') =#{param2} and delete_status = 0 order by create_time desc;
   </select>
 
   <select id="getBookDetailById" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">

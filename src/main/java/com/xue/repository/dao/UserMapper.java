@@ -979,7 +979,7 @@ public interface UserMapper {
 
     Float getAllSignUpByStudentCombine(String studio,String campus,String student_name);
 
-    List<BookDetail> getBookDetailByMonth(String openid,String book_name,String create_time);
+    List<BookDetail> getBookDetailByMonth(String openid,String create_time);
 
     List<BookDetail> getBookDetailById(String id);
 
