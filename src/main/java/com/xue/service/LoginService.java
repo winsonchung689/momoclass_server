@@ -69,8 +69,6 @@ public interface LoginService {
 
     public List  getTipsDataUrl(String studio,Integer left_amount,String subject,String campus,String type,String month_date);
 
-    public List  getBookDetailByMonth(String openid,String book_name,String date_time);
-
     public List  getGoneStudent(String studio,String campus);
 
     public List  getAbnormalStudent(String studio,String campus,String type);
