@@ -264,8 +264,10 @@ public class SpaceServiceImpl implements SpaceService {
                 Float amount = line.getAmount();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
+                Float hours = line.getHours();
 
                 //json
+                jsonObject.put("hours", hours);
                 jsonObject.put("type", type);
                 jsonObject.put("item", item);
                 jsonObject.put("mark", mark);
