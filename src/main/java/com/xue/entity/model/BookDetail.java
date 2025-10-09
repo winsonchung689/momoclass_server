@@ -15,6 +15,8 @@ public class BookDetail {
 
     private Float amount;
 
+    private Float hours;
+
     private String update_time;
 
     private String create_time;
@@ -68,6 +70,14 @@ public class BookDetail {
 
     public void setAmount(Float amount) {
         this.amount = amount;
+    }
+
+    public Float getHours() {
+        return hours;
+    }
+
+    public void setHours(Float hours) {
+        this.hours = hours;
     }
 
     public String getId() {

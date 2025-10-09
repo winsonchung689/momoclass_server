@@ -245,6 +245,10 @@ public class BookController {
 		String openid = request.getParameter("openid");
 		String create_time = request.getParameter("create_time");
 		String book_name = request.getParameter("book_name");
+		String hours = request.getParameter("hours");
+		if(hours == null || hours.isEmpty() || "undefined".equals(hours)){
+			hours = "0";
+		}
 
 		BookDetail bookDetail =new BookDetail();
 		bookDetail.setType(type);
@@ -255,6 +259,7 @@ public class BookController {
 		bookDetail.setOpenid(openid);
 		bookDetail.setUpdate_time(update_time);
 		bookDetail.setBook_name(book_name);
+		bookDetail.setHours(Float.parseFloat(hours));
 
 		try {
 			dao.insertBookDetail(bookDetail);
