@@ -1614,7 +1614,7 @@
   </select>
 
   <select id="getWorkingSumByDay" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
-    select date_format(create_time, '%Y-%m-%d') create_time,sum(amount) total_amount,sum(hour) total_hour from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m-%d') =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d')
+    select date_format(create_time, '%Y-%m-%d') create_time,sum(amount) total_amount,sum(hours) total_hour from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m-%d') =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d')
   </select>
 
   <select id="getRestaurantUserAll" parameterType="com.xue.entity.model.RestaurantUser" resultMap="BaseRestaurantUser">
