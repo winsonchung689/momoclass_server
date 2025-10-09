@@ -263,7 +263,10 @@ public class SpaceServiceImpl implements SpaceService {
                 month_hours = month_hours + hours;
                 month_amount = month_amount + amount;
             }
-
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("month_hours", month_hours);
+            jsonObject1.put("month_amount", month_amount);
+            resul_list.add(jsonObject1);
 
             list = dao.getWorkingDetail(openid,date_time);
             for (int i = 0; i < list.size(); i++) {
