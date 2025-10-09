@@ -87,12 +87,12 @@ public class BookController {
 		return list;
 	}
 
-	@RequestMapping("/getBBookDetail")
+	@RequestMapping("/getWorkingDetail")
 	@ResponseBody
-	public List getBBookDetail(String openid,String duration,String book_name){
+	public List getWorkingDetail(String openid,String date_time){
 		List list = null;
 		try {
-			list = loginService.getBBookDetail(openid,duration,book_name);
+			list = spaceService.getWorkingDetail(openid,date_time);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

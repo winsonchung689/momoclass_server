@@ -741,7 +741,7 @@ public interface UserMapper {
 
     List<Examination> getExaminationByStudentName(String studio,String campus,String student_name,String type);
 
-    List<BookDetail> getBBookDetail(String start_date,String end_date,String book_name);
+    List<BookDetail> getWorkingDetail(String openid,String date_time);
 
     List<RestaurantUser> getRestaurantUserAll();
 

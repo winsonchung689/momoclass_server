@@ -207,8 +207,6 @@ public interface LoginService {
 
     public List getExaminationByStudentName(String studio,String campus,String student_name,String type);
 
-    public List getBBookDetail(String openid,String duration,String book_name);
-
     public List getUserByNickName(String nickName);
 
     public List getUserByStudio(String Studio,String campus);

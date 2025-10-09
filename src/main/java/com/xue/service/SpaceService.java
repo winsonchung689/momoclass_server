@@ -16,5 +16,6 @@ public interface SpaceService {
 
     public List getSpaceOrder(String openid);
 
+    public List getWorkingDetail(String openid,String date_time);
 
 }
