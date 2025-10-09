@@ -104,7 +104,7 @@ public class BookController {
 	public List getWorkingSumByDay(String openid,String date_time){
 		List list = null;
 		try {
-			list = dao.getWorkingSumByDay(openid,date_time);
+			list = dao.getWorkingSumByDay(openid,date_time.substring(0,7));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
