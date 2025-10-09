@@ -99,6 +99,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getWorkingSumByDay")
+	@ResponseBody
+	public List getWorkingSumByDay(String openid,String date_time){
+		List list = null;
+		try {
+			list = dao.getWorkingSumByDay(openid,date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/updateBookUser")
 	@ResponseBody
 	public int updateBookUser(HttpServletRequest request, HttpServletResponse response){

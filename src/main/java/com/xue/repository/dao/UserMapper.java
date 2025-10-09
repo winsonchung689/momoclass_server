@@ -743,6 +743,8 @@ public interface UserMapper {
 
     List<BookDetail> getWorkingDetail(String openid,String date_time);
 
+    List<BookDetail> getWorkingSumByDay(String openid,String date_time);
+
     List<RestaurantUser> getRestaurantUserAll();
 
     List<RestaurantUser> getRestaurantUserByShop(String restaurant);
