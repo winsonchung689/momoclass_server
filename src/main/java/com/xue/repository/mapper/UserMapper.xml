@@ -1610,7 +1610,7 @@
   </select>
 
   <select id="getAllBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
-    select * from book_user where and delete_status = 0 order by role
+    select * from book_user where delete_status = 0 order by role
   </select>
 
   <select id="getWorkingDetail" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
