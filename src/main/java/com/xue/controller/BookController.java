@@ -530,7 +530,7 @@ public class BookController {
 		bookUser.setExpired_time(expired_time);
 
 		List<BookUser> bookUsers1 = dao.getBookUser(openid);
-		if(bookUsers1.size() == 0){
+		if(bookUsers1.size() == 0 && openid.length() == 28){
 			dao.insertBookUser(bookUser);
 		}
 
