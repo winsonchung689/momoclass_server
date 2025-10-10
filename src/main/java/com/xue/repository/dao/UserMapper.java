@@ -735,6 +735,8 @@ public interface UserMapper {
 
     List<BookUser> getBookUserById(String id);
 
+    List<BookUser> getAllBookUser();
+
     List<BookUser> getBookUserByOpenidQr(String openid_qr);
 
     List<Examination> getExaminationByStudio(String studio,String campus,String type);

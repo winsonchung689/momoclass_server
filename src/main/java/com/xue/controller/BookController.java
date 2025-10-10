@@ -87,6 +87,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getAllBookUser")
+	@ResponseBody
+	public List getAllBookUser(String openid){
+		List list = null;
+		try {
+			list = dao.getAllBookUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getWorkingDetail")
 	@ResponseBody
 	public List getWorkingDetail(String openid,String date_time){

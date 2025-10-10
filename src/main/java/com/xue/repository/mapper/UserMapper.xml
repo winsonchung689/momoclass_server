@@ -1609,6 +1609,10 @@
     select * from book_user where id =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getAllBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where and delete_status = 0 order by role
+  </select>
+
   <select id="getWorkingDetail" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
     select * from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m-%d') =#{param2} and delete_status = 0 order by create_time
   </select>
