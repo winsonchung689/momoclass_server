@@ -391,6 +391,10 @@ public interface UserMapper {
 
     void deleteSpaceCases(Integer id);
 
+    void deleteSpaceGoodsList(Integer id);
+
+    void deleteSpaceGoodsOrder(Integer id);
+
     void deleteSpaceLesson(Integer id);
 
     void deleteAlbum(Integer id);

@@ -487,6 +487,16 @@
     update space_cases set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除活动-->
+  <select id="deleteSpaceGoodsList" parameterType="com.xue.entity.model.SpaceGoodsList" resultMap="BaseSpaceGoodsList">
+    update space_goods_list set delete_status = 1 where id = #{param1};
+  </select>
+
+  <!-- 删除订单-->
+  <select id="deleteSpaceGoodsOrder" parameterType="com.xue.entity.model.SpaceGoodsOrder" resultMap="BaseSpaceGoodsOrder">
+    update space_goods_order set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除课程-->
   <select id="deleteSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
     update space_lesson set delete_status = 1 where id = #{param1};
