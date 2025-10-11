@@ -283,6 +283,40 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     @Override
+    public List getSpaceGoodsListById(String goods_id) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<SpaceGoodsList> spaceGoodsLists = dao.getSpaceGoodsListById(goods_id);
+            for (int i = 0; i < spaceGoodsLists.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SpaceGoodsList line = spaceGoodsLists.get(i);
+                //获取字段
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                String price_list = line.getPrice_list();
+                String uuids = line.getUuids();
+                String vuids = line.getVuids();
+
+
+                //json
+                jsonObject.put("id", id);
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("price_list", price_list);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("vuids", vuids);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getWorkingDetail(String openid, String date_time) {
         List<BookDetail> list= null;
         List<JSONObject> resul_list = new ArrayList<>();
