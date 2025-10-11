@@ -13,6 +13,8 @@ public class SpaceGoodsOrder {
 
     private String group_price;
 
+    private String group_number;
+
     private Integer delete_status;
 
     private String create_time;
@@ -65,6 +67,14 @@ public class SpaceGoodsOrder {
 
     public void setGroup_price(String group_price) {
         this.group_price = group_price;
+    }
+
+    public String getGroup_number() {
+        return group_number;
+    }
+
+    public void setGroup_number(String group_number) {
+        this.group_number = group_number;
     }
 
     public String getId() {

@@ -25,6 +25,10 @@ public interface UserMapper {
 
     List<SpaceOrder> getSpaceOrderId(String id);
 
+    List<SpaceGoodsList> getSpaceGoodsListByOpenid(String openid);
+
+    List<SpaceGoodsOrder> getSpaceGoodsOrderByOpenid(String openid);
+
     List<SpaceLesson> getSpaceLessonById(String id);
 
     List<SpaceTeacher> getSpaceTeacher(String openid);
@@ -1014,6 +1018,10 @@ public interface UserMapper {
     int insertCardRecord(CardRecord cardRecord);
 
     int insertRestaurantMenu(Menu menu);
+
+    int insertSpaceGoodsList(SpaceGoodsList spaceGoodsList);
+
+    int insertSpaceGoodsOrder(SpaceGoodsOrder spaceGoodsOrder);
 
     int insertLibrary(Library library);
 

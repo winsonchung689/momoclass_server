@@ -163,10 +163,10 @@
   <resultMap id="BaseSpaceOrder" type="com.xue.entity.model.SpaceOrder">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
-  <resultMap id="SpaceGoodsList" type="com.xue.entity.model.SpaceGoodsList">
+  <resultMap id="BaseSpaceGoodsList" type="com.xue.entity.model.SpaceGoodsList">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
-  <resultMap id="SpaceGoodsOrder" type="com.xue.entity.model.SpaceGoodsOrder">
+  <resultMap id="BaseSpaceGoodsOrder" type="com.xue.entity.model.SpaceGoodsOrder">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
 
@@ -2117,6 +2117,10 @@
     insert space_goods_list(openid,goods_name,goods_intro,price_list,uuids,vuids,create_time) values(#{openid},#{goods_name},#{goods_intro},#{price_list},#{uuids},#{vuids},#{create_time})
   </insert>
 
+  <insert id="insertSpaceGoodsOrder" parameterType="com.xue.entity.model.SpaceGoodsOrder">
+    insert space_goods_list(openid,leader_openid,goods_id,group_price,group_number,create_time) values(#{openid},#{leader_openid},#{goods_id},#{group_price},#{group_number},#{create_time})
+  </insert>
+
   <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
     insert space_order(openid,lesson_id,create_time,openid_qr) values(#{openid},#{lesson_id},#{create_time},#{openid_qr})
   </insert>
@@ -2363,6 +2367,14 @@
 
   <select id="getSpaceOrderId" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
     select * from space_order where id =#{param1}
+  </select>
+
+  <select id="getSpaceGoodsListByOpenid" parameterType="com.xue.entity.model.SpaceGoodsList" resultMap="BaseSpaceGoodsList">
+    select * from space_goods_list where openid =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
+  <select id="getSpaceGoodsOrderByOpenid" parameterType="com.xue.entity.model.SpaceGoodsOrder" resultMap="BaseSpaceGoodsOrder">
+    select * from space_goods_order where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getSpaceLessonById" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">

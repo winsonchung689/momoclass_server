@@ -345,6 +345,66 @@ public class BookController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/insertSpaceGoodsList")
+	@ResponseBody
+	public String insertSpaceGoodsList(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String goods_name = request.getParameter("goods_name");
+		String goods_intro = request.getParameter("goods_intro");
+		String price_list = request.getParameter("price_list");
+		String uuids = request.getParameter("uuids");
+		String vuids = request.getParameter("vuids");
+
+		SpaceGoodsList spaceGoodsList =new SpaceGoodsList();
+		spaceGoodsList.setOpenid(openid);
+		spaceGoodsList.setGoods_name(goods_name);
+		spaceGoodsList.setGoods_intro(goods_intro);
+		spaceGoodsList.setPrice_list(price_list);
+		spaceGoodsList.setUuids(uuids);
+		spaceGoodsList.setVuids(vuids);
+		spaceGoodsList.setCreate_time(create_time);
+
+		try {
+			dao.insertSpaceGoodsList(spaceGoodsList);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
+	@RequestMapping("/insertSpaceGoodsOrder")
+	@ResponseBody
+	public String insertSpaceGoodsOrder(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String openid = request.getParameter("openid");
+		String leader_openid = request.getParameter("leader_openid");
+		String goods_id = request.getParameter("goods_id");
+		String group_price = request.getParameter("group_price");
+		String group_number = request.getParameter("group_number");
+
+		SpaceGoodsOrder spaceGoodsOrder =new SpaceGoodsOrder();
+		spaceGoodsOrder.setOpenid(openid);
+		spaceGoodsOrder.setLeader_openid(leader_openid);
+		spaceGoodsOrder.setGoods_id(goods_id);
+		spaceGoodsOrder.setGroup_price(group_price);
+		spaceGoodsOrder.setGroup_number(group_number);
+		spaceGoodsOrder.setCreate_time(create_time);
+
+		try {
+			dao.insertSpaceGoodsOrder(spaceGoodsOrder);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "push massage successfully";
+	}
+
 	@RequestMapping("/insertSpaceCases")
 	@ResponseBody
 	public String insertSpaceCases(HttpServletRequest request, HttpServletResponse response){
