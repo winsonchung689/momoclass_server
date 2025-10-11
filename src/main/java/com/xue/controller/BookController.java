@@ -497,6 +497,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getSpaceGoodsList")
+	@ResponseBody
+	public List getSpaceGoodsList(String openid){
+		List list = null;
+		try {
+			list = spaceService.getSpaceGoodsList(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getSpaceLesson")
 	@ResponseBody
 	public List getSpaceLesson(String openid){
