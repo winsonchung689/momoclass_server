@@ -163,6 +163,13 @@
   <resultMap id="BaseSpaceOrder" type="com.xue.entity.model.SpaceOrder">
     <result column="openid" jdbcType="VARCHAR" property="openid" />
   </resultMap>
+  <resultMap id="SpaceGoodsList" type="com.xue.entity.model.SpaceGoodsList">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+  <resultMap id="SpaceGoodsOrder" type="com.xue.entity.model.SpaceGoodsOrder">
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+
 
 
 
@@ -2104,6 +2111,10 @@
 
   <insert id="insertRestaurantMenu" parameterType="com.xue.entity.model.Menu">
     insert restaurant_menu(restaurant,food_name,food_image,category,introduce,price,create_time,unit) values(#{restaurant},#{food_name},#{food_image},#{category},#{introduce},#{price},#{create_time},#{unit})
+  </insert>
+
+  <insert id="insertSpaceGoodsList" parameterType="com.xue.entity.model.SpaceGoodsList">
+    insert space_goods_list(openid,goods_name,goods_intro,price_list,uuids,vuids,create_time) values(#{openid},#{goods_name},#{goods_intro},#{price_list},#{uuids},#{vuids},#{create_time})
   </insert>
 
   <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
