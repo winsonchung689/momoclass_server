@@ -2128,7 +2128,7 @@
   </insert>
 
   <insert id="insertSpaceGoodsOrder" parameterType="com.xue.entity.model.SpaceGoodsOrder">
-    insert space_goods_list(openid,leader_openid,goods_id,group_price,group_number,create_time) values(#{openid},#{leader_openid},#{goods_id},#{group_price},#{group_number},#{create_time})
+    insert space_goods_order(openid,leader_openid,goods_id,group_price,group_number,create_time) values(#{openid},#{leader_openid},#{goods_id},#{group_price},#{group_number},#{create_time})
   </insert>
 
   <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
