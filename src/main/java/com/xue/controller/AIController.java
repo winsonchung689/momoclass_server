@@ -2,6 +2,7 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
+import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
@@ -15,6 +16,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +33,9 @@ import java.util.Map;
 public class AIController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	private LoginService loginService;
 
 	// 直连图文问答
 	@RequestMapping("/chatImg")
@@ -275,6 +280,19 @@ public class AIController {
 			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	@RequestMapping("/produceClassRemindRedis")
+	@ResponseBody
+	public static String produceClassRemindRedis(String openid){
+		String res = null;
+		try {
+			loginService.produceClassRemindRedis("none","all");
+			res = "完成！";
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
