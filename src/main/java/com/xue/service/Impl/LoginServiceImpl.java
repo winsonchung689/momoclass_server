@@ -1978,7 +1978,7 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     list = dao.getArrangement(studio,weekofday.toString(),subject,campus);
                 }
-
+//                搜索按天课表
                 repeat_list = dao.getArrangementByRepeat(studio,campus);
                 list.addAll(repeat_list);
             } catch (Exception e) {
@@ -1990,6 +1990,7 @@ public class LoginServiceImpl implements LoginService {
                     JSONObject jsonObject = new JSONObject();
                     Arrangement line = list.get(i);
                     //获取字段
+                    String id = line.getId();
                     studio = line.getStudio();
                     String duration = line.getDuration();
                     String class_number = line.getClass_number();
@@ -2035,6 +2036,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     if(contains == 1){
+                        jsonObject.put("id", id);
                         jsonObject.put("studio", studio);
                         jsonObject.put("duration", duration);
                         jsonObject.put("class_number", class_number);
