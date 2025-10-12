@@ -55,6 +55,12 @@ public class LoginController {
 	@Autowired
 	private UserMapper dao;
 
+	@RequestMapping("/produceClassRemindRedis")
+	@ResponseBody
+	public void  produceClassRemindRedis(){
+		loginService.produceClassRemindRedis("none","all");
+	}
+
 	@RequestMapping("/sendLeaveRemind")
 	@ResponseBody
 	public String sendLeaveRemind(String token, String openid, String studio,String subject,String student_name,String date_time,String mark_leave,String makeup_date){

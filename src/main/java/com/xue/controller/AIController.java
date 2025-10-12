@@ -286,20 +286,6 @@ public class AIController {
 		return res;
 	}
 
-	@RequestMapping("/produceClassRemindRedis")
-	@ResponseBody
-	public static String produceClassRemindRedis(String openid){
-		String res = null;
-		try {
-			loginService.produceClassRemindRedis("none","all");
-			res = "完成！";
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return res;
-	}
-
-
 }
 	
 	
