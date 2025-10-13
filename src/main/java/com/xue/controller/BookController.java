@@ -711,6 +711,18 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteSpaceGoodsList")
+	@ResponseBody
+	public int deleteSpaceGoodsList(Integer id){
+		try {
+			dao.deleteSpaceGoodsList(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/deleteSpaceGoodsOrder")
 	@ResponseBody
 	public int deleteSpaceGoodsOrder(Integer id,String type){
