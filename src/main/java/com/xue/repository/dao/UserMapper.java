@@ -407,6 +407,8 @@ public interface UserMapper {
 
     void deleteSpaceGoodsOrder(Integer id);
 
+    void deleteSpaceOrder(Integer id);
+
     void deleteSpaceLesson(Integer id);
 
     void deleteAlbum(Integer id);

@@ -497,6 +497,11 @@
     update space_goods_order set delete_status = 1 where id = #{param1};
   </select>
 
+  <!-- 删除预报名-->
+  <select id="deleteSpaceOrder" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
+    update space_order set delete_status = 1 where id = #{param1};
+  </select>
+
   <!-- 删除课程-->
   <select id="deleteSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
     update space_lesson set delete_status = 1 where id = #{param1};

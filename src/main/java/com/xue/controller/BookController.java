@@ -711,6 +711,23 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/deleteSpaceGoodsOrder")
+	@ResponseBody
+	public int deleteSpaceGoodsOrder(Integer id,String type){
+		try {
+			if("order".equals(type)){
+				dao.deleteSpaceGoodsOrder(id);
+			}else if("sign".equals(type)){
+				dao.deleteSpaceOrder(id);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	@RequestMapping("/getLibraryByPublic")
 	@ResponseBody
 	public List getLibraryByPublic(String is_public){
