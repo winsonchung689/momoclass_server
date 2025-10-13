@@ -387,6 +387,7 @@ public class BookController {
 		String goods_id = request.getParameter("goods_id");
 		String group_price = request.getParameter("group_price");
 		String group_number = request.getParameter("group_number");
+		String order_no = request.getParameter("order_no");
 
 		List<BookUser> bookUsers = dao.getBookUser(openid);
 		BookUser bookUser = bookUsers.get(0);
@@ -400,6 +401,7 @@ public class BookController {
 		spaceGoodsOrder.setGroup_number(group_number);
 		spaceGoodsOrder.setCreate_time(create_time);
 		spaceGoodsOrder.setOpenid_qr(openid_qr);
+		spaceGoodsOrder.setOrder_no(order_no);
 
 		try {
 			dao.insertSpaceGoodsOrder(spaceGoodsOrder);

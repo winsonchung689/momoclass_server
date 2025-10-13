@@ -434,11 +434,15 @@ public class SpaceServiceImpl implements SpaceService {
                 String create_time = line.getCreate_time();
                 String id = line.getId();
                 String openid_get = line.getOpenid();
+                String openid_qr = line.getOpenid_qr();
+                String order_no = line.getOrder_no();
+
                 String leader_openid = line.getLeader_openid();
                 List<BookUser> bookUsers = dao.getBookUser(leader_openid);
                 BookUser bookUser = bookUsers.get(0);
                 String leader_name = bookUser.getNick_name();
                 String avatarurl = bookUser.getAvatarurl();
+
 
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
@@ -456,6 +460,8 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("openid_qr", openid_qr);
+                jsonObject.put("order_no", order_no);
                 jsonObject.put("leader_number", leader_number.size());
                 jsonObject.put("leader_name", leader_name);
                 jsonObject.put("avatarurl", avatarurl);
@@ -497,6 +503,8 @@ public class SpaceServiceImpl implements SpaceService {
                 //获取字段
                 String create_time = line.getCreate_time();
                 String id = line.getId();
+                String openid_qr = line.getOpenid_qr();
+                String order_no = line.getOrder_no();
                 String openid_get = line.getOpenid();
                 String leader_openid = line.getLeader_openid();
                 List<BookUser> bookUsers = dao.getBookUser(leader_openid);
@@ -519,8 +527,9 @@ public class SpaceServiceImpl implements SpaceService {
                     is_full = 1;
                 }
 
-
                 //json
+                jsonObject.put("openid_qr", openid_qr);
+                jsonObject.put("order_no", order_no);
                 jsonObject.put("leader_number", leader_number.size());
                 jsonObject.put("leader_name", leader_name);
                 jsonObject.put("avatarurl", avatarurl);

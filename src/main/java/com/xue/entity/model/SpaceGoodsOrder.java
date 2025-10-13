@@ -21,7 +21,17 @@ public class SpaceGoodsOrder {
 
     private String create_time;
 
+    private String order_no;
 
+
+
+    public String getOrder_no() {
+        return order_no;
+    }
+
+    public void setOrder_no(String order_no) {
+        this.order_no = order_no;
+    }
 
     public String getOpenid_qr() {
         return openid_qr;
