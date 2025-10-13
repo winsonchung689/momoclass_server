@@ -238,6 +238,11 @@ public class WechatPayController {
 			RestaurantUser restaurantUser = restaurantUsers.get(0);
 			studio = restaurantUser.getRestaurant();
 			campus = restaurantUser.getRestaurant();
+		}else if(appid.equals(Constants.book_appid)){
+			List<BookUser> bookUsers = dao.getBookUser(openid);
+			BookUser bookUser = bookUsers.get(0);
+			studio = bookUser.getOpenid_qr();
+			campus = bookUser.getOpenid_qr();
 		}
 
 
