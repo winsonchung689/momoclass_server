@@ -506,11 +506,17 @@ public class SpaceServiceImpl implements SpaceService {
                 String openid_qr = line.getOpenid_qr();
                 String order_no = line.getOrder_no();
                 String openid_get = line.getOpenid();
+                List<BookUser> bookUsers_follower = dao.getBookUser(openid_get);
+                BookUser bookUser_follower = bookUsers_follower.get(0);
+                String follower_name = bookUser_follower.getNick_name();
+                String follower_phone = bookUser_follower.getPhone_number();
+
+
                 String leader_openid = line.getLeader_openid();
-                List<BookUser> bookUsers = dao.getBookUser(leader_openid);
-                BookUser bookUser = bookUsers.get(0);
-                String leader_name = bookUser.getNick_name();
-                String avatarurl = bookUser.getAvatarurl();
+                List<BookUser> bookUsers_leader = dao.getBookUser(leader_openid);
+                BookUser bookUser_leader = bookUsers_leader.get(0);
+                String leader_name = bookUser_leader.getNick_name();
+                String avatarurl = bookUser_leader.getAvatarurl();
 
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
@@ -519,8 +525,13 @@ public class SpaceServiceImpl implements SpaceService {
                 if(openid.equals(leader_openid)){
                     role = "团长";
                 }
-                // 判断是否满团
+
                 String goods_id = line.getGoods_id();
+                // 团信息
+                List<SpaceGoodsList> spaceGoodsLists = dao.getSpaceGoodsListById(goods_id);
+                SpaceGoodsList spaceGoodsList = spaceGoodsLists.get(0);
+                String goods_name= spaceGoodsList.getGoods_name();
+                // 判断是否满团
                 int is_full = 0;
                 List<SpaceGoodsOrder> leader_number = dao.getSpaceGoodsOrderByGoodsIdLeader(goods_id,leader_openid);
                 if (leader_number.size() >= Integer.parseInt(group_number)){
@@ -528,6 +539,9 @@ public class SpaceServiceImpl implements SpaceService {
                 }
 
                 //json
+                jsonObject.put("follower_name", follower_name);
+                jsonObject.put("follower_phone", follower_phone);
+                jsonObject.put("goods_name", goods_name);
                 jsonObject.put("openid_qr", openid_qr);
                 jsonObject.put("order_no", order_no);
                 jsonObject.put("leader_number", leader_number.size());
