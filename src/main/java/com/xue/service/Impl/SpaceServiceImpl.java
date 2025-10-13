@@ -385,7 +385,7 @@ public class SpaceServiceImpl implements SpaceService {
                 String group_number = line.getGroup_number();
                 // 团角色
                 String role="团员";
-                if(openid == leader_openid){
+                if(openid.equals(leader_openid)){
                     role = "团长";
                 }
                 // 判断是否满团
