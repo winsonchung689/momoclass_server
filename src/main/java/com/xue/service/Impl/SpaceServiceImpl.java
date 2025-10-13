@@ -381,6 +381,11 @@ public class SpaceServiceImpl implements SpaceService {
                 String id = line.getId();
                 String openid = line.getOpenid();
                 String leader_openid = line.getLeader_openid();
+                List<BookUser> bookUsers = dao.getBookUser(leader_openid);
+                BookUser bookUser = bookUsers.get(0);
+                String leader_name = bookUser.getNick_name();
+                String avatarurl = bookUser.getAvatarurl();
+
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
                 // 团角色
@@ -397,6 +402,8 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("leader_name", leader_name);
+                jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("goods_id", goods_id);
                 jsonObject.put("is_full", is_full);
                 jsonObject.put("role", role);
