@@ -29,6 +29,10 @@ public interface UserMapper {
 
     List<SpaceGoodsOrder> getSpaceGoodsOrderByOpenid(String openid);
 
+    List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsId(String goods_id);
+
+    List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsIdLeader(String goods_id,String leader_openid);
+
     List<SpaceGoodsList> getSpaceGoodsListById(String goods_id);
 
     List<SpaceLesson> getSpaceLessonById(String id);
