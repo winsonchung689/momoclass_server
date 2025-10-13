@@ -1191,6 +1191,8 @@ public interface UserMapper {
 
     int updateSpaceOrder(SpaceOrder spaceOrder);
 
+    int updateSpaceGoodsList(SpaceGoodsList spaceGoodsList);
+
     int updateSpaceGoodsOrder(SpaceGoodsOrder spaceGoodsOrder);
 
     int updateSpaceGoodsOrderByOrderNo(String order_no,int status);
