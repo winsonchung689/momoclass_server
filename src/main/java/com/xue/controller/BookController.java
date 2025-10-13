@@ -535,7 +535,7 @@ public class BookController {
 
 	@RequestMapping("/getSpaceGoodsOrderByGoodsIdOpenid")
 	@ResponseBody
-	public List getSpaceGoodsOrderByGoodsIdLeader(String goods_id,String openid){
+	public List getSpaceGoodsOrderByGoodsIdOpenid(String goods_id,String openid){
 		List list = null;
 		try {
 			list = spaceService.getSpaceGoodsOrderByGoodsIdOpenid(goods_id,openid);
