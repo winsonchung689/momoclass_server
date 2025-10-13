@@ -135,6 +135,10 @@ public class WechatPayController {
 				if("退款".equals(type)){
 					res = dao.updateRestaurantOrderByOrderNo(order_no,3);
 				}
+			}else if (appid.equals(Constants.book_appid)) {
+				if("退款".equals(type)){
+					res = dao.updateSpaceGoodsOrderByOrderNo(order_no,3);
+				}
 			}
 
 		} catch (Exception e) {
