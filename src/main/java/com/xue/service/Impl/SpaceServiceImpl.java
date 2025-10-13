@@ -422,5 +422,59 @@ public class SpaceServiceImpl implements SpaceService {
         return resul_list;
     }
 
+    @Override
+    public List getSpaceGoodsOrderByGoodsIdOpenid(String goods_id, String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<SpaceGoodsOrder> spaceGoodsOrders = dao.getSpaceGoodsOrderByGoodsIdOpenid(goods_id,openid);
+            for (int i = 0; i < spaceGoodsOrders.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                SpaceGoodsOrder line = spaceGoodsOrders.get(i);
+                //获取字段
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String openid_get = line.getOpenid();
+                String leader_openid = line.getLeader_openid();
+                List<BookUser> bookUsers = dao.getBookUser(leader_openid);
+                BookUser bookUser = bookUsers.get(0);
+                String leader_name = bookUser.getNick_name();
+                String avatarurl = bookUser.getAvatarurl();
+
+                String group_price = line.getGroup_price();
+                String group_number = line.getGroup_number();
+                // 团角色
+                String role="团员";
+                if(openid.equals(leader_openid)){
+                    role = "团长";
+                }
+                // 判断是否满团
+                int is_full = 0;
+                List<SpaceGoodsOrder> leader_number = dao.getSpaceGoodsOrderByGoodsIdLeader(goods_id,leader_openid);
+                if (leader_number.size() >= Integer.parseInt(group_number)){
+                    is_full = 1;
+                }
+
+
+                //json
+                jsonObject.put("leader_number", leader_number.size());
+                jsonObject.put("leader_name", leader_name);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("goods_id", goods_id);
+                jsonObject.put("is_full", is_full);
+                jsonObject.put("role", role);
+                jsonObject.put("id", id);
+                jsonObject.put("openid", openid_get);
+                jsonObject.put("leader_openid", leader_openid);
+                jsonObject.put("group_price", group_price);
+                jsonObject.put("group_number", group_number);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
 
 }

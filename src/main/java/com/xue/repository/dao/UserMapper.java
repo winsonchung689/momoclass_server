@@ -33,6 +33,8 @@ public interface UserMapper {
 
     List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsIdLeader(String goods_id,String leader_openid);
 
+    List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsIdOpenid(String goods_id,String openid);
+
     List<SpaceGoodsList> getSpaceGoodsListById(String goods_id);
 
     List<SpaceLesson> getSpaceLessonById(String id);

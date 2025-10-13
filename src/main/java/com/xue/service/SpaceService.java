@@ -24,4 +24,6 @@ public interface SpaceService {
 
     public List getSpaceGoodsOrderByGoodsId(String goods_id);
 
+    public List getSpaceGoodsOrderByGoodsIdOpenid(String goods_id,String openid);
+
 }
