@@ -402,6 +402,7 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("leader_number", leader_number.size());
                 jsonObject.put("leader_name", leader_name);
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("goods_id", goods_id);
