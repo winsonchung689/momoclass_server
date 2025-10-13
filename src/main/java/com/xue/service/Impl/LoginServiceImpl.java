@@ -5530,7 +5530,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void produceClassRemindRedis(String studio_in,String type) {
-        Jedis jedis = new Jedis("139.199.226.187", 6379);
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
@@ -5792,7 +5792,7 @@ public class LoginServiceImpl implements LoginService {
     public void consumeClassRemindRedis() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        Jedis jedis = new Jedis("139.199.226.187", 6379);
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
         // 获取时间
         Date date =new Date();
         long timestamp = date.getTime()/1000;
