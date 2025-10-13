@@ -33,6 +33,8 @@ public interface UserMapper {
 
     List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsId(String goods_id);
 
+    List<SpaceGoodsOrder> getSpaceGoodsOrderById(String id);
+
     List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsIdLeader(String goods_id,String leader_openid);
 
     List<SpaceGoodsOrder> getSpaceGoodsOrderByGoodsIdOpenid(String goods_id,String openid);
@@ -1186,6 +1188,8 @@ public interface UserMapper {
     int updateSpaceTeacher(SpaceTeacher spaceTeacher);
 
     int updateSpaceOrder(SpaceOrder spaceOrder);
+
+    int updateSpaceGoodsOrder(SpaceGoodsOrder spaceGoodsOrder);
 
     int updateSpaceCases(SpaceCases spaceCases);
 

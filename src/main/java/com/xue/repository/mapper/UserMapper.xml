@@ -2395,6 +2395,10 @@
     select * from space_goods_order where goods_id =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
+  <select id="getSpaceGoodsOrderById" parameterType="com.xue.entity.model.SpaceGoodsOrder" resultMap="BaseSpaceGoodsOrder">
+    select * from space_goods_order where id =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getSpaceGoodsOrderByGoodsIdLeader" parameterType="com.xue.entity.model.SpaceGoodsOrder" resultMap="BaseSpaceGoodsOrder">
     select * from space_goods_order where goods_id =#{param1} and leader_openid =#{param2} and delete_status = 0 order by create_time desc
   </select>
@@ -2890,6 +2894,10 @@
 
   <update id="updateSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
     update space_order set status=#{status} where id=#{id}
+  </update>
+
+  <update id="updateSpaceGoodsOrder" parameterType="com.xue.entity.model.SpaceGoodsOrder">
+    update space_goods_order set status=#{status} where id=#{id}
   </update>
 
   <update id="updateSpaceCases" parameterType="com.xue.entity.model.SpaceCases">

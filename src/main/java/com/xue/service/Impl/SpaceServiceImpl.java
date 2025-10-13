@@ -486,7 +486,6 @@ public class SpaceServiceImpl implements SpaceService {
     public List getSpaceGoodsOrderByOpenid(String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
 
-
         try {
             List<BookUser> bookUsers_me = dao.getBookUser(openid);
             BookUser bookUser_me = bookUsers_me.get(0);
@@ -537,8 +536,10 @@ public class SpaceServiceImpl implements SpaceService {
                 if (leader_number.size() >= Integer.parseInt(group_number)){
                     is_full = 1;
                 }
+                Integer status = line.getStatus();
 
                 //json
+                jsonObject.put("status", status);
                 jsonObject.put("follower_name", follower_name);
                 jsonObject.put("follower_phone", follower_phone);
                 jsonObject.put("goods_name", goods_name);

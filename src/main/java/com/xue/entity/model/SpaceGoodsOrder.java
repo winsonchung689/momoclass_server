@@ -23,7 +23,17 @@ public class SpaceGoodsOrder {
 
     private String order_no;
 
+    private Integer status;
 
+
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getOrder_no() {
         return order_no;

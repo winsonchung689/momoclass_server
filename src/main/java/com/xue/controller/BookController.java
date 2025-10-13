@@ -244,6 +244,29 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/updateSpaceGoodsOrder")
+	@ResponseBody
+	public int updateSpaceGoodsOrder(HttpServletRequest request, HttpServletResponse response){
+		//获取文字
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
+		try {
+			List<SpaceGoodsOrder> spaceGoodsOrders = dao.getSpaceGoodsOrderById(id);
+			SpaceGoodsOrder spaceGoodsOrder = spaceGoodsOrders.get(0);
+
+			if("status".equals(type)){
+				spaceGoodsOrder.setStatus(Integer.parseInt(content));
+			}
+
+			dao.updateSpaceGoodsOrder(spaceGoodsOrder);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/insertBookDetail")
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){
