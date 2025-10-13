@@ -7,6 +7,8 @@ public class SpaceGoodsOrder {
 
     private String openid;
 
+    private String openid_qr;
+
     private String leader_openid;
 
     private String goods_id;
@@ -20,6 +22,14 @@ public class SpaceGoodsOrder {
     private String create_time;
 
 
+
+    public String getOpenid_qr() {
+        return openid_qr;
+    }
+
+    public void setOpenid_qr(String openid_qr) {
+        this.openid_qr = openid_qr;
+    }
 
     public String getLeader_openid() {
         return leader_openid;

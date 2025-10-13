@@ -479,8 +479,18 @@ public class SpaceServiceImpl implements SpaceService {
     @Override
     public List getSpaceGoodsOrderByOpenid(String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
+
+
         try {
+            List<BookUser> bookUsers_me = dao.getBookUser(openid);
+            BookUser bookUser_me = bookUsers_me.get(0);
+            String my_role = bookUser_me.getRole();
+
             List<SpaceGoodsOrder> spaceGoodsOrders = dao.getSpaceGoodsOrderByOpenid(openid);
+            if("boss".equals(my_role)){
+                spaceGoodsOrders = dao.getSpaceGoodsOrderByOpenidQr(openid);
+            }
+
             for (int i = 0; i < spaceGoodsOrders.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SpaceGoodsOrder line = spaceGoodsOrders.get(i);

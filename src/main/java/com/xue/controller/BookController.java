@@ -388,6 +388,10 @@ public class BookController {
 		String group_price = request.getParameter("group_price");
 		String group_number = request.getParameter("group_number");
 
+		List<BookUser> bookUsers = dao.getBookUser(openid);
+		BookUser bookUser = bookUsers.get(0);
+		String openid_qr = bookUser.getOpenid_qr();
+
 		SpaceGoodsOrder spaceGoodsOrder =new SpaceGoodsOrder();
 		spaceGoodsOrder.setOpenid(openid);
 		spaceGoodsOrder.setLeader_openid(leader_openid);
@@ -395,6 +399,7 @@ public class BookController {
 		spaceGoodsOrder.setGroup_price(group_price);
 		spaceGoodsOrder.setGroup_number(group_number);
 		spaceGoodsOrder.setCreate_time(create_time);
+		spaceGoodsOrder.setOpenid_qr(openid_qr);
 
 		try {
 			dao.insertSpaceGoodsOrder(spaceGoodsOrder);
@@ -539,6 +544,18 @@ public class BookController {
 		List list = null;
 		try {
 			list = spaceService.getSpaceGoodsOrderByGoodsIdOpenid(goods_id,openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@RequestMapping("/getSpaceGoodsOrderByOpenid")
+	@ResponseBody
+	public List getSpaceGoodsOrderByOpenid(String openid){
+		List list = null;
+		try {
+			list = spaceService.getSpaceGoodsOrderByOpenid(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
