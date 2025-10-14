@@ -279,6 +279,33 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/updateSpaceGoodsList")
+	@ResponseBody
+	public int updateSpaceGoodsList(HttpServletRequest request, HttpServletResponse response){
+		//获取文字
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
+		try {
+			List<SpaceGoodsList> spaceGoodsLists = dao.getSpaceGoodsListById(id);
+			SpaceGoodsList spaceGoodsList = spaceGoodsLists.get(0);
+
+			if("price_list".equals(type)){
+				spaceGoodsList.setPrice_list(content);
+			}else if("goods_name".equals(type)){
+				spaceGoodsList.setGoods_name(content);
+			}else if("goods_intro".equals(type)){
+				spaceGoodsList.setGoods_intro(content);
+			}
+
+			dao.updateSpaceGoodsList(spaceGoodsList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
 	@RequestMapping("/insertBookDetail")
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){
