@@ -757,6 +757,8 @@ public interface UserMapper {
 
     List<BookUser> getBookUserById(String id);
 
+    List<BookUser> getBookUserByRole(String role);
+
     List<BookUser> getAllBookUser();
 
     List<BookUser> getBookUserByOpenidQr(String openid_qr);

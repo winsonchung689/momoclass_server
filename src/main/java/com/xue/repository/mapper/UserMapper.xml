@@ -1631,6 +1631,10 @@
     select * from book_user where id =#{param1} and delete_status = 0 order by id desc limit 1
   </select>
 
+  <select id="getBookUserByRole" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where role =#{param1} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getAllBookUser" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
     select * from book_user where delete_status = 0 order by role
   </select>
