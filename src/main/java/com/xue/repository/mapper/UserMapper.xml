@@ -2906,7 +2906,7 @@
   </update>
 
   <update id="updateSpaceGoodsList" parameterType="com.xue.entity.model.SpaceGoodsList">
-    update space_goods_list set price_list=#{price_list},goods_name=#{goods_name},goods_intro=#{goods_intro},uuids=#{uuids},,vuids=#{vuids} where id=#{id}
+    update space_goods_list set price_list=#{price_list},goods_name=#{goods_name},goods_intro=#{goods_intro},uuids=#{uuids},vuids=#{vuids} where id=#{id}
   </update>
 
   <update id="updateSpaceGoodsOrder" parameterType="com.xue.entity.model.SpaceGoodsOrder">
