@@ -72,6 +72,7 @@ public class SpaceServiceImpl implements SpaceService {
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
 
+                // 过期回收权限
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
                 Date expired_dt = df.parse(expired_time.substring(0,10));
@@ -86,11 +87,8 @@ public class SpaceServiceImpl implements SpaceService {
                 String logo = line.getLogo();
                 int id = line.getId();
                 String location = line.getLocation();
-                String student_name = line.getStudent_name();
-                String phone_number = line.getPhone_number();
-                String my_nick = line.getNick_name();
-                String my_avatarurl = line.getAvatarurl();
 
+                // 获取广告主信息
                 String openid_qr = line.getOpenid_qr();
                 if(!"boss".equals(role)){
                     List<BookUser> bookUsers = dao.getBookUser(openid_qr);
@@ -102,9 +100,16 @@ public class SpaceServiceImpl implements SpaceService {
                     avatarurl = bookUser.getAvatarurl();
                     id = bookUser.getId();
                 }
+                // 获取私人信息
+                String student_name = line.getStudent_name();
+                String phone_number = line.getPhone_number();
+                String my_nick = line.getNick_name();
+                String my_avatarurl = line.getAvatarurl();
+                int my_id = line.getId();
 
 
                 //json
+                jsonObject.put("my_id", my_id);
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);
                 jsonObject.put("student_name", student_name);
