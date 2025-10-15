@@ -452,9 +452,9 @@ public class BookController {
 		String group_lesson = request.getParameter("group_lesson");
 		String order_no = request.getParameter("order_no");
 
-		List<BookUser> bookUsers = dao.getBookUser(openid);
-		BookUser bookUser = bookUsers.get(0);
-		String openid_qr = bookUser.getOpenid_qr();
+		List<SpaceGoodsList> spaceGoodsLists = dao.getSpaceGoodsListById(goods_id);
+		SpaceGoodsList spaceGoodsList = spaceGoodsLists.get(0);
+		String openid_qr = spaceGoodsList.getOpenid();
 
 		SpaceGoodsOrder spaceGoodsOrder =new SpaceGoodsOrder();
 		spaceGoodsOrder.setOpenid(openid);
