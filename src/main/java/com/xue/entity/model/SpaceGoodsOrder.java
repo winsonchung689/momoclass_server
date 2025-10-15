@@ -17,6 +17,8 @@ public class SpaceGoodsOrder {
 
     private String group_number;
 
+    private String group_lesson;
+
     private Integer delete_status;
 
     private String create_time;
@@ -105,6 +107,14 @@ public class SpaceGoodsOrder {
 
     public void setGroup_number(String group_number) {
         this.group_number = group_number;
+    }
+
+    public String getGroup_lesson() {
+        return group_lesson;
+    }
+
+    public void setGroup_lesson(String group_lesson) {
+        this.group_lesson = group_lesson;
     }
 
     public String getId() {

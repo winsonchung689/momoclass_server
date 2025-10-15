@@ -393,6 +393,7 @@ public class SpaceServiceImpl implements SpaceService {
 
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
+                String group_lesson = line.getGroup_lesson();
                 // 团角色
                 String role="团员";
                 if(openid.equals(leader_openid)){
@@ -407,6 +408,7 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("group_lesson", group_lesson);
                 jsonObject.put("leader_number", leader_number.size());
                 jsonObject.put("leader_name", leader_name);
                 jsonObject.put("avatarurl", avatarurl);
@@ -451,6 +453,7 @@ public class SpaceServiceImpl implements SpaceService {
 
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
+                String group_lesson = line.getGroup_lesson();
                 // 团角色
                 String role="团员";
                 if(openid.equals(leader_openid)){
@@ -465,6 +468,7 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("group_lesson", group_lesson);
                 jsonObject.put("openid_qr", openid_qr);
                 jsonObject.put("order_no", order_no);
                 jsonObject.put("leader_number", leader_number.size());
@@ -524,6 +528,7 @@ public class SpaceServiceImpl implements SpaceService {
 
                 String group_price = line.getGroup_price();
                 String group_number = line.getGroup_number();
+                String group_lesson = line.getGroup_lesson();
                 // 团角色
                 String role="团员";
                 if(openid.equals(leader_openid)){
@@ -544,6 +549,7 @@ public class SpaceServiceImpl implements SpaceService {
                 Integer status = line.getStatus();
 
                 //json
+                jsonObject.put("group_lesson", group_lesson);
                 jsonObject.put("status", status);
                 jsonObject.put("follower_name", follower_name);
                 jsonObject.put("follower_phone", follower_phone);
