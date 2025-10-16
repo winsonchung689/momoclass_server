@@ -4135,7 +4135,6 @@ public class LoginServiceImpl implements LoginService {
 
             for (int i = 0; i < list.size(); i++) {
                 Float group_price = 0.0f;
-                Integer group_num = 0;
                 String uuids = null;
                 String leader_name = null;
                 JSONObject jsonObject = new JSONObject();
@@ -4145,7 +4144,11 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String goods_name = line.getGoods_name();
                 String goods_intro = line.getGoods_intro();
+                Float amount = line.getAmount();
+                int counts = line.getCounts();
+                int group_num = line.getGroup_number();
                 Float goods_price = line.getGoods_price();
+
                 status = line.getStatus();
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
@@ -4183,9 +4186,9 @@ public class LoginServiceImpl implements LoginService {
                     if(goodsLists.size()>0){
                         GoodsList goodsList = goodsLists.get(0);
                         goods_name = goodsList.getGoods_name();
-                        goods_price = goodsList.getGoods_price();
-                        group_price = goodsList.getGroup_price();
-                        group_num = goodsList.getGroup_num();
+//                        goods_price = goodsList.getGoods_price();
+//                        group_price = goodsList.getGroup_price();
+//                        group_num = goodsList.getGroup_num();
                         try {
                             uuids = goodsList.getUuids().replace("\"","").replace("[","").replace("]","");
                         } catch (Exception e) {
@@ -4194,12 +4197,7 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-
-
                 String create_time = line.getCreate_time();
-
-                Integer counts = line.getCounts();
-                Float amount = line.getAmount();
                 String sub_goods_id = line.getSub_goods_id();
                 List<GoodsList> goodsLists1 = dao.getGoodsListById(sub_goods_id);
                 String sub_goods_name = "无";
@@ -4220,7 +4218,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("goods_id", goods_id);
                 jsonObject.put("goods_name", goods_name);
                 jsonObject.put("goods_intro", goods_intro);
-                jsonObject.put("goods_price", goods_price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("location", location);
@@ -4231,11 +4228,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leader", leader_name);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("uuids", uuids);
-                jsonObject.put("group_num", group_num);
-                jsonObject.put("group_sum", group_sum);
                 jsonObject.put("type", type);
                 jsonObject.put("counts", counts);
                 jsonObject.put("amount", amount);
+                jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
                 jsonObject.put("status", status);
 
                 //json
