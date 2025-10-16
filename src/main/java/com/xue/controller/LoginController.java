@@ -6605,6 +6605,8 @@ public class LoginController {
 
 		String goods_type = request.getParameter("goods_type");
 
+		String price_list = request.getParameter("price_list");
+
 		String goods_id = request.getParameter("goods_id");
 		if(goods_id == null || goods_id.isEmpty() || "undefined".equals(goods_id)){
 			goods_id = "no_id";
