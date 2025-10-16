@@ -43,7 +43,17 @@ public class GoodsList {
 
     private Integer pay_type;
 
+    private String price_list;
 
+
+
+    public String getPrice_list() {
+        return price_list;
+    }
+
+    public void setPrice_list(String price_list) {
+        this.price_list = price_list;
+    }
 
     public Integer getPay_type() {
         return pay_type;

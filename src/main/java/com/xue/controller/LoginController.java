@@ -1993,77 +1993,34 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
-	@RequestMapping("/modifyGoodsIntro")
+	@RequestMapping("/updateGoodsList")
 	@ResponseBody
-	public String modifyGoodsIntro(String goods_id,String goods_intro_modify,String openid,String type){
+	public String updateGoodsList(String goods_id,String content,String type){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String create_time = df.format(new Date());
 
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			String studio = list_user.get(0).getStudio();
-			if("intro".equals(type)){
-				dao.modifyGoodsIntro(goods_id,studio,campus,goods_intro_modify);
-			}else if("goodsName".equals(type)){
-				dao.modifyGoodsName(goods_id,studio,campus,goods_intro_modify);
-			}else if("price".equals(type)){
-				dao.modifyGoodsPrice(goods_id,studio,campus,goods_intro_modify);
-			}else if("group_num".equals(type)){
-				dao.modifyGoodsGroupNum(goods_id,studio,campus,goods_intro_modify);
-			}else if("group_price".equals(type)){
-				dao.modifyGoodsGroupPrice(goods_id,studio,campus,goods_intro_modify);
-			}else if("cut_step".equals(type)){
-				dao.modifyGoodsCutStep(goods_id,studio,campus,goods_intro_modify);
-			}else if("seckill_price".equals(type)){
-				dao.modifyGoodsSeckillPrice(goods_id,studio,campus,goods_intro_modify);
-			}else if("expired_time".equals(type)){
-				dao.modifyGoodsExpiredTime(goods_id,studio,campus,goods_intro_modify);
-			}else if("add_photo".equals(type)){
-				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-				GoodsList goodsList = goodsLists.get(0);
-				String photo = goodsList.getPhoto();
-				StringBuffer photo_new = new StringBuffer();
-				if(!"no_id".equals(photo)){
-					photo_new.append(photo);
-					photo_new.append(",");
-				}
-				photo_new.append(goods_intro_modify);
-				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
-			}else if("minus_photo".equals(type)){
-				List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-				GoodsList goodsList = goodsLists.get(0);
-				String photo = goodsList.getPhoto();
-				StringBuffer photo_new = new StringBuffer();
-				if(!"no_id".equals(photo)){
-					String[] array = photo.split(",");
-					for(int index = 0; index < array.length; index++) {
-						if(!goods_intro_modify.equals(array[index])){
-							photo_new.append(array[index]);
-							photo_new.append(",");
-						}
-					}
-					if(photo_new.length()>0) {
-						photo_new = photo_new.deleteCharAt(photo_new.lastIndexOf(","));
-					}
-				}
-				dao.modifyGoodsPhoto(goods_id,studio,campus,photo_new.toString());
-			}else if("pay_type".equals(type)){
-				dao.modifyGoodsPayType(goods_id,studio,campus,goods_intro_modify);
-				List<Merchant> merchants = dao.getMerchant(studio,campus,Constants.appid);
-				if(merchants.size() == 0){
-					Merchant merchant = new Merchant();
-					merchant.setStudio(studio);
-					merchant.setCampus(campus);
-					merchant.setOpenid(openid);
-					merchant.setSub_appid(Constants.appid);
-					merchant.setSub_mchid(Constants.appid);
-					merchant.setCreate_time(create_time);
-					merchant.setType("商户平台");
+			List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
+			GoodsList goodsList = goodsLists.get(0);
 
-					dao.insertMerchant(merchant);
+			if("goods_intro".equals(type)){
+				goodsList.setGoods_intro(content);
+			}else if("goods_name".equals(type)){
+				goodsList.setGoods_name(content);
+			}else if("price_list".equals(type)){
+				goodsList.setPrice_list(content);
+			}else if("uuids".equals(type)){
+				goodsList.setUuids(content);
+			}else if("pay_type".equals(type)){
+				int new_pay_type = 1;
+				int pay_type = goodsList.getPay_type();
+				if(pay_type == 1){
+					new_pay_type = 0;
 				}
+				goodsList.setPay_type(new_pay_type);
 			}
+
+			dao.updateGoodsList(goodsList);
 
 		} catch (Exception e) {
 			e.printStackTrace();

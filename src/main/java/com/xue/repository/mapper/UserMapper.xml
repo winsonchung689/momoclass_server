@@ -611,53 +611,9 @@
     update `order` set cut_price =#{param3} where goods_id =#{param1} and leader_id =#{param2}
   </select>
 
-
   <!-- 更改商品简介 -->
-  <select id="modifyGoodsIntro" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set goods_intro =#{param4} where id =#{param1}
-  </select>
-
-  <select id="modifyGoodsPhoto" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set photo =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改商品名称 -->
-  <select id="modifyGoodsName" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set goods_name =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改成团人数 -->
-  <select id="modifyGoodsGroupNum" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set group_num =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改团购价 -->
-  <select id="modifyGoodsGroupPrice" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set group_price =#{param4} where id =#{param1}
-  </select>
-
-  <select id="modifyGoodsPayType" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set pay_type =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改单价 -->
-  <select id="modifyGoodsPrice" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set goods_price =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改砍价 -->
-  <select id="modifyGoodsCutStep" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set cut_step =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改秒杀价 -->
-  <select id="modifyGoodsSeckillPrice" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set seckill_price =#{param4} where id =#{param1}
-  </select>
-
-  <!-- 更改过期时间 -->
-  <select id="modifyGoodsExpiredTime" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set expired_time =#{param4} where id =#{param1}
+  <select id="updateGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
+    update goods_list set goods_name =#{goods_name},goods_intro =#{goods_intro},price_list =#{price_list},uuids =#{uuids},pay_type =#{pay_type} where id =#{id}
   </select>
 
   <!--  更改用户信息-->
@@ -1168,7 +1124,7 @@
 
   <!-- 获取商品列表 -->
   <select id="getGoodsListById" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseGoodsList">
-    select * from goods_list where id = #{param1} and delete_status = 0;
+    select * from goods_list where id = #{param1}
   </select>
 
   <!-- 获取商品列表 -->

@@ -11184,8 +11184,10 @@ public class LoginServiceImpl implements LoginService {
                 String goods_type = line.getGoods_type();
                 String studio = line.getStudio();
                 Integer pay_type = line.getPay_type();
+                String price_list = line.getPrice_list();
 
                 //json
+                jsonObject.put("price_list", price_list);
                 jsonObject.put("studio", studio);
                 jsonObject.put("cut_step", cut_step);
                 jsonObject.put("goods_name", goods_name);

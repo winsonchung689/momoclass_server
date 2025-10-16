@@ -337,25 +337,8 @@ public interface UserMapper {
 
     void deleteGroupBuy(String goods_id,String leader_id,String type);
 
-    void modifyGoodsIntro(String id,String studio,String campus,String goods_intro);
+    void updateGoodsList(GoodsList goodsList);
 
-    void modifyGoodsPhoto(String id,String studio,String campus,String photo);
-
-    void modifyGoodsName(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsGroupNum(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsGroupPrice(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsPayType(String id,String studio,String campus,String pay_type);
-
-    void modifyGoodsCutStep(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsSeckillPrice(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsExpiredTime(String id,String studio,String campus,String goods_intro);
-
-    void modifyGoodsPrice(String id,String studio,String campus,String goods_intro);
 
     void modifyOrderCutPrice(String goods_id,String leader_id,Float cut_price);
 
