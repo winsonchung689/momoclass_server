@@ -21,10 +21,19 @@ public class Order {
     private String type;
     private Integer counts;
     private Float amount;
+    private Integer group_number;
     private Float goods_price;
     private Integer status;
     private String order_no;
 
+
+    public Integer getGroup_number() {
+        return group_number;
+    }
+
+    public void setGroup_number(Integer group_number) {
+        this.group_number = group_number;
+    }
 
     public String getOrder_no() {
         return order_no;

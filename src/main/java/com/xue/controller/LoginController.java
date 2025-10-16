@@ -4841,6 +4841,11 @@ public class LoginController {
 				amount = "0";
 			}
 
+			String group_number =  request.getParameter("group_number");
+			if(group_number == null || group_number.isEmpty() || "undefined".equals(group_number)){
+				group_number = "0";
+			}
+
 			String order_no =  request.getParameter("order_no");
 
 			String studio = null;
@@ -4880,6 +4885,7 @@ public class LoginController {
 			order.setStatus(status);
 			order.setGoods_name(goods_name);
 			order.setOrder_no(order_no);
+			order.setGroup_number(Integer.parseInt(group_number));
 
 			loginService.insertOrder(order);
 
