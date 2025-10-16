@@ -6631,6 +6631,7 @@ public class LoginController {
 			goodsList.setCut_step(Float.parseFloat(cut_step));
 			goodsList.setGoods_type(goods_type);
 			goodsList.setGoods_id(goods_id);
+			goodsList.setPrice_list(price_list);
 			loginService.insertGoodsList(goodsList);
 		} catch (Exception e) {
 			e.printStackTrace();

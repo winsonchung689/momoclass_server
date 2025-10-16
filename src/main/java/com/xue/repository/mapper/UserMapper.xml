@@ -1095,7 +1095,7 @@
 
   <!-- 插入商品列表 -->
   <insert id="insertGoodsList" parameterType="com.xue.entity.model.GoodsList">
-    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price,group_num,cut_step,goods_type,goods_id) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price},#{group_num},#{cut_step},#{goods_type},#{goods_id})
+    insert goods_list(goods_name,goods_intro,goods_price,create_time,studio,photo,campus,uuids,is_group,group_price,group_num,cut_step,goods_type,goods_id,price_list) values(#{goods_name},#{goods_intro},#{goods_price},#{create_time},#{studio},#{photo},#{campus},#{uuids},#{is_group},#{group_price},#{group_num},#{cut_step},#{goods_type},#{goods_id},#{price_list})
   </insert>
 
   <!-- 点赞表 -->
