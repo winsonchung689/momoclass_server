@@ -4404,12 +4404,14 @@ public class LoginServiceImpl implements LoginService {
                 String avartar_leader = null;
                 String studio = null;
                 String campus = null;
+                String leader_nick = null;
                 List<User> users = dao.getUserByOpenid(leader_id);
                 if(users.size()>0){
                     User user = users.get(0);
                     studio = user.getStudio();
                     campus =  user.getCampus();
                     avartar_leader = user.getAvatarurl();
+                    leader_nick = user.getNick_name();
                 }
 
                 String avartar_follow = null;
@@ -4444,6 +4446,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("openid", openid);
                 jsonObject.put("group_role", group_role);
                 jsonObject.put("leader_id", leader_id);
+                jsonObject.put("leader_nick", leader_nick);
                 jsonObject.put("studio", studio);
                 jsonObject.put("campus", campus);
                 jsonObject.put("group_status", group_status);
