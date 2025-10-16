@@ -4392,8 +4392,7 @@ public class LoginServiceImpl implements LoginService {
                 Float cut_price = line.getCut_price();
 
                 String group_status = "未成团";
-                List<GoodsList> goodsLists = dao.getGoodsListById(goods_id);
-                int group_num = goodsLists.get(0).getGroup_num();
+                int group_num = line.getGroup_number();
 
                 List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
                 int group_sum = orders.size();
@@ -4428,6 +4427,9 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String create_time = line.getCreate_time();
+                Float amount = line.getAmount();
+                Integer count = line.getCounts();
+
 
                 jsonObject.put("id", id);
                 jsonObject.put("is_new", is_new);
@@ -4447,6 +4449,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("group_status", group_status);
                 jsonObject.put("group_num", group_num);
                 jsonObject.put("group_sum", group_sum);
+                jsonObject.put("amount", amount);
+                jsonObject.put("count", count);
                 jsonObject.put("cut_price", cut_price);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("avartar_leader", avartar_leader);
