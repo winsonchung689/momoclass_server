@@ -656,9 +656,8 @@ public class BookController {
 			Map<String,String> param = new HashMap<>() ;
 			param.put("scene",scene);
 
-			if("1".equals(type)){
-				param.put("page","pages/welcome/welcome");
-			}else if("2".equals(type)){
+			param.put("page","pages/welcome/welcome");
+			if("2".equals(type)){
 				param.put("page","pages/group_detail/group_detail");
 			}
 
