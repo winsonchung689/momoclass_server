@@ -647,9 +647,16 @@ public class BookController {
 		String token = loginService.getToken("BOOK");
 		String scene = "id=" + id;
 
-		List<BookUser> bookUsers = dao.getBookUserById(id);
-		BookUser bookUser = bookUsers.get(0);
-		String openid = bookUser.getOpenid();
+		String openid = "no_id";
+		if("2".equals(type)){
+			List<SpaceGoodsList> spaceGoodsLists = dao.getSpaceGoodsListById(id);
+			SpaceGoodsList spaceGoodsList = spaceGoodsLists.get(0);
+			openid = spaceGoodsList.getOpenid();
+		}else {
+			List<BookUser> bookUsers = dao.getBookUserById(id);
+			BookUser bookUser = bookUsers.get(0);
+			openid = bookUser.getOpenid();
+		}
 
 		try {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
