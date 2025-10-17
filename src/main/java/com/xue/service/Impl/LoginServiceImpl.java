@@ -5926,7 +5926,7 @@ public class LoginServiceImpl implements LoginService {
                                         }
                                     }
                                     Float lesson_left = all_lesson + give_lesson - package_sum;
-                                    if(student_split.equals(student_name) && lesson_left < 0 && urge_payment == 0){
+                                    if(student_split.equals(student_name) && lesson_left <= 0 && urge_payment == 0){
                                         if (!"no_id".equals(official_openid)) {
                                             String[] official_list = official_openid.split(",");
                                             for (int k = 0; k < official_list.length; k++) {
