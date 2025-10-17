@@ -642,20 +642,26 @@ public class BookController {
 
 	@RequestMapping("/shareSpaceQrCode")
 	@ResponseBody
-	public JSONObject shareSpaceQrCode(String id){
+	public JSONObject shareSpaceQrCode(String id,String type){
 		JSONObject jsonObject = new JSONObject();
 		String token = loginService.getToken("BOOK");
-		String scene = "id=" + id;
+		String scene = "id=" + id
 
 		List<BookUser> bookUsers = dao.getBookUserById(id);
 		BookUser bookUser = bookUsers.get(0);
-		String book_name = bookUser.getBook_name();
+		String openid = bookUser.getOpenid();
 
 		try {
 			String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + token;
 			Map<String,String> param = new HashMap<>() ;
 			param.put("scene",scene);
-			param.put("page","pages/welcome/welcome");
+
+			if("1".equals(type)){
+				param.put("page","pages/welcome/welcome");
+			}else if("2".equals(type)){
+				param.put("page","pages/group_detail/group_detail");
+			}
+
 			String json = JSON.toJSONString(param) ;
 			ByteArrayInputStream inputStream = HttpUtil.sendBytePost(url, json);
 			byte[] bytes = new byte[inputStream.available()];
@@ -663,7 +669,7 @@ public class BookController {
 			String imageString = Base64.getEncoder().encodeToString(bytes);
 
 			// 上传二维码
-			String book_name_md5 = DigestUtils.md5Hex(book_name + "space" + id );
+			String book_name_md5 = DigestUtils.md5Hex(openid + "space" + id );
 			String serverPath = "/data/uploadRr";
 			String fileName = book_name_md5 + ".png";
 			File file = new File(serverPath, fileName);
