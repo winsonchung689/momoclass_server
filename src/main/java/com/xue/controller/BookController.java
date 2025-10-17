@@ -645,7 +645,7 @@ public class BookController {
 	public JSONObject shareSpaceQrCode(String id,String type){
 		JSONObject jsonObject = new JSONObject();
 		String token = loginService.getToken("BOOK");
-		String scene = "id=" + id
+		String scene = "id=" + id;
 
 		List<BookUser> bookUsers = dao.getBookUserById(id);
 		BookUser bookUser = bookUsers.get(0);
