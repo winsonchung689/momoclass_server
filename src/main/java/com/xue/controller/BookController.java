@@ -297,6 +297,8 @@ public class BookController {
 				spaceGoodsList.setGoods_name(content);
 			}else if("goods_intro".equals(type)){
 				spaceGoodsList.setGoods_intro(content);
+			}else if("uuids".equals(type)){
+				spaceGoodsList.setUuids(content);
 			}
 
 			dao.updateSpaceGoodsList(spaceGoodsList);
