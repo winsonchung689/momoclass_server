@@ -11029,8 +11029,12 @@ public class LoginServiceImpl implements LoginService {
                     uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
                 Integer point_status = line.getPoint_status();
+                int is_combine = line.getIs_combine();
+                String related_id = line.getRelated_id();
 
                 //json
+                jsonObject.put("related_id", related_id);
+                jsonObject.put("is_combine", is_combine);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
