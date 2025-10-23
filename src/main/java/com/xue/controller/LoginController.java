@@ -3953,6 +3953,10 @@ public class LoginController {
 				message.setVuuid(content);
 			}else if("class_name".equals(type)){
 				message.setClass_name(content);
+			}else if("duration".equals(type)){
+				message.setDuration(content);
+			}else if("student_name".equals(type)){
+				message.setStudent_name(content);
 			}
 
 			dao.updateComment(message);
