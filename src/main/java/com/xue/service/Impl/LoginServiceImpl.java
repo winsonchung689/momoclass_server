@@ -5914,12 +5914,12 @@ public class LoginServiceImpl implements LoginService {
                                         for(int l = 0; l < bosses.size(); l++){
                                             User boss = bosses.get(l);
                                             String official_openid_boss = boss.getOfficial_openid();
-                                            JSONObject queryJson2 = JSONObject.parseObject(model);
-                                            queryJson2.put("touser", official_openid_boss);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
-                                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
-                                            HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                            JSONObject queryJson3 = JSONObject.parseObject(model);
+                                            queryJson3.put("touser", official_openid_boss);
+                                            queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                            queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
+                                            queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
+                                            HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
 
                                         }
                                     }
@@ -5959,12 +5959,12 @@ public class LoginServiceImpl implements LoginService {
                                             for(int l = 0; l < bosses.size(); l++){
                                                 User boss = bosses.get(l);
                                                 String official_openid_boss = boss.getOfficial_openid();
-                                                JSONObject queryJson2 = JSONObject.parseObject(model);
-                                                queryJson2.put("touser", official_openid_boss);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
-                                                queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
-                                                HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                                JSONObject queryJson3 = JSONObject.parseObject(model);
+                                                queryJson3.put("touser", official_openid_boss);
+                                                queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
+                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
+                                                HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
                                             }
                                         }
                                     }
