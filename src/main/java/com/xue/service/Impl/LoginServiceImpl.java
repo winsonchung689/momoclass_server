@@ -5883,8 +5883,6 @@ public class LoginServiceImpl implements LoginService {
                         // 催续费通知
                         List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
                         if (lessons.size() > 0) {
-                            List<User> user_bosses = dao.getBossByStudioOnly(studio);
-
                             for (int j = 0; j < lessons.size(); j++) {
                                 Lesson lesson = lessons.get(j);
                                 String subject_get = lesson.getSubject();
@@ -5913,8 +5911,8 @@ public class LoginServiceImpl implements LoginService {
                                         }
 
                                         // 给boss反馈
-                                        for(int l = 0; l < user_bosses.size(); l++){
-                                            User boss = user_bosses.get(l);
+                                        for(int l = 0; l < bosses.size(); l++){
+                                            User boss = bosses.get(l);
                                             String official_openid_boss = boss.getOfficial_openid();
                                             JSONObject queryJson2 = JSONObject.parseObject(model);
                                             queryJson2.put("touser", official_openid_boss);
@@ -5958,8 +5956,8 @@ public class LoginServiceImpl implements LoginService {
                                             }
 
                                             // 给boss反馈
-                                            for(int l = 0; l < user_bosses.size(); l++){
-                                                User boss = user_bosses.get(l);
+                                            for(int l = 0; l < bosses.size(); l++){
+                                                User boss = bosses.get(l);
                                                 String official_openid_boss = boss.getOfficial_openid();
                                                 JSONObject queryJson2 = JSONObject.parseObject(model);
                                                 queryJson2.put("touser", official_openid_boss);
