@@ -5879,9 +5879,12 @@ public class LoginServiceImpl implements LoginService {
                         } catch (Exception e) {
         //                                    throw new RuntimeException(e);
                         }
+
                         // 催续费通知
                         List<Lesson> lessons = dao.getLessonLikeName(studio, student_name, campus);
                         if (lessons.size() > 0) {
+                            List<User> user_bosses = dao.getBossByStudioOnly(studio);
+
                             for (int j = 0; j < lessons.size(); j++) {
                                 Lesson lesson = lessons.get(j);
                                 String subject_get = lesson.getSubject();
@@ -5897,6 +5900,7 @@ public class LoginServiceImpl implements LoginService {
                                 // 余课时通知
                                 if (student_split.equals(student_name) && left_amount <= 2 && urge_payment == 0) {
                                     if (!"no_id".equals(official_openid)) {
+                                        //续费通知
                                         String[] official_list = official_openid.split(",");
                                         for (int k = 0; k < official_list.length; k++) {
                                             String official_openid_get = official_list[k];
@@ -5906,6 +5910,19 @@ public class LoginServiceImpl implements LoginService {
                                             queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
                                             queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                             HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                        }
+
+                                        // 给boss反馈
+                                        for(int l = 0; l < user_bosses.size(); l++){
+                                            User boss = user_bosses.get(l);
+                                            String official_openid_boss = boss.getOfficial_openid();
+                                            JSONObject queryJson2 = JSONObject.parseObject(model);
+                                            queryJson2.put("touser", official_openid_boss);
+                                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                            queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
+                                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
+                                            HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+
                                         }
                                     }
                                 }
@@ -5928,14 +5945,27 @@ public class LoginServiceImpl implements LoginService {
                                     Float lesson_left = all_lesson + give_lesson - package_sum;
                                     if(student_split.equals(student_name) && lesson_left <= 0 && urge_payment == 0){
                                         if (!"no_id".equals(official_openid)) {
+                                            // 优先课包通知
                                             String[] official_list = official_openid.split(",");
                                             for (int k = 0; k < official_list.length; k++) {
                                                 String official_openid_get = official_list[k];
                                                 JSONObject queryJson2 = JSONObject.parseObject(model);
                                                 queryJson2.put("touser", official_openid_get);
                                                 queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "在用课包剩下" + lesson_left + "课时");
+                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
                                                 queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                                HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                            }
+
+                                            // 给boss反馈
+                                            for(int l = 0; l < user_bosses.size(); l++){
+                                                User boss = user_bosses.get(l);
+                                                String official_openid_boss = boss.getOfficial_openid();
+                                                JSONObject queryJson2 = JSONObject.parseObject(model);
+                                                queryJson2.put("touser", official_openid_boss);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "续费通知已发送");
                                                 HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                             }
                                         }
