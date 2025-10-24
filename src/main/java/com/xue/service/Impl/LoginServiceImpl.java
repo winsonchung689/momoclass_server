@@ -301,18 +301,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getDetails(Integer id) {
-        byte[] photo = null;
-        InputStream inputStream_photo = null;
-        String comment = null;
-        String student_name = null;
-        String class_name = null;
-        String class_target = null;
-		String studio = null;
-		String duration = null;
-        String positive = null ;
-        String discipline = null;
-        String happiness = null;
-        String mp3_url=null;
         String uuids=null;
         String uuids_c=null;
         String vuuid=null;
@@ -324,15 +312,15 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
-                student_name = line.getStudent_name();
-                class_name = line.getClass_name();
-                comment = line.getComment();
-                class_target = line.getClass_target();
-				studio = line.getStudio();
+                String student_name = line.getStudent_name();
+                String class_name = line.getClass_name();
+                String comment = line.getComment();
+                String class_target = line.getClass_target();
+                String studio = line.getStudio();
                 String campus = line.getCampus();
-                duration = line.getDuration();
+                String duration = line.getDuration();
 
-                positive = line.getPositive();
+                String positive = line.getPositive();
                 String positve_item = "积极性";
                 String[] positive_list = positive.split("_");
                 if(positive_list.length>1){
@@ -340,7 +328,7 @@ public class LoginServiceImpl implements LoginService {
                     positive = positive_list[1];
                 }
 
-                discipline = line.getDiscipline();
+                String discipline = line.getDiscipline();
                 String discipline_item = "纪律性";
                 String[] discipline_list = discipline.split("_");
                 if(discipline_list.length>1){
@@ -348,7 +336,7 @@ public class LoginServiceImpl implements LoginService {
                     discipline = discipline_list[1];
                 }
 
-                happiness = line.getHappiness();
+                String happiness = line.getHappiness();
                 String happiness_item = "开心值";
                 String[] happiness_list = happiness.split("_");
                 if(happiness_list.length>1){
@@ -356,7 +344,7 @@ public class LoginServiceImpl implements LoginService {
                     happiness = happiness_list[1];
                 }
 
-                mp3_url=line.getMp3_url();
+                String mp3_url=line.getMp3_url();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
@@ -372,20 +360,10 @@ public class LoginServiceImpl implements LoginService {
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
-                photo = line.getPhoto();
+                byte[] photo = line.getPhoto();
                 if(uuids != null){
                     photo = null;
 
-                }
-
-                jsonObject.put("isHide",true);
-                try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
-                    if (user.size()>0){
-                        jsonObject.put("isHide",false);
-                    }
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
                 }
 
                 String create_time = line.getCreate_time();
@@ -398,7 +376,24 @@ public class LoginServiceImpl implements LoginService {
                     teacher = user_get.getNick_name();
                 }
 
+                int liked = 0;
+                int like_count =0;
+                List<PostLike> postLikes = dao.getPostLike(id.toString());
+                if(postLikes.size()>0){
+                    for (int j = 0; j < postLikes.size(); j++) {
+                        like_count = like_count + 1;
+                        PostLike postLike = postLikes.get(j);
+                        String openid_get = postLike.getOpenid();
+                        if(openid.equals(openid_get)){
+                            liked = 1;
+                        }
+                    }
+                }
+
                 //json
+                jsonObject.put("liked",liked);
+                jsonObject.put("like_count",like_count);
+                jsonObject.put("isHide",true);
                 jsonObject.put("teacher", teacher);
                 jsonObject.put("openid", openid);
                 jsonObject.put("views", views);
