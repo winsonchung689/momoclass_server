@@ -1888,7 +1888,7 @@
   </update>
 
   <update id="updateBookUserDetail" parameterType="com.xue.entity.model.BookUser">
-    update book_user set role=#{role},expired_time=#{expired_time},student_name=#{student_name},phone_number=#{phone_number},location=#{location},avatarurl=#{avatarurl},nick_name=#{nick_name},book_name=#{book_name},logo=#{logo} where id = #{id}
+    update book_user set union_mark=#{union_mark},role=#{role},expired_time=#{expired_time},student_name=#{student_name},phone_number=#{phone_number},location=#{location},avatarurl=#{avatarurl},nick_name=#{nick_name},book_name=#{book_name},logo=#{logo} where id = #{id}
   </update>
 
   <update id="updateBookDetailBookName" parameterType="com.xue.entity.model.BookDetail">

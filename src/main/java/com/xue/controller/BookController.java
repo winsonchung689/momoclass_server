@@ -169,6 +169,8 @@ public class BookController {
 				bookUser.setStudent_name(content);
 			}else if("expired_time".equals(type)){
 				bookUser.setExpired_time(content);
+			}else if("union_mark".equals(type)){
+				bookUser.setUnion_mark(content);
 			}
 
 			dao.updateBookUserDetail(bookUser);
