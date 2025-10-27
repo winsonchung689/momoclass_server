@@ -71,6 +71,7 @@ public class SpaceServiceImpl implements SpaceService {
                 String nick_name = line.getNick_name();
                 String create_time = line.getCreate_time();
                 String expired_time = line.getExpired_time();
+                String union_mark = line.getUnion_mark();
 
                 // 过期回收权限
                 String today_time = df.format(new Date());
@@ -109,6 +110,7 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 //json
+                jsonObject.put("union_mark", union_mark);
                 jsonObject.put("my_id", my_id);
                 jsonObject.put("id", id);
                 jsonObject.put("role", role);

@@ -34,7 +34,16 @@ public class BookUser {
 
     private String student_name;
 
+    private  String union_mark;
 
+
+    public String getUnion_mark() {
+        return union_mark;
+    }
+
+    public void setUnion_mark(String union_mark) {
+        this.union_mark = union_mark;
+    }
 
     public String getStudent_name() {
         return student_name;
