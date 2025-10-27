@@ -181,8 +181,12 @@ public class SpaceServiceImpl implements SpaceService {
                 String price = line.getPrice();
                 String create_time = line.getCreate_time();
                 openid = line.getOpenid();
+                String duration = line.getDuration();
+                String teacher = line.getTeacher();
 
                 //json
+                jsonObject.put("duration", duration);
+                jsonObject.put("teacher", teacher);
                 jsonObject.put("id", id);
                 jsonObject.put("openid", openid);
                 jsonObject.put("name", name);

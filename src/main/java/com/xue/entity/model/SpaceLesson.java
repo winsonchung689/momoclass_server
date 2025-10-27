@@ -17,7 +17,27 @@ public class SpaceLesson {
 
     private String create_time;
 
+    private String duration;
 
+    private String teacher;
+
+
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public Integer getStatus() {
         return status;

@@ -2109,7 +2109,7 @@
   </insert>
 
   <insert id="insertSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson">
-    insert space_lesson(openid,name,subject,price,create_time) values(#{openid},#{name},#{subject},#{price},#{create_time})
+    insert space_lesson(openid,name,subject,price,create_time,teacher,duration) values(#{openid},#{name},#{subject},#{price},#{create_time},#{teacher},#{duration})
   </insert>
 
   <insert id="insertPptMenu" parameterType="com.xue.entity.model.PptMenu">
