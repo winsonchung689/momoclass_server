@@ -517,6 +517,8 @@ public class BookController {
 		String name = request.getParameter("name");
 		String subject = request.getParameter("subject");
 		String price = request.getParameter("price");
+		String teacher = request.getParameter("teacher");
+		String duration = request.getParameter("duration");
 
 		SpaceLesson spaceLesson =new SpaceLesson();
 		spaceLesson.setOpenid(openid);
@@ -524,6 +526,8 @@ public class BookController {
 		spaceLesson.setPrice(price);
 		spaceLesson.setSubject(subject);
 		spaceLesson.setCreate_time(create_time);
+		spaceLesson.setDuration(duration);
+		spaceLesson.setDuration(duration);
 
 		try {
 			dao.insertSpaceLesson(spaceLesson);
