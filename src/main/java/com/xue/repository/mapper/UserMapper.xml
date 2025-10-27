@@ -2377,7 +2377,7 @@
   </select>
 
   <select id="getSpaceLessonById" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
-    select * from space_lesson where id =#{param1} and delete_status = 0
+    select * from space_lesson where id =#{param1}
   </select>
 
   <!-- 获取总人数 -->
