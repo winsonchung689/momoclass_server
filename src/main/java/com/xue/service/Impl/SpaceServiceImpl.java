@@ -220,12 +220,18 @@ public class SpaceServiceImpl implements SpaceService {
                 Integer status = line.getStatus();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
+
+                // 课程
                 String lesson_id = line.getLesson_id();
                 List<SpaceLesson> spaceLessons = dao.getSpaceLessonById(lesson_id);
                 SpaceLesson spaceLesson = spaceLessons.get(0);
                 String name = spaceLesson.getName();
                 String subject = spaceLesson.getSubject();
                 String price = spaceLesson.getPrice();
+                String duration = spaceLesson.getDuration();
+                String teacher = spaceLesson.getTeacher();
+
+                // 学生家长
                 String openid_get = line.getOpenid();
                 List<BookUser> bookUsers1 = dao.getBookUser(openid_get);
                 BookUser bookUser1 = bookUsers1.get(0);
@@ -234,6 +240,8 @@ public class SpaceServiceImpl implements SpaceService {
                 String phone_number = bookUser1.getPhone_number();
 
                 //json
+                jsonObject.put("duration", duration);
+                jsonObject.put("teacher", teacher);
                 jsonObject.put("id", id);
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("name", name);
