@@ -526,7 +526,7 @@ public class BookController {
 		spaceLesson.setPrice(price);
 		spaceLesson.setSubject(subject);
 		spaceLesson.setCreate_time(create_time);
-		spaceLesson.setDuration(duration);
+		spaceLesson.setTeacher(teacher);
 		spaceLesson.setDuration(duration);
 
 		try {
