@@ -154,11 +154,7 @@ public class BookController {
 			}else if("logo".equals(type)){
 				bookUser.setLogo(content);
 			}else if("role".equals(type)){
-				String role = "boss";
-				if("boss".equals(content)){
-					role = "client";
-				}
-				bookUser.setRole(role);
+				bookUser.setRole(content);
 			}else if("book_name".equals(type)){
 				bookUser.setBook_name(content);
 			}else if("location".equals(type)){
