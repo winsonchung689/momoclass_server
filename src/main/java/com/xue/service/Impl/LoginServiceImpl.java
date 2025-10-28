@@ -3312,7 +3312,7 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
-        if("music".equals(type)){
+        if("music".equals(type) && !"请录入工作室".equals(studio)){
             studio = "大雄工作室";
             campus = "大雄工作室";
         }
