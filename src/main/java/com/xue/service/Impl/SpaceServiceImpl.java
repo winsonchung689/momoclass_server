@@ -585,5 +585,48 @@ public class SpaceServiceImpl implements SpaceService {
         return resul_list;
     }
 
+    @Override
+    public List getLibraryByPublic(String openid) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        try {
+            List<Library> libraries = dao.getLibraryByPublic(1);
+            for (int i = 0; i < libraries.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Library line = libraries.get(i);
+                //获取字段
+                String create_time = line.getCreate_time();
+                String id = line.getId();
+                String menu_id = line.getMenu_id();
+                String file_name = line.getFile_name();
+                Float size = line.getSize();
+                Float limit_size = line.getLimit_size();
+                String uuid = line.getUuid();
+                String subject = line.getSubject();
+
+
+                List<BookUser> bookUsers = dao.getBookUser(menu_id);
+                BookUser bookUser = bookUsers.get(0);
+                String boss_name = bookUser.getNick_name();
+                String boss_phone = bookUser.getPhone_number();
+
+
+                //json
+                jsonObject.put("menu_id", menu_id);
+                jsonObject.put("file_name", file_name);
+                jsonObject.put("size", size);
+                jsonObject.put("limit_size", limit_size);
+                jsonObject.put("uuid", uuid);
+                jsonObject.put("subject", subject);
+                jsonObject.put("boss_name", boss_name);
+                jsonObject.put("boss_phone", boss_phone);
+                jsonObject.put("create_time", create_time);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
 
 }

@@ -28,4 +28,6 @@ public interface SpaceService {
 
     public List getSpaceGoodsOrderByOpenid(String openid);
 
+    public List getLibraryByPublic(String openid);
+
 }
