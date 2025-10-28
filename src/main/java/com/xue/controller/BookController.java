@@ -797,10 +797,10 @@ public class BookController {
 
 	@RequestMapping("/getLibraryByPublic")
 	@ResponseBody
-	public List getLibraryByPublic(String is_public){
+	public List getLibraryByPublic(String openid){
 		List list = null;
 		try {
-			list = dao.getLibraryByPublic(1);
+			list = spaceService.getLibraryByPublic(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
