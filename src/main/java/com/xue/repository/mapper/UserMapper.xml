@@ -896,12 +896,12 @@
     select date_format(create_time, '%Y-%m-%d') create_time,sum(if(type="收入",amount,0)) income,sum(if(type="支出",amount,0)) expenditure from account_book where studio = #{param1} and campus =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d') order by date_format(create_time,'%Y-%m-%d') desc
   </select>
 
-  <select id="getAnalyzeSignUpByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} group by student_name
+  <select id="getAnalyzeSignUpByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param3} and #{param4} order by create_time desc,class_number,duration
   </select>
 
-  <select id="getAnalyzeSignUpBySubject" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">
-    select student_name,count(1) sign_count,sum(count) lesson_count from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} group by student_name
+  <select id="getAnalyzeSignUpBySubject" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    select * from sign_up_record where mark &lt;&gt; '录前消课' and mark not like '%转让%' and studio = #{param1} and campus =#{param2} and subject =#{param3} and delete_status = 0 and count > 0 and date_format(create_time,'%Y-%m-%d') between #{param4} and #{param5} order by create_time desc,class_number,duration
   </select>
 
   <select id="getAnalyzeSignUpByMonthByStudent" parameterType="com.xue.entity.model.AnalyzeCount" resultMap="BaseAnalyzeCount">

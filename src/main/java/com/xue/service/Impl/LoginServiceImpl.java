@@ -9765,69 +9765,61 @@ public class LoginServiceImpl implements LoginService {
 
             if("出勤数".equals(type)){
                 //获取签到次数与课时
-                List<AnalyzeCount> list = null;
+                List<SignUp> list = null;
                 if("全科目".equals(subject_in)){
                     list = dao.getAnalyzeSignUpByStudent(studio,campus,weekday,weekday);
                 }else{
                     list = dao.getAnalyzeSignUpBySubject(studio,campus,subject_in,weekday,weekday);
                 }
                 for(int i=0;i< list.size();i++){
-                    JSONObject jsonObject = new JSONObject();
                     Float weekPrice = 0.0f;
                     Float all_lesson_count = 0.0f;
-                    String student_name = list.get(i).getStudent_name();
-                    Float signCount = list.get(i).getSign_count();
-                    Float lessonCount = list.get(i).getLesson_count();
 
-                    //获取签到记录
-                    List<SignUp> signUps = null;
-                    if("全科目".equals(subject_in)){
-                        signUps = dao.getAnalyzeSignUpDetailByStudent(studio,campus,weekday,student_name);
-                    }else{
-                        signUps = dao.getAnalyzeSignUpDetailBySubject(studio,campus,subject_in,weekday,student_name);
-                    }
-                    if(signUps.size() > 0){
-                        for (int j = 0; j < signUps.size(); j++) {
-                            SignUp signUp = signUps.get(j);
-                            String subject = signUp.getSubject();
-                            Float count = signUp.getCount();
-                            String package_id = signUp.getPackage_id();
-                            try {
-                                //获取课时数
-                                List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-                                if(lessons.size()>0){
-                                    Float price = 0.0f;
-                                    Float total_money = 0.0f;
-                                    Float dis_money = 0.0f;
-                                    Float all_lesson = 0.0f;
-                                    Float give_lesson = 0.0f;
-                                    //获取课包记录
-                                    List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
-                                    if(lessonPackages.size() == 0){
-                                        lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
-                                    }
-                                    if(lessonPackages.size()>0){
-                                        for (int k = 0; k < lessonPackages.size(); k++) {
-                                            Float total_money_get = lessonPackages.get(k).getTotal_money();
-                                            Float dis_money_get = lessonPackages.get(k).getDiscount_money();
-                                            Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
-                                            Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
-                                            total_money = total_money + total_money_get;
-                                            dis_money = dis_money + dis_money_get;
-                                            all_lesson = all_lesson + all_lesson_get;
-                                            give_lesson = give_lesson + give_lesson_get;
-                                        }
-                                        if(total_money>0){
-                                            price = (total_money - dis_money)/(all_lesson + give_lesson);
-                                        }
-                                        weekPrice = weekPrice + price*count;
-                                    }
+                    JSONObject jsonObject = new JSONObject();
+                    SignUp signUp = list.get(i);
+                    Float signCount = 1.0f;
+                    String student_name = signUp.getStudent_name();
+                    Float count = signUp.getCount();
+                    String class_number = signUp.getClass_number();
+                    String duration = signUp.getDuration();
+                    String mark = signUp.getMark();
+                    String subject = signUp.getSubject();
+                    String package_id = signUp.getPackage_id();
+                    try {
+                        //获取课时数
+                        List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+                        if(lessons.size()>0){
+                            Float price = 0.0f;
+                            Float total_money = 0.0f;
+                            Float dis_money = 0.0f;
+                            Float all_lesson = 0.0f;
+                            Float give_lesson = 0.0f;
+                            //获取课包记录
+                            List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                            if(lessonPackages.size() == 0){
+                                lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                            }
+                            if(lessonPackages.size()>0){
+                                for (int k = 0; k < lessonPackages.size(); k++) {
+                                    Float total_money_get = lessonPackages.get(k).getTotal_money();
+                                    Float dis_money_get = lessonPackages.get(k).getDiscount_money();
+                                    Float all_lesson_get = lessonPackages.get(k).getAll_lesson();
+                                    Float give_lesson_get = lessonPackages.get(k).getGive_lesson();
+                                    total_money = total_money + total_money_get;
+                                    dis_money = dis_money + dis_money_get;
+                                    all_lesson = all_lesson + all_lesson_get;
+                                    give_lesson = give_lesson + give_lesson_get;
                                 }
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
+                                if(total_money>0){
+                                    price = (total_money - dis_money)/(all_lesson + give_lesson);
+                                }
+                                weekPrice = weekPrice + price*count;
                             }
                         }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
+
 
                     //获取排课记录
                     List<AnalyzeCount> list3 = null;
@@ -9839,11 +9831,16 @@ public class LoginServiceImpl implements LoginService {
                     if(list3.size() > 0){
                         all_lesson_count = list3.get(0).getLesson_count();
                     }
+
+
                     DecimalFormat df = new DecimalFormat("0.00");
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("mark", mark);
                     jsonObject.put("create_time", weekday);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("signCount", signCount);
-                    jsonObject.put("lessonCount", lessonCount);
+                    jsonObject.put("lessonCount", count);
                     jsonObject.put("all_lesson_count", all_lesson_count);
                     jsonObject.put("weekPrice", df.format(weekPrice));
                     jsonObject.put("rate", df.format(signCount/all_lesson_count*100));

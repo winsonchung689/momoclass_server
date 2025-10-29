@@ -147,9 +147,9 @@ public interface UserMapper {
 
     List<BookCount> getBookByDate(String studio,String campus);
 
-    List<AnalyzeCount> getAnalyzeSignUpByStudent(String studio,String campus,String start_date,String end_date);
+    List<SignUp> getAnalyzeSignUpByStudent(String studio,String campus,String start_date,String end_date);
 
-    List<AnalyzeCount> getAnalyzeSignUpBySubject(String studio,String campus,String subject,String start_date,String end_date);
+    List<SignUp> getAnalyzeSignUpBySubject(String studio,String campus,String subject,String start_date,String end_date);
 
     List<AnalyzeCount> getAnalyzeSignUpByMonthByStudent(String studio,String campus,String start_date,String end_date);
 
