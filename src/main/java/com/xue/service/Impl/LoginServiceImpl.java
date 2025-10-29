@@ -9785,6 +9785,9 @@ public class LoginServiceImpl implements LoginService {
                     String mark = signUp.getMark();
                     String subject = signUp.getSubject();
                     String package_id = signUp.getPackage_id();
+                    String sign_time  = signUp.getSign_time();
+                    String create_time = signUp.getCreate_time();
+
                     try {
                         //获取课时数
                         List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
@@ -9837,7 +9840,8 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("mark", mark);
-                    jsonObject.put("create_time", weekday);
+                    jsonObject.put("create_time", create_time);
+                    jsonObject.put("sign_time", sign_time);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("signCount", signCount);
                     jsonObject.put("lessonCount", count);
