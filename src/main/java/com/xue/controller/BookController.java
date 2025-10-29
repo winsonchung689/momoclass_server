@@ -711,6 +711,9 @@ public class BookController {
 
 		//获取用户名
 		String id = request.getParameter("id");
+		if(id == null || id.isEmpty() || "undefined".equals(id)){
+			id = "3";
+		}
 
 		String openid = request.getParameter("openid");
 		String openid_qr = "no_id";
