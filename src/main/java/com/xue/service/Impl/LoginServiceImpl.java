@@ -732,6 +732,12 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
+        List<SignUp> list1 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,0);
+        int use_count = list1.size();
+        List<SignUp> list2 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,1);
+        int end_count = list2.size();
+
+
         List<SignUp> signUps = dao.getSignUpByStudentPage(student_name,studio,subject,campus,page_start,page_length);
         for (int i = 0; i < signUps.size(); i++) {
             JSONObject jsonObject = new JSONObject();
@@ -787,6 +793,8 @@ public class LoginServiceImpl implements LoginService {
             }
 
             //json
+            jsonObject.put("use_count", use_count);
+            jsonObject.put("end_count", end_count);
             jsonObject.put("id", id);
             jsonObject.put("student_name", student_name);
             jsonObject.put("create_time", create_time.substring(0,10));

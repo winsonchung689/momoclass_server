@@ -1086,6 +1086,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUpByStudentPage(String student_name,String studio,String subject,String campus,Integer page_start,Integer page_length);
 
+    List<SignUp> getSignUpByStudentEndStatus(String student_name,String studio,String subject,String campus,Integer ending_status);
+
     List<GiftList> getGiftList(String studio,String campus);
 
     List<GiftList> getGiftListById(String id);
