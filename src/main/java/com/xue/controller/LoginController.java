@@ -1664,6 +1664,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getSignUpByStudentPage")
+	@ResponseBody
+	public List getSignUpByStudentPage(String student_name,String studio,String subject,String openid,Integer page){
+		List list = null;
+		try {
+			list = loginService.getSignUpByStudentPage(student_name,studio,subject,openid,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getSignUpByBetween")
 	@ResponseBody
 	public List getSignUpByBetween(String student_name,String subject,String openid,String duration_time){
