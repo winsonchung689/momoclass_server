@@ -724,6 +724,91 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getSignUpByStudentPage(String student_name, String studio, String subject, String openid, Integer page) {
+        List<JSONObject> resul_list = new ArrayList<>();
+        Integer page_start = (page - 1) * 10;
+        Integer page_length = 10;
+        List<User> user_get= dao.getUser(openid);
+        String campus = user_get.get(0).getCampus();
+        List<SignUp> signUps = dao.getSignUpByStudentPage(student_name,studio,subject,campus,page_start,page_length);
+        for (int i = 0; i < signUps.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            SignUp line = signUps.get(i);
+            //获取字段
+            String create_time = line.getCreate_time();
+            String sign_time = line.getSign_time();
+            String id = line.getId();
+            String mark = line.getMark();
+            String duration = line.getDuration();
+            Float count = line.getCount();
+            String teacher = line.getTeacher();
+
+            String package_mark = "无备注";
+            Float all_lesson = 0.0f;
+            Float given_lesson = 0.0f;
+            String package_id = line.getPackage_id();
+
+            try {
+                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                if(lessonPackages.size()>0){
+                    LessonPackage lessonPackage = lessonPackages.get(0);
+                    package_mark = lessonPackage.getMark();
+                    all_lesson = lessonPackage.getAll_lesson();
+                    given_lesson = lessonPackage.getGive_lesson();
+                }
+            } catch (NumberFormatException e) {
+//                    throw new RuntimeException(e);
+            }
+
+            int ending_status_get = line.getEnding_status();
+            String ending_status = "未结";
+            if(ending_status_get == 1){
+                ending_status = "已结";
+            }
+
+            SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+            Date create_time_dt = null;
+            Date sign_time_dt = null;
+            try {
+                create_time_dt = df1.parse(create_time.substring(0,10));
+                sign_time_dt = df1.parse(sign_time.substring(0,10));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            int compare = sign_time_dt.compareTo(create_time_dt);
+
+            String status = "正常签";
+            if(compare > 0){
+                status = "补签";
+            } else if(compare < 0){
+                status = "提前签";
+            }
+
+            //json
+            jsonObject.put("id", id);
+            jsonObject.put("student_name", student_name);
+            jsonObject.put("create_time", create_time.substring(0,10));
+            jsonObject.put("sign_time", sign_time.substring(0,10));
+            jsonObject.put("rank", i+1);
+            jsonObject.put("mark", mark);
+            jsonObject.put("duration", duration);
+            jsonObject.put("count", count);
+            jsonObject.put("subject", subject);
+            jsonObject.put("status", status);
+            jsonObject.put("ending_status", ending_status);
+            jsonObject.put("package_mark", package_mark);
+            jsonObject.put("all_lesson", all_lesson);
+            jsonObject.put("given_lesson", given_lesson);
+            jsonObject.put("package_id", package_id);
+            jsonObject.put("teacher", teacher);
+            resul_list.add(jsonObject);
+        }
+
+
+        return resul_list;
+    }
+
+    @Override
     public List getSignUpByBetween(String student_name, String subject, String openid,String duration_time) {
         List<JSONObject> resul_list = new ArrayList<>();
 
