@@ -732,12 +732,19 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
-        List<SignUp> list1 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,0);
-        int use_count = list1.size();
-        List<SignUp> list2 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,1);
-        int end_count = list2.size();
+        int use_count = 0;
+        int end_count = 0;
+
+        // 统计
+        if(page == 1){
+            List<SignUp> list1 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,0);
+            use_count = list1.size();
+            List<SignUp> list2 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,1);
+            end_count = list2.size();
+        }
 
 
+        // 明细
         List<SignUp> signUps = dao.getSignUpByStudentPage(student_name,studio,subject,campus,page_start,page_length);
         for (int i = 0; i < signUps.size(); i++) {
             JSONObject jsonObject = new JSONObject();
