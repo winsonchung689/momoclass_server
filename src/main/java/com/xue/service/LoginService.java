@@ -105,7 +105,7 @@ public interface LoginService {
 
     public List  getSignUp(String student_name,String studio,String subject,String openid);
 
-    public List  getSignUpByStudentPage(String student_name,String studio,String subject,String openid,Integer page);
+    public List  getSignUpByStudentPage(String student_name,String subject,String openid,Integer page);
 
     public List  getSignUpByBetween(String student_name,String subject,String openid,String duration_time);
 

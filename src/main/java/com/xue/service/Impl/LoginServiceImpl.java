@@ -724,12 +724,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByStudentPage(String student_name, String studio, String subject, String openid, Integer page) {
+    public List getSignUpByStudentPage(String student_name, String subject, String openid, Integer page) {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 10;
         Integer page_length = 10;
-        List<User> user_get= dao.getUser(openid);
-        String campus = user_get.get(0).getCampus();
+        List<User> users= dao.getUser(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
         List<SignUp> signUps = dao.getSignUpByStudentPage(student_name,studio,subject,campus,page_start,page_length);
         for (int i = 0; i < signUps.size(); i++) {
             JSONObject jsonObject = new JSONObject();
