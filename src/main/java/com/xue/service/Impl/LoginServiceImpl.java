@@ -806,7 +806,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("student_name", student_name);
             jsonObject.put("create_time", create_time.substring(0,10));
             jsonObject.put("sign_time", sign_time.substring(0,10));
-            jsonObject.put("rank", i+1);
+            jsonObject.put("rank", page_start + i + 1);
             jsonObject.put("mark", mark);
             jsonObject.put("duration", duration);
             jsonObject.put("count", count);
