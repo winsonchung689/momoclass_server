@@ -9062,6 +9062,9 @@ public class LoginServiceImpl implements LoginService {
                 List<User> users = dao.getUser(openid);
                 User user = users.get(0);
                 String phone_number = user.getPhone_number();
+                if(phone_number.isEmpty() || phone_number == null){
+                    phone_number = "未录入";
+                }
                 String wechat_id = user.getWechat_id();
 
                 int is_paid = line.getIs_paid();
