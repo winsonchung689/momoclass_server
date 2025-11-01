@@ -8555,6 +8555,7 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+            //科目判断
             List<String> list_subject = new ArrayList<>();
             List<Lesson> subject_list = dao.getSubjectByStudio(studio,campus);
             try {
