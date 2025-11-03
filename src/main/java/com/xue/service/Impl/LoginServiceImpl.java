@@ -9051,22 +9051,27 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 String user_type = line.getUser_type();
 
-                //推荐人
+                // 推荐人
                 String openid_qr_get = line.getOpenid_qr();
                 List<User> users_qr = dao.getUser(openid_qr_get);
                 User user_qr = users_qr.get(0);
                 String nick_name_rc = user_qr.getNick_name();
 
-                //本尊
+                // 本尊
                 String openid = line.getOpenid();
                 List<User> users = dao.getUser(openid);
-                User user = users.get(0);
-                String phone_number = user.getPhone_number();
-                if(phone_number.isEmpty() || phone_number == null){
-                    phone_number = "未录入";
+                String wechat_id = "no_id";
+                String phone_number = "未录入";
+                if(users.size() > 0){
+                    User user = users.get(0);
+                    phone_number = user.getPhone_number();
+                    if(phone_number.isEmpty() || phone_number == null){
+                        phone_number = "未录入";
+                    }
+                    wechat_id = user.getWechat_id();
                 }
-                String wechat_id = user.getWechat_id();
 
+                // 返现状态
                 int is_paid = line.getIs_paid();
                 String is_paid_cn = "未返现";
                 if("新用户".equals(user_type)){
