@@ -613,7 +613,7 @@
 
   <!-- 更改商品简介 -->
   <select id="updateGoodsList" parameterType="com.xue.entity.model.GoodsList" resultMap="BaseResultMap">
-    update goods_list set goods_name =#{goods_name},goods_intro =#{goods_intro},price_list =#{price_list},uuids =#{uuids},pay_type =#{pay_type} where id =#{id}
+    update goods_list set group_price =#{group_price},goods_price =#{goods_price},goods_name =#{goods_name},goods_intro =#{goods_intro},price_list =#{price_list},uuids =#{uuids},pay_type =#{pay_type} where id =#{id}
   </select>
 
   <!--  更改用户信息-->

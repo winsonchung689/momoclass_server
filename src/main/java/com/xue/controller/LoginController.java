@@ -2030,6 +2030,10 @@ public class LoginController {
 					new_pay_type = 0;
 				}
 				goodsList.setPay_type(new_pay_type);
+			}else if("goods_price".equals(type)){
+				goodsList.setGoods_price(Float.parseFloat(content));
+			}else if("group_price".equals(type)){
+				goodsList.setGroup_price(Float.parseFloat(content));
 			}
 
 			dao.updateGoodsList(goodsList);
