@@ -694,6 +694,41 @@ public class BookController {
 		return jsonObject;
 	}
 
+	@RequestMapping("/updateLibraryDetailById")
+	@ResponseBody
+	public int updateLibraryDetailById(HttpServletRequest request, HttpServletResponse response){
+
+		//获取参数
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+		String id = request.getParameter("id");
+
+		try {
+			List<Library> libraries = dao.getLibraryById(id);
+			Library library = libraries.get(0);
+			if("uuid".equals(type)){
+				library.setUuid(content);
+			}else if("is_public".equals(type)){
+				int new_public = 1;
+				if("1".equals(content)){
+					new_public = 0;
+				}
+				library.setIs_public(new_public);
+			}else if("limit_size".equals(type)){
+				library.setLimit_size(Float.parseFloat(content));
+			}else if("subject".equals(type)){
+				library.setSubject(content);
+			}
+
+			dao.updateLibraryDetailById(library);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return 1;
+
+	}
+
 	@RequestMapping("/inviteSpaceUser")
 	@ResponseBody
 	public String inviteSpaceUser(HttpServletRequest request, HttpServletResponse response){
