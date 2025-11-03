@@ -229,6 +229,8 @@ public interface LoginService {
 
     public List getOrderByGoodsId(String goods_id,String type);
 
+    public List getOrderById(String id);
+
     public List getFrameModel(String studio,Integer page,String class_target,String campus);
 
     public List getCertificateModelName();

@@ -4563,6 +4563,108 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getOrderById(String id) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<Order> list =dao.getOrderById(id);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Order line = list.get(i);
+                //获取字段
+                id = line.getId();
+                String goods_name = line.getGoods_name();
+                String goods_intro = line.getGoods_intro();
+                Float goods_price = line.getGoods_price();
+                Integer status = line.getStatus();
+                String phone_number = line.getPhone_number();
+                String location = line.getLocation();
+                String nick_name = line.getNick_name();
+                String openid = line.getOpenid();
+                String group_role = line.getGroup_role();
+                String leader_id = line.getLeader_id();
+                Float cut_price = line.getCut_price();
+                String goods_id = line.getGoods_id();
+                String type = line.getType();
+
+                String group_status = "未成团";
+                int group_num = line.getGroup_number();
+
+                List<Order> orders = dao.getOrderByGoodsLeader(goods_id,leader_id,type);
+                int group_sum = orders.size();
+
+                if(group_sum >= group_num){
+                    group_status = "已成团";
+                }
+
+                String avartar_leader = null;
+                String studio = null;
+                String campus = null;
+                String leader_nick = null;
+                List<User> users = dao.getUserByOpenid(leader_id);
+                if(users.size()>0){
+                    User user = users.get(0);
+                    studio = user.getStudio();
+                    campus =  user.getCampus();
+                    avartar_leader = user.getAvatarurl();
+                    leader_nick = user.getNick_name();
+                }
+
+                String avartar_follow = null;
+                String student_name = null;
+                List<User> users1 = dao.getUserByOpenid(openid);
+                int is_new = 1;
+                if(users1.size()>0){
+                    User user1 = users1.get(0);
+                    student_name = user1.getStudent_name();
+                    avartar_follow = user1.getAvatarurl();
+                    List<Lesson> lessons = dao.getLessonLikeName(studio,student_name,campus);
+                    if(lessons.size()>0){
+                        is_new = 0;
+                    }
+                }
+
+                String create_time = line.getCreate_time();
+                Float amount = line.getAmount();
+                Integer count = line.getCounts();
+
+
+                jsonObject.put("id", id);
+                jsonObject.put("is_new", is_new);
+                jsonObject.put("goods_name", goods_name);
+                jsonObject.put("goods_intro", goods_intro);
+                jsonObject.put("goods_price", goods_price);
+                jsonObject.put("status", status);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("phone_number", phone_number);
+                jsonObject.put("location", location);
+                jsonObject.put("nick_name", nick_name);
+                jsonObject.put("openid", openid);
+                jsonObject.put("group_role", group_role);
+                jsonObject.put("leader_id", leader_id);
+                jsonObject.put("leader_nick", leader_nick);
+                jsonObject.put("studio", studio);
+                jsonObject.put("campus", campus);
+                jsonObject.put("group_status", group_status);
+                jsonObject.put("group_num", group_num);
+                jsonObject.put("group_sum", group_sum);
+                jsonObject.put("amount", amount);
+                jsonObject.put("count", count);
+                jsonObject.put("cut_price", cut_price);
+                jsonObject.put("student_name", student_name);
+                jsonObject.put("avartar_leader", avartar_leader);
+                jsonObject.put("avartar_follow", avartar_follow);
+
+                //json
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getFrameModel(String studio,Integer page,String class_target,String campus) {
         String class_name = null;
         String id = null;
