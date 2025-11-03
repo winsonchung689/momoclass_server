@@ -2537,6 +2537,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getOrderById")
+	@ResponseBody
+	public List getOrderById(String id){
+		List list = null;
+		try {
+			list = loginService.getOrderById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/lessonTransferById")
 	@ResponseBody
 	public int lessonTransferById(String from_id,String to_id,Float trans_count,String openid ){
