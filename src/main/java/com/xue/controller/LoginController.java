@@ -6876,6 +6876,9 @@ public class LoginController {
 
 		//获取手机
 		String phone_number = request.getParameter("phone_number");
+		if(phone_number == null || phone_number.isEmpty() || "undefined".equals(phone_number)){
+			phone_number = "未录入";
+		}
 
 		//获取用户名
 		String nick_name = request.getParameter("nick_name");
