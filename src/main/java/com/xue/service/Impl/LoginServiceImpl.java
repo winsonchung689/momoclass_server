@@ -9078,6 +9078,7 @@ public class LoginServiceImpl implements LoginService {
                     is_paid_cn = "未试用";
                 }
 
+                // 是否过期
                 String expired_time = line.getExpired_time();
                 String today_time = df.format(new Date());
                 Date today_dt = df.parse(today_time.substring(0,10));
