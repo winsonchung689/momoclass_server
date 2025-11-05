@@ -6504,16 +6504,12 @@ public class LoginServiceImpl implements LoginService {
                     Float count = line.getCount();
                     String class_number_get = line.getClass_number();
                     String package_id = line.getPackage_id();
-                    if(package_id == null || "null".equals(package_id)){
-                        package_id = "0";
-                    }
 
                     Float price = 0.0f;
                     Float total_money = 0.0f;
                     Float discount_money = 0.0f;
                     Float all_lesson = 0.0f;
                     Float given_lesson = 0.0f;
-
                     // 计算单价
                     try {
                         List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));

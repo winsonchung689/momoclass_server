@@ -3942,6 +3942,7 @@ public class LoginController {
 				signUp.setCampus(campus);
 				signUp.setStudent_name(student_name);
 				signUp.setSubject(subject);
+				signUp.setPackage_id("0");
 				List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
 				if(signUps_list.size()==0){
 					signUp.setCount(lesson.getTotal_amount() - lesson.getLeft_amount());
@@ -5872,6 +5873,7 @@ public class LoginController {
 					Float count = lesson.getTotal_amount() - lesson.getLeft_amount();
 					if(signUps_list.size()==0){
 						signUp.setCount(count);
+						signUp.setPackage_id("0");
 						loginService.insertSignUp(signUp);
 					}else {
 						dao.updateSignUpByBacth(count,studio,student_name,subject,campus);
@@ -8168,6 +8170,7 @@ public class LoginController {
 					List<SignUp> signUps_list = dao.getSignUpByBacth(student_name,studio,subject,campus);
 					if(signUps_list.size()==0){
 						signUp.setCount(count);
+						signUp.setPackage_id("0");
 						loginService.insertSignUp(signUp);
 					}else{
 						dao.updateSignUpByBacth(count,studio,student_name,subject,campus);
