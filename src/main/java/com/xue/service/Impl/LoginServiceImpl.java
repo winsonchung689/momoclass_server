@@ -5198,6 +5198,12 @@ public class LoginServiceImpl implements LoginService {
 
             String class_name = line.getClass_name();
             String student_name = line.getStudent_name();
+            String client_openid = "no_id";
+            List<User> users = dao.getUserByStudent(student_name,studio);
+            if(users.size() > 0){
+                User user = users.get(0);
+                client_openid = user.getOpenid();
+            }
 
             String[] uuids_list = uuids.split(",");
             if(uuids.length()>2){
@@ -5214,6 +5220,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("student_name",student_name);
                     jsonObject.put("liked",liked);
                     jsonObject.put("like_count",like_count);
+                    jsonObject.put("client_openid",client_openid);
                     resul_list.add(jsonObject);
                 }
             }else{
