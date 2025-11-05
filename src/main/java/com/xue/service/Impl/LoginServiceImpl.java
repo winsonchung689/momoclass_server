@@ -6513,20 +6513,24 @@ public class LoginServiceImpl implements LoginService {
                     Float given_lesson = 0.0f;
 
                     // 计算单价
-                    List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
-                    if(lessonPackages.size()>0){
-                        for(int k = 0; k < lessonPackages.size(); k++){
-                            LessonPackage lessonPackage = lessonPackages.get(k);
-                            total_money = total_money + lessonPackage.getTotal_money();
-                            discount_money = discount_money + lessonPackage.getDiscount_money();
-                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
-                            given_lesson = given_lesson + lessonPackage.getGive_lesson();
+                    try {
+                        List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                        if(lessonPackages.size()>0){
+                            for(int k = 0; k < lessonPackages.size(); k++){
+                                LessonPackage lessonPackage = lessonPackages.get(k);
+                                total_money = total_money + lessonPackage.getTotal_money();
+                                discount_money = discount_money + lessonPackage.getDiscount_money();
+                                all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                                given_lesson = given_lesson + lessonPackage.getGive_lesson();
+                            }
                         }
-                    }
-                    Float receipts = total_money - discount_money;
-                    Float re_price = receipts/(all_lesson+given_lesson);
-                    if(re_price>0){
-                        price = re_price;
+                        Float receipts = total_money - discount_money;
+                        Float re_price = receipts/(all_lesson+given_lesson);
+                        if(re_price>0){
+                            price = re_price;
+                        }
+                    } catch (NumberFormatException e) {
+//                        throw new RuntimeException(e);
                     }
 
                     //计算应出勤
