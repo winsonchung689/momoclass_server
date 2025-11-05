@@ -6504,7 +6504,7 @@ public class LoginServiceImpl implements LoginService {
                     Float count = line.getCount();
                     String class_number_get = line.getClass_number();
                     String package_id = line.getPackage_id();
-                    if(package_id == null || package_id.isEmpty()){
+                    if(package_id == null || "null".equals(package_id)){
                         package_id = "0";
                     }
 
