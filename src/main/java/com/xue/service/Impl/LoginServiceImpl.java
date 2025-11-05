@@ -6502,9 +6502,11 @@ public class LoginServiceImpl implements LoginService {
                     String create_time = line.getCreate_time();
                     String mark = line.getMark();
                     Float count = line.getCount();
-                    String campus_get = line.getCampus();
                     String class_number_get = line.getClass_number();
                     String package_id = line.getPackage_id();
+                    if(package_id == null || package_id.isEmpty()){
+                        package_id = "0";
+                    }
 
                     Float price = 0.0f;
                     Float total_money = 0.0f;
