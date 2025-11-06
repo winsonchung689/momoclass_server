@@ -1429,7 +1429,7 @@
   </update>
 
   <update id="updateGiftRecordName" parameterType="com.xue.entity.model.Gift">
-    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4} and subject =#{param5}
+    update gift_record set student_name=#{param1} where student_name=#{param2} and studio = #{param3} and campus =#{param4}
   </update>
 
   <update id="updateLessonName" parameterType="com.xue.entity.model.Lesson">
