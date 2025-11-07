@@ -4092,29 +4092,31 @@ public class LoginServiceImpl implements LoginService {
                 String repeat_week = line.getRepeat_week();
                 int class_type = line.getClass_type();
 
-                jsonObject.put("start_date", start_date);
-                jsonObject.put("end_date", end_date);
-                jsonObject.put("is_reserved", is_reserved);
-                jsonObject.put("is_reserved_cn", is_reserved_cn);
-                jsonObject.put("upcoming", upcoming);
-                jsonObject.put("class_number", class_number);
-                jsonObject.put("duration", duration);
-                jsonObject.put("limits", limits);
-                jsonObject.put("is_repeat", is_repeat);
-                jsonObject.put("repeat_duration", repeat_duration);
-                jsonObject.put("classes_count", classes_count);
-                jsonObject.put("dayofweek",dayofweek);
-                jsonObject.put("id",id);
-                jsonObject.put("subject",subject);
-                jsonObject.put("remind",remind);
-                jsonObject.put("remind_name",remind_name);
-                jsonObject.put("hours",hours);
-                jsonObject.put("teachers",teachers);
-                jsonObject.put("all_teachers",all_teachers);
-                jsonObject.put("item",item);
-                jsonObject.put("repeat_week",repeat_week);
-                jsonObject.put("class_type",class_type);
-                resul_list.add(jsonObject);
+                if(!start_date.equals(end_date)){
+                    jsonObject.put("start_date", start_date);
+                    jsonObject.put("end_date", end_date);
+                    jsonObject.put("is_reserved", is_reserved);
+                    jsonObject.put("is_reserved_cn", is_reserved_cn);
+                    jsonObject.put("upcoming", upcoming);
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("limits", limits);
+                    jsonObject.put("is_repeat", is_repeat);
+                    jsonObject.put("repeat_duration", repeat_duration);
+                    jsonObject.put("classes_count", classes_count);
+                    jsonObject.put("dayofweek",dayofweek);
+                    jsonObject.put("id",id);
+                    jsonObject.put("subject",subject);
+                    jsonObject.put("remind",remind);
+                    jsonObject.put("remind_name",remind_name);
+                    jsonObject.put("hours",hours);
+                    jsonObject.put("teachers",teachers);
+                    jsonObject.put("all_teachers",all_teachers);
+                    jsonObject.put("item",item);
+                    jsonObject.put("repeat_week",repeat_week);
+                    jsonObject.put("class_type",class_type);
+                    resul_list.add(jsonObject);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
