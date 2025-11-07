@@ -2113,6 +2113,11 @@ public class LoginServiceImpl implements LoginService {
                     List<String> list_2 = null;
                     Integer contains = 0;
                     try {
+                        // 判断单日排课必然显示
+                        if(is_repeat == 1 && start_date.equals(end_date)){
+                            contains = 1;
+                        }
+
                         // 判断老师选课
                         if(lessons_string != null){
                             String[] list_1 =lessons_string.split("\\|");
@@ -2135,12 +2140,6 @@ public class LoginServiceImpl implements LoginService {
                                         contains = 1;
                                     }
                                 }
-
-                                // 判断单日排课必然显示
-                                if(is_repeat == 1 && start_date.equals(end_date)){
-                                    contains = 1;
-                                }
-
                             }
                         }
                     } catch (Exception e) {
