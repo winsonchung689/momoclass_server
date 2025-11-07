@@ -8637,6 +8637,9 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     Float price = (total-disc)/(all_lesson+give_lesson);
+                    if(package_lesson == 0){
+                        price = 0.0f;
+                    }
                     Float left_single = price * left_amount;
                     total_money = total_money + (total-disc);
                     left_money = left_money + left_single;
