@@ -8733,6 +8733,8 @@ public class LoginServiceImpl implements LoginService {
             }
 
 
+            jsonObject.put("total_money", total_money);
+            jsonObject.put("left_money", left_money);
             jsonObject.put("total_student", total_student);
             jsonObject.put("total_amount_all", df.format(total_amount_all));
             jsonObject.put("left_amount_all", df.format(left_amount_all));
