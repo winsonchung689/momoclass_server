@@ -6471,7 +6471,7 @@ public class LoginController {
 					// 判断选课
 					String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
 					List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);
-					if(users.size() == 0){
+					if(users.size() == 0 && is_repeat == 0){
 						String lesson = list_user.getLessons();
 						String new_lesson = lesson + "|" + chooseLesson;
 						list_user.setLessons(new_lesson);

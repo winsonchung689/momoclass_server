@@ -2135,6 +2135,12 @@ public class LoginServiceImpl implements LoginService {
                                         contains = 1;
                                     }
                                 }
+
+                                // 判断单日排课必然显示
+                                if(is_repeat == 1 && start_date.equals(end_date)){
+                                    contains = 1;
+                                }
+
                             }
                         }
                     } catch (Exception e) {
