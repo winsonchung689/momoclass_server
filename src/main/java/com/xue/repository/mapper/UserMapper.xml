@@ -1199,6 +1199,11 @@
     select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and delete_status = 0 order by duration
   </select>
 
+  <!-- 查找课程表 -->
+  <select id="getArrangementByRepeatDuration" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
+    select * from schedule_arrangement where studio = #{param1} and dayofweek =#{param2} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and repeat_duration=#{param7} and delete_status = 0 order by duration
+  </select>
+
   <!-- 查找请假记录 -->
   <select id="getLeaveRecord" parameterType="com.xue.entity.model.Leave" resultMap="BaseLeave">
     select * from leave_record where student_name =#{param1} and studio = #{param2} and leave_type = #{param3} and subject = #{param4} and campus = #{param5} and delete_status = 0 order by student_name,date_time desc

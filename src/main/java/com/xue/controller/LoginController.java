@@ -6469,7 +6469,15 @@ public class LoginController {
 				arrangement.setRepeat_duration(add_date + "," + add_date);
 				arrangement.setRepeat_week(repeat_week);
 				arrangement.setClass_type(0);
-				loginService.insertArrangement(arrangement);
+				if(is_repeat == 1){
+					List<Arrangement> arrangements = dao.getArrangementByRepeatDuration(studio,dayofweek.toString(),class_number,duration,subject,campus,add_date + "," + add_date);
+					if(arrangements.size() == 0){
+						loginService.insertArrangement(arrangement);
+					}
+				}else{
+					loginService.insertArrangement(arrangement);
+				}
+
 				// 判断选课
 				String chooseLesson = "星期"+  dayofweek + "," + subject + "," + class_number + "," + duration ;
 				List<User> users = dao.getUserByChooseLesson(chooseLesson,studio);

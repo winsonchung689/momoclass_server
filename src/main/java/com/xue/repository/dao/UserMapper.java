@@ -1082,6 +1082,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
+    List<Arrangement> getArrangementByRepeatDuration(String studio,String dayofweek,String class_number,String duration,String subject,String campus,String repeat_duration);
+
     List<SignUp> getSignUp(String student_name,String studio,String subject,String campus);
 
     List<SignUp> getSignUpByStudentPage(String student_name,String studio,String subject,String campus,Integer page_start,Integer page_length);
