@@ -6632,6 +6632,22 @@ public class LoginController {
 			goodsList.setGoods_id(goods_id);
 			goodsList.setPrice_list(price_list);
 			loginService.insertGoodsList(goodsList);
+
+			// 录入商户
+			List<Merchant> merchants = dao.getMerchant(studio,campus,Constants.appid);
+			if(merchants.size() == 0){
+				Merchant merchant = new Merchant();
+				merchant.setType("商户平台");
+				merchant.setAppid(Constants.appid);
+				merchant.setSub_appid(Constants.appid);
+				merchant.setOpenid(openid);
+				merchant.setMchid(Constants.MCH_ID);
+				merchant.setSub_mchid(Constants.MCH_ID);
+				merchant.setCreate_time(create_time);
+				merchant.setStudio(studio);
+				merchant.setCampus(campus);
+				dao.insertMerchant(merchant);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
