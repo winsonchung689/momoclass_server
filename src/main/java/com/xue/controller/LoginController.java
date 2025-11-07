@@ -6446,7 +6446,7 @@ public class LoginController {
 				loginService.insertSchedule(schedule);
 				// 判断课表
 				List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,dayofweek.toString(),class_number,duration,subject,campus);
-				if(arrangement_list.size() == 0){
+				if(arrangement_list.size() == 0 || "transferred".equals(student_type)){
 					int is_repeat = 0;
 					String repeat_week = "1,2,3,4,5,6,7";
 					if("transferred".equals(student_type)){
