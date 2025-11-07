@@ -738,9 +738,18 @@ public class LoginServiceImpl implements LoginService {
         // 统计
         if(page == 1){
             List<SignUp> list1 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,0);
-            use_count = list1.size();
+            for(int index = 0; index < list1.size(); index++){
+                SignUp signUp = list1.get(index);
+                Float count = signUp.getCount();
+                use_count += count;
+            }
+
             List<SignUp> list2 = dao.getSignUpByStudentEndStatus(student_name,studio,subject,campus,1);
-            end_count = list2.size();
+            for(int index = 0; index < list2.size(); index++){
+                SignUp signUp = list2.get(index);
+                Float count = signUp.getCount();
+                end_count += count;
+            }
         }
 
 
