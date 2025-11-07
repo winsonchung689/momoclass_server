@@ -2114,7 +2114,7 @@ public class LoginServiceImpl implements LoginService {
                     Integer contains = 0;
                     try {
                         // 判断单日排课必然显示
-                        if(is_repeat == 1 && start_date.equals(end_date)){
+                        if(is_repeat == 1 && start_date.equals(end_date) && dayofweek_get.equals(weekofday.toString())){
                             contains = 1;
                         }
 
