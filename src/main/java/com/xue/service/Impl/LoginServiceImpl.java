@@ -766,7 +766,7 @@ public class LoginServiceImpl implements LoginService {
             String duration = line.getDuration();
             Float count = line.getCount();
             String teacher = line.getTeacher();
-            String class_numer = line.getClass_number();
+            String class_number = line.getClass_number();
 
             String package_mark = "无备注";
             Float all_lesson = 0.0f;
@@ -810,7 +810,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             //json
-            jsonObject.put("class_numer", class_numer);
+            jsonObject.put("class_number", class_number);
             jsonObject.put("use_count", use_count);
             jsonObject.put("end_count", end_count);
             jsonObject.put("id", id);
