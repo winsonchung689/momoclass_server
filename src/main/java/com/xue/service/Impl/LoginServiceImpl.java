@@ -2005,7 +2005,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("repeat_week",repeat_week);
                 jsonObject.put("avatarurl",avatarurl);
 
-                if(is_repeat == 1 && repeat_week_list.contains(weekofday.toString())){
+                if(is_repeat == 1 && repeat_week_list.contains(weekofday.toString()) && !start_date.equals(end_date)){
                     if(today_timestamp >= start_timestamp && today_timestamp <= end_timestamp){
                         resul_list.add(jsonObject);
                     }
