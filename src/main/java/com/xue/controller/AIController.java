@@ -109,7 +109,7 @@ public class AIController {
 			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
-			params.put("model", "gpt-5");
+			params.put("model", "gpt-5-mini");
 			List<JSONObject> jsonObjects = new ArrayList<>();
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("role", "user");
