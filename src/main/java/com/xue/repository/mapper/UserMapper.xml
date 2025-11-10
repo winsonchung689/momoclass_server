@@ -2549,7 +2549,7 @@
 
   <!-- 更新课时 -->
   <update id="updateLesson" parameterType="com.xue.entity.model.Lesson">
-    update lesson set left_amount=#{left_amount},total_amount=#{total_amount} where student_name=#{student_name} and studio =#{studio} and campus =#{campus} and subject =#{subject} and delete_status = 0
+    update lesson set left_amount=#{left_amount},total_amount=#{total_amount},phone_number=#{phone_number} where student_name=#{student_name} and studio =#{studio} and campus =#{campus} and subject =#{subject} and delete_status = 0
   </update>
 
   <update id="consumeLesson" parameterType="com.xue.entity.model.Lesson">
