@@ -202,7 +202,11 @@ public class BookController {
 		String content = request.getParameter("content");
 
 		try {
-			List<SpaceTeacher> spaceTeachers = dao.getSpaceTeacher(openid);
+			List<BookUser> bookUsers = dao.getBookUser(openid);
+			BookUser bookUser = bookUsers.get(0);
+			String book_name = bookUser.getBook_name();
+
+			List<SpaceTeacher> spaceTeachers = dao.getSpaceTeacherByStudio(book_name);
 			SpaceTeacher spaceTeacher = spaceTeachers.get(0);
 
 			if("intro".equals(type)){
