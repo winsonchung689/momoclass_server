@@ -43,7 +43,7 @@ public interface UserMapper {
 
     List<SpaceLesson> getSpaceLessonById(String id);
 
-    List<SpaceTeacher> getSpaceTeacher(String openid);
+    List<SpaceTeacher> getSpaceTeacherByStudio(String book_name);
 
     List<SpaceLesson> getSpaceLesson(String openid);
 
@@ -741,7 +741,6 @@ public interface UserMapper {
     List<BookUser> getBookUserById(String id);
 
     List<BookUser> getBookUserByRole(String role);
-
 
     List<BookUser> getBookBossByStudio(String book_name);
 

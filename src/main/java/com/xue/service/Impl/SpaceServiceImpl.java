@@ -28,7 +28,11 @@ public class SpaceServiceImpl implements SpaceService {
     public List getSpaceTeacher(String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<SpaceTeacher> spaceTeachers = dao.getSpaceTeacher(openid);
+            List<BookUser> bookUsers = dao.getBookUser(openid);
+            BookUser bookUser = bookUsers.get(0);
+            String book_name = bookUser.getBook_name();
+
+            List<SpaceTeacher> spaceTeachers = dao.getSpaceTeacherByStudio(book_name);
             for (int i = 0; i < spaceTeachers.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SpaceTeacher line = spaceTeachers.get(i);

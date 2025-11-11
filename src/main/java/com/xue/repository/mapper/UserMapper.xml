@@ -2334,7 +2334,7 @@
     select * from lesson where id =#{param1};
   </select>
 
-  <select id="getSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher" resultMap="BaseSpaceTeacher">
+  <select id="getSpaceTeacherByStudio" parameterType="com.xue.entity.model.SpaceTeacher" resultMap="BaseSpaceTeacher">
     select * from space_teacher where book_name =#{param1};
   </select>
 
