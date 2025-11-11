@@ -742,6 +742,9 @@ public interface UserMapper {
 
     List<BookUser> getBookUserByRole(String role);
 
+
+    List<BookUser> getBookBossByStudio(String book_name);
+
     List<BookUser> getAllBookUser();
 
     List<BookUser> getBookUserByOpenidQr(String openid_qr);
