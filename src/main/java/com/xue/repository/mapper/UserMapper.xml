@@ -1506,7 +1506,7 @@
   </insert>
 
   <insert id="insertBookUser" parameterType="com.xue.entity.model.BookUser">
-    insert book_user(nick_name,role,openid,create_time,avatarurl,expired_time,openid_qr) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{expired_time},#{openid_qr})
+    insert book_user(nick_name,role,openid,create_time,avatarurl,expired_time,openid_qr,book_name) values(#{nick_name},#{role},#{openid},#{create_time},#{avatarurl},#{expired_time},#{openid_qr},#{book_name})
   </insert>
 
   <select id="getCardByStudent" parameterType="com.xue.entity.model.Card" resultMap="BaseCard">
