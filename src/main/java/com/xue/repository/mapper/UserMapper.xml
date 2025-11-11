@@ -2347,7 +2347,7 @@
   </select>
 
   <select id="getSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
-    select * from space_cases where openid =#{param1} and delete_status = 0
+    select * from space_cases where book_name =#{param1} and delete_status = 0
   </select>
 
   <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">

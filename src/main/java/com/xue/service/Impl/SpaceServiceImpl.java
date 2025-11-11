@@ -144,7 +144,11 @@ public class SpaceServiceImpl implements SpaceService {
     public List getSpaceCases(String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<SpaceCases> spaceCases = dao.getSpaceCases(openid);
+            List<BookUser> bookUsers = dao.getBookUser(openid);
+            BookUser bookUser = bookUsers.get(0);
+            String book_name = bookUser.getBook_name();
+
+            List<SpaceCases> spaceCases = dao.getSpaceCases(book_name);
             for (int i = 0; i < spaceCases.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SpaceCases line = spaceCases.get(i);

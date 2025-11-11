@@ -7,6 +7,8 @@ public class SpaceCases {
 
     private String openid;
 
+    private String book_name;
+
     private String student_name;
 
     private String subject;
@@ -18,6 +20,14 @@ public class SpaceCases {
     private String create_time;
 
 
+
+    public String getBook_name() {
+        return book_name;
+    }
+
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
 
     public String getSubject() {
         return subject;
