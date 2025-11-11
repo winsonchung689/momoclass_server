@@ -366,12 +366,16 @@ public class BookController {
 		String uuids = request.getParameter("uuids");
 		String intro = request.getParameter("intro");
 
+		List<BookUser> bookUsers = dao.getBookUser(openid);
+		BookUser bookUser = bookUsers.get(0);
+		String book_name = bookUser.getBook_name();
+
 		SpaceTeacher spaceTeacher =new SpaceTeacher();
 		spaceTeacher.setOpenid(openid);
 		spaceTeacher.setUuids(uuids);
 		spaceTeacher.setIntro(intro);
 		spaceTeacher.setCreate_time(create_time);
-
+		spaceTeacher.setBook_name(book_name);
 
 		try {
 			dao.insertSpaceTeacher(spaceTeacher);
