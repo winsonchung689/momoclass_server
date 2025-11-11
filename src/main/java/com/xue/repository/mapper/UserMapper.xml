@@ -1589,6 +1589,10 @@
     select * from ppt_menu where studio =#{param1} and campus =#{param2} and type =#{param3} and delete_status = 0
   </select>
 
+  <select id="getBookUserByStudio" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
+    select * from book_user where book_name =#{param1} and delete_status = 0 order by role asc,create_time desc
+  </select>
+
   <select id="getBookUserByOpenidQr" parameterType="com.xue.entity.model.BookUser" resultMap="BaseBookUser">
     select * from book_user where openid_qr =#{param1} and delete_status = 0 order by role asc,create_time desc
   </select>
