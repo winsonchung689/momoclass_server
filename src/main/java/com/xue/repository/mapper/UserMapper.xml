@@ -2343,7 +2343,7 @@
   </select>
 
   <select id="getSpaceLesson" parameterType="com.xue.entity.model.SpaceLesson" resultMap="BaseSpaceLesson">
-    select * from space_lesson where openid =#{param1} and delete_status = 0
+    select * from space_lesson where book_name =#{param1} and delete_status = 0
   </select>
 
   <select id="getSpaceCases" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">

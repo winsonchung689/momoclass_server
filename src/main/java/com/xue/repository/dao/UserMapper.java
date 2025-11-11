@@ -15,7 +15,7 @@ public interface UserMapper {
 
     List<Merchant> getMerchantByAppid(String appid);
 
-    List<SpaceCases> getSpaceCases(String openid);
+    List<SpaceCases> getSpaceCases(String book_name);
 
     List<SpaceCases> getSpaceCasesById(String id);
 
@@ -45,7 +45,7 @@ public interface UserMapper {
 
     List<SpaceTeacher> getSpaceTeacherByStudio(String book_name);
 
-    List<SpaceLesson> getSpaceLesson(String openid);
+    List<SpaceLesson> getSpaceLesson(String book_name);
 
     List<Merchant> getMerchant(String studio,String campus,String appid);
 
