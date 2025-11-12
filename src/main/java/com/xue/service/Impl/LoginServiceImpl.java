@@ -876,6 +876,7 @@ public class LoginServiceImpl implements LoginService {
                     status = "提前签";
                 }
                 int rank = i+1;
+
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("student_name", student_name);
@@ -888,6 +889,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject);
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
+                jsonObject.put("ending_status_get", ending_status_get);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
