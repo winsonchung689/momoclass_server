@@ -1057,7 +1057,7 @@ public class LoginServiceImpl implements LoginService {
         Float count = 0.0f;
         Integer ending_status_get = 0;
         List<JSONObject> resul_list = new ArrayList<>();
-        String title = "序号,学生名,科目,上课日,时间段,签到日,备注,课时,状态,结课";
+        String title = "序号,学生名,科目,上课日,时间段,签到日,备注,课时,状态,结课,操作人";
         List<String> data_list = new ArrayList<>();
         List<SignUp> signUps = new ArrayList<>();
 
@@ -1085,6 +1085,7 @@ public class LoginServiceImpl implements LoginService {
                 count = line.getCount();
                 String student_name_get = line.getStudent_name();
                 String subject_get = line.getSubject();
+                String teacher = line.getTeacher();
                 ending_status_get = line.getEnding_status();
                 String ending_status = "未结";
                 if(ending_status_get == 1){
@@ -1115,9 +1116,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("subject", subject_get);
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
+                jsonObject.put("teacher", teacher);
                 resul_list.add(jsonObject);
 
-                String data_line = rank + "," + student_name_get + "," + subject_get + "," + create_time.substring(0,10) + "," + duration_get + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status;
+                String data_line = rank + "," + student_name_get + "," + subject_get + "," + create_time.substring(0,10) + "," + duration_get + "," + sign_time.substring(0,10) + "," +mark + "," +count + "," + status + "," + ending_status + ","  + teacher;
                 data_list.add(data_line);
             }
             downloadByOpenid(studio,openid,data_list,title,type);
