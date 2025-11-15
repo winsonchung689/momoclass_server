@@ -2936,7 +2936,7 @@ public class LoginServiceImpl implements LoginService {
             if ( studio_get.equals(studio)) {
                 dao.deleteLesson(id,studio,today_time);
                 dao.deleteScheduleBySubject(student_name,studio,subject,campus);
-                dao.deleteLessonPackageByName(student_name,studio,subject,campus);
+//                dao.deleteLessonPackageByName(student_name,studio,subject,campus);
             }else {
                 logger.error("it's not your studio, could not delete!");
             }

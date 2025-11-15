@@ -5159,7 +5159,7 @@ public class LoginController {
 
 			if("恢复".equals(type)){
 				dao.recoverLesson(id,studio,today_time);
-				dao.recoverLessonPackageByName(student_name,studio,subject,campus);
+//				dao.recoverLessonPackageByName(student_name,studio,subject,campus);
 			}else if("永久删除".equals(type)){
 				dao.deleteLessonForever(id,studio);
 			}
