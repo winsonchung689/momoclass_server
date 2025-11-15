@@ -10417,7 +10417,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 student_name = line.getStudent_name();
                 String related_id = line.getRelated_id();
-
+                String official_status = "未关注";
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
                     if(user.size()>0){
@@ -10425,6 +10425,10 @@ public class LoginServiceImpl implements LoginService {
                         avatarurl = user.get(0).getAvatarurl();
 //                        phone_number = user.get(0).getPhone_number();
                         official_openid = user.get(0).getOfficial_openid();
+                        if (official_openid.length() >= 28){
+                            official_status = "已关注";
+                        }
+
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -10630,10 +10634,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
                 jsonObject.put("consume_amount", consume_amount);
-                jsonObject.put("official_status", "未关注");
-                if(!"no_id".equals(official_openid)){
-                    jsonObject.put("official_status", "已关注");
-                }
+                jsonObject.put("official_status", official_status);
                 jsonObject.put("related_names", related_names.toString());
 
                 resul_list.add(jsonObject);
