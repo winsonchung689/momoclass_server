@@ -8881,11 +8881,15 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                String official_status = "未关注";
                 try {
                     List<User> users = dao.getUserByStudent(student_name,studio);
                     parent = users.get(0).getNick_name();
                     phone_number = users.get(0).getPhone_number();
                     official_openid = users.get(0).getOfficial_openid();
+                    if(official_openid.length() == 28){
+                        official_status = "已关注";
+                    }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
@@ -8981,10 +8985,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("receipts", df.format(receipts));
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("delete_status", delete_status);
-                jsonObject.put("official_status", "未关注");
-                if(!"no_id".equals(official_openid)){
-                    jsonObject.put("official_status", "已关注");
-                }
+                jsonObject.put("official_status", official_status);
+
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
