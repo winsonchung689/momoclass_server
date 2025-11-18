@@ -413,14 +413,19 @@ public class BookController {
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		String openid = request.getParameter("openid");
+		String book_name = request.getParameter("book_name");
 		String openid_qr = request.getParameter("openid_qr");
 		String lesson_id = request.getParameter("lesson_id");
+		List<SpaceOrder> spaceOrders = dao.getSpaceOrderByBookNameAll(book_name);
+		int number = spaceOrders.size() + 1;
 
 		SpaceOrder spaceOrder =new SpaceOrder();
 		spaceOrder.setOpenid(openid);
 		spaceOrder.setOpenid_qr(openid_qr);
 		spaceOrder.setLesson_id(lesson_id);
 		spaceOrder.setCreate_time(create_time);
+		spaceOrder.setBook_name(book_name);
+		spaceOrder.setNumber(number);
 
 		try {
 			dao.insertSpaceOrder(spaceOrder);

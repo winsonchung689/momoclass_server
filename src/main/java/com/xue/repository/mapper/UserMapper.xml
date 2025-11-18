@@ -2119,7 +2119,7 @@
   </insert>
 
   <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
-    insert space_order(openid,lesson_id,create_time,openid_qr) values(#{openid},#{lesson_id},#{create_time},#{openid_qr})
+    insert space_order(openid,lesson_id,create_time,openid_qr,number,book_name) values(#{openid},#{lesson_id},#{create_time},#{openid_qr},#{number},#{book_name})
   </insert>
 
   <insert id="insertSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">
@@ -2352,6 +2352,10 @@
 
   <select id="getSpaceCasesById" parameterType="com.xue.entity.model.SpaceCases" resultMap="BaseSpaceCases">
     select * from space_cases where id =#{param1}
+  </select>
+
+  <select id="getSpaceOrderByBookNameAll" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
+    select * from space_order where book_name =#{param1} order by create_time desc
   </select>
 
   <select id="getSpaceOrderByOpenidQr" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">

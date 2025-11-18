@@ -19,6 +19,8 @@ public interface UserMapper {
 
     List<SpaceCases> getSpaceCasesById(String id);
 
+    List<SpaceOrder> getSpaceOrderByBookNameAll(String book_name);
+
     List<SpaceOrder> getSpaceOrderByOpenidQr(String openid_qr);
 
     List<SpaceOrder> getSpaceOrderByOpenid(String openid);
