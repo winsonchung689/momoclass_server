@@ -6118,13 +6118,14 @@ public class LoginServiceImpl implements LoginService {
                                 String student_lesson = lesson.getStudent_name();
                                 String student_split = student_lesson.split("_")[0];
                                 Integer urge_payment = lesson.getUrge_payment();
+                                Integer urge_number = lesson.getUrge_number();
 
                                 String token = getToken("MOMO_OFFICIAL");
                                 String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
                                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 
                                 // 余课时通知
-                                if (student_split.equals(student_name) && left_amount <= 2 && urge_payment == 0) {
+                                if (student_split.equals(student_name) && left_amount <= urge_number && urge_payment == 0) {
                                     if (!"no_id".equals(official_openid)) {
                                         //续费通知
                                         String[] official_list = official_openid.split(",");
