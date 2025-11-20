@@ -4680,6 +4680,8 @@ public class LoginController {
 					dao.updateCoinsAll(Float.valueOf(content),studio,campus);
 				}
 
+			}else if("催缴余课".equals(modifyHead)){
+				dao.updateLessonUrgeNumberByStudio(studio,Integer.parseInt(content));
 			}
 
 

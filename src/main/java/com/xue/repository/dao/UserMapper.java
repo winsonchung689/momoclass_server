@@ -501,6 +501,8 @@ public interface UserMapper {
 
     int updateLessonUrgePaymentById(String id,Integer urge_payment);
 
+    int updateLessonUrgeNumberByStudio(String studio,Integer urge_number);
+
     int updateLessonLocationById(String id,String location);
 
     int updateAlbumById(Album album);

@@ -8,6 +8,8 @@ public class Lesson {
 
     private Integer points;
 
+    private Integer urge_number;
+
     private Integer point_status;
 
     private String student_name;
@@ -57,6 +59,14 @@ public class Lesson {
     private String phone_number;
 
 
+
+    public Integer getUrge_number() {
+        return urge_number;
+    }
+
+    public void setUrge_number(Integer urge_number) {
+        this.urge_number = urge_number;
+    }
 
     public String getPhone_number() {
         return phone_number;
