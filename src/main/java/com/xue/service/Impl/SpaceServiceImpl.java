@@ -223,12 +223,6 @@ public class SpaceServiceImpl implements SpaceService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<SpaceOrder> spaceOrders = dao.getSpaceOrderByOpenid(openid);
-            List<BookUser> bookUsers = dao.getBookUser(openid);
-            BookUser bookUser = bookUsers.get(0);
-            String role = bookUser.getRole();
-            if("boss".equals(role)){
-                spaceOrders = dao.getSpaceOrderByOpenidQr(openid);
-            }
 
             for (int i = 0; i < spaceOrders.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -237,6 +231,9 @@ public class SpaceServiceImpl implements SpaceService {
                 Integer status = line.getStatus();
                 String create_time = line.getCreate_time();
                 String id = line.getId();
+                int number = line.getNumber();
+                String book_name = line.getBook_name();
+                String date_time = line.getDate_time();
 
                 // 课程
                 String lesson_id = line.getLesson_id();
@@ -269,6 +266,9 @@ public class SpaceServiceImpl implements SpaceService {
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("phone_number", phone_number);
+                jsonObject.put("number", number);
+                jsonObject.put("book_name", book_name);
+                jsonObject.put("date_time", date_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
