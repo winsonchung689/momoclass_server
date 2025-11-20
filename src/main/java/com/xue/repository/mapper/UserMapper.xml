@@ -2119,7 +2119,7 @@
   </insert>
 
   <insert id="insertSpaceOrder" parameterType="com.xue.entity.model.SpaceOrder">
-    insert space_order(openid,lesson_id,create_time,openid_qr,number,book_name) values(#{openid},#{lesson_id},#{create_time},#{openid_qr},#{number},#{book_name})
+    insert space_order(openid,lesson_id,create_time,openid_qr,number,book_name,date_time) values(#{openid},#{lesson_id},#{create_time},#{openid_qr},#{number},#{book_name},#{date_time})
   </insert>
 
   <insert id="insertSpaceTeacher" parameterType="com.xue.entity.model.SpaceTeacher">

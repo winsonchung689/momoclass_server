@@ -416,6 +416,7 @@ public class BookController {
 		String book_name = request.getParameter("book_name");
 		String openid_qr = request.getParameter("openid_qr");
 		String lesson_id = request.getParameter("lesson_id");
+		String date_time = request.getParameter("date_time");
 		List<SpaceOrder> spaceOrders = dao.getSpaceOrderByBookNameAll(book_name);
 		int number = spaceOrders.size() + 1;
 
@@ -426,6 +427,7 @@ public class BookController {
 		spaceOrder.setCreate_time(create_time);
 		spaceOrder.setBook_name(book_name);
 		spaceOrder.setNumber(number);
+		spaceOrder.setDate_time(date_time);
 
 		try {
 			dao.insertSpaceOrder(spaceOrder);
