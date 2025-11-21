@@ -6473,8 +6473,8 @@ public class LoginController {
 				arrangement.setRepeat_week(repeat_week);
 				arrangement.setClass_type(0);
 				if(is_repeat == 1){
-					List<Arrangement> arrangements = dao.getArrangementByRepeatDuration(studio,dayofweek.toString(),class_number,duration,subject,campus,add_date + "," + add_date);
-					if(arrangements.size() == 0){
+//					List<Arrangement> arrangements = dao.getArrangementByRepeatDuration(studio,dayofweek.toString(),class_number,duration,subject,campus,add_date + "," + add_date);
+					if(arrangement_list.size() == 0){
 						loginService.insertArrangement(arrangement);
 					}
 				}else{
