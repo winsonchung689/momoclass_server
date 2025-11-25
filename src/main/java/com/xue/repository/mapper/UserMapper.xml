@@ -2363,7 +2363,7 @@
   </select>
 
   <select id="getSpaceOrderByBookNameAll" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
-    select * from space_order where book_name =#{param1} order by create_time desc
+    select * from space_order where book_name =#{param1} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getSpaceOrderByOpenidQr" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">

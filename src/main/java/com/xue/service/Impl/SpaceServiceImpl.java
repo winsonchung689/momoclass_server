@@ -222,7 +222,15 @@ public class SpaceServiceImpl implements SpaceService {
     public List getSpaceOrder(String openid) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            List<BookUser> bookUsers = dao.getBookUser(openid);
+            BookUser bookUser = bookUsers.get(0);
+            String role = bookUser.getRole();
+            String book_name = bookUser.getBook_name();
+
             List<SpaceOrder> spaceOrders = dao.getSpaceOrderByOpenid(openid);
+            if("boss".equals(role)){
+                spaceOrders = dao.getSpaceOrderByBookNameAll(book_name);
+            }
 
             for (int i = 0; i < spaceOrders.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -232,7 +240,7 @@ public class SpaceServiceImpl implements SpaceService {
                 String create_time = line.getCreate_time();
                 String id = line.getId();
                 int number = line.getNumber();
-                String book_name = line.getBook_name();
+                book_name = line.getBook_name();
                 String date_time = line.getDate_time();
 
                 // 课程
