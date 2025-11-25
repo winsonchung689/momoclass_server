@@ -2378,6 +2378,10 @@
     select * from space_order where id =#{param1}
   </select>
 
+  <select id="getSpaceOrderDate" parameterType="com.xue.entity.model.SpaceOrder" resultMap="BaseSpaceOrder">
+    select * from space_order where date_time =#{param1} and book_name =#{param2} and delete_status = 0 order by create_time
+  </select>
+
   <select id="getSpaceGoodsListByOpenid" parameterType="com.xue.entity.model.SpaceGoodsList" resultMap="BaseSpaceGoodsList">
     select * from space_goods_list where openid =#{param1} and delete_status = 0 order by create_time desc
   </select>

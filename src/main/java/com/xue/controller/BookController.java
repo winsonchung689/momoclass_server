@@ -603,6 +603,18 @@ public class BookController {
 		return list;
 	}
 
+	@RequestMapping("/getSpaceOrderDate")
+	@ResponseBody
+	public List getSpaceOrderDate(String openid,String date_time){
+		List list = null;
+		try {
+			list = spaceService.getSpaceOrderDate(openid,date_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getSpaceGoodsList")
 	@ResponseBody
 	public List getSpaceGoodsList(String openid){

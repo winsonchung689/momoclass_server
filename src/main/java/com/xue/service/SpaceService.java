@@ -16,6 +16,8 @@ public interface SpaceService {
 
     public List getSpaceOrder(String openid);
 
+    public List getSpaceOrderDate(String openid,String date_time);
+
     public List getSpaceGoodsList(String openid);
 
     public List getSpaceGoodsListById(String goods_id);
