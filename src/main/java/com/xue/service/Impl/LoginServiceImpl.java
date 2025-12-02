@@ -1939,7 +1939,7 @@ public class LoginServiceImpl implements LoginService {
                         book_stauts = "已排课";
                     }
 
-                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration);
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration,subject);
                     if(leaves.size() >= 1){
                         student_leaves = student_leaves.append(student_name).append(",");
                     }
@@ -2296,7 +2296,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     jsonObject.put("leave", "请假");
-                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration,subject);
                     if (leaves.size() == 1) {
                         String leave_type = leaves.get(0).getLeave_type();
                         jsonObject.put("leave", "已请假");
@@ -2451,7 +2451,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     jsonObject.put("leave", "请假");
-                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
+                    List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration,subject);
                     if (leaves.size() == 1) {
                         String leave_type = leaves.get(0).getLeave_type();
                         jsonObject.put("leave", "已请假");
@@ -6049,7 +6049,7 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate localDate = LocalDate.parse(add_date);
                 Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-                List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration);
+                List<Leave> leaves = dao.getLeaveByDateDuration(student_name, studio, date_time, duration,subject);
                 List<Arrangement> arrangement_list = dao.getArrangementByDate(studio,weekDayChoose.toString(),class_number,duration,subject,campus);
                 if(arrangement_list.size() > 0 && leaves.size() == 0){
                     Arrangement arrangement = arrangement_list.get(0);
