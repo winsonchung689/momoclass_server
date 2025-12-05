@@ -6404,7 +6404,7 @@ public class LoginServiceImpl implements LoginService {
         Integer page_start = (page - 1) * 100;
         Integer page_length = 100;
         DecimalFormat df1 = new DecimalFormat("0.00");
-        String date_start = date_time;
+        String date_start = sdf.format(new Date());
         String date_end = date_time;
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject_all = new JSONObject();
@@ -6416,13 +6416,13 @@ public class LoginServiceImpl implements LoginService {
             String studio = list_user.get(0).getStudio();
             if("近1周".equals(duration_time)){
                 cal.add(Calendar.DATE,-7);
-                date_start = df.format(cal.getTime());
+                date_start = sdf.format(cal.getTime());
             } else if("近1月".equals(duration_time)) {
                 cal.add(Calendar.DATE,-31);
-                date_start = df.format(cal.getTime());
+                date_start = sdf.format(cal.getTime());
             }else if("近1年".equals(duration_time)) {
                 cal.add(Calendar.DATE,-365);
-                date_start = df.format(cal.getTime());
+                date_start = sdf.format(cal.getTime());
             }else if("自定义".equals(duration_time_list[0])){
                 date_start = duration_time_list[1];
                 date_end = duration_time_list[2];
