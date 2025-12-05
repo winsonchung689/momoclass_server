@@ -4669,7 +4669,16 @@ public class LoginController {
 				}
 
 			}else if("催缴余课".equals(modifyHead)){
-				dao.updateLessonUrgeNumberByStudio(studio,Integer.parseInt(content));
+				lesson.setUrge_number(Integer.parseInt(content));
+				dao.updateLessonUrgeNumberByStudio(lesson);
+			}else if("优先课包".equals(modifyHead)){
+				Integer urge_first = lesson.getUrge_first();
+				Integer status = 1;
+				if(urge_first == 1){
+					status = 0;
+				}
+				lesson.setUrge_first(status);
+				dao.updateLessonUrgeNumberByStudio(lesson);
 			}
 
 

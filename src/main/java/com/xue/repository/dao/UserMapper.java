@@ -503,7 +503,7 @@ public interface UserMapper {
 
     int updateLessonUrgePaymentById(String id,Integer urge_payment);
 
-    int updateLessonUrgeNumberByStudio(String studio,Integer urge_number);
+    int updateLessonUrgeNumberByStudio(Lesson lesson);
 
     int updateLessonLocationById(String id,String location);
 

@@ -10479,6 +10479,7 @@ public class LoginServiceImpl implements LoginService {
                 phone_number = line.getPhone_number();
                 Integer urge_payment = line.getUrge_payment();
                 int  urge_number = line.getUrge_number();
+                Integer urge_first = line.getUrge_first();
 
                 String combine = "分";
                 if(is_combine == 1){
@@ -10630,6 +10631,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("official_status", official_status);
                 jsonObject.put("related_names", related_names.toString());
                 jsonObject.put("urge_number", urge_number);
+                jsonObject.put("urge_first", urge_first);
 
                 resul_list.add(jsonObject);
 

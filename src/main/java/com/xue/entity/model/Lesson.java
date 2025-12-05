@@ -38,6 +38,8 @@ public class Lesson {
 
     private Integer urge_payment;
 
+    private Integer urge_first;
+
     private Integer delete_status;
 
     private String final_time;
@@ -186,6 +188,14 @@ public class Lesson {
 
     public void setUrge_payment(Integer urge_payment) {
         this.urge_payment = urge_payment;
+    }
+
+    public Integer getUrge_first() {
+        return urge_first;
+    }
+
+    public void setUrge_first(Integer urge_first) {
+        this.urge_first = urge_first;
     }
 
     public String getCampus() {

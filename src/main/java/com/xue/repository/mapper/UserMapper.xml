@@ -1882,7 +1882,7 @@
   </update>
 
   <update id="updateLessonUrgeNumberByStudio" parameterType="com.xue.entity.model.Lesson">
-    update lesson set urge_number=#{param2} where studio =#{param1}
+    update lesson set urge_number=#{urge_number},urge_first=#{urge_first} where studio =#{studio}
   </update>
 
   <update id="updateLessonLocationById" parameterType="com.xue.entity.model.Lesson">
