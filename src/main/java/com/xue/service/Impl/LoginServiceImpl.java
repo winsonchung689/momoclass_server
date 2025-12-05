@@ -6160,7 +6160,7 @@ public class LoginServiceImpl implements LoginService {
                                         }
                                     }
                                     Float lesson_left = all_lesson + give_lesson - package_sum;
-                                    if(student_split.equals(student_name) && lesson_left <= 0 && urge_first == 1){
+                                    if(student_split.equals(student_name) && lesson_left <= 0 && urge_payment == 0 && urge_first == 1){
                                         if (!"no_id".equals(official_openid)) {
                                             // 优先课包通知
                                             String[] official_list = official_openid.split(",");
