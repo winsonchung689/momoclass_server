@@ -10414,14 +10414,14 @@ public class LoginServiceImpl implements LoginService {
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio);
                     if(user.size()>0){
-                        parent = user.get(0).getNick_name();
-                        avatarurl = user.get(0).getAvatarurl();
-//                        phone_number = user.get(0).getPhone_number();
-                        official_openid = user.get(0).getOfficial_openid();
-                        if (official_openid.length() >= 28){
-                            official_status = "已关注";
+                        for(int j = 0; j < user.size(); j++){
+                            parent = user.get(j).getNick_name();
+                            avatarurl = user.get(j).getAvatarurl();
+                            official_openid = user.get(j).getOfficial_openid();
+                            if (official_openid.length() >= 28){
+                                official_status = "已关注";
+                            }
                         }
-
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
