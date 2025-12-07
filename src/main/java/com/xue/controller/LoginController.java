@@ -2928,7 +2928,7 @@ public class LoginController {
 
 	@RequestMapping("/updateAnnouncement")
 	@ResponseBody
-	public int updateAnnouncement(String id,String type,String content){
+	public String updateAnnouncement(String id,String type,String content){
 		try {
 			List<Announcement> announcements = dao.getAnnouncementById(id);
 			Announcement announcement = announcements.get(0);
@@ -2940,9 +2940,8 @@ public class LoginController {
 			dao.updateAnnouncement(announcement);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
 		}
-		return 1;
+		return "update successfully";
 	}
 
 
