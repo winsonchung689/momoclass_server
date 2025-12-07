@@ -2928,7 +2928,11 @@ public class LoginController {
 
 	@RequestMapping("/updateAnnouncement")
 	@ResponseBody
-	public String updateAnnouncement(String id,String type,String content){
+	public String updateAnnouncement(HttpServletRequest request, HttpServletResponse response){
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String content = request.getParameter("content");
+
 		try {
 			List<Announcement> announcements = dao.getAnnouncementById(id);
 			Announcement announcement = announcements.get(0);
