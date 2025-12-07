@@ -924,6 +924,8 @@ public interface UserMapper {
 
     List<Announcement> getAnnouncement(String studio,String campus);
 
+    List<Announcement> getAnnouncementById(String id);
+
     List<Lesson> getLessonBySubject(String studio,String subject,String campus);
 
     List<Lesson> getLessonByStudio(String studio);

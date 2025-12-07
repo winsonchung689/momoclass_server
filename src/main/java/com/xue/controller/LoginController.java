@@ -2928,14 +2928,16 @@ public class LoginController {
 
 	@RequestMapping("/updateAnnouncement")
 	@ResponseBody
-	public int updateAnnouncement(String type,String content,String id){
+	public int updateAnnouncement(String id,String type,String content){
 		try {
-			Announcement announcement = new Announcement();
-			announcement.setId(id);
-			if(type.equals("content")){
+			List<Announcement> announcements = dao.getAnnouncementById(id);
+			Announcement announcement = announcements.get(0);
+			if("content".equals(type)){
 				announcement.setContent(content);
-				dao.updateAnnouncement(announcement);
+			}else if("uuid".equals(type)){
+				announcement.setUuid(content);
 			}
+			dao.updateAnnouncement(announcement);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
