@@ -505,6 +505,9 @@ public interface UserMapper {
 
     int updateLessonUrgeNumberByStudio(Lesson lesson);
 
+
+    int updateAnnouncement(Announcement announcement);
+
     int updateLessonLocationById(String id,String location);
 
     int updateAlbumById(Album album);

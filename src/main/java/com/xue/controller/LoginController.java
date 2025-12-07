@@ -2926,6 +2926,23 @@ public class LoginController {
 		return 1;
 	}
 
+	@RequestMapping("/updateAnnouncement")
+	@ResponseBody
+	public int updateAnnouncement(String type,String content,String id){
+		try {
+			Announcement announcement = new Announcement();
+			announcement.setId(id);
+			if(type.equals("content")){
+				announcement.setContent(content);
+				dao.updateAnnouncement(announcement);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 
 	//	获取详情页
 	@RequestMapping("/deleteUser")
