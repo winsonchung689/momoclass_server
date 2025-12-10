@@ -5312,7 +5312,7 @@ public class LoginController {
 			String campus = list_user.get(0).getCampus();
 			List<Lesson> lessons = dao.getLesson(studio,campus);
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(p_path),"UTF-8"));
-			bw.write("科目,学生名,总课时,余课时,积分,单价");
+			bw.write("科目,学生名,总课时,余课时,消课时,积分,单价");
 			bw.newLine();
 			for(int i=0; i<lessons.size(); i++){
 				Lesson lesson  = lessons.get(i);
@@ -5367,8 +5367,22 @@ public class LoginController {
 				// 计算平均单价
 				Float price = (total-disc)/(all_lesson + give_lesson);
 
+				//计算消课时
+				Float consume_amount = 0.0f;
+				if (is_combine == 0) {
+					List<SignUp> signUps = dao.getSignUp(student_name,studio,subject,campus);
+					if(signUps.size() > 0) {
+						consume_amount = dao.getAllSignUpByStudent(studio, subject, campus, student_name);
+					}
+				} else if (is_combine == 1) {
+					consume_amount = dao.getAllSignUpByStudentCombine(studio, campus, student_name);
+					if(consume_amount == null){
+						consume_amount = 0.0f;
+					}
+				}
+
 				DecimalFormat df = new DecimalFormat("0.00");
-				bw.write(subject+","+student_name+","+total_amount+","+left_amount+","+points+","+df.format(price));
+				bw.write(subject + "," + student_name + "," + total_amount + ","+ left_amount + ","+ consume_amount + ","+ points + "," +df.format(price));
 				bw.newLine();
 			}
 
