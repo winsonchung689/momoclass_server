@@ -740,6 +740,8 @@ public class BookController {
 	@RequestMapping("/updateLibraryDetailById")
 	@ResponseBody
 	public int updateLibraryDetailById(HttpServletRequest request, HttpServletResponse response){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 
 		//获取参数
 		String type = request.getParameter("type");
@@ -761,6 +763,8 @@ public class BookController {
 				library.setLimit_size(Float.parseFloat(content));
 			}else if("subject".equals(type)){
 				library.setSubject(content);
+			}else if("create_time".equals(type)){
+				library.setCreate_time(create_time);
 			}
 
 			dao.updateLibraryDetailById(library);
