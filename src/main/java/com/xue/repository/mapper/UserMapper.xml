@@ -1562,7 +1562,7 @@
   </select>
 
   <select id="getPptMenu" parameterType="com.xue.entity.model.PptMenu" resultMap="BasePptMenu">
-    select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time desc limit #{param5},#{param6}
+    select * from ppt_menu where studio =#{param1} and campus =#{param2} and category =#{param3} and type =#{param4} and delete_status = 0 order by create_time limit #{param5},#{param6}
   </select>
 
   <select id="getLibraryByPublic" parameterType="com.xue.entity.model.Library" resultMap="BaseLibrary">
