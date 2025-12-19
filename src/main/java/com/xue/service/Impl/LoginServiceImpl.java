@@ -732,8 +732,8 @@ public class LoginServiceImpl implements LoginService {
         User user = users.get(0);
         String studio = user.getStudio();
         String campus = user.getCampus();
-        int use_count = 0;
-        int end_count = 0;
+        Float use_count = 0;
+        Float end_count = 0;
 
         // 统计
         if(page == 1){
