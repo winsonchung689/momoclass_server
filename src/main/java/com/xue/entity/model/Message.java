@@ -44,6 +44,17 @@ public class Message {
 
     private Integer views;
 
+    private String type;
+
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getOpenid() {
         return openid;

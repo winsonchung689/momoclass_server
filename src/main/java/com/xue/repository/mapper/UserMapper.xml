@@ -1049,7 +1049,7 @@
 
   <!-- 插入课评 -->
   <insert id="push" parameterType="com.xue.entity.model.Message">
-      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids,campus,vuuid,openid) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids},#{campus},#{vuuid},#{openid})
+      insert class_comment(student_name,photo,comment,create_time,class_name,class_target,studio,class_target_bak,duration,positive,discipline,happiness,mp3_url,uuids,campus,vuuid,openid,type) values(#{student_name},#{photo},#{comment},#{create_time},#{class_name},#{class_target},#{studio},#{class_target_bak},#{duration},#{positive},#{discipline},#{happiness},#{mp3_url},#{uuids},#{campus},#{vuuid},#{openid},#{type})
   </insert>
 
   <!-- 插入帖子 -->

@@ -6020,6 +6020,11 @@ public class LoginController {
 //			e.printStackTrace();
 		}
 
+		String type = request.getParameter("type");
+		if(type == null || type.isEmpty() || "undefined".equals(type)){
+			type = "其他";
+		}
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String studio = list_user.get(0).getStudio();
@@ -6042,6 +6047,7 @@ public class LoginController {
 		message.setCampus(campus);
 		message.setVuuid(vuuid);
 		message.setOpenid(openid);
+		message.setType(type);
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
