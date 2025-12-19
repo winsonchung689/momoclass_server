@@ -5469,6 +5469,7 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 subject = line.getSubject();
                 is_combine = line.getIs_combine();
+                String my_id = line.getId();
 
                 // 判断是否合并分科更新本人的课时
                 Lesson lesson = new Lesson();
@@ -5492,27 +5493,22 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            if(id_get != null && id_get != ""){
+                            if(id_get != null && id_get != "" && !my_id.equals(id_get)){
                                 List<Lesson> lessons = dao.getLessonById(id_get);
                                 if(lessons.size()>0){
                                     Lesson lesson_get = lessons.get(0);
                                     String student_name_get = lesson_get.getStudent_name();
-                                    // 判定其他人
-                                    if(!student_name.equals(student_name_get)){
-                                        String subject_get = lesson_get.getSubject();
-                                        Float minus_get = lesson_get.getMinus();
-                                        Float coins_get = lesson_get.getCoins();
+                                    String subject_get = lesson_get.getSubject();
 
-                                        Lesson lesson_re = new Lesson();
-                                        lesson_re.setStudent_name(student_name_get);
-                                        lesson_re.setLeft_amount(new_left);
-                                        lesson_re.setTotal_amount(total_amount);
-                                        lesson_re.setStudio(studio);
-                                        lesson_re.setCampus(campus);
-                                        lesson_re.setSubject(subject_get);
+                                    Lesson lesson_re = new Lesson();
+                                    lesson_re.setStudent_name(student_name_get);
+                                    lesson_re.setLeft_amount(new_left);
+                                    lesson_re.setTotal_amount(total_amount);
+                                    lesson_re.setStudio(studio);
+                                    lesson_re.setCampus(campus);
+                                    lesson_re.setSubject(subject_get);
 
-                                        dao.updateLesson(lesson_re);
-                                    }
+                                    dao.updateLesson(lesson_re);
                                 }
                             }
                         }
