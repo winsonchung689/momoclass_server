@@ -5233,7 +5233,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("liked",liked);
                     jsonObject.put("like_count",like_count);
                     jsonObject.put("client_openid",client_openid);
-                    jsonObject.put("type_in",type_in);
+                    jsonObject.put("type",type);
                     resul_list.add(jsonObject);
                 }
             }else{
