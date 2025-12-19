@@ -11067,18 +11067,16 @@ public class LoginServiceImpl implements LoginService {
                     String[] related_id_list = related_id.split(",");
                     for(int j=0;j < related_id_list.length; j++){
                         String id_get = related_id_list[j];
-                        if(id_get != null && id_get != "") {
+                        if(id_get != null && id_get != "" && !id.equals(id_get)) {
                             List<Lesson> lessons_re = dao.getLessonById(id_get);
                             if(lessons_re.size()>0) {
                                 Lesson lesson_re = lessons_re.get(0);
                                 String student_name_get = lesson_re.getStudent_name();
                                 String subject_re = lesson_re.getSubject();
-                                if (!student_name.equals(student_name_get)) {
-                                    List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
-                                    if (signUps1.size() > 0) {
-                                        Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
-                                    }
+                                List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
+                                if (signUps1.size() > 0) {
+                                    Float consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
                                 }
                             }
                         }
