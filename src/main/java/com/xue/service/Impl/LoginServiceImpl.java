@@ -140,10 +140,13 @@ public class LoginServiceImpl implements LoginService {
             Float coins_amount = 0.0f;
             Integer is_combine = 0;
             String related_id = null;
+            String my_id = "0";
+
             if (student_name != null) {
                 List<Lesson> lessons = dao.getLessonByNameSubject(student_name, studio,subject,campus);
                 if(lessons.size()>0){
                     Lesson lesson_get = lessons.get(0);
+                    my_id = lesson_get.getId();
                     total_amount = lesson_get.getTotal_amount();
                     if (total > 0) {
                         total_amount = total;
@@ -190,7 +193,7 @@ public class LoginServiceImpl implements LoginService {
                             if(lessons.size()>0){
                                 Lesson lesson_get = lessons.get(0);
                                 String student_name_get = lesson_get.getStudent_name();
-                                if(!student_name.equals(student_name_get)){
+                                if(!my_id.equals(id_get)){
                                     lesson.setStudent_name(student_name_get);
                                     dao.updateLesson(lesson);
                                 }
