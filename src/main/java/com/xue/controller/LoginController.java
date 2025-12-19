@@ -5323,6 +5323,7 @@ public class LoginController {
 				String points = lesson.getPoints().toString();
 				Integer is_combine = lesson.getIs_combine();
 				String related_id = lesson.getRelated_id();
+				String my_id = lesson.getId();
 
 				Float total = 0.0f;
 				Float disc = 0.0f;
@@ -5340,16 +5341,14 @@ public class LoginController {
 					String[] related_id_list = related_id.split(",");
 					for(int j=0;j < related_id_list.length; j++){
 						String id_get = related_id_list[j];
-						if(id_get != null && id_get != "") {
+						if(id_get != null && id_get != "" && !my_id.equals(id_get)) {
 							List<Lesson> lessons_re = dao.getLessonById(id_get);
 							if(lessons_re.size()>0){
 								Lesson lesson_re = lessons_re.get(0);
 								String student_name_get = lesson_re.getStudent_name();
 								String subject_re = lesson_re.getSubject();
-								if (!student_name.equals(student_name_get)) {
-									List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
-									lessonPackages.addAll(lessonPackages_re);
-								}
+								List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
+								lessonPackages.addAll(lessonPackages_re);
 							}
 						}
 					}

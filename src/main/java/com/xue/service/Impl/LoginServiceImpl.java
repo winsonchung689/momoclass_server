@@ -8514,6 +8514,7 @@ public class LoginServiceImpl implements LoginService {
                     String subject_get = lesson.getSubject();
                     Integer is_combine = lesson.getIs_combine();
                     String related_id = lesson.getRelated_id();
+                    String my_id = lesson.getId();
 
                     Float total = 0.0f;
                     Float disc = 0.0f;
@@ -8533,16 +8534,14 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            if(id_get != null && id_get != "") {
+                            if(id_get != null && id_get != "" && !my_id.equals(id_get)) {
                                 List<Lesson> lessons_re = dao.getLessonById(id_get);
                                 if(lessons_re.size()>0){
                                     Lesson lesson_re = lessons_re.get(0);
                                     String student_name_get = lesson_re.getStudent_name();
                                     String subject_re = lesson_re.getSubject();
-                                    if (!student_name_all.equals(student_name_get)) {
-                                        List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
-                                        lessonPackages1.addAll(lessonPackages_re);
-                                    }
+                                    List<LessonPackage> lessonPackages_re = dao.getLessonPackageByStudentSubject(student_name_get, studio, campus, subject_re);
+                                    lessonPackages1.addAll(lessonPackages_re);
                                 }
                             }
                         }
@@ -8583,7 +8582,7 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            if(id_get != null && id_get != "") {
+                            if(id_get != null && id_get != "" && !my_id.equals(id_get)) {
                                 List<Lesson> lessons_re = dao.getLessonById(id_get);
                                 if(lessons_re.size()>0) {
                                     Lesson lesson_re = lessons_re.get(0);
@@ -8591,21 +8590,12 @@ public class LoginServiceImpl implements LoginService {
                                     String subject_re = lesson_re.getSubject();
                                     Integer is_combine_re = lesson_re.getIs_combine();
 
-                                    if (!student_name_all.equals(student_name_get)) {
-                                        Float consume_lesson_re = 0.0f;
-                                        if(is_combine_re == 0){
-                                            List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
-                                            if (signUps1.size() > 0) {
-                                                consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                            }
-                                        }else if(is_combine_re == 1){
-                                            consume_lesson_re = dao.getAllSignUpByStudentCombine(studio, campus, student_name_get);
-                                            if(consume_lesson_re == null){
-                                                consume_lesson_re = 0.0f;
-                                            }
-                                        }
-                                        consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                    Float consume_lesson_re = 0.0f;
+                                    List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
+                                    if (signUps1.size() > 0) {
+                                        consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                     }
+                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
                                 }
                             }
                         }
@@ -10537,7 +10527,7 @@ public class LoginServiceImpl implements LoginService {
                     String[] related_id_list = related_id.split(",");
                     for(int j=0;j < related_id_list.length; j++){
                         String id_get = related_id_list[j];
-                        if(id_get != null && id_get != "") {
+                        if(id_get != null && id_get != "" && !id.equals(id_get)) {
                             List<Lesson> lessons_re = dao.getLessonById(id_get);
                             if(lessons_re.size()>0) {
                                 Lesson lesson_re = lessons_re.get(0);
@@ -10545,21 +10535,12 @@ public class LoginServiceImpl implements LoginService {
                                 String subject_re = lesson_re.getSubject();
                                 Integer is_combine_re = lesson_re.getIs_combine();
 
-                                if (!student_name.equals(student_name_get)) {
-                                    Float consume_lesson_re = 0.0f;
-                                    if(is_combine_re == 0){
-                                        List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
-                                        if (signUps1.size() > 0) {
-                                            consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
-                                        }
-                                    }else if(is_combine_re == 1){
-                                        consume_lesson_re = dao.getAllSignUpByStudentCombine(studio, campus, student_name_get);
-                                        if(consume_lesson_re == null){
-                                            consume_lesson_re = 0.0f;
-                                        }
-                                    }
-                                    consume_lesson_get = consume_lesson_get + consume_lesson_re;
+                                Float consume_lesson_re = 0.0f;
+                                List<SignUp> signUps1 = dao.getSignUp(student_name_get, studio, subject_re, campus);
+                                if (signUps1.size() > 0) {
+                                    consume_lesson_re = dao.getAllSignUpByStudent(studio, subject_re, campus, student_name_get);
                                 }
+                                consume_lesson_get = consume_lesson_get + consume_lesson_re;
                             }
                         }
                     }
@@ -11026,16 +11007,14 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            if(id_get != null && id_get != "") {
+                            if(id_get != null && id_get != "" && !id.equals(id_get)) {
                                 List<Lesson> lessons_re = dao.getLessonById(id_get);
                                 if(lessons_re.size()>0) {
                                     Lesson lesson_re = lessons_re.get(0);
                                     String student_name_get = lesson_re.getStudent_name();
                                     String subject_re = lesson_re.getSubject();
-                                    if (!student_name.equals(student_name_get)) {
-                                        List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get, studio, campus, subject_re);
-                                        lessonPackages.addAll(lessonPackages_re);
-                                    }
+                                    List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get, studio, campus, subject_re);
+                                    lessonPackages.addAll(lessonPackages_re);
                                 }
                             }
                         }
