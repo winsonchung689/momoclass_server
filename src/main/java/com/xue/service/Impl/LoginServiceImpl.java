@@ -5179,6 +5179,7 @@ public class LoginServiceImpl implements LoginService {
             String comment = line.getComment();
             Integer views = line.getViews();
             String id = line.getId();
+            String type_in = line.getType();
 
             int liked = 0;
             int like_count =0;
@@ -5232,6 +5233,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("liked",liked);
                     jsonObject.put("like_count",like_count);
                     jsonObject.put("client_openid",client_openid);
+                    jsonObject.put("type_in",type_in);
                     resul_list.add(jsonObject);
                 }
             }else{
