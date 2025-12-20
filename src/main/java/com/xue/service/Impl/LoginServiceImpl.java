@@ -9993,6 +9993,24 @@ public class LoginServiceImpl implements LoginService {
 
             }
 
+            if("试听数".equals(type)){
+                List<Schedule> schedules = dao.getTryDetailByMonthStudent(weekday,studio,campus);
+                for(int i=0;i< schedules.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Schedule schedule = schedules.get(i);
+                    String student_name = schedule.getStudent_name();
+                    String class_number = schedule.getClass_number();
+                    String duration = schedule.getDuration();
+                    String subject = schedule.getSubject();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("subject", subject);
+                    resul_list.add(jsonObject);
+                }
+            }
+
         //按日算
         }else if(weekday.length() == 10){
 
@@ -10134,7 +10152,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("试听数".equals(type)){
-                List<Schedule> schedules = dao.getTransferAll(weekday,studio,campus);
+                List<Schedule> schedules = dao.getTryDetailByDateStudent(weekday,studio,campus);
                 for(int i=0;i< schedules.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Schedule schedule = schedules.get(i);
@@ -10283,6 +10301,24 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("give_lesson", give_lesson);
                     jsonObject.put("mark", mark);
                     jsonObject.put("create_time", create_time);
+                    resul_list.add(jsonObject);
+                }
+            }
+
+            if("试听数".equals(type)){
+                List<Schedule> schedules = dao.getTryDetailByYearStudent(weekday,studio,campus);
+                for(int i=0;i< schedules.size();i++){
+                    JSONObject jsonObject = new JSONObject();
+                    Schedule schedule = schedules.get(i);
+                    String student_name = schedule.getStudent_name();
+                    String class_number = schedule.getClass_number();
+                    String duration = schedule.getDuration();
+                    String subject = schedule.getSubject();
+
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("class_number", class_number);
+                    jsonObject.put("duration", duration);
+                    jsonObject.put("subject", subject);
                     resul_list.add(jsonObject);
                 }
             }

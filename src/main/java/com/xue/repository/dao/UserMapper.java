@@ -1152,6 +1152,8 @@ public interface UserMapper {
 
     List<SignUp> getSignUpDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 
+    List<Schedule> getTryDetailByDateStudent(String studio,String date_time,String campus);
+
     List<Schedule> getTryDetailByMonthStudent(String studio,String date_time,String campus);
 
     List<Schedule> getTryDetailByYearStudent(String studio,String date_time,String campus);
