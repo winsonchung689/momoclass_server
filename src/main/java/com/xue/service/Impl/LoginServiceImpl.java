@@ -189,17 +189,20 @@ public class LoginServiceImpl implements LoginService {
                         String[] related_id_list = related_id.split(",");
                         for(int j=0;j < related_id_list.length; j++){
                             String id_get = related_id_list[j];
-                            List<Lesson> lessons = dao.getLessonById(id_get);
-                            if(lessons.size()>0){
-                                Lesson lesson_get = lessons.get(0);
-                                String student_name_get = lesson_get.getStudent_name();
-                                if(!my_id.equals(id_get)){
+                            if(!my_id.equals(id_get)) {
+                                List<Lesson> lessons = dao.getLessonById(id_get);
+                                if (lessons.size() > 0) {
+                                    Lesson lesson_get = lessons.get(0);
+                                    String student_name_get = lesson_get.getStudent_name();
+                                    String subject_get = lesson_get.getSubject();
+
                                     lesson.setStudent_name(student_name_get);
+                                    lesson.setSubject(subject_get);
+
                                     dao.updateLesson(lesson);
                                 }
                             }
                         }
-
                     }
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
