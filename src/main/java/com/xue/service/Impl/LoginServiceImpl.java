@@ -9994,7 +9994,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("试听数".equals(type)){
-                List<Schedule> schedules = dao.getTryDetailByMonthStudent(weekday,studio,campus);
+                List<Schedule> schedules = dao.getTryDetailByMonthStudent(studio,weekday,campus);
                 for(int i=0;i< schedules.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Schedule schedule = schedules.get(i);
@@ -10152,7 +10152,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("试听数".equals(type)){
-                List<Schedule> schedules = dao.getTryDetailByDateStudent(weekday,studio,campus);
+                List<Schedule> schedules = dao.getTryDetailByDateStudent(studio,weekday,campus);
                 for(int i=0;i< schedules.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Schedule schedule = schedules.get(i);
@@ -10306,7 +10306,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if("试听数".equals(type)){
-                List<Schedule> schedules = dao.getTryDetailByYearStudent(weekday,studio,campus);
+                List<Schedule> schedules = dao.getTryDetailByYearStudent(studio,weekday,campus);
                 for(int i=0;i< schedules.size();i++){
                     JSONObject jsonObject = new JSONObject();
                     Schedule schedule = schedules.get(i);
