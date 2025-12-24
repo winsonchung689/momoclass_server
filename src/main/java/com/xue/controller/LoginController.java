@@ -182,7 +182,7 @@ public class LoginController {
 					if(class_target.equals("课后点评")){
 						class_target = "课评";
 					}
-					String date_time = create_time.split("_")[0];
+					String date_time = create_time.split(" ")[0];
 
 					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target + "&duration=" + duration + "&date_time=" + date_time + "&student_name=" + student_name);
 
