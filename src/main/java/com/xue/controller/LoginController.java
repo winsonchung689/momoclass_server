@@ -6025,6 +6025,11 @@ public class LoginController {
 			type = "其他";
 		}
 
+		String subject = request.getParameter("subject");
+		if(subject == null || subject.isEmpty() || "undefined".equals(subject)){
+			subject = "未知";
+		}
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String studio = list_user.get(0).getStudio();
@@ -6048,6 +6053,7 @@ public class LoginController {
 		message.setVuuid(vuuid);
 		message.setOpenid(openid);
 		message.setType(type);
+		message.setSubject(subject);
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
