@@ -7668,6 +7668,8 @@ public class LoginServiceImpl implements LoginService {
                 String comment = line.getComment();
                 String id = line.getId();
                 String create_time = line.getCreate_time();
+                String date_time = create_time.split(" ")[0];
+                String campus = line.getCampus();
                 String duration = line.getDuration();
                 String class_name = line.getClass_name();
                 String mp3_url = line.getMp3_url();
@@ -7678,6 +7680,13 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String v_uuid = line.getVuuid();
                 String class_target = line.getClass_target();
+                String subject = line.getSubject();
+                if("未知".equals(subject)){
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,date_time,duration,student_name);
+                    if(schedules.size()>0){
+                        subject = schedules.get(0).getSubject();
+                    }
+                }
 
                 //json
                 jsonObject.put("class_target", class_target);
@@ -7689,6 +7698,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("mp3_url", mp3_url);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
             }
 
