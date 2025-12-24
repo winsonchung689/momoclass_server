@@ -184,7 +184,7 @@ public class LoginController {
 					}
 					String date_time = create_time.split("_")[0];
 
-					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target + "&duration=" + duration + "&date_time=" + date_time);
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target + "&duration=" + duration + "&date_time=" + date_time + "&student_name=" + student_name);
 
 					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
