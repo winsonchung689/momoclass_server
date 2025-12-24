@@ -182,7 +182,9 @@ public class LoginController {
 					if(class_target.equals("课后点评")){
 						class_target = "课评";
 					}
-					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/comment/comment?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target);
+					String date_time = create_time.split("_")[0];
+
+					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target + "&duration=" + duration + "&date_time=" + date_time);
 
 					System.out.println("MOMO_OFFICIAL_PARAM:" + queryJson.toJSONString());
 					result = HttpUtil.sendPostJson(url_send,queryJson.toJSONString());
