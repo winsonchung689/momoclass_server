@@ -7654,6 +7654,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getGrowthRecord(String studio, Integer page, String student_name) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
         Integer page_start = (page - 1) * 4;
         Integer page_length = 4;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -7682,7 +7684,11 @@ public class LoginServiceImpl implements LoginService {
                 String class_target = line.getClass_target();
                 String subject = line.getSubject();
                 if("未知".equals(subject)){
-                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,date_time,duration,student_name);
+                    long timestamp = df.parse(date_time).getTime();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(timestamp);
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,dayOfWeek,duration,student_name);
                     if(schedules.size()>0){
                         subject = schedules.get(0).getSubject();
                     }
