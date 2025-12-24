@@ -797,7 +797,7 @@
   </select>
 
   <select id="getScheduleByStudentDuration" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
-    select * from class_schedule where studio = #{param1} and campus =#{param2} add_date=#{param3} and duration = #{param4} and student_name =#{param5} ;
+    select * from class_schedule where studio = #{param1} and campus =#{param2} and add_date=#{param3} and duration = #{param4} and student_name =#{param5} ;
   </select>
 
   <select id="getScheduleByStudentDay" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
