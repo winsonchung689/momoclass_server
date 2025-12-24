@@ -151,7 +151,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendPostRemind")
 	@ResponseBody
-	public String sendPostRemind(String openid,String class_name,String student_name,String class_number,String duration){
+	public String sendPostRemind(String openid,String class_name,String student_name,String class_number,String duration,String date_time){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		String result = null;
@@ -182,7 +182,6 @@ public class LoginController {
 					if(class_target.equals("课后点评")){
 						class_target = "课评";
 					}
-					String date_time = create_time.split(" ")[0];
 
 					queryJson.getJSONObject("miniprogram").put("pagepath","/pages/detail/detail?openid=" + openid + "&studio=" + studio + "&comment_style=" + comment_style + "&role=" + role + "&class_target=" + class_target + "&duration=" + duration + "&date_time=" + date_time + "&student_name=" + student_name);
 
