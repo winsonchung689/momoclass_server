@@ -3140,6 +3140,11 @@ public class LoginServiceImpl implements LoginService {
                 Float coins_single = line.getCoins_single();
                 openid_get = line.getOpenid();
                 comment_style = line.getComment_style();
+                List<User> bosses = dao.getBossByStudio(studio);
+                if(bosses.size() > 0){
+                    comment_style = bosses.get(0).getComment_style();
+                }
+
                 theme = line.getTheme();
                 display = line.getDisplay();
                 cover = line.getCover();
