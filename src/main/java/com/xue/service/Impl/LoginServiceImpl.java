@@ -7785,6 +7785,11 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 openid = line.getOpenid();
                 comment_style = line.getComment_style();
+                List<User> bosses = dao.getBossByStudio(studio);
+                if(bosses.size() > 0){
+                    comment_style = bosses.get(0).getComment_style();
+                }
+
                 theme = line.getTheme();
                 subjects = line.getSubjects();
                 String expired_time_ad = line.getExpired_time_ad();
