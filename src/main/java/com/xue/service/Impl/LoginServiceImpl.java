@@ -373,6 +373,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 String create_time = line.getCreate_time();
+                String date_time = create_time.split(" ")[0];
                 Integer views = line.getViews();
                 String openid = line.getOpenid();
                 String teacher = "默认";
@@ -396,7 +397,22 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                String subject = line.getSubject();
+                if("未知".equals(subject)){
+                    long timestamp = df.parse(date_time).getTime();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(timestamp);
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,dayOfWeek,duration,student_name);
+                    if(schedules.size()>0){
+                        subject = schedules.get(0).getSubject();
+                    }
+                }
+
+
                 //json
+                jsonObject.put("subject",subject);
                 jsonObject.put("liked",liked);
                 jsonObject.put("like_count",like_count);
                 jsonObject.put("isHide",true);
@@ -533,7 +549,21 @@ public class LoginServiceImpl implements LoginService {
                     teacher = user_get.getNick_name();
                 }
 
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+                String subject = line.getSubject();
+                if("未知".equals(subject)){
+                    long timestamp = df.parse(date_time).getTime();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(timestamp);
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,dayOfWeek,duration,student_name);
+                    if(schedules.size()>0){
+                        subject = schedules.get(0).getSubject();
+                    }
+                }
+
                 //json
+                jsonObject.put("subject", subject);
                 jsonObject.put("teacher", teacher);
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("views", views);

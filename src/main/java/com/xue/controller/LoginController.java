@@ -3976,7 +3976,7 @@ public class LoginController {
 		String content = request.getParameter("content");
 		//获取课堂目标
 		String type = request.getParameter("type");
-
+		//获取id
 		String id = request.getParameter("id");
 
 		try {
@@ -3997,6 +3997,8 @@ public class LoginController {
 				message.setDuration(content);
 			}else if("student_name".equals(type)){
 				message.setStudent_name(content);
+			}else if("subject".equals(type)){
+				message.setSubject(content);
 			}
 
 			dao.updateComment(message);
