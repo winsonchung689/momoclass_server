@@ -3909,6 +3909,12 @@ public class LoginController {
 		String campus = list_user.get(0).getCampus();
 		String nick_name= list_user.get(0).getNick_name();
 
+        Integer point_status = 0;
+        List<Lesson> lessons_init = dao.getLesson(studio,campus);
+        if(lessons_init.size()>0){
+            point_status = lessons_init.get(0).getPoint_status();
+        }
+
 		try {
 			Lesson lesson =new Lesson();
 			lesson.setSubject(subject);
@@ -3922,6 +3928,7 @@ public class LoginController {
 			lesson.setPrice(0.00f);
 			lesson.setMinus(1.00f);
 			lesson.setCampus(campus);
+            lesson.setPoint_status(point_status);
 			dao.insertLesson(lesson);
 
 			LessonPackage lessonPackage = new LessonPackage();
@@ -5877,6 +5884,7 @@ public class LoginController {
 				if(student_name != null){
 					List<Lesson> lessons_get = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 					if(lessons_get.size()==0){
+                        lesson.setPoint_status(0);
 						loginService.insertLesson(lesson);
 					}else{
 						loginService.updateLesson(lesson,0.0f,0.0f,"全科目",campus);
@@ -8210,6 +8218,7 @@ public class LoginController {
 				lesson.setTotal_amount(total_amount + Float.parseFloat(give_amount));
 				lesson.setLeft_amount(left_amount + Float.parseFloat(give_amount));
 				lesson.setPhone_number(phone_number);
+                lesson.setPoint_status(0);
 				loginService.insertLesson(lesson);
 
 				LessonPackage lessonPackage = new LessonPackage();
