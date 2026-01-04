@@ -3230,6 +3230,16 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+                Float price = 0.0f;
+                // 获取优惠券金额
+                List<GiftList> giftLists = dao.getGiftListByCouponType(studio,campus,2);
+                if(giftLists.size() >0){
+                    GiftList giftList = giftLists.get(0);
+                    price = giftList.getPrice();
+                }
+
+
+                jsonObject.put("price", price);
                 jsonObject.put("contract", contract);
                 jsonObject.put("user_type", user_type);
                 jsonObject.put("create_time", create_time);
