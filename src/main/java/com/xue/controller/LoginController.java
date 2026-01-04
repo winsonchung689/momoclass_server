@@ -4302,6 +4302,8 @@ public class LoginController {
 			giftList.setAmount(Integer.parseInt(content));
 		}else if("积分".equals(type)){
 			giftList.setCoins(Integer.parseInt(content));
+		}else if("时间".equals(type)){
+			giftList.setCreate_time(create_time);
 		}
 		dao.updateGiftDetail(giftList);
 
@@ -7094,18 +7096,20 @@ public class LoginController {
 		}
 
 		String gift_name = null;
-		int send_type = 1;
-		if(is_open > 0){
-			List<GiftList> giftLists = dao.getGiftListById(is_open.toString());
-			if(giftLists.size()>0){
-				GiftList giftList = giftLists.get(0);
-				gift_name = giftList.getGift_name();
-				send_type = giftList.getSend_type();
-			}
+		String gift_id = null;
+		int send_type = 0;
+		List<GiftList> giftLists = dao.getGiftListByCouponType(studio,campus,2);
+		if(giftLists.size()>0){
+			// 默认取第一个作为转发所得优惠券
+			GiftList giftList = giftLists.get(0);
+			gift_name = giftList.getGift_name();
+			gift_id	= giftList.getId();
+			send_type = 1;
 		}
 
 		//插入礼物记录
 		Gift gift = new Gift();
+		gift.setGift_id(gift_id);
 		gift.setGift_name(gift_name);
 		gift.setGift_amount(1);
 		gift.setCreate_time(create_time);
@@ -7113,7 +7117,6 @@ public class LoginController {
 		gift.setStudio(studio);
 		gift.setCampus(campus);
 		gift.setStatus(0);
-		gift.setGift_id(is_open.toString());
 
 		// 用户新增
 		User user =new User();
@@ -7170,28 +7173,16 @@ public class LoginController {
 			try {
 				int update_res = dao.updateUserDelete(user);
 				if(update_res==0 && openid.length() == 28 && studio.length() > 0){
+					// 新增客户
 					dao.insertUser(user);
-					// 双发的活动全
-					if("1".equals(type) && is_open > 0 && send_type ==1){
-						//邀请者发券
+					// 邀请者发券
+					if("1".equals(type) && send_type == 1){
 						gift.setOpenid(my_openid);
-						loginService.insertGift(gift);
-						//被邀请者发券
-						gift.setOpenid(openid);
 						loginService.insertGift(gift);
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		}
-
-		// 单发的活动券
-		if("1".equals(type) && is_open > 0 && send_type ==2){
-			List<Gift> gifts_get =dao.getGiftByOpenidGiftid(openid,is_open.toString());
-			if(gifts_get.size() == 0){
-				gift.setOpenid(openid);
-				loginService.insertGift(gift);
 			}
 		}
 

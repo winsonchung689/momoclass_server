@@ -1269,7 +1269,6 @@ public class LoginServiceImpl implements LoginService {
                 List<GiftList> giftLists = dao.getGiftListById(gift_id);
                 if(giftLists.size()>0){
                     GiftList giftList = giftLists.get(0);
-//                    type = giftList.getType();
                     price = giftList.getPrice();
                     uuids = giftList.getUuids();
                     coupon_type_get = giftList.getCoupon_type();
