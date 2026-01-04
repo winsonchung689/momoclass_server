@@ -7098,6 +7098,7 @@ public class LoginController {
 		String gift_name = null;
 		String gift_id = null;
 		int send_type = 0;
+		Integer amount = 0;
 		List<GiftList> giftLists = dao.getGiftListByCouponType(studio,campus,2);
 		if(giftLists.size()>0){
 			// 默认取第一个作为转发所得优惠券
@@ -7105,6 +7106,7 @@ public class LoginController {
 			gift_name = giftList.getGift_name();
 			gift_id	= giftList.getId();
 			send_type = 1;
+			amount = giftList.getAmount();
 		}
 
 		//插入礼物记录
@@ -7176,7 +7178,7 @@ public class LoginController {
 					// 新增客户
 					dao.insertUser(user);
 					// 邀请者发券
-					if("1".equals(type) && send_type == 1){
+					if("1".equals(type) && send_type == 1 && amount > 0){
 						gift.setOpenid(my_openid);
 						loginService.insertGift(gift);
 					}
