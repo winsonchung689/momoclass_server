@@ -1216,11 +1216,11 @@ public class LoginServiceImpl implements LoginService {
         try {
             List<Gift> list = null;
             if(coupon_type == 1){
-                list = dao.getGift(student_name, studio);
+                list = dao.getGift(student_name, studio,campus);
             }else if(coupon_type == 2){
                 list = dao.getGiftByOpenid(openid,studio,campus);
             }else if(coupon_type == 3){
-                list = dao.getGift(student_name,studio);
+                list = dao.getGift(student_name,studio,campus);
                 List<User> users_get =dao.getUserByStudent(student_name,studio);
                 if(users_get.size()>0){
                     User user_get = users_get.get(0);

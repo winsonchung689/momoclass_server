@@ -1392,7 +1392,7 @@
 
   <!-- 查找礼物记录 -->
   <select id="getGift" parameterType="com.xue.entity.model.Gift" resultMap="BaseGift">
-    select * from gift_record where student_name =#{param1} and studio = #{param2} order by expired_time desc
+    select * from gift_record where student_name =#{param1} and studio = #{param2} and campus = #{param3} order by expired_time desc
   </select>
 
   <!-- 查找个人优惠券 -->

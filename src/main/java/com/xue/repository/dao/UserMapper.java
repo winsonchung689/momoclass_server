@@ -1164,7 +1164,7 @@ public interface UserMapper {
 
     List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
 
-    List<Gift> getGift(String student_name,String studio);
+    List<Gift> getGift(String student_name,String studio,String campus);
 
     List<Gift> getGiftByOpenid(String openid,String studio,String campus);
 
