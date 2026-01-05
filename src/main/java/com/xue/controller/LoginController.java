@@ -7118,7 +7118,7 @@ public class LoginController {
 		gift.setExpired_time(expired_time);
 		gift.setStudio(studio);
 		gift.setCampus(campus);
-		gift.setStatus(0);
+		gift.setStatus(1);
 
 		// 用户新增
 		User user =new User();
