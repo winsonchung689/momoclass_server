@@ -6495,6 +6495,9 @@ public class LoginServiceImpl implements LoginService {
                         // 计算金额
                         try {
                             List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                            if(lessonPackages.size() == 0){
+                                lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+                            }
                             if(lessonPackages.size()>0){
                                 for(int j = 0; j < lessonPackages.size(); j++){
                                     LessonPackage lessonPackage = lessonPackages.get(j);
