@@ -1208,33 +1208,23 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now_time = df.format(new Date());
         List<JSONObject> resul_list = new ArrayList<>();
-        String studio = null;
-        String campus = null;
+        List<User> Users = dao.getUser(openid);
+        User user = Users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 
         try {
             List<Gift> list = null;
             if(coupon_type == 1){
-                List<User> Users = dao.getUser(openid);
-                User user = Users.get(0);
-                studio = user.getStudio();
-                campus = user.getCampus();
                 list = dao.getGift(student_name, studio);
             }else if(coupon_type == 2){
-                List<User> Users = dao.getUser(openid);
-                User user = Users.get(0);
-                studio = user.getStudio();
-                campus = user.getCampus();
                 list = dao.getGiftByOpenid(openid,studio,campus);
             }else if(coupon_type == 3){
-                List<User> Users = dao.getUser(openid);
-                User user = Users.get(0);
-                studio = user.getStudio();
-                campus = user.getCampus();
                 list = dao.getGift(student_name,studio);
                 List<User> users_get =dao.getUserByStudent(student_name,studio);
                 if(users_get.size()>0){
                     User user_get = users_get.get(0);
-                    String openid_get = user.getOpenid();
+                    String openid_get = user_get.getOpenid();
                     List<Gift> list1 = dao.getGiftByOpenid(openid_get,studio,campus);
                     list.addAll(list1);
                 }
