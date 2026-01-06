@@ -6155,7 +6155,6 @@ public class LoginServiceImpl implements LoginService {
                                 long compare = 10L;
                                 List<Card > cards = dao.getCard(studio,campus,student_name,subject);
                                 if(cards.size()>0){
-                                    has_card = 1;
                                     Card card = cards.get(0);
                                     String end_date = card.getEnd_date();
 
@@ -6164,6 +6163,9 @@ public class LoginServiceImpl implements LoginService {
                                         Long day2 = end_date_dt.getTime();
                                         Long day1 = new Date().getTime();
                                         compare = (day2 - day1)/(24*3600*1000);
+                                        if(compare > 0){
+                                            has_card = 1;
+                                        }
                                     } catch (ParseException e) {
                                         throw new RuntimeException(e);
                                     }
