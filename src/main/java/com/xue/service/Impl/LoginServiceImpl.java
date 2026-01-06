@@ -6152,7 +6152,7 @@ public class LoginServiceImpl implements LoginService {
                                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 
                                 int has_card = 0;
-                                long compare = 10L;
+                                long compare = 0L;
                                 List<Card > cards = dao.getCard(studio,campus,student_name,subject);
                                 if(cards.size()>0){
                                     Card card = cards.get(0);
