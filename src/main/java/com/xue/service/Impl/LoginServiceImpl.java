@@ -6153,7 +6153,7 @@ public class LoginServiceImpl implements LoginService {
 
                                 int has_card = 0;
                                 long compare = 0L;
-                                List<Card > cards = dao.getCard(studio,campus,student_name,subject);
+                                List<Card > cards = dao.getCard(studio,campus,student_lesson,subject_get);
                                 if(cards.size()>0){
                                     Card card = cards.get(0);
                                     String end_date = card.getEnd_date();
