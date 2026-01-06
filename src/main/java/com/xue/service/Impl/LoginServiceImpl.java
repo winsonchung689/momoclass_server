@@ -6251,7 +6251,7 @@ public class LoginServiceImpl implements LoginService {
 
                                 // 有卡通知
                                 if(has_card == 1){
-                                    if(compare > 0 && compare <= 5){
+                                    if(compare > 0 && compare <= 5 && student_split.equals(student_name) && urge_payment == 0){
                                         if (!"no_id".equals(official_openid)) {
                                             //续费通知
                                             String[] official_list = official_openid.split(",");
