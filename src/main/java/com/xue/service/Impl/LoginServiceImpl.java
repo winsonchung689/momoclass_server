@@ -6151,76 +6151,129 @@ public class LoginServiceImpl implements LoginService {
                                 String model ="{\"touser\":\"openid\",\"template_id\":\"Bl9ZwhH2pWqL2pgo-WF1T5LPI4QUxmN9y7OWmwvvd58\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing16\":{\"value\": \"time\"},\"thing17\":{\"value\": \"A1\"},\"short_thing5\":{\"value\": \"AA\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
                                 String url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 
-                                // 余课时通知
-                                if (student_split.equals(student_name) && left_amount <= urge_number && urge_payment == 0) {
-                                    if (!"no_id".equals(official_openid)) {
-                                        //续费通知
-                                        String[] official_list = official_openid.split(",");
-                                        for (int k = 0; k < official_list.length; k++) {
-                                            String official_openid_get = official_list[k];
-                                            JSONObject queryJson2 = JSONObject.parseObject(model);
-                                            queryJson2.put("touser", official_openid_get);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
-                                            queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
-                                            queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
-                                            HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
-                                        }
+                                int has_card = 0;
+                                long compare = 10L;
+                                List<Card > cards = dao.getCard(studio,campus,student_name,subject);
+                                if(cards.size()>0){
+                                    has_card = 1;
+                                    Card card = cards.get(0);
+                                    String end_date = card.getEnd_date();
 
-                                        // 给boss反馈
-                                        for(int l = 0; l < bosses.size(); l++){
-                                            User boss = bosses.get(l);
-                                            String official_openid_boss = boss.getOfficial_openid();
-                                            JSONObject queryJson3 = JSONObject.parseObject(model);
-                                            queryJson3.put("touser", official_openid_boss);
-                                            queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
-                                            queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
-                                            queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "通知已发送");
-                                            HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
-
-                                        }
+                                    try {
+                                        Date end_date_dt = df.parse(end_date.substring(0,10));
+                                        Long day2 = end_date_dt.getTime();
+                                        Long day1 = new Date().getTime();
+                                        compare = (day2 - day1)/(24*3600*1000);
+                                    } catch (ParseException e) {
+                                        throw new RuntimeException(e);
                                     }
                                 }
 
-                                // 优先课包余课时
-                                List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
-                                if(lessonPackages.size() > 0){
-                                    LessonPackage lessonPackage = lessonPackages.get(0);
-                                    String package_id = lessonPackage.getId();
-                                    Float all_lesson = lessonPackage.getAll_lesson();
-                                    Float give_lesson = lessonPackage.getGive_lesson();
-                                    List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_get,campus,package_id);
-                                    Float package_sum = 0.0f;
-                                    if(signUps.size()>0){
-                                        for (int idx = 0; idx < signUps.size(); idx++) {
-                                            Float count = signUps.get(idx).getCount();
-                                            package_sum = package_sum + count;
-                                        }
-                                    }
-                                    Float lesson_left = all_lesson + give_lesson - package_sum;
-                                    if(student_split.equals(student_name) && lesson_left <= 0 && urge_payment == 0 && urge_first == 1){
+                                // 无卡通知
+                                if(has_card == 0){
+                                    // 余课时通知
+                                    if (student_split.equals(student_name) && left_amount <= urge_number && urge_payment == 0) {
                                         if (!"no_id".equals(official_openid)) {
-                                            // 优先课包通知
+                                            //续费通知
                                             String[] official_list = official_openid.split(",");
                                             for (int k = 0; k < official_list.length; k++) {
                                                 String official_openid_get = official_list[k];
                                                 JSONObject queryJson2 = JSONObject.parseObject(model);
                                                 queryJson2.put("touser", official_openid_get);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
                                                 queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                                 HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                             }
 
                                             // 给boss反馈
-                                            for(int l = 0; l < bosses.size(); l++){
+                                            for (int l = 0; l < bosses.size(); l++) {
                                                 User boss = bosses.get(l);
                                                 String official_openid_boss = boss.getOfficial_openid();
                                                 JSONObject queryJson3 = JSONObject.parseObject(model);
                                                 queryJson3.put("touser", official_openid_boss);
-                                                queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" +student_lesson);
-                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "整体剩下" + left_amount + "课时");
                                                 queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "通知已发送");
                                                 HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
+
+                                            }
+                                        }
+                                    }
+
+                                    // 优先课包余课时
+                                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name, studio, campus, subject_get);
+                                    if (lessonPackages.size() > 0) {
+                                        LessonPackage lessonPackage = lessonPackages.get(0);
+                                        String package_id = lessonPackage.getId();
+                                        Float all_lesson = lessonPackage.getAll_lesson();
+                                        Float give_lesson = lessonPackage.getGive_lesson();
+                                        List<SignUp> signUps = dao.getSignUpByPackageId(student_name, studio, subject_get, campus, package_id);
+                                        Float package_sum = 0.0f;
+                                        if (signUps.size() > 0) {
+                                            for (int idx = 0; idx < signUps.size(); idx++) {
+                                                Float count = signUps.get(idx).getCount();
+                                                package_sum = package_sum + count;
+                                            }
+                                        }
+                                        Float lesson_left = all_lesson + give_lesson - package_sum;
+                                        if (student_split.equals(student_name) && lesson_left <= 0 && urge_payment == 0 && urge_first == 1) {
+                                            if (!"no_id".equals(official_openid)) {
+                                                // 优先课包通知
+                                                String[] official_list = official_openid.split(",");
+                                                for (int k = 0; k < official_list.length; k++) {
+                                                    String official_openid_get = official_list[k];
+                                                    JSONObject queryJson2 = JSONObject.parseObject(model);
+                                                    queryJson2.put("touser", official_openid_get);
+                                                    queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                    queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                    queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                                    HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                                }
+
+                                                // 给boss反馈
+                                                for (int l = 0; l < bosses.size(); l++) {
+                                                    User boss = bosses.get(l);
+                                                    String official_openid_boss = boss.getOfficial_openid();
+                                                    JSONObject queryJson3 = JSONObject.parseObject(model);
+                                                    queryJson3.put("touser", official_openid_boss);
+                                                    queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                    queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "优先课包剩下" + lesson_left + "课时");
+                                                    queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "通知已发送");
+                                                    HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // 有卡通知
+                                if(has_card == 1){
+                                    if(compare > 0 && compare <= 5){
+                                        if (!"no_id".equals(official_openid)) {
+                                            //续费通知
+                                            String[] official_list = official_openid.split(",");
+                                            for (int k = 0; k < official_list.length; k++) {
+                                                String official_openid_get = official_list[k];
+                                                JSONObject queryJson2 = JSONObject.parseObject(model);
+                                                queryJson2.put("touser", official_openid_get);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天过期");
+                                                queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
+                                                HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
+                                            }
+
+                                            // 给boss反馈
+                                            for (int l = 0; l < bosses.size(); l++) {
+                                                User boss = bosses.get(l);
+                                                String official_openid_boss = boss.getOfficial_openid();
+                                                JSONObject queryJson3 = JSONObject.parseObject(model);
+                                                queryJson3.put("touser", official_openid_boss);
+                                                queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
+                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天过期");
+                                                queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "通知已发送");
+                                                HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
+
                                             }
                                         }
                                     }
