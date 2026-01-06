@@ -3231,7 +3231,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
 
-                jsonObject.put("coupon_price", coupon_price);
+                jsonObject.put("coupon_amount", coupon_amount);
                 jsonObject.put("coupon_price", coupon_price);
                 jsonObject.put("contract", contract);
                 jsonObject.put("user_type", user_type);
