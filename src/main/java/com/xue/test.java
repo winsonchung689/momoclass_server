@@ -30,13 +30,19 @@ public class test {
         LocalDate localDate = LocalDate.parse("2022-05-08");
         Integer weekDayChoose = localDate.getDayOfWeek().getValue();
 
-        System.out.println(weekDay_today);
-        System.out.println(td_date);
+//        System.out.println(weekDay_today);
+//        System.out.println(td_date);
 
         Long compare = 10L;
         try {
-            Date today_dt = df.parse("2025-09-11");
-            Date expired_dt = df.parse("2025-01-01");
+            Date date =new Date();
+            long timestamp = date.getTime()/1000;
+            String now_date = df.format(date);
+
+            Date today_dt = df.parse(now_date);
+
+//            Date today_dt = df.parse("2026-01-07");
+            Date expired_dt = df.parse("2026-01-10");
             Long day2 = expired_dt.getTime();
             Long day1 = today_dt.getTime();
             compare = (day2 - day1)/(24*3600*1000);

@@ -6160,8 +6160,9 @@ public class LoginServiceImpl implements LoginService {
 
                                     try {
                                         Date end_date_dt = df.parse(end_date.substring(0,10));
+                                        Date today_dt = df.parse(now_date);
                                         Long day2 = end_date_dt.getTime();
-                                        Long day1 = new Date().getTime();
+                                        Long day1 = today_dt.getTime();
                                         compare = (day2 - day1)/(24*3600*1000);
                                         if(compare > 0){
                                             has_card = 1;
@@ -6260,7 +6261,7 @@ public class LoginServiceImpl implements LoginService {
                                                 JSONObject queryJson2 = JSONObject.parseObject(model);
                                                 queryJson2.put("touser", official_openid_get);
                                                 queryJson2.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
-                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天过期");
+                                                queryJson2.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天后到期");
                                                 queryJson2.getJSONObject("data").getJSONObject("short_thing5").put("value", "请及时续课");
                                                 HttpUtil.sendPostJson(url_send, queryJson2.toJSONString());
                                             }
@@ -6272,7 +6273,7 @@ public class LoginServiceImpl implements LoginService {
                                                 JSONObject queryJson3 = JSONObject.parseObject(model);
                                                 queryJson3.put("touser", official_openid_boss);
                                                 queryJson3.getJSONObject("data").getJSONObject("thing16").put("value", studio + "_" + subject_get + "_" + student_lesson);
-                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天过期");
+                                                queryJson3.getJSONObject("data").getJSONObject("thing17").put("value", "课卡" + compare + "天后到期");
                                                 queryJson3.getJSONObject("data").getJSONObject("short_thing5").put("value", "通知已发送");
                                                 HttpUtil.sendPostJson(url_send, queryJson3.toJSONString());
 
