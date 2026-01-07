@@ -2264,7 +2264,7 @@
   </select>
 
   <select id="getClassNote" parameterType="com.xue.entity.model.Note" resultMap="BaseNote">
-    select id,subject,student_name,studio,create_time,note_content from class_note where subject =#{param1} and studio =#{param2} and student_name =#{param3} order by create_time desc
+    select * where subject =#{param1} and studio =#{param2} and student_name =#{param3} order by create_time desc
   </select>
 
   <select id="getAnnouncement" parameterType="com.xue.entity.model.Announcement" resultMap="BaseAnnouncement">
@@ -2281,11 +2281,11 @@
 
   <!-- 获取课时 -->
   <select id="getLessonBySubject" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject,final_time,leave_times from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0 order by left_amount
+    select * from lesson where studio =#{param1} and subject =#{param2} and campus =#{param3} and delete_status = 0 order by left_amount
   </select>
 
   <select id="getLessonByStudio" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
-    select id,student_name,total_amount,left_amount,create_time,points,studio,minus,coins,delete_status,subject,campus,final_time,leave_times from lesson where studio =#{param1} and delete_status = 0
+    select * from lesson where studio =#{param1} and delete_status = 0
   </select>
 
   <select id="getLessonByStudioCampus" parameterType="com.xue.entity.model.Lesson" resultMap="BaseLesson">
