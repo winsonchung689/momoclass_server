@@ -2259,7 +2259,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("comment_status", "课评");
                 jsonObject.put("comment_color", "rgb(157, 162, 165)");
-//                List<Message> messages = dao.getCommentByDate(student_name, studio, date_time,campus,"课评");
+                // 获取课评
                 List<Message> messagesDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课评");
                 if (messagesDuration.size() >= 1) {
                     jsonObject.put("comment_status", "已课评");
@@ -2268,10 +2268,19 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("homework_status", "作业");
                 jsonObject.put("homework_color", "rgb(157, 162, 165)");
+                // 获取作业
                 List<Message> homeworksDuration = dao.getCommentByDateDuration(student_name, studio, date_time, duration,campus,"课后作业");
                 if (homeworksDuration.size() >= 1) {
                     jsonObject.put("homework_status", "已发");
                     jsonObject.put("homework_color", "rgba(162, 106, 214, 0.849)");
+                }
+
+                //获取最新消课
+                Float last_sign_count = 0.0f;
+                List<SignUp> signUps = dao.getSignUp(student_name,studio,subject,campus);
+                if(signUps.size()>0){
+                    SignUp signUp = signUps.get(0);
+                    last_sign_count = signUp.getCount();
                 }
 
                 //json
@@ -2287,6 +2296,7 @@ public class LoginServiceImpl implements LoginService {
                     Float minus = lesson.getMinus();
                     String related_id = lesson.getRelated_id();
 
+                    jsonObject.put("last_sign_count", last_sign_count);
                     jsonObject.put("has_card", has_card);
                     jsonObject.put("related_id", related_id);
                     jsonObject.put("minus", minus);
@@ -2339,6 +2349,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                 }else{
+                    jsonObject.put("last_sign_count", last_sign_count);
                     jsonObject.put("left", 0);
                     jsonObject.put("total", 0);
                     jsonObject.put("add_date", add_date);
