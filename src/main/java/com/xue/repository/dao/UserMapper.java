@@ -249,7 +249,7 @@ public interface UserMapper {
     //获取详情
     List<Message> getDetails(Integer id);
 
-    List<Message> getMessageByDurationDate(String studio,String campus,String date_time,String duration);
+    List<Message> getMessageByDurationDate(String studio,String campus,String date_time,String duration,String class_number);
 
     List<Post> getPostPublic(Integer page_start,Integer page_length);
 
@@ -897,7 +897,6 @@ public interface UserMapper {
     List<LessonPackage> getLessonPackageById(Integer id);
 
     List<LessonPackage> getLessonPackage(String student_name,String studio,String campus,String subject);
-
 
     List<LessonPackage> getLessonPackageByMark(String student_name,String studio,String campus,String subject,String mark);
 

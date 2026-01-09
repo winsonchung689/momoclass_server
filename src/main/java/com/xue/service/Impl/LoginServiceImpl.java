@@ -7487,7 +7487,7 @@ public class LoginServiceImpl implements LoginService {
         String studio = list_user.get(0).getStudio();
         String class_target_int = null;
         String class_name_int = null;
-        List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,duration);
+        List<Message> messages = dao.getMessageByDurationDate(studio,campus,date_time,duration,class_number);
         if(messages.size()>0){
             class_target_int = messages.get(0).getClass_target();
             class_name_int = messages.get(0).getClass_name();
