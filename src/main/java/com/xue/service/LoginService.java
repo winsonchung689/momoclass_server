@@ -105,6 +105,8 @@ public interface LoginService {
 
     public List  getSignUp(String student_name,String studio,String subject,String openid);
 
+    public List  getSignCountByMonth(String studio,String subject,String campus,String student_name);
+
     public List  getSignUpByStudentPage(String student_name,String subject,String openid,Integer page);
 
     public List  getSignUpByBetween(String student_name,String subject,String openid,String duration_time);

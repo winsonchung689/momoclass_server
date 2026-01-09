@@ -1002,6 +1002,8 @@ public interface UserMapper {
 
     Integer getSignUpByMonthStudent(String studio,String subject,String create_time,String campus,String student_name);
 
+    List<AnalyzeCount> getSignCountByMonth(String studio,String subject,String campus,String student_name,String start_time,String end_time);
+
     Float getAllSignUpByStudent(String studio,String subject,String campus,String student_name);
 
     Float getAllSignUpByStudentCombine(String studio,String campus,String student_name);

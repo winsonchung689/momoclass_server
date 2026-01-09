@@ -1665,6 +1665,19 @@ public class LoginController {
 		return list;
 	}
 
+	//	获取全部
+	@RequestMapping("/getSignCountByMonth")
+	@ResponseBody
+	public List getSignCountByMonth(String studio,String subject,String campus,String student_name){
+		List list = null;
+		try {
+			list = loginService.getSignCountByMonth(studio,subject,campus,student_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getSignUpByStudentPage")
 	@ResponseBody
 	public List getSignUpByStudentPage(String student_name,String subject,String openid,Integer page){

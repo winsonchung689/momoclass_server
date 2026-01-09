@@ -760,6 +760,37 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getSignCountByMonth(String studio, String subject, String campus, String student_name) {
+
+        List<JSONObject> resul_list = new ArrayList<>();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String end_time = null;
+        String start_time = null;
+        try {
+            Calendar cal = Calendar.getInstance();
+            end_time = df.format(cal.getTime());
+            cal.add(Calendar.DATE,-365);
+            start_time = df.format(cal.getTime());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        List<AnalyzeCount> analyzeCounts = dao.getSignCountByMonth(studio,subject,campus,student_name,start_time,end_time);
+        for (int i = 0; i < analyzeCounts.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            AnalyzeCount analyzeCount = analyzeCounts.get(i);
+            String create_time = analyzeCount.getCreate_time();
+            Float sign_count = analyzeCount.getSign_count();
+
+            jsonObject.put("create_time", create_time);
+            jsonObject.put("sign_count", sign_count);
+            resul_list.add(jsonObject);
+        }
+
+        return resul_list;
+    }
+
+    @Override
     public List getSignUpByStudentPage(String student_name, String subject, String openid, Integer page) {
         List<JSONObject> resul_list = new ArrayList<>();
         Integer page_start = (page - 1) * 10;
