@@ -412,7 +412,7 @@
   </select>
 
   <select id="getMessageByDurationDate" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where studio =#{param1} and campus =#{param2} and date_format(create_time, '%Y-%m-%d') =#{param3} and duration =#{param4} and class_name =#{param5} and class_target_bak ='课评' and delete_status = 0 desc
+    select * from class_comment where studio =#{param1} and campus =#{param2} and date_format(create_time, '%Y-%m-%d') =#{param3} and duration =#{param4} and class_name =#{param5} and class_target_bak ='课评' and delete_status = 0 order by create_time desc
   </select>
 
   <!-- 获取详情 -->
