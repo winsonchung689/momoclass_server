@@ -6078,6 +6078,11 @@ public class LoginController {
 			subject = "未知";
 		}
 
+		String class_number = request.getParameter("class_number");
+		if(class_number == null || class_number.isEmpty() || "undefined".equals(class_number)){
+			class_number = "未知";
+		}
+
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String studio = list_user.get(0).getStudio();
@@ -6102,6 +6107,7 @@ public class LoginController {
 		message.setOpenid(openid);
 		message.setType(type);
 		message.setSubject(subject);
+		message.setClass_number(class_number);
 
 		if("课程体系".equals(class_target) || "环境".equals(class_target) || "广告".equals(class_target) ){
 			if("noid".equals(id)){
