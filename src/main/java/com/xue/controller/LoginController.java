@@ -3647,11 +3647,15 @@ public class LoginController {
 		}
 		// 添加课包id
 		if (("0".equals(package_id))) {
+			List<LessonPackage> lessonPackages_mark = dao.getLessonPackageByMark(student_name,studio,campus,subject,class_number);
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
-			if(lessonPackages.size()>0){
-				for (int i = 0; i < lessonPackages.size(); i++) {
-					LessonPackage lessonPackage  = lessonPackages.get(i);
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+
+			if(lessonPackages_mark.size()>0){
+				for (int i = 0; i < lessonPackages_mark.size(); i++) {
+					LessonPackage lessonPackage  = lessonPackages_mark.get(i);
 					String package_id_get = lessonPackage.getId();
+					String mark_get = lessonPackage.getMark();
 					Float all_lesson = lessonPackage.getAll_lesson();
 					Float give_lesson = lessonPackage.getGive_lesson();
 					List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
@@ -3668,9 +3672,28 @@ public class LoginController {
 						break;
 					}
 				}
-			}else {
-				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-				if(lessons.size()>0) {
+			}else if(lessonPackages.size()>0){
+				for (int i = 0; i < lessonPackages.size(); i++) {
+					LessonPackage lessonPackage  = lessonPackages.get(i);
+					String package_id_get = lessonPackage.getId();
+					String mark_get = lessonPackage.getMark();
+					Float all_lesson = lessonPackage.getAll_lesson();
+					Float give_lesson = lessonPackage.getGive_lesson();
+					List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+					Float package_sum = 0.0f;
+					if(signUps.size()>0){
+						for (int j = 0; j < signUps.size(); j++) {
+							Float count = signUps.get(j).getCount();
+							package_sum = package_sum + count;
+						}
+					}
+					Float lesson_left = all_lesson + give_lesson - package_sum;
+					if(lesson_left > 0){
+						package_id = package_id_get;
+						break;
+					}
+				}
+			}else if(lessons.size()>0) {
 					Lesson lesson = lessons.get(0);
 					String lesson_id = lesson.getId();
 					String related_id = lesson.getRelated_id();
@@ -3709,7 +3732,6 @@ public class LoginController {
 						}
 					}
 				}
-			}
 		}
 
 		try {
