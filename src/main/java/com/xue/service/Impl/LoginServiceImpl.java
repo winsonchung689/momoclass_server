@@ -3226,6 +3226,7 @@ public class LoginServiceImpl implements LoginService {
                 String unionid = line.getUnionid();
                 Integer is_open = line.getIs_open();
                 Integer is_studentmg = line.getIs_studentmg();
+                Integer is_arrange = line.getIs_arrange();
 
                 //json
                 jsonObject.put("is_studentmg", is_studentmg);
@@ -3273,6 +3274,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
 
+                jsonObject.put("is_arrange", is_arrange);
                 jsonObject.put("coupon_amount", coupon_amount);
                 jsonObject.put("coupon_price", coupon_price);
                 jsonObject.put("contract", contract);
