@@ -46,6 +46,8 @@ public class User {
 
     private Integer is_studentmg;
 
+    private Integer is_arrange;
+
     private String phone_number;
 
     private String location;
@@ -93,6 +95,13 @@ public class User {
     private String wechat_id;
 
 
+    public Integer getIs_arrange() {
+        return is_arrange;
+    }
+
+    public void setIs_arrange(Integer is_arrange) {
+        this.is_arrange = is_arrange;
+    }
 
     public Integer getIs_studentmg() {
         return is_studentmg;

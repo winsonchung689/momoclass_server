@@ -4157,6 +4157,14 @@ public class LoginController {
 				}
 				user.setIs_studentmg(is_student);
 				dao.updateUserByOpenid(user);
+			}else if("is_arrange".equals(type)){
+				Integer is_arrange_get = user.getIs_arrange();
+				Integer is_arrange = 1;
+				if(is_arrange_get == 1){
+					is_arrange = 0;
+				}
+				user.setIs_arrange(is_arrange);
+				dao.updateUserByOpenid(user);
 			}
 
 		} catch (Exception e) {
