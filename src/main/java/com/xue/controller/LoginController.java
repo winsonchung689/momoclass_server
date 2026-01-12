@@ -3824,9 +3824,20 @@ public class LoginController {
 
 	@RequestMapping("/leaveRecord")
 	@ResponseBody
-	public int leaveRecord(String class_number,String student_name,String studio,String date_time,String duration,String subject,String openid){
+	public int leaveRecord(HttpServletRequest request, HttpServletResponse response){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+		String mark_leave = request.getParameter("mark_leave");
+		String class_number = request.getParameter("class_number");
+		String studio = request.getParameter("studio");
+		String student_name = request.getParameter("student_name");
+		String date_time = request.getParameter("date_time");
+		String duration = request.getParameter("duration");
+		String subject = request.getParameter("subject");
+		String openid = request.getParameter("openid");
+
+
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(date_time);
@@ -3862,7 +3873,7 @@ public class LoginController {
 			leave.setDate_time(date_time);
 			leave.setDuration(duration);
 			leave.setCreate_time(create_time);
-			String mark = "家长请假";
+			String mark = mark_leave;
 			leave.setMark_leave(mark);
 			leave.setSubject(subject);
 			leave.setMakeup_date("无");
