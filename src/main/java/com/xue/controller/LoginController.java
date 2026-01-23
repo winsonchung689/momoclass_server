@@ -4053,6 +4053,8 @@ public class LoginController {
 				message.setStudent_name(content);
 			}else if("subject".equals(type)){
 				message.setSubject(content);
+			}else if("type".equals(type)){
+				message.setType(content);
 			}
 
 			dao.updateComment(message);
