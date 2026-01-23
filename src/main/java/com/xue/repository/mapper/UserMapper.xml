@@ -2106,7 +2106,7 @@
   </select>
 
   <select id="getArrangementsByRepeat" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select * from schedule_arrangement where studio =#{param1} and campus =#{param2} and is_repeat = 1 and delete_status = 0 order by duration
+    select * from schedule_arrangement where studio =#{param1} and campus =#{param2} and is_repeat = 1 and delete_status = 0 and substring_index(repeat_duration ,',',1) &lt;&gt; substring_index(repeat_duration ,',',-1) order by duration
   </select>
 
   <select id="getArrangementById" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
