@@ -325,6 +325,7 @@ public class LoginServiceImpl implements LoginService {
                 String studio = line.getStudio();
                 String campus = line.getCampus();
                 String duration = line.getDuration();
+                String type = line.getType();
 
                 String positive = line.getPositive();
                 String positve_item = "积极性";
@@ -412,6 +413,7 @@ public class LoginServiceImpl implements LoginService {
 
 
                 //json
+                jsonObject.put("type",type);
                 jsonObject.put("subject",subject);
                 jsonObject.put("liked",liked);
                 jsonObject.put("like_count",like_count);
