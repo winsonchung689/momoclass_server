@@ -7145,7 +7145,7 @@ public class LoginController {
 		Integer cover = 1;
 		String remind_type = "统一提醒次日";
 		Integer hours = 0;
-		String comment_style = "public";
+		String comment_style = "self";
 
 		if(list_send.size()>0){
 			send_time = list_send.get(0).getSend_time();
