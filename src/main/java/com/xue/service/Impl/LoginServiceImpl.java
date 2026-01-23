@@ -9650,7 +9650,7 @@ public class LoginServiceImpl implements LoginService {
 
 
             if("日".equals(dimension)){
-                cal.add(Calendar.DATE,-7);
+                cal.add(Calendar.DATE,-6);
                 start_date = fmt.format(cal.getTime());
                 end_date = date_time;
 
