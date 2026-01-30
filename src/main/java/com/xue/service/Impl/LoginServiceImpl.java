@@ -645,7 +645,10 @@ public class LoginServiceImpl implements LoginService {
 
                 List<User> users1 = dao.getUserByStudentOpenid(student_name,studio,openid);
 
+                String type = line.getType();
+
                 //json
+                jsonObject.put("type", type);
                 jsonObject.put("openid", openid_get);
                 jsonObject.put("teacher", teacher);
                 jsonObject.put("student_name", student_name);
@@ -7452,7 +7455,10 @@ public class LoginServiceImpl implements LoginService {
                         teacher = user_get.getNick_name();
                     }
 
+                    String type = line.getType();
+
                     //json
+                    jsonObject.put("type", type);
                     jsonObject.put("teacher", teacher);
                     jsonObject.put("openid", openid_get);
                     jsonObject.put("views", views);
