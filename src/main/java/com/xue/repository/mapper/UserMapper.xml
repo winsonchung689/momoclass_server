@@ -1433,7 +1433,7 @@
   </update>
 
   <update id="updateRemindByRepeat" parameterType="com.xue.entity.model.Arrangement">
-    update schedule_arrangement set remind=#{param4} where studio =#{param1} and campus =#{param2} and is_repeat =#{param3} and and delete_status = 0
+    update schedule_arrangement set remind=#{param4} where studio =#{param1} and campus =#{param2} and is_repeat =#{param3} and delete_status = 0
   </update>
 
   <!-- 更新名字 -->
