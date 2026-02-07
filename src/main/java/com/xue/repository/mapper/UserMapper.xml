@@ -1432,6 +1432,10 @@
     update schedule_arrangement set remind=#{param2} where id=#{param1}
   </update>
 
+  <update id="updateRemindByRepeat" parameterType="com.xue.entity.model.Arrangement">
+    update schedule_arrangement set remind=#{param4} where studio =#{param1} and campus =#{param2} and is_repeat =#{param3} and and delete_status = 0
+  </update>
+
   <!-- 更新名字 -->
   <update id="updateScheduleName" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set student_name=#{param1} where student_name=#{param2} and studio =#{param3} and campus =#{param4} and subject =#{param5}

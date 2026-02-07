@@ -1236,6 +1236,8 @@ public interface UserMapper {
 
     int updateRemind(String id,Integer remind);
 
+    int updateRemindByRepeat(String studio,String campus,Integer is_repeat,Integer remind);
+
     int updateCommentName(String student_name_new,String student_name,String studio,String campus,String subject);
 
     int updateCommentTargetBak(String studio);

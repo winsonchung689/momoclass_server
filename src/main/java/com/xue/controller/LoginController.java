@@ -1498,6 +1498,34 @@ public class LoginController {
 		return result;
 	}
 
+	@RequestMapping("/updateRemindByRepeat")
+	@ResponseBody
+	public int updateRemindByRepeat(String openid,String type,String content){
+
+		int result = 0;
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+
+			Integer is_repeat = 0;
+			if("寒暑假".equals(type)){
+				is_repeat = 1;
+			}
+
+			Integer remind = 0;
+			if("开".equals(content)){
+				remind = 1;
+			}
+
+			result =dao.updateRemindByRepeat(studio,campus,is_repeat,remind);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	//	获取课程表
 	@RequestMapping("/getScheduleDetail")
 	@ResponseBody
