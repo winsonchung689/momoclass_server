@@ -1730,6 +1730,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getLeaveByBetween")
+	@ResponseBody
+	public List getLeaveByBetween(String student_name,String subject,String openid,String duration_time){
+		List list = null;
+		try {
+			list = loginService.getLeaveByBetween(student_name,subject,openid,duration_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取全部
 	@RequestMapping("/getStudentByTeacher")
 	@ResponseBody

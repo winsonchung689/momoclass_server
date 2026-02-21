@@ -929,8 +929,6 @@ public class LoginServiceImpl implements LoginService {
             String end_time = duration_list[1];
 
             Float leave_count = 0.0f;
-            Float use_count = 0.0f;
-            Float end_count = 0.0f;
             List<Leave> leaves = dao.getLeaveByBetween(student_name,studio,campus,subject,start_time,end_time);
             for(int index = 0; index < leaves.size(); index++){
                 Float count = 1.0f;
@@ -980,6 +978,62 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("status", status);
                 jsonObject.put("ending_status", ending_status);
                 jsonObject.put("ending_status_get", ending_status_get);
+                resul_list.add(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
+    public List getLeaveByBetween(String student_name, String subject, String openid, String duration_time) {
+        List<JSONObject> resul_list = new ArrayList<>();
+
+        try {
+            List<User> user_get= dao.getUser(openid);
+            String campus = user_get.get(0).getCampus();
+            String studio = user_get.get(0).getStudio();
+            String[] duration_list = duration_time.split("_");
+            String start_time = duration_list[0];
+            String end_time = duration_list[1];
+
+            List<Leave> list = dao.getLeaveByBetween(student_name,studio,campus,subject,start_time,end_time);
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                Leave line = list.get(i);
+                //获取字段
+                String create_time = line.getCreate_time();
+                String date_time = line.getDate_time();
+                String duration = line.getDuration();
+                String id = line.getId();
+                String mark_leave = line.getMark_leave();
+                String student_get = line.getStudent_name();
+                String makeup_date = line.getMakeup_date();
+                Integer ending_status = line.getEnding_status();
+                Integer status = line.getStatus();
+                jsonObject.put("status","未审核");
+                if(status == 1){
+                    jsonObject.put("status","已通过");
+                }else if(status == 2){
+                    jsonObject.put("status","不通过");
+                }
+
+
+                jsonObject.put("ending_status","未扣");
+                if(ending_status == 1){
+                    jsonObject.put("ending_status","已扣");
+                }
+                jsonObject.put("student_name", student_get);
+                jsonObject.put("create_time", create_time);
+                jsonObject.put("date_time", date_time);
+                jsonObject.put("duration", duration);
+                jsonObject.put("rank", i + 1);
+                jsonObject.put("id",id);
+                jsonObject.put("mark_leave",mark_leave);
+                jsonObject.put("subject",subject);
+                jsonObject.put("makeup_date",makeup_date);
+
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
