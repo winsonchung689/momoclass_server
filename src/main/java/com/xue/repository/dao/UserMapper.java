@@ -1188,6 +1188,8 @@ public interface UserMapper {
 
     List<Leave> getLeaveByDateDuration(String student_name,String studio,String date_time,String duration,String subject);
 
+    List<Leave> getLeaveByBetween(String student_name,String studio,String campus,String subject,String start_time,String end_time);
+
     int updateLesson(Lesson lesson);
 
     int consumeLesson(Lesson lesson);

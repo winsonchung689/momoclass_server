@@ -808,6 +808,7 @@ public class LoginServiceImpl implements LoginService {
         String campus = user.getCampus();
         Float use_count = 0.0f;
         Float end_count = 0.0f;
+        Float leave_count = 0.0f;
 
         // 统计
         if(page == 1){
@@ -823,6 +824,13 @@ public class LoginServiceImpl implements LoginService {
                 SignUp signUp = list2.get(index);
                 Float count = signUp.getCount();
                 end_count += count;
+            }
+
+            List<Leave> list3 = dao.getLeaveRecord(student_name,studio,"请假",subject,campus);
+            for(int index = 0; index < list3.size(); index++){
+                Leave leave = list3.get(index);
+                Float count = 1.0f;
+                leave_count += count;
             }
         }
 
@@ -887,6 +895,7 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("class_number", class_number);
             jsonObject.put("use_count", use_count);
             jsonObject.put("end_count", end_count);
+            jsonObject.put("leave_count", leave_count);
             jsonObject.put("id", id);
             jsonObject.put("student_name", student_name);
             jsonObject.put("create_time", create_time.substring(0,10));
