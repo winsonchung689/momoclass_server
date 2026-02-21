@@ -828,12 +828,10 @@ public class LoginServiceImpl implements LoginService {
 
             List<Leave> list3 = dao.getLeaveRecord(student_name,studio,"请假",subject,campus);
             for(int index = 0; index < list3.size(); index++){
-                Leave leave = list3.get(index);
                 Float count = 1.0f;
                 leave_count += count;
             }
         }
-
 
         // 明细
         List<SignUp> signUps = dao.getSignUpByStudentPage(student_name,studio,subject,campus,page_start,page_length);
@@ -915,7 +913,6 @@ public class LoginServiceImpl implements LoginService {
             resul_list.add(jsonObject);
         }
 
-
         return resul_list;
     }
 
@@ -930,6 +927,15 @@ public class LoginServiceImpl implements LoginService {
             String[] duration_list = duration_time.split("_");
             String start_time = duration_list[0];
             String end_time = duration_list[1];
+
+            Float leave_count = 0.0f;
+            Float use_count = 0.0f;
+            Float end_count = 0.0f;
+            List<Leave> leaves = dao.getLeaveByBetween(student_name,studio,campus,subject,start_time,end_time);
+            for(int index = 0; index < leaves.size(); index++){
+                Float count = 1.0f;
+                leave_count += count;
+            }
 
             List<SignUp> list = dao.getSignUpByBetween(student_name,studio,campus,subject,start_time,end_time);
             for (int i = 0; i < list.size(); i++) {
@@ -946,6 +952,9 @@ public class LoginServiceImpl implements LoginService {
                 String ending_status = "未结";
                 if(ending_status_get == 1){
                     ending_status = "已结";
+                    end_count += count;
+                }else {
+                    use_count += count;
                 }
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -961,6 +970,9 @@ public class LoginServiceImpl implements LoginService {
                 int rank = i+1;
 
                 //json
+                jsonObject.put("use_count", use_count);
+                jsonObject.put("end_count", end_count);
+                jsonObject.put("leave_count", leave_count);
                 jsonObject.put("id", id);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("create_time", create_time.substring(0,10));
