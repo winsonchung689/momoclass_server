@@ -952,9 +952,6 @@ public class LoginServiceImpl implements LoginService {
                 String ending_status = "未结";
                 if(ending_status_get == 1){
                     ending_status = "已结";
-                    end_count += count;
-                }else {
-                    use_count += count;
                 }
 
                 SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -970,8 +967,6 @@ public class LoginServiceImpl implements LoginService {
                 int rank = i+1;
 
                 //json
-                jsonObject.put("use_count", use_count);
-                jsonObject.put("end_count", end_count);
                 jsonObject.put("leave_count", leave_count);
                 jsonObject.put("id", id);
                 jsonObject.put("student_name", student_name);
