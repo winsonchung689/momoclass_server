@@ -872,11 +872,16 @@ public class RestaurantController {
 				}
 				String restaurant = restaurantUser.getRestaurant();
 				List<RestaurantUser> restaurantUsers1 = dao.getRestaurantBossByShop(restaurant);
-				RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+				int is_fress = 0;
+				if(restaurantUsers1.size() > 0){
+					RestaurantUser restaurantUser1 = restaurantUsers1.get(0);
+					is_fress = restaurantUser1.getIs_free();
+				}
+
 
 				restaurantUser.setRole(content);
 				restaurantUser.setOpenid(openid);
-				restaurantUser.setIs_free(restaurantUser1.getIs_free());
+				restaurantUser.setIs_free(is_fress);
 				dao.updateRestaurantUser(restaurantUser);
 			}else if("phone_number".equals(type)){
 				if("0".equals(location_id)){
