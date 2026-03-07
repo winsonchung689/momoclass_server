@@ -1963,7 +1963,7 @@
 
   <!--  更新商店用户信息-->
   <update id="updateRestaurantByBoss" parameterType="com.xue.entity.model.RestaurantUser">
-    update restaurant_user set promise=#{promise},info=#{info},coupon_id=#{coupon_id},logo=#{logo},expired_time=#{expired_time} where restaurant = #{restaurant} and role ='boss'
+    update restaurant_user set promise=#{promise},info=#{info},coupon_id=#{coupon_id},logo=#{logo},expired_time=#{expired_time} where restaurant = #{restaurant} and role ='boss' or openid = #{openid}
   </update>
 
   <!--  更新用户商店-->
