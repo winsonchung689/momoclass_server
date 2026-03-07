@@ -878,7 +878,6 @@ public class RestaurantController {
 					is_fress = restaurantUser1.getIs_free();
 				}
 
-
 				restaurantUser.setRole(content);
 				restaurantUser.setOpenid(openid);
 				restaurantUser.setIs_free(is_fress);
