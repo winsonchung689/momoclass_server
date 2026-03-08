@@ -394,13 +394,14 @@ public class LoginController {
 		List<User> users = dao.getUser(openid);
 		User user = users.get(0);
 		String studio = user.getStudio();
+		String campus = user.getCampus();
 		String nick_name = user.getNick_name();
 		if(class_name.length() > 10){
 			class_name = class_name.substring(0, 10);
 		}
 
 		try {
-			List<User> list = dao.getUserByStudent(student_name,studio);
+			List<User> list = dao.getUserByStudent(student_name,studio,campus);
 			List<User> list1 = dao.getBossByStudio(studio);
 			list.addAll(list1);
 			for (int i = 0; i < list.size(); i++) {
@@ -2358,10 +2359,14 @@ public class LoginController {
 	//	获取用户
 	@RequestMapping("/getUserByStudent")
 	@ResponseBody
-	public List getUserByStudent(String student_name,String studio){
+	public List getUserByStudent(String student_name,String openid){
 		List list = null;
 		try {
-			list = dao.getUserByStudent(student_name,studio);
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+			list = dao.getUserByStudent(student_name,studio,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3198,13 +3203,14 @@ public class LoginController {
 			Leave leave = leaves.get(0);
 			String student_name = leave.getStudent_name();
 			String studio = leave.getStudio();
+			String campus = leave.getCampus();
 			String duration = leave.getDuration();
 			String date_time = leave.getDate_time();
 			String subject = leave.getSubject();
 			String openid = null;
 			String official_openid = null;
 			try {
-				List<User> users = dao.getUserByStudent(student_name,studio);
+				List<User> users = dao.getUserByStudent(student_name,studio,campus);
 				User user = users.get(0);
 				openid = user.getOpenid();
 				official_openid = user.getOfficial_openid();
@@ -3589,7 +3595,7 @@ public class LoginController {
 			dao.insertCardRecord(cardRecord);
 
 			// 发送通知
-			List<User> userss = dao.getUserByStudent(student_name,studio);
+			List<User> userss = dao.getUserByStudent(student_name,studio,campus);
 			for(int i = 0;i < userss.size(); i++){
 				User user = userss.get(i);
 				String openid_get = user.getOpenid();
@@ -3831,7 +3837,7 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				List<User> users = dao.getUserByStudent(student_name,studio);
+				List<User> users = dao.getUserByStudent(student_name,studio,campus);
 				for(int i = 0;i < users.size(); i++){
 					User user = users.get(i);
 					String subscription = user.getSubscription();
@@ -3923,7 +3929,7 @@ public class LoginController {
 
 			// 发请假通知
 			if(result>0){
-				loginService.leaveRemind(official_openid.toString(),student_name,studio,subject,duration,date_time,mark);
+				loginService.leaveRemind(official_openid.toString(),student_name,studio,campus,subject,duration,date_time,mark);
 				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
 				Float leave_times = lessons.get(0).getLeave_times();
 				List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject,campus);
@@ -7927,7 +7933,7 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,Math.round(coins),subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				List<User> users = dao.getUserByStudent(student_name,studio);
+				List<User> users = dao.getUserByStudent(student_name,studio,campus);
 				for(int i = 0;i < users.size(); i++){
 					User user = users.get(i);
 					String subscription = user.getSubscription();

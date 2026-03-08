@@ -6421,7 +6421,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void sendDepartureNotice(String student_name, String studio,String campus) {
+    public void sendDepartureNotice(String student_name,String studio,String campus) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
         String create_time = df.format(new Date());
         String result = null;
@@ -7009,7 +7009,7 @@ public class LoginServiceImpl implements LoginService {
         String model ="{\"touser\":\"openid\",\"template_id\":\"LbJ2VBZ7f3qz_i3nBRzynL79DVOmRqIN_61reo5m4p4\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing2\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"A1\"},\"thing1\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         try {
-            List<User> users = dao.getUserByStudent(student_name,studio);
+            List<User> users = dao.getUserByStudent(student_name,studio,campus);
             if(users.size()>0){
                 for(int i=0;i<users.size();i++){
                     User user = users.get(i);
@@ -7053,13 +7053,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String leaveRemind(String official_openid_boss,String student_name, String studio, String subject, String duration,String date_time,String mark) {
+    public String leaveRemind(String official_openid_boss,String student_name,String studio,String campus,String subject, String duration,String date_time,String mark) {
         String result = null;
         String url_send = null;
         String model ="{\"touser\":\"openid\",\"template_id\":\"Ij01JEH2uo4fQDUiYypBEoByO6iO4w_thleeFsj51eg\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing8\":{\"value\": \"AA\"},\"thing3\":{\"value\": \"A1\"},\"time2\":{\"value\": \"A1\"},\"thing4\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
 
         try {
-            List<User> users = dao.getUserByStudent(student_name,studio);
+            List<User> users = dao.getUserByStudent(student_name,studio,campus);
             if(users.size()>0){
                 User user = users.get(0);
                 String openid = user.getOpenid();
@@ -8686,7 +8686,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 student_name = line.getStudent_name();
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
