@@ -5122,7 +5122,7 @@ public class LoginController {
 
 			int res = dao.insertDeparture(departure);
 			if(res>0){
-				loginService.sendDepartureNotice(student_name,studio);
+				loginService.sendDepartureNotice(student_name,studio,campus);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

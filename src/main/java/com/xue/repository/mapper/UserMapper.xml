@@ -1750,7 +1750,7 @@
   </select>
 
   <select id="getUserByStudent" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
-    select * from user where student_name =#{param1} and studio =#{param2} and delete_status = 0 order by create_time desc
+    select * from user where student_name =#{param1} and studio =#{param2} and campus =#{param3} and delete_status = 0 order by create_time desc
   </select>
 
   <select id="getUserByStudentOpenid" parameterType="com.xue.entity.model.User" resultMap="BaseUser">

@@ -289,7 +289,7 @@ public interface LoginService {
 
     public void consumeClassRemindRedis();
 
-    public void sendDepartureNotice(String student_name,String studio);
+    public void sendDepartureNotice(String student_name,String studio,String campus);
 
     public void sendBossPayRemind();
 

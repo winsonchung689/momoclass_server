@@ -819,7 +819,7 @@ public interface UserMapper {
 
     List<User> getUserByChooseLesson(String chooseLesson,String studio);
 
-    List<User> getUserByStudent(String student_name,String studio);
+    List<User> getUserByStudent(String student_name,String studio,String campus);
 
     List<User> getUserByStudentOpenid(String student_name,String studio,String openid);
 

@@ -473,6 +473,7 @@ public class LoginServiceImpl implements LoginService {
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
+
                 //获取字段
                 student_name = line.getStudent_name();
                 class_name = line.getClass_name();
@@ -533,7 +534,7 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("isHide",true);
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if (user.size()>0){
                         jsonObject.put("isHide",false);
                     }
@@ -1290,7 +1291,7 @@ public class LoginServiceImpl implements LoginService {
                 //获取字段
                 id = line.getId();
                 try {
-                    List<User> users = dao.getUserByStudent(student_name,studio);
+                    List<User> users = dao.getUserByStudent(student_name,studio,campus);
                     if(users.size()>0){
                         openid = users.get(0).getOpenid();
                         subscription = users.get(0).getSubscription();
@@ -1329,7 +1330,7 @@ public class LoginServiceImpl implements LoginService {
                 list = dao.getGiftByOpenid(openid,studio,campus);
             }else if(coupon_type == 3){
                 list = dao.getGift(student_name,studio,campus);
-                List<User> users_get =dao.getUserByStudent(student_name,studio);
+                List<User> users_get =dao.getUserByStudent(student_name,studio,campus);
                 if(users_get.size()>0){
                     User user_get = users_get.get(0);
                     String openid_get = user_get.getOpenid();
@@ -5374,8 +5375,9 @@ public class LoginServiceImpl implements LoginService {
 
             String class_name = line.getClass_name();
             String student_name = line.getStudent_name();
+            String campus = line.getCampus();
             String client_openid = "no_id";
-            List<User> users = dao.getUserByStudent(student_name,studio);
+            List<User> users = dao.getUserByStudent(student_name,studio,campus);
             if(users.size() > 0){
                 User user = users.get(0);
                 client_openid = user.getOpenid();
@@ -6419,7 +6421,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void sendDepartureNotice(String student_name, String studio) {
+    public void sendDepartureNotice(String student_name, String studio,String campus) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd HH:mm:ss");//设置日期格式
         String create_time = df.format(new Date());
         String result = null;
@@ -6428,7 +6430,7 @@ public class LoginServiceImpl implements LoginService {
 
 
         try {
-            List<User> list = dao.getUserByStudent(student_name,studio);
+            List<User> list = dao.getUserByStudent(student_name,studio,campus);
             for (int i = 0; i < list.size(); i++) {
                 User user_get = list.get(i);
                 String official_openid = user_get.getOfficial_openid();
@@ -9032,8 +9034,9 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                campus = line.getCampus();
                 try {
-                    List<User> users = dao.getUserByStudent(student_name,studio);
+                    List<User> users = dao.getUserByStudent(student_name,studio,campus);
                     nick_name = users.get(0).getNick_name();
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -9048,7 +9051,7 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 subject_get = line.getSubject();
                 studio = line.getStudio();
-                campus = line.getCampus();
+
                 //json
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
@@ -9117,9 +9120,10 @@ public class LoginServiceImpl implements LoginService {
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                campus = line.getCampus();
                 String official_status = "未关注";
                 try {
-                    List<User> users = dao.getUserByStudent(student_name,studio);
+                    List<User> users = dao.getUserByStudent(student_name,studio,campus);
                     parent = users.get(0).getNick_name();
                     phone_number = users.get(0).getPhone_number();
                     official_openid = users.get(0).getOfficial_openid();
@@ -9139,7 +9143,6 @@ public class LoginServiceImpl implements LoginService {
                 coins = line.getCoins();
                 subject_get = line.getSubject();
                 studio = line.getStudio();
-                campus = line.getCampus();
                 delete_status = line.getDelete_status();
                 Integer is_combine = line.getIs_combine();
                 String combine = "分";
@@ -10708,10 +10711,11 @@ public class LoginServiceImpl implements LoginService {
 
                 //获取字段
                 student_name = line.getStudent_name();
+                campus = line.getCampus();
                 String related_id = line.getRelated_id();
                 String official_status = "未关注";
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         for(int j = 0; j < user.size(); j++){
                             parent = user.get(j).getNick_name();
@@ -10988,10 +10992,12 @@ public class LoginServiceImpl implements LoginService {
                 Integer delete_status = 0;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
+
                 //获取字段
                 student_name = line.getStudent_name();
+                campus =line.getCampus();
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
@@ -11011,7 +11017,6 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject = line.getSubject();
-                campus =line.getCampus();
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
                 String age = line.getAge();
@@ -11140,11 +11145,13 @@ public class LoginServiceImpl implements LoginService {
                 String subject = null;
                 Integer delete_status = 0;
                 JSONObject jsonObject = new JSONObject();
+
                 Lesson line = list.get(i);
                 //获取字段
                 student_name = line.getStudent_name();
+                campus =line.getCampus();
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
@@ -11163,7 +11170,6 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject = line.getSubject();
-                campus =line.getCampus();
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
                 String age = line.getAge();
@@ -11266,11 +11272,14 @@ public class LoginServiceImpl implements LoginService {
                 String subject = null;
                 Integer delete_status = 0;
                 JSONObject jsonObject = new JSONObject();
+
                 Lesson line = list.get(i);
+
                 //获取字段
                 student_name = line.getStudent_name();
+                campus =line.getCampus();
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio);
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         parent = user.get(0).getNick_name();
                         avatarurl = user.get(0).getAvatarurl();
@@ -11289,7 +11298,6 @@ public class LoginServiceImpl implements LoginService {
                 minus = line.getMinus();
                 coins = line.getCoins();
                 subject = line.getSubject();
-                campus =line.getCampus();
                 is_combine = line.getIs_combine();
                 delete_status = line.getDelete_status();
                 String age = line.getAge();
