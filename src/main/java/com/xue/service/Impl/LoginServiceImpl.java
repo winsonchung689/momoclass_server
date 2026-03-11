@@ -6795,7 +6795,6 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("campus", campus_get);
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number_get);
-                    jsonObject.put("campus", campus);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("sign_time", sign_time);
                     jsonObject.put("create_time", create_time);
