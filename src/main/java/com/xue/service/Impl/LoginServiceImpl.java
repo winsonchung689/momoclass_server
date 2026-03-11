@@ -7229,6 +7229,8 @@ public class LoginServiceImpl implements LoginService {
                 String nick_name = line.getNick_name();
                 student_name  = line.getStudent_name();
                 String start_date = line.getStart_date();
+                String campus_get = line.getCampus();
+                String studio_get = line.getStudio();
 
                 String start_date_next = "9999-01-01";
                 if(i > 0){
@@ -7271,6 +7273,8 @@ public class LoginServiceImpl implements LoginService {
                 int is_first = line.getIs_first();
 
                 //json
+                jsonObject.put("studio", studio_get);
+                jsonObject.put("campus", campus_get);
                 jsonObject.put("is_first", is_first);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_money", total_money);
