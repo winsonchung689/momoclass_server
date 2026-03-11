@@ -6792,6 +6792,7 @@ public class LoginServiceImpl implements LoginService {
                     Integer all_up = signUps.size();
 
                     jsonObject.put("studio", studio);
+                    jsonObject.put("campus", campus_get);
                     jsonObject.put("subject", subject);
                     jsonObject.put("class_number", class_number_get);
                     jsonObject.put("campus", campus);
@@ -6830,6 +6831,7 @@ public class LoginServiceImpl implements LoginService {
                     String card_type = card.getType();
 
                     jsonObject.put("studio", studio);
+                    jsonObject.put("campus", campus_get);
                     jsonObject.put("subject", subject);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("mark", mark);
