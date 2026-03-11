@@ -220,7 +220,9 @@ public class SpaceServiceImpl implements SpaceService {
 
     @Override
     public List getSpaceOrder(String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         List<JSONObject> resul_list = new ArrayList<>();
+
         try {
             List<BookUser> bookUsers = dao.getBookUser(openid);
             BookUser bookUser = bookUsers.get(0);
@@ -235,6 +237,7 @@ public class SpaceServiceImpl implements SpaceService {
             for (int i = 0; i < spaceOrders.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SpaceOrder line = spaceOrders.get(i);
+
                 //获取字段
                 Integer status = line.getStatus();
                 String create_time = line.getCreate_time();
@@ -242,6 +245,12 @@ public class SpaceServiceImpl implements SpaceService {
                 int number = line.getNumber();
                 book_name = line.getBook_name();
                 String date_time = line.getDate_time();
+
+                // 过期回收权限
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date expired_dt = df.parse(date_time.substring(0,10));
+
 
                 // 课程
                 String lesson_id = line.getLesson_id();
