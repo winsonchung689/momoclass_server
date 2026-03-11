@@ -7160,7 +7160,11 @@ public class LoginController {
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
 			openid_qr = user.getOpenid();
-			member = user.getMember();
+			String member_get = user.getMember();
+			if("钻石会员".equals(member_get)){
+				member = member_get;
+			}
+
 			studio = "请录入工作室";
 			campus = "请录入工作室";
 		}
