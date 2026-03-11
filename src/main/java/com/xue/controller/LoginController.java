@@ -7154,11 +7154,13 @@ public class LoginController {
 			is_open = user.getIs_open();
 		}
 
+		String member = "自由会员";
 		// 邀请码
 		if("2".equals(type)){
 			List<User> users = dao.getUserById(id);
 			User user = users.get(0);
 			openid_qr = user.getOpenid();
+			member = user.getMember();
 			studio = "请录入工作室";
 			campus = "请录入工作室";
 		}
@@ -7247,6 +7249,7 @@ public class LoginController {
 		user.setRemind_type(remind_type);
 		user.setHours(hours);
 		user.setPhone_number(phone_number);
+		user.setMember(member);
 
 		List<User> list= dao.getUser(openid);
 		if(list.size()>0){
