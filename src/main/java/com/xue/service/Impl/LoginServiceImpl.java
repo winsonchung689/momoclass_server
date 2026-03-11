@@ -6610,7 +6610,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getStudentByTeacher(String type,String openid,String duration_time,Integer page,String class_number) {
+    public List getStudentByTeacher(String type,String openid,String duration_time,Integer page,String class_number,String campus) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
@@ -6629,7 +6629,7 @@ public class LoginServiceImpl implements LoginService {
             String[] duration_time_list =duration_time.split("_");
             List<User> list_user = dao.getUser(openid);
             String nick_name = list_user.get(0).getNick_name();
-            String campus = list_user.get(0).getCampus();
+//            String campus = list_user.get(0).getCampus();
             String studio = list_user.get(0).getStudio();
             if("近1周".equals(duration_time)){
                 cal.add(Calendar.DATE,-7);
@@ -6666,59 +6666,62 @@ public class LoginServiceImpl implements LoginService {
                         String mark = line.getMark();
                         String class_number_get = line.getClass_number();
                         String package_id = line.getPackage_id();
+                        String campus_get = line.getCampus();
 
-                        Float total_money = 0.0f;
-                        Float discount_money = 0.0f;
-                        Float price = 0.0f;
-                        Float sign_price = 0.0f;
-                        Float all_lesson = 0.0f;
-                        Float give_lesson = 0.0f;
+                        if("全部".equals(campus) || campus.equals(campus_get)){
+                            Float total_money = 0.0f;
+                            Float discount_money = 0.0f;
+                            Float price = 0.0f;
+                            Float sign_price = 0.0f;
+                            Float all_lesson = 0.0f;
+                            Float give_lesson = 0.0f;
 
-                        // 计算金额
-                        try {
-                            List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
-                            if(lessonPackages.size() == 0){
-                                lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
-                            }
-                            if(lessonPackages.size()>0){
-                                for(int j = 0; j < lessonPackages.size(); j++){
-                                    LessonPackage lessonPackage = lessonPackages.get(j);
-                                    total_money = total_money + lessonPackage.getTotal_money();
-                                    discount_money = discount_money + lessonPackage.getDiscount_money();
-                                    all_lesson = all_lesson + lessonPackage.getAll_lesson();
-                                    give_lesson = give_lesson + lessonPackage.getGive_lesson();
+                            // 计算金额
+                            try {
+                                List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+                                if(lessonPackages.size() == 0){
+                                    lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
                                 }
+                                if(lessonPackages.size()>0){
+                                    for(int j = 0; j < lessonPackages.size(); j++){
+                                        LessonPackage lessonPackage = lessonPackages.get(j);
+                                        total_money = total_money + lessonPackage.getTotal_money();
+                                        discount_money = discount_money + lessonPackage.getDiscount_money();
+                                        all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                                        give_lesson = give_lesson + lessonPackage.getGive_lesson();
+                                    }
+                                }
+
+                                Float receipts = total_money - discount_money;
+                                Float re_price = receipts/(all_lesson+give_lesson);
+                                if(re_price>0){
+                                    price = re_price;
+                                }
+                                sign_price = count * price;
+
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
                             }
 
-                            Float receipts = total_money - discount_money;
-                            Float re_price = receipts/(all_lesson+give_lesson);
-                            if(re_price>0){
-                                price = re_price;
+                            if("全部".equals(class_number) || class_number.equals(class_number_get)){
+                                count_sum = count_sum + count;
+                                price_sum = price_sum + sign_price;
+                                sign_sum = sign_sum + 1;
                             }
-                            sign_price = count * price;
 
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
+                            String data_line = subject + "," + student_name + "," + class_number_get + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
+                            data_list.add(data_line);
                         }
-
-                        if("全部".equals(class_number)){
-                            count_sum = count_sum + count;
-                            price_sum = price_sum + sign_price;
-                            sign_sum = sign_sum + 1;
-                        }else if(class_number.equals(class_number_get)){
-                            count_sum = count_sum + count;
-                            price_sum = price_sum + sign_price;
-                            sign_sum = sign_sum + 1;
-                        }
-
-                        String data_line = subject + "," + student_name + "," + class_number_get + "," + create_time + "," + sign_time + "," +mark + "," + count + "," + price;
-                        data_list.add(data_line);
                     }
                 } else if ("卡签".equals(type)) {
                     // 统计卡签记录
                     List<CardRecord> list = dao.getCardRecordByTeacherByDuration(studio,nick_name,date_start,date_end);
                     for(int i = 0;i < list.size();i++){
-                        count_sum = count_sum + 1;
+                        CardRecord cardRecord = list.get(i);
+                        String campus_get = cardRecord.getCampus();
+                        if("全部".equals(campus) || campus.equals(campus_get)){
+                            count_sum = count_sum + 1;
+                        }
                     }
                 }
 
@@ -6743,6 +6746,7 @@ public class LoginServiceImpl implements LoginService {
                     Float count = line.getCount();
                     String class_number_get = line.getClass_number();
                     String package_id = line.getPackage_id();
+                    String campus_get = line.getCampus();
 
                     Float price = 0.0f;
                     Float total_money = 0.0f;
@@ -6800,10 +6804,10 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("price", df1.format(price));
                     jsonObject.put("all_up", all_up);
                     if(student_name.length() >0){
-                        if("全部".equals(class_number)){
-                            resul_list.add(jsonObject);
-                        }else if(class_number.equals(class_number_get)){
-                            resul_list.add(jsonObject);
+                        if("全部".equals(campus) || campus.equals(campus_get)){
+                            if("全部".equals(class_number) || class_number.equals(class_number_get)){
+                                resul_list.add(jsonObject);
+                            }
                         }
                     }
                 }
@@ -6818,6 +6822,8 @@ public class LoginServiceImpl implements LoginService {
                     String mark = line.getMark();
                     String create_time = line.getCreate_time();
                     String card_id = line.getCard_id();
+                    String campus_get = line.getCampus();
+
                     //获取卡
                     List<Card> cards = dao.getCardById(card_id);
                     Card card = cards.get(0);
@@ -6829,7 +6835,9 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("mark", mark);
                     jsonObject.put("create_time", create_time);
                     jsonObject.put("card_type", card_type);
-                    resul_list.add(jsonObject);
+                    if("全部".equals(campus) || campus.equals(campus_get)){
+                        resul_list.add(jsonObject);
+                    }
                 }
             }
         } catch (Exception e) {
