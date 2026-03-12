@@ -8758,6 +8758,7 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
         Integer total_student =0;
+        Integer total_record =0;
         Float total_amount_all = 0.0f ;
         Float left_amount_all = 0.0f ;
         Float total_price_all = 0.0f ;
@@ -8782,6 +8783,7 @@ public class LoginServiceImpl implements LoginService {
                 owe = dao.getLessonOweCount(studio,campus);
 
                 List<Lesson> lessons = dao.getLesson(studio,campus);
+                total_record = lessons.size();
                 for(int i = 0;i < lessons.size();i++){
                     Lesson lesson = lessons.get(i);
                     String student_name_all = lesson.getStudent_name();
@@ -8914,6 +8916,7 @@ public class LoginServiceImpl implements LoginService {
                     owe = dao.getLessonOweCountBySubject(studio,subject,campus);
 
                     List<Lesson> lessons = dao.getLessonBySubject(studio,subject,campus);
+                    total_record = lessons.size();
                     for(int i = 0;i < lessons.size();i++){
                         Lesson lesson = lessons.get(i);
                         String student_name_all = lesson.getStudent_name();
@@ -8992,7 +8995,7 @@ public class LoginServiceImpl implements LoginService {
 //                throw new RuntimeException(e);
             }
 
-
+            jsonObject.put("total_record", total_record);
             jsonObject.put("total_money", total_money);
             jsonObject.put("left_money", left_money);
             jsonObject.put("total_student", total_student);
