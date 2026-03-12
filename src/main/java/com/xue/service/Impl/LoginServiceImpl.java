@@ -10809,7 +10809,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 Float appoint_left = 0.0f;
-
+                String appoint_mark = "无备注";
                 try {
                     List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
                     if(lessonPackages.size()>0){
@@ -10823,6 +10823,7 @@ public class LoginServiceImpl implements LoginService {
                             // 优先课包余课
                             if(j == 0){
                                 String package_id_get = lessonPackage.getId();
+                                appoint_mark = lessonPackage.getMark();
                                 List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_get,campus,package_id_get);
                                 Float package_sum = 0.0f;
                                 if(signUps.size()>0){
@@ -10896,6 +10897,7 @@ public class LoginServiceImpl implements LoginService {
                 DecimalFormat df = new DecimalFormat("0.00");
 
                 jsonObject.put("appoint_left", appoint_left);
+                jsonObject.put("appoint_mark", appoint_mark);
                 jsonObject.put("school", school);
                 jsonObject.put("urge_payment_status",urge_payment_status);
                 jsonObject.put("location", location);
