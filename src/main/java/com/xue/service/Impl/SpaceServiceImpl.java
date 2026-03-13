@@ -200,6 +200,7 @@ public class SpaceServiceImpl implements SpaceService {
             BookUser bookUser = bookUsers.get(0);
             String book_name = bookUser.getBook_name();
 
+            // 获取全部项目
             List<SpaceLesson> spaceLessons = dao.getSpaceLesson(book_name);
             for (int i = 0; i < spaceLessons.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
