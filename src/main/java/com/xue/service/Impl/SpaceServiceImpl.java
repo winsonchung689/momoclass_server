@@ -180,8 +180,22 @@ public class SpaceServiceImpl implements SpaceService {
 
     @Override
     public List getSpaceLesson(String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            // 判断今天取号
+            int to_take = 0;
+            List<SpaceOrder> spaceOrders = dao.getSpaceOrderByOpenid(openid);
+            if(spaceOrders.size()>0){
+                SpaceOrder spaceOrder = spaceOrders.get(0);
+                String date_time = spaceOrder.getDate_time();
+                if(now_time.equals(date_time)){
+                    to_take = 1;
+                }
+            }
+
             List<BookUser> bookUsers = dao.getBookUser(openid);
             BookUser bookUser = bookUsers.get(0);
             String book_name = bookUser.getBook_name();
@@ -201,6 +215,7 @@ public class SpaceServiceImpl implements SpaceService {
                 String teacher = line.getTeacher();
 
                 //json
+                jsonObject.put("to_take", to_take);
                 jsonObject.put("duration", duration);
                 jsonObject.put("teacher", teacher);
                 jsonObject.put("id", id);
