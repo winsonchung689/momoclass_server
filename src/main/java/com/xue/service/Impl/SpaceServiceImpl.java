@@ -262,14 +262,21 @@ public class SpaceServiceImpl implements SpaceService {
 
 
                 // 课程
+                String name = "";
+                String subject ="";
+                String price = "";
+                String duration = "";
+                String teacher = "";
                 String lesson_id = line.getLesson_id();
                 List<SpaceLesson> spaceLessons = dao.getSpaceLessonById(lesson_id);
-                SpaceLesson spaceLesson = spaceLessons.get(0);
-                String name = spaceLesson.getName();
-                String subject = spaceLesson.getSubject();
-                String price = spaceLesson.getPrice();
-                String duration = spaceLesson.getDuration();
-                String teacher = spaceLesson.getTeacher();
+                if(spaceLessons.size()>0){
+                    SpaceLesson spaceLesson = spaceLessons.get(0);
+                    name = spaceLesson.getName();
+                    subject = spaceLesson.getSubject();
+                    price = spaceLesson.getPrice();
+                    duration = spaceLesson.getDuration();
+                    teacher = spaceLesson.getTeacher();
+                }
 
                 // 学生家长
                 String openid_get = line.getOpenid();
