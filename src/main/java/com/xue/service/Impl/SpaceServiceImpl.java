@@ -259,6 +259,8 @@ public class SpaceServiceImpl implements SpaceService {
                 Integer status = line.getStatus();
                 if(1 == status){
                     status_cn = "已签到";
+                }else if (2 == status){
+                    status_cn = "已取消";
                 }
 
                 String create_time = line.getCreate_time();
