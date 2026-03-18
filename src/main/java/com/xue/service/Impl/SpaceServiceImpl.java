@@ -264,6 +264,8 @@ public class SpaceServiceImpl implements SpaceService {
                     status_cn = "已签到";
                 }else if (2 == status){
                     status_cn = "已取消";
+                }else if (3 == status){
+                    status_cn = "已完成";
                 }
 
                 String create_time = line.getCreate_time();
@@ -280,7 +282,6 @@ public class SpaceServiceImpl implements SpaceService {
                 if(compare > 0){
                     status_cn = "已过期";
                 }
-
 
                 // 课程
                 String name = "";
@@ -353,6 +354,8 @@ public class SpaceServiceImpl implements SpaceService {
                     status_cn = "已签到";
                 }else if (2 == status){
                     status_cn = "已取消";
+                }else if (3 == status){
+                    status_cn = "已完成";
                 }
 
                 String create_time = line.getCreate_time();
