@@ -191,8 +191,11 @@ public class SpaceServiceImpl implements SpaceService {
             if(spaceOrders.size()>0){
                 SpaceOrder spaceOrder = spaceOrders.get(0);
                 String date_time = spaceOrder.getDate_time();
+                int status = spaceOrder.getStatus();
                 if(now_time.equals(date_time)){
-                    to_take = 1;
+                    if(status == 0 || status ==1){
+                        to_take = 1;
+                    }
                 }
             }
 
