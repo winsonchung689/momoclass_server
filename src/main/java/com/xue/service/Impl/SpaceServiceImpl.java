@@ -334,6 +334,7 @@ public class SpaceServiceImpl implements SpaceService {
 
     @Override
     public List getSpaceOrderDate(String openid, String date_time) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         List<JSONObject> resul_list = new ArrayList<>();
         List<BookUser> bookUsers = dao.getBookUser(openid);
         BookUser bookUser = bookUsers.get(0);
@@ -344,13 +345,30 @@ public class SpaceServiceImpl implements SpaceService {
             for (int i = 0; i < spaceOrders.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 SpaceOrder line = spaceOrders.get(i);
+
                 //获取字段
+                String status_cn = "未签到";
                 Integer status = line.getStatus();
+                if(1 == status){
+                    status_cn = "已签到";
+                }else if (2 == status){
+                    status_cn = "已取消";
+                }
+
                 String create_time = line.getCreate_time();
                 String id = line.getId();
                 int number = line.getNumber();
                 book_name = line.getBook_name();
-                date_time = line.getDate_time();
+                String date_time_get = line.getDate_time();
+
+                // 过期判断
+                String today_time = df.format(new Date());
+                Date today_dt = df.parse(today_time.substring(0,10));
+                Date date_time_dt = df.parse(date_time_get.substring(0,10));
+                int compare = today_dt.compareTo(date_time_dt);
+                if(compare > 0){
+                    status_cn = "已过期";
+                }
 
                 // 课程
                 String lesson_id = line.getLesson_id();
@@ -380,6 +398,7 @@ public class SpaceServiceImpl implements SpaceService {
                 jsonObject.put("price", price);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("status", status);
+                jsonObject.put("status_cn", status_cn);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("phone_number", phone_number);
