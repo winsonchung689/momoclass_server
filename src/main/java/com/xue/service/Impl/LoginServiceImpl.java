@@ -6334,7 +6334,7 @@ public class LoginServiceImpl implements LoginService {
                                         String package_id = lessonPackage.getId();
                                         Float all_lesson = lessonPackage.getAll_lesson();
                                         Float give_lesson = lessonPackage.getGive_lesson();
-                                        List<SignUp> signUps = dao.getSignUpByPackageId(student_name, studio, subject_get, campus, package_id);
+                                        List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id);
                                         Float package_sum = 0.0f;
                                         if (signUps.size() > 0) {
                                             for (int idx = 0; idx < signUps.size(); idx++) {
@@ -7238,7 +7238,7 @@ public class LoginServiceImpl implements LoginService {
                     start_date_next = line1.getStart_date();
                 }
 
-                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
+                List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,id);
                 Float package_sum = 0.0f;
                 if(signUps.size()>0){
                     for (int j = 0; j < signUps.size(); j++) {
@@ -7407,7 +7407,7 @@ public class LoginServiceImpl implements LoginService {
                     String nick_name = line.getNick_name();
                     int end_status = line.getEnd_status();
 
-                    List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
+                    List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,id);
                     Float package_sum = 0.0f;
                     if(signUps.size()>0){
                         for (int j = 0; j < signUps.size(); j++) {
@@ -10859,7 +10859,7 @@ public class LoginServiceImpl implements LoginService {
                             if(j == 0){
                                 String package_id_get = lessonPackage.getId();
                                 appoint_mark = lessonPackage.getMark();
-                                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject_get,campus,package_id_get);
+                                List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
                                 Float package_sum = 0.0f;
                                 if(signUps.size()>0){
                                     for (int k = 0; k < signUps.size(); k++) {

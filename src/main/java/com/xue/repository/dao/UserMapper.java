@@ -1120,7 +1120,7 @@ public interface UserMapper {
 
     List<GiftList> getGiftListByType(String studio,String campus,Integer coupon_type,String type,Integer price);
 
-    List<SignUp> getSignUpByPackageId(String student_name,String studio,String subject,String campus,String package_id);
+    List<SignUp> getSignUpByPackageId(String studio,String campus,String package_id);
 
     List<SignUp> getSignUpById(String id);
 
