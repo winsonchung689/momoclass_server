@@ -7360,48 +7360,80 @@ public class LoginServiceImpl implements LoginService {
             String campus = list_user.get(0).getCampus();
             String studio = list_user.get(0).getStudio();
 
-            List<LessonPackage> lessonPackages = dao.getLessonPackageByStudent(student_name,studio,campus,subject);
-            for (int i = 0; i < lessonPackages.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                LessonPackage line = lessonPackages.get(i);
-                //获取字段
-                Float total_money = line.getTotal_money();
-                Float discount_money = line.getDiscount_money();
-                String mark = line.getMark();
-                String start_date = line.getStart_date();
-                String end_date = line.getEnd_date();
-                String id = line.getId();
-                Float all_lesson = line.getAll_lesson();
-                Float give_lesson = line.getGive_lesson();
-                String nick_name = line.getNick_name();
-                int end_status = line.getEnd_status();
+            List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+            if(lessons.size() > 0){
+                Lesson lesson = lessons.get(0);
+                Integer is_combine = lesson.getIs_combine();
+                String related_id = lesson.getRelated_id();
+                String lesson_id = lesson.getId();
 
-                List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
-                Float package_sum = 0.0f;
-                if(signUps.size()>0){
-                    for (int j = 0; j < signUps.size(); j++) {
-                        Float count = signUps.get(j).getCount();
-                        package_sum = package_sum + count;
+                List<LessonPackage> lessonPackages = null;
+                if(is_combine == 0){
+                    lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
+                }else if (is_combine == 1){
+                    lessonPackages = dao.getLessonPackageByStudentCombine(student_name,studio,campus);
+                }
+
+                // 寻找其他课包
+                if(!"no_id".equals(related_id)){
+                    String[] related_id_list = related_id.split(",");
+                    for(int j=0;j < related_id_list.length; j++){
+                        String id_get = related_id_list[j];
+                        if(id_get != null && id_get != "" && !lesson_id.equals(id_get)) {
+                            List<Lesson> lessons_re = dao.getLessonById(id_get);
+                            if(lessons_re.size()>0) {
+                                Lesson lesson_re = lessons_re.get(0);
+                                String student_name_get = lesson_re.getStudent_name();
+                                String subject_re = lesson_re.getSubject();
+                                List<LessonPackage> lessonPackages_re = dao.getLessonPackage(student_name_get, studio, campus, subject_re);
+                                lessonPackages.addAll(lessonPackages_re);
+                            }
+                        }
                     }
                 }
-                Float left_lesson = all_lesson + give_lesson - package_sum;
+
+                for (int i = 0; i < lessonPackages.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    LessonPackage line = lessonPackages.get(i);
+                    //获取字段
+                    Float total_money = line.getTotal_money();
+                    Float discount_money = line.getDiscount_money();
+                    String mark = line.getMark();
+                    String start_date = line.getStart_date();
+                    String end_date = line.getEnd_date();
+                    String id = line.getId();
+                    Float all_lesson = line.getAll_lesson();
+                    Float give_lesson = line.getGive_lesson();
+                    String nick_name = line.getNick_name();
+                    int end_status = line.getEnd_status();
+
+                    List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,id);
+                    Float package_sum = 0.0f;
+                    if(signUps.size()>0){
+                        for (int j = 0; j < signUps.size(); j++) {
+                            Float count = signUps.get(j).getCount();
+                            package_sum = package_sum + count;
+                        }
+                    }
+                    Float left_lesson = all_lesson + give_lesson - package_sum;
 
 
-                //json
-                jsonObject.put("student_name", student_name);
-                jsonObject.put("total_money", total_money);
-                jsonObject.put("discount_money", discount_money);
-                jsonObject.put("mark", mark);
-                jsonObject.put("start_date", start_date);
-                jsonObject.put("end_date", end_date);
-                jsonObject.put("id", id);
-                jsonObject.put("all_lesson", all_lesson);
-                jsonObject.put("give_lesson", give_lesson);
-                jsonObject.put("left_lesson", left_lesson);
-                jsonObject.put("nick_name", nick_name);
-                jsonObject.put("end_status", end_status);
-                if(end_status == 0 & left_lesson > 0){
-                    resul_list.add(jsonObject);
+                    //json
+                    jsonObject.put("student_name", student_name);
+                    jsonObject.put("total_money", total_money);
+                    jsonObject.put("discount_money", discount_money);
+                    jsonObject.put("mark", mark);
+                    jsonObject.put("start_date", start_date);
+                    jsonObject.put("end_date", end_date);
+                    jsonObject.put("id", id);
+                    jsonObject.put("all_lesson", all_lesson);
+                    jsonObject.put("give_lesson", give_lesson);
+                    jsonObject.put("left_lesson", left_lesson);
+                    jsonObject.put("nick_name", nick_name);
+                    jsonObject.put("end_status", end_status);
+                    if(end_status == 0 & left_lesson > 0){
+                        resul_list.add(jsonObject);
+                    }
                 }
             }
         } catch (Exception e) {
