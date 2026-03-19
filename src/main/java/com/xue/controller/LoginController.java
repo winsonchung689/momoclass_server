@@ -3704,7 +3704,7 @@ public class LoginController {
 					String mark_get = lessonPackage.getMark();
 					Float all_lesson = lessonPackage.getAll_lesson();
 					Float give_lesson = lessonPackage.getGive_lesson();
-					List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+					List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
 					Float package_sum = 0.0f;
 					if(signUps.size()>0){
 						for (int j = 0; j < signUps.size(); j++) {
@@ -3726,7 +3726,7 @@ public class LoginController {
 					String package_id_get = lessonPackage.getId();
 					Float all_lesson = lessonPackage.getAll_lesson();
 					Float give_lesson = lessonPackage.getGive_lesson();
-					List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+					List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
 					Float package_sum = 0.0f;
 					if(signUps.size()>0){
 						for (int j = 0; j < signUps.size(); j++) {
@@ -3760,7 +3760,7 @@ public class LoginController {
 									String package_id_get = lessonPackage.getId();
 									Float all_lesson = lessonPackage.getAll_lesson();
 									Float give_lesson = lessonPackage.getGive_lesson();
-									List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+									List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
 									Float package_sum = 0.0f;
 									if(signUps.size()>0){
 										for (int k = 0; k < signUps.size(); k++) {
@@ -7787,7 +7787,7 @@ public class LoginController {
 					String package_id_get = lessonPackage.getId();
 					Float all_lesson = lessonPackage.getAll_lesson();
 					Float give_lesson = lessonPackage.getGive_lesson();
-					List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+					List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
 					Float package_sum = 0.0f;
 					if(signUps.size()>0){
 						for (int j = 0; j < signUps.size(); j++) {
@@ -7823,7 +7823,7 @@ public class LoginController {
 										String package_id_get = lessonPackage.getId();
 										Float all_lesson = lessonPackage.getAll_lesson();
 										Float give_lesson = lessonPackage.getGive_lesson();
-										List<SignUp> signUps = dao.getSignUpByPackageId(student_name,studio,subject,campus,package_id_get);
+										List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
 										Float package_sum = 0.0f;
 										if(signUps.size()>0){
 											for (int k = 0; k < signUps.size(); k++) {
