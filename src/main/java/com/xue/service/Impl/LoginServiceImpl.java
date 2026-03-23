@@ -8912,7 +8912,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     if(consume_lesson_get > 0){
-                        consume_lesson = consume_lesson_get;
+                        consume_lesson =  (float)(Math.round(consume_lesson_get*100))/100;
                     }
 
 
