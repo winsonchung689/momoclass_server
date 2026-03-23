@@ -8915,7 +8915,7 @@ public class LoginServiceImpl implements LoginService {
                     if(consume_lesson_get > 0){
                         consume_lesson =  (float)(Math.round(consume_lesson_get*100))/100;
                     }
-
+                    lesson_gap =  (float)(Math.round(lesson_gap*100))/100;
 
                     int compareToResult1 = consume_lesson.compareTo(lesson_gap);
                     int compareToResult2 = package_lesson.compareTo(total_amount);
@@ -9242,7 +9242,7 @@ public class LoginServiceImpl implements LoginService {
                 DecimalFormat df = new DecimalFormat("0.00");
                 //json
                 jsonObject.put("uuid", uuid);
-                jsonObject.put("consume_amount", consume_amount);
+                jsonObject.put("consume_amount",df.format(consume_amount));
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("total_amount", total_amount);
                 jsonObject.put("left_amount", left_amount);
@@ -10973,7 +10973,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("leave_times", leave_times);
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("age", age);
-                jsonObject.put("consume_amount", consume_amount);
+                jsonObject.put("consume_amount", df.format(consume_amount));
                 jsonObject.put("official_status", official_status);
                 jsonObject.put("related_names", related_names.toString());
                 jsonObject.put("urge_number", urge_number);
@@ -11505,7 +11505,7 @@ public class LoginServiceImpl implements LoginService {
 
                 if(is_it == 1){
                     DecimalFormat df = new DecimalFormat("0.00");
-                    jsonObject.put("consume_amount", consume_amount);
+                    jsonObject.put("consume_amount", df.format(consume_amount));
                     jsonObject.put("price", price);
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("total_amount", total_amount);
@@ -11537,7 +11537,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("official_status", "已关注");
                     }
 
-                    jsonObject.put("consume_lesson", consume_lesson);
+                    jsonObject.put("consume_lesson", df.format(consume_lesson));
                     jsonObject.put("lesson_gap", lesson_gap);
                     jsonObject.put("package_lesson", package_lesson);
                     jsonObject.put("uuid", uuid);
