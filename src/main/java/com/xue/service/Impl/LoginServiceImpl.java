@@ -7246,6 +7246,7 @@ public class LoginServiceImpl implements LoginService {
                         package_sum = package_sum + count;
                     }
                 }
+                package_sum = (float)(Math.round(package_sum*100))/100;
                 Float lesson_left = all_lesson + give_lesson - package_sum;
 
                 Float package_sum1 = 0.0f;
