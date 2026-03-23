@@ -892,8 +892,8 @@ public class LoginServiceImpl implements LoginService {
 
             //json
             jsonObject.put("class_number", class_number);
-            jsonObject.put("use_count", use_count);
-            jsonObject.put("end_count", end_count);
+            jsonObject.put("use_count", (float) Math.round(use_count * 100)/100);
+            jsonObject.put("end_count", (float) Math.round(end_count * 100)/100);
             jsonObject.put("leave_count", leave_count);
             jsonObject.put("id", id);
             jsonObject.put("student_name", student_name);
