@@ -5861,6 +5861,9 @@ public class LoginServiceImpl implements LoginService {
                 }
                 lessonPackage.setIs_first(is_first);
                 dao.updateLessonPackageDetail(lessonPackage);
+            }else if("操作人".equals(type)){
+                lessonPackage.setNick_name(content);
+                dao.updateLessonPackageDetail(lessonPackage);
             }
 
 
