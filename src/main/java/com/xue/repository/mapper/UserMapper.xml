@@ -2765,7 +2765,7 @@
   </update>
 
   <update id="updateSignUpCampus" parameterType="com.xue.entity.model.SignUp">
-    update sign_up_record set campus=#{param3} where studio=#{param1} and student_name=#{param2} and delete_status = 0
+    update sign_up_record set campus=#{param4} where studio=#{param1} and student_name=#{param2} and subject=#{param3} and delete_status = 0
   </update>
 
   <update id="updateSignUpByBacth" parameterType="com.xue.entity.model.SignUp">
