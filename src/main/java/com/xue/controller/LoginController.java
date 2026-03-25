@@ -4741,7 +4741,7 @@ public class LoginController {
 				dao.updateLessonPackageSubject(student_name,studio,subject,campus,content);
 			}else if("校区".equals(modifyHead)){
 				dao.updateLessonCampusById(id,content);
-				dao.updateSignUpCampus(studio,student_name,subject,content);
+				dao.updateSignUpCampus(studio,student_name,subject,campus,content);
 				dao.updateLessonPackageCampus(student_name,studio,subject,campus,content);
 			}else if("学生名".equals(modifyHead)){
 				dao.updateLessonStudentNameById(id,content);

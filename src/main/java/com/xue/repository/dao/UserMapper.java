@@ -670,7 +670,7 @@ public interface UserMapper {
 
     int updateLessonDiscountMoney(Float discount_money,String studio,String student_name,String campus,String subject);
 
-    int updateSignUpCampus(String studio,String student_name,String subject,String campus);
+    int updateSignUpCampus(String studio,String student_name,String subject,String campus,String new_campus);
 
     int updateSignUpByBacth(Float count,String studio,String student_name,String subject,String campus);
 
