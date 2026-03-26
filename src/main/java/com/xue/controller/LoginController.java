@@ -7141,7 +7141,7 @@ public class LoginController {
 		}
 
 		// is_open 表示是否发券
-		Integer is_open =0;
+		Integer is_recommend =0;
 		String my_openid ="";
 
 		// 登陆码
@@ -7151,7 +7151,10 @@ public class LoginController {
 			studio = user.getStudio();
 			campus = user.getCampus();
 			my_openid = user.getOpenid();
-			is_open = user.getIs_open();
+			is_recommend = user.getIs_recommend();
+			if(is_recommend == 1){
+				openid_qr = user.getOpenid();
+			}
 		}
 
 		String member = "自由会员";
