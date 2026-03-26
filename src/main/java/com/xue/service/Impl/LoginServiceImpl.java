@@ -9687,8 +9687,10 @@ public class LoginServiceImpl implements LoginService {
                 }
                 String location = line.getLocation();
                 String wechat_id = line.getWechat_id();
+                int is_recommend = line.getIs_recommend();
 
                 //json
+                jsonObject.put("is_recommend", is_recommend);
                 jsonObject.put("location", location);
                 jsonObject.put("studio", studio);
                 jsonObject.put("student_name", student_name);
