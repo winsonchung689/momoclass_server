@@ -3350,8 +3350,10 @@ public class LoginServiceImpl implements LoginService {
                     coupon_price = giftList.getPrice();
                     coupon_amount = giftList.getAmount();
                 }
+                int is_recommend = line.getIs_recommend();
 
 
+                jsonObject.put("is_recommend", is_recommend);
                 jsonObject.put("is_arrange", is_arrange);
                 jsonObject.put("coupon_amount", coupon_amount);
                 jsonObject.put("coupon_price", coupon_price);
