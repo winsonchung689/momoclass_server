@@ -4213,6 +4213,14 @@ public class LoginController {
 				}
 				user.setIs_arrange(is_arrange);
 				dao.updateUserByOpenid(user);
+			}else if("is_recommend".equals(type)){
+				Integer is_recommend_get = user.getIs_recommend();
+				Integer is_recommend = 1;
+				if(is_recommend_get == 1){
+					is_recommend = 0;
+				}
+				user.setIs_recommend(is_recommend);
+				dao.updateUserByOpenid(user);
 			}
 
 		} catch (Exception e) {
