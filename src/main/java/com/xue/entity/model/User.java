@@ -94,6 +94,18 @@ public class User {
 
     private String wechat_id;
 
+    private Integer is_recommend;
+
+
+
+
+    public Integer getIs_recommend() {
+        return is_recommend;
+    }
+
+    public void setIs_recommend(Integer is_recommend) {
+        this.is_recommend = is_recommend;
+    }
 
     public Integer getIs_arrange() {
         return is_arrange;

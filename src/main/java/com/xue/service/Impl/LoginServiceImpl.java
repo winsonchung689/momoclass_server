@@ -8046,6 +8046,7 @@ public class LoginServiceImpl implements LoginService {
                 String phone_number = line.getPhone_number();
                 String location = line.getLocation();
                 String campus= line.getCampus();
+                int is_recommend = line.getIs_recommend();
                 int is_open = line.getIs_open();
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
@@ -8066,6 +8067,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 //json
+                jsonObject.put("is_recommend", is_recommend);
                 jsonObject.put("id", id);
                 jsonObject.put("is_open", is_open);
                 jsonObject.put("is_online", is_online);
