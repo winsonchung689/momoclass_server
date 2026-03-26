@@ -9491,6 +9491,7 @@ public class LoginServiceImpl implements LoginService {
                 List<User> users_qr = dao.getUser(openid_qr_get);
                 User user_qr = users_qr.get(0);
                 String nick_name_rc = user_qr.getNick_name();
+                String studio_rc = user_qr.getStudio();
 
                 // 本尊
                 String openid = line.getOpenid();
@@ -9505,6 +9506,8 @@ public class LoginServiceImpl implements LoginService {
                     }
                     wechat_id = user.getWechat_id();
                 }
+
+                // 学生
 
                 // 返现状态
                 int is_paid = line.getIs_paid();
@@ -9532,6 +9535,7 @@ public class LoginServiceImpl implements LoginService {
                 //json
                 jsonObject.put("rank", i + page_start + 1);
                 jsonObject.put("studio", studio);
+                jsonObject.put("studio_rc",studio_rc);
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("nick_name", nick_name);
                 jsonObject.put("phone_number", phone_number);
