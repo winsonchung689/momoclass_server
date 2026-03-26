@@ -9507,7 +9507,6 @@ public class LoginServiceImpl implements LoginService {
                     wechat_id = user.getWechat_id();
                 }
 
-                // 学生
 
                 // 返现状态
                 int is_paid = line.getIs_paid();
