@@ -9765,6 +9765,7 @@ public class LoginServiceImpl implements LoginService {
                 String member = line.getMember();
                 nick_name = line.getNick_name();
                 studio = line.getStudio();
+                int is_recommend = line.getIs_recommend();
 
                 //json
                 jsonObject.put("studio", studio);
@@ -9782,6 +9783,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("member", member);
                 jsonObject.put("phone_number", phone_number);
                 jsonObject.put("is_open_name", is_open_name);
+                jsonObject.put("is_recommend", is_recommend);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
