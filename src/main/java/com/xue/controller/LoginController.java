@@ -2322,10 +2322,10 @@ public class LoginController {
 
 	@RequestMapping("/getUserByOpenidQr")
 	@ResponseBody
-	public List getUserByOpenidQr(String openid_qr,Integer page){
+	public List getUserByOpenidQr(String openid_qr,Integer page,String type){
 		List list = null;
 		try {
-			list = loginService.getUserByOpenidQr(openid_qr,page);
+			list = loginService.getUserByOpenidQr(openid_qr,page,type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -53,7 +53,7 @@ public interface LoginService {
 
     public List  getUserByRole(String role);
 
-    public List  getUserByOpenidQr(String openid_qr,Integer page);
+    public List  getUserByOpenidQr(String openid_qr,Integer page,String type);
 
     public List  getUserByOpenidQrAll();
 

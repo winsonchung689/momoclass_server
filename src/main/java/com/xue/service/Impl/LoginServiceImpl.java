@@ -9416,7 +9416,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getUserByOpenidQr(String openid_qr,Integer page) {
+    public List getUserByOpenidQr(String openid_qr,Integer page,String type) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String now_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
         List<JSONObject> resul_list = new ArrayList<>();
@@ -9438,7 +9438,9 @@ public class LoginServiceImpl implements LoginService {
                 List<User> list_init = dao.getUserByOpenidQr(openid_qr,0,10000);
                 if(Constants.admin_openid.equals(openid_qr)){
                     list_init = dao.getUserByOpenidQrAll(0,10000);
-                } else if("boss".equals(role)){
+                }
+                // 校长查看转介绍记录
+                if("parent".equals(type) && "boss".equals(role)){
                     list_init = dao.getUserByOpenidQrByStudio(studio_my,0,10000);
                 }
 
@@ -9469,7 +9471,10 @@ public class LoginServiceImpl implements LoginService {
             List<User> list = dao.getUserByOpenidQr(openid_qr,page_start,page_length);
             if(Constants.admin_openid.equals(openid_qr)){
                 list = dao.getUserByOpenidQrAll(page_start,page_length);
-            } else if("boss".equals(role)){
+            }
+
+            // 校长查看转介绍记录
+            if("parent".equals(type) && "boss".equals(role)){
                 list = dao.getUserByOpenidQrByStudio(studio_my,page_start,page_length);
             }
 
@@ -9483,9 +9488,9 @@ public class LoginServiceImpl implements LoginService {
                 List<Book> books = dao.getAccountBookDetailByMark(studio,now_time,"2024-01-01");
                 for(int j=0; j < books.size();j++){
                     String mark = books.get(j).getMark();
-                    String type = books.get(j).getType();
+                    String type_get = books.get(j).getType();
                     String studio_get = mark.split("_")[0];
-                    if(studio.equals(studio_get) && "收入".equals(type)){
+                    if(studio.equals(studio_get) && "收入".equals(type_get)){
                         number += 1;
                         if("未续费".equals(pay_type)){
                             pay_type = mark.split("_")[1];
