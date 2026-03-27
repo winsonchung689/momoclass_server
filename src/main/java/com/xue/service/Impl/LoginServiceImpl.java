@@ -9438,8 +9438,7 @@ public class LoginServiceImpl implements LoginService {
                 List<User> list_init = dao.getUserByOpenidQr(openid_qr,0,10000);
                 if(Constants.admin_openid.equals(openid_qr)){
                     list_init = dao.getUserByOpenidQrAll(0,10000);
-                }
-                if("boss".equals(role)){
+                } else if("boss".equals(role)){
                     list_init = dao.getUserByOpenidQrByStudio(studio_my,0,10000);
                 }
 
