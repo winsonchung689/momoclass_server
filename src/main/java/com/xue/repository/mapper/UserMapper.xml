@@ -1809,6 +1809,10 @@
     select * from user where openid_qr &lt;&gt; 'noid' and delete_status = 0 order by create_time desc limit #{param1},#{param2};
   </select>
 
+  <select id="getUserByOpenidQrByStudio" parameterType="com.xue.entity.model.User" resultMap="BaseUser">
+    select * from user where openid_qr &lt;&gt; 'noid' and studio =#{param1} and delete_status = 0 order by create_time desc limit #{param2},#{param2};
+  </select>
+
   <select id="getWebsite" parameterType="com.xue.entity.model.Website" resultMap="BaseWebsite">
     select * from website where studio =#{param1} and campus =#{param2}  and delete_status = 0;
   </select>

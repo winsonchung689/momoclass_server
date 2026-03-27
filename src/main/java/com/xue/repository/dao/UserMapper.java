@@ -848,6 +848,8 @@ public interface UserMapper {
 
     List<User> getUserByOpenidQrAll(Integer page_start,Integer page_length);
 
+    List<User> getUserByOpenidQrByStudio(String Studio,Integer page_start,Integer page_length);
+
     List<Website> getWebsite(String studio,String campus);
 
     List<User> getStudio();

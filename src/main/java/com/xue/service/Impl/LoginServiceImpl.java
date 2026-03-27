@@ -9429,11 +9429,20 @@ public class LoginServiceImpl implements LoginService {
         Integer has_expired = 0;
 
         try {
+            List<User> users_my = dao.getUserByOpenid(openid_qr);
+            User user_my = users_my.get(0);
+            String studio_my = user_my.getStudio();
+            String role = user_my.getRole();
+
             if(page == 1){
                 List<User> list_init = dao.getUserByOpenidQr(openid_qr,0,10000);
                 if(Constants.admin_openid.equals(openid_qr)){
                     list_init = dao.getUserByOpenidQrAll(0,10000);
                 }
+                if("boss".equals(role)){
+                    list_init = dao.getUserByOpenidQrByStudio(studio_my,0,10000);
+                }
+
                 for (int i = 0; i < list_init.size(); i++) {
                     User line = list_init.get(i);
                     int is_paid = line.getIs_paid();
@@ -9457,9 +9466,13 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
 
+
             List<User> list = dao.getUserByOpenidQr(openid_qr,page_start,page_length);
             if(Constants.admin_openid.equals(openid_qr)){
                 list = dao.getUserByOpenidQrAll(page_start,page_length);
+            }
+            if("boss".equals(role)){
+                list = dao.getUserByOpenidQrByStudio(studio_my,page_start,page_length);
             }
 
             for (int i = 0; i < list.size(); i++) {
