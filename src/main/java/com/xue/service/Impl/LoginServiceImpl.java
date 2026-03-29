@@ -9168,27 +9168,57 @@ public class LoginServiceImpl implements LoginService {
                 Float minus = 0.0f;
                 Float coins = 0.0f;
                 Float price = 0.0f;
-                String parent = "未绑定";
+
                 String phone_number = "未录入";
                 Float total_money = 0.0f ;
                 Float discount_money = 0.0f ;
                 JSONObject jsonObject = new JSONObject();
                 Lesson line = list.get(i);
+
                 //获取字段
                 student_name = line.getStudent_name();
                 campus = line.getCampus();
+                String avatarurl ="https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
+
+                String parent = "未绑定";
                 String official_status = "未关注";
+                StringBuffer parents = new StringBuffer();
+                StringBuffer officials = new StringBuffer();
+
                 try {
-                    List<User> users = dao.getUserByStudent(student_name,studio,campus);
-                    parent = users.get(0).getNick_name();
-                    phone_number = users.get(0).getPhone_number();
-                    official_openid = users.get(0).getOfficial_openid();
-                    if(official_openid.length() == 28){
-                        official_status = "已关注";
+                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
+                    if(user.size()>0){
+                        for(int j = 0; j < user.size(); j++){
+                            String nick_name = user.get(j).getNick_name();
+                            parent = nick_name;
+                            parents.append(nick_name);
+                            parents.append(",");
+
+                            avatarurl = user.get(j).getAvatarurl();
+                            official_openid = user.get(j).getOfficial_openid();
+                            if (official_openid.length() >= 28){
+                                officials.append(nick_name);
+                                officials.append(",");
+                                official_status = "已关注";
+                            }
+                        }
+                        if(parents.length()>0) {
+                            parents = parents.deleteCharAt(parents.lastIndexOf(","));
+                        }else{
+                            parents.append("未绑定");
+                        }
+                        if(officials.length()>0) {
+                            officials = officials.deleteCharAt(officials.lastIndexOf(","));
+                        }else{
+                            officials.append("未关注");
+                        }
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
+
+
+
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -9247,6 +9277,7 @@ public class LoginServiceImpl implements LoginService {
                 }
 
                 DecimalFormat df = new DecimalFormat("0.00");
+
                 //json
                 jsonObject.put("uuid", uuid);
                 jsonObject.put("consume_amount",df.format(consume_amount));
@@ -9281,6 +9312,9 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("left_money", df.format(left_money));
                 jsonObject.put("delete_status", delete_status);
                 jsonObject.put("official_status", official_status);
+                jsonObject.put("avatarurl", avatarurl);
+                jsonObject.put("parents", parents);
+                jsonObject.put("officials", officials);
 
                 resul_list.add(jsonObject);
             }
@@ -10780,7 +10814,6 @@ public class LoginServiceImpl implements LoginService {
                 Float discount_money = 0.0f ;
                 Float all_lesson = 0.0f ;
                 Float give_lesson = 0.0f ;
-                String parent = "未绑定";
                 String avatarurl ="https://thirdwx.qlogo.cn/mmopen/vi_32/y667SLJ40Eic5fMnHdibjO4vLG7dmqgjeuwjQbRN5ZJj6uZfl06yA7P9wwl7oYjNRFzBzwcheZtK8zvkibyfamfBA/132";
                 String official_openid = "no_id";
                 String phone_number = "未录入";
@@ -10792,17 +10825,37 @@ public class LoginServiceImpl implements LoginService {
                 student_name = line.getStudent_name();
                 campus = line.getCampus();
                 String related_id = line.getRelated_id();
+                String parent = "未绑定";
                 String official_status = "未关注";
+                StringBuffer parents = new StringBuffer();
+                StringBuffer officials = new StringBuffer();
+
                 try {
                     List<User> user = dao.getUserByStudent(student_name,studio,campus);
                     if(user.size()>0){
                         for(int j = 0; j < user.size(); j++){
-                            parent = user.get(j).getNick_name();
+                            String nick_name = user.get(j).getNick_name();
+                            parent = nick_name;
+                            parents.append(nick_name);
+                            parents.append(",");
+
                             avatarurl = user.get(j).getAvatarurl();
                             official_openid = user.get(j).getOfficial_openid();
                             if (official_openid.length() >= 28){
+                                officials.append(nick_name);
+                                officials.append(",");
                                 official_status = "已关注";
                             }
+                        }
+                        if(parents.length()>0) {
+                            parents = parents.deleteCharAt(parents.lastIndexOf(","));
+                        }else{
+                            parents.append("未绑定");
+                        }
+                        if(officials.length()>0) {
+                            officials = officials.deleteCharAt(officials.lastIndexOf(","));
+                        }else{
+                            officials.append("未关注");
                         }
                     }
                 } catch (Exception e) {
@@ -11008,6 +11061,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("related_names", related_names.toString());
                 jsonObject.put("urge_number", urge_number);
                 jsonObject.put("urge_first", urge_first);
+                jsonObject.put("parents", parents);
+                jsonObject.put("officials", officials);
 
                 resul_list.add(jsonObject);
 
