@@ -9275,6 +9275,32 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
+                // 获取关联名单
+                StringBuffer related_names = new StringBuffer();
+                try {
+                    if(!"no_id".equals(related_id)){
+                        String[] related_id_list = related_id.split(",");
+                        for(int index = 0;index < related_id_list.length; index++){
+                            String id_get = related_id_list[index];
+                            if(id_get != null && id_get != ""){
+                                List<Lesson> lessons_re = dao.getLessonById(id_get);
+                                if(lessons_re.size()>0) {
+                                    String student_name_re = lessons_re.get(0).getStudent_name();
+                                    String subject_re = lessons_re.get(0).getSubject();
+                                    String value = student_name_re + "(" + subject_re + ")";
+                                    related_names.append(value);
+                                    related_names.append(",");
+                                }
+                            }
+                        }
+                        if(related_names.length()>0) {
+                            related_names = related_names.deleteCharAt(related_names.lastIndexOf(","));
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
+
                 if(consume_lesson_get > 0){
                     consume_amount = consume_lesson_get;
                 }
@@ -9367,6 +9393,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("officials", officials);
                 jsonObject.put("appoint_left", appoint_left);
                 jsonObject.put("appoint_mark", appoint_mark);
+                jsonObject.put("related_names",related_names);
 
                 resul_list.add(jsonObject);
             }
