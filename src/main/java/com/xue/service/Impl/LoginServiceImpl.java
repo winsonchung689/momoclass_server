@@ -9202,16 +9202,18 @@ public class LoginServiceImpl implements LoginService {
                                 official_status = "已关注";
                             }
                         }
-                        if(parents.length()>0) {
-                            parents = parents.deleteCharAt(parents.lastIndexOf(","));
-                        }else if(parents.length() == 0){
-                            parents.append("未绑定");
-                        }
-                        if(officials.length()>0) {
-                            officials = officials.deleteCharAt(officials.lastIndexOf(","));
-                        }else if(officials.length() == 0) {
-                            officials.append("未关注");
-                        }
+                    }
+
+                    if(parents.length()>0) {
+                        parents = parents.deleteCharAt(parents.lastIndexOf(","));
+                    }else{
+                        parents.append("未绑定");
+                    }
+
+                    if(officials.length()>0) {
+                        officials = officials.deleteCharAt(officials.lastIndexOf(","));
+                    }else{
+                        officials.append("未关注");
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
@@ -9233,31 +9235,6 @@ public class LoginServiceImpl implements LoginService {
                 String combine = "分";
                 if(is_combine == 1){
                     combine = "合";
-                }
-
-                try {
-                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
-                    if(lessonPackages.size()>0){
-                        for(int j = 0; j < lessonPackages.size(); j++){
-                            LessonPackage lessonPackage = lessonPackages.get(j);
-                            total_money = total_money + lessonPackage.getTotal_money();
-                            discount_money = discount_money + lessonPackage.getDiscount_money();
-                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
-                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
-                        }
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-                Float receipts = total_money - discount_money;
-                Float re_price = receipts/(all_lesson+give_lesson);;
-                if(re_price>0){
-                    price = re_price;
-                }
-                Float left_money = price * left_amount;
-                if(total_money == 0.0f){
-                    left_money = 0.0f;
                 }
 
                 Float consume_amount = 0.0f;
@@ -9337,6 +9314,16 @@ public class LoginServiceImpl implements LoginService {
                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
+                }
+
+                Float receipts = total_money - discount_money;
+                Float re_price = receipts/(all_lesson+give_lesson);;
+                if(re_price>0){
+                    price = re_price;
+                }
+                Float left_money = price * left_amount;
+                if(total_money == 0.0f){
+                    left_money = 0.0f;
                 }
 
 
@@ -10912,16 +10899,18 @@ public class LoginServiceImpl implements LoginService {
                                 official_status = "已关注";
                             }
                         }
-                        if(parents.length()>0) {
-                            parents = parents.deleteCharAt(parents.lastIndexOf(","));
-                        }else if(parents.length() == 0){
-                            parents.append("未绑定");
-                        }
-                        if(officials.length()>0) {
-                            officials = officials.deleteCharAt(officials.lastIndexOf(","));
-                        }else if(parents.length() == 0){
-                            officials.append("未关注");
-                        }
+                    }
+
+                    if(parents.length()>0) {
+                        parents = parents.deleteCharAt(parents.lastIndexOf(","));
+                    }else{
+                        parents.append("未绑定");
+                    }
+
+                    if(officials.length()>0) {
+                        officials = officials.deleteCharAt(officials.lastIndexOf(","));
+                    }else{
+                        officials.append("未关注");
                     }
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
