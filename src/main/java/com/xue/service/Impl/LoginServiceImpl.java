@@ -9274,7 +9274,6 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-
                 // 判断寻找其他关联课时
                 if(!"no_id".equals(related_id)){
                     String[] related_id_list = related_id.split(",");
