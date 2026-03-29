@@ -9820,8 +9820,10 @@ public class LoginServiceImpl implements LoginService {
                 String location = line.getLocation();
                 String wechat_id = line.getWechat_id();
                 int is_recommend = line.getIs_recommend();
+                String official_openid = line.getOfficial_openid();
 
                 //json
+                jsonObject.put("official_openid", official_openid);
                 jsonObject.put("is_recommend", is_recommend);
                 jsonObject.put("location", location);
                 jsonObject.put("studio", studio);
