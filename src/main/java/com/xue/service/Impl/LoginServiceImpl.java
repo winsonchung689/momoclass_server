@@ -9217,8 +9217,6 @@ public class LoginServiceImpl implements LoginService {
 //                    throw new RuntimeException(e);
                 }
 
-
-
                 total_amount = line.getTotal_amount();
                 left_amount = line.getLeft_amount();
                 percent = (float) Math.round(left_amount * 100 / total_amount);
@@ -9276,9 +9274,41 @@ public class LoginServiceImpl implements LoginService {
                     uuid = "98d038fe-9971-4dfc-8ee4-53aa94aea7de.png";
                 }
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                Float appoint_left = 0.0f;
+                String appoint_mark = "无备注";
+                try {
+                    List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject_get);
+                    if(lessonPackages.size()>0){
+                        for(int j = 0; j < lessonPackages.size(); j++){
+                            LessonPackage lessonPackage = lessonPackages.get(j);
+                            total_money = total_money + lessonPackage.getTotal_money();
+                            discount_money = discount_money + lessonPackage.getDiscount_money();
+                            all_lesson = all_lesson + lessonPackage.getAll_lesson();
+                            give_lesson = give_lesson + lessonPackage.getGive_lesson();
+
+                            // 优先课包余课
+                            if(j == 0){
+                                String package_id_get = lessonPackage.getId();
+                                appoint_mark = lessonPackage.getMark();
+                                List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
+                                Float package_sum = 0.0f;
+                                if(signUps.size()>0){
+                                    for (int k = 0; k < signUps.size(); k++) {
+                                        Float count = signUps.get(k).getCount();
+                                        package_sum = package_sum + count;
+                                    }
+                                }
+                                appoint_left = all_lesson + give_lesson - package_sum;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
 
                 //json
+                DecimalFormat df = new DecimalFormat("0.00");
                 jsonObject.put("uuid", uuid);
                 jsonObject.put("consume_amount",df.format(consume_amount));
                 jsonObject.put("student_name", student_name);
@@ -9315,6 +9345,8 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("avatarurl", avatarurl);
                 jsonObject.put("parents", parents);
                 jsonObject.put("officials", officials);
+                jsonObject.put("appoint_left", appoint_left);
+                jsonObject.put("appoint_mark", appoint_mark);
 
                 resul_list.add(jsonObject);
             }
