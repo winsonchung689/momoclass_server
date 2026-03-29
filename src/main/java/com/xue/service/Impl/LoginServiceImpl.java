@@ -10914,12 +10914,12 @@ public class LoginServiceImpl implements LoginService {
                         }
                         if(parents.length()>0) {
                             parents = parents.deleteCharAt(parents.lastIndexOf(","));
-                        }else{
+                        }else if(parents.length() == 0){
                             parents.append("未绑定");
                         }
                         if(officials.length()>0) {
                             officials = officials.deleteCharAt(officials.lastIndexOf(","));
-                        }else{
+                        }else if(parents.length() == 0){
                             officials.append("未关注");
                         }
                     }
