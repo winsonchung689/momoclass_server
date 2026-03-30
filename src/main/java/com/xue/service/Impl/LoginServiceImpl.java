@@ -598,7 +598,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getCommentLikeStudent(String openid,String content,String duration) {
+    public List getCommentLikeStudent(String openid,String content,String duration,String class_target_bak) {
         List<JSONObject> resul_list = new ArrayList<>();
         List<User> users = dao.getUserByOpenid(openid);
         User user = users.get(0);
@@ -609,7 +609,7 @@ public class LoginServiceImpl implements LoginService {
         String end_date = duration.split("_")[1];
 
         try {
-            List<Message> list = dao.getCommentLikeStudent(content,studio,campus,start_date,end_date);
+            List<Message> list = dao.getCommentLikeStudent(content,studio,campus,start_date,end_date,class_target_bak);
             for (int i = 0; i < list.size(); i++) {
                 Float percent = 0.0f;
                 Float left = 0.0f;
@@ -620,7 +620,7 @@ public class LoginServiceImpl implements LoginService {
                 String student_name = line.getStudent_name();
                 String class_name = line.getClass_name();
                 String comment = line.getComment();
-                String class_target = line.getClass_target();
+                String class_target_get = line.getClass_target();
                 String id = line.getId();
                 String create_time = line.getCreate_time();
 
@@ -657,7 +657,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("student_name", student_name);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("comment", comment);
-                jsonObject.put("class_target", class_target);
+                jsonObject.put("class_target", class_target_get);
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("percent", percent);
@@ -7479,24 +7479,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target,String campus) {
-        String comment = null;
-        String class_name = null;
-        String id = null;
-        String create_time = null;
-        byte[] photo = null;
-        String student_name_get = null;
-        String student_name = null;
+    public List getMessage(String studio, Integer page,String comment_style,String openid,String role,String class_target_bak,String campus) {
         Integer page_start = (page - 1) * 7;
         Integer page_length = 7;
         List<JSONObject> resul_list = new ArrayList<>();
         List<Message> list=new ArrayList<>();;
         List<User> users=null;
-        String duration = null;
-        String positive = null;
-        String discipline = null;
-        String happiness = null;
-        String mp3_url = null;
         StringBuilder student_names = new StringBuilder();
 
         try {
@@ -7504,7 +7492,7 @@ public class LoginServiceImpl implements LoginService {
             if(users.size()>0){
                 for (int i = 0; i < users.size(); i++) {
                     User line = users.get(i);
-                    student_name_get = line.getStudent_name();
+                    String student_name_get = line.getStudent_name();
                     List<Lesson> lessons = dao.getLessonLikeName(studio,student_name_get,campus);
                     if(lessons.size()>0){
                         for(int ii = 0;ii < lessons.size(); ii ++){
@@ -7525,9 +7513,9 @@ public class LoginServiceImpl implements LoginService {
             }
 
             if(comment_style.equals("self")&&role.equals("client")){
-                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length,class_target,campus);
+                list = dao.getMessageInName(student_names.toString(),studio,page_start,page_length,class_target_bak,campus);
             }else if(role.equals("boss") || comment_style.equals("public") || role.equals("teacher")) {
-                list = dao.getMessage(studio, page_start, page_length,class_target,campus);
+                list = dao.getMessage(studio, page_start, page_length,class_target_bak,campus);
             }
 
             if(list.size()>0){
@@ -7538,18 +7526,17 @@ public class LoginServiceImpl implements LoginService {
                     Float total = 0.0f;
                     Message line = list.get(i);
                     //获取字段
-                    student_name = line.getStudent_name();
-                    class_name = line.getClass_name();
-                    comment = line.getComment();
-                    class_target = line.getClass_target();
-                    id = line.getId();
-                    create_time = line.getCreate_time();
-                    studio = line.getStudio();
-                    duration = line.getDuration();
-                    positive = line.getPositive();
-                    discipline = line.getDiscipline();
-                    happiness = line.getHappiness();
-                    mp3_url = line.getMp3_url();
+                    String student_name = line.getStudent_name();
+                    String class_name = line.getClass_name();
+                    String comment = line.getComment();
+                    String class_target = line.getClass_target();
+                    String id = line.getId();
+                    String create_time = line.getCreate_time();
+                    String duration = line.getDuration();
+                    String positive = line.getPositive();
+                    String discipline = line.getDiscipline();
+                    String happiness = line.getHappiness();
+                    String mp3_url = line.getMp3_url();
                     String uuids = null;
                     String vuuid = null;
                     try {
@@ -7562,10 +7549,6 @@ public class LoginServiceImpl implements LoginService {
                         vuuid = line.getUuids().replace("\"","").replace("[","").replace("]","");
                     } catch (Exception e) {
 //                    throw new RuntimeException(e);
-                    }
-
-                    if(uuids != null){
-                        photo = null;
                     }
 
                     try {

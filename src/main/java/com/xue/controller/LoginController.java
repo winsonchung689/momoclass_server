@@ -798,12 +798,12 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getMessage")
 	@ResponseBody
-	public List getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target){
+	public List getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target_bak){
 		List list = null;
 		try {
 			List<User> list_user = dao.getUser(openid);
 			String campus = list_user.get(0).getCampus();
-			list = loginService.getMessage(studio,page,comment_style,openid,role,class_target,campus);
+			list = loginService.getMessage(studio,page,comment_style,openid,role,class_target_bak,campus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1671,10 +1671,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getCommentLikeStudent")
 	@ResponseBody
-	public List getCommentLikeStudent(String openid,String content,String duration){
+	public List getCommentLikeStudent(String openid,String content,String duration,String class_target_bak){
 		List list = null;
 		try {
-			list = loginService.getCommentLikeStudent(openid,content,duration);
+			list = loginService.getCommentLikeStudent(openid,content,duration,class_target_bak);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

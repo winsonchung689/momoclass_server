@@ -7,7 +7,7 @@ import com.xue.entity.model.*;
 
 public interface LoginService {
 
-    public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target,String campus);
+    public List  getMessage(String studio,Integer page,String comment_style,String openid,String role,String class_target_bak,String campus);
 
     public List  getCommentModel(String openid,String date_time,String duration,String class_number);
 
@@ -101,7 +101,7 @@ public interface LoginService {
 
     public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid,String class_target);
 
-    public List  getCommentLikeStudent(String openid,String content,String duration);
+    public List  getCommentLikeStudent(String openid,String content,String duration,String class_target_bak);
 
     public List  getSignUp(String student_name,String studio,String subject,String openid);
 
