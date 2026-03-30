@@ -329,7 +329,7 @@ public interface UserMapper {
 
     void updateBookCreateTime(Integer id,String create_time);
 
-    void updateUuids_c(Integer id,String studio,String uuids_c);
+    void updateUuids_c(Integer id,String studio,String uuids_c,String vuuid);
 
     void deleteGoodsList(Integer id,String studio);
 

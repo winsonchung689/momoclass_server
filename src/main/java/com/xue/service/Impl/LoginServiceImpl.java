@@ -2736,7 +2736,8 @@ public class LoginServiceImpl implements LoginService {
             Message message = list.get(0);
             String class_target_bak = message.getClass_target_bak();
             String studio_get = message.getStudio();
-            if("冲刺".equals(class_target_bak) || "网课".equals(class_target_bak) || "同城".equals(class_target_bak) ||"数学".equals(class_target_bak) || "英语".equals(class_target_bak) || "语文".equals(class_target_bak) || "视频站".equals(class_target_bak)){
+            String vuuid = message.getVuuid();
+            if("视频站".equals(class_target_bak)){
                 dao.deleteComment(id,studio);
 
                 // 删除视频
@@ -2758,7 +2759,7 @@ public class LoginServiceImpl implements LoginService {
                         list_new.add(result[i]);
                     }
                 }
-                String vuuid = message.getVuuid();
+
                 dao.updateUuids(id,studio,list_new.toString().replace(" ",""),vuuid);
 
                 // 删除图片
@@ -2780,10 +2781,15 @@ public class LoginServiceImpl implements LoginService {
                     }
                 }
 
-                if ( studio_get.equals(studio)) {
-                    dao.updateUuids_c(id,studio,list_new.toString().replace(" ",""));
-                }else {
-                    logger.error("it's not your studio, could not delete!");
+                dao.updateUuids_c(id,studio,list_new.toString().replace(" ",""),vuuid);
+
+                // 删除图片
+                try {
+                    String d_path = "/data/uploadimages/" ;
+                    File temp = new File(d_path, uuid);
+                    temp.delete();
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
                 }
             }
 

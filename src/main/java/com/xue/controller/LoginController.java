@@ -4497,7 +4497,7 @@ public class LoginController {
 							list_new.add(uuids_c_get_list[i]);
 						}
 					}
-					dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""));
+					dao.updateUuids_c(Integer.parseInt(id),studio,list_new.toString().replace(" ",""),vuuid_get);
 				}
 
 			}
