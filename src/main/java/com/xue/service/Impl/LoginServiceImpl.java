@@ -7324,7 +7324,7 @@ public class LoginServiceImpl implements LoginService {
             String campus = list_user.get(0).getCampus();
 
             List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
-            String title = "科目,学生名,原价,优惠,原课时,赠课时,单价,报课时间,有效期至,备注,操作人";
+            String title = "学生名,科目,原价,优惠,原课时,赠课时,单价,报课时间,有效期至,备注,操作人";
             List<String> data_list = new ArrayList<>();
             for (int i = 0; i < lessonPackages.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
