@@ -7356,7 +7356,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
 
-                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + price + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
+                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + df.format(price) + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
                 data_list.add(data_line);
             }
             downloadByOpenid(studio,openid,data_list,title,"all_lesson");
