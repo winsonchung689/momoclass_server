@@ -7316,6 +7316,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getLessonPackageByAll(String studio,String openid) {
+        DecimalFormat df = new DecimalFormat("0.00");
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
@@ -7323,7 +7324,7 @@ public class LoginServiceImpl implements LoginService {
             String campus = list_user.get(0).getCampus();
 
             List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
-            String title = "学生名,原价,优惠,原课时,赠课时,报课时间,有效期至,备注,操作人";
+            String title = "学生名,原价,优惠,原课时,赠课时,单价,报课时间,有效期至,备注,操作人";
             List<String> data_list = new ArrayList<>();
             for (int i = 0; i < lessonPackages.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -7339,6 +7340,7 @@ public class LoginServiceImpl implements LoginService {
                 Float give_lesson = line.getGive_lesson();
                 String nick_name = line.getNick_name();
                 String student_name  = line.getStudent_name();
+                Float price = (total_money-discount_money)/(all_lesson+give_lesson);
 
                 //json
                 jsonObject.put("student_name", student_name);
@@ -7350,10 +7352,11 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("all_lesson", all_lesson);
                 jsonObject.put("give_lesson", give_lesson);
+                jsonObject.put("price", df.format(price));
                 jsonObject.put("nick_name", nick_name);
                 resul_list.add(jsonObject);
 
-                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
+                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + price + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
                 data_list.add(data_line);
             }
             downloadByOpenid(studio,openid,data_list,title,"all_lesson");
