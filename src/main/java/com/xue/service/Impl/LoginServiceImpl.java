@@ -7324,7 +7324,7 @@ public class LoginServiceImpl implements LoginService {
             String campus = list_user.get(0).getCampus();
 
             List<LessonPackage> lessonPackages = dao.getLessonPackageByCampus(studio,campus);
-            String title = "学生名,原价,优惠,原课时,赠课时,单价,报课时间,有效期至,备注,操作人";
+            String title = "科目,学生名,原价,优惠,原课时,赠课时,单价,报课时间,有效期至,备注,操作人";
             List<String> data_list = new ArrayList<>();
             for (int i = 0; i < lessonPackages.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -7339,6 +7339,7 @@ public class LoginServiceImpl implements LoginService {
                 Float all_lesson = line.getAll_lesson();
                 Float give_lesson = line.getGive_lesson();
                 String nick_name = line.getNick_name();
+                String subject = line.getSubject();
                 String student_name  = line.getStudent_name();
                 Float price = (total_money-discount_money)/(all_lesson+give_lesson);
 
@@ -7354,9 +7355,10 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("give_lesson", give_lesson);
                 jsonObject.put("price", df.format(price));
                 jsonObject.put("nick_name", nick_name);
+                jsonObject.put("subject", subject);
                 resul_list.add(jsonObject);
 
-                String data_line = student_name + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + df.format(price) + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
+                String data_line = student_name + "," + subject + "," + total_money + "," + discount_money + "," +all_lesson + "," + give_lesson + "," + df.format(price) + "," + start_date + "," + end_date + "," + mark + "," + nick_name;
                 data_list.add(data_line);
             }
             downloadByOpenid(studio,openid,data_list,title,"all_lesson");
