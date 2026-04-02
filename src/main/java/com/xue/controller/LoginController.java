@@ -8176,6 +8176,11 @@ public class LoginController {
 				return "push massage successfully";
 			}
 
+			String package_id = request.getParameter("package_id");
+			if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
+				package_id = "0";
+			}
+
 			// 获取单次积分
 			String coins_amount_get_1 = request.getParameter("coins_amount");
 			Float coins_amount_get = 0.0f;
@@ -8243,29 +8248,38 @@ public class LoginController {
 				lessonPackage.setStudio(studio);
 				lessonPackage.setSubject(subject);
 				lessonPackage.setCreate_time(create_time);
-
 				lessonPackage.setNick_name(nick_name);
-				if("合并".equals(record_type)){
-					lessonPackage.setTotal_money(Float.parseFloat(total_money));
-					lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
-					lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
-					lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
-					dao.insertLessonPackage(lessonPackage);
-				}else if("分开".equals(record_type)){
-					if(Float.parseFloat(all_lesson)>0){
+				if("0".equals(package_id)){
+					if("合并".equals(record_type)){
 						lessonPackage.setTotal_money(Float.parseFloat(total_money));
-						lessonPackage.setDiscount_money(0.0f);
-						lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
-						lessonPackage.setGive_lesson(0.0f);
-						dao.insertLessonPackage(lessonPackage);
-					}
-					if(Float.parseFloat(give_lesson)>0){
-						lessonPackage.setTotal_money(0.0f);
 						lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
-						lessonPackage.setAll_lesson(0.0f);
+						lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 						lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 						dao.insertLessonPackage(lessonPackage);
+					}else if("分开".equals(record_type)){
+						if(Float.parseFloat(all_lesson)>0){
+							lessonPackage.setTotal_money(Float.parseFloat(total_money));
+							lessonPackage.setDiscount_money(0.0f);
+							lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
+							lessonPackage.setGive_lesson(0.0f);
+							dao.insertLessonPackage(lessonPackage);
+						}
+						if(Float.parseFloat(give_lesson)>0){
+							lessonPackage.setTotal_money(0.0f);
+							lessonPackage.setDiscount_money(Float.parseFloat(discount_money));
+							lessonPackage.setAll_lesson(0.0f);
+							lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
+							dao.insertLessonPackage(lessonPackage);
+						}
 					}
+				}else{
+					List<LessonPackage> lessonPackages = dao.getLessonPackageById(Integer.parseInt(package_id));
+					LessonPackage lessonPackage1 = lessonPackages.get(0);
+					Float all_lesson_get = lessonPackage1.getAll_lesson();
+					Float give_lesson_get = lessonPackage1.getGive_lesson();
+					lessonPackage1.setAll_lesson(all_lesson_get + Float.parseFloat(all_lesson));
+					lessonPackage1.setGive_lesson(give_lesson_get + Float.parseFloat(give_lesson));
+					dao.updateLessonPackageDetail(lessonPackage1);
 				}
 
 				try {
