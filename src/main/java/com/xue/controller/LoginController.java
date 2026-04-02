@@ -8177,7 +8177,7 @@ public class LoginController {
 			}
 
 			String package_id = request.getParameter("package_id");
-			if(discount_money == null || discount_money.isEmpty() || "undefined".equals(discount_money)){
+			if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
 				package_id = "0";
 			}
 
