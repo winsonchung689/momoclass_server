@@ -306,6 +306,78 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String lessonRefund(String id,String openid) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
+        String nick_name = user.getNick_name();
+        String studio = user.getStudio();
+
+        List<Lesson> lessons = dao.getLessonById(id);
+        Lesson lesson = lessons.get(0);
+        Float left_amount = lesson.getLeft_amount();
+        Float total_amount = lesson.getTotal_amount();
+        String student_name = lesson.getStudent_name();
+        String subject = lesson.getSubject();
+        int is_combine = lesson.getIs_combine();
+        String related_id = lesson.getRelated_id();
+
+        LessonPackage lessonPackage = new LessonPackage();
+        lessonPackage.setStudent_name(student_name);
+        lessonPackage.setStart_date(create_time);
+        lessonPackage.setEnd_date(create_time);
+        lessonPackage.setCampus(campus);
+        lessonPackage.setStudio(studio);
+        lessonPackage.setSubject(subject);
+        lessonPackage.setCreate_time(create_time);
+        lessonPackage.setAll_lesson(0-left_amount);
+        lessonPackage.setGive_lesson(0.0f);
+        lessonPackage.setTotal_money(0.0f);
+        lessonPackage.setDiscount_money(0.0f);
+        lessonPackage.setMark("退费记录");
+        lessonPackage.setNick_name(nick_name);
+        dao.insertLessonPackage(lessonPackage);
+
+        lesson.setLeft_amount(0.0f);
+        lesson.setTotal_amount(total_amount-left_amount);
+        if(is_combine == 0){
+            dao.updateLesson(lesson);
+        }else if (is_combine == 1){
+            dao.updateLessonBoth(lesson);
+        }
+
+        try {
+            if(!"no_id".equals(related_id)){
+                String[] related_id_list = related_id.split(",");
+                for(int j=0;j < related_id_list.length; j++){
+                    String id_get = related_id_list[j];
+                    if(!id.equals(id_get)) {
+                        List<Lesson> lessons_get = dao.getLessonById(id_get);
+                        if (lessons_get.size() > 0) {
+                            Lesson lesson_get = lessons_get.get(0);
+                            String student_name_get = lesson_get.getStudent_name();
+                            String subject_get = lesson_get.getSubject();
+
+                            lesson.setStudent_name(student_name_get);
+                            lesson.setSubject(subject_get);
+
+                            dao.updateLesson(lesson);
+                        }
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return "refund successfully!";
+    }
+
+    @Override
     public List getDetails(Integer id) {
         String uuids=null;
         String uuids_c=null;

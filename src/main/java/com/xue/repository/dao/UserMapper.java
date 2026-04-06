@@ -497,6 +497,8 @@ public interface UserMapper {
 
     int updateLessonAvatar(String id,String uuid);
 
+    int updateLessonById(Lesson lesson);
+
     int updateLessonAgeById(String id,String age);
 
     int updateLessonSchoolById(String id,String school);

@@ -8071,6 +8071,20 @@ public class LoginController {
 		return "push massage successfully";
 	}
 
+	@RequestMapping("/lessonRefund")
+	@ResponseBody
+	public String lessonRefund(HttpServletRequest request, HttpServletResponse response) {
+
+		// 获取工作室
+		String id = request.getParameter("id");
+		String openid = request.getParameter("openid");
+
+		loginService.lessonRefund(id,openid);
+
+		return "push massage successfully";
+
+	}
+
 	@RequestMapping("/updateLesson")
 	@ResponseBody
 	public String updateLesson(HttpServletRequest request, HttpServletResponse response){
@@ -8083,10 +8097,8 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-
 		// 获取工作室
 		String studio = request.getParameter("studio");
-
 		String openid = request.getParameter("openid");
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();

@@ -97,6 +97,8 @@ public interface LoginService {
 
     public int updateLessonRelated(String id,Integer related_id,String openid,String type);
 
+    public String lessonRefund(String id,String openid);
+
     public List  getDetails(Integer id);
 
     public List  getDetailsUrlByDate(String studio,String duration,String student_name,String date_time,String openid,String class_target);
