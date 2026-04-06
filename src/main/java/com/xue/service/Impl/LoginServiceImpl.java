@@ -9207,7 +9207,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getLessonByStudioCampus(String studio, String campus) {
+    public List getLessonByType(String openid,String type,String content) {
+
+        List<User> users = dao.getUserByOpenid(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 
         List<Lesson> list = null;
         List<JSONObject> resul_list = new ArrayList<>();
@@ -9252,16 +9257,16 @@ public class LoginServiceImpl implements LoginService {
                 StringBuffer officials = new StringBuffer();
 
                 try {
-                    List<User> user = dao.getUserByStudent(student_name,studio,campus);
-                    if(user.size()>0){
-                        for(int j = 0; j < user.size(); j++){
-                            String nick_name = user.get(j).getNick_name();
+                    List<User> users_get = dao.getUserByStudent(student_name,studio,campus);
+                    if(users_get.size()>0){
+                        for(int j = 0; j < users_get.size(); j++){
+                            String nick_name = users_get.get(j).getNick_name();
                             parent = nick_name;
                             parents.append(nick_name);
                             parents.append(",");
 
-                            avatarurl = user.get(j).getAvatarurl();
-                            official_openid = user.get(j).getOfficial_openid();
+                            avatarurl = users_get.get(j).getAvatarurl();
+                            official_openid = users_get.get(j).getOfficial_openid();
                             if (official_openid.length() >= 28){
                                 officials.append(nick_name);
                                 officials.append(",");
@@ -9461,7 +9466,26 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("appoint_mark", appoint_mark);
                 jsonObject.put("related_names",related_names);
 
-                resul_list.add(jsonObject);
+                if("official".equals(type)){
+                    if("未关注".equals(content) && officials.indexOf("未关注") != -1){
+                        resul_list.add(jsonObject);
+                    }else if ("已关注".equals(content) && officials.indexOf("未关注") == -1){
+                        resul_list.add(jsonObject);
+                    }else if("全部".equals(content)){
+                        resul_list.add(jsonObject);
+                    }
+                }
+
+                if("parent".equals(type)){
+                    if("未绑定".equals(content) && parents.indexOf("未绑定") != -1){
+                        resul_list.add(jsonObject);
+                    }else if ("已绑定".equals(content) && parents.indexOf("未绑定") == -1){
+                        resul_list.add(jsonObject);
+                    }else if("全部".equals(content)){
+                        resul_list.add(jsonObject);
+                    }
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

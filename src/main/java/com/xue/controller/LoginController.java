@@ -2269,14 +2269,12 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getLessonByStudioCampus")
+	@RequestMapping("/getLessonByType")
 	@ResponseBody
-	public List getLessonByStudioCampus(String studio,String openid){
+	public List getLessonByType(String openid,String type,String content){
 		List list = null;
 		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getLessonByStudioCampus(studio,campus);
+			list = loginService.getLessonByType(openid,type,content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

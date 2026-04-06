@@ -47,7 +47,7 @@ public interface LoginService {
 
     public List  getLessonByStudio(String studio);
 
-    public List  getLessonByStudioCampus(String studio,String campus);
+    public List  getLessonByType(String openid,String type,String content);
 
     public List  getAllUserByStudio(String studio);
 
