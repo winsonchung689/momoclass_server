@@ -2102,7 +2102,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
             List<Arrangement> list = dao.getArrangementByDay(studio,weekofday,campus);
-            List<Arrangement> repeat_list = dao.getArrangementByRepeat(studio,campus);
+            List<Arrangement> repeat_list = dao.getArrangementByRepeatType(studio,campus,1);
             list.addAll(repeat_list);
 
             for (int i = 0; i < list.size(); i++) {
@@ -2297,7 +2297,7 @@ public class LoginServiceImpl implements LoginService {
                     list = dao.getArrangement(studio,weekofday.toString(),subject,campus);
                 }
 //                搜索按天课表
-                repeat_list = dao.getArrangementByRepeat(studio,campus);
+                repeat_list = dao.getArrangementByRepeatType(studio,campus,1);
                 list.addAll(repeat_list);
             } catch (Exception e) {
 //                throw new RuntimeException(e);

@@ -1084,8 +1084,6 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDay(String studio,Integer dayofweek,String campus);
 
-    List<Arrangement> getArrangementByRepeat(String studio,String campus);
-
     List<Arrangement> getArrangementByRepeatType(String studio,String campus,Integer is_repeat);
 
     List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String goods_type);
