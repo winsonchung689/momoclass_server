@@ -2457,9 +2457,9 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getArrangementByNoRepeat")
+	@RequestMapping("/getArrangementByRepeatType")
 	@ResponseBody
-	public List getArrangementByNoRepeat(String openid,Integer is_repeat){
+	public List getArrangementByRepeatType(String openid,Integer is_repeat){
 		List list = null;
 		try {
 			List<User> users = dao.getUser(openid);
