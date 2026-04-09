@@ -223,6 +223,8 @@ public interface LoginService {
 
     public List getArrangements(String studio,String campus);
 
+    public List getArrangementByRepeatType(String studio,String campus,Integer is_repeat);
+
     public List getArrangementsByRepeat(String studio,String campus);
 
     public List getArrangementsByDate(String studio,String date_time,String campus);

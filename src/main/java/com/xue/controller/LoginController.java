@@ -2457,6 +2457,22 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getArrangementByNoRepeat")
+	@ResponseBody
+	public List getArrangementByNoRepeat(String openid,Integer is_repeat){
+		List list = null;
+		try {
+			List<User> users = dao.getUser(openid);
+			User user = users.get(0);
+			String studio = user.getStudio();
+			String campus = user.getCampus();
+			list = loginService.getArrangementByRepeatType(studio,campus,is_repeat);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/getArrangementsByRepeat")
 	@ResponseBody
 	public List getArrangementsByRepeat(String studio,String openid){

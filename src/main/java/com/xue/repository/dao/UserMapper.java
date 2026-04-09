@@ -1086,6 +1086,8 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByRepeat(String studio,String campus);
 
+    List<Arrangement> getArrangementByRepeatType(String studio,String campus,Integer is_repeat);
+
     List<GoodsList> getGoodsList(String studio,Integer page_start,Integer page_end,String goods_type);
 
     List<GoodsLike> getGoodsLike(String goods_id,String openid);
