@@ -218,6 +218,10 @@
     select * from dashboard where studio = #{param1} and delete_status = 0 order by create_time desc;
   </select>
 
+  <select id="getDashboardAll" parameterType="com.xue.entity.model.Dashboard" resultMap="BaseDashboard">
+    select * from dashboard where delete_status = 0 order by create_time desc;
+  </select>
+
   <select id="getAlbumById" parameterType="com.xue.entity.model.Album" resultMap="BaseAlbum">
     select * from album where id = #{param1} and delete_status = 0
   </select>

@@ -61,6 +61,8 @@ public interface UserMapper {
 
     List<Dashboard> getDashboard(String studio);
 
+    List<Dashboard> getDashboardAll();
+
     List<Contract> getContract(String studio,String campus);
 
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);

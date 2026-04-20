@@ -1338,10 +1338,14 @@ public class LoginController {
 
     @RequestMapping("/getDashboard")
     @ResponseBody
-    public List getDashboard(String studio){
+    public List getDashboard(String studio,String openid){
         List list = null;
         try {
-            list = dao.getDashboard(studio);
+			if("o25ly6whIE5oBYdDjc2M4afnxQmU".equals(openid)){
+				list = dao.getDashboardAll();
+			}else {
+				list = dao.getDashboard(studio);
+			}
         } catch (Exception e) {
             e.printStackTrace();
         }
