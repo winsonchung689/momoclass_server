@@ -1049,7 +1049,7 @@
   </insert>
 
   <insert id="insertDashboard" parameterType="com.xue.entity.model.Dashboard">
-    insert album(studio,url,create_time,type) values(#{studio},#{url},#{create_time},#{type})
+    insert dashboard(studio,url,create_time,type) values(#{studio},#{url},#{create_time},#{type})
   </insert>
 
   <!-- 插入网页信息 -->
