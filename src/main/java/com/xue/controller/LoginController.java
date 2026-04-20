@@ -2940,6 +2940,18 @@ public class LoginController {
 		return 1;
 	}
 
+    @RequestMapping("/deleteDashboard")
+    @ResponseBody
+    public int deleteDashboard(Integer id){
+        try {
+            dao.deleteDashboard(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
 	@RequestMapping("/deleteMerchant")
 	@ResponseBody
 	public int deleteMerchant(Integer id){

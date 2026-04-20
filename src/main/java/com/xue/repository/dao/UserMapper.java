@@ -404,6 +404,9 @@ public interface UserMapper {
 
     void deleteAlbum(Integer id);
 
+
+    void deleteDashboard(Integer id);
+
     void deleteMerchant(Integer id);
 
     void deleteGiftList(Integer id);
