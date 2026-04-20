@@ -59,6 +59,8 @@ public interface UserMapper {
 
     List<Album> getAlbumById(String id);
 
+    List<Dashboard> getDashboard(String studio);
+
     List<Contract> getContract(String studio,String campus);
 
     List<Message> getExhibitionByType(String studio,String type,Integer page_start,Integer page_length);
@@ -460,6 +462,8 @@ public interface UserMapper {
     int insertBookUser(BookUser book);
 
     int insertAlbum(Album album);
+
+    int insertDashboard(Dashboard dashboard);
 
     int insertPointsRecord(Points points);
 

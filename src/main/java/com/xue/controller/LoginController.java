@@ -1336,6 +1336,18 @@ public class LoginController {
 		return list;
 	}
 
+    @RequestMapping("/getDashboard")
+    @ResponseBody
+    public List getDashboard(String studio){
+        List list = null;
+        try {
+            list = dao.getDashboard(studio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 	@RequestMapping("/getExhibition")
 	@ResponseBody
 	public List getExhibition(String openid,String type,Integer page){
@@ -8028,6 +8040,34 @@ public class LoginController {
 
 		return "push massage successfully";
 	}
+
+    @RequestMapping("/insertDashboard")
+    @ResponseBody
+    public String insertDashboard(HttpServletRequest request, HttpServletResponse response){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String create_time = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+        String url = request.getParameter("url");
+        String type = request.getParameter("type");
+        String openid = request.getParameter("openid");
+        List<User> users = dao.getUser(openid);
+        String campus = users.get(0).getCampus();
+        String studio = users.get(0).getStudio();
+
+        try {
+            Dashboard dashboard = new Dashboard();
+            dashboard.setStudio(studio);
+            dashboard.setUrl(url);
+            dashboard.setType(type);
+            dashboard.setCreate_time(create_time);
+
+            dao.insertDashboard(dashboard);
+        } catch (Exception e) {
+//					e.printStackTrace();
+        }
+
+        return "push massage successfully";
+    }
 
 	@RequestMapping("/insertGiftList")
 	@ResponseBody
