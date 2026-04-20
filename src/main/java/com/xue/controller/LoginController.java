@@ -8061,10 +8061,7 @@ public class LoginController {
 
         String url = request.getParameter("url");
         String type = request.getParameter("type");
-        String openid = request.getParameter("openid");
-        List<User> users = dao.getUser(openid);
-        String campus = users.get(0).getCampus();
-        String studio = users.get(0).getStudio();
+        String studio = request.getParameter("studio");
 
         try {
             Dashboard dashboard = new Dashboard();
