@@ -7609,9 +7609,14 @@ public class LoginController {
 	@RequestMapping("/updateStudio")
 	@ResponseBody
 	public String updateStudio(HttpServletRequest request, HttpServletResponse response){
-		String studio = request.getParameter("studio");
+		String openid = request.getParameter("openid");
 		String content = request.getParameter("content");
         String type = request.getParameter("type");
+
+		List<User> users = dao.getUserByOpenid(openid);
+		User user = users.get(0);
+		String studio = user.getStudio();
+		String campus = user.getCampus();
 
 		try {
             if("工作室".equals(type)){
@@ -7626,16 +7631,16 @@ public class LoginController {
 				dao.updateCardStudio(studio,content);
 				dao.updateCardRecordStudio(studio,content);
             }else if("校区".equals(type)){
-                dao.updateUserCampusByStudio(studio,content);
-                dao.updateLessonCampusByStudio(studio,content);
-                dao.updateClassScheduleCampusByStudio(studio,content);
-                dao.updateCommentCampusByStudio(studio,content);
-                dao.updateScheduleArrangementCampusByStudio(studio,content);
-                dao.updateSignUpRecordCampusByStudio(studio,content);
-                dao.updateLeaveRecordCampusByStudio(studio,content);
-				dao.updateLessonPackageCampusByStudio(studio,content);
-				dao.updateCardCampusByStudio(studio,content);
-				dao.updateCardRecordCampusByStudio(studio,content);
+                dao.updateUserCampusByStudio(studio,campus,content);
+                dao.updateLessonCampusByStudio(studio,campus,content);
+                dao.updateClassScheduleCampusByStudio(studio,campus,content);
+                dao.updateCommentCampusByStudio(studio,campus,content);
+                dao.updateScheduleArrangementCampusByStudio(studio,campus,content);
+                dao.updateSignUpRecordCampusByStudio(studio,campus,content);
+                dao.updateLeaveRecordCampusByStudio(studio,campus,content);
+				dao.updateLessonPackageCampusByStudio(studio,campus,content);
+				dao.updateCardCampusByStudio(studio,campus,content);
+				dao.updateCardRecordCampusByStudio(studio,campus,content);
             }
 
 		} catch (Exception e) {

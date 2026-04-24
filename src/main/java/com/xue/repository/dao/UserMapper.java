@@ -615,7 +615,7 @@ public interface UserMapper {
 
     int updateUserStudio(String studio,String new_studio);
 
-    int updateUserCampusByStudio(String studio,String campus);
+    int updateUserCampusByStudio(String studio,String campus,String new_campus);
 
     int updateLessonPackageStudio(String studio,String new_studio);
 
@@ -623,11 +623,11 @@ public interface UserMapper {
 
     int updateCardRecordStudio(String studio,String new_studio);
 
-    int updateLessonPackageCampusByStudio(String studio,String campus);
+    int updateLessonPackageCampusByStudio(String studio,String campus,String new_campus);
 
-    int updateCardCampusByStudio(String studio,String campus);
+    int updateCardCampusByStudio(String studio,String campus,String new_campus);
 
-    int updateCardRecordCampusByStudio(String studio,String campus);
+    int updateCardRecordCampusByStudio(String studio,String campus,String new_campus);
 
     int updateCardRecordTeacher(String teacher,String id);
 
@@ -641,29 +641,29 @@ public interface UserMapper {
 
     int updateLessonStudio(String studio,String new_studio);
 
-    int updateLessonCampusByStudio(String studio,String campus);
+    int updateLessonCampusByStudio(String studio,String campus,String new_campus);
 
     int updateClassScheduleStudio(String studio,String new_studio);
 
-    int updateClassScheduleCampusByStudio(String studio,String campus);
+    int updateClassScheduleCampusByStudio(String studio,String campus,String new_campus);
 
     int updateCommentStudio(String studio,String new_studio);
 
-    int updateCommentCampusByStudio(String studio,String campus);
+    int updateCommentCampusByStudio(String studio,String campus,String new_campus);
 
     int updateScheduleArrangementStudio(String studio,String new_studio);
 
-    int updateScheduleArrangementCampusByStudio(String studio,String campus);
+    int updateScheduleArrangementCampusByStudio(String studio,String campus,String new_campus);
 
     int updateArrangementClassType(String studio,Integer class_type);
 
     int updateSignUpRecordStudio(String studio,String new_studio);
 
-    int updateSignUpRecordCampusByStudio(String studio,String campus);
+    int updateSignUpRecordCampusByStudio(String studio,String campus,String new_campus);
 
     int updateLeaveRecordStudio(String studio,String new_studio);
 
-    int updateLeaveRecordCampusByStudio(String studio,String campus);
+    int updateLeaveRecordCampusByStudio(String studio,String campus,String new_campus);
 
     int updateLeaveStatus(String id,Integer status);
 
