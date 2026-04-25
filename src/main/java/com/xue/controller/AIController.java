@@ -80,14 +80,11 @@ public class AIController {
 			jsonObjects.add(jsonObject);
 			params.put("messages", jsonObjects);
 			params.put("temperature", 0.9);
-			params.put("max_tokens", 2048);
+			params.put("max_completion_tokens", 2048);
 			params.put("top_p", 1);
 			params.put("frequency_penalty", 0.0);
 			params.put("presence_penalty", 0.6);
 
-//			JSONArray stop = new JSONArray();
-//			stop.add("<br>");
-//			params.put("stop", stop);
 			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
