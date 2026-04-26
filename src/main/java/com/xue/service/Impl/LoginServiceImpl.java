@@ -5153,6 +5153,7 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String create_time = line.getCreate_time();
                 String comment = line.getComment();
+                String studio_get = line.getStudio();
 
                 //json
                 jsonObject.put("class_target", class_target);
@@ -5160,6 +5161,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("uuids", uuids);
                 jsonObject.put("comment", comment);
+                jsonObject.put("studio", studio_get);
                 resul_list.add(jsonObject);
             }
 
