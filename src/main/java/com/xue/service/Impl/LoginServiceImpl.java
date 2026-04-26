@@ -5043,8 +5043,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List getFrameModel(String studio,Integer page,String class_target,String campus) {
-        String class_name = null;
-        String id = null;
         String uuids = null;
         Integer page_start = 0;
         Integer page_length = 0;
@@ -5063,20 +5061,22 @@ public class LoginServiceImpl implements LoginService {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
                 //获取字段
-                id = line.getId();
+                String id = line.getId();
 //                photo = line.getPhoto();
-                class_name =line.getClass_name();
+                String class_name =line.getClass_name();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
 //                    throw new RuntimeException(e);
                 }
+                String create_time = line.getCreate_time();
 
                 //json
                 jsonObject.put("id", id);
                 jsonObject.put("studio", studio);
                 jsonObject.put("class_name", class_name);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("create_time", create_time);
                 resul_list.add(jsonObject);
             }
         } catch (Exception e) {
