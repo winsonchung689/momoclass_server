@@ -5136,6 +5136,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             List<Message> list = dao.getUuidByTarget(class_target,studio,campus);
+            if(list.size() == 0){
+                list = dao.getUuidByTarget(class_target,"大雄工作室","大雄工作室");
+            }
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
