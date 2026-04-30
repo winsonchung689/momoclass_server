@@ -147,11 +147,11 @@ public class AIController {
 			params.put("prompt", question);
 			params.put("n", 1);
 //			536x1024：横向   1024x1536：纵向
-			params.put("size", "1024x1536");
+			params.put("size", "1024x1024");
 			params.put("quality", "low");
 
 			res = HttpUtil.doPost("https://6966.online/v1/images/generations", header, params);
-//			System.out.println(res);
+			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
