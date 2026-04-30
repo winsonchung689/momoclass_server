@@ -148,7 +148,7 @@ public class AIController {
 			params.put("n", 1);
 			params.put("size", "1024x1024");
 
-			res = HttpUtil.doPost("https://api.openai.com/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://6966.online/v1/images/generations", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
