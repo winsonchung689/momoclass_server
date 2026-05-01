@@ -316,6 +316,7 @@ public class HttpUtil {
             Connection connection = Jsoup.connect(url)
                     .ignoreContentType(true)
                     .ignoreHttpErrors(true)
+                    .maxBodySize(0)
                     .timeout(600000)
                     .method(Connection.Method.POST)
                     .requestBody(params == null ? null : params.toJSONString());
