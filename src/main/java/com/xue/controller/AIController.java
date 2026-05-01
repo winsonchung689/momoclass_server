@@ -151,7 +151,7 @@ public class AIController {
 			params.put("quality", "low");
 
 			res = HttpUtil.doPost("https://6966.online/v1/images/generations", header, params);
-			System.out.println(res);
+//			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
