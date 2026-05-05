@@ -5453,7 +5453,7 @@ public class LoginController {
 	public String downloadLesson(String studio,String openid){
 		String path = "/data";
 		studio = studio.replace("/","");
-		String d_path = path +"/downloadLesson/"+ studio + "/" ;
+		String d_path = path +"/downloadLesson/all_lesson/";
 		File file = new File(d_path);
 
 		if (!file.exists()){ //如果不存在
@@ -5468,7 +5468,7 @@ public class LoginController {
 
 		//获取类路径
 		String p_path = null;
-		p_path = path +"/downloadLesson/"+ studio + "/" + studio + ".xls";
+		p_path = path +"/downloadLesson/all_lesson/"+ openid + ".xls";
 		BufferedWriter bw = null;
 
 		//保存csv
