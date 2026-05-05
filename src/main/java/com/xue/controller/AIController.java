@@ -159,6 +159,46 @@ public class AIController {
 		return res;
 	}
 
+	// 直连文生图
+	@RequestMapping("/imgEdit")
+	@ResponseBody
+	public static String imgEdit(String question,String uuid){
+		System.out.println(question);
+		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
+		if("课后点评".equals(question.split("_")[0])){
+			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
+		}
+//		String filePath = "/data/imgs/imgfile.png";
+
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "gpt-image-2");
+			params.put("prompt", question);
+
+			// 图片列表
+			List<JSONObject> images_list = new ArrayList<>();
+			JSONObject image_json = new JSONObject();
+			image_json.put("image_url",img_url);
+			images_list.add(image_json);
+
+			params.put("images", images_list);
+			params.put("n", 1);
+//			536x1024：横向   1024x1536：纵向
+			params.put("size", "1024x1536");
+			params.put("quality", "low");
+
+			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
 	// 直连图生图
 	@RequestMapping("/imgVariations")
 	@ResponseBody
