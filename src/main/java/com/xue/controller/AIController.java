@@ -162,10 +162,10 @@ public class AIController {
 	// 直连文生图
 	@RequestMapping("/imgEdit")
 	@ResponseBody
-	public static String imgEdit(String question,String uuid){
+	public static String imgEdit(String question,String uuid,String image_type){
 		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
-		if("课后点评".equals(question.split("_")[0])){
+		if("课评".equals(image_type)){
 			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
 		}
 //		String filePath = "/data/imgs/imgfile.png";
