@@ -168,7 +168,6 @@ public class AIController {
 		if("课评".equals(image_type)){
 			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
 		}
-//		String filePath = "/data/imgs/imgfile.png";
 
 		String res = null;
 		try {
