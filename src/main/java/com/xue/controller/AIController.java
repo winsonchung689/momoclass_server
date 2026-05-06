@@ -39,7 +39,6 @@ public class AIController {
 
 	////////////////////////////// 中转站接口 //////////////////////////////////
 
-	// 直连图文问答
 	@RequestMapping("/chatImgDirect")
 	@ResponseBody
 	public static String chatImgDirect(String question,String uuid){
@@ -96,7 +95,6 @@ public class AIController {
 		return res;
 	}
 
-	// 直连文本问答
 	@RequestMapping("/chatDirect")
 	@ResponseBody
 	public static String chatDirect(String question){
@@ -126,7 +124,6 @@ public class AIController {
 		return res;
 	}
 
-	// 直连文生图
 	@RequestMapping("/imgGenerateDirect")
 	@ResponseBody
 	public static String imgGenerateDirect(String question){
@@ -154,7 +151,6 @@ public class AIController {
 		return res;
 	}
 
-	// 直连文生图
 	@RequestMapping("/imgEditDirect")
 	@ResponseBody
 	public static String imgEditDirect(String question,String uuid,String image_type){
@@ -193,7 +189,6 @@ public class AIController {
 		return res;
 	}
 
-	// 直连图生图
 	@RequestMapping("/imgVariations")
 	@ResponseBody
 	public static String imgVariations(String uuid){
@@ -253,7 +248,6 @@ public class AIController {
 
     ////////////////////////////// 本地接口 //////////////////////////////////
 
-	//小程序文本问答
 	@RequestMapping("/momoChat")
 	@ResponseBody
 	public static String momoChat(String question){
@@ -270,7 +264,6 @@ public class AIController {
 		return res;
 	}
 
-	//小程序图文问答
 	@RequestMapping("/momoChatImg")
 	@ResponseBody
 	public static String momoChatImg(String question,String uuid){
@@ -287,7 +280,6 @@ public class AIController {
 		return res;
 	}
 
-	//小程序文生图
 	@RequestMapping("/momoImgGenerate")
 	@ResponseBody
 	public static String momoImgGenerate(String question){
@@ -304,7 +296,6 @@ public class AIController {
 		return res;
 	}
 
-	//小程序文生图
 	@RequestMapping("/momoImgEdit")
 	@ResponseBody
 	public static String momoImgEdit(String question,String uuid,String image_type){
