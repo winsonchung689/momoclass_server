@@ -352,41 +352,6 @@ public class AIController {
 			params.put("prompt", question);
 
 			// 图片列表
-			URL url = new URL(img_url);
-			// 打开连接
-			try (InputStream is = url.openStream();
-				 FileOutputStream fos = new FileOutputStream(filePath)) {
-				// 读取数据并写入文件
-				byte[] buffer = new byte[4096]; // 缓冲区大小，可以根据需要调整
-				int bytesRead;
-				while ((bytesRead = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, bytesRead);
-				}
-			} catch (IOException e) {
-				System.err.println("Error reading from URL or writing to file: " + e.getMessage());
-			}
-
-			File file = new File(filePath);
-			CloseableHttpClient client = HttpClients.createDefault();
-			HttpEntity multipart = MultipartEntityBuilder.create()
-					.addBinaryBody(
-							"file",
-							file,
-							ContentType.APPLICATION_OCTET_STREAM,
-							file.getName()
-					)
-					.addTextBody("purpose", "vision") // vision / image / assistants
-					.build();
-
-			HttpPost post = new HttpPost("https://6966.online/v1/files");
-			post.setHeader("Authorization", "Bearer " + OPENAI_API_KEY);
-			post.setEntity(multipart);
-			HttpResponse response = client.execute(post);
-			String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
-			System.out.println("Upload result:");
-			System.out.println(responseString);
-			client.close();
-
 			List<JSONObject> images_list = new ArrayList<>();
 			JSONObject image_json = new JSONObject();
 			image_json.put("image_url",img_url);
