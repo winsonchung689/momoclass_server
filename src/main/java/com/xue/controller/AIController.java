@@ -37,10 +37,12 @@ public class AIController {
 	@Autowired
 	private LoginService loginService;
 
+	////////////////////////////// 中转站接口 //////////////////////////////////
+
 	// 直连图文问答
-	@RequestMapping("/chatImg")
+	@RequestMapping("/chatImgDirect")
 	@ResponseBody
-	public static String chatImg(String question,String uuid){
+	public static String chatImgDirect(String question,String uuid){
 		String res = null;
 		try {
 			String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
@@ -95,9 +97,9 @@ public class AIController {
 	}
 
 	// 直连文本问答
-	@RequestMapping("/chat")
+	@RequestMapping("/chatDirect")
 	@ResponseBody
-	public static String chat(String question){
+	public static String chatDirect(String question){
 		System.out.println(question);
 		String res = null;
 		try {
@@ -112,16 +114,9 @@ public class AIController {
 			jsonObject.put("role", "user");
 			jsonObject.put("content", question);
 			jsonObjects.add(jsonObject);
-//			params.put("reasoning_effort", "medium");
 			params.put("messages", jsonObjects);
 			params.put("max_completion_tokens", 2048);
-//			params.put("top_p", 1);
-//			params.put("frequency_penalty", 0.0);
-//			params.put("presence_penalty", 0.6);
 
-//			JSONArray stop = new JSONArray();
-//			stop.add("<br>");
-//			params.put("stop", stop);
 			res = HttpUtil.doPost("https://api.openai.com/v1/chat/completions", header, params);
 			System.out.println(res);
 		} catch (Exception e) {
@@ -132,9 +127,9 @@ public class AIController {
 	}
 
 	// 直连文生图
-	@RequestMapping("/imgGenerate")
+	@RequestMapping("/imgGenerateDirect")
 	@ResponseBody
-	public static String imgGenerate(String question){
+	public static String imgGenerateDirect(String question){
 		System.out.println(question);
 		String res = null;
 		try {
@@ -160,9 +155,9 @@ public class AIController {
 	}
 
 	// 直连文生图
-	@RequestMapping("/imgEdit")
+	@RequestMapping("/imgEditDirect")
 	@ResponseBody
-	public static String imgEdit(String question,String uuid,String image_type){
+	public static String imgEditDirect(String question,String uuid,String image_type){
 		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		if("课评".equals(image_type)){
@@ -256,7 +251,7 @@ public class AIController {
 		return res;
 	}
 
-////////////////////////////// 分界线 //////////////////////////////////
+    ////////////////////////////// 本地接口 //////////////////////////////////
 
 	//小程序文本问答
 	@RequestMapping("/momoChat")
@@ -266,7 +261,7 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/chat?question=" + question_encode;
+			String url = "http://43.156.34.5:80/chatDirect?question=" + question_encode;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
@@ -283,7 +278,7 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/chatImg?question=" + question_encode + "&uuid=" + uuid;
+			String url = "http://43.156.34.5:80/chatImgDirect?question=" + question_encode + "&uuid=" + uuid;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
@@ -300,7 +295,24 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerate?question=" + question_encode;
+			String url = "http://43.156.34.5:80/imgGenerateDirect?question=" + question_encode;
+			res = HttpUtil.doGet(url);
+			System.out.println(res);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	//小程序文生图
+	@RequestMapping("/momoImgEdit")
+	@ResponseBody
+	public static String momoImgEdit(String question,String uuid,String image_type){
+		String res = null;
+		System.out.println(question);
+		try {
+			String question_encode = URLEncoder.encode(question, "UTF-8");
+			String url = "http://43.156.34.5:80/imgGenerateDirect?question=" + question_encode + "&uuid=" + uuid + "&image_type=" + image_type;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
@@ -321,6 +333,74 @@ public class AIController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		return res;
+	}
+
+
+	////////////////////////////// 第三方接口 //////////////////////////////////
+
+	@RequestMapping("/imgEdit")
+	@ResponseBody
+	public static String imgEdit(String question,String uuid,String image_type){
+		System.out.println(question);
+		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
+		if("课评".equals(image_type)){
+			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
+		}
+
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "gpt-image-2");
+			params.put("prompt", question);
+
+			// 图片列表
+			List<JSONObject> images_list = new ArrayList<>();
+			JSONObject image_json = new JSONObject();
+			image_json.put("image_url",img_url);
+			images_list.add(image_json);
+
+			params.put("images", images_list);
+			params.put("n", 1);
+//			536x1024：横向   1024x1536：纵向
+			params.put("size", "1024x1536");
+			params.put("quality", "low");
+
+			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	@RequestMapping("/imgGenerate")
+	@ResponseBody
+	public static String imgGenerate(String question){
+		System.out.println(question);
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("model", "gpt-image-2");
+			params.put("prompt", question);
+			params.put("n", 1);
+//			536x1024：横向   1024x1536：纵向
+			params.put("size", "1024x1536");
+			params.put("quality", "low");
+
+			res = HttpUtil.doPost("https://6966.online/v1/images/generations", header, params);
+//			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
 		return res;
 	}
 
