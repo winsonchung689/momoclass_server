@@ -23,12 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class AIController {
@@ -49,6 +47,27 @@ public class AIController {
 			if("课后点评".equals(question.split("_")[0])){
 				img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
 			}
+
+			// ========== ① 下载远程图片 ==========
+			URL url = new URL(img_url);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(60000);   // 下载图片的超时时间
+			conn.setReadTimeout(60000);
+
+			InputStream in = conn.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = in.read(buf)) != -1) {
+				out.write(buf, 0, len);
+			}
+			in.close();
+
+			byte[] imgBytes = out.toByteArray();
+
+			// ========== ② 图片转 Base64 ==========
+			String base64Img = Base64.getEncoder().encodeToString(imgBytes);
+			String base64Url = "data:image/jpeg;base64," + base64Img;
 
 
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
@@ -71,7 +90,7 @@ public class AIController {
 			JSONObject content_js_img = new JSONObject();
 			content_js_img.put("type","image_url");
 			JSONObject img_js = new JSONObject();
-			img_js.put("url",img_url);
+			img_js.put("url",base64Url);
 			content_js_img.put("image_url",img_js);
 			// 入参
 			content_list.add(content_js_text);
