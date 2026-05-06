@@ -67,7 +67,7 @@ public class AIController {
 
 			// ========== ② 图片转 Base64 ==========
 			String base64Img = Base64.getEncoder().encodeToString(imgBytes);
-			String base64Url = "data:image/jpeg;base64," + base64Img;
+			String base64Url = "data:image/png;base64," + base64Img;
 
 
 			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
@@ -370,10 +370,31 @@ public class AIController {
 			params.put("model", "gpt-image-2");
 			params.put("prompt", question);
 
+			// ========== ① 下载远程图片 ==========
+			URL url = new URL(img_url);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(60000);   // 下载图片的超时时间
+			conn.setReadTimeout(60000);
+
+			InputStream in = conn.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = in.read(buf)) != -1) {
+				out.write(buf, 0, len);
+			}
+			in.close();
+
+			byte[] imgBytes = out.toByteArray();
+
+			// ========== ② 图片转 Base64 ==========
+			String base64Img = Base64.getEncoder().encodeToString(imgBytes);
+			String base64Url = "data:image/png;base64," + base64Img;
+
 			// 图片列表
 			List<JSONObject> images_list = new ArrayList<>();
 			JSONObject image_json = new JSONObject();
-			image_json.put("image_url",img_url);
+			image_json.put("image_url",base64Url);
 			images_list.add(image_json);
 
 			params.put("images", images_list);
