@@ -2,6 +2,7 @@ package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
+import com.sun.javafx.scene.traversal.TopMostTraversalEngine;
 import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
 import org.apache.http.HttpEntity;
@@ -363,6 +364,7 @@ public class AIController {
 		String res = null;
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+			System.out.println(OPENAI_API_KEY);
 			Map<String, String> header = new HashMap<String, String>();
 			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
