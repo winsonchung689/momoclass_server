@@ -364,7 +364,6 @@ public class AIController {
 		String res = null;
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
-			System.out.println(OPENAI_API_KEY);
 			Map<String, String> header = new HashMap<String, String>();
 			header.put("Content-Type", "application/json");
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
