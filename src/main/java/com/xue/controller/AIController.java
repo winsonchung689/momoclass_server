@@ -174,7 +174,7 @@ public class AIController {
 
 	@RequestMapping("/imgEditDirect")
 	@ResponseBody
-	public static String imgEditDirect(String question,String uuid,String image_type){
+	public static String imgEditDirect(String question,String uuid,String image_type,String ratio){
 		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		if("课评".equals(image_type)){
@@ -200,7 +200,13 @@ public class AIController {
 			params.put("images", images_list);
 			params.put("n", 1);
 //			536x1024：横向   1024x1536：纵向
-			params.put("size", "1024x1536");
+			String size = "1024x1536";
+			if("横版".equals(ratio)){
+				size = "1536x1024";
+			} else if ("方形".equals(ratio)) {
+				size = "1024x1024";
+			}
+			params.put("size", size);
 			params.put("quality", "low");
 
 			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
@@ -353,7 +359,7 @@ public class AIController {
 
 	@RequestMapping("/imgEdit")
 	@ResponseBody
-	public static String imgEdit(String question,String uuid,String image_type){
+	public static String imgEdit(String question,String uuid,String image_type,String ratio){
 		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		if("课评".equals(image_type)){
@@ -400,8 +406,16 @@ public class AIController {
 
 			params.put("images", images_list);
 			params.put("n", 1);
-//			536x1024：横向   1024x1536：纵向
-			params.put("size", "1024x1536");
+
+//			横版:1536x1024   竖版:1024x1536  方形:1024x1024
+			String size = "1024x1536";
+			if("横版".equals(ratio)){
+				size = "1536x1024";
+			} else if ("方形".equals(ratio)) {
+				size = "1024x1024";
+			}
+			params.put("size", size);
+
 			params.put("quality", "low");
 
 			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
