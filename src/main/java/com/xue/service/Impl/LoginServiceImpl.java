@@ -6124,7 +6124,7 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
-        List<User> list = dao.getAllUser();
+        List<User> list = dao.getAllOfficialUser();
         for (int i = 0; i < list.size(); i++) {
             try {
                 User user = list.get(i);

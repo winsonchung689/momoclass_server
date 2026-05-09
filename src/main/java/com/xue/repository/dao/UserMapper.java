@@ -849,7 +849,11 @@ public interface UserMapper {
     List<User> getBossByStudio(String studio);
 
     List<User> getBossByStudioOnly(String studio);
+
     List<User> getAllUser();
+
+
+    List<User> getAllOfficialUser();
 
     List<User> getAllBoss();
 
