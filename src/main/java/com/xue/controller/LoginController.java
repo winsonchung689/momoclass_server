@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +60,14 @@ public class LoginController {
 	@ResponseBody
 	public void  produceClassRemindRedis(){
 		loginService.produceClassRemindRedis("none","all");
+	}
+
+	@RequestMapping("/testRedis")
+	@ResponseBody
+	public void  testRedis(){
+		Jedis jedis = new Jedis("127.0.0.1", 6379);
+		jedis.zadd("delay_queue",1788335753,"taskData");
+		System.out.println("11");
 	}
 
 	@RequestMapping("/sendLeaveRemind")
