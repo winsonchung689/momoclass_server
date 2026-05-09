@@ -6358,12 +6358,12 @@ public class LoginServiceImpl implements LoginService {
                                     }
                                 }
 
-                                if("all".equals(type) || studio.equals(studio_in)){
-                                    String timestamp_start_str = df.format(timestamp_start);
-                                    if(timestamp_start_str.equals(td_date) && timestamp_start >= td_time){
-                                        jedis.zadd("delay_queue",timestamp_start/1000,taskData);
-                                    }
+
+                                String timestamp_start_str = df.format(timestamp_start);
+                                if(timestamp_start_str.equals(td_date) && timestamp_start >= td_time){
+                                    jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                                 }
+
                             }
                         }
                     }
