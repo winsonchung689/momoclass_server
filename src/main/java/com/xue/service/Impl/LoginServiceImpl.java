@@ -6360,6 +6360,13 @@ public class LoginServiceImpl implements LoginService {
 
 
                                 String timestamp_start_str = df.format(timestamp_start);
+
+                                System.out.println(timestamp_start_str);
+                                System.out.println(td_date);
+
+                                System.out.println(timestamp_start);
+                                System.out.println(td_time);
+
                                 if(timestamp_start_str.equals(td_date) && timestamp_start >= td_time){
                                     jedis.zadd("delay_queue",timestamp_start/1000,taskData);
                                 }
