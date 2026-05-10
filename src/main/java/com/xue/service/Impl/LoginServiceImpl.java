@@ -10671,11 +10671,14 @@ public class LoginServiceImpl implements LoginService {
                     String class_number = schedule.getClass_number();
                     String duration = schedule.getDuration();
                     String subject = schedule.getSubject();
+                    String add_date = schedule.getAdd_date()
+
 
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("subject", subject);
+                    jsonObject.put("create_time", add_date);
                     resul_list.add(jsonObject);
                 }
             }
@@ -10829,11 +10832,13 @@ public class LoginServiceImpl implements LoginService {
                     String class_number = schedule.getClass_number();
                     String duration = schedule.getDuration();
                     String subject = schedule.getSubject();
+                    String add_date = schedule.getAdd_date();
 
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("subject", subject);
+                    jsonObject.put("create_time", add_date);
                     resul_list.add(jsonObject);
                 }
             }
@@ -10983,11 +10988,13 @@ public class LoginServiceImpl implements LoginService {
                     String class_number = schedule.getClass_number();
                     String duration = schedule.getDuration();
                     String subject = schedule.getSubject();
+                    String add_date = schedule.getAdd_date();
 
                     jsonObject.put("student_name", student_name);
                     jsonObject.put("class_number", class_number);
                     jsonObject.put("duration", duration);
                     jsonObject.put("subject", subject);
+                    jsonObject.put("create_time", add_date);
                     resul_list.add(jsonObject);
                 }
             }
