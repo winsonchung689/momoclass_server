@@ -10671,7 +10671,7 @@ public class LoginServiceImpl implements LoginService {
                     String class_number = schedule.getClass_number();
                     String duration = schedule.getDuration();
                     String subject = schedule.getSubject();
-                    String add_date = schedule.getAdd_date()
+                    String add_date = schedule.getAdd_date();
 
 
                     jsonObject.put("student_name", student_name);
