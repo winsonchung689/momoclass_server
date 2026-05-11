@@ -442,7 +442,7 @@ public class AIController {
 
 				//主体图片
 				JSONObject image_json_logo = new JSONObject();
-				image_json.put("image_url",base64LogoUrl);
+				image_json_logo.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
 
 				question  = "基于这些图片，"+question + ",最后品牌Logo放在海报的左上角的位置,不要把logo图错误当作海报主图";
