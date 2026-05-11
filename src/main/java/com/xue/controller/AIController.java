@@ -362,7 +362,6 @@ public class AIController {
 	@RequestMapping("/imgEdit")
 	@ResponseBody
 	public String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
-		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		if("课评".equals(image_type)){
 			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
@@ -446,8 +445,9 @@ public class AIController {
 				image_json.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
 
-				question  = question + ",logo图片保留原样放在整体的左上角,大小适中";
+				question  = "把第一张图片作为主图，"+question + ",第二张是商标图片，放在整体海报的左上角";
 			}
+			System.out.println(question);
 
 			params.put("images", images_list);
 			params.put("n", 1);
