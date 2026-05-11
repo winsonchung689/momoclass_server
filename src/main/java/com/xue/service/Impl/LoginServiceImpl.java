@@ -5135,6 +5135,20 @@ public class LoginServiceImpl implements LoginService {
 
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            // 获取logo
+            String logo_uuid = null;
+            List<Message> messages = dao.getFrameModel(studio,0,6,"Logo图片");
+            if(messages.size()>0){
+                Message message = messages.get(0);
+                logo_uuid = message.getUuids();
+                try {
+                    logo_uuid = logo_uuid.replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+
+            }
+
             List<Message> list = dao.getUuidByTarget(class_target,studio,campus);
             if(list.size() == 0){
                 list = dao.getUuidByTarget(class_target,"大雄工作室","大雄工作室");
@@ -5160,6 +5174,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("id", id);
                 jsonObject.put("create_time", create_time);
                 jsonObject.put("uuids", uuids);
+                jsonObject.put("logo_uuid", logo_uuid);
                 jsonObject.put("comment", comment);
                 jsonObject.put("studio", studio_get);
                 resul_list.add(jsonObject);
