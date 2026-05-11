@@ -3,6 +3,8 @@ package com.xue.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.sun.javafx.scene.traversal.TopMostTraversalEngine;
+import com.xue.entity.model.Message;
+import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
 import org.apache.http.HttpEntity;
@@ -23,11 +25,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.List;
 
 @Controller
 public class AIController {
@@ -36,6 +40,9 @@ public class AIController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private UserMapper dao;
 
 	////////////////////////////// 中转站接口 //////////////////////////////////
 
@@ -359,13 +366,20 @@ public class AIController {
 
 	@RequestMapping("/imgEdit")
 	@ResponseBody
-	public static String imgEdit(String question,String uuid,String image_type,String ratio){
+	public static String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
 		System.out.println(question);
 		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
 		if("课评".equals(image_type)){
 			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
 		}
-		String filePath = "/data/imgs/imgfile.png";
+
+		String logo_url = "none";
+		List<Message> messages = dao.getFrameModel(studio,0,6,"Logo图片");
+		if(messages.size()>0){
+			Message message = messages.get(0);
+			String logo_uuid = message.getUuids();
+			logo_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + logo_uuid;
+		}
 
 		String res = null;
 		try {
@@ -375,7 +389,7 @@ public class AIController {
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
 			params.put("model", "gpt-image-2");
-			params.put("prompt", question);
+
 
 			// ========== ① 下载远程图片 ==========
 			URL url = new URL(img_url);
@@ -400,9 +414,40 @@ public class AIController {
 
 			// 图片列表
 			List<JSONObject> images_list = new ArrayList<>();
+			//主体图片
 			JSONObject image_json = new JSONObject();
 			image_json.put("image_url",base64Url);
 			images_list.add(image_json);
+
+			//logo图片
+			if(!"none".equals(logo_url)){
+				URL url1 = new URL(logo_url);
+				HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
+				conn.setConnectTimeout(60000);   // 下载图片的超时时间
+				conn.setReadTimeout(60000);
+
+				InputStream in1 = conn.getInputStream();
+				ByteArrayOutputStream out1 = new ByteArrayOutputStream();
+				byte[] buf1 = new byte[1024];
+				int len1;
+				while ((len1 = in1.read(buf1)) != -1) {
+					out1.write(buf1, 0, len1);
+				}
+				in.close();
+
+				byte[] imgBytes1 = out.toByteArray();
+
+				// ========== ② 图片转 Base64 ==========
+				String base64LogoImg = Base64.getEncoder().encodeToString(imgBytes1);
+				String base64LogoUrl = "data:image/png;base64," + base64LogoImg;
+
+				//主体图片
+				JSONObject image_json_logo = new JSONObject();
+				image_json.put("image_url",base64LogoUrl);
+				images_list.add(image_json_logo);
+
+				question  = question + ",logo图片保留原样放在整体的左上角，大小适中";
+			}
 
 			params.put("images", images_list);
 			params.put("n", 1);
@@ -415,8 +460,8 @@ public class AIController {
 				size = "1024x1024";
 			}
 			params.put("size", size);
-
 			params.put("quality", "low");
+			params.put("prompt", question);
 
 			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
 		} catch (Exception e) {

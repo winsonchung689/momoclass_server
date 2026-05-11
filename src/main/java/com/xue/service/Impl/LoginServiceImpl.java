@@ -5056,7 +5056,7 @@ public class LoginServiceImpl implements LoginService {
         }
         List<JSONObject> resul_list = new ArrayList<>();
         try {
-            List<Message> list = dao.getFrameModel(studio,page_start,page_length,class_target,campus);
+            List<Message> list = dao.getFrameModel(studio,page_start,page_length,class_target);
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 Message line = list.get(i);
