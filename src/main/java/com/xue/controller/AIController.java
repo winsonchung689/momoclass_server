@@ -373,6 +373,11 @@ public class AIController {
 		if(messages.size()>0){
 			Message message = messages.get(0);
 			String logo_uuid = message.getUuids();
+			try {
+				logo_uuid = logo_uuid.replace("\"","").replace("[","").replace("]","");
+			} catch (Exception e) {
+//                    throw new RuntimeException(e);
+			}
 			logo_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + logo_uuid;
 		}
 
