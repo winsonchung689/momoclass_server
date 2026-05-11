@@ -445,7 +445,7 @@ public class AIController {
 				image_json_logo.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
 
-				question  = "基于学生作品"+question + ",最后品牌Logo放在海报的左上角的位置";
+				question  = "基于学生作品"+question + ",最后把品牌Logo放在海报的左上角的位置";
 			}
 			System.out.println(question);
 
