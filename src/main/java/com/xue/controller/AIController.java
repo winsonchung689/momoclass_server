@@ -1,14 +1,11 @@
 package com.xue.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson2.JSONArray;
-import com.sun.javafx.scene.traversal.TopMostTraversalEngine;
 import com.xue.entity.model.Message;
 import com.xue.repository.dao.UserMapper;
 import com.xue.service.LoginService;
 import com.xue.util.HttpUtil;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -25,13 +22,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
-import java.util.List;
 
 @Controller
 public class AIController {
