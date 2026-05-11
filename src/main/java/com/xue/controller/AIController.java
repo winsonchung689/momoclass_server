@@ -445,7 +445,7 @@ public class AIController {
 				image_json.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
 
-				question  = "基于这些图片"+question + ",其中品牌Logo图片放在左上角的位置";
+				question  = "基于这些图片"+question + ",其中学生作品作为主体,品牌Logo图片放在左上角的位置";
 			}
 			System.out.println(question);
 
