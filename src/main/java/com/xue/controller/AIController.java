@@ -418,17 +418,17 @@ public class AIController {
 			if(!"none".equals(logo_url)){
 				URL url1 = new URL(logo_url);
 				HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
-				conn.setConnectTimeout(60000);   // 下载图片的超时时间
-				conn.setReadTimeout(60000);
+				conn1.setConnectTimeout(60000);   // 下载图片的超时时间
+				conn1.setReadTimeout(60000);
 
-				InputStream in1 = conn.getInputStream();
+				InputStream in1 = conn1.getInputStream();
 				ByteArrayOutputStream out1 = new ByteArrayOutputStream();
 				byte[] buf1 = new byte[1024];
 				int len1;
 				while ((len1 = in1.read(buf1)) != -1) {
 					out1.write(buf1, 0, len1);
 				}
-				in.close();
+				in1.close();
 
 				byte[] imgBytes1 = out.toByteArray();
 
