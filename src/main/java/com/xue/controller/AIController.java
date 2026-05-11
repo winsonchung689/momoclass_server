@@ -434,7 +434,7 @@ public class AIController {
 				}
 				in1.close();
 
-				byte[] imgBytes1 = out.toByteArray();
+				byte[] imgBytes1 = out1.toByteArray();
 
 				// ========== ② 图片转 Base64 ==========
 				String base64LogoImg = Base64.getEncoder().encodeToString(imgBytes1);
@@ -445,7 +445,7 @@ public class AIController {
 				image_json.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
 
-				question  = "把第一张图片作为主图，"+question + ",第二张是商标图片，放在整体海报的左上角";
+				question  = "基于这些图片"+question + ",其中品牌Logo图片放在左上角的位置";
 			}
 			System.out.println(question);
 
