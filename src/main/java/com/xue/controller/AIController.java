@@ -393,7 +393,7 @@ public class AIController {
 			List<JSONObject> images_list = new ArrayList<>();
 			//主体图片
 			JSONObject image_json = new JSONObject();
-			String base64Url = urlToBase64(baseUrl + uuid;);
+			String base64Url = urlToBase64(baseUrl + uuid);
 			image_json.put("image_url",base64Url);
 			images_list.add(image_json);
 
