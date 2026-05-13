@@ -8151,8 +8151,8 @@ public class LoginServiceImpl implements LoginService {
     public List getGrowthRecord(String studio, Integer page, String student_name) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 
-        Integer page_start = (page - 1) * 4;
-        Integer page_length = 4;
+        Integer page_start = (page - 1) * 6;
+        Integer page_length = 6;
         List<JSONObject> resul_list = new ArrayList<>();
 
         try {
