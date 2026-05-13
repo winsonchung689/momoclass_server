@@ -391,11 +391,17 @@ public class AIController {
 
 			// 图片列表
 			List<JSONObject> images_list = new ArrayList<>();
-			//主体图片
-			JSONObject image_json = new JSONObject();
-			String base64Url = urlToBase64(baseUrl + uuid);
-			image_json.put("image_url",base64Url);
-			images_list.add(image_json);
+
+			// 学生图片
+			String[] uuid_list = uuid.split(",");
+			for(int i =0;i<uuid_list.length;i++){
+				String uuid_get = uuid_list[i];
+				JSONObject image_json = new JSONObject();
+				String base64Url = urlToBase64(baseUrl + uuid_get);
+				image_json.put("image_url",base64Url);
+				images_list.add(image_json);
+			}
+
 
 			//logo图片
 			if(!"none".equals(logo_url)){
