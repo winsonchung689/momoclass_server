@@ -402,7 +402,6 @@ public class AIController {
 				images_list.add(image_json);
 			}
 
-
 			//logo图片
 			if(!"none".equals(logo_url)){
 				//主体图片
