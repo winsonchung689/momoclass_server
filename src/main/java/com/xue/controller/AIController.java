@@ -362,9 +362,9 @@ public class AIController {
 	@RequestMapping("/imgEdit")
 	@ResponseBody
 	public String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
-		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
+		String baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/";
 		if("课评".equals(image_type)){
-			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
+			baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadimages/";
 		}
 
 		String logo_url = "none";
@@ -389,62 +389,21 @@ public class AIController {
 			JSONObject params = new JSONObject();
 			params.put("model", "gpt-image-2");
 
-
-			// ========== ① 下载远程图片 ==========
-			URL url = new URL(img_url);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setConnectTimeout(60000);   // 下载图片的超时时间
-			conn.setReadTimeout(60000);
-
-			InputStream in = conn.getInputStream();
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int len;
-			while ((len = in.read(buf)) != -1) {
-				out.write(buf, 0, len);
-			}
-			in.close();
-
-			byte[] imgBytes = out.toByteArray();
-
-			// ========== ② 图片转 Base64 ==========
-			String base64Img = Base64.getEncoder().encodeToString(imgBytes);
-			String base64Url = "data:image/png;base64," + base64Img;
-
 			// 图片列表
 			List<JSONObject> images_list = new ArrayList<>();
 			//主体图片
 			JSONObject image_json = new JSONObject();
+			String base64Url = urlToBase64(baseUrl + uuid;);
 			image_json.put("image_url",base64Url);
 			images_list.add(image_json);
 
 			//logo图片
 			if(!"none".equals(logo_url)){
-				URL url1 = new URL(logo_url);
-				HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
-				conn1.setConnectTimeout(60000);   // 下载图片的超时时间
-				conn1.setReadTimeout(60000);
-
-				InputStream in1 = conn1.getInputStream();
-				ByteArrayOutputStream out1 = new ByteArrayOutputStream();
-				byte[] buf1 = new byte[1024];
-				int len1;
-				while ((len1 = in1.read(buf1)) != -1) {
-					out1.write(buf1, 0, len1);
-				}
-				in1.close();
-
-				byte[] imgBytes1 = out1.toByteArray();
-
-				// ========== ② 图片转 Base64 ==========
-				String base64LogoImg = Base64.getEncoder().encodeToString(imgBytes1);
-				String base64LogoUrl = "data:image/png;base64," + base64LogoImg;
-
 				//主体图片
 				JSONObject image_json_logo = new JSONObject();
+				String base64LogoUrl = urlToBase64(logo_url);
 				image_json_logo.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
-
 				question  = "基于学生作品"+question + ",最后把品牌Logo放在海报的左上角的位置,大小约120*120";
 			}
 			System.out.println(question);
@@ -495,6 +454,36 @@ public class AIController {
 		}
 
 		return res;
+	}
+
+	public static String urlToBase64(String image_url){
+		// ========== ① 下载远程图片 ==========
+		byte[] imgBytes = new byte[0];
+		try {
+			URL url = new URL(image_url);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(60000);   // 下载图片的超时时间
+			conn.setReadTimeout(60000);
+
+			InputStream in = conn.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = in.read(buf)) != -1) {
+				out.write(buf, 0, len);
+			}
+			in.close();
+
+			imgBytes = out.toByteArray();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		// ========== ② 图片转 Base64 ==========
+		String base64Img = Base64.getEncoder().encodeToString(imgBytes);
+		String base64Url = "data:image/png;base64," + base64Img;
+
+		return base64Url;
 	}
 
 }
