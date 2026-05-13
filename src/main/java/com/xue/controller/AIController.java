@@ -409,7 +409,7 @@ public class AIController {
 				String base64LogoUrl = urlToBase64(logo_url);
 				image_json_logo.put("image_url",base64LogoUrl);
 				images_list.add(image_json_logo);
-				question  = "基于学生作品"+ question + ",最后把品牌Logo保留原样地放在海报的左上角的位置,大小约120*120";
+				question  = "图组中有一张是品牌logo图其他是学生作品图，先基于学生作品"+ question + ",最后再把Logo放在海报的左上角的位置,大小约120*120，不要改动logo图案";
 			}
 			System.out.println(question);
 
