@@ -3791,7 +3791,9 @@ public class LoginController {
 						break;
 					}
 				}
-			}else if(lessons.size()>0 && "0".equals(package_id)) {
+			}
+
+			if(lessons.size()>0 && "0".equals(package_id)) {
 				Lesson lesson = lessons.get(0);
 				String lesson_id = lesson.getId();
 				String related_id = lesson.getRelated_id();
