@@ -7848,9 +7848,12 @@ public class LoginController {
 			package_id = "0";
 		}
 
-		if (("0".equals(package_id))) {
+		// 添加课包id
+		if ("0".equals(package_id)) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
-			if(lessonPackages.size()>0){
+			List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
+
+			if(lessonPackages.size()>0 && "0".equals(package_id)){
 				for (int i = 0; i < lessonPackages.size(); i++) {
 					LessonPackage lessonPackage  = lessonPackages.get(i);
 					String package_id_get = lessonPackage.getId();
@@ -7870,41 +7873,40 @@ public class LoginController {
 						break;
 					}
 				}
-			}else {
-				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-				if(lessons.size()>0) {
-					Lesson lesson = lessons.get(0);
-					String lesson_id = lesson.getId();
-					String related_id = lesson.getRelated_id();
-					String[] related_id_list = related_id.split(",");
-					for (int i = 0; i < related_id_list.length; i++) {
-						String id_get = related_id_list[i];
-						if (id_get != null && id_get != "" && !lesson_id.equals(id_get) && id_get != "no_id") {
-							List<Lesson> lessons_get = dao.getLessonById(id_get);
-							if (lessons_get.size() > 0) {
-								Lesson lesson_get = lessons_get.get(0);
-								String student_name_get = lesson_get.getStudent_name();
-								String subject_get = lesson_get.getSubject();
-								List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get, studio, campus, subject_get);
-								if (lessonPackages_get.size() > 0) {
-									for (int j = 0; j < lessonPackages_get.size(); j++) {
-										LessonPackage lessonPackage  = lessonPackages_get.get(j);
-										String package_id_get = lessonPackage.getId();
-										Float all_lesson = lessonPackage.getAll_lesson();
-										Float give_lesson = lessonPackage.getGive_lesson();
-										List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
-										Float package_sum = 0.0f;
-										if(signUps.size()>0){
-											for (int k = 0; k < signUps.size(); k++) {
-												Float count = signUps.get(k).getCount();
-												package_sum = package_sum + count;
-											}
+			}
+
+			if(lessons.size()>0 && "0".equals(package_id)) {
+				Lesson lesson = lessons.get(0);
+				String lesson_id = lesson.getId();
+				String related_id = lesson.getRelated_id();
+				String[] related_id_list = related_id.split(",");
+				for (int i = 0; i < related_id_list.length; i++) {
+					String id_get = related_id_list[i];
+					if (id_get != null && id_get != "" && !lesson_id.equals(id_get) && id_get != "no_id") {
+						List<Lesson> lessons_get = dao.getLessonById(id_get);
+						if (lessons_get.size() > 0) {
+							Lesson lesson_get = lessons_get.get(0);
+							String student_name_get = lesson_get.getStudent_name();
+							String subject_get = lesson_get.getSubject();
+							List<LessonPackage> lessonPackages_get = dao.getLessonPackage(student_name_get, studio, campus, subject_get);
+							if (lessonPackages_get.size() > 0) {
+								for (int j = 0; j < lessonPackages_get.size(); j++) {
+									LessonPackage lessonPackage  = lessonPackages_get.get(j);
+									String package_id_get = lessonPackage.getId();
+									Float all_lesson = lessonPackage.getAll_lesson();
+									Float give_lesson = lessonPackage.getGive_lesson();
+									List<SignUp> signUps = dao.getSignUpByPackageId(studio,campus,package_id_get);
+									Float package_sum = 0.0f;
+									if(signUps.size()>0){
+										for (int k = 0; k < signUps.size(); k++) {
+											Float count = signUps.get(k).getCount();
+											package_sum = package_sum + count;
 										}
-										Float lesson_left = all_lesson + give_lesson - package_sum;
-										if(lesson_left > 0){
-											package_id = package_id_get;
-											break;
-										}
+									}
+									Float lesson_left = all_lesson + give_lesson - package_sum;
+									if(lesson_left > 0){
+										package_id = package_id_get;
+										break;
 									}
 								}
 							}
@@ -8031,7 +8033,6 @@ public class LoginController {
 				sendConsumeLesson(openid,consume_lesson_amount,student_name,subject,date_time);
 			}
 		}
-
 
 		return "push massage successfully";
 	}
