@@ -1661,6 +1661,10 @@
     select * from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m-%d') =#{param2} and delete_status = 0 order by create_time
   </select>
 
+  <select id="getBookDetailByDuration" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
+    select * from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m-%d') between #{param2} and #{param3} and book_name = #{param4} and delete_status = 0 order by create_time desc
+  </select>
+
   <select id="getWorkingSumByDay" parameterType="com.xue.entity.model.BookDetail" resultMap="BaseBookDetail">
     select date_format(create_time, '%Y-%m-%d') create_time,sum(amount) amount,sum(hours) hours from book_detail where openid =#{param1} and date_format(create_time, '%Y-%m') =#{param2} and delete_status = 0 group by date_format(create_time, '%Y-%m-%d')
   </select>

@@ -326,6 +326,20 @@ public class BookController {
 		return 1;
 	}
 
+	@RequestMapping("/getBBookDetail")
+	@ResponseBody
+	public List getBBookDetail(String openid,String duration,String book_name){
+		List list = null;
+		try {
+			String start_time = duration.split("_")[0];
+			String end_time = duration.split("_")[1];
+			list = dao.getBookDetailByDuration(openid,start_time,end_time,book_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@RequestMapping("/insertBookDetail")
 	@ResponseBody
 	public String insertBookDetail(HttpServletRequest request, HttpServletResponse response){

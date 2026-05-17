@@ -777,6 +777,8 @@ public interface UserMapper {
 
     List<BookDetail> getWorkingDetail(String openid,String date_time);
 
+    List<BookDetail> getBookDetailByDuration(String openid,String start_time,String end_time,String book_name);
+
     List<BookDetail> getWorkingSumByDay(String openid,String date_time);
 
     List<RestaurantUser> getRestaurantUserAll();
