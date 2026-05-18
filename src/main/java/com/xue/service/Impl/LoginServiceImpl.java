@@ -1389,13 +1389,18 @@ public class LoginServiceImpl implements LoginService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now_time = df.format(new Date());
         List<JSONObject> resul_list = new ArrayList<>();
-        List<User> Users = dao.getUser(openid);
-        User user = Users.get(0);
-        String studio = user.getStudio();
-        String campus = user.getCampus();
+        String studio = null;
+        String campus = null;
+        List<Gift> list = null;
 
         try {
-            List<Gift> list = null;
+            if(coupon_type == 1 || coupon_type == 2 || coupon_type == 3){
+                List<User> Users = dao.getUser(openid);
+                User user = Users.get(0);
+                studio = user.getStudio();
+                campus = user.getCampus();
+            }
+
             if(coupon_type == 1){
                 list = dao.getGift(student_name, studio,campus);
             }else if(coupon_type == 2){
