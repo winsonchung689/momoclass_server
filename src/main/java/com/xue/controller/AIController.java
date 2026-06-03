@@ -417,13 +417,13 @@ public class AIController {
 			params.put("n", 1);
 
 //			横版:1536x1024   竖版:1024x1536  方形:1024x1024
-//			String size = "1024x1536";
-//			if("横版".equals(ratio)){
-//				size = "1536x1024";
-//			} else if ("方形".equals(ratio)) {
-//				size = "1024x1024";
-//			}
-			params.put("size", "9:16");
+			String size = "2:3";
+			if("横版".equals(ratio)){
+				size = "3:2";
+			} else if ("方形".equals(ratio)) {
+				size = "1:1";
+			}
+			params.put("size", size);
 			params.put("quality", "low");
 			params.put("prompt", question);
 
