@@ -468,13 +468,8 @@ public class AIController {
 		String res = null;
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
-			Map<String, String> header = new HashMap<String, String>();
-			header.put("Content-Type", "application/json");
-			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
-			JSONObject params = new JSONObject();
-			params.put("task_id", task_id);
 
-			res = HttpUtil.doPost("https://api.apimart.ai/v1/tasks/"+task_id, header, params);
+			res = HttpUtil.doGetHeader("https://api.apimart.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
