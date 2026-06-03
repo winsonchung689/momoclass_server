@@ -461,6 +461,27 @@ public class AIController {
 		return res;
 	}
 
+	@RequestMapping("/getTasks")
+	@ResponseBody
+	public static String getTasks(String task_id){
+		System.out.println(task_id);
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+			Map<String, String> header = new HashMap<String, String>();
+			header.put("Content-Type", "application/json");
+			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
+			JSONObject params = new JSONObject();
+			params.put("task_id", task_id);
+
+			res = HttpUtil.doPost("https://api.apimart.ai/v1/tasks/"+task_id, header, params);
+//			System.out.println(res);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
 	public static String urlToBase64(String image_url){
 		// ========== ① 下载远程图片 ==========
 		byte[] imgBytes = new byte[0];
