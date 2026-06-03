@@ -427,7 +427,7 @@ public class AIController {
 			params.put("quality", "low");
 			params.put("prompt", question);
 
-			res = HttpUtil.doPost("https://www.tomimatsu.cn/v1/images/edits", header, params);
+			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/edits", header, params);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -452,7 +452,7 @@ public class AIController {
 			params.put("size", "1024x1536");
 			params.put("quality", "low");
 
-			res = HttpUtil.doPost("https://startapi.top/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
