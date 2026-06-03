@@ -390,7 +390,7 @@ public class AIController {
 			params.put("model", "gpt-image-2");
 
 			// 图片列表
-			List<JSONObject> images_list = new ArrayList<>();
+			List<String> images_list = new ArrayList<>();
 
 			// 学生图片
 			String[] uuid_list = uuid.split(",");
@@ -398,8 +398,8 @@ public class AIController {
 				String uuid_get = uuid_list[i];
 				JSONObject image_json = new JSONObject();
 				String base64Url = urlToBase64(baseUrl + uuid_get);
-				image_json.put("image_url",base64Url);
-				images_list.add(image_json);
+//				image_json.put("image_url",base64Url);
+				images_list.add(base64Url);
 			}
 
 			//logo图片
@@ -407,27 +407,27 @@ public class AIController {
 				//主体图片
 				JSONObject image_json_logo = new JSONObject();
 				String base64LogoUrl = urlToBase64(logo_url);
-				image_json_logo.put("image_url",base64LogoUrl);
-				images_list.add(image_json_logo);
+//				image_json_logo.put("image_url",base64LogoUrl);
+				images_list.add(base64LogoUrl);
 				question  = "图组中有一张是品牌logo图其他是学生作品图，先基于学生作品"+ question + ",最后再把Logo放在海报的左上角的位置,大小约120*120，不要改动logo图案";
 			}
 			System.out.println(question);
 
-			params.put("images", images_list);
+			params.put("image_urls", images_list);
 			params.put("n", 1);
 
 //			横版:1536x1024   竖版:1024x1536  方形:1024x1024
-			String size = "1024x1536";
-			if("横版".equals(ratio)){
-				size = "1536x1024";
-			} else if ("方形".equals(ratio)) {
-				size = "1024x1024";
-			}
-			params.put("size", size);
+//			String size = "1024x1536";
+//			if("横版".equals(ratio)){
+//				size = "1536x1024";
+//			} else if ("方形".equals(ratio)) {
+//				size = "1024x1024";
+//			}
+			params.put("size", "9:16");
 			params.put("quality", "low");
 			params.put("prompt", question);
 
-			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/edits", header, params);
+			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
