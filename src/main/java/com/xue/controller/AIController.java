@@ -282,11 +282,11 @@ public class AIController {
 		String res = null;
 		System.out.println(question);
 		try {
-			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
+//			String question_encode = URLEncoder.encode(question, "UTF-8");
+			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return res;
