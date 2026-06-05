@@ -868,6 +868,18 @@ public class LoginController {
 		return list;
 	}
 
+	@RequestMapping("/getMessageGrowthByMonth")
+	@ResponseBody
+	public List getMessageGrowthByMonth(String openid,Integer page,String student_name,String month_time){
+		List list = null;
+		try {
+			list = loginService.getMessageGrowthByMonth(openid,page,student_name,month_time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	//	获取学生的课程数
 	@RequestMapping("/getLessonByName")
 	@ResponseBody

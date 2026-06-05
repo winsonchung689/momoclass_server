@@ -8224,6 +8224,77 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public List getMessageGrowthByMonth(String openid, Integer page, String student_name,String month_time) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
+        Integer page_start = (page - 1) * 6;
+        Integer page_length = 6;
+        List<JSONObject> resul_list = new ArrayList<>();
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
+
+        try {
+            List<Message> list = dao.getMessageGrowthByMonth(student_name,studio,page_start,page_length,campus,month_time);
+            if("全部".equals(student_name)){
+                list = dao.getMessageByMonth(studio, page_start, page_length,"课评",campus,month_time);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                String uuids = null;
+                JSONObject jsonObject = new JSONObject();
+                Message line = list.get(i);
+                //获取字段
+                String comment = line.getComment();
+                String id = line.getId();
+                String create_time = line.getCreate_time();
+                String date_time = create_time.split(" ")[0];
+                String campus_get = line.getCampus();
+                String duration = line.getDuration();
+                String class_name = line.getClass_name();
+                String mp3_url = line.getMp3_url();
+                String student_name_get = line.getStudent_name();
+                try {
+                    uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
+                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+                }
+                String v_uuid = line.getVuuid();
+                String class_target = line.getClass_target();
+                String subject = line.getSubject();
+                if("未知".equals(subject)){
+                    long timestamp = df.parse(date_time).getTime();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(timestamp);
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus_get,dayOfWeek,duration,student_name);
+                    if(schedules.size()>0){
+                        subject = schedules.get(0).getSubject();
+                    }
+                }
+
+                //json
+                jsonObject.put("student_name", student_name_get);
+                jsonObject.put("class_target", class_target);
+                jsonObject.put("comment", comment);
+                jsonObject.put("id", id);
+                jsonObject.put("create_time", create_time.substring(0,10));
+                jsonObject.put("duration", duration);
+                jsonObject.put("v_uuid", v_uuid);
+                jsonObject.put("class_name", class_name);
+                jsonObject.put("uuids", uuids);
+                jsonObject.put("mp3_url", mp3_url);
+                jsonObject.put("subject", subject);
+                resul_list.add(jsonObject);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resul_list;
+    }
+
+    @Override
     public List getUserByOpenid(String openid) {
         String role = null;
         String student_name = null;
@@ -8721,6 +8792,7 @@ public class LoginServiceImpl implements LoginService {
         }
         return resul_list;
     }
+
     @Override
     public List getMamaShare(Integer page) {
         byte[] photo = null;

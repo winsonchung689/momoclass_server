@@ -21,6 +21,8 @@ public interface LoginService {
 
     public List  getGrowthRecord(String openid,Integer page,String student_name);
 
+    public List  getMessageGrowthByMonth(String openid,Integer page,String student_name,String month_time);
+
     public List  getUserByOpenid(String openid);
 
     public List  getNewUserByPage(String openid,Integer page,String type,String teacher);

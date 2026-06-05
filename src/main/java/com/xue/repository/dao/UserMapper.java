@@ -11,6 +11,8 @@ public interface UserMapper {
     //获取
     List<Message> getMessage(String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
+    List<Message> getMessageByMonth(String studio,Integer page_start,Integer page_length,String class_target,String campus,String month_time);
+
     List<Message> getCommentModel();
 
     List<Merchant> getMerchantByAppid(String appid);
@@ -103,6 +105,8 @@ public interface UserMapper {
     List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
     List<Message> getMessageGrowth(String student_names,String studio,Integer page_start,Integer page_length,String campus);
+
+    List<Message> getMessageGrowthByMonth(String student_names,String studio,Integer page_start,Integer page_length,String campus,String month_time);
 
     List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length,String campus);
 
