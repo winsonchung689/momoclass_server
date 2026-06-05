@@ -8182,7 +8182,7 @@ public class LoginServiceImpl implements LoginService {
                 String duration = line.getDuration();
                 String class_name = line.getClass_name();
                 String mp3_url = line.getMp3_url();
-                String student_name_get = line.getStudent_name()
+                String student_name_get = line.getStudent_name();
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
