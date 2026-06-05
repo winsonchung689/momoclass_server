@@ -213,12 +213,6 @@ public interface UserMapper {
 
     List<Message> getModel(String studio,Integer page_start,Integer page_end,String campus);
 
-    List<Message> getOnlineTeacher(String type,Integer page_start,Integer page_end);
-
-    List<Message> getAllOnlineTeacher();
-
-    List<Message> getOnlineTeacherByOpenid(String openid);
-
     List<CommunicateRecord> getCommunicateRecordTeacher(String studio,Integer page_start,Integer page_end,String campus,String teacher);
 
     List<CommunicateRecord> getCommunicateRecord(String studio,Integer page_start,Integer page_end,String campus);

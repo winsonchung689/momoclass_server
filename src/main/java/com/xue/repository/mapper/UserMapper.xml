@@ -282,18 +282,6 @@
     select * from class_comment where class_target='范画' and delete_status = 0 and studio = #{param1} and campus =#{param4} order by create_time desc,id asc limit #{param2},#{param3};
   </select>
 
-  <select id="getAllOnlineTeacher" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak ='网课' and delete_status = 0 order by create_time;
-  </select>
-
-  <select id="getOnlineTeacher" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak =#{param1} and delete_status = 0 order by create_time desc,id asc limit #{param2},#{param3};
-  </select>
-
-  <select id="getOnlineTeacherByOpenid" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak ='网课' and openid =#{param1}  and delete_status = 0
-  </select>
-
   <select id="getCommunicateRecordByPhone" parameterType="com.xue.entity.model.CommunicateRecord" resultMap="BaseCommunicateRecord">
     select distinct student_name,phone_number from communicate_record where delete_status = 0 and studio = #{param1} and campus =#{param2} and phone_number =#{param3}
   </select>
