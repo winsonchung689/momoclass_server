@@ -102,7 +102,7 @@ public interface UserMapper {
     //获取
     List<Message> getMessageInName(String student_names,String studio,Integer page_start,Integer page_length,String class_target,String campus);
 
-    List<Message> getMessageGrowth(String student_names,String studio,Integer page_start,Integer page_length);
+    List<Message> getMessageGrowth(String student_names,String studio,Integer page_start,Integer page_length,String campus);
 
     List<Lesson> getLessonInName(String studio,String student_names,Integer page_start,Integer page_length,String campus);
 

@@ -8153,15 +8153,22 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getGrowthRecord(String studio, Integer page, String student_name) {
+    public List getGrowthRecord(String openid, Integer page, String student_name) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 
         Integer page_start = (page - 1) * 6;
         Integer page_length = 6;
         List<JSONObject> resul_list = new ArrayList<>();
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String studio = user.getStudio();
+        String campus = user.getCampus();
 
         try {
-            List<Message> list = dao.getMessageGrowth(student_name,studio,page_start,page_length);
+            List<Message> list = dao.getMessageGrowth(student_name,studio,page_start,page_length,campus);
+            if("全部".equals(student_name)){
+                list = dao.getMessage(studio, page_start, page_length,"课评",campus);
+            }
             for (int i = 0; i < list.size(); i++) {
                 String uuids = null;
                 JSONObject jsonObject = new JSONObject();
@@ -8171,10 +8178,11 @@ public class LoginServiceImpl implements LoginService {
                 String id = line.getId();
                 String create_time = line.getCreate_time();
                 String date_time = create_time.split(" ")[0];
-                String campus = line.getCampus();
+                String campus_get = line.getCampus();
                 String duration = line.getDuration();
                 String class_name = line.getClass_name();
                 String mp3_url = line.getMp3_url();
+                String student_name_get = line.getStudent_name()
                 try {
                     uuids = line.getUuids().replace("\"","").replace("[","").replace("]","");
                 } catch (Exception e) {
@@ -8188,13 +8196,14 @@ public class LoginServiceImpl implements LoginService {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(timestamp);
                     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus,dayOfWeek,duration,student_name);
+                    List<Schedule> schedules = dao.getScheduleByStudentDuration(studio,campus_get,dayOfWeek,duration,student_name);
                     if(schedules.size()>0){
                         subject = schedules.get(0).getSubject();
                     }
                 }
 
                 //json
+                jsonObject.put("student_name", student_name_get);
                 jsonObject.put("class_target", class_target);
                 jsonObject.put("comment", comment);
                 jsonObject.put("id", id);

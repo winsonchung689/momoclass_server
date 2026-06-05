@@ -858,10 +858,10 @@ public class LoginController {
 	//	获取全部
 	@RequestMapping("/getGrowthRecord")
 	@ResponseBody
-	public List getGrowthRecord(String studio,Integer page,String student_name){
+	public List getGrowthRecord(String openid,Integer page,String student_name){
 		List list = null;
 		try {
-			list = loginService.getGrowthRecord(studio,page,student_name);
+			list = loginService.getGrowthRecord(openid,page,student_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
