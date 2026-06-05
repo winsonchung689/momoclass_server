@@ -217,8 +217,7 @@ public class AIController {
 			}
 			params.put("size", size);
 			params.put("quality", "low");
-			String question_encode = URLDecoder.decode(question, "UTF-8");
-			params.put("prompt", question_encode);
+			params.put("prompt", question);
 
 			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
 		} catch (Exception e) {
@@ -285,7 +284,11 @@ public class AIController {
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
+			String image_type_encode = URLEncoder.encode(image_type, "UTF-8");
+			String ratio_encode = URLEncoder.encode(ratio, "UTF-8");
+			String studio_encode = URLEncoder.encode(studio, "UTF-8");
+
+			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type_encode  + "&ratio=" + ratio_encode  + "&studio=" + studio_encode;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
