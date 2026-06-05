@@ -39,8 +39,9 @@ public class AIController {
 	@Autowired
 	private UserMapper dao;
 
-	////////////////////////////// 中转站接口 //////////////////////////////////
+	////////////////////////////// AI服务器接口 //////////////////////////////////
 
+	// 官方接口
 	@RequestMapping("/chatImgDirect")
 	@ResponseBody
 	public static String chatImgDirect(String question,String uuid){
@@ -118,6 +119,7 @@ public class AIController {
 		return res;
 	}
 
+	// 官方接口
 	@RequestMapping("/chatDirect")
 	@ResponseBody
 	public static String chatDirect(String question){
@@ -147,10 +149,28 @@ public class AIController {
 		return res;
 	}
 
-	@RequestMapping("/imgGenerateDirect")
+	// 非官方接口
+	@RequestMapping("/imgGenerateAgent")
 	@ResponseBody
-	public static String imgGenerateDirect(String question){
-		System.out.println(question);
+	public String imgGenerateAgent(String question,String uuid,String image_type,String ratio,String studio){
+		String baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/";
+		if("课评".equals(image_type)){
+			baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadimages/";
+		}
+
+		String logo_url = "none";
+		List<Message> messages = dao.getFrameModel(studio,0,6,"Logo图片");
+		if(messages.size()>0){
+			Message message = messages.get(0);
+			String logo_uuid = message.getUuids();
+			try {
+				logo_uuid = logo_uuid.replace("\"","").replace("[","").replace("]","");
+			} catch (Exception e) {
+//                    throw new RuntimeException(e);
+			}
+			logo_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + logo_uuid;
+		}
+
 		String res = null;
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
@@ -159,123 +179,70 @@ public class AIController {
 			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
 			JSONObject params = new JSONObject();
 			params.put("model", "gpt-image-2");
-			params.put("prompt", question);
-			params.put("n", 1);
-//			536x1024：横向   1024x1536：纵向
-			params.put("size", "1024x1536");
-			params.put("quality", "low");
 
-			res = HttpUtil.doPost("https://6966.online/v1/images/generations", header, params);
+			// 图片列表
+			List<String> images_list = new ArrayList<>();
+
+			// 学生图片
+			String[] uuid_list = uuid.split(",");
+			for(int i =0;i<uuid_list.length;i++){
+				String uuid_get = uuid_list[i];
+				JSONObject image_json = new JSONObject();
+				String base64Url = urlToBase64(baseUrl + uuid_get);
+//				image_json.put("image_url",base64Url);
+				images_list.add(base64Url);
+			}
+
+			//logo图片
+			if(!"none".equals(logo_url)){
+				//主体图片
+				JSONObject image_json_logo = new JSONObject();
+				String base64LogoUrl = urlToBase64(logo_url);
+//				image_json_logo.put("image_url",base64LogoUrl);
+				images_list.add(base64LogoUrl);
+				question  = "图组中有一张是品牌logo图其他是学生作品图，先基于学生作品"+ question + ",最后再把Logo放在海报的左上角的位置,大小约120*120，不要改动logo图案";
+			}
+			System.out.println(question);
+
+			params.put("image_urls", images_list);
+			params.put("n", 1);
+
+//			横版:1536x1024   竖版:1024x1536  方形:1024x1024
+			String size = "2:3";
+			if("横版".equals(ratio)){
+				size = "3:2";
+			} else if ("方形".equals(ratio)) {
+				size = "1:1";
+			}
+			params.put("size", size);
+			params.put("quality", "low");
+			params.put("prompt", question);
+
+			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
+	@RequestMapping("/getTasksAgent")
+	@ResponseBody
+	public static String getTasksAgent(String task_id){
+		System.out.println(task_id);
+		String res = null;
+		try {
+			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
+
+			res = HttpUtil.doGetHeader("https://api.apimart.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 		return res;
 	}
 
-	@RequestMapping("/imgEditDirect")
-	@ResponseBody
-	public static String imgEditDirect(String question,String uuid,String image_type,String ratio){
-		System.out.println(question);
-		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
-		if("课评".equals(image_type)){
-			img_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + uuid;
-		}
 
-		String res = null;
-		try {
-			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
-			Map<String, String> header = new HashMap<String, String>();
-			header.put("Content-Type", "application/json");
-			header.put("Authorization", "Bearer " + OPENAI_API_KEY);
-			JSONObject params = new JSONObject();
-			params.put("model", "gpt-image-2");
-			params.put("prompt", question);
-
-			// 图片列表
-			List<JSONObject> images_list = new ArrayList<>();
-			JSONObject image_json = new JSONObject();
-			image_json.put("image_url",img_url);
-			images_list.add(image_json);
-
-			params.put("images", images_list);
-			params.put("n", 1);
-//			536x1024：横向   1024x1536：纵向
-			String size = "1024x1536";
-			if("横版".equals(ratio)){
-				size = "1536x1024";
-			} else if ("方形".equals(ratio)) {
-				size = "1024x1024";
-			}
-			params.put("size", size);
-			params.put("quality", "low");
-
-			res = HttpUtil.doPost("https://6966.online/v1/images/edits", header, params);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return res;
-	}
-
-	@RequestMapping("/imgVariations")
-	@ResponseBody
-	public static String imgVariations(String uuid){
-		String img_url = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/" + uuid;
-		String filePath = "/data/imgs/imgfile.png";
-		String res = null;
-		System.out.printf(img_url);
-		try {
-			URL url = new URL(img_url);
-			// 打开连接
-			try (InputStream is = url.openStream();
-				 FileOutputStream fos = new FileOutputStream(filePath)) {
-				// 读取数据并写入文件
-				byte[] buffer = new byte[4096]; // 缓冲区大小，可以根据需要调整
-				int bytesRead;
-				while ((bytesRead = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, bytesRead);
-				}
-			} catch (IOException e) {
-				System.err.println("Error reading from URL or writing to file: " + e.getMessage());
-			}
-
-			File file = new File(filePath);
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("https://api.openai.com/v1/images/variations");
-			String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
-			httpPost.setHeader("Authorization","Bearer " + OPENAI_API_KEY);
-
-			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE); // 设置浏览器兼容模式
-			builder.addBinaryBody("image", file, ContentType.DEFAULT_BINARY, file.getName()); // 添加文件部分
-			builder.addTextBody("n", "1", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
-			builder.addTextBody("size", "1024x1024", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
-			builder.addTextBody("model", "dall-e-2", ContentType.TEXT_PLAIN); // 添加文本部分，例如表单字段
-
-			HttpEntity multipart = builder.build();
-			httpPost.setEntity(multipart);
-			CloseableHttpResponse response = httpClient.execute(httpPost);
-
-			try {
-				HttpEntity responseEntity = response.getEntity();
-				if (responseEntity != null) {
-					res = EntityUtils.toString(responseEntity); // 获取响应内容
-					System.out.println(res); // 打印响应内容或进行其他处理
-				}
-				response.close(); // 关闭响应对象
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			} catch (ParseException e) {
-				throw new RuntimeException(e);
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return res;
-	}
-
-    ////////////////////////////// 本地接口 //////////////////////////////////
+	////////////////////////////// 本地接口 //////////////////////////////////
 
 	@RequestMapping("/momoChat")
 	@ResponseBody
@@ -309,14 +276,14 @@ public class AIController {
 		return res;
 	}
 
-	@RequestMapping("/momoImgGenerate")
+	@RequestMapping("/imgEdit")
 	@ResponseBody
-	public static String momoImgGenerate(String question){
+	public static String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
 		String res = null;
 		System.out.println(question);
 		try {
 			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerateDirect?question=" + question_encode;
+			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
@@ -325,43 +292,30 @@ public class AIController {
 		return res;
 	}
 
-	@RequestMapping("/momoImgEdit")
+	@RequestMapping("/getTasks")
 	@ResponseBody
-	public static String momoImgEdit(String question,String uuid,String image_type){
+	public static String getTasks(String task_id){
 		String res = null;
-		System.out.println(question);
-		try {
-			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerateDirect?question=" + question_encode + "&uuid=" + uuid + "&image_type=" + image_type;
-			res = HttpUtil.doGet(url);
-			System.out.println(res);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		return res;
-	}
+		System.out.println(task_id);
 
-	@RequestMapping("/momoImgVariations")
-	@ResponseBody
-	public static String momoImgVariations(String uuid){
-		String res = null;
-		System.out.println(uuid);
 		try {
-			String url = "http://43.156.34.5:80/imgVariations?uuid=" + uuid;
+			String url = "http://43.156.34.5:80/getTasksAgent?task_id=" + task_id;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+
 		return res;
 	}
 
 
+
 	////////////////////////////// 第三方接口 //////////////////////////////////
 
-	@RequestMapping("/imgEdit")
+	@RequestMapping("/imgEdit1")
 	@ResponseBody
-	public String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
+	public String imgEdit1(String question,String uuid,String image_type,String ratio,String studio){
 		String baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/";
 		if("课评".equals(image_type)){
 			baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadimages/";
@@ -461,9 +415,9 @@ public class AIController {
 		return res;
 	}
 
-	@RequestMapping("/getTasks")
+	@RequestMapping("/getTasks1")
 	@ResponseBody
-	public static String getTasks(String task_id){
+	public static String getTasks1(String task_id){
 		System.out.println(task_id);
 		String res = null;
 		try {
