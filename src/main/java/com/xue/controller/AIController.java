@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -216,7 +217,8 @@ public class AIController {
 			}
 			params.put("size", size);
 			params.put("quality", "low");
-			params.put("prompt", question);
+			String question_encode = URLDecoder.decode(question, "UTF-8");
+			params.put("prompt", question_encode);
 
 			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
 		} catch (Exception e) {
@@ -282,11 +284,11 @@ public class AIController {
 		String res = null;
 		System.out.println(question);
 		try {
-//			String question_encode = URLEncoder.encode(question, "UTF-8");
-			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
+			String question_encode = URLEncoder.encode(question, "UTF-8");
+			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type  + "&ratio=" + ratio  + "&studio=" + studio;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
-		} catch (Exception e) {
+		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
 		return res;
