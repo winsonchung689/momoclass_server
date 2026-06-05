@@ -153,22 +153,14 @@ public class AIController {
 	// 非官方接口
 	@RequestMapping("/imgGenerateAgent")
 	@ResponseBody
-	public String imgGenerateAgent(String question,String uuid,String image_type,String ratio,String studio){
+	public String imgGenerateAgent(String question,String uuid,String image_type,String ratio,String studio,String logo_uuid){
 		String baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadAIAsk/";
 		if("课评".equals(image_type)){
 			baseUrl = "https://www.momoclasss.xyz:443/data/disk/uploadimages/";
 		}
 
 		String logo_url = "none";
-		List<Message> messages = dao.getFrameModel(studio,0,6,"Logo图片");
-		if(messages.size()>0){
-			Message message = messages.get(0);
-			String logo_uuid = message.getUuids();
-			try {
-				logo_uuid = logo_uuid.replace("\"","").replace("[","").replace("]","");
-			} catch (Exception e) {
-//                    throw new RuntimeException(e);
-			}
+		if("no_id".equals(logo_uuid)){
 			logo_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + logo_uuid;
 		}
 
@@ -279,16 +271,27 @@ public class AIController {
 
 	@RequestMapping("/imgEdit")
 	@ResponseBody
-	public static String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
+	public String imgEdit(String question,String uuid,String image_type,String ratio,String studio){
 		String res = null;
 		System.out.println(question);
 		try {
+			String logo_uuid = "no_id";
+			List<Message> messages = dao.getFrameModel(studio,0,6,"Logo图片");
+			if(messages.size()>0){
+				Message message = messages.get(0);
+				logo_uuid = message.getUuids();
+				try {
+					logo_uuid = logo_uuid.replace("\"","").replace("[","").replace("]","");
+				} catch (Exception e) {
+//                    throw new RuntimeException(e);
+				}
+			}
 			String question_encode = URLEncoder.encode(question, "UTF-8");
 			String image_type_encode = URLEncoder.encode(image_type, "UTF-8");
 			String ratio_encode = URLEncoder.encode(ratio, "UTF-8");
 			String studio_encode = URLEncoder.encode(studio, "UTF-8");
 
-			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&uuid=" + uuid  + "&image_type=" + image_type_encode  + "&ratio=" + ratio_encode  + "&studio=" + studio_encode;
+			String url = "http://43.156.34.5:80/imgGenerateAgent?question=" + question_encode + "&logo_uuid=" + logo_uuid + "&uuid=" + uuid  + "&image_type=" + image_type_encode  + "&ratio=" + ratio_encode  + "&studio=" + studio_encode;
 			res = HttpUtil.doGet(url);
 			System.out.println(res);
 		} catch (UnsupportedEncodingException e) {
