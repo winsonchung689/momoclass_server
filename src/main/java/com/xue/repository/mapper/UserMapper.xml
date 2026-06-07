@@ -687,16 +687,19 @@
     update sign_up_record set class_number =#{param4} where class_number =#{param1} and studio =#{param2} and duration =#{param3} and subject =#{param5} and campus =#{param6}
   </select>
 
-
   <!-- 更改课程名 -->
   <select id="changeScheduleSubject" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseResultMap">
     update class_schedule set subject =#{param4} where subject =#{param1} and studio =#{param2} and duration =#{param3} and class_number =#{param5} and campus =#{param6} and dayofweek(add_date)=#{param7}
   </select>
 
-
-  <!-- 获取详情 -->
+  <!-- 删除签到记录 -->
   <select id="deleteSignUpRecord" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
     update sign_up_record set delete_status = 1 where id =#{param1} and studio =#{param2}
+  </select>
+
+  <!-- 更新指定课包 -->
+  <select id="updateSignUpPackageIdByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
+    update sign_up_record set package_id =#{param1} where studio =#{param2} and campus =#{param3} and student_name =#{param4} and subject =#{param5} and package_id = 0 order by corder by create_time desc limit 50;
   </select>
 
   <!-- 更新结课状态 -->

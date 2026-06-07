@@ -8352,6 +8352,12 @@ public class LoginController {
 						lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 						lessonPackage.setGive_lesson(Float.parseFloat(give_lesson));
 						dao.insertLessonPackage(lessonPackage);
+
+						// 欠费指定
+						List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+						LessonPackage lessonPackage1 = lessonPackages.get(0);
+						String id = lessonPackage1.getId();
+						dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject);
 					}else if("分开".equals(record_type)){
 						if(Float.parseFloat(all_lesson)>0){
 							lessonPackage.setTotal_money(Float.parseFloat(total_money));
@@ -8359,6 +8365,12 @@ public class LoginController {
 							lessonPackage.setAll_lesson(Float.parseFloat(all_lesson));
 							lessonPackage.setGive_lesson(0.0f);
 							dao.insertLessonPackage(lessonPackage);
+
+							// 欠费指定
+							List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
+							LessonPackage lessonPackage1 = lessonPackages.get(0);
+							String id = lessonPackage1.getId();
+							dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject);
 						}
 						if(Float.parseFloat(give_lesson)>0){
 							lessonPackage.setTotal_money(0.0f);
