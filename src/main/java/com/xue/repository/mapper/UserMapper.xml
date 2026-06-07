@@ -699,7 +699,7 @@
 
   <!-- 更新指定课包 -->
   <select id="updateSignUpPackageIdByStudent" parameterType="com.xue.entity.model.SignUp" resultMap="BaseSignUp">
-    update sign_up_record set package_id =#{param1} where studio =#{param2} and campus =#{param3} and student_name =#{param4} and subject =#{param5} and package_id = 0 order by corder by create_time desc limit 50;
+    update sign_up_record set package_id =#{param1} where studio =#{param2} and campus =#{param3} and student_name =#{param4} and subject =#{param5} and package_id = 0 order by create_time desc limit 50
   </select>
 
   <!-- 更新结课状态 -->
