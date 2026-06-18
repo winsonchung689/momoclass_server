@@ -3878,6 +3878,7 @@ public class LoginController {
 				class_number = "无班号";
 			}
 			signUp.setClass_number(class_number);
+
 			int insert_res = loginService.insertSignUp(signUp);
 
 			// 扣课时
