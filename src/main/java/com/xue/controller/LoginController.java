@@ -3978,40 +3978,13 @@ public class LoginController {
 			leave.setMakeup_date("无");
 			leave.setCampus(campus);
 			leave.setLeave_type("请假");
-			int result = dao.insertLeave(leave);
 
-			// 发请假通知
-			if(result>0){
-				loginService.leaveRemind(official_openid.toString(),student_name,studio,campus,subject,duration,date_time,mark);
-				List<Lesson> lessons = dao.getLessonByNameSubject(student_name,studio,subject,campus);
-				Float leave_times = lessons.get(0).getLeave_times();
-				List<Leave> leaves = dao.getLeaveRecordByStatus(student_name,studio,subject,campus);
-				Float leave_counts = 0.0f;
-				if(leaves.size()>0){
-					for(int i =0; i<leaves.size();i++){
-						leave_counts = leave_counts + 1.0f;
-					}
-				}
-
-                // 请假满减更新课时并更新请假记录的状态
-				if(leave_counts.equals(leave_times) && leave_times != 0.0f){
-					SignUp signUp = new SignUp();
-					signUp.setStudent_name(student_name);
-					signUp.setStudio(studio);
-					signUp.setSign_time(create_time);
-					signUp.setMark("请假"+leave_times+"次数扣1课时");
-					signUp.setCount(1.0f);
-					signUp.setSubject(subject);
-					signUp.setTeacher(teacher);
-					signUp.setCreate_time(create_time);
-					signUp.setDuration("00:00:00");
-					signUp.setClass_number("无班号");
-					signUp.setCampus(campus);
-					int result1 = dao.insertSignUp(signUp);
-					if(result1>0){
-						loginService.updateMinusLesson(student_name,studio,1.0f,subject,campus);
-						dao.updateLeaveAllRecord(student_name,studio,campus);
-					}
+			List<Leave> leaves = dao.getLeaveByDateDuration(student_name,studio,date_time,duration,subject);
+			if(leaves.size() == 0){
+				int result = dao.insertLeave(leave);
+				// 发请假通知
+				if(result>0){
+					loginService.leaveRemind(official_openid.toString(),student_name,studio,campus,subject,duration,date_time,mark);
 				}
 			}
 
