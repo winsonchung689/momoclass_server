@@ -4136,6 +4136,9 @@ public class LoginServiceImpl implements LoginService {
             Integer classes_count_all=dao.getClassesCountAll(studio,campus);
             Integer classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
             List<Arrangement> list = dao.getArrangements(studio,campus);
+
+
+
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
                 StringBuffer teachers = new StringBuffer();
