@@ -4249,11 +4249,7 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("item",item);
                 jsonObject.put("repeat_week",repeat_week);
                 jsonObject.put("class_type",class_type);
-
-
-                if(!start_date.equals(end_date)){
-                    resul_list.add(jsonObject);
-                }
+                resul_list.add(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
