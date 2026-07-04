@@ -4135,9 +4135,9 @@ public class LoginServiceImpl implements LoginService {
         try {
             Integer classes_count_all=dao.getClassesCountAll(studio,campus);
             Integer classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
-            List<Arrangement> list = dao.getArrangements(studio,campus);
-
-
+            List<Arrangement> list = dao.getArrangementByRepeatType(studio,campus,0);
+            List<Arrangement> list1 = dao.getArrangementsByRepeat(studio,campus);
+            list.addAll(list1);
 
             for (int i = 0; i < list.size(); i++) {
                 JSONObject jsonObject = new JSONObject();
@@ -4149,7 +4149,6 @@ public class LoginServiceImpl implements LoginService {
                 String class_number = line.getClass_number();
                 String duration = line.getDuration();
                 String subject = line.getSubject();
-                //获取字段
                 Integer remind = line.getRemind();
                 Integer hours = line.getHours();
                 String limits = line.getLimits();
