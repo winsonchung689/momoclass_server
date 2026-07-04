@@ -6678,6 +6678,13 @@ public class LoginController {
 						List<Arrangement> arrangements1 = dao.getArrangementByDateOrdinary(studio,dayofweek.toString(),class_number,duration,subject,campus);
 						if(arrangements1.size() == 0){
 							loginService.insertArrangement(arrangement);
+						}else if (arrangements1.size() > 0){
+							Arrangement arrangement1 = arrangements1.get(0);
+							String repeat_durantion_get = add_date + "," + add_date;
+							String repeat_duration = arrangement1.getRepeat_duration();
+							if(!repeat_durantion_get.equals(repeat_duration)){
+								loginService.insertArrangement(arrangement);
+							}
 						}
 					}
 				}else{
