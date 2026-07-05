@@ -2329,10 +2329,12 @@ public class LoginServiceImpl implements LoginService {
                     String lesson_string = null;
                     List<String> list_2 = null;
                     Integer contains = 0;
+                    Integer is_transferred = 0;
                     try {
                         // 判断单日排课必然显示
                         if(is_repeat == 1 && start_date.equals(date_time) && start_date.equals(end_date)){
                             contains = 1;
+                            is_transferred = 1;
                         }
 
                         // 判断老师选课
@@ -2370,6 +2372,7 @@ public class LoginServiceImpl implements LoginService {
                         jsonObject.put("class_number", class_number);
                         jsonObject.put("subject", subject);
                         jsonObject.put("is_repeat", is_repeat);
+                        jsonObject.put("is_transferred", is_transferred);
                         jsonObject.put("dayofweek", dayofweek_get);
                         jsonObject.put("repeat_week", repeat_week);
                         jsonObject.put("class_type", class_type);
