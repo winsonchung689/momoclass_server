@@ -6675,16 +6675,10 @@ public class LoginController {
 				if(is_repeat == 1){
 					List<Arrangement> arrangements = dao.getArrangementByRepeatDuration(studio,dayofweek.toString(),class_number,duration,subject,campus,add_date + "," + add_date);
 					if(arrangements.size() == 0){
-						List<Arrangement> arrangements1 = dao.getArrangementByDateAll(studio,dayofweek.toString(),class_number,duration,subject,campus);
-						if(arrangements1.size() == 0){
+						List<Arrangement> arrangements1 = dao.getArrangementByClassOrdinary(studio,dayofweek.toString(),class_number,duration,subject,campus);
+						List<Arrangement> arrangements2 = dao.getArrangementByClassRepeat(studio,class_number,duration,subject,campus);
+						if(arrangements1.size() == 0 && arrangements2.size() == 0){
 							loginService.insertArrangement(arrangement);
-						}else if (arrangements1.size() > 0){
-							Arrangement arrangement1 = arrangements1.get(0);
-							String repeat_durantion_get = add_date + "," + add_date;
-							String repeat_duration = arrangement1.getRepeat_duration();
-							if(!repeat_durantion_get.equals(repeat_duration)){
-								loginService.insertArrangement(arrangement);
-							}
 						}
 					}
 				}else{

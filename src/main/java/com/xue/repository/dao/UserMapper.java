@@ -1121,7 +1121,9 @@ public interface UserMapper {
 
     List<Arrangement> getArrangementByDate(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
 
-    List<Arrangement> getArrangementByDateAll(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
+    List<Arrangement> getArrangementByClassOrdinary(String studio,String dayofweek,String class_number,String duration,String subject,String campus);
+
+    List<Arrangement> getArrangementByClassRepeat(String studio,String class_number,String duration,String subject,String campus);
 
     List<Arrangement> getArrangementByRepeatDuration(String studio,String dayofweek,String class_number,String duration,String subject,String campus,String repeat_duration);
 
