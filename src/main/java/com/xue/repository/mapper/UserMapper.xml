@@ -1228,7 +1228,7 @@
   </select>
 
   <select id="getArrangementByClassRepeat" parameterType="com.xue.entity.model.Arrangement" resultMap="BaseArrangement">
-    select * from schedule_arrangement where studio = #{param1} and class_number =#{param3} and duration =#{param4} and subject =#{param5} and campus =#{param6} and is_repeat = 1 and delete_status = 0 order by duration
+    select * from schedule_arrangement where studio = #{param1} and class_number =#{param2} and duration =#{param3} and subject =#{param4} and campus =#{param5} and is_repeat = 1 and delete_status = 0 order by duration
   </select>
 
   <!-- 查找课程表 -->
