@@ -5437,7 +5437,7 @@ public class LoginController {
 	@ResponseBody
 	public String downloadLesson(String studio,String openid){
 		String path = "/data";
-		studio = studio.replace("/","");
+//		studio = studio.replace("/","");
 		String d_path = path +"/downloadLesson/all_lesson/";
 		File file = new File(d_path);
 
