@@ -595,6 +595,10 @@ public interface UserMapper {
 
     int updateSchedule(Schedule schedule);
 
+    int updateScheduleRepeat(String studio,Integer day,String duration,String class_number,String subject,String campus,Integer is_repeat);
+
+    int updateScheduleClassId(String studio,Integer day,String duration,String class_number,String subject,String campus,String class_id);
+
     int updateScheduleById(Schedule schedule);
 
     int updateComment(Message message);

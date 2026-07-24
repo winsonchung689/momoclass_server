@@ -1574,12 +1574,12 @@ public class LoginServiceImpl implements LoginService {
             List<Arrangement> list =null;
             if(subject.equals("全科目")){
                 list = dao.getArrangementAll(studio,dayofweek.toString(),campus);
-                classes_count_all=dao.getClassesCountAll(studio,campus);
-                classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
+//                classes_count_all=dao.getClassesCountAll(studio,campus);
+//                classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
             }else {
                 list = dao.getArrangement(studio,dayofweek.toString(),subject,campus);
-                classes_count_all=dao.getClassesCountBySubject(studio,subject,campus);
-                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject,campus);
+//                classes_count_all=dao.getClassesCountBySubject(studio,subject,campus);
+//                classes_count_all_lesson = dao.getClassesCountBySubjectLesson(studio,subject,campus);
             }
 
             for (int i = 0; i < list.size(); i++) {
@@ -4137,7 +4137,9 @@ public class LoginServiceImpl implements LoginService {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
             Integer classes_count_all=dao.getClassesCountAll(studio,campus);
+
             Integer classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
+
             List<Arrangement> list = dao.getArrangementByRepeatType(studio,campus,0);
             List<Arrangement> list1 = dao.getArrangementsByRepeat(studio,campus);
             list.addAll(list1);
@@ -4186,7 +4188,10 @@ public class LoginServiceImpl implements LoginService {
                 }else {
                     dayofweek_by = dayofweek_int + 1;
                 }
-                classes_count = dao.getLessonAllCountByDay(studio,dayofweek_by,duration,class_number,subject,campus);
+
+                // 更新字段
+                dao.updateScheduleRepeat(studio,dayofweek_by,duration,class_number,subject,campus,is_repeat);
+                dao.updateScheduleClassId(studio,dayofweek_by,duration,class_number,subject,campus,id);
 
                 String item = "星期" + dayofweek + "," + class_number + "," + duration + "," + subject;
                 String week_item = "星期"+dayofweek;
@@ -4240,7 +4245,6 @@ public class LoginServiceImpl implements LoginService {
                 jsonObject.put("is_repeat", is_repeat);
                 jsonObject.put("repeat_show", repeat_show);
                 jsonObject.put("repeat_duration", repeat_duration);
-                jsonObject.put("classes_count", classes_count);
                 jsonObject.put("dayofweek",dayofweek);
                 jsonObject.put("id",id);
                 jsonObject.put("subject",subject);

@@ -38,6 +38,27 @@ public class Schedule {
 
     private Integer hours;
 
+    private Integer is_repeat;
+
+    private String class_id;
+
+
+
+    public String getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(String class_id) {
+        this.class_id = class_id;
+    }
+
+    public Integer getIs_repeat() {
+        return is_repeat;
+    }
+
+    public void setIs_repeat(Integer is_repeat) {
+        this.is_repeat = is_repeat;
+    }
 
     public Integer getHours() {
         return hours;

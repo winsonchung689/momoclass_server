@@ -1451,6 +1451,16 @@
     update class_schedule set update_time=#{update_time} where student_name=#{student_name} and studio = #{studio} and campus = #{campus}
   </update>
 
+  <!-- 更新重复状态 -->
+  <update id="updateScheduleRepeat" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set is_repeat=#{param7} where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and is_repeat = 5;
+  </update>
+
+  <!-- 更新班级ID -->
+  <update id="updateScheduleClassId" parameterType="com.xue.entity.model.Schedule">
+    update class_schedule set class_id=#{param7} where studio =#{param1} and dayofweek(add_date) =#{param2} and replace(replace(duration,':',''),'-','') =replace(replace(#{param3},':',''),'-','') and class_number =#{param4} and subject =#{param5} and campus =#{param6} and class_id = 'no_id';
+  </update>
+
   <!-- 更新课时 -->
   <update id="updateScheduleById" parameterType="com.xue.entity.model.Schedule">
     update class_schedule set add_date=#{add_date},duration=#{duration},class_number=#{class_number},subject=#{subject},update_time=#{update_time} where id = #{id}
