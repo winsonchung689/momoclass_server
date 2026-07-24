@@ -1881,25 +1881,37 @@ public class LoginServiceImpl implements LoginService {
                 Float total_amount = lesson.getTotal_amount();
                 Float left_amount = lesson.getLeft_amount();
                 Integer delete_status = lesson.getDelete_status();
-                if("已排课".equals(type) || "未排课".equals(type)){
+
+                if("已排课".equals(type) || "未排课".equals(type) || "平时课".equals(type) || "寒暑假".equals(type)){
+
+                    jsonObject.put("student_name",student_name);
+                    jsonObject.put("subject", subject_get);
+                    jsonObject.put("campus", campus_get);
+                    jsonObject.put("total_amount", total_amount);
+                    jsonObject.put("left_amount", left_amount);
+                    jsonObject.put("delete_status", delete_status);
+
                     List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
                     if("已排课".equals(type) && schedules.size()>0 && delete_status == 0){
-                        jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get);
-                        jsonObject.put("campus", campus_get);
-                        jsonObject.put("total_amount", total_amount);
-                        jsonObject.put("left_amount", left_amount);
-                        jsonObject.put("delete_status", delete_status);
                         resul_list.add(jsonObject);
-
                     }else if("未排课".equals(type) && schedules.size() == 0 && delete_status == 0){
-                        jsonObject.put("student_name",student_name);
-                        jsonObject.put("subject", subject_get);
-                        jsonObject.put("campus", campus_get);
-                        jsonObject.put("total_amount", total_amount);
-                        jsonObject.put("left_amount", left_amount);
-                        jsonObject.put("delete_status", delete_status);
                         resul_list.add(jsonObject);
+                    }else if("平时课".equals(type) && schedules.size() >0 && delete_status == 0){
+                        for (int j = 0; j < schedules.size(); j++){
+                            Schedule schedule = schedules.get(j);
+                            Integer is_repeat = schedule.getIs_repeat();
+                            if(is_repeat == 0){
+                                resul_list.add(jsonObject);
+                            }
+                        }
+                    }else if("寒暑假".equals(type) && schedules.size() >0 && delete_status == 0){
+                        for (int j = 0; j < schedules.size(); j++){
+                            Schedule schedule = schedules.get(j);
+                            Integer is_repeat = schedule.getIs_repeat();
+                            if(is_repeat == 1){
+                                resul_list.add(jsonObject);
+                            }
+                        }
                     }
                 }else if("月耗课".equals(type)){
                     List<SignUp> signs = dao.getSignUpDetailByMonthStudent(student_name,studio,date_time.substring(0,7),campus,subject_get);
