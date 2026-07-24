@@ -1902,6 +1902,7 @@ public class LoginServiceImpl implements LoginService {
                             Integer is_repeat = schedule.getIs_repeat();
                             if(is_repeat == 0){
                                 resul_list.add(jsonObject);
+                                break;
                             }
                         }
                     }else if("寒暑假".equals(type) && schedules.size() >0 && delete_status == 0){
@@ -1910,6 +1911,7 @@ public class LoginServiceImpl implements LoginService {
                             Integer is_repeat = schedule.getIs_repeat();
                             if(is_repeat == 1){
                                 resul_list.add(jsonObject);
+                                break;
                             }
                         }
                     }
