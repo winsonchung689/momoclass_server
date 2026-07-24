@@ -4136,10 +4136,19 @@ public class LoginServiceImpl implements LoginService {
     public List getArrangements(String studio,String campus) {
         List<JSONObject> resul_list = new ArrayList<>();
         try {
+            // 常规课排课数
+            Integer ordinary_count =dao.getClassesCountAllByIsRepeat(studio,campus,0);
+
+            // 寒暑假排课数
+            Integer repeat_count =dao.getClassesCountAllByIsRepeat(studio,campus,1);
+
+            // 全部排课数
             Integer classes_count_all=dao.getClassesCountAll(studio,campus);
 
+            //全部学员数
             Integer classes_count_all_lesson = dao.getClassesCountAllLesson(studio,campus);
 
+            //明细合并
             List<Arrangement> list = dao.getArrangementByRepeatType(studio,campus,0);
             List<Arrangement> list1 = dao.getArrangementsByRepeat(studio,campus);
             list.addAll(list1);
@@ -4180,7 +4189,6 @@ public class LoginServiceImpl implements LoginService {
                     remind_name = "是";
                 }
 
-                int classes_count = 0;
                 int dayofweek_by = 0;
                 int dayofweek_int = Integer.parseInt(dayofweek);
                 if(dayofweek_int==7){
@@ -4233,7 +4241,11 @@ public class LoginServiceImpl implements LoginService {
 
                 jsonObject.put("week_item", week_item);
                 jsonObject.put("classes_count_all",classes_count_all);
+                jsonObject.put("ordinary_count",ordinary_count);
+                jsonObject.put("repeat_count",repeat_count);
                 jsonObject.put("classes_count_all_not",classes_count_all_lesson - classes_count_all);
+                jsonObject.put("ordinary_count_not",classes_count_all_lesson - ordinary_count);
+                jsonObject.put("repeat_count_not",classes_count_all_lesson - repeat_count);
                 jsonObject.put("start_date", start_date);
                 jsonObject.put("end_date", end_date);
                 jsonObject.put("is_reserved", is_reserved);

@@ -1009,6 +1009,8 @@ public interface UserMapper {
 
     Integer getClassesCountAll(String studio,String campus);
 
+    Integer getClassesCountAllByIsRepeat(String studio,String campus,Integer is_repeat);
+
     Integer getClassesCountAllLesson(String studio,String campus);
 
     Integer getClassesCountBySubject(String studio,String subject,String campus);

@@ -2532,6 +2532,11 @@
     select count(distinct CONCAT(student_name, '_', subject)) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and is_try = 0 and delete_status = 0
   </select>
 
+  <!-- 获取不同的状态的排人数 -->
+  <select id="getClassesCountAllByIsRepeat" parameterType="com.xue.entity.model.Schedule" resultType="java.lang.Integer">
+    select count(distinct CONCAT(student_name, '_', subject)) from class_schedule where studio =#{param1} and campus =#{param2} and student_type ='ordinary' and is_try = 0 and is_repeat =#{param3} and delete_status = 0
+  </select>
+
   <!-- 获取学员总人数 -->
   <select id="getClassesCountAllLesson" parameterType="com.xue.entity.model.Lesson" resultType="java.lang.Integer">
     select count(distinct CONCAT(student_name, '_', subject)) from lesson where studio =#{param1} and campus =#{param2} and delete_status = 0
