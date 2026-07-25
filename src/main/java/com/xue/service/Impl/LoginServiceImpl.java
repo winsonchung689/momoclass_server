@@ -1891,28 +1891,35 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("left_amount", left_amount);
                     jsonObject.put("delete_status", delete_status);
 
-                    List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
-                    if("已排课".equals(type) && schedules.size()>0 && delete_status == 0){
-                        resul_list.add(jsonObject);
-                    }else if("未排课".equals(type) && schedules.size() == 0 && delete_status == 0){
-                        resul_list.add(jsonObject);
-                    }else if("平时课".equals(type) && schedules.size() >0 && delete_status == 0){
-                        for (int j = 0; j < schedules.size(); j++){
-                            Schedule schedule = schedules.get(j);
-                            Integer is_repeat = schedule.getIs_repeat();
-                            if(is_repeat == 0){
-                                resul_list.add(jsonObject);
-                                break;
-                            }
+                    if("已排课".equals(type) && delete_status == 0){
+                        List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
+                        if( schedules.size()>0){
+                            resul_list.add(jsonObject);
                         }
-                    }else if("寒暑假".equals(type) && schedules.size() >0 && delete_status == 0){
-                        for (int j = 0; j < schedules.size(); j++){
-                            Schedule schedule = schedules.get(j);
-                            Integer is_repeat = schedule.getIs_repeat();
-                            if(is_repeat == 1){
-                                resul_list.add(jsonObject);
-                                break;
-                            }
+                    }else if("未排课".equals(type) && delete_status == 0){
+                        List<Schedule> schedules = dao.getScheduleByStudent(studio_get,campus_get,subject_get,student_name);
+                        if(schedules.size() == 0){
+                            resul_list.add(jsonObject);
+                        }
+                    }else if("平时课".equals(type) && delete_status == 0){
+                        List<Schedule> schedules1 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
+                        if(schedules1.size() > 0){
+                            resul_list.add(jsonObject);
+                        }
+                    }else if("寒暑假".equals(type) && delete_status == 0){
+                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
+                        if(schedules2.size() > 0){
+                            resul_list.add(jsonObject);
+                        }
+                    }else if("平时未排".equals(type) && delete_status == 0){
+                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
+                        if(schedules2.size() == 0){
+                            resul_list.add(jsonObject);
+                        }
+                    }else if("寒暑未排".equals(type) && delete_status == 0){
+                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
+                        if(schedules2.size() == 0){
+                            resul_list.add(jsonObject);
                         }
                     }
                 }else if("月耗课".equals(type)){

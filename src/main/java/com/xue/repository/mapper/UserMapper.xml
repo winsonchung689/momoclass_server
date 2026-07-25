@@ -812,6 +812,10 @@
     select * from class_schedule where studio = #{param1} and campus =#{param2} and subject =#{param3} and student_name =#{param4} and student_type ='ordinary' and is_try = 0 and delete_status = 0 ;
   </select>
 
+  <select id="getScheduleByStudentRepeat" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
+    select * from class_schedule where studio = #{param1} and campus =#{param2} and subject =#{param3} and student_name =#{param4} and is_repeat =#{param5} and student_type ='ordinary' and is_try = 0 and delete_status = 0 ;
+  </select>
+
   <select id="getScheduleByStudentDuration" parameterType="com.xue.entity.model.Schedule" resultMap="BaseSchedule">
     select * from class_schedule where studio = #{param1} and campus =#{param2} and dayofweek(add_date)=#{param3} and duration = #{param4} and student_name =#{param5} ;
   </select>

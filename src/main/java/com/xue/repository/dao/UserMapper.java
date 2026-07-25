@@ -119,6 +119,8 @@ public interface UserMapper {
 
     List<Schedule> getScheduleByStudent(String studio,String campus,String subject,String student_name);
 
+    List<Schedule> getScheduleByStudentRepeat(String studio,String campus,String subject,String student_name,Integer is_repeat);
+
     List<Schedule> getScheduleByStudentDuration(String studio,String campus,Integer dayOfWeek,String duration,String student_name);
 
     List<Schedule> getScheduleByStudentDay(String studio,Integer day,String duration,String class_number,String subject,String campus,String student_name);
