@@ -1882,7 +1882,7 @@ public class LoginServiceImpl implements LoginService {
                 Float left_amount = lesson.getLeft_amount();
                 Integer delete_status = lesson.getDelete_status();
 
-                if("已排课".equals(type) || "未排课".equals(type) || "平时课".equals(type) || "寒暑假".equals(type)){
+                if("已排课".equals(type) || "未排课".equals(type) || "平时课".equals(type) || "寒暑假".equals(type)|| "平时未排".equals(type) || "寒暑未排".equals(type)){
 
                     jsonObject.put("student_name",student_name);
                     jsonObject.put("subject", subject_get);
