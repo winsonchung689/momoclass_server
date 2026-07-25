@@ -1902,23 +1902,23 @@ public class LoginServiceImpl implements LoginService {
                             resul_list.add(jsonObject);
                         }
                     }else if("平时课".equals(type) && delete_status == 0){
-                        List<Schedule> schedules1 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
-                        if(schedules1.size() > 0){
+                        List<Schedule> schedules = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
+                        if(schedules.size() > 0){
                             resul_list.add(jsonObject);
                         }
                     }else if("寒暑假".equals(type) && delete_status == 0){
-                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
-                        if(schedules2.size() > 0){
+                        List<Schedule> schedules = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
+                        if(schedules.size() > 0){
                             resul_list.add(jsonObject);
                         }
                     }else if("平时未排".equals(type) && delete_status == 0){
-                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
-                        if(schedules2.size() == 0){
+                        List<Schedule> schedules = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,0);
+                        if(schedules.size() == 0){
                             resul_list.add(jsonObject);
                         }
                     }else if("寒暑未排".equals(type) && delete_status == 0){
-                        List<Schedule> schedules2 = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
-                        if(schedules2.size() == 0){
+                        List<Schedule> schedules = dao.getScheduleByStudentRepeat(studio_get,campus_get,subject_get,student_name,1);
+                        if(schedules.size() == 0){
                             resul_list.add(jsonObject);
                         }
                     }
