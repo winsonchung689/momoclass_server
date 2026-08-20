@@ -429,7 +429,7 @@ public interface UserMapper {
 
     void updateSignUpEndingByAll(String student_name,String studio,String create_time);
 
-    void updateSignUpPackageIdByStudent(Integer package_id,String studio,String campus,String student_name,String subject);
+    void updateSignUpPackageIdByStudent(Integer package_id,String studio,String campus,String student_name,String subject,Integer limit);
 
     void updateSignUpEndingById(String id,String studio);
 

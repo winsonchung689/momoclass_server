@@ -8332,7 +8332,10 @@ public class LoginController {
 						List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
 						LessonPackage lessonPackage1 = lessonPackages.get(0);
 						String id = lessonPackage1.getId();
-						dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject);
+						Float all_lesson_get = lessonPackage1.getAll_lesson();
+						Float given_lesson_get = lessonPackage1.getGive_lesson();
+						Float lesson_sum = all_lesson_get + given_lesson_get;
+						dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject,Math.round(lesson_sum));
 					}else if("分开".equals(record_type)){
 						if(Float.parseFloat(all_lesson)>0){
 							lessonPackage.setTotal_money(Float.parseFloat(total_money));
@@ -8345,7 +8348,10 @@ public class LoginController {
 							List<LessonPackage> lessonPackages = dao.getLessonPackageByStudentSubject(student_name,studio,campus,subject);
 							LessonPackage lessonPackage1 = lessonPackages.get(0);
 							String id = lessonPackage1.getId();
-							dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject);
+							Float all_lesson_get = lessonPackage1.getAll_lesson();
+							Float given_lesson_get = lessonPackage1.getGive_lesson();
+							Float lesson_sum = all_lesson_get + given_lesson_get;
+							dao.updateSignUpPackageIdByStudent(Integer.parseInt(id),studio,campus,student_name,subject,Math.round(lesson_sum));
 						}
 						if(Float.parseFloat(give_lesson)>0){
 							lessonPackage.setTotal_money(0.0f);
