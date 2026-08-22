@@ -1922,19 +1922,6 @@ public class LoginController {
 		return list;
 	}
 
-	@RequestMapping("/getSignUpByDateDuration")
-	@ResponseBody
-	public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String openid,String subject){
-		List list = null;
-		try {
-			List<User> list_user = dao.getUser(openid);
-			String campus = list_user.get(0).getCampus();
-			list = loginService.getSignUpByDateDuration(student_name,studio,date_time,duration,campus,subject);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 
 	@RequestMapping("/getCommentByDateDuration")
 	@ResponseBody

@@ -1349,42 +1349,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject) {
-        String id = null;
-        String openid = null;
-        String subscription = null;
-        List<JSONObject> resul_list = new ArrayList<>();
-
-        try {
-            List<SignUp> list = dao.getSignUpByDateDuration(student_name,studio,date_time,duration,campus,subject);
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject jsonObject = new JSONObject();
-                SignUp line = list.get(i);
-                //获取字段
-                id = line.getId();
-                try {
-                    List<User> users = dao.getUserByStudent(student_name,studio,campus);
-                    if(users.size()>0){
-                        openid = users.get(0).getOpenid();
-                        subscription = users.get(0).getSubscription();
-                    }
-                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-                }
-
-                jsonObject.put("id",id);
-                jsonObject.put("openid",openid);
-                jsonObject.put("subscription",subscription);
-                resul_list.add(jsonObject);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resul_list;
-    }
-
-    @Override
     public List getGift(String student_name,String openid,Integer coupon_type) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now_time = df.format(new Date());
