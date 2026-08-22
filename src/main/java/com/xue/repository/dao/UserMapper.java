@@ -1195,7 +1195,7 @@ public interface UserMapper {
 
     List<Leave> getLeaveDetailByMonthStudent(String student_name,String studio,String date_time,String campus,String subject);
 
-    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject);
+    List<SignUp> getSignUpByDateDuration(String student_name,String studio,String date_time,String duration,String campus,String subject,String class_number);
 
     List<Gift> getGift(String student_name,String studio,String campus);
 
