@@ -211,7 +211,7 @@ public class AIController {
 			params.put("quality", "low");
 			params.put("prompt", question);
 
-			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://api.apib.ai/v1/images/generations", header, params);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -226,7 +226,7 @@ public class AIController {
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
 
-			res = HttpUtil.doGetHeader("https://api.apimart.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
+			res = HttpUtil.doGetHeader("https://api.apib.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -389,7 +389,7 @@ public class AIController {
 			params.put("quality", "low");
 			params.put("prompt", question);
 
-			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://api.apib.ai/v1/images/generations", header, params);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -414,7 +414,7 @@ public class AIController {
 			params.put("size", "1024x1536");
 			params.put("quality", "low");
 
-			res = HttpUtil.doPost("https://api.apimart.ai/v1/images/generations", header, params);
+			res = HttpUtil.doPost("https://api.apib.ai/v1/images/generations", header, params);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -431,7 +431,7 @@ public class AIController {
 		try {
 			String OPENAI_API_KEY = System.getenv("ONLINE_OPENAI_API_KEY");
 
-			res = HttpUtil.doGetHeader("https://api.apimart.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
+			res = HttpUtil.doGetHeader("https://api.apib.ai/v1/tasks/"+task_id, OPENAI_API_KEY);
 //			System.out.println(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
