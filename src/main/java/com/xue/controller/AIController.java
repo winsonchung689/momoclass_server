@@ -160,7 +160,7 @@ public class AIController {
 		}
 
 		String logo_url = "none";
-		if("no_id".equals(logo_uuid)){
+		if(!"no_id".equals(logo_uuid)){
 			logo_url = "https://www.momoclasss.xyz:443/data/disk/uploadimages/" + logo_uuid;
 		}
 
