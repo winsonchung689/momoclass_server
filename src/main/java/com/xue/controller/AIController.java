@@ -218,6 +218,7 @@ public class AIController {
 		return res;
 	}
 
+	// 非官方接口
 	@RequestMapping("/getTasksAgent")
 	@ResponseBody
 	public static String getTasksAgent(String task_id){
@@ -319,7 +320,7 @@ public class AIController {
 
 
 
-	////////////////////////////// 第三方接口 //////////////////////////////////
+	////////////////////////////// 第三方接口 测试专用 //////////////////////////////////
 
 	@RequestMapping("/imgEdit1")
 	@ResponseBody
