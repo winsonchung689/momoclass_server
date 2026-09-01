@@ -3723,7 +3723,7 @@ public class LoginController {
 		String openid = request.getParameter("openid");
 		String to_send = request.getParameter("to_send");
 		if(to_send == null || to_send.isEmpty() || "undefined".equals(to_send)){
-			to_send = "开";
+			to_send = "1";
 		}
 
 		// 获取用户信息
@@ -3883,7 +3883,7 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				if("开".equals(to_send)){
+				if("1".equals(to_send)){
 					List<User> users = dao.getUserByStudent(student_name,studio,campus);
 					for(int i = 0;i < users.size(); i++){
 						User user = users.get(i);
@@ -7818,7 +7818,7 @@ public class LoginController {
 		}
 		String to_send = request.getParameter("to_send");
 		if(to_send == null || to_send.isEmpty() || "undefined".equals(to_send)){
-			to_send = "开";
+			to_send = "1";
 		}
 		// 添加课包id
 		if ("0".equals(package_id)) {
@@ -7983,7 +7983,7 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,Math.round(coins),subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				if("开".equals(to_send)) {
+				if("1".equals(to_send)) {
 					List<User> users = dao.getUserByStudent(student_name, studio, campus);
 					for (int i = 0; i < users.size(); i++) {
 						User user = users.get(i);
