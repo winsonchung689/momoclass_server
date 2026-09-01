@@ -3721,6 +3721,11 @@ public class LoginController {
 		String class_number = request.getParameter("class_number");
 		String subject = request.getParameter("subject");
 		String openid = request.getParameter("openid");
+		String to_send = request.getParameter("to_send");
+		if(to_send == null || to_send.isEmpty() || "undefined".equals(to_send)){
+			to_send = "1";
+		}
+
 		// 获取用户信息
 		List<User> list_user = dao.getUser(openid);
 		String campus = list_user.get(0).getCampus();
@@ -3878,26 +3883,28 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,coins,subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				List<User> users = dao.getUserByStudent(student_name,studio,campus);
-				for(int i = 0;i < users.size(); i++){
-					User user = users.get(i);
-					String subscription = user.getSubscription();
-					String openid_get = user.getOpenid();
+				if("1".equals(to_send)){
+					List<User> users = dao.getUserByStudent(student_name,studio,campus);
+					for(int i = 0;i < users.size(); i++){
+						User user = users.get(i);
+						String subscription = user.getSubscription();
+						String openid_get = user.getOpenid();
 
-					// pwa
-					if(subscription != null){
-						JSONObject payload = new JSONObject();
-						payload.put("title","签到成功");
-						payload.put("message","学生名:" + student_name+"\n上课日期:"+ date_time + "\n本次扣课:" + count + "\n剩余课时:" + left_amount );
-						String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
-						System.out.printf("status:" + status);
+						// pwa
+						if(subscription != null){
+							JSONObject payload = new JSONObject();
+							payload.put("title","签到成功");
+							payload.put("message","学生名:" + student_name+"\n上课日期:"+ date_time + "\n本次扣课:" + count + "\n剩余课时:" + left_amount );
+							String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
+							System.out.printf("status:" + status);
+						}
+
+						// 小程序
+						sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number,"no_id");
+
 					}
-
-					// 小程序
-					sendSignUpRemind(openid_get,student_name,date_time,class_count,subject,class_number,"no_id");
-
+					sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number,"no_id");
 				}
-				sendSignUpRemind(openid,student_name,date_time,class_count,subject,class_number,"no_id");
 			}
 
 
