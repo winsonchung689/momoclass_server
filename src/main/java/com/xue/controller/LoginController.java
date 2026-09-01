@@ -7816,7 +7816,10 @@ public class LoginController {
 		if(package_id == null || package_id.isEmpty() || "undefined".equals(package_id)){
 			package_id = "0";
 		}
-
+		String to_send = request.getParameter("to_send");
+		if(to_send == null || to_send.isEmpty() || "undefined".equals(to_send)){
+			to_send = "1";
+		}
 		// 添加课包id
 		if ("0".equals(package_id)) {
 			List<LessonPackage> lessonPackages = dao.getLessonPackage(student_name,studio,campus,subject);
@@ -7980,26 +7983,28 @@ public class LoginController {
 				loginService.updateAddPoints(student_name,studio,Math.round(coins),subject,campus,"上课积分","上课积分");
 
 				// 发送通知
-				List<User> users = dao.getUserByStudent(student_name,studio,campus);
-				for(int i = 0;i < users.size(); i++){
-					User user = users.get(i);
-					String subscription = user.getSubscription();
-					String openid_get = user.getOpenid();
+				if("1".equals(to_send)) {
+					List<User> users = dao.getUserByStudent(student_name, studio, campus);
+					for (int i = 0; i < users.size(); i++) {
+						User user = users.get(i);
+						String subscription = user.getSubscription();
+						String openid_get = user.getOpenid();
 
-					// pwa
-					if(subscription != null){
-						JSONObject payload = new JSONObject();
-						payload.put("title","划课成功");
-						payload.put("message","学生名:" + student_name+"\n本次扣课:" + consume_lesson_amount + "\n剩余课时:" + left_amount );
-						String status = webPushService.sendNotification(subscription,Constants.publickey,Constants.privatekey,payload.toString());
-						System.out.printf("status:" + status);
+						// pwa
+						if (subscription != null) {
+							JSONObject payload = new JSONObject();
+							payload.put("title", "划课成功");
+							payload.put("message", "学生名:" + student_name + "\n本次扣课:" + consume_lesson_amount + "\n剩余课时:" + left_amount);
+							String status = webPushService.sendNotification(subscription, Constants.publickey, Constants.privatekey, payload.toString());
+							System.out.printf("status:" + status);
+						}
+
+						// 小程序
+						sendConsumeLesson(openid_get, consume_lesson_amount, student_name, subject, date_time);
 					}
 
-					// 小程序
-					sendConsumeLesson(openid_get,consume_lesson_amount,student_name,subject,date_time);
+					sendConsumeLesson(openid, consume_lesson_amount, student_name, subject, date_time);
 				}
-
-				sendConsumeLesson(openid,consume_lesson_amount,student_name,subject,date_time);
 			}
 		}
 
