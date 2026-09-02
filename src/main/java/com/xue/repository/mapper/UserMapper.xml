@@ -279,7 +279,7 @@
 
   <!-- 获取成长记录 -->
   <select id="getMessageGrowth" parameterType="com.xue.entity.model.Message" resultMap="BaseResultMap">
-    select * from class_comment where class_target_bak ='课评' and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} and campus = #{param5} order by create_time desc limit #{param3},#{param4};
+    select * from class_comment where class_target_bak ='课评' and delete_status = 0 and find_in_set(student_name,#{param1}) and studio = #{param2} and campus = #{param5} order by create_time desc,id asc limit #{param3},#{param4};
   </select>
 
   <!-- 按月获取成长记录 -->
