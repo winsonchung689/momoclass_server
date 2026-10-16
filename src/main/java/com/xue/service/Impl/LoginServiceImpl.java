@@ -3558,6 +3558,9 @@ public class LoginServiceImpl implements LoginService {
             Float price = line.getPrice();
             Float used_price = 0.0f;
             Float left_price = 0.0f;
+            Integer total_days = 0;
+            Integer left_days = 0;
+            Integer used_days = 0;
 
             String status = "生效中";
             try {
@@ -3573,10 +3576,15 @@ public class LoginServiceImpl implements LoginService {
                     Date today_dt = formatter.parse(today_time.substring(0, 10));
                     Date start_date_dt = formatter.parse(start_date.substring(0, 10));
                     Date end_date_dt = formatter.parse(end_date.substring(0, 10));
-                    long total_time = end_date_dt.getTime() - start_date_dt.getTime() + 60 * 60 * 24 * 1000;
-                    long used_time = today_dt.getTime() - start_date_dt.getTime() + 60 * 60 * 24 * 1000;
+                    long total_time = end_date_dt.getTime() - start_date_dt.getTime();
+                    total_days = (int) (total_time/(60 * 60 * 24 * 1000));
+                    long used_time = today_dt.getTime() - start_date_dt.getTime();
+                    used_days = (int)(used_time/(60 * 60 * 24 * 1000));
+
                     used_price = price * used_time / total_time;
                     left_price = price - used_price;
+
+                    left_days = total_days - used_days;
                 }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -3595,6 +3603,9 @@ public class LoginServiceImpl implements LoginService {
             jsonObject.put("price",df.format(price));
             jsonObject.put("used_price",df.format(used_price));
             jsonObject.put("left_price",df.format(left_price));
+            jsonObject.put("total_days",total_days);
+            jsonObject.put("used_days",used_days);
+            jsonObject.put("left_days",left_days);
             resul_list.add(jsonObject);
         }
         return resul_list;

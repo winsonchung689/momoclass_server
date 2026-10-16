@@ -21,7 +21,7 @@ public class test {
     public static void main(String[] args) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         Calendar cal_today = Calendar.getInstance();
         int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
@@ -35,23 +35,15 @@ public class test {
 
         Long compare = 10L;
         try {
-            Date date =new Date();
-            long timestamp = date.getTime()/1000;
-            String now_date = df.format(date);
+            String today_time = formatter.format(new Date());
+            Date today_dt = formatter.parse(today_time.substring(0, 10));
+            Date start_date_dt = formatter.parse("2026-10-01");
+            Date end_date_dt = formatter.parse("2027-10-01");
+            long total_time = end_date_dt.getTime() - start_date_dt.getTime();
+            System.out.println(total_time/(60 * 60 * 24 * 1000));
+            long used_time = today_dt.getTime() - start_date_dt.getTime();
 
-            Date today_dt = df.parse(now_date);
 
-//            Date today_dt = df.parse("2026-01-07");
-            Date expired_dt = df.parse("2026-01-10");
-            Long day2 = expired_dt.getTime();
-            Long day1 = today_dt.getTime();
-            compare = (day2 - day1)/(24*3600*1000);
-            System.out.println(day2);
-            System.out.println(day1);
-            System.out.println(compare);
-            if(compare > 0){
-                System.out.printf("aa");
-            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
