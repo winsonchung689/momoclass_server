@@ -3578,7 +3578,11 @@ public class LoginServiceImpl implements LoginService {
                     Date end_date_dt = formatter.parse(end_date.substring(0, 10));
                     long total_time = end_date_dt.getTime() - start_date_dt.getTime();
                     total_days = (int) (total_time/(60 * 60 * 24 * 1000));
+
                     long used_time = today_dt.getTime() - start_date_dt.getTime();
+                    if(used_time < 0){
+                        used_time = 0L;
+                    }
                     used_days = (int)(used_time/(60 * 60 * 24 * 1000));
 
                     used_price = price * used_time / total_time;
