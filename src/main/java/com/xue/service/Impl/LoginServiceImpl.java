@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 
 import java.io.*;
 import java.sql.Timestamp;
@@ -6312,6 +6313,7 @@ public class LoginServiceImpl implements LoginService {
                     }
 
                     // 向redis写入队列
+                    Pipeline pipeline = jedis.pipelined();
                     if(list_schedule.size() > 0 && weekDay > 0){
                         for (int j = 0; j < list_schedule.size(); j++) {
                             Schedule schedule = list_schedule.get(j);
@@ -6423,12 +6425,14 @@ public class LoginServiceImpl implements LoginService {
                                 String timestamp_start_str = df.format(timestamp_start);
 
                                 if(timestamp_start_str.equals(td_date) && timestamp_start >= td_time){
-                                    jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+//                                    jedis.zadd("delay_queue",timestamp_start/1000,taskData);
+                                    pipeline.zadd("delay_queue",timestamp_start/1000,taskData);
                                 }
 
                             }
                         }
                     }
+                    pipeline.sync();;
                 }
 
             } catch (Exception e) {
