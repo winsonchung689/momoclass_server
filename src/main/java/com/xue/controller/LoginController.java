@@ -751,17 +751,25 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendClassRemind")
 	@ResponseBody
-	public String sendClassRemind(String openid, String duration, String studentname,String remindDay,String class_number){
+	public String sendClassRemind(String openid, String duration, String studentname,String remindDay,String class_number,String id){
 		String result = null;
 		String url_send = null;
 		String token = null;
 		String tample6 ="{\"touser\":\"openid\",\"template_id\":\"MFu-qjMY5twe6Q00f6NaR-cBEn3QYajFquvtysdxk8o\",\"appid\":\"wxa3dc1d41d6fa8284\",\"data\":{\"thing1\":{\"value\": \"time\"},\"time3\":{\"value\": \"A1\"},\"thing2\":{\"value\": \"A1\"}},\"miniprogram\":{\"appid\":\"wxa3dc1d41d6fa8284\",\"pagepath\":\"/pages/index/index\"}}";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date =new Date();
+		String now_date = df.format(date);
 
 		try {
+			//判断是否已发
+			List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(id));
+			Schedule schedule = schedules.get(0);
+			String send_status = schedule.getSend_status();
+
 			token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			List<User> users  = dao.getUser(openid);
-			if(users.size()>0){
+			if(users.size()>0 && !now_date.equals(send_status)){
 				User user = users.get(0);
 				String official_openid = user.getOfficial_openid();
 				String studio = user.getStudio();
@@ -778,6 +786,8 @@ public class LoginController {
 						System.out.println("json2:" + queryJson2.toJSONString());
 						result = HttpUtil.sendPostJson(url_send,queryJson2.toJSONString());
 						System.out.printf("res22:" + result);
+
+						dao.updateClassSendStatus(id,now_date);
 					}
 				}
 			}
