@@ -2389,8 +2389,11 @@ public class LoginServiceImpl implements LoginService {
         String mark = null;
         Integer remind=0;
         String student_type=null;
-        List<User> list_user = dao.getUser(openid);
-        String campus = list_user.get(0).getCampus();
+        List<User> users = dao.getUser(openid);
+        User user = users.get(0);
+        String campus = user.getCampus();
+        String remind_type = user.getRemind_type();
+
 
 
         // 获取常规学生
@@ -2428,9 +2431,15 @@ public class LoginServiceImpl implements LoginService {
                 cal.add(Calendar.DATE, -1);  // 减1天，得到昨天
                 Date yesterday = cal.getTime();
                 String yes_date = fmt.format(yesterday);
-                if(date_time.equals(send_status) || yes_date.equals(send_status)){
+
+
+                if(date_time.equals(send_status)){
                     send_number = 1;
                 }
+                if( yes_date.equals(send_status) && remind_type.equals("统一提醒次日") ){
+                    send_number = 1;
+                }
+
                 LocalDate target = LocalDate.parse(date_time); // 默认解析 yyyy-MM-dd
                 LocalDate today = LocalDate.now();
                 if (target.isBefore(today)) {
