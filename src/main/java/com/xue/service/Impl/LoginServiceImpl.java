@@ -6508,6 +6508,9 @@ public class LoginServiceImpl implements LoginService {
                         int res = classRemind(openid,student_name,studio,subject,class_number,duration,date_time,upcoming,id,now_date);
                         // 家长接收成功后反馈给选课老师
                         if(res == 1){
+                            // 删除已处理任务
+                            jedis.zrem("delay_queue",item);
+                            // 发送给选课老师
                             String chooseLesson = "星期"+  weekDayChoose + "," + subject + "," + class_number + "," + duration ;
                             List<User> teacher_users = dao.getUserByChooseLesson(chooseLesson,studio);
                             if(teacher_users.size()>0){
@@ -6683,9 +6686,6 @@ public class LoginServiceImpl implements LoginService {
                         }
                     }
                 }
-
-                // 删除已处理任务
-                jedis.zrem("delay_queue",item);
             }
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
