@@ -36,6 +36,7 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -751,7 +752,7 @@ public class LoginController {
 	//	获取token
 	@RequestMapping("/sendClassRemind")
 	@ResponseBody
-	public String sendClassRemind(String openid, String duration, String studentname,String remindDay,String class_number,String id){
+	public String sendClassRemind(String openid, String duration_in, String studentname,String remindDay,String class_number,String id){
 		String result = null;
 		String url_send = null;
 		String token = null;
@@ -762,14 +763,21 @@ public class LoginController {
 
 		try {
 			//判断是否已发
+			if(id == null || id.isEmpty() || "undefined".equals(id)){
+				return result;
+			}
 			List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(id));
 			Schedule schedule = schedules.get(0);
 			String send_status = schedule.getSend_status();
+			String duration = schedule.getDuration();
+			String hour_get = duration.split(":")[0];
+			int hour = Integer.parseInt(hour_get);
+			int hour_now = LocalTime.now().getHour();
 
 			token = loginService.getToken("MOMO_OFFICIAL");
 			url_send = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + token;
 			List<User> users  = dao.getUser(openid);
-			if(users.size()>0 && !now_date.equals(send_status)){
+			if(users.size()>0 && !now_date.equals(send_status) && hour >= hour_now){
 				User user = users.get(0);
 				String official_openid = user.getOfficial_openid();
 				String studio = user.getStudio();

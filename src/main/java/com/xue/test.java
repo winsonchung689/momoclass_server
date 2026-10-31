@@ -49,6 +49,9 @@ public class test {
             String now_date = df.format(date);
             System.out.printf(now_date);
 
+            int hour = LocalTime.now().getHour();
+            System.out.println(hour);
+
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
