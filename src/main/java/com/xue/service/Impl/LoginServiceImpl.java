@@ -2417,6 +2417,7 @@ public class LoginServiceImpl implements LoginService {
                 student_type = line.getStudent_type();
                 subject = line.getSubject();
                 remind = line.getRemind();
+                String send_status = line.getSend_status();
 
                 int has_card = 0;
                 List<Card> cards = dao.getCard(studio,campus,student_name,subject);
@@ -2488,6 +2489,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("remind",remind);
                     jsonObject.put("final_time",final_time);
                     jsonObject.put("leave_times",leave_times);
+                    jsonObject.put("send_status",send_status);
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");

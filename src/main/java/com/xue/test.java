@@ -43,6 +43,10 @@ public class test {
             System.out.println(total_time/(60 * 60 * 24 * 1000));
             long used_time = today_dt.getTime() - start_date_dt.getTime();
 
+            Date date =new Date();
+            String now_date = df.format(date);
+            System.out.printf(now_date);
+
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
