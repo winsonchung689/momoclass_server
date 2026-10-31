@@ -2420,11 +2420,19 @@ public class LoginServiceImpl implements LoginService {
                 String send_status = line.getSend_status();
                 int send_number = 0;
 
+                //获取今天日期
+                Date date =new Date();
+                String now_date = fmt.format(date);
                 // 获取昨天日期
                 cal.add(Calendar.DATE, -1);  // 减1天，得到昨天
                 Date yesterday = cal.getTime();
                 String yes_date = fmt.format(yesterday);
                 if(date_time.equals(send_status) || yes_date.equals(send_status)){
+                    send_number = 1;
+                }
+                LocalDate target = LocalDate.parse(date_time); // 默认解析 yyyy-MM-dd
+                LocalDate today = LocalDate.now();
+                if (target.isBefore(today)) {
                     send_number = 1;
                 }
 

@@ -764,7 +764,7 @@ public class LoginController {
 		try {
 			//判断是否已发
 			if(id == null || id.isEmpty() || "undefined".equals(id)){
-				return result;
+				return "id is null";
 			}
 			List<Schedule> schedules = dao.getScheduleById(Integer.parseInt(id));
 			Schedule schedule = schedules.get(0);

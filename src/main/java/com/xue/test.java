@@ -52,6 +52,12 @@ public class test {
             int hour = LocalTime.now().getHour();
             System.out.println(hour);
 
+            LocalDate target = LocalDate.parse("2026-11-29"); // 默认解析 yyyy-MM-dd
+            LocalDate today = LocalDate.now();
+            if (target.isBefore(today)) {
+                System.out.println("1111");
+            }
+
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
