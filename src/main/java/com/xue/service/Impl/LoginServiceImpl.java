@@ -2433,7 +2433,7 @@ public class LoginServiceImpl implements LoginService {
                 LocalDate target = LocalDate.parse(date_time); // 默认解析 yyyy-MM-dd
                 LocalDate today = LocalDate.now();
                 if (target.isBefore(today)) {
-                    send_number = 1;
+                    send_number = 2;
                 }
 
                 int has_card = 0;
