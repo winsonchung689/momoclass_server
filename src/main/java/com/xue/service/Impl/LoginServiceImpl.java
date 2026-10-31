@@ -2418,6 +2418,15 @@ public class LoginServiceImpl implements LoginService {
                 subject = line.getSubject();
                 remind = line.getRemind();
                 String send_status = line.getSend_status();
+                int send_number = 0;
+
+                // 获取昨天日期
+                cal.add(Calendar.DATE, -1);  // 减1天，得到昨天
+                Date yesterday = cal.getTime();
+                String yes_date = fmt.format(yesterday);
+                if(date_time.equals(send_status) || yes_date.equals(send_status)){
+                    send_number = 1;
+                }
 
                 int has_card = 0;
                 List<Card> cards = dao.getCard(studio,campus,student_name,subject);
@@ -2490,6 +2499,7 @@ public class LoginServiceImpl implements LoginService {
                     jsonObject.put("final_time",final_time);
                     jsonObject.put("leave_times",leave_times);
                     jsonObject.put("send_status",send_status);
+                    jsonObject.put("send_number",send_number);
 
                     jsonObject.put("sign_up", "签到");
                     jsonObject.put("mark", "备注");

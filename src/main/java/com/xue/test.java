@@ -23,24 +23,26 @@ public class test {
         SimpleDateFormat df_now = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        Calendar cal_today = Calendar.getInstance();
-        int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
-        long td_time = cal_today.getTimeInMillis();
-        String td_date = df.format(td_time);
-        LocalDate localDate = LocalDate.parse("2022-05-08");
-        Integer weekDayChoose = localDate.getDayOfWeek().getValue();
-
 //        System.out.println(weekDay_today);
 //        System.out.println(td_date);
 
         Long compare = 10L;
         try {
+
+            Date d = formatter.parse("2026-10-10");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            cal.add(Calendar.DATE, -1);  // 减1天，得到昨天
+            Date yesterday = cal.getTime();
+            String yes_date = formatter.format(yesterday);
+            System.out.printf(yes_date);
+
             String today_time = formatter.format(new Date());
             Date today_dt = formatter.parse(today_time.substring(0, 10));
             Date start_date_dt = formatter.parse("2026-10-01");
             Date end_date_dt = formatter.parse("2027-10-01");
             long total_time = end_date_dt.getTime() - start_date_dt.getTime();
-            System.out.println(total_time/(60 * 60 * 24 * 1000));
+//            System.out.println(total_time/(60 * 60 * 24 * 1000));
             long used_time = today_dt.getTime() - start_date_dt.getTime();
 
             Date date =new Date();
