@@ -35,7 +35,7 @@ public class test {
             cal.add(Calendar.DATE, -1);  // 减1天，得到昨天
             Date yesterday = cal.getTime();
             String yes_date = formatter.format(yesterday);
-            System.out.printf(yes_date);
+//            System.out.printf(yes_date);
 
             String today_time = formatter.format(new Date());
             Date today_dt = formatter.parse(today_time.substring(0, 10));
@@ -47,16 +47,22 @@ public class test {
 
             Date date =new Date();
             String now_date = df.format(date);
-            System.out.printf(now_date);
+//            System.out.printf(now_date);
 
             int hour = LocalTime.now().getHour();
-            System.out.println(hour);
+//            System.out.println(hour);
 
             LocalDate target = LocalDate.parse("2026-11-29"); // 默认解析 yyyy-MM-dd
             LocalDate today = LocalDate.now();
             if (target.isBefore(today)) {
-                System.out.println("1111");
+//                System.out.println("1111");
             }
+
+            Calendar cal_today = Calendar.getInstance();
+            int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
+            long td_time = cal_today.getTimeInMillis();
+            String td_date = df.format(td_time);
+            System.out.println(td_date);
 
 
         } catch (ParseException e) {
