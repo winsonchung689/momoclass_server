@@ -6465,6 +6465,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             List<String> result = jedis.zrangeByScore("delay_queue",0,timestamp);
+            System.out.println("开始发通知");
             for(int i=0;i<result.size();i++){
                 String item = result.get(i);
                 String[] item_list = item.split(",");

@@ -58,11 +58,8 @@ public class test {
 //                System.out.println("1111");
             }
 
-            Calendar cal_today = Calendar.getInstance();
-            int weekDay_today = cal_today.get(Calendar.DAY_OF_WEEK);
-            long td_time = cal_today.getTimeInMillis();
-            String td_date = df.format(td_time);
-            System.out.println(td_date);
+            long timestamp = date.getTime()/1000;
+            System.out.println(timestamp);
 
 
         } catch (ParseException e) {
