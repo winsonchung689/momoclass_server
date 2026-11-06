@@ -6413,14 +6413,7 @@ public class LoginServiceImpl implements LoginService {
                                 if("统一提醒次日".equals(remindType)){
                                     taskData = "tomorrow"+","+openid+","+id+","+timestamp_start/1000+","+tm_date;
                                 }else if("提前N小时提醒".equals(remindType)){
-                                    String[] duration_list = new String[0];
-
-                                    try {
-                                        duration_list = duration.split("-");
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
-                                    }
-
+                                    String[] duration_list = duration.split("-");
                                     if(duration_list.length == 2){
                                         String class_start = duration_list[0];
                                         try {
