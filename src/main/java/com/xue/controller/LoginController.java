@@ -5365,34 +5365,6 @@ public class LoginController {
 	}
 
 	//	推送图片
-	@RequestMapping("/push_icon")
-	@ResponseBody
-	public String push_icon(HttpServletRequest request, HttpServletResponse response){
-
-		//获取图片
-		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
-		MultipartFile multipartFile = req.getFile("photo");
-
-		//获取类路径
-		String res = null;
-		String p_path = null;
-		String path = "/data/imgs/uploadIcon/";
-		UUID uuid = UUID.randomUUID();
-		p_path = path + uuid + ".png";
-
-		//保存图片
-		try {
-			multipartFile.transferTo(new File(p_path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		res = p_path;
-
-		return res;
-	}
-
-	//	推送图片
 	@RequestMapping("/push_photo")
 	@ResponseBody
 	public String push_photo(HttpServletRequest request, HttpServletResponse response){
